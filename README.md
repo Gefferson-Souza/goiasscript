@@ -109,7 +109,7 @@ Um programa GoiásScript é composto por declarações, expressões e comentári
 */
 
 // Declaração de variável
-uai mensagem = "Olá, mundo!";
+uai mensagem é "Olá, mundo!";
 
 // Exibindo mensagem no console
 prosa(mensagem);
@@ -121,11 +121,11 @@ GoiásScript possui dois tipos de declarações de variáveis:
 
 ```javascript
 // Constante (não pode ser reatribuída)
-uai nome = "Gefferson-Souza";
+uai nome é "Gefferson-Souza";
 
 // Variável (pode ser reatribuída)
-trem contador = 0;
-contador = contador mais 1;
+trem contador é 0;
+contador é contador mais 1;
 ```
 
 ### 3.3 Output para o Console
@@ -146,37 +146,37 @@ reclama("Algo deu errado!");
 
 - **String**: Texto entre aspas
   ```javascript
-  uai texto = "Isso é uma string";
+  uai texto é "Isso é uma string";
   ```
 
 - **Number**: Valores numéricos
   ```javascript
-  uai inteiro = 42;
-  uai decimal = 3.14;
+  uai inteiro é 42;
+  uai decimal é 3.14;
   ```
 
 - **Boolean**: Valores de verdadeiro ou falso
   ```javascript
-  uai verdadeiro = certeza;
-  uai falso = de_jeito_nenhum;
+  uai verdadeiro é certeza;
+  uai falso é de_jeito_nenhum;
   ```
 
 - **Null e Undefined**:
   ```javascript
-  uai nada = vazio;        // null
-  uai indefinido = sei_lá; // undefined
+  uai nada é vazio;        // null
+  uai indefinido é sei_lá; // undefined
   ```
 
 ### 4.2 Estruturas de Dados
 
 - **Arrays**:
   ```javascript
-  uai frutas = ["pequi", "guariroba", "mangaba"];
+  uai frutas é ["pequi", "guariroba", "mangaba"];
   ```
 
 - **Objetos**:
   ```javascript
-  uai pessoa = {
+  uai pessoa é {
     nome: "João",
     idade: 30,
     cidade: "Goiânia"
@@ -190,11 +190,11 @@ reclama("Algo deu errado!");
 ### 5.1 Operadores Aritméticos
 
 ```javascript
-uai soma = 5 mais 3;        // 8
-uai subtracao = 10 menos 4; // 6
-uai produto = 3 vezes 4;    // 12
-uai quociente = 10 dividido 2; // 5
-uai resto = 10 sobrou 3;    // 1 (resto da divisão)
+uai soma é 5 mais 3;        // 8
+uai subtracao é 10 menos 4; // 6
+uai produto é 3 vezes 4;    // 12
+uai quociente é 10 dividido 2; // 5
+uai resto é 10 sobrou 3;    // 1 (resto da divisão)
 ```
 
 ### 5.2 Operadores de Comparação
@@ -251,7 +251,7 @@ se_ocê_quiser (idade maior_que 18) {
 ### 6.2 Loop For
 
 ```javascript
-vai_indo (trem i = 0; i menor_que 5; i = i mais 1) {
+vai_indo (trem i é 0; i menor_que 5; i é i mais 1) {
   prosa("Número: " + i);
 }
 ```
@@ -259,10 +259,10 @@ vai_indo (trem i = 0; i menor_que 5; i = i mais 1) {
 ### 6.3 Loop While
 
 ```javascript
-trem contador = 0;
+trem contador é 0;
 enquanto_tiver (contador menor_que 5) {
   prosa("Contador: " + contador);
-  contador = contador mais 1;
+  contador é contador mais 1;
 }
 ```
 
@@ -270,14 +270,14 @@ enquanto_tiver (contador menor_que 5) {
 
 ```javascript
 // For...in (iterar sobre propriedades)
-uai pessoa = { nome: "José", idade: 45, cidade: "Goiânia" };
-vai_indo (trem prop in pessoa) {
+uai pessoa é { nome: "José", idade: 45, cidade: "Goiânia" };
+vai_indo (trem prop em pessoa) {
   prosa(prop + ": " + pessoa[prop]);
 }
 
 // For...of (iterar sobre valores)
-uai frutas = ["pequi", "guariroba", "mangaba"];
-vai_indo (trem fruta of frutas) {
+uai frutas é ["pequi", "guariroba", "mangaba"];
+vai_indo (trem fruta de frutas) {
   prosa("Fruta: " + fruta);
 }
 ```
@@ -285,7 +285,7 @@ vai_indo (trem fruta of frutas) {
 ### 6.5 Break e Continue
 
 ```javascript
-vai_indo (trem i = 0; i menor_que 10; i = i mais 1) {
+vai_indo (trem i é 0; i menor_que 10; i é i mais 1) {
   se_ocê_quiser (i é_igualim 5) {
     continua_aí; // Pula para a próxima iteração
   }
@@ -309,14 +309,14 @@ presta_serviço soma(a, b) {
   faz_favor a mais b;
 }
 
-uai resultado = soma(5, 3);
+uai resultado é soma(5, 3);
 prosa("Resultado: " + resultado); // Resultado: 8
 ```
 
 ### 7.2 Funções com Parâmetros Padrão
 
 ```javascript
-presta_serviço saudar(nome, mensagem = "Bão demais da conta!") {
+presta_serviço saudar(nome, mensagem é "Bão demais da conta!") {
   faz_favor mensagem + " " + nome;
 }
 
@@ -326,23 +326,23 @@ prosa(saudar("Gefferson-Souza")); // Bão demais da conta! Gefferson-Souza
 ### 7.3 Arrow Functions
 
 ```javascript
-uai dobrar = (x) => x vezes 2;
+uai dobrar é (x) => x vezes 2;
 prosa(dobrar(5)); // 10
 ```
 
 ### 7.4 Métodos de Objeto
 
 ```javascript
-uai calculadora = {
+uai calculadora é {
   valor: 0,
   
   adicionar: presta_serviço(x) {
-    ocê.valor = ocê.valor mais x;
+    ocê.valor é ocê.valor mais x;
     faz_favor ocê;
   },
   
   subtrair: presta_serviço(x) {
-    ocê.valor = ocê.valor menos x;
+    ocê.valor é ocê.valor menos x;
     faz_favor ocê;
   }
 };
@@ -360,7 +360,7 @@ prosa(calculadora.valor); // 3
 ```javascript
 presta_serviço buscarDados(callback) {
   setTimeout(() => {
-    uai dados = { nome: "Dados importantes" };
+    uai dados é { nome: "Dados importantes" };
     callback(vazio, dados);
   }, 1000);
 }
@@ -380,7 +380,7 @@ buscarDados((erro, resultado) => {
 presta_serviço buscarDados() {
   faz_favor faz_um promessa((resolve_aí, rejeita_isso) => {
     setTimeout(() => {
-      uai sucesso = certeza;
+      uai sucesso é certeza;
       
       se_ocê_quiser (sucesso) {
         resolve_aí({ nome: "Dados importantes" });
@@ -407,10 +407,10 @@ vai_na_frente_presta_serviço processarDados() {
   tenta_aí {
     prosa("Iniciando busca de dados...");
     
-    uai dados = espera_um_cadim buscarDados();
+    uai dados é espera_um_cadim buscarDados();
     prosa("Dados recebidos: " + dados.nome);
     
-    uai dadosProcessados = espera_um_cadim processamento(dados);
+    uai dadosProcessados é espera_um_cadim processamento(dados);
     prosa("Processamento concluído!");
     
     faz_favor dadosProcessados;
@@ -424,7 +424,7 @@ vai_na_frente_presta_serviço processarDados() {
 vai_na_frente_presta_serviço processamento(dados) {
   faz_favor faz_um promessa(resolve_aí => {
     setTimeout(() => {
-      dados.processado = certeza;
+      dados.processado é certeza;
       resolve_aí(dados);
     }, 500);
   });
@@ -438,14 +438,14 @@ processarDados();
 
 ```javascript
 vai_na_frente_presta_serviço buscarVariasInformacoes() {
-  uai promessas = [
+  uai promessas é [
     buscarUsuario(),
     buscarProdutos(),
     buscarDados()
   ];
   
   prosa("Buscando informações em paralelo...");
-  uai resultados = espera_um_cadim promessa.all(promessas);
+  uai resultados é espera_um_cadim promessa.all(promessas);
   
   prosa("Todas as informações foram carregadas!");
   faz_favor {
@@ -465,7 +465,7 @@ vai_na_frente_presta_serviço buscarVariasInformacoes() {
 ```javascript
 tenta_aí {
   // Código que pode gerar um erro
-  uai resultado = funcaoQuePoderiaFalhar();
+  uai resultado é funcaoQuePoderiaFalhar();
   prosa("Resultado: " + resultado);
   
 } se_der_ruim (erro) {
@@ -490,7 +490,7 @@ presta_serviço dividir(a, b) {
 }
 
 tenta_aí {
-  uai resultado = dividir(10, 0);
+  uai resultado é dividir(10, 0);
 } se_der_ruim (erro) {
   reclama("Erro: " + erro);
 }
@@ -504,7 +504,7 @@ tenta_aí {
 
 ```javascript
 // Criando um array
-uai frutas = ["pequi", "guariroba", "mangaba"];
+uai frutas é ["pequi", "guariroba", "mangaba"];
 
 // Acessando elementos
 prosa("Primeira fruta: " + frutas[0]);
@@ -516,7 +516,7 @@ frutas.push("cajá");
 frutas.pop();
 
 // Iterando sobre um array
-vai_indo (trem i = 0; i menor_que frutas.length; i = i mais 1) {
+vai_indo (trem i é 0; i menor_que frutas.length; i é i mais 1) {
   prosa("Fruta " + i + ": " + frutas[i]);
 }
 ```
@@ -525,7 +525,7 @@ vai_indo (trem i = 0; i menor_que frutas.length; i = i mais 1) {
 
 ```javascript
 // Criando um objeto
-uai pessoa = {
+uai pessoa é {
   nome: "João",
   idade: 30,
   cidade: "Goiânia",
@@ -540,8 +540,8 @@ prosa(pessoa.nome);
 prosa(pessoa["cidade"]);
 
 // Adicionando ou modificando propriedades
-pessoa.profissao = "Fazendeiro";
-pessoa.idade = 31;
+pessoa.profissao é "Fazendeiro";
+pessoa.idade é 31;
 
 // Chamando métodos
 prosa(pessoa.apresentar());
@@ -551,14 +551,14 @@ prosa(pessoa.apresentar());
 
 ```javascript
 // Map para armazenar pares chave-valor
-uai mapa = faz_um Map();
+uai mapa é faz_um Map();
 mapa.set("nome", "Gefferson-Souza");
 mapa.set("cidade", "Goiânia");
 
 prosa(mapa.get("nome")); // Gefferson-Souza
 
 // Set para armazenar valores únicos
-uai conjunto = faz_um Set();
+uai conjunto é faz_um Set();
 conjunto.add("pequi");
 conjunto.add("guariroba");
 conjunto.add("pequi"); // Duplicado, será ignorado
@@ -579,16 +579,16 @@ presta_serviço calculaMedia(notas) {
     faz_favor 0;
   }
   
-  uai soma = 0;
-  vai_indo (trem i = 0; i menor_que notas.length; i = i mais 1) {
-    soma = soma mais notas[i];
+  uai soma é 0;
+  vai_indo (trem i é 0; i menor_que notas.length; i é i mais 1) {
+    soma é soma mais notas[i];
   }
   
   faz_favor soma dividido notas.length;
 }
 
-uai notasDoAluno = [8.5, 7.0, 9.5, 6.5];
-uai media = calculaMedia(notasDoAluno);
+uai notasDoAluno é [8.5, 7.0, 9.5, 6.5];
+uai media é calculaMedia(notasDoAluno);
 
 prosa("A média das notas é: " + media);
 
@@ -626,7 +626,7 @@ vai_na_frente_presta_serviço mostrarClima(cidade) {
   tenta_aí {
     prosa("Verificando clima para " + cidade + "...");
     
-    uai dadosClima = espera_um_cadim simularRequisicaoAPI(cidade);
+    uai dadosClima é espera_um_cadim simularRequisicaoAPI(cidade);
     
     prosa("\n=== Previsão do Tempo ===");
     prosa("Cidade: " + dadosClima.cidade);
@@ -646,10 +646,10 @@ mostrarClima("Goiânia");
 
 ```javascript
 // Gerenciador de tarefas em GoiásScript
-uai GerenciadorTarefas = {
+uai GerenciadorTarefas é {
   tarefas: [],
   
-  adicionarTarefa: presta_serviço(descricao, prioridade = "média") {
+  adicionarTarefa: presta_serviço(descricao, prioridade é "média") {
     ocê.tarefas.push({
       id: ocê.tarefas.length mais 1,
       descricao: descricao,
@@ -663,25 +663,25 @@ uai GerenciadorTarefas = {
   },
   
   marcarConcluida: presta_serviço(id) {
-    uai tarefa = ocê.tarefas.find(t => t.id é_igualim id);
+    uai tarefa é ocê.tarefas.find(t => t.id é_igualim id);
     
     se_ocê_quiser (tarefa) {
-      tarefa.concluida = certeza;
+      tarefa.concluida é certeza;
       prosa("Tarefa #" + id + " marcada como concluída!");
     } se_não {
       reclama("Tarefa #" + id + " não encontrada!");
     }
   },
   
-  listarTarefas: presta_serviço(filtro = "todas") {
+  listarTarefas: presta_serviço(filtro é "todas") {
     prosa("\n=== Lista de Tarefas (" + filtro + ") ===");
     
-    uai tarefasFiltradas = ocê.tarefas;
+    uai tarefasFiltradas é ocê.tarefas;
     
     se_ocê_quiser (filtro é_igualim "pendentes") {
-      tarefasFiltradas = ocê.tarefas.filter(t => t.concluida é_igualim de_jeito_nenhum);
+      tarefasFiltradas é ocê.tarefas.filter(t => t.concluida é_igualim de_jeito_nenhum);
     } se_num_for (filtro é_igualim "concluídas") {
-      tarefasFiltradas = ocê.tarefas.filter(t => t.concluida é_igualim certeza);
+      tarefasFiltradas é ocê.tarefas.filter(t => t.concluida é_igualim certeza);
     }
     
     se_ocê_quiser (tarefasFiltradas.length é_igualim 0) {
@@ -689,8 +689,8 @@ uai GerenciadorTarefas = {
       faz_favor;
     }
     
-    vai_indo (trem i = 0; i menor_que tarefasFiltradas.length; i = i mais 1) {
-      uai t = tarefasFiltradas[i];
+    vai_indo (trem i é 0; i menor_que tarefasFiltradas.length; i é i mais 1) {
+      uai t é tarefasFiltradas[i];
       prosa(
         (t.concluida ? "[X]" : "[ ]") + " " +
         "#" + t.id + " " +
@@ -790,12 +790,12 @@ GerenciadorTarefas.listarTarefas("pendentes");
 
 ```javascript
 // Bom
-uai precoUnitario = 29.90;
-uai nomeCompleto = "José Silva";
+uai precoUnitario é 29.90;
+uai nomeCompleto é "José Silva";
 
 // Quando precisar reatribuir
-trem contador = 0;
-contador = contador mais 1;
+trem contador é 0;
+contador é contador mais 1;
 ```
 
 ### 13.2 Organização de Código
@@ -806,26 +806,26 @@ contador = contador mais 1;
 
 ```javascript
 // Módulo de cálculo de preços
-uai CalculadoraPrecos = {
+uai CalculadoraPrecos é {
   // Calcula o preço com desconto
   calcularDesconto: presta_serviço(preco, percentualDesconto) {
-    uai desconto = preco vezes (percentualDesconto dividido 100);
+    uai desconto é preco vezes (percentualDesconto dividido 100);
     faz_favor preco menos desconto;
   },
   
   // Calcula o preço final com impostos
   calcularComImpostos: presta_serviço(preco, percentualImposto) {
-    uai imposto = preco vezes (percentualImposto dividido 100);
+    uai imposto é preco vezes (percentualImposto dividido 100);
     faz_favor preco mais imposto;
   },
   
   // Calcula o preço final com desconto e impostos
   calcularPrecoFinal: presta_serviço(
     preco, 
-    percentualDesconto = 0, 
-    percentualImposto = 0
+    percentualDesconto é 0, 
+    percentualImposto é 0
   ) {
-    uai precoComDesconto = ocê.calcularDesconto(preco, percentualDesconto);
+    uai precoComDesconto é ocê.calcularDesconto(preco, percentualDesconto);
     faz_favor ocê.calcularComImpostos(precoComDesconto, percentualImposto);
   }
 };
@@ -842,7 +842,7 @@ uai CalculadoraPrecos = {
 vai_na_frente_presta_serviço carregarDados() {
   tenta_aí {
     // Carregar dados em paralelo
-    uai [usuarios, produtos] = espera_um_cadim promessa.all([
+    uai [usuarios, produtos] é espera_um_cadim promessa.all([
       buscarUsuarios(),
       buscarProdutos()
     ]);
@@ -881,7 +881,7 @@ buscarUsuarios((erroUsuarios, usuarios) => {
 ```javascript
 // Bom
 tenta_aí {
-  uai dados = JSON.parse(textoJson);
+  uai dados é JSON.parse(textoJson);
   processarDados(dados);
 } se_der_ruim (erro) {
   reclama("Erro ao processar JSON: " + erro.message);
@@ -890,7 +890,7 @@ tenta_aí {
 
 // Evitar
 tenta_aí {
-  uai dados = JSON.parse(textoJson);
+  uai dados é JSON.parse(textoJson);
   processarDados(dados);
 } se_der_ruim (erro) {
   // Erro é ignorado sem tratamento adequado
