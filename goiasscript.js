@@ -98,6 +98,15 @@ class GoiasScriptCompiler {
     for (const pattern of this.patterns) {
       code = code.replace(pattern.from, pattern.to);
     }
+
+    code = code.replace(/\.quando_resolver\(/g, '.then(');
+    code = code.replace(/\.se_der_pobrema\(/g, '.catch(');
+    code = code.replace(/\.por_fim\(/g, '.finally(');
+
+    code = code.replace(/\bpromessa\.all\(/g, 'Promise.all(');
+    code = code.replace(/\bpromessa\.race\(/g, 'Promise.race(');
+    code = code.replace(/\bpromessa\.resolve\(/g, 'Promise.resolve(');
+    code = code.replace(/\bpromessa\.reject\(/g, 'Promise.reject(');
     
     // Tokenização e substituição de palavras-chave
     let tokens = code.split(/(\s+|[{}()[\],;:]|"(?:\\"|[^"])*"|'(?:\\'|[^'])*')/);
