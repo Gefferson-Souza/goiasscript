@@ -1,6 +1,6 @@
 # GoiásScript: Documentação Oficial
 
-<img src="https://via.placeholder.com/200x200.png?text=GoiásScript" alt="GoiásScript Logo" style="display: block; margin: 0 auto;">
+<img src="/goiasscript-language/goiasscript/icons/goiasscript-dark.png" alt="GoiásScript Logo" style="display: block; margin: 0 auto; height: 300px; width: 500px;">
 
 **Versão:** 1.0.0  
 **Data:** 2025-04-13  
