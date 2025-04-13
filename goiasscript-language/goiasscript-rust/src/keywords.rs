@@ -47,6 +47,7 @@ pub static KEYWORDS: Lazy<HashMap<&'static str, &'static str>> = Lazy::new(|| {
     map.insert("prosa", "println!");
     map.insert("reclama", "eprintln!");
     map.insert("vixe", "panic!");
+    map.insert("ler_escolha", "read_input");
     
     // Tipos
     map.insert("vazio", "None");
