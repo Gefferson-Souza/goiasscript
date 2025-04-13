@@ -730,6 +730,8 @@ GerenciadorTarefas.listarTarefas("pendentes");
 | `enquanto_tiver`   | `while`          | Loop while                     |
 | `para_com_isso`    | `break`          | Interrompe um loop             |
 | `continua_aí`      | `continue`       | Pula para próxima iteração     |
+| `em`               | `in`             | Usado em loops for...in        |
+| `de`               | `of`             | Usado em loops for...of        |
 | `ocê`              | `this`           | Referência ao objeto atual     |
 | `prosa`            | `console.log`    | Saída para console             |
 | `reclama`          | `console.error`  | Erro para console              |
