@@ -24,6 +24,8 @@
 12. [Referência de API](#12-referência-de-api)
 13. [Melhores Práticas](#13-melhores-práticas)
 14. [Perguntas Frequentes (FAQ)](#14-perguntas-frequentes-faq)
+15. [Compilador em RUST !? Em breve...](#15-compilador-em-rust)
+
 
 ---
 
