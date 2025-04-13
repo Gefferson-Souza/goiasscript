@@ -9,6 +9,6 @@ uai listaDeNomes é [
   "Maria",
 ];
 
-vai_indo (nome em listaDeNomes) {
+vai_indo (uai nome de listaDeNomes) {
   prosa("Oi, " mais nome mais "!");
 }

@@ -17,14 +17,15 @@
 5. [Operadores](#5-operadores)
 6. [Estruturas de Controle](#6-estruturas-de-controle)
 7. [Funções](#7-funções)
-8. [Programação Assíncrona](#8-programação-assíncrona)
-9. [Manipulação de Erros](#9-manipulação-de-erros)
-10. [Estruturas de Dados](#10-estruturas-de-dados)
-11. [Exemplos Práticos](#11-exemplos-práticos)
-12. [Referência de API](#12-referência-de-api)
-13. [Melhores Práticas](#13-melhores-práticas)
-14. [Perguntas Frequentes (FAQ)](#14-perguntas-frequentes-faq)
-15. [Compilador em RUST !? Em breve...](#15-compilador-em-rust)
+8. [Classes e Objetos](#8-classes-e-objetos)
+9. [Programação Assíncrona](#9-programação-assíncrona)
+10. [Manipulação de Erros](#10-manipulação-de-erros)
+11. [Estruturas de Dados](#11-estruturas-de-dados)
+12. [Exemplos Práticos](#12-exemplos-práticos)
+13. [Referência de API](#13-referência-de-api)
+14. [Melhores Práticas](#14-melhores-práticas)
+15. [Perguntas Frequentes (FAQ)](#15-perguntas-frequentes-faq)
+16. [Compilador em RUST !? Em breve...](#16-compilador-em-rust)
 
 
 ---
@@ -353,9 +354,111 @@ prosa(calculadora.valor); // 3
 
 ---
 
-## 8. Programação Assíncrona
+## 8. Classes e Objetos
 
-### 8.1 Callbacks
+O GoiásScript oferece uma forma nativa e bem goiana de trabalhar com programação orientada a objetos através de classes.
+
+### 8.1 Definição de Classes
+
+```javascript
+// Definição de uma classe Animal
+arruma_trem Animal {
+    // Propriedades
+    nome = "";
+    tipo = "desconhecido";
+    
+    // Construtor
+    aprepara_trem(nome, tipo) {
+        ocê.nome é nome;
+        ocê.tipo é tipo;
+        prosa("Bicho " + ocê.nome + " criado!");
+    }
+    
+    // Métodos
+    faizBaruio() {
+        prosa(ocê.nome + " está fazendo barulho!");
+        faz_favor ocê;
+    }
+    
+    // Método estático
+    num_muda pegaBichoPronto(nome) {
+        prosa("Fazendo um bicho rapidim!");
+        faz_favor faz_um Animal(nome, "especial");
+    }
+}
+```
+
+### 8.2 Herança
+
+```javascript
+// Classe filha que herda de Animal
+arruma_trem Cachorro inherda_de Animal {
+    // Propriedades adicionais
+    raça = "vira-lata";
+    
+    // Construtor
+    aprepara_trem(nome, raça) {
+        // Chama construtor da classe pai
+        super(nome, "cachorro");
+        ocê.raça é raça;
+    }
+    
+    // Sobrescrita de método
+    faizBaruio() {
+        prosa(ocê.nome + " faz: Au au!");
+        faz_favor ocê;
+    }
+    
+    // Método específico
+    abanaRabo() {
+        prosa(ocê.nome está abanando o rabo!");
+        faz_favor ocê;
+    }
+    
+    // Método que retorna um objeto literal
+    getTremBão() {
+        prosa("Preparando um trem bão...");
+        
+        uai cachorroBão é {
+            nome: ocê.nome,
+            raça: ocê.raça,
+            humor: "feliz demais da conta"
+        };
+        
+        faz_favor cachorroBão;
+    }
+}
+```
+
+### 8.3 Uso de Classes
+
+```javascript
+// Instanciação
+uai meuCachorro é faz_um Cachorro("Totó", "caramelo");
+
+// Chamada de método
+meuCachorro.faizBaruio();
+
+// Chamada de método com encadeamento
+meuCachorro.faizBaruio().abanaRabo();
+
+// Verificação de tipo
+se_ocê_quiser (meuCachorro instanceof Cachorro) {
+    prosa("É um cachorro!");
+}
+
+// Chamada de método estático
+uai outroAnimal é Animal.pegaBichoPronto("Bicho Estranho");
+
+// Obtendo um objeto através de um método
+uai tremBão é meuCachorro.getTremBão();
+```
+
+---
+
+## 9. Programação Assíncrona
+
+### 9.1 Callbacks
 
 ```javascript
 presta_serviço buscarDados(callback) {
@@ -374,7 +477,7 @@ buscarDados((erro, resultado) => {
 });
 ```
 
-### 8.2 Promises
+### 9.2 Promises
 
 ```javascript
 presta_serviço buscarDados() {
@@ -400,7 +503,7 @@ buscarDados()
   });
 ```
 
-### 8.3 Async/Await
+### 9.3 Async/Await
 
 ```javascript
 vai_na_frente_presta_serviço processarDados() {
@@ -434,7 +537,7 @@ vai_na_frente_presta_serviço processamento(dados) {
 processarDados();
 ```
 
-### 8.4 Promise.all
+### 9.4 Promise.all
 
 ```javascript
 vai_na_frente_presta_serviço buscarVariasInformacoes() {
@@ -458,9 +561,9 @@ vai_na_frente_presta_serviço buscarVariasInformacoes() {
 
 ---
 
-## 9. Manipulação de Erros
+## 10. Manipulação de Erros
 
-### 9.1 Try/Catch/Finally
+### 10.1 Try/Catch/Finally
 
 ```javascript
 tenta_aí {
@@ -478,7 +581,7 @@ tenta_aí {
 }
 ```
 
-### 9.2 Lançando Erros
+### 10.2 Lançando Erros
 
 ```javascript
 presta_serviço dividir(a, b) {
@@ -498,9 +601,9 @@ tenta_aí {
 
 ---
 
-## 10. Estruturas de Dados
+## 11. Estruturas de Dados
 
-### 10.1 Arrays
+### 11.1 Arrays
 
 ```javascript
 // Criando um array
@@ -521,7 +624,7 @@ vai_indo (trem i é 0; i menor_que frutas.length; i é i mais 1) {
 }
 ```
 
-### 10.2 Objetos
+### 11.2 Objetos
 
 ```javascript
 // Criando um objeto
@@ -547,7 +650,7 @@ pessoa.idade é 31;
 prosa(pessoa.apresentar());
 ```
 
-### 10.3 Map e Set
+### 11.3 Map e Set
 
 ```javascript
 // Map para armazenar pares chave-valor
@@ -568,9 +671,9 @@ prosa(conjunto.size); // 2
 
 ---
 
-## 11. Exemplos Práticos
+## 12. Exemplos Práticos
 
-### 11.1 Calculadora de Médias
+### 12.1 Calculadora de Médias
 
 ```javascript
 // Calculadora de médias em GoiásScript
@@ -599,7 +702,7 @@ se_ocê_quiser (media pelo_menos 7) {
 }
 ```
 
-### 11.2 API de Clima (Assíncrono)
+### 12.2 API de Clima (Assíncrono)
 
 ```javascript
 // Simulação de uma API de clima usando GoiásScript assíncrono
@@ -642,7 +745,7 @@ vai_na_frente_presta_serviço mostrarClima(cidade) {
 mostrarClima("Goiânia");
 ```
 
-### 11.3 Gerenciador de Tarefas
+### 12.3 Gerenciador de Tarefas
 
 ```javascript
 // Gerenciador de tarefas em GoiásScript
@@ -669,7 +772,7 @@ uai GerenciadorTarefas é {
       tarefa.concluida é certeza;
       prosa("Tarefa #" + id + " marcada como concluída!");
     } se_não {
-      reclama("Tarefa #" + id + " não encontrada!");
+      reclama("Tarefa #" + id não encontrada!");
     }
   },
   
@@ -681,7 +784,7 @@ uai GerenciadorTarefas é {
     se_ocê_quiser (filtro é_igualim "pendentes") {
       tarefasFiltradas é ocê.tarefas.filter(t => t.concluida é_igualim de_jeito_nenhum);
     } se_num_for (filtro é_igualim "concluídas") {
-      tarefasFiltradas é ocê.tarefas.filter(t => t.concluida é_igualim certeza);
+      tarefasFiltradas é ocê.tarefas.filter(t é_igualim certeza);
     }
     
     se_ocê_quiser (tarefasFiltradas.length é_igualim 0) {
@@ -714,9 +817,9 @@ GerenciadorTarefas.listarTarefas("pendentes");
 
 ---
 
-## 12. Referência de API
+## 13. Referência de API
 
-### 12.1 Palavras-chave da Linguagem
+### 13.1 Palavras-chave da Linguagem
 
 | GoiásScript        | JavaScript       | Descrição                      |
 |--------------------|------------------|--------------------------------|
@@ -747,8 +850,12 @@ GerenciadorTarefas.listarTarefas("pendentes");
 | `num_é`            | `!`              | Operador NOT lógico            |
 | `faz_um`           | `new`            | Cria nova instância            |
 | `vixe`             | `throw new Error`| Lança um erro                  |
+| `arruma_trem`      | `class`          | Define uma classe              |
+| `aprepara_trem`    | `constructor`    | Construtor de classe           |
+| `inherda_de`       | `extends`        | Herança entre classes          |
+| `num_muda`         | `static`         | Membro estático de classe      |
 
-### 12.2 Comparadores
+### 13.2 Comparadores
 
 | GoiásScript     | JavaScript | Descrição                  |
 |-----------------|------------|----------------------------|
@@ -759,7 +866,7 @@ GerenciadorTarefas.listarTarefas("pendentes");
 | `pelo_menos`    | `>=`       | Maior ou igual a           |
 | `no_máximo`     | `<=`       | Menor ou igual a           |
 
-### 12.3 Operadores Aritméticos
+### 13.3 Operadores Aritméticos
 
 | GoiásScript  | JavaScript | Descrição              |
 |--------------|------------|------------------------|
@@ -769,7 +876,7 @@ GerenciadorTarefas.listarTarefas("pendentes");
 | `dividido`   | `/`        | Divisão                |
 | `sobrou`     | `%`        | Resto da divisão       |
 
-### 12.4 Valores Constantes
+### 13.4 Valores Constantes
 
 | GoiásScript        | JavaScript   | Descrição          |
 |--------------------|--------------|-------------------|
@@ -780,9 +887,9 @@ GerenciadorTarefas.listarTarefas("pendentes");
 
 ---
 
-## 13. Melhores Práticas
+## 14. Melhores Práticas
 
-### 13.1 Nomenclatura
+### 14.1 Nomenclatura
 
 - Use nomes descritivos para variáveis e funções
 - Mantenha consistência no estilo de nomenclatura
@@ -798,7 +905,7 @@ trem contador é 0;
 contador é contador mais 1;
 ```
 
-### 13.2 Organização de Código
+### 14.2 Organização de Código
 
 - Organize o código em funções pequenas e específicas
 - Agrupe funcionalidades relacionadas
@@ -831,7 +938,7 @@ uai CalculadoraPrecos é {
 };
 ```
 
-### 13.3 Programação Assíncrona
+### 14.3 Programação Assíncrona
 
 - Prefira `async/await` em vez de callbacks aninhados
 - Sempre trate erros em código assíncrono com `tenta_aí/se_der_ruim`
@@ -872,7 +979,7 @@ buscarUsuarios((erroUsuarios, usuarios) => {
 });
 ```
 
-### 13.4 Manipulação de Erros
+### 14.4 Manipulação de Erros
 
 - Use blocos `tenta_aí/se_der_ruim` para capturar e tratar erros
 - Forneça mensagens de erro descritivas
@@ -899,17 +1006,17 @@ tenta_aí {
 
 ---
 
-## 14. Perguntas Frequentes (FAQ)
+## 15. Perguntas Frequentes (FAQ)
 
-### 14.1 O que é GoiásScript?
+### 15.1 O que é GoiásScript?
 
 GoiásScript é uma linguagem de programação baseada no dialeto goiano do interior que compila para JavaScript. Foi criada como uma forma divertida e culturalmente relevante de programar, especialmente para pessoas da região Centro-Oeste do Brasil.
 
-### 14.2 GoiásScript é uma linguagem séria para uso em produção?
+### 15.2 GoiásScript é uma linguagem séria para uso em produção?
 
 GoiásScript pode ser usado para projetos reais, mas seu propósito principal é educacional e recreativo. Por compilar para JavaScript, o código resultante pode ser tão robusto quanto JavaScript padrão, mas considere fatores como manutenção a longo prazo e familiaridade da equipe antes de usá-lo em um ambiente de produção.
 
-### 14.3 Como contribuir para o GoiásScript?
+### 15.3 Como contribuir para o GoiásScript?
 
 Você pode contribuir com o GoiásScript através do repositório no GitHub:
 1. Faça um fork do repositório
@@ -918,11 +1025,11 @@ Você pode contribuir com o GoiásScript através do repositório no GitHub:
 4. Faça push para a branch (`git push origin feature/nova-funcao`)
 5. Abra um Pull Request
 
-### 14.4 Posso usar GoiásScript com outras bibliotecas JavaScript?
+### 15.4 Posso usar GoiásScript com outras bibliotecas JavaScript?
 
 Sim! Como o GoiásScript compila para JavaScript padrão, você pode usar qualquer biblioteca ou framework JavaScript existente com ele. Basta importar as bibliotecas necessárias e usá-las normalmente no seu código GoiásScript.
 
-### 14.5 Como debugar código GoiásScript?
+### 15.5 Como debugar código GoiásScript?
 
 Para depurar código GoiásScript:
 1. Use o parâmetro `--compiled` para ver o JavaScript gerado

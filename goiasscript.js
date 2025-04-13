@@ -19,6 +19,11 @@ class GoiasScriptCompiler {
       'é': '=',
       'ocê': 'this',
       
+      // Classes e objetos
+      'arruma_trem': 'class',         // class
+      'aprepara_trem': 'constructor', // constructor
+      'inherda_de': 'extends',        // extends
+      
       // Estruturas de controle
       'se_ocê_quiser': 'if',
       'se_num_for': 'else if',
@@ -31,6 +36,7 @@ class GoiasScriptCompiler {
       // Funções
       'presta_serviço': 'function',
       'faz_favor': 'return',
+      'mexe_assim': 'method',         // Para destacar métodos de classe
       
       // Operadores lógicos
       'e_mais': '&&',
@@ -84,21 +90,56 @@ class GoiasScriptCompiler {
       // Try/Catch e new
       'tenta_aí': 'try',
       'se_der_ruim': 'catch',
-      'faz_um': 'new'
+      'faz_um': 'new',
+      
+      // Especificadores de acesso para classes
+      'ninguem_fuça': 'private',      // private
+      'só_da_famia': 'protected',     // protected
+      'todo_mundo_vê': 'public',      // public
+      'num_muda': 'static',           // static
+      'fixo': 'final'                 // final (conceito similar)
     };
     
     // Padrões especiais que precisam ser pré-processados
     this.patterns = [
-      { from: /vai_na_frente\s+presta_serviço/g, to: 'async function' }
+      { from: /vai_na_frente\s+presta_serviço/g, to: 'async function' },
+      // Específicos para classes
+      { from: /arruma_trem\s+([A-Za-z_][A-Za-z0-9_]*)\s+inherda_de\s+([A-Za-z_][A-Za-z0-9_]*)/g, to: 'class $1 extends $2' },
+      { from: /arruma_trem\s+([A-Za-z_][A-Za-z0-9_]*)/g, to: 'class $1' },
+      { from: /aprepara_trem\s*\(/g, to: 'constructor(' },
+      { from: /mexe_assim\s+([A-Za-z_][A-Za-z0-9_]*)\s*\(/g, to: '$1(' },
+      { from: /ninguem_fuça\s+/g, to: 'private ' },
+      { from: /só_da_famia\s+/g, to: 'protected ' },
+      { from: /todo_mundo_vê\s+/g, to: 'public ' },
+      { from: /num_muda\s+/g, to: 'static ' },
+      // Tratamento para 'ocê' (this)
+      { from: /\bocê\b/g, to: 'this' },
+      { from: /\bocê\./g, to: 'this.' }
     ];
   }
 
   compile(code) {
-    // Pré-processamento para padrões especiais
+    // Pré-processamento para padrões específicos de classe
     for (const pattern of this.patterns) {
       code = code.replace(pattern.from, pattern.to);
     }
-
+    
+    // Substituir o mexe_assim (que não deveria gerar "method" no JavaScript)
+    code = code.replace(/mexe_assim\s+([A-Za-z0-9_]+)\s*\(/g, '$1(');
+    
+    // Outras substituições
+    // Substituição adicionais para suportar classes
+    code = code.replace(/(\W)ocê(\W)/g, '$1this$2');  // Substitui 'ocê' isolado por 'this'
+    
+    // Garantir que 'é' funcionem corretamente dentro das classes
+    code = code.replace(/(\w+)\.(\w+)\s+é\s+/g, '$1.$2 = ');
+    
+    // Substituições diretas que precisam acontecer primeiro
+    code = code.replace(/\bturma\s+([A-Za-z0-9_]+)/g, 'class $1');
+    code = code.replace(/\bocê\b/g, 'this');
+    code = code.replace(/\bocê\./g, 'this.');
+    code = code.replace(/\.é\s+/g, ' = ');
+    
     code = code.replace(/\.quando_resolver\(/g, '.then(');
     code = code.replace(/\.se_der_pobrema\(/g, '.catch(');
     code = code.replace(/\.por_fim\(/g, '.finally(');
@@ -123,6 +164,10 @@ class GoiasScriptCompiler {
         }
       }
     }
+    
+    // Tratamento especial para classes e métodos
+    code = code.replace(/presta_serviço\s+constructor/g, 'constructor');
+    code = code.replace(/presta_serviço\s+([A-Za-z_][A-Za-z0-9_]*)\s*\(/g, '$1(');
     
     return tokens.join('');
   }
@@ -177,17 +222,33 @@ class GoiasScriptCompiler {
 
 function printUsage() {
   console.log(`
-  GoiásScript v2 - Interpretador de Linguagem Goiana
-  Uso: node goiasscript_v2.js [opções] <arquivo.gs>
+  GoiásScript - A Linguagem Goiana do Interior
+  Versão: 1.0.0
+  Autor: Gefferson-Souza
+  Data: 2025-04-13
+  
+  Uso: goiasscript [opções] <arquivo.gs>
   
   Opções:
-    -h, --help      Mostra essa ajuda
-    -v, --version   Mostra a versão
-    -c, --compiled  Mostra o código JavaScript gerado
+    -h, --help       Mostra essa ajuda
+    -v, --version    Mostra a versão
+    -c, --compiled   Mostra o código JavaScript gerado
     
   Exemplos:
-    node goiasscript_v2.js meuPrograma.gs
-    node goiasscript_v2.js --compiled meuPrograma.gs
+    goiasscript meuPrograma.gs
+    goiasscript --compiled meuPrograma.gs
+    
+  Funcionalidades:
+    - Sintaxe baseada no dialeto goiano do interior
+    - Suporte completo a recursos modernos do JavaScript:
+      * Classes e herança (arruma_trem, inherda_de)
+      * Async/await (vai_na_frente, espera_um_cadim)
+      * Promises (promessa, quando_resolver, se_der_pobrema)
+      * Programação funcional
+    - Integração total com o ecossistema Node.js
+    
+  Para mais informações, consulte a documentação em:
+  https://github.com/Gefferson-Souza/goiasscript
   `);
 }
 
