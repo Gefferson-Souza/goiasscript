@@ -430,9 +430,19 @@ impl Parser {
         } 
         
         if self.match_tokens(&[TokenKind::Identifier]) {
-            return Ok(Expression::Variable { 
-                name: self.previous().lexeme.clone() 
-            });
+            let name = self.previous().lexeme.clone();
+            
+            // Verifica se é uma atribuição (contador é valor)
+            if self.check(TokenKind::E) {
+                self.advance(); // Consome o token 'é'
+                let value = self.expression()?;
+                return Ok(Expression::Assignment {
+                    name,
+                    value: Box::new(value)
+                });
+            }
+            
+            return Ok(Expression::Variable { name });
         }
         
         if self.match_tokens(&[TokenKind::Prosa, TokenKind::Reclama]) {
@@ -526,7 +536,27 @@ impl Parser {
     // Método que cria um erro de compilação
     fn error(&self, message: &str) -> anyhow::Error {
         let span = if !self.is_at_end() {
-            self.peek().span.clone()
+            let current_span = self.peek().span.clone();
+            
+            // Depuração adicional para posições específicas
+            if current_span.start >= 550 && current_span.end <= 560 {
+                eprintln!("DEBUG: Erro na posição crítica! Token atual: '{:?}' (tipo: {:?})", 
+                          self.peek().lexeme, self.peek().kind);
+                
+                // Mostrar tokens anteriores para contexto
+                if self.current > 0 {
+                    eprintln!("DEBUG: Token anterior: '{:?}' (tipo: {:?})", 
+                              self.previous().lexeme, self.previous().kind);
+                }
+                
+                // Mostrar próximo token se disponível
+                if self.current + 1 < self.tokens.len() {
+                    eprintln!("DEBUG: Próximo token: '{:?}' (tipo: {:?})", 
+                              self.tokens[self.current + 1].lexeme, self.tokens[self.current + 1].kind);
+                }
+            }
+            
+            current_span
         } else if !self.tokens.is_empty() {
             self.tokens.last().unwrap().span.clone()
         } else {

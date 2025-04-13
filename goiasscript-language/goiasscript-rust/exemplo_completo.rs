@@ -1,19 +1,23 @@
 use std::io::{self, Write};
 
 // Código gerado automaticamente pelo compilador GoiásScript
-// Data: 2025-04-13 06:08:10
+// Data: 2025-04-13 06:45:02
 // Autor: Gefferson-Souza
 
-let nome = "Gefferson";
-println!("Olá, mundo!");
-println!("Usuário: Gefferson-Souza");
-println!("Data: 2025-04-13 06:32:39");
-fn mostrarMensagem() {
-println!("Esta é uma mensagem simples")    ;
-    // Tipo de declaração não implementado
-}
-mostrarMensagem();
-
 fn main() {
-    println!("Programa GoiásScript");
+println!("=== Programa GoiásScript em Rust ===")    ;
+println!("Data: 2025-04-13 06:53:38")    ;
+println!("Usuário: Gefferson-Souza")    ;
+let nome = "Gefferson"    ;
+let mut contador = 0    ;
+println!("Nome: {}", nome)    ;
+println!("Contador inicial: {}", contador)    ;
+fn saudacao(pessoa: impl std::fmt::Display) -> String {
+println!("Olá, {} {}", pessoa, "!")    ;
+return String::from("Saudação concluída")    ;
+}
+saudacao(nome)    ;
+contador = contador + 1    ;
+println!("Contador após incremento: {}", contador)    ;
+println!("Programa concluído!")    ;
 }

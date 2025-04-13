@@ -85,6 +85,10 @@ pub enum Expression {
     Await {
         expression: Box<Expression>,
     },
+    Assignment {
+        name: String,
+        value: Box<Expression>,
+    },
 }
 
 #[derive(Debug, Clone)]

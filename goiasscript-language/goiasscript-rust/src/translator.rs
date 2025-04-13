@@ -118,7 +118,22 @@ impl RustTranslator {
                     self.write(": impl std::fmt::Display");
                 }
                 
-                self.write_line(") {");
+                self.write(")");
+                
+                // Verificar se a função tem um retorno para definir o tipo de retorno
+                let has_return_value = body.iter().any(|s| {
+                    if let Statement::ReturnStatement { value } = s {
+                        value.is_some()
+                    } else {
+                        false
+                    }
+                });
+                
+                if has_return_value {
+                    self.write(" -> String");
+                }
+                
+                self.write_line(" {");
                 self.indent += 1;
                 
                 for s in body {
@@ -142,7 +157,16 @@ impl RustTranslator {
             Statement::ReturnStatement { value } => {
                 if let Some(expr) = value {
                     self.write("return ");
-                    self.expression(expr)?;
+                    
+                    // Para valores String, garantir que o retorno tenha o tipo correto
+                    if let Expression::Literal { value: LiteralValue::String(_) } = expr {
+                        self.write("String::from(");
+                        self.expression(expr)?;
+                        self.write(")");
+                    } else {
+                        self.expression(expr)?;
+                    }
+                    
                     self.write_line(";");
                 } else {
                     self.write_line("return;");
@@ -211,14 +235,34 @@ fn expression(&mut self, expr: &Expression) -> Result<()> {
             self.write(name);
         },
         Expression::Binary { left, operator, right } => {
-            // Caso especial para concatenação de strings em println
-            if self.is_printing_context && matches!(operator, BinaryOperator::Add) && 
-               self.is_string_literal(left) {
-                // Formato para concatenação no println
-                if let Expression::Literal { value: LiteralValue::String(s) } = &**left {
-                    self.write(&format!("\"{}{{}}\"", s));
-                    self.write(", ");
-                    self.expression(right)?;
+            // Caso especial para concatenação de strings
+            if matches!(operator, BinaryOperator::Add) {
+                // Verificando se estamos em contexto de print
+                if self.is_printing_context && self.is_string_literal(left) {
+                    // Formato para concatenação no println
+                    if let Expression::Literal { value: LiteralValue::String(s) } = &**left {
+                        self.write(&format!("\"{}{{}}\"", s));
+                        self.write(", ");
+                        self.expression(right)?;
+                    }
+                } else {
+                    // Verificar se ambos os lados são do mesmo tipo
+                    let is_left_string = self.is_string_expr(left);
+                    let is_right_string = self.is_string_expr(right);
+                    
+                    // Se pelo menos um dos lados for string, usar concatenação de strings
+                    if is_left_string || is_right_string {
+                        self.write("format!(\"{}{}\", ");
+                        self.expression(left)?;
+                        self.write(", ");
+                        self.expression(right)?;
+                        self.write(")");
+                    } else {
+                        // Operação numérica normal
+                        self.expression(left)?;
+                        self.write(" + ");
+                        self.expression(right)?;
+                    }
                 }
             } else {
                 // Expressão binária normal
@@ -244,6 +288,17 @@ fn expression(&mut self, expr: &Expression) -> Result<()> {
             }
         },
         Expression::Call { callee, arguments } => {
+            // Caso especial para ler_escolha() (entrada do usuário)
+            if let Expression::Variable { name } = &**callee {
+                if name == "ler_escolha" {
+                    // Adicionar import para io::stdin se ainda não foi adicionado
+                    self.add_import("use std::io;");
+                    
+                    self.write("{ let mut input = String::new(); io::stdin().read_line(&mut input).expect(\"Falha ao ler entrada\"); input.trim().to_string() }");
+                    return Ok(());
+                }
+            }
+            
             // Tratamento especial para prosa (println!)
             if let Expression::Variable { name } = &**callee {
                 if name == "prosa" {
@@ -253,15 +308,35 @@ fn expression(&mut self, expr: &Expression) -> Result<()> {
                     self.write("(");
                     
                     if !arguments.is_empty() {
-                        // Se é uma expressão binária com string literal
+                        // Se é uma expressão binária com string + variável
                         if let Expression::Binary { left, operator: BinaryOperator::Add, right } = &arguments[0] {
                             if self.is_string_literal(left) {
+                                // Para "texto " mais variável
                                 if let Expression::Literal { value: LiteralValue::String(s) } = &**left {
                                     self.write(&format!("\"{}{{}}\"", s));
                                     self.write(", ");
                                     self.expression(right)?;
                                 }
+                            } else if let Expression::Binary { left: left_inner, operator: BinaryOperator::Add, right: right_inner } = &**left {
+                                // Para expressões encadeadas como "texto " mais variável mais " mais texto"
+                                if self.is_string_literal(left_inner) {
+                                    if let Expression::Literal { value: LiteralValue::String(s) } = &**left_inner {
+                                        self.write(&format!("\"{}{{}} {{}}\"", s));
+                                        self.write(", ");
+                                        self.expression(right_inner)?;
+                                        self.write(", ");
+                                        self.expression(right)?;
+                                    }
+                                } else {
+                                    // Caso genérico para outras expressões binárias
+                                    self.write("\"{}\"");
+                                    self.write(", ");
+                                    self.expression(&arguments[0])?;
+                                }
                             } else {
+                                // Caso genérico para outras expressões binárias
+                                self.write("\"{}\"");
+                                self.write(", ");
                                 self.expression(&arguments[0])?;
                             }
                         } else if let Expression::Literal { value: LiteralValue::String(s) } = &arguments[0] {
@@ -269,6 +344,8 @@ fn expression(&mut self, expr: &Expression) -> Result<()> {
                             self.write(&format!("\"{}\"", s));
                         } else {
                             // Outra expressão
+                            self.write("\"{}\"");
+                            self.write(", ");
                             self.expression(&arguments[0])?;
                         }
                     }
@@ -292,6 +369,12 @@ fn expression(&mut self, expr: &Expression) -> Result<()> {
             
             self.write(")");
         },
+        Expression::Assignment { name, value } => {
+            // Implementação para expressão de atribuição (contador é valor)
+            self.write(name);
+            self.write(" = ");
+            self.expression(value)?;
+        },
         _ => {
             self.write("/* expressão não implementada */");
         }
@@ -303,6 +386,25 @@ fn expression(&mut self, expr: &Expression) -> Result<()> {
 // Método auxiliar para verificar se é uma literal string
 fn is_string_literal(&self, expr: &Expression) -> bool {
     matches!(expr, Expression::Literal { value: LiteralValue::String(_) })
+}
+
+// Método auxiliar para verificar se uma expressão é do tipo string
+fn is_string_expr(&self, expr: &Expression) -> bool {
+    match expr {
+        Expression::Literal { value: LiteralValue::String(_) } => true,
+        Expression::Binary { left, operator: BinaryOperator::Add, right } => {
+            self.is_string_expr(left) || self.is_string_expr(right)
+        },
+        Expression::Call { callee, .. } => {
+            if let Expression::Variable { name } = &**callee {
+                // Funções que sabemos que retornam strings
+                name == "format" || name.starts_with("to_string")
+            } else {
+                false
+            }
+        },
+        _ => false,
+    }
 }
 
 // Métodos auxiliares para escrita
