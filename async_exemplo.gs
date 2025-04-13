@@ -24,7 +24,8 @@ esperaUmPoquim(1000)
 
 // Função assíncrona com await
 vai_na_frente_presta_serviço pegaDados() {
-  prosa("Buscando dados...");
+  tenta_aí {
+      prosa("Buscando dados...");
   
   uai resultado1 = espera_um_cadim esperaUmPoquim(1500);
   prosa("Primeiro resultado: " + resultado1);
@@ -36,6 +37,14 @@ vai_na_frente_presta_serviço pegaDados() {
     mensagem: "Tudo certo!",
     hora: faz_um Date().toISOString()
   };
+  } se_der_ruim (erro) {
+    prosa("Erro ao buscar dados: " + erro);
+    faz_favor {
+      mensagem: "Deu ruim!",
+      hora: faz_um Date().toISOString()
+    };
+  }
+
 }
 
 // Exemplo com Async/Await
