@@ -443,7 +443,7 @@ meuCachorro.faizBaruio();
 meuCachorro.faizBaruio().abanaRabo();
 
 // Verificação de tipo
-se_ocê_quiser (meuCachorro instanceof Cachorro) {
+se_ocê_quiser (meuCachorro é_tipo_de Cachorro) {
     prosa("É um cachorro!");
 }
 
@@ -854,6 +854,7 @@ GerenciadorTarefas.listarTarefas("pendentes");
 | `aprepara_trem`    | `constructor`    | Construtor de classe           |
 | `inherda_de`       | `extends`        | Herança entre classes          |
 | `num_muda`         | `static`         | Membro estático de classe      |
+| `é_tipo_de`        | `instanceof`     | Verifica o tipo de um objeto   |
 
 ### 13.2 Comparadores
 

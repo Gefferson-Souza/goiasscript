@@ -14,13 +14,14 @@ arruma_trem Animal {
         prosa("Bicho " + ocê.nome + " da espécie " + ocê.tipo + " foi criado!");
     }
     
-    // Métodos
-    faizBaruio() {
+    // Método para o animal fazer barulho
+    mexe_assim faizBaruio() {
         prosa(ocê.nome + " está fazendo barulho!");
         faz_favor ocê;
     }
     
-    mexe() {
+    // Método para o animal se movimentar
+    mexe_assim mexe() {
         prosa(ocê.nome + " está se mexendo!");
         faz_favor ocê;
     }
@@ -40,31 +41,15 @@ arruma_trem Cachorro inherda_de Animal {
     }
     
     // Sobrescreve o método da classe pai
-    faizBaruio() {
+    mexe_assim faizBaruio() {
         prosa(ocê.nome + " faz: Au au!");
         faz_favor ocê;
     }
     
     // Método específico de cachorro
-    abanaRabo() {
+    mexe_assim abanaRabo() {
         prosa(ocê.nome + " está abanando o rabo!");
         faz_favor ocê;
-    }
-
-    // Método que retorna um trem bão (um cachorro feliz)
-    getTremBão() {
-        prosa("Preparando um trem bão...");
-        
-        uai cachorroBão é {
-            nome: ocê.nome,
-            raça: ocê.raça,
-            humor: "feliz demais da conta",
-            vacinado: certeza,
-            idade: "3 anos"
-        };
-        
-        prosa("Ó o cachorro feliz aqui, sô!");
-        faz_favor cachorroBão;
     }
 }
 
@@ -84,12 +69,3 @@ dog.faizBaruio()
 prosa("\n3. Verificando herança:");
 prosa("Totó é um cachorro? " + (dog instanceof Cachorro ? "Sim!" : "Não!"));
 prosa("Totó é um animal? " + (dog instanceof Animal ? "Sim!" : "Não!"));
-
-// Testando o método getTremBão
-prosa("\n4. Pegando o trem bão (cachorro feliz):");
-uai cachorroBão é dog.getTremBão();
-prosa("Nome: " + cachorroBão.nome);
-prosa("Raça: " + cachorroBão.raça);
-prosa("Humor: " + cachorroBão.humor);
-prosa("Vacinado: " + (cachorroBão.vacinado ? "Sim!" : "Não!"));
-prosa("Idade: " + cachorroBão.idade);
