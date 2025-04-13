@@ -10,8 +10,8 @@ prosa("Descomente apenas um teste por vez para ver o erro correspondente:");
 // vixe_que("Queijo acabou!", "tipo", "Compra mais queijo no mercadinho.");
 
 // === 2. Erro de referência (variável não definida) ===
-prosa("\n2. Testando erro de referência (variável não definida):");
-prosa("O valor é: " + valorQueNaoExiste);
+// prosa("\n2. Testando erro de referência (variável não definida):");
+// prosa("O valor é: " + valorQueNaoExiste);
 
 // === 3. Erro de tipo (chamar algo que não é função) ===
 // prosa("\n3. Testando erro de tipo (chamar algo que não é função):");
