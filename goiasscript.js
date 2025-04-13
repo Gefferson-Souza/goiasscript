@@ -72,6 +72,7 @@ class GoiasScriptCompiler {
       
       // Async/await e Promises
       'vai_na_frente': 'async',
+      'vai_na_frente_presta_serviço': 'async function',
       'espera_um_cadim': 'await',
       'promessa': 'Promise',
       'quando_resolver': 'then',

@@ -1,7 +1,5 @@
 # GoiásScript - Extensão para VS Code
 
-![GoiásScript Logo](images/goiasscript-logo.png)
-
 ## Visão Geral
 
 Uma extensão para Visual Studio Code que fornece suporte de linguagem para GoiásScript, uma linguagem de programação baseada no dialeto goiano do interior que compila para JavaScript.
