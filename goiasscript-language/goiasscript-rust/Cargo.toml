@@ -1,0 +1,14 @@
+[package]
+name = "goiasscript"
+version = "0.1.0"
+edition = "2021"
+authors = ["Gefferson-Souza"]
+description = "Compilador da linguagem GoiásScript para Rust"
+
+[dependencies]
+clap = { version = "4.4", features = ["derive"] }
+logos = "0.13"
+thiserror = "1.0"
+anyhow = "1.0"
+colored = "2.0"
+once_cell = "1.17"  # Adicione esta dependência
