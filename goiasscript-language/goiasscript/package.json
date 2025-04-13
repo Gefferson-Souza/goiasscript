@@ -1,0 +1,29 @@
+{
+  "name": "goiasscript",
+  "displayName": "GoiásScript",
+  "description": "Suporte para a linguagem GoiásScript",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "goiasscript",
+      "aliases": ["GoiásScript", "goiasscript"],
+      "extensions": [".gs"],
+      "configuration": "./language-configuration.json",
+      "icon": {
+        "light": "./icons/goiasscript-light.png",
+        "dark": "./icons/goiasscript-dark.png"
+      }
+    }],
+    "grammars": [{
+      "language": "goiasscript",
+      "scopeName": "source.gs",
+      "path": "./syntaxes/goiasscript.tmLanguage.json"
+    }]
+  }
+}

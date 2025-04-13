@@ -1,0 +1,15 @@
+{
+  "name": "goiasscript-projeto",
+  "version": "1.0.0",
+  "description": "Meu projeto em GoiásScript",
+  "main": "goiasscript.js",
+  "bin": {
+    "goiasscript": "./goiasscript.js"
+  },
+  "scripts": {
+    "start": "node goiasscript.js exemplo.gs",
+    "build": "node goiasscript.js --compiled exemplo.gs > exemplo.js"
+  },
+  "author": "Gefferson-Souza",
+  "license": "MIT"
+}
