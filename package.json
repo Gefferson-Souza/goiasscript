@@ -1,6 +1,6 @@
 {
   "name": "goiasscript-projeto",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Meu projeto em GoiásScript",
   "main": "goiasscript.js",
   "bin": {
