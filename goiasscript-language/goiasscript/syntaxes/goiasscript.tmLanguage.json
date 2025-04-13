@@ -22,6 +22,9 @@
 	  },
 	  {
 		"include": "#functions"
+	  },
+	  {
+		"include": "#classes"
 	  }
 	],
 	"repository": {
@@ -29,15 +32,15 @@
 		"patterns": [
 		  {
 			"name": "keyword.control.goiasscript",
-			"match": "\\b(se_ocê_quiser|se_num_for|se_não|vai_indo|enquanto_tiver|para_com_isso|continua_aí|faz_favor|tenta_aí|se_der_ruim)\\b"
+			"match": "\\b(se_ocê_quiser|se_num_for|se_não|vai_indo|enquanto_tiver|para_com_isso|continua_aí|faz_favor|tenta_aí|se_der_ruim|por_fim)\\b"
 		  },
 		  {
 			"name": "keyword.operator.logical.goiasscript",
-			"match": "\\b(e_mais|ou_então|num_é|é_igualim|diferente|maior_que|menor_que|pelo_menos|no_máximo)\\b"
+			"match": "\\b(e_mais|ou_então|num_é|é_igualim|diferente|maior_que|menor_que|pelo_menos|no_máximo|é_tipo_de)\\b"
 		  },
 		  {
 			"name": "keyword.other.goiasscript",
-			"match": "\\b(in|of)\\b"
+			"match": "\\b(em|de)\\b"
 		  }
 		]
 	  },
@@ -45,11 +48,11 @@
 		"patterns": [
 		  {
 			"name": "storage.type.goiasscript",
-			"match": "\\b(uai|trem|vazio|sei_lá)\\b"
+			"match": "\\b(uai|trem|vazio|sei_lá|arruma_trem|inherda_de)\\b"
 		  },
 		  {
 			"name": "storage.modifier.goiasscript",
-			"match": "\\b(vai_na_frente|espera_um_cadim|faz_um)\\b"
+			"match": "\\b(vai_na_frente|espera_um_cadim|faz_um|num_muda|aprepara_trem|ninguem_fuça|só_da_famia|todo_mundo_vê|fixo)\\b"
 		  }
 		]
 	  },
@@ -73,7 +76,7 @@
 		  },
 		  {
 			"name": "keyword.operator.comparison.goiasscript",
-			"match": "\\b(é_igualim|diferente|maior_que|menor_que|pelo_menos|no_máximo)\\b"
+			"match": "\\b(é_igualim|diferente|maior_que|menor_que|pelo_menos|no_máximo|é_tipo_de)\\b"
 		  }
 		]
 	  },
@@ -90,6 +93,26 @@
 		  {
 			"name": "entity.name.function.goiasscript",
 			"match": "\\b(vai_na_frente)\\s+(presta_serviço)\\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\\s*\\("
+		  }
+		]
+	  },
+	  "classes": {
+		"patterns": [
+		  {
+			"name": "entity.name.class.goiasscript",
+			"match": "\\b(arruma_trem)\\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\\b"
+		  },
+		  {
+			"name": "entity.name.class.goiasscript",
+			"match": "\\b(arruma_trem)\\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\\s+(inherda_de)\\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\\b"
+		  },
+		  {
+			"name": "entity.name.function.constructor.goiasscript",
+			"match": "\\b(aprepara_trem)\\s*\\("
+		  },
+		  {
+			"name": "variable.language.this.goiasscript",
+			"match": "\\b(ocê)\\b"
 		  }
 		]
 	  },
