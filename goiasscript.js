@@ -67,8 +67,8 @@ class GoiasScriptCompiler {
       'de_jeito_nenhum': 'false',
       
       // Loop specific
-      'in': 'in',
-      'of': 'of',
+      'em': 'in',
+      'de': 'of',
       
       // Async/await e Promises
       'vai_na_frente': 'async',
