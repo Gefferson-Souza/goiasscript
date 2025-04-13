@@ -23,6 +23,7 @@ class GoiasScriptCompiler {
       'arruma_trem': 'class',         // class
       'aprepara_trem': 'constructor', // constructor
       'inherda_de': 'extends',        // extends
+      'é_tipo_de': 'instanceof',      // instanceof
       
       // Estruturas de controle
       'se_ocê_quiser': 'if',

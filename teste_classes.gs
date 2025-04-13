@@ -1,120 +1,122 @@
-// Teste de classes em GoiásScript com sintaxe bem goiana do interior
+// Teste de classes em GoiásScript usando funções construtoras
 prosa("=== Teste de Classes em GoiásScript ===");
 
-// Classe base de comidas goianas
-arruma_trem ComidaGoiana {
-    // Propriedades
-    nome = "Sem nome";
-    preco = 0;
-    ingredientes = [];
+// Função construtora para ComidaGoiana
+presta_serviço ComidaGoiana(nome, preco) {
+    // Criando o objeto
+    uai self é {};
     
-    // Construtor goiano
-    aprepara_trem(nome, preco) {
-        ocê.nome é nome;
-        ocê.preco é preco;
-        ocê.ingredientes é [];
-        ocê.preparado é de_jeito_nenhum;
-        
-        prosa("Apreparo da comida '" + ocê.nome + "' começou!");
-    }
+    // Propriedades
+    self.nome é nome || "Sem nome";
+    self.preco é preco || 0;
+    self.ingredientes é [];
+    self.preparado é de_jeito_nenhum;
+    
+    prosa("Apreparo da comida '" + self.nome + "' começou!");
     
     // Método para adicionar ingredientes
-    mexe_assim adiciona(ingrediente) {
-        ocê.ingredientes.push(ingrediente);
-        prosa("Adicionou " + ingrediente + " no " + ocê.nome);
-        faz_favor ocê;
-    }
+    self.adiciona é presta_serviço(ingrediente) {
+        self.ingredientes.push(ingrediente);
+        prosa("Adicionou " + ingrediente + " no " + self.nome);
+        faz_favor self;
+    };
     
     // Método para preparação
-    mexe_assim preparar() {
-        prosa("Preparando " + ocê.nome + " com " + ocê.ingredientes.length + " ingredientes...");
-        ocê.preparado é certeza;
-        faz_favor ocê;
-    }
+    self.preparar é presta_serviço() {
+        prosa("Preparando " + self.nome + " com " + self.ingredientes.length + " ingredientes...");
+        self.preparado é certeza;
+        faz_favor self;
+    };
     
     // Método para mostrar detalhes
-    mexe_assim mostraTrem() {
-        prosa("--- " + ocê.nome + " ---");
-        prosa("Preço: R$" + ocê.preco);
+    self.mostraTrem é presta_serviço() {
+        prosa("--- " + self.nome + " ---");
+        prosa("Preço: R$" + self.preco);
         prosa("Ingredientes:");
         
-        vai_indo (trem i é 0; i menor_que ocê.ingredientes.length; i é i mais 1) {
-            prosa("  - " + ocê.ingredientes[i]);
+        vai_indo (trem i é 0; i menor_que self.ingredientes.length; i é i mais 1) {
+            prosa("  - " + self.ingredientes[i]);
         }
         
-        prosa("Está preparado? " + (ocê.preparado ? "Sim!" : "Ainda não!"));
-        faz_favor ocê;
-    }
+        prosa("Está preparado? " + (self.preparado ? "Sim!" : "Ainda não!"));
+        faz_favor self;
+    };
     
-    // Método estático para criar uma comida rápida
-    num_muda mexe_assim feitoNaHora(tipo) {
-        prosa("Fazendo " + tipo + " rapidim!");
-        faz_favor faz_um ComidaGoiana(tipo, 5);
-    }
+    // Retornar o objeto criado
+    faz_favor self;
 }
 
-// Classe que herda de ComidaGoiana
-arruma_trem Pamonha inherda_de ComidaGoiana {
-    // Propriedades adicionais
-    tipo = "doce";
+// Método estático simulado
+ComidaGoiana.feitoNaHora é presta_serviço(tipo) {
+    prosa("Fazendo " + tipo + " rapidim!");
+    faz_favor ComidaGoiana(tipo, 5);
+};
+
+// Função construtora para Pamonha (simula herança de ComidaGoiana)
+presta_serviço Pamonha(nome, preco, tipo) {
+    // Criar uma comida goiana base (simula super)
+    uai self é ComidaGoiana(nome, preco);
     
-    // Construtor específico
-    aprepara_trem(nome, preco, tipo) {
-        // Chama o construtor da classe pai
-        super(nome, preco);
-        ocê.tipo é tipo || "doce";
-        ocê.emPalha é certeza;
-        
-        // Já adiciona os ingredientes básicos
-        ocê.adiciona("milho verde")
-           .adiciona("açúcar")
-           .adiciona("leite");
-           
-        se_ocê_quiser (tipo é_igualim "salgada") {
-            ocê.adiciona("sal");
-        } se_num_for (tipo é_igualim "com queijo") {
-            ocê.adiciona("queijo");
-        }
+    // Propriedades adicionais
+    self.tipo é tipo || "doce";
+    self.emPalha é certeza;
+    
+    // Já adiciona os ingredientes básicos
+    self.adiciona("milho verde")
+       .adiciona("açúcar")
+       .adiciona("leite");
+       
+    se_ocê_quiser (tipo é_igualim "salgada") {
+        self.adiciona("sal");
+    } se_num_for (tipo é_igualim "com queijo") {
+        self.adiciona("queijo");
     }
     
+    // Salvar método original para simular super.mostraTrem()
+    uai mostraTremOriginal é self.mostraTrem;
+    
     // Método que retorna uma pamonha especial
-    mexe_assim getTremBão() {
-        // Chama o método protegido da classe pai
-        ocê.preparar();
+    self.getTremBão é presta_serviço() {
+        // Chama o método da classe pai
+        self.preparar();
         
-        prosa("Pegando uma pamonha especial tipo " + ocê.tipo);
+        prosa("Pegando uma pamonha especial tipo " + self.tipo);
         
         uai pamonha é {
-            nome: ocê.nome,
-            tipo: ocê.tipo,
-            sabor: ocê.tipo é_igualim "doce" ? "doce de milho" : "salgada de milho",
+            nome: self.nome,
+            tipo: self.tipo,
+            sabor: self.tipo é_igualim "doce" ? "doce de milho" : "salgada de milho",
             quente: certeza,
-            emPalha: ocê.emPalha
+            emPalha: self.emPalha
         };
         
         prosa("Trem bão demais da conta tá pronto!");
         faz_favor pamonha;
-    }
+    };
     
-    // Sobrescrita do método da classe pai
-    mexe_assim mostraTrem() {
-        // Chama o método da classe pai
-        super.mostraTrem();
-        prosa("Tipo: " + ocê.tipo);
-        prosa("Embalado em palha? " + (ocê.emPalha ? "É, uai!" : "Não."));
-        faz_favor ocê;
-    }
+    // Sobrescrita do método mostraTrem
+    self.mostraTrem é presta_serviço() {
+        // Chama o método da classe pai (simulação de super.mostraTrem())
+        mostraTremOriginal.call(self);
+        
+        prosa("Tipo: " + self.tipo);
+        prosa("Embalado em palha? " + (self.emPalha ? "É, uai!" : "Não."));
+        faz_favor self;
+    };
+    
+    // Retorna o objeto criado
+    faz_favor self;
 }
 
-// Testando a herança de classes
+// Testando a "herança" de classes
 prosa("\n=== Testando ComidaGoiana ===");
-uai comida é faz_um ComidaGoiana("Angu", 12.50);
+uai comida é ComidaGoiana("Angu", 12.50);
 comida.adiciona("fubá")
       .adiciona("sal")
       .adiciona("água")
       .mostraTrem();
 
-// Testando método estático
+// Testando método "estático"
 prosa("\n=== Testando Método Estático ===");
 uai comidaRapida é ComidaGoiana.feitoNaHora("Pão de Queijo");
 comidaRapida.adiciona("polvilho")
@@ -123,7 +125,7 @@ comidaRapida.adiciona("polvilho")
 
 // Testando a classe Pamonha
 prosa("\n=== Testando Pamonha ===");
-uai minhaLoja é faz_um Pamonha("Pamonha da Vovó", 8.50, "com queijo");
+uai minhaLoja é Pamonha("Pamonha da Vovó", 8.50, "com queijo");
 minhaLoja.mostraTrem();
 
 // Obtendo uma pamonha especial
