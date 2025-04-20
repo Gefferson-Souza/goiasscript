@@ -72,7 +72,7 @@ npm install -g .
 
 1. Instale a extensão GoiásScript
    ```bash
-   cd goiasscript-language/goiasscript && code --install-extension goiasscript-0.1.0.vsix
+   cd goiasscript-language/goiasscript && code --install-extension goiasscript-0.2.0.vsix
    ```
    Ou instale pela interface do VS Code: Extensions → Install from VSIX...
 
