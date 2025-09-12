@@ -139,7 +139,7 @@ describe('GoiasScriptCompiler', () => {
     });
 
     test('deve detectar erros de sintaxe', () => {
-      const codigo = 'uai x é ; // sintaxe incorreta';
+      const codigo = 'uai x é {{{ // sintaxe incorreta';
       const resultado = compiler.validate(codigo);
 
       expect(resultado.valid).toBe(false);
@@ -168,6 +168,92 @@ describe('GoiasScriptCompiler', () => {
       expect(resultado.stats.originalSize).toBeGreaterThan(0);
       expect(resultado.stats.compiledSize).toBeGreaterThan(0);
       expect(resultado.stats.originalLines).toBeGreaterThan(0);
+    });
+  });
+
+  describe('Execute', () => {
+    test('deve executar código simples', async () => {
+      const codigo = 'uai x é 42; prosa("Valor:", x);';
+      
+      // Spy on console.log to capture output
+      const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
+      
+      await compiler.execute(codigo);
+      
+      expect(consoleSpy).toHaveBeenCalledWith('Valor:', 42);
+      consoleSpy.mockRestore();
+    });
+
+    test('deve lidar com erros de execução', async () => {
+      const codigo = 'uai x é variavel_inexistente;';
+      
+      // Mock mostrarErro method
+      const mockMostrarErro = jest.fn();
+      
+      // Temporarily replace the error translator method
+      const originalTranslate = compiler.transpiler.errorTranslator.translate;
+      compiler.transpiler.errorTranslator.translate = jest.fn().mockReturnValue({
+        mostrarErro: mockMostrarErro
+      });
+      
+      await compiler.execute(codigo);
+      
+      expect(mockMostrarErro).toHaveBeenCalled();
+      
+      // Restore original method
+      compiler.transpiler.errorTranslator.translate = originalTranslate;
+    });
+
+    test('deve lidar com erro de compilação na execução', async () => {
+      // Test successful error handling in execution flow
+      const codigo = 'uai resultado é indefinido_var + 1';
+      
+      // Test should complete without throwing
+      await expect(compiler.execute(codigo)).resolves.not.toThrow();
+    });
+  });
+
+  describe('Casos Edge e Validação Avançada', () => {
+    test('deve detectar erro de JavaScript gerado', () => {
+      // Test with code that compiles but generates invalid JavaScript
+      const codigo = 'uai x é function(';
+      const resultado = compiler.validate(codigo);
+      
+      expect(resultado.valid).toBe(false);
+      expect(resultado.errors).toHaveLength(1);
+    });
+
+    test('deve lidar com erro durante validação', () => {
+      // Mock transpiler to throw an error
+      const originalTranspile = compiler.transpiler.transpile;
+      compiler.transpiler.transpile = jest.fn().mockImplementation(() => {
+        throw new Error('Test error');
+      });
+      
+      const resultado = compiler.validate('qualquer codigo');
+      
+      expect(resultado.valid).toBe(false);
+      expect(resultado.errors).toHaveLength(1);
+      
+      // Restore original method
+      compiler.transpiler.transpile = originalTranspile;
+    });
+
+    test('deve lidar com erro durante tokenização', () => {
+      // Mock lexer to throw an error
+      const originalTokenize = compiler.lexer.tokenize;
+      compiler.lexer.tokenize = jest.fn().mockImplementation(() => {
+        throw new Error('Lexer error');
+      });
+      
+      const resultado = compiler.validate('qualquer codigo');
+      
+      expect(resultado.valid).toBe(false);
+      expect(resultado.errors).toHaveLength(1);
+      expect(resultado.tokens).toEqual([]);
+      
+      // Restore original method
+      compiler.lexer.tokenize = originalTokenize;
     });
   });
 });

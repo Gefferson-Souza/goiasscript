@@ -322,7 +322,7 @@ Visite a [documentação oficial](https://github.com/Gefferson-Souza/goiasscript
     
     // Tentar abrir no navegador padrão
     const command = process.platform === 'win32' ? 'start' : 
-                   process.platform === 'darwin' ? 'open' : 'xdg-open';
+      process.platform === 'darwin' ? 'open' : 'xdg-open';
     
     exec(`${command} ${url}`, (error) => {
       if (error) {
