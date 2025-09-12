@@ -31,7 +31,7 @@ async function copyFiles() {
     'package.json',
     'README.md', 
     'LICENSE',
-    'CHANGELOG.md'
+    'CHANGELOG.md',
   ];
   
   for (const file of filesToCopy) {

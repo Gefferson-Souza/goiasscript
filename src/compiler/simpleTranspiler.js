@@ -11,57 +11,68 @@ class SimpleGoiasScriptTranspiler {
   }
 
   /**
-   * Transpila código GoiásScript para JavaScript
-   * @param {string} codigo - Código fonte GoiásScript
-   * @param {string} nomeArquivo - Nome do arquivo fonte
-   * @returns {Object} Resultado da transpilação
+   * Transpiles GoiásScript code to JavaScript
+   * @param {string} code - GoiásScript source code
+   * @param {string} fileName - Source file name
+   * @returns {Object} Transpilation result
    */
-  transpile(codigo, nomeArquivo = 'script.gs') {
+  transpile(code, fileName = 'script.gs') {
     try {
-      let codigoJS = codigo;
+      let jsCode = code;
 
-      // Aplicar todas as substituições
-      codigoJS = this._aplicarSubstituicoes(codigoJS);
+      // Apply all substitutions
+      jsCode = this._applySubstitutions(jsCode);
       
       return {
         success: true,
-        code: codigoJS,
+        code: jsCode,
         warnings: [],
       };
       
     } catch (error) {
-      const erroGoiano = this.errorTranslator.traduzir(error, nomeArquivo);
+      const goiasError = this.errorTranslator.translate(error, fileName);
       return {
         success: false,
-        error: erroGoiano,
+        error: goiasError,
         code: null,
       };
     }
   }
 
   /**
-   * Aplica todas as substituições necessárias
+   * Apply all necessary substitutions
    * @private
    */
-  _aplicarSubstituicoes(codigo) {
-    let resultado = codigo;
+  _applySubstitutions(code) {
+    let result = code;
 
-    // Mapeamentos diretos ordenados por tamanho (maior primeiro)
-    const mapeamentos = [
-      // Funções assíncronas primeiro
+    // First, protect strings from being modified
+    const stringPlaceholders = [];
+    let stringIndex = 0;
+    
+    // Replace strings temporarily
+    result = result.replace(/(['"])((?:(?!\1)[^\\]|\\.)*)(\1)/g, (match) => {
+      const placeholder = `__STRING_${stringIndex++}__`;
+      stringPlaceholders.push({placeholder, original: match});
+      return placeholder;
+    });
+
+    // Direct mappings ordered by size (largest first)
+    const mappings = [
+      // Async functions first
       ['vai_na_frente_presta_serviço', 'async function'],
       
-      // Operadores compostos com 'é' primeiro
+      // Compound operators with 'é' first
       ['é_tipo_de', 'instanceof'],
       ['é_igualim', '==='],
       
-      // Classes e herança
+      // Classes and inheritance
       ['arruma_trem', 'class'],
       ['inherda_de', 'extends'],
       ['aprepara_trem', 'constructor'],
       ['num_muda', 'static'],
       
-      // Estruturas de controle
+      // Control structures
       ['se_ocê_quiser', 'if'],
       ['se_num_for', 'else if'],
       ['se_não', 'else'],
@@ -70,13 +81,13 @@ class SimpleGoiasScriptTranspiler {
       ['para_com_isso', 'break'],
       ['continua_aí', 'continue'],
       
-      // Funções
+      // Functions
       ['presta_serviço', 'function'],
       ['faz_favor', 'return'],
       ['vai_na_frente', 'async'],
       ['espera_um_cadim', 'await'],
       
-      // Operadores lógicos (removido é_igualim que já está acima)
+      // Logical operators (é_igualim already above)
       ['diferente', '!=='],
       ['maior_que', '>'],
       ['menor_que', '<'],
@@ -86,14 +97,14 @@ class SimpleGoiasScriptTranspiler {
       ['ou_então', '||'],
       ['num_é', '!'],
       
-      // Operadores aritméticos
+      // Arithmetic operators
       ['mais', '+'],
       ['menos', '-'],
       ['vezes', '*'],
       ['dividido', '/'],
       ['sobrou', '%'],
       
-      // Console
+      // Console and control
       ['prosa', 'console.log'],
       ['reclama', 'console.error'],
       
@@ -109,45 +120,63 @@ class SimpleGoiasScriptTranspiler {
       ['se_der_ruim', 'catch'],
       ['por_fim', 'finally'],
       
-      // Tipos
+      // Types
       ['certeza', 'true'],
       ['de_jeito_nenhum', 'false'],
       ['vazio', 'null'],
       ['sei_lá', 'undefined'],
       
-      // Outros
+      // Other simple words
+      ['ocê', 'this'],
       ['faz_um', 'new'],
       ['vixe', 'throw new Error'],
-      ['ocê', 'this'],
+      ['rejeita_isso', 'reject'],
+      ['resolve_aí', 'resolve'],
       
-      // Loops
+      // Loop keywords
       ['em', 'in'],
       ['de', 'of'],
       
-      // Declarações - é precisa vir antes dos operadores compostos
+      // Declarations - 'é' needs to come before compound operators
       ['trem', 'var'],
       ['uai', 'const'],
       ['é', '='],
     ];
 
-    // Aplicar cada mapeamento
-    mapeamentos.forEach(([goiasWord, jsWord]) => {
-      // Para palavras com acentos, usar uma abordagem mais específica
+    // Apply each mapping
+    mappings.forEach(([goiasWord, jsWord]) => {
+      // For accented words, use a more specific approach
       if (goiasWord === 'é') {
-        // Tratar 'é' especialmente - deve estar entre espaços
-        resultado = resultado.replace(/\s+é\s+/g, ' = ');
+        // Handle 'é' specially - must be between spaces
+        result = result.replace(/\s+é\s+/g, ' = ');
+      } else if (goiasWord === 'ocê') {
+        // Handle 'ocê' which can be followed by dot or at beginning
+        result = result.replace(/(^|\s)ocê(\s|\.)/g, '$1this$2');
+      } else if (goiasWord.includes('_') || /[àáâãçéêí]/.test(goiasWord)) {
+        // Words with underscore or accents need special treatment
+        // Include common punctuation as delimiters
+        const wordRegex = new RegExp(
+          `(^|\\s|\\(|,|\\.)${this._escapeRegex(goiasWord)}(\\s|$|\\)|,|\\()`,
+          'g',
+        );
+        result = result.replace(wordRegex, `$1${jsWord}$2`);
       } else {
-        // Usar word boundary para evitar substituições parciais
-        const regex = new RegExp(`\\b${this._escapeRegex(goiasWord)}\\b`, 'g');
-        resultado = resultado.replace(regex, jsWord);
+        // Use word boundary to avoid partial substitutions
+        const boundaryRegex = new RegExp(`\\b${this._escapeRegex(goiasWord)}\\b`, 'g');
+        result = result.replace(boundaryRegex, jsWord);
       }
     });
 
-    return resultado;
+    // Restore original strings
+    stringPlaceholders.forEach(({placeholder, original}) => {
+      result = result.replace(placeholder, original);
+    });
+
+    return result;
   }
 
   /**
-   * Escapa caracteres especiais para regex
+   * Escape special characters for regex
    * @private
    */
   _escapeRegex(string) {

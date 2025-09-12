@@ -9,7 +9,7 @@ describe('ErroGoiano', () => {
       'Dica de teste',
       10,
       5,
-      'teste.gs'
+      'teste.gs',
     );
 
     expect(erro.name).toBe('ErroGoiano');
@@ -39,7 +39,7 @@ describe('ErroGoiano', () => {
       ['referencia', 'trem que não existe'],
       ['tipo', 'tipo errado de trem'],
       ['divisao_zero', 'dividiu por zero'],
-      ['desconhecido', 'trem desconhecido']
+      ['desconhecido', 'trem desconhecido'],
     ];
 
     casos.forEach(([tipo, esperado]) => {
@@ -58,44 +58,44 @@ describe('ErrorTranslator', () => {
 
   test('deve manter erros goianos como estão', () => {
     const erroOriginal = new ErroGoiano('teste', 'Erro original');
-    const resultado = translator.traduzir(erroOriginal, 'teste.gs');
+    const resultado = translator.translate(erroOriginal, 'teste.gs');
 
     expect(resultado).toBe(erroOriginal);
   });
 
   test('deve traduzir SyntaxError', () => {
-    const erro = new SyntaxError('Unexpected token \\'{\\'');
-    const resultado = translator.traduzir(erro, 'teste.gs');
+    const erro = new SyntaxError('Unexpected token "{"');
+    const resultado = translator.translate(erro, 'teste.gs');
 
     expect(resultado).toBeInstanceOf(ErroGoiano);
     expect(resultado.tipo).toBe('sintaxe');
-    expect(resultado.message).toContain('\\'{}\\'');
+    expect(resultado.message).toContain('\'{\' onde não deveria ter');
     expect(resultado.dica).toContain('parênteses, chaves ou colchetes');
   });
 
   test('deve traduzir ReferenceError', () => {
     const erro = new ReferenceError('variavel is not defined');
-    const resultado = translator.traduzir(erro, 'teste.gs');
+    const resultado = translator.translate(erro, 'teste.gs');
 
     expect(resultado).toBeInstanceOf(ErroGoiano);
     expect(resultado.tipo).toBe('referencia');
-    expect(resultado.message).toContain('\\'variavel\\'');
+    expect(resultado.message).toContain('\'variavel\'');
     expect(resultado.dica).toContain('declarar');
   });
 
   test('deve traduzir TypeError', () => {
     const erro = new TypeError('funcao is not a function');
-    const resultado = translator.traduzir(erro, 'teste.gs');
+    const resultado = translator.translate(erro, 'teste.gs');
 
     expect(resultado).toBeInstanceOf(ErroGoiano);
     expect(resultado.tipo).toBe('tipo');
-    expect(resultado.message).toContain('\\'funcao\\' não é uma função');
+    expect(resultado.message).toContain('\'funcao\' não é uma função');
     expect(resultado.dica).toContain('parênteses');
   });
 
   test('deve traduzir RangeError', () => {
     const erro = new RangeError('Maximum call stack size exceeded');
-    const resultado = translator.traduzir(erro, 'teste.gs');
+    const resultado = translator.translate(erro, 'teste.gs');
 
     expect(resultado).toBeInstanceOf(ErroGoiano);
     expect(resultado.tipo).toBe('intervalo');
@@ -105,7 +105,7 @@ describe('ErrorTranslator', () => {
 
   test('deve traduzir URIError', () => {
     const erro = new URIError('Malformed URI');
-    const resultado = translator.traduzir(erro, 'teste.gs');
+    const resultado = translator.translate(erro, 'teste.gs');
 
     expect(resultado).toBeInstanceOf(ErroGoiano);
     expect(resultado.tipo).toBe('uri');
@@ -114,7 +114,7 @@ describe('ErrorTranslator', () => {
 
   test('deve lidar com erros genéricos', () => {
     const erro = new Error('Erro desconhecido');
-    const resultado = translator.traduzir(erro, 'teste.gs');
+    const resultado = translator.translate(erro, 'teste.gs');
 
     expect(resultado).toBeInstanceOf(ErroGoiano);
     expect(resultado.tipo).toBe('execucao');
