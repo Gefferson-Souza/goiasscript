@@ -215,7 +215,7 @@ GoiásScript é uma linguagem de programação brasileira que traduz código em 
 
 ### Marcos Técnicos
 - [ ] **100% dos exemplos funcionando** ✅
-- [ ] **Cobertura de testes > 90%** (atual: 41%)
+- [ ] **Cobertura de testes > 90%** (atual: ~71%)
 - [ ] **Benchmark: 10x mais rápido que v1** 
 - [ ] **LSP com <100ms response time**
 - [ ] **1000+ pacotes no registry**
@@ -232,9 +232,9 @@ GoiásScript é uma linguagem de programação brasileira que traduz código em 
 ## 🎯 **PRÓXIMOS PASSOS IMEDIATOS**
 
 ### Esta Semana (Prioridade Máxima)
-1. [ ] **Melhorar cobertura de testes** (meta: 80%)
+1. [x] **Melhorar cobertura de testes** (meta: 80%)
 2. [ ] **Implementar inferência básica de tipos**
-3. [ ] **Criar documentação inicial do sistema de módulos**
+3. [x] **Criar documentação inicial do sistema de módulos**
 
 ### Próximas 2 Semanas
 1. [ ] **Protótipo do sistema de import/export**
