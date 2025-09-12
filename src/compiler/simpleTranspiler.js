@@ -152,11 +152,16 @@ class SimpleGoiasScriptTranspiler {
       } else if (goiasWord === 'ocê') {
         // Handle 'ocê' which can be followed by dot or at beginning
         result = result.replace(/(^|\s)ocê(\s|\.)/g, '$1this$2');
+      } else if (goiasWord === 'num_é') {
+        // Handle 'num_é' (NOT operator) specially to avoid extra space
+        result = result.replace(/\bnum_é\s+/g, '!');
       } else if (goiasWord.includes('_') || /[àáâãçéêí]/.test(goiasWord)) {
         // Words with underscore or accents need special treatment
         // Include common punctuation as delimiters
+        // Words with underscore or accents need special treatment
+        // Include common punctuation as delimiters
         const wordRegex = new RegExp(
-          `(^|\\s|\\(|,|\\.)${this._escapeRegex(goiasWord)}(\\s|$|\\)|,|\\()`,
+          `(^|\\s|\\(|,|\\.|;)${this._escapeRegex(goiasWord)}(\\s|$|\\)|,|\\(|;|\\.)`,
           'g',
         );
         result = result.replace(wordRegex, `$1${jsWord}$2`);
