@@ -200,7 +200,7 @@ class TypeAnalyzer {
     }
 
     // Binary operations - infer from context
-    const binaryOp = value.match(/(\w+)\s+(mais|menos|vezes|dividido)\s+(\w+)/);
+    const binaryOp = value.match(/(.+)\s+(mais|menos|vezes|dividido)\s+(.+)/);
     if (binaryOp) {
       const [, left, op, right] = binaryOp;
       const leftType = this.symbolTable.get(left)?.type || this._inferType(left);
