@@ -1,0 +1,63 @@
+{
+  "name": "goiasscript",
+  "displayName": "GoiásScript",
+  "description": "Suporte completo para a linguagem GoiásScript - Linguagem de programação goiana",
+  "version": "0.3.0",
+  "publisher": "gefferson-souza",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Gefferson-Souza/goiasscript.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Gefferson-Souza/goiasscript/issues"
+  },
+  "homepage": "https://github.com/Gefferson-Souza/goiasscript#readme",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "goiasscript",
+    "goias",
+    "goiano",
+    "brazilian",
+    "portuguese",
+    "programming",
+    "language"
+  ],
+  "icon": "icons/goiasscript-dark.png",
+  "galleryBanner": {
+    "color": "#228B22",
+    "theme": "dark"
+  },
+  "contributes": {
+    "languages": [{
+      "id": "goiasscript",
+      "aliases": ["GoiásScript", "goiasscript", "Goias Script"],
+      "extensions": [".gs"],
+      "configuration": "./language-configuration.json",
+      "icon": {
+        "light": "./icons/goiasscript-light.png",
+        "dark": "./icons/goiasscript-dark.png"
+      }
+    }],
+    "grammars": [{
+      "language": "goiasscript",
+      "scopeName": "source.gs",
+      "path": "./syntaxes/goiasscript.tmLanguage.json"
+    }],
+    "snippets": [{
+      "language": "goiasscript",
+      "path": "./snippets/goiasscript.json"
+    }]
+  },
+  "scripts": {
+    "package": "vsce package",
+    "install-extension": "code --install-extension goiasscript-0.3.0.vsix"
+  },
+  "devDependencies": {
+    "vsce": "^2.19.0"
+  }
+}

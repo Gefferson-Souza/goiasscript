@@ -1,0 +1,63 @@
+# Dependências
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos de build
+dist/
+build/
+out/
+lib/
+*.tgz
+
+# Arquivos temporários
+.tmp/
+temp/
+*.tmp
+*.log
+
+# IDEs e editores
+.vscode/settings.json
+.vscode/launch.json
+.idea/
+*.swp
+*.swo
+*~
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Ambiente
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Coverage
+coverage/
+.nyc_output/
+*.lcov
+
+# Testes
+test-results/
+screenshots/
+
+# Cache
+.cache/
+.eslintcache
+.parcel-cache/
+
+# Vscode extension packaging
+*.vsix
+
+# GoiásScript específico
+*.js.map
+examples/**/*.js
+!examples/**/*.gs
+.claude
+.github
+CLAUDE.md
+

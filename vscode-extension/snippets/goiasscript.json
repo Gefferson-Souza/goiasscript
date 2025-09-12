@@ -1,0 +1,190 @@
+{
+  "Variável Constante": {
+    "prefix": "uai",
+    "body": [
+      "uai ${1:nome} é ${2:valor};"
+    ],
+    "description": "Declarar variável constante"
+  },
+  "Variável Mutável": {
+    "prefix": "trem",
+    "body": [
+      "trem ${1:nome} é ${2:valor};"
+    ],
+    "description": "Declarar variável mutável"
+  },
+  "Função": {
+    "prefix": "presta_serviço",
+    "body": [
+      "presta_serviço ${1:nome}(${2:parametros}) {",
+      "  ${3:// corpo da função}",
+      "  faz_favor ${4:resultado};",
+      "}"
+    ],
+    "description": "Criar função"
+  },
+  "Função Assíncrona": {
+    "prefix": "vai_na_frente_presta_serviço",
+    "body": [
+      "vai_na_frente_presta_serviço ${1:nome}(${2:parametros}) {",
+      "  tenta_aí {",
+      "    ${3:// código assíncrono}",
+      "    uai resultado é espera_um_cadim ${4:operacaoAssincrona}();",
+      "    faz_favor resultado;",
+      "  } se_der_ruim (erro) {",
+      "    reclama(\"Erro:\", erro);",
+      "  }",
+      "}"
+    ],
+    "description": "Criar função assíncrona"
+  },
+  "Condicional If": {
+    "prefix": "se_ocê_quiser",
+    "body": [
+      "se_ocê_quiser (${1:condicao}) {",
+      "  ${2:// código}",
+      "}"
+    ],
+    "description": "Estrutura condicional if"
+  },
+  "Condicional If-Else": {
+    "prefix": "se_ocê_quiser_se_não",
+    "body": [
+      "se_ocê_quiser (${1:condicao}) {",
+      "  ${2:// código verdadeiro}",
+      "} se_não {",
+      "  ${3:// código falso}",
+      "}"
+    ],
+    "description": "Estrutura condicional if-else"
+  },
+  "Loop For": {
+    "prefix": "vai_indo",
+    "body": [
+      "vai_indo (trem ${1:i} é 0; ${1:i} menor_que ${2:limite}; ${1:i} é ${1:i} mais 1) {",
+      "  ${3:// código do loop}",
+      "}"
+    ],
+    "description": "Loop for tradicional"
+  },
+  "Loop For-Of": {
+    "prefix": "vai_indo_de",
+    "body": [
+      "vai_indo (trem ${1:item} de ${2:array}) {",
+      "  ${3:// processar item}",
+      "}"
+    ],
+    "description": "Loop for-of"
+  },
+  "Loop While": {
+    "prefix": "enquanto_tiver",
+    "body": [
+      "enquanto_tiver (${1:condicao}) {",
+      "  ${2:// código}",
+      "}"
+    ],
+    "description": "Loop while"
+  },
+  "Classe": {
+    "prefix": "arruma_trem",
+    "body": [
+      "arruma_trem ${1:NomeClasse} {",
+      "  aprepara_trem(${2:parametros}) {",
+      "    ${3:// inicialização}",
+      "  }",
+      "  ",
+      "  ${4:metodo}() {",
+      "    ${5:// código do método}",
+      "  }",
+      "}"
+    ],
+    "description": "Criar classe"
+  },
+  "Classe com Herança": {
+    "prefix": "arruma_trem_inherda_de",
+    "body": [
+      "arruma_trem ${1:NomeClasse} inherda_de ${2:ClassePai} {",
+      "  aprepara_trem(${3:parametros}) {",
+      "    super(${4:parametrosPai});",
+      "    ${5:// inicialização específica}",
+      "  }",
+      "  ",
+      "  ${6:metodo}() {",
+      "    ${7:// código do método}",
+      "  }",
+      "}"
+    ],
+    "description": "Criar classe com herança"
+  },
+  "Try-Catch": {
+    "prefix": "tenta_aí",
+    "body": [
+      "tenta_aí {",
+      "  ${1:// código que pode falhar}",
+      "} se_der_ruim (${2:erro}) {",
+      "  reclama(\"Erro:\", ${2:erro});",
+      "}"
+    ],
+    "description": "Bloco try-catch"
+  },
+  "Promise": {
+    "prefix": "promessa",
+    "body": [
+      "faz_um promessa((resolve_aí, rejeita_isso) => {",
+      "  ${1:// código da promise}",
+      "  se_ocê_quiser (${2:sucesso}) {",
+      "    resolve_aí(${3:resultado});",
+      "  } se_não {",
+      "    rejeita_isso(${4:erro});",
+      "  }",
+      "})"
+    ],
+    "description": "Criar Promise"
+  },
+  "Console Log": {
+    "prefix": "prosa",
+    "body": [
+      "prosa(${1:mensagem});"
+    ],
+    "description": "Console.log"
+  },
+  "Console Error": {
+    "prefix": "reclama",
+    "body": [
+      "reclama(${1:erro});"
+    ],
+    "description": "Console.error"
+  },
+  "Array": {
+    "prefix": "array_goiano",
+    "body": [
+      "uai ${1:nomeArray} é [",
+      "  ${2:\"item1\"},",
+      "  ${3:\"item2\"},",
+      "  ${4:\"item3\"}",
+      "];"
+    ],
+    "description": "Criar array"
+  },
+  "Objeto": {
+    "prefix": "objeto_goiano",
+    "body": [
+      "uai ${1:nomeObjeto} é {",
+      "  ${2:propriedade1}: ${3:valor1},",
+      "  ${4:propriedade2}: ${5:valor2}",
+      "};"
+    ],
+    "description": "Criar objeto"
+  },
+  "Comentário de Cabeçalho": {
+    "prefix": "cabecalho_goiano",
+    "body": [
+      "/**",
+      " * ${1:Descrição do arquivo/função}",
+      " * @author ${2:Seu Nome}",
+      " * @date ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+      " */"
+    ],
+    "description": "Comentário de cabeçalho"
+  }
+}

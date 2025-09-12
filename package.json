@@ -1,15 +1,90 @@
 {
-  "name": "goiasscript-projeto",
-  "version": "1.0.3",
-  "description": "Meu projeto em GoiásScript",
-  "main": "goiasscript.js",
+  "name": "goiasscript",
+  "version": "1.1.0",
+  "description": "Linguagem de programação baseada no dialeto goiano que compila para JavaScript",
+  "main": "src/cli/index.js",
   "bin": {
-    "goiasscript": "./goiasscript.js"
+    "goiasscript": "./src/cli/index.js"
   },
   "scripts": {
-    "start": "node goiasscript.js exemplo.gs",
-    "build": "node goiasscript.js --compiled exemplo.gs > exemplo.js"
+    "start": "node src/cli/index.js examples/basic/exemplo.gs",
+    "dev": "nodemon src/cli/index.js examples/basic/exemplo.gs",
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf dist/",
+    "compile": "node scripts/build.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src/ tests/ scripts/",
+    "lint:fix": "eslint src/ tests/ scripts/ --fix",
+    "format": "prettier --write 'src/**/*.js' 'tests/**/*.js' 'scripts/**/*.js'",
+    "format:check": "prettier --check 'src/**/*.js' 'tests/**/*.js' 'scripts/**/*.js'",
+    "prepare": "husky install",
+    "precommit": "lint-staged",
+    "release": "semantic-release",
+    "docs": "jsdoc src/ -d docs/api/",
+    "example:basic": "node src/cli/index.js examples/basic/exemplo.gs",
+    "example:classes": "node src/cli/index.js examples/classes/exemplo_classes.gs",
+    "example:async": "node src/cli/index.js examples/async/async_exemplo.gs"
   },
-  "author": "Gefferson-Souza",
-  "license": "MIT"
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "keywords": [
+    "goias",
+    "goiasscript",
+    "programming-language",
+    "transpiler",
+    "javascript",
+    "brasil",
+    "portuguese",
+    "regional",
+    "compiler"
+  ],
+  "author": {
+    "name": "Gefferson-Souza",
+    "email": "gefferson.souza@example.com",
+    "url": "https://github.com/Gefferson-Souza"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gefferson-Souza/goiasscript.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Gefferson-Souza/goiasscript/issues"
+  },
+  "homepage": "https://github.com/Gefferson-Souza/goiasscript#readme",
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "files": [
+    "src/",
+    "examples/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.22.0",
+    "@babel/preset-env": "^7.22.0",
+    "babel-jest": "^29.5.0",
+    "eslint": "^8.42.0",
+    "husky": "^8.0.3",
+    "jest": "^29.5.0",
+    "jsdoc": "^4.0.0",
+    "lint-staged": "^13.2.0",
+    "nodemon": "^2.0.22",
+    "prettier": "^2.8.8",
+    "semantic-release": "^21.0.0"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^10.0.0",
+    "fs-extra": "^11.1.0"
+  }
 }
