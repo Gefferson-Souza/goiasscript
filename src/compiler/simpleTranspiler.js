@@ -156,7 +156,7 @@ class SimpleGoiasScriptTranspiler {
         // Words with underscore or accents need special treatment
         // Include common punctuation as delimiters
         const wordRegex = new RegExp(
-          `(^|\\s|\\(|,|\\.)${this._escapeRegex(goiasWord)}(\\s|$|\\)|,|\\()`,
+          `(^|\\s|\\(|,|\\.|;)${this._escapeRegex(goiasWord)}(\\s|$|\\)|,|\\(|;|\\.)`,
           'g',
         );
         result = result.replace(wordRegex, `$1${jsWord}$2`);
