@@ -6,7 +6,7 @@ uai versao: numero é 2.0
 uai ativo: booleano é certeza
 
 // 2. Função com tipos
-presta_serviço saudar(usuario: texto) {
+faz_trem saudar(usuario: texto) {
   uai mensagem é "Olá " mais usuario mais "!"
   prosa(mensagem)
   faz_favor mensagem

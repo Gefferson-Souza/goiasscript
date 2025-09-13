@@ -2,21 +2,21 @@
 // Exemplo de módulo com funções auxiliares
 
 // Funções matemáticas básicas
-presta_serviço somar(a: numero, b: numero): numero {
+faz_trem somar(a: numero, b: numero): numero {
   faz_favor a mais b
 }
 
-presta_serviço multiplicar(a: numero, b: numero): numero {
+faz_trem multiplicar(a: numero, b: numero): numero {
   faz_favor a vezes b
 }
 
-presta_serviço calcularArea(raio: numero): numero {
+faz_trem calcularArea(raio: numero): numero {
   uai PI: numero é 3.14159
   faz_favor multiplicar(PI, multiplicar(raio, raio))
 }
 
 // Funções de string
-presta_serviço formatarNome(nome: texto): texto {
+faz_trem formatarNome(nome: texto): texto {
   uai palavras é nome.split(" ")
   uai formatado é ""
   
@@ -27,7 +27,7 @@ presta_serviço formatarNome(nome: texto): texto {
   faz_favor formatado.trim()
 }
 
-presta_serviço gerarSlug(texto: texto): texto {
+faz_trem gerarSlug(texto: texto): texto {
   faz_favor texto
     .toLowerCase()
     .replace(/[áàãâä]/g, 'a')
@@ -42,7 +42,7 @@ presta_serviço gerarSlug(texto: texto): texto {
 }
 
 // Função de validação
-presta_serviço validarEmail(email: texto): booleano {
+faz_trem validarEmail(email: texto): booleano {
   uai regex é /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   faz_favor regex.test(email)
 }

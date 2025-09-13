@@ -25,6 +25,12 @@
 	  },
 	  {
 		"include": "#classes"
+	  },
+	  {
+		"include": "#modules"
+	  },
+	  {
+		"include": "#types"
 	  }
 	],
 	"repository": {
@@ -84,7 +90,7 @@
 		"patterns": [
 		  {
 			"name": "entity.name.function.goiasscript",
-			"match": "\\b(presta_serviço)\\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\\s*\\("
+			"match": "\\b(faz_trem)\\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\\s*\\("
 		  },
 		  {
 			"name": "support.function.goiasscript",
@@ -92,7 +98,7 @@
 		  },
 		  {
 			"name": "entity.name.function.goiasscript",
-			"match": "\\b(vai_na_frente)\\s+(presta_serviço)\\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\\s*\\("
+			"match": "\\b(vai_na_frente)\\s+(faz_trem)\\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\\s*\\("
 		  }
 		]
 	  },
@@ -137,6 +143,49 @@
 		  {
 			"name": "constant.character.escape.goiasscript",
 			"match": "\\\\."
+		  }
+		]
+	  },
+	  "modules": {
+		"patterns": [
+		  {
+			"name": "keyword.control.import.goiasscript",
+			"match": "\\b(pega)\\s+"
+		  },
+		  {
+			"name": "keyword.control.export.goiasscript", 
+			"match": "\\b(troca_ideia|troca_ideia_principal)\\b"
+		  },
+		  {
+			"name": "keyword.other.import.goiasscript",
+			"match": "\\b(de|tudo_de)\\b"
+		  },
+		  {
+			"name": "string.quoted.double.module.goiasscript",
+			"begin": "(?<=\\bde\\s+)\"",
+			"end": "\"",
+			"patterns": [
+			  {
+				"name": "constant.character.escape.goiasscript",
+				"match": "\\\\."
+			  }
+			]
+		  }
+		]
+	  },
+	  "types": {
+		"patterns": [
+		  {
+			"name": "storage.type.primitive.goiasscript",
+			"match": "\\b(texto|numero|booleano|lista|objeto|funcao)\\b"
+		  },
+		  {
+			"name": "keyword.operator.type.goiasscript",
+			"match": ":"
+		  },
+		  {
+			"name": "entity.name.type.goiasscript",
+			"match": "(?<=:\\s*)\\b(texto|numero|booleano|lista|objeto|funcao)\\b"
 		  }
 		]
 	  }

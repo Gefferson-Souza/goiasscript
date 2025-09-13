@@ -57,6 +57,21 @@ screenshots/
 *.js.map
 examples/**/*.js
 !examples/**/*.gs
+
+# Arquivos temporários de desenvolvimento
+*.temp.js
+exemplo_*.gs
+teste_*.gs
+debug-report.json
+
+# Diretórios temporários
+projeto-teste/
+meu-package-*/
+
+# Package manager temporário
+gspack.json
+
+# Claude Code específico
 .claude
 .github
 CLAUDE.md

@@ -48,7 +48,7 @@ describe('Module System Integration', () => {
 
     test('deve processar exports e gerar JavaScript correto', () => {
       const codigo = `
-        presta_serviço soma(a, b) {
+        faz_trem soma(a, b) {
           faz_favor a mais b
         }
         
@@ -88,7 +88,7 @@ describe('Module System Integration', () => {
       const codigo = `
         pega Math, { PI, E } de "./constants"
         
-        presta_serviço calculateArea(radius: numero) {
+        faz_trem calculateArea(radius: numero) {
           faz_favor Math.pow(radius, 2) vezes PI
         }
         
@@ -184,7 +184,7 @@ describe('Module System Integration', () => {
         pega config de "./config"
         
         // Typed functions
-        presta_serviço processOrder(order: objeto, calc: Calculator): objeto {
+        faz_trem processOrder(order: objeto, calc: Calculator): objeto {
           uai total: numero é calc.calculate(order.items)
           uai processed: objeto é {
             id: order.id,
@@ -218,7 +218,7 @@ describe('Module System Integration', () => {
       const codigo = `
         pega { Logger } de "./logger"
         
-        presta_serviço initialize(config: objeto) {
+        faz_trem initialize(config: objeto) {
           Logger.info("Initializing application...")
           
           se (config.debug) {
@@ -283,11 +283,11 @@ describe('Module System Integration', () => {
     test('deve processar exemplo de calculadora modular', () => {
       // Simulando um módulo de calculadora
       const mathModule = `
-        presta_serviço soma(a: numero, b: numero): numero {
+        faz_trem soma(a: numero, b: numero): numero {
           faz_favor a mais b
         }
         
-        presta_serviço multiplicar(a: numero, b: numero): numero {
+        faz_trem multiplicar(a: numero, b: numero): numero {
           faz_favor a vezes b
         }
         
@@ -330,7 +330,7 @@ describe('Module System Integration', () => {
           }
         }
         
-        presta_serviço loadConfig(overrides: objeto): objeto {
+        faz_trem loadConfig(overrides: objeto): objeto {
           faz_favor { ...defaultConfig, ...overrides }
         }
         

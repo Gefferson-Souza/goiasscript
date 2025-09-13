@@ -19,7 +19,7 @@ describe('GoiasScriptCompiler', () => {
 
     test('deve compilar função simples', () => {
       const codigo = `
-        presta_serviço saudar(nome) {
+        faz_trem saudar(nome) {
           faz_favor \"Olá, \" mais nome;
         }
       `;
@@ -84,7 +84,7 @@ describe('GoiasScriptCompiler', () => {
   describe('Programação Assíncrona', () => {
     test('deve compilar função async/await', () => {
       const codigo = `
-        vai_na_frente_presta_serviço buscarDados() {
+        vai_na_frente_faz_trem buscarDados() {
           uai resultado é espera_um_cadim fetch(\"/api/dados\");
           faz_favor resultado;
         }

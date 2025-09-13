@@ -261,7 +261,6 @@ class GoiasScriptCompiler {
    */
   compileModule(filePath) {
     const fs = require('fs');
-    const path = require('path');
     
     try {
       const code = fs.readFileSync(filePath, 'utf-8');

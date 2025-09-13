@@ -165,7 +165,7 @@ describe('ModuleResolver', () => {
         pega { helper1, helper2 } de "./helpers"
         
         // Code
-        presta_serviço processData(data) {
+        faz_trem processData(data) {
           uai result é utils.process(data)
           faz_favor helper1(result)
         }
@@ -203,7 +203,7 @@ describe('ModuleResolver', () => {
         
         uai config é { debug: true }
         
-        presta_serviço init() {
+        faz_trem init() {
           prosa("Initializing...")
         }
         
@@ -213,7 +213,7 @@ describe('ModuleResolver', () => {
       const result = resolver.resolveModules(codigo, '/test/file.gs');
       
       expect(result.code).toContain('uai config é { debug: true }');
-      expect(result.code).toContain('presta_serviço init()');
+      expect(result.code).toContain('faz_trem init()');
     });
   });
 
@@ -360,7 +360,7 @@ describe('ModuleResolver', () => {
       const codigo = `
         pega utils de "./utils"
         
-        presta_serviço complexFunction() {
+        faz_trem complexFunction() {
           uai nested é {
             prop: "value"
           }
@@ -375,7 +375,7 @@ describe('ModuleResolver', () => {
 
       const result = resolver.resolveModules(codigo, '/test/file.gs');
 
-      expect(result.code).toContain('presta_serviço complexFunction()');
+      expect(result.code).toContain('faz_trem complexFunction()');
       expect(result.code).toContain('uai nested é {');
       expect(result.code).toContain('se (condition) {');
     });

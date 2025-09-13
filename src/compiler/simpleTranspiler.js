@@ -1,4 +1,5 @@
 const ErrorTranslator = require('../errors/errorTranslator');
+const GoianoBuiltins = require('../goianoMethods/GoianoBuiltins');
 
 /**
  * Transpiler simplificado do GoiásScript
@@ -7,6 +8,7 @@ const ErrorTranslator = require('../errors/errorTranslator');
 class SimpleGoiasScriptTranspiler {
   constructor(options = {}) {
     this.errorTranslator = new ErrorTranslator();
+    this.goianoBuiltins = new GoianoBuiltins();
     this.options = options;
   }
 
@@ -23,10 +25,17 @@ class SimpleGoiasScriptTranspiler {
       // Apply all substitutions
       jsCode = this._applySubstitutions(jsCode);
       
+      // Check for forbidden non-Goiano methods
+      const warnings = this._checkForbiddenMethods(jsCode);
+      
+      // Add Goiano builtin methods at the beginning
+      const goianoRuntime = this.goianoBuiltins.gerarImplementacaoGoiana();
+      jsCode = goianoRuntime + '\n\n' + jsCode;
+      
       return {
         success: true,
         code: jsCode,
-        warnings: [],
+        warnings: warnings,
       };
       
     } catch (error) {
@@ -57,10 +66,16 @@ class SimpleGoiasScriptTranspiler {
       return placeholder;
     });
 
+    // Convert forbidden JS methods to Goiano methods first
+    result = this._convertJSMethodsToGoiano(result);
+    
+    // Remove type annotations for JavaScript output
+    result = this._removeTypeAnnotations(result);
+
     // Direct mappings ordered by size (largest first)
     const mappings = [
       // Async functions first
-      ['vai_na_frente_presta_serviço', 'async function'],
+      ['vai_na_frente_faz_trem', 'async function'],
       
       // Compound operators with 'é' first
       ['é_tipo_de', 'instanceof'],
@@ -82,7 +97,7 @@ class SimpleGoiasScriptTranspiler {
       ['continua_aí', 'continue'],
       
       // Functions
-      ['presta_serviço', 'function'],
+      ['faz_trem', 'function'],
       ['faz_favor', 'return'],
       ['vai_na_frente', 'async'],
       ['espera_um_cadim', 'await'],
@@ -120,11 +135,11 @@ class SimpleGoiasScriptTranspiler {
       ['se_der_ruim', 'catch'],
       ['por_fim', 'finally'],
       
-      // Types
+      // Types (mais goianos!)
       ['certeza', 'true'],
-      ['de_jeito_nenhum', 'false'],
-      ['vazio', 'null'],
-      ['sei_lá', 'undefined'],
+      ['de_jeito_nenhum', 'false'], 
+      ['nada', 'null'],
+      ['indefinido', 'undefined'],
       
       // Other simple words
       ['ocê', 'this'],
@@ -173,6 +188,120 @@ class SimpleGoiasScriptTranspiler {
     });
 
     return result;
+  }
+
+  /**
+   * Remove type annotations from GoiásScript code for JavaScript compatibility
+   * @private
+   */
+  _removeTypeAnnotations(code) {
+    // Remove type annotations like: uai nome: texto é "value"
+    // Convert to: uai nome é "value"
+    return code.replace(/(uai|trem)\s+(\w+)\s*:\s*\w+\s+(é)/g, '$1 $2 $3');
+  }
+
+  /**
+   * Convert JavaScript methods to Goiano methods
+   * @private
+   */
+  _convertJSMethodsToGoiano(code) {
+    let result = code;
+    
+    // Convert JS methods to Goiano equivalents
+    const jsToGoiano = this.goianoBuiltins.metodosGoianos;
+    
+    // String methods
+    result = result.replace(/\.replace\s*\(/g, '.trocar(');
+    result = result.replace(/\.split\s*\(/g, '.dividir(');
+    result = result.replace(/\.join\s*\(/g, '.juntar(');
+    result = result.replace(/\.toUpperCase\s*\(\)/g, '.pra_maiusculo()');
+    result = result.replace(/\.toLowerCase\s*\(\)/g, '.pra_minusculo()');
+    result = result.replace(/\.trim\s*\(\)/g, '.aparar()');
+    result = result.replace(/\.includes\s*\(/g, '.contem(');
+    result = result.replace(/\.indexOf\s*\(/g, '.posicao_de(');
+    result = result.replace(/\.substring\s*\(/g, '.pedaco(');
+    result = result.replace(/\.slice\s*\(/g, '.fatiar(');
+    result = result.replace(/\.charAt\s*\(/g, '.letra_em(');
+    result = result.replace(/\.length\b/g, '.tamanho()');
+    result = result.replace(/\.startsWith\s*\(/g, '.comeca_com(');
+    result = result.replace(/\.endsWith\s*\(/g, '.termina_com(');
+    
+    // Array methods
+    result = result.replace(/\.map\s*\(/g, '.mapear(');
+    result = result.replace(/\.filter\s*\(/g, '.filtrar(');
+    result = result.replace(/\.reduce\s*\(/g, '.reduzir(');
+    result = result.replace(/\.forEach\s*\(/g, '.pra_cada(');
+    result = result.replace(/\.push\s*\(/g, '.empurrar(');
+    result = result.replace(/\.pop\s*\(\)/g, '.tirar_ultimo()');
+    result = result.replace(/\.shift\s*\(\)/g, '.tirar_primeiro()');
+    result = result.replace(/\.unshift\s*\(/g, '.por_primeiro(');
+    result = result.replace(/\.sort\s*\(/g, '.ordenar(');
+    result = result.replace(/\.reverse\s*\(\)/g, '.inverter()');
+    result = result.replace(/\.find\s*\(/g, '.achar(');
+    result = result.replace(/\.concat\s*\(/g, '.juntar_lista(');
+    result = result.replace(/\.splice\s*\(/g, '.emendar(');
+    
+    // Object methods
+    result = result.replace(/Object\.keys\s*\(/g, 'Object.chaves(');
+    result = result.replace(/Object\.values\s*\(/g, 'Object.valores(');
+    result = result.replace(/Object\.entries\s*\(/g, 'Object.entradas(');
+    result = result.replace(/\.hasOwnProperty\s*\(/g, '.tem_propriedade(');
+    result = result.replace(/Object\.assign\s*\(/g, 'Object.misturar(');
+    
+    // Math methods
+    result = result.replace(/Math\.random\s*\(\)/g, 'GoianoMath.sorteio()');
+    result = result.replace(/Math\.floor\s*\(/g, 'GoianoMath.arredondar_baixo(');
+    result = result.replace(/Math\.ceil\s*\(/g, 'GoianoMath.arredondar_cima(');
+    result = result.replace(/Math\.round\s*\(/g, 'GoianoMath.arredondar(');
+    result = result.replace(/Math\.max\s*\(/g, 'GoianoMath.maior(');
+    result = result.replace(/Math\.min\s*\(/g, 'GoianoMath.menor(');
+    result = result.replace(/Math\.abs\s*\(/g, 'GoianoMath.absoluto(');
+    result = result.replace(/Math\.sqrt\s*\(/g, 'GoianoMath.raiz_quadrada(');
+    result = result.replace(/Math\.pow\s*\(/g, 'GoianoMath.potencia(');
+    result = result.replace(/Math\.PI\b/g, 'GoianoMath.PI');
+    result = result.replace(/Math\.E\b/g, 'GoianoMath.E');
+    
+    // Global functions
+    result = result.replace(/parseInt\s*\(/g, 'vira_numero(');
+    result = result.replace(/parseFloat\s*\(/g, 'vira_decimal(');
+    result = result.replace(/isNaN\s*\(/g, 'eh_nao_numero(');
+    result = result.replace(/setTimeout\s*\(/g, 'depois_de(');
+    result = result.replace(/setInterval\s*\(/g, 'repetir_a_cada(');
+    result = result.replace(/clearTimeout\s*\(/g, 'cancelar_depois(');
+    result = result.replace(/clearInterval\s*\(/g, 'cancelar_repeticao(');
+    
+    // Console methods  
+    result = result.replace(/console\.log\s*\(/g, 'prosa(');
+    result = result.replace(/console\.error\s*\(/g, 'prosa_erro(');
+    result = result.replace(/console\.warn\s*\(/g, 'prosa_aviso(');
+    
+    return result;
+  }
+
+  /**
+   * Check for forbidden non-Goiano methods
+   * @private
+   */
+  _checkForbiddenMethods(code) {
+    const warnings = [];
+    const forbiddenMethods = [
+      '.replace(', '.split(', '.join(', '.toUpperCase()', '.toLowerCase()', 
+      '.map(', '.filter(', '.reduce(', '.forEach(', '.push(', '.pop()',
+      'Math.random()', 'Math.floor(', 'console.log(', 'parseInt(', 'setTimeout('
+    ];
+    
+    forbiddenMethods.forEach(method => {
+      if (code.includes(method)) {
+        const goianoEquivalent = this.goianoBuiltins.converterParaGoiano(method.replace(/[()]/g, ''));
+        warnings.push({
+          type: 'forbidden_method',
+          message: `⚠️ Método "${method}" não é goiano! Use "${goianoEquivalent}" em vez disso.`,
+          suggestion: `Substitua ${method} por .${goianoEquivalent}(`
+        });
+      }
+    });
+    
+    return warnings;
   }
 
   /**
