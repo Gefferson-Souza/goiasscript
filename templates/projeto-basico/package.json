@@ -1,0 +1,24 @@
+{
+  "name": "{{projeto_nome}}",
+  "version": "1.0.0",
+  "description": "Projeto GoiásScript - {{projeto_descricao}}",
+  "main": "src/main.gs",
+  "scripts": {
+    "dev": "goiasscript bota_pra_moer src/main.gs",
+    "build": "goiasscript traduz src/main.gs",
+    "check": "goiasscript vê_se_tá_certo src/main.gs",
+    "debug": "gs-fuça fuça src/main.gs",
+    "repl": "goias",
+    "test": "goiasscript bota_pra_moer tests/test.gs"
+  },
+  "keywords": [
+    "goiasscript",
+    "goias",
+    "programming-language"
+  ],
+  "author": "{{autor_nome}}",
+  "license": "MIT",
+  "devDependencies": {
+    "goiasscript": "^2.0.0"
+  }
+}

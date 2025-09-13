@@ -28,20 +28,20 @@ npm install -g goiasscript
 
 ## 📋 **Ferramentas Disponíveis**
 
-Após instalação, você terá acesso a 4 comandos:
+Após instalação, você terá acesso a 4 comandos goianos:
 
 ```bash
-goiasscript  # Compilador principal
-gspack       # Gerenciador de packages
-gsrepl       # Terminal interativo
-gsdebug      # Debugger nativo
+goiasscript  # Compilador principal (traduz, bota_pra_moer, vê_se_tá_certo)
+gs-balaio    # Gerenciador de balaios (pega, joga_fora, mostra_os_balaio)
+goias        # Roda de Prosa - REPL interativo goiano
+gs-fuçá      # Debugger que fuça os detalhes
 ```
 
 ## 🎯 **Início Rápido**
 
-### 1. Criar novo projeto
+### 1. Armar o barraco (criar novo projeto)
 ```bash
-goiasscript new meu-projeto
+goiasscript arma_o_barraco meu-projeto
 cd meu-projeto
 ```
 
@@ -72,9 +72,9 @@ uai numero_sorte: numero é GoianoMath.arredondar(GoianoMath.sorteio() vezes 100
 prosa("Número da sorte:", numero_sorte)
 ```
 
-### 3. Executar
+### 3. Botar pra moer (executar)
 ```bash
-goiasscript run main.gs
+goiasscript bota_pra_moer main.gs
 ```
 
 ## 🔧 **Métodos Goianos Nativos**
@@ -83,11 +83,11 @@ goiasscript run main.gs
 ```goiasscript
 uai texto é "Oi, sô!"
 
-texto.pra_maiusculo()      // "OI, SÔ!"
-texto.pra_minusculo()      // "oi, sô!"
+texto.gritando()           // "OI, SÔ!" (era pra_maiusculo)
+texto.cochichando()        // "oi, sô!" (era pra_minusculo)
 texto.dividir(", ")        // ["Oi", "sô!"]
 texto.trocar("sô", "meu")  // "Oi, meu!"
-texto.contem("Oi")         // certeza (true)
+texto.tem_no_meio("Oi")    // certeza (era contem)
 texto.tamanho()            // 7
 ```
 
@@ -98,13 +98,14 @@ uai numeros é [1, 2, 3, 4, 5]
 numeros.mapear(x => x vezes 2)        // [2, 4, 6, 8, 10]
 numeros.filtrar(x => x % 2 == 0)      // [2, 4]
 numeros.reduzir((a, b) => a mais b)   // 15
-numeros.empurrar(6)                   // Adiciona 6 no final
+numeros.bota_no_final(6)              // Adiciona 6 no final (era empurrar)
+numeros.arranca_o_rabo()              // Remove último (era tirar_ultimo)
 numeros.tamanho()                     // 6
 ```
 
 ### 🧮 **GoianoMath**
 ```goiasscript
-GoianoMath.sorteio()              // Número aleatório 0-1
+GoianoMath.sorteia_um()           // Número aleatório 0-1 (era sorteio)
 GoianoMath.arredondar(3.7)        // 4
 GoianoMath.maior(10, 25, 5)       // 25
 GoianoMath.potencia(2, 3)         // 8
@@ -141,64 +142,83 @@ prosa("Resultado:", resultado)  // "OI SÔ"
 prosa("Versão:", VERSAO)       // "2.0.0"
 ```
 
-## 🛠️ **CLI - Linha de Comando**
+## 🛠️ **CLI - Linha de Comando Goiana**
 
-### Compilação e Execução
+### Comandos Principais
 ```bash
-# Executar arquivo
-goiasscript run arquivo.gs
+# Botar o código pra moer (executar)
+goiasscript bota_pra_moer arquivo.gs
 
-# Compilar para JavaScript
-goiasscript compile arquivo.gs
+# Traduzir para JavaScript
+goiasscript traduz arquivo.gs
 
-# Verificar tipos
-goiasscript check-types arquivo.gs
+# Ver se tá certo (verificar tipos)
+goiasscript vê_se_tá_certo arquivo.gs
 
-# Criar projeto
-goiasscript new meu-projeto
+# Armar o barraco (criar projeto)
+goiasscript arma_o_barraco meu-projeto
 
-# Informações
-goiasscript info
+# Dedo de prosa (informações)
+goiasscript dedo_de_prosa
+```
+
+### Comandos de Compatibilidade
+```bash
+# Os comandos antigos ainda funcionam:
+goiasscript run arquivo.gs      # alias para bota_pra_moer
+goiasscript compile arquivo.gs   # alias para traduz
+goiasscript check-types arquivo.gs  # alias para vê_se_tá_certo
+goiasscript new meu-projeto      # alias para arma_o_barraco
+goiasscript info                 # alias para dedo_de_prosa
 ```
 
 ### Opções avançadas
 ```bash
-# Compilar com verbose
-goiasscript compile arquivo.gs --verbose
+# Traduzir com verbose
+goiasscript traduz arquivo.gs --verbose
 
-# Compilar e executar
-goiasscript compile arquivo.gs --run
+# Traduzir e executar
+goiasscript traduz arquivo.gs --run
 
 # Output customizado
-goiasscript compile arquivo.gs -o saida.js
+goiasscript traduz arquivo.gs -o saida.js
 ```
 
-## 📦 **Gerenciador de Packages (GSPack)**
+## 🧺 **Gerenciador de Balaios (GS-Balaio)**
 
-### Packages Built-in
+### Balaios Built-in
 ```bash
-# Instalar utilitários goianos
-gspack install goiano-utils
+# Pegar utilitários goianos da feira
+gs-balaio pega goiano-utils
 
-# Instalar cliente HTTP
-gspack install goiano-http
+# Pegar cliente HTTP
+gs-balaio pega goiano-http
 
-# Instalar banco de dados
-gspack install goiano-db
+# Pegar banco de dados
+gs-balaio pega goiano-db
 ```
 
-### Criar Package
+### Trabalhar com Balaios
 ```bash
-# Criar novo package
-gspack create meu-package
+# Arrumar um balaio novo
+gs-balaio arruma_um meu-balaio
 
-# Publicar package
-gspack publish
+# Levar seu balaio pra feira (publicar)
+gs-balaio leva_pra_feira
+
+# Mostrar os balaios que você tem
+gs-balaio mostra_os_balaio
+
+# Jogar fora um balaio
+gs-balaio joga_fora goiano-http
+
+# Dedo de prosa sobre balaios
+gs-balaio dedo_de_prosa
 ```
 
-### Usar Package
+### Usar Balaios
 ```goiasscript
-// Instalar: gspack install goiano-utils
+// Pegar da feira: gs-balaio pega goiano-utils
 pega { formatarCPF, validarEmail } de "goiano-utils"
 
 uai cpf: texto é formatarCPF("12345678901")
@@ -208,42 +228,49 @@ uai email_valido: booleano é validarEmail("test@goias.com")
 prosa("Email válido:", email_valido)  // certeza
 ```
 
-## 🖥️ **REPL Interativo**
+## 💬 **Roda de Prosa (REPL Interativo)**
 
 ```bash
-gsrepl
+goias  # Entra na roda de prosa
 ```
 
 ```
-🇧🇷 goiás> uai nome é "João"
-🇧🇷 goiás> nome.pra_maiusculo()
-📤 "JOÃO"
+goiás> uai nome é "João"
+goiás> nome.gritando()  // métodos goianos!
+💬 "JOÃO"
 
-🇧🇷 goiás> .help      # Comandos especiais
-🇧🇷 goiás> .vars      # Mostrar variáveis
-🇧🇷 goiás> .history   # Histórico
-🇧🇷 goiás> .exit      # Sair
+goiás> .desenrola          # Desenrola esse trem (ajuda)
+goiás> .mostra_os_trem     # Mostrar variáveis na memória
+goiás> .lembra_aí         # Lembra o que já conversamos
+goiás> .limpa_o_terreiro   # Limpar tela
+goiás> .vaza               # Vaza daqui (sair)
 ```
 
-## 🐛 **Debugger Nativo**
+## 🔍 **GS-Fuçá - Debugger Goiano**
 
 ```bash
-# Debug com breakpoint na linha 10
-gsdebug debug arquivo.gs -b 10
+# Fuçar um arquivo (debug com arapuca na linha 10)
+gs-fuçá fuça arquivo.gs --arapuca 10 --de_olho nome
 
-# Debug monitorando variável
-gsdebug debug arquivo.gs -w nome
+# Armar arapuca (breakpoint)
+gs-fuçá arma_arapuca arquivo.gs 10
 
-# Debug com configuração
-gsdebug debug arquivo.gs -c debug.json
+# Ficar de olho numa variável
+gs-fuçá de_olho nome
+
+# Listar arapucas armadas
+gs-fuçá lista_arapuca
+
+# Dá o parecer (gerar relatório)
+gs-fuçá dá_o_parecer
 ```
 
-### Comandos durante debug:
-- `continue` (c) - Continuar execução
-- `step` (s) - Próxima linha
-- `vars` (v) - Mostrar variáveis
-- `stack` - Call stack
-- `quit` (q) - Sair
+### Comandos goianos durante a fuçada:
+- `toca_o_pau` (c) - Continuar execução
+- `um_cadim` (s) - Próxima linha  
+- `mostra_os_trem` (v) - Mostrar variáveis
+- `mostra_a_ruma` - Call stack (ruma de chamadas)
+- `vaza` (q) - Vaza daqui (sair)
 
 ## 🎨 **Extensão VS Code**
 
@@ -299,18 +326,19 @@ uai lista é [1, 2, 3]      // Tipo: lista
 
 ```
 goiasscript/
-├── bin/                    # Executáveis CLI
-│   ├── goiasscript.js     # Compilador principal
-│   ├── gspack.js          # Package manager
-│   ├── gsrepl.js          # REPL interativo
-│   └── gsdebug.js         # Debugger
+├── bin/                    # Executáveis CLI Goianos
+│   ├── goiasscript.js     # Compilador principal (traduz, bota_pra_moer)
+│   ├── gs-balaio.js       # Gerenciador de balaios (pega, joga_fora)
+│   ├── goias.js           # Roda de Prosa - REPL interativo
+│   └── gs-fuçá.js         # Debugger que fuça os detalhes
 ├── src/                    # Código fonte
 │   ├── compiler/          # Transpiler e lexer
-│   ├── types/             # Sistema de tipos
+│   ├── types/             # Sistema de tipos goiano
 │   ├── modules/           # Sistema de módulos
-│   ├── packages/          # Package manager
-│   ├── debug/             # Debugger
-│   └── goianoMethods/     # Métodos nativos
+│   ├── packages/          # Gerenciador de balaios
+│   ├── debug/             # Debugger goiano
+│   ├── performance/       # JIT Compiler
+│   └── goianoMethods/     # Métodos nativos goianos
 ├── examples/              # Exemplos
 ├── tests/                 # Testes
 ├── docs/                  # Documentação

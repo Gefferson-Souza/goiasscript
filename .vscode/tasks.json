@@ -1,0 +1,150 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🇧🇷 Traduzir GoiásScript",
+      "type": "shell",
+      "command": "node",
+      "args": ["${workspaceFolder}/bin/goiasscript.js", "traduz", "${file}"],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "🚀 Botar pra Moer GoiásScript",
+      "type": "shell", 
+      "command": "node",
+      "args": ["${workspaceFolder}/bin/goiasscript.js", "bota_pra_moer", "${file}"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false, 
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "✅ Ver se Tá Certo (Types)",
+      "type": "shell",
+      "command": "node", 
+      "args": ["${workspaceFolder}/bin/goiasscript.js", "vê_se_tá_certo", "${file}"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "🔍 Fuçar com GS-Fuçá",
+      "type": "shell",
+      "command": "node",
+      "args": ["${workspaceFolder}/bin/gs-fuça.js", "fuça", "${file}"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always", 
+        "focus": true,
+        "panel": "dedicated",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "🏗️ Armar o Barraco (Novo Projeto)",
+      "type": "shell",
+      "command": "node",
+      "args": ["${workspaceFolder}/bin/goiasscript.js", "arma_o_barraco", "${input:projectName}"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared", 
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "🧺 Mostrar Balaios",
+      "type": "shell",
+      "command": "node",
+      "args": ["${workspaceFolder}/bin/gs-balaio.js", "mostra_os_balaio"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "🧪 Executar Todos os Testes",
+      "type": "shell",
+      "command": "npm",
+      "args": ["test"],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "📊 Testes com Cobertura",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "test:coverage"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "projectName",
+      "description": "Nome do projeto GoiásScript",
+      "default": "meu-projeto-goiano",
+      "type": "promptString"
+    }
+  ]
+}

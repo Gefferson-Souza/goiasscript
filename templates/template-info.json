@@ -1,0 +1,47 @@
+{
+  "templates": [
+    {
+      "nome": "projeto-basico",
+      "descricao": "Template básico para projetos GoiásScript",
+      "categoria": "basico",
+      "arquivos": [
+        "package.json",
+        "src/main.gs",
+        "tests/test.gs",
+        "README.md"
+      ],
+      "variaveis": [
+        "{{projeto_nome}}",
+        "{{projeto_descricao}}",
+        "{{autor_nome}}",
+        "{{data_criacao}}"
+      ]
+    },
+    {
+      "nome": "projeto-web",
+      "descricao": "Template para aplicações web com GoiásScript",
+      "categoria": "web",
+      "arquivos": [
+        "package.json",
+        "src/app.gs",
+        "public/index.html",
+        "public/styles.css"
+      ],
+      "variaveis": [
+        "{{projeto_nome}}",
+        "{{projeto_descricao}}",
+        "{{autor_nome}}",
+        "{{data_criacao}}"
+      ]
+    }
+  ],
+  "comandos": {
+    "criar_projeto": "goiasscript arma_o_barraco <nome-do-projeto> [--template=basico|web]",
+    "listar_templates": "goiasscript arma_o_barraco --list-templates"
+  },
+  "info": {
+    "versao": "2.0.0",
+    "autor": "Gefferson-Souza",
+    "ultima_atualizacao": "2025-09-13"
+  }
+}
