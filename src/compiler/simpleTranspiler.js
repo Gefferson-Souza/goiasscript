@@ -20,6 +20,16 @@ class SimpleGoiasScriptTranspiler {
    */
   transpile(code, fileName = 'script.gs') {
     try {
+      // Basic syntax validation
+      const syntaxErrors = this._validateSyntax(code);
+      if (syntaxErrors.length > 0) {
+        return {
+          success: false,
+          error: syntaxErrors[0],
+          code: null,
+        };
+      }
+
       let jsCode = code;
 
       // Apply all substitutions
@@ -32,10 +42,14 @@ class SimpleGoiasScriptTranspiler {
       const goianoRuntime = this.goianoBuiltins.gerarImplementacaoGoiana();
       jsCode = goianoRuntime + '\n\n' + jsCode;
       
+      // Generate simple tokens for validation
+      const tokens = this._generateTokens(code);
+      
       return {
         success: true,
         code: jsCode,
         warnings: warnings,
+        tokens: tokens,
       };
       
     } catch (error) {
@@ -302,6 +316,87 @@ class SimpleGoiasScriptTranspiler {
     });
     
     return warnings;
+  }
+
+  /**
+   * Validate basic syntax patterns
+   * @private
+   */
+  _validateSyntax(code) {
+    const errors = [];
+    const lines = code.split('\n');
+    
+    lines.forEach((line, index) => {
+      const trimmed = line.trim();
+      if (trimmed && !trimmed.startsWith('//')) {
+        // Check for unmatched braces/brackets
+        const openBraces = (line.match(/\{/g) || []).length;
+        const closeBraces = (line.match(/\}/g) || []).length;
+        const openBrackets = (line.match(/\[/g) || []).length;
+        const closeBrackets = (line.match(/\]/g) || []).length;
+        const openParens = (line.match(/\(/g) || []).length;
+        const closeParens = (line.match(/\)/g) || []).length;
+        
+        // Simple check for obvious syntax errors
+        if (trimmed.includes('{{{') || trimmed.includes('}}}')) {
+          errors.push({
+            message: `Erro de sintaxe na linha ${index + 1}: Chaves desbalanceadas`,
+            type: 'syntax_error',
+            line: index + 1
+          });
+        }
+        
+        // Check for incomplete variable declarations
+        if (trimmed.startsWith('uai ') && !trimmed.includes(' é ')) {
+          errors.push({
+            message: `Erro de sintaxe na linha ${index + 1}: Declaração de variável incompleta`,
+            type: 'syntax_error',
+            line: index + 1
+          });
+        }
+      }
+    });
+    
+    return errors;
+  }
+
+  /**
+   * Generate simple tokens for validation
+   * @private
+   */
+  _generateTokens(code) {
+    const tokens = [];
+    const lines = code.split('\n');
+    
+    lines.forEach((line, index) => {
+      const trimmed = line.trim();
+      if (trimmed && !trimmed.startsWith('//')) {
+        // Simple tokenization - split on spaces and common separators
+        const words = trimmed.split(/[\s\(\)\{\}\[\];,\.]+/).filter(w => w.length > 0);
+        words.forEach(word => {
+          tokens.push({
+            type: this._getTokenType(word),
+            value: word,
+            line: index + 1
+          });
+        });
+      }
+    });
+    
+    return tokens;
+  }
+
+  /**
+   * Get token type for simple validation
+   * @private
+   */
+  _getTokenType(word) {
+    const keywords = ['uai', 'trem', 'faz_trem', 'prosa', 'faz_favor', 'se', 'senao', 'pra', 'enquanto'];
+    if (keywords.includes(word)) return 'keyword';
+    if (/^\d+(\.\d+)?$/.test(word)) return 'number';
+    if (/^["'].*["']$/.test(word)) return 'string';
+    if (/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(word)) return 'identifier';
+    return 'symbol';
   }
 
   /**

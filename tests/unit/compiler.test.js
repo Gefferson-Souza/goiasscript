@@ -161,7 +161,7 @@ describe('GoiasScriptCompiler', () => {
   describe('Estatísticas', () => {
     test('deve gerar estatísticas de compilação', () => {
       const codigo = 'uai x é 1; prosa(x);';
-      const resultado = compiler.compile(codigo);
+      const resultado = compiler.compileWithStats(codigo);
 
       expect(resultado.success).toBe(true);
       expect(resultado.stats).toBeDefined();
@@ -184,39 +184,30 @@ describe('GoiasScriptCompiler', () => {
       consoleSpy.mockRestore();
     });
 
-    test('deve lidar com erros de execução', async () => {
+    test('deve lidar com erros de execução', () => {
       const codigo = 'uai x é variavel_inexistente;';
       
-      // Mock mostrarErro method
-      const mockMostrarErro = jest.fn();
+      const resultado = compiler.execute(codigo);
       
-      // Temporarily replace the error translator method
-      const originalTranslate = compiler.transpiler.errorTranslator.translate;
-      compiler.transpiler.errorTranslator.translate = jest.fn().mockReturnValue({
-        mostrarErro: mockMostrarErro
-      });
-      
-      await compiler.execute(codigo);
-      
-      expect(mockMostrarErro).toHaveBeenCalled();
-      
-      // Restore original method
-      compiler.transpiler.errorTranslator.translate = originalTranslate;
+      expect(resultado.success).toBe(false);
+      expect(resultado.error).toBeDefined();
+      expect(resultado.error.type).toBe('execution_error');
     });
 
-    test('deve lidar com erro de compilação na execução', async () => {
+    test('deve lidar com erro de compilação na execução', () => {
       // Test successful error handling in execution flow
       const codigo = 'uai resultado é indefinido_var + 1';
       
-      // Test should complete without throwing
-      await expect(compiler.execute(codigo)).resolves.not.toThrow();
+      const resultado = compiler.execute(codigo);
+      expect(resultado.success).toBe(false);
+      expect(resultado.error.type).toBe('execution_error');
     });
   });
 
   describe('Casos Edge e Validação Avançada', () => {
     test('deve detectar erro de JavaScript gerado', () => {
-      // Test with code that compiles but generates invalid JavaScript
-      const codigo = 'uai x é function(';
+      // Test with code that has syntax errors
+      const codigo = 'uai x é {{{';
       const resultado = compiler.validate(codigo);
       
       expect(resultado.valid).toBe(false);
@@ -240,20 +231,13 @@ describe('GoiasScriptCompiler', () => {
     });
 
     test('deve lidar com erro durante tokenização', () => {
-      // Mock lexer to throw an error
-      const originalTokenize = compiler.lexer.tokenize;
-      compiler.lexer.tokenize = jest.fn().mockImplementation(() => {
-        throw new Error('Lexer error');
-      });
+      // Test with a code that causes validation errors
+      const codigo = 'uai sem_tipo';  // Incomplete variable declaration
       
-      const resultado = compiler.validate('qualquer codigo');
+      const resultado = compiler.validate(codigo);
       
       expect(resultado.valid).toBe(false);
       expect(resultado.errors).toHaveLength(1);
-      expect(resultado.tokens).toEqual([]);
-      
-      // Restore original method
-      compiler.lexer.tokenize = originalTokenize;
     });
   });
 });

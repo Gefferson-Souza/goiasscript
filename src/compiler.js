@@ -2,6 +2,7 @@ const SimpleTranspiler = require('./compiler/simpleTranspiler');
 const TypeAnalyzer = require('./types/TypeAnalyzer');
 const ModuleResolver = require('./modules/ModuleResolver');
 const GoianoBuiltins = require('./goianoMethods/GoianoBuiltins');
+const GoianoJITCompiler = require('./performance/JITCompiler');
 
 /**
  * Main GoiásScript Compiler
@@ -13,10 +14,12 @@ class GoiasScriptCompiler {
     this.typeAnalyzer = new TypeAnalyzer();
     this.moduleResolver = new ModuleResolver();
     this.goianoBuiltins = new GoianoBuiltins();
+    this.jitCompiler = new GoianoJITCompiler();
     this.options = {
       enableTypeChecking: true,
       enableModuleResolution: true,
       enableGoianoMethods: true,
+      enableJIT: true,
       ...options
     };
   }
@@ -57,7 +60,7 @@ class GoiasScriptCompiler {
         const typeResult = this.typeAnalyzer.analyze(processedCode, fileName);
         result.typeInfo = {
           typeCount: typeResult.typeCount,
-          symbols: typeResult.symbols,
+          symbols: typeResult.symbolTable,
           hasTypeErrors: typeResult.hasTypeErrors
         };
         result.warnings.push(...(typeResult.warnings || []));
@@ -74,8 +77,22 @@ class GoiasScriptCompiler {
 
       result.javascript = transpileResult.code;
       result.warnings.push(...(transpileResult.warnings || []));
+      
+      // 4. JIT Optimization (if enabled)
+      if (this.options.enableJIT) {
+        const identifier = this._generateIdentifier(fileName, code);
+        
+        if (this.jitCompiler.shouldApplyJIT(result.javascript, identifier)) {
+          result.javascript = this.jitCompiler.compile(result.javascript, identifier);
+          result.jitOptimized = true;
+          result.warnings.push({
+            type: 'jit_optimization',
+            message: `🔥 Código otimizado via JIT para "${identifier}"`
+          });
+        }
+      }
+      
       result.success = true;
-
       return result;
 
     } catch (error) {
@@ -138,6 +155,180 @@ class GoiasScriptCompiler {
    */
   isForbiddenMethod(method) {
     return this.goianoBuiltins.ehMetodoProibido(method);
+  }
+
+  /**
+   * Validate GoiásScript code syntax
+   * @param {string} code - GoiásScript source code
+   * @param {string} fileName - Source file name
+   * @returns {Object} Validation result
+   */
+  validate(code, fileName = 'script.gs') {
+    try {
+      // Use transpiler to validate syntax
+      const transpileResult = this.transpiler.transpile(code, fileName);
+      
+      return {
+        valid: transpileResult.success,
+        errors: transpileResult.success ? [] : [transpileResult.error],
+        tokens: transpileResult.tokens || [],
+        warnings: transpileResult.warnings || []
+      };
+    } catch (error) {
+      return {
+        valid: false,
+        errors: [{ message: error.message, type: 'validation_error' }],
+        tokens: [],
+        warnings: []
+      };
+    }
+  }
+
+  /**
+   * Transpile code without execution
+   * @param {string} code - GoiásScript source code
+   * @param {string} fileName - Source file name
+   * @returns {Object} Transpilation result
+   */
+  transpile(code, fileName = 'script.gs') {
+    return this.compile(code, fileName);
+  }
+
+  /**
+   * Get compilation statistics
+   * @param {string} code - GoiásScript source code
+   * @param {string} fileName - Source file name
+   * @returns {Object} Compilation statistics
+   */
+  getCompilationStats(code, fileName = 'script.gs') {
+    const result = this.compile(code, fileName);
+    
+    return {
+      success: result.success,
+      linesOfCode: code.split('\n').length,
+      typeCount: result.typeInfo ? result.typeInfo.typeCount : 0,
+      moduleCount: result.moduleInfo ? result.moduleInfo.dependencies.length : 0,
+      warningCount: result.warnings.length,
+      errorCount: result.errors.length,
+      hasModules: result.moduleInfo ? result.moduleInfo.hasModules : false,
+      hasTypes: result.typeInfo ? result.typeInfo.typeCount > 0 : false
+    };
+  }
+
+  /**
+   * Execute compiled GoiásScript code
+   * @param {string} code - GoiásScript source code
+   * @param {string} fileName - Source file name
+   * @returns {Object} Execution result
+   */
+  execute(code, fileName = 'script.gs') {
+    try {
+      const compileResult = this.compile(code, fileName);
+      
+      if (!compileResult.success) {
+        return {
+          success: false,
+          error: compileResult.errors[0] || { message: 'Compilation failed' },
+          output: null
+        };
+      }
+
+      // Execute compiled JavaScript
+      const result = eval(compileResult.javascript);
+      
+      return {
+        success: true,
+        output: result,
+        error: null
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: { message: error.message, type: 'execution_error' },
+        output: null
+      };
+    }
+  }
+
+  /**
+   * Transpile only (alias for transpile method)
+   * @param {string} code - GoiásScript source code
+   * @param {string} fileName - Source file name
+   * @returns {string} JavaScript code
+   */
+  transpileOnly(code, fileName = 'script.gs') {
+    const result = this.compile(code, fileName);
+    return result.success ? result.javascript : null;
+  }
+
+  /**
+   * Generate unique identifier for JIT caching
+   * @private
+   */
+  _generateIdentifier(fileName, code) {
+    const hash = code.split('').reduce((hash, char) => {
+      return ((hash << 5) - hash + char.charCodeAt(0)) & 0xffffffff;
+    }, 0);
+    
+    return `${fileName.replace(/[^\w]/g, '_')}_${Math.abs(hash)}`;
+  }
+
+  /**
+   * Get JIT performance report
+   */
+  getJITReport() {
+    return this.jitCompiler ? this.jitCompiler.generatePerformanceReport() : null;
+  }
+
+  /**
+   * Clear JIT cache
+   */
+  clearJITCache() {
+    if (this.jitCompiler) {
+      this.jitCompiler.clearCache();
+    }
+  }
+
+  /**
+   * Configure JIT optimizations
+   */
+  configureJIT(options) {
+    if (this.jitCompiler) {
+      if (options.optimizations) {
+        this.jitCompiler.setOptimizations(options.optimizations);
+      }
+      if (options.threshold) {
+        this.jitCompiler.setThreshold(options.threshold);
+      }
+    }
+  }
+
+  /**
+   * Get JIT hot spots
+   */
+  getJITHotSpots() {
+    return this.jitCompiler ? this.jitCompiler.getHotSpots() : [];
+  }
+
+  /**
+   * Compile with additional statistics
+   * @param {string} code - GoiásScript source code
+   * @param {string} fileName - Source file name
+   * @returns {Object} Compilation result with stats
+   */
+  compileWithStats(code, fileName = 'script.gs') {
+    const result = this.compile(code, fileName);
+    
+    if (result.success) {
+      result.stats = {
+        originalSize: code.length,
+        compiledSize: result.javascript.length,
+        originalLines: code.split('\n').length,
+        compiledLines: result.javascript.split('\n').length
+      };
+    }
+    
+    return result;
   }
 }
 

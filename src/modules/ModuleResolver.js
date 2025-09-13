@@ -15,6 +15,9 @@ class ModuleResolver {
     // Module registry for dependency tracking
     this.moduleRegistry = new Map();
     
+    // Warnings collection
+    this.warnings = [];
+    
     // Export patterns for GoiásScript
     this.exportPatterns = {
       // troca_ideia nomeFuncao ou troca_ideia { nome1, nome2 }
@@ -53,6 +56,9 @@ class ModuleResolver {
     const imports = [];
     const exports = [];
     const dependencies = [];
+    
+    // Clear warnings for new resolution
+    this.warnings = [];
 
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i].trim();
@@ -67,6 +73,17 @@ class ModuleResolver {
       if (importResult) {
         imports.push(importResult);
         dependencies.push(importResult.modulePath);
+        
+        // Check if module exists and add warning if not
+        if (!this.moduleExists(importResult.modulePath)) {
+          this.warnings.push({
+            type: 'module_not_found',
+            message: `Ô rapaz! O módulo "${importResult.originalPath}" não foi encontrado!`,
+            line: i + 1,
+            file: filePath
+          });
+        }
+        
         processedLines.push(importResult.jsCode);
         continue;
       }
@@ -97,6 +114,7 @@ class ModuleResolver {
       exports,
       dependencies,
       hasModules: imports.length > 0 || exports.length > 0,
+      warnings: this.warnings,
     };
   }
 
@@ -270,6 +288,14 @@ class ModuleResolver {
   getDependencies(filePath) {
     const moduleInfo = this.moduleRegistry.get(filePath);
     return moduleInfo ? moduleInfo.dependencies : [];
+  }
+
+  /**
+   * Gets warnings from module resolution
+   * @returns {Array} List of warnings
+   */
+  getWarnings() {
+    return this.warnings;
   }
 
   /**

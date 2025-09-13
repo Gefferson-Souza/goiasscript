@@ -18,10 +18,10 @@ describe('TypeAnalyzer', () => {
 
       const result = analyzer.analyze(codigo);
 
-      expect(result.symbolTable.nome.type).toBe('STRING');
-      expect(result.symbolTable.idade.type).toBe('NUMBER');
-      expect(result.symbolTable.ativo.type).toBe('BOOLEAN');
-      expect(result.symbolTable.vazio.type).toBe('NULL');
+      expect(result.symbolTable.nome.type).toBe('TEXTO');
+      expect(result.symbolTable.idade.type).toBe('NUMERO');
+      expect(result.symbolTable.ativo.type).toBe('BOOLEANO');
+      expect(result.symbolTable.vazio.type).toBe('NADA');
     });
 
     test('deve inferir tipos de arrays e objects', () => {
@@ -32,8 +32,8 @@ describe('TypeAnalyzer', () => {
 
       const result = analyzer.analyze(codigo);
 
-      expect(result.symbolTable.lista.type).toBe('ARRAY');
-      expect(result.symbolTable.pessoa.type).toBe('OBJECT');
+      expect(result.symbolTable.lista.type).toBe('LISTA');
+      expect(result.symbolTable.pessoa.type).toBe('COISA');
     });
 
     test('deve inferir tipos de números decimais', () => {
@@ -44,8 +44,8 @@ describe('TypeAnalyzer', () => {
 
       const result = analyzer.analyze(codigo);
 
-      expect(result.symbolTable.preco.type).toBe('NUMBER');
-      expect(result.symbolTable.desconto.type).toBe('NUMBER');
+      expect(result.symbolTable.preco.type).toBe('NUMERO');
+      expect(result.symbolTable.desconto.type).toBe('NUMERO');
     });
   });
 
@@ -80,7 +80,7 @@ describe('TypeAnalyzer', () => {
 
       expect(result.symbolTable.calcular.parameters).toHaveLength(2);
       expect(result.symbolTable.calcular.parameters[0].name).toBe('a');
-      expect(result.symbolTable.calcular.parameters[0].type).toBe('NUMBER');
+      expect(result.symbolTable.calcular.parameters[0].type).toBe('NUMERO');
     });
   });
 
@@ -161,8 +161,8 @@ describe('TypeAnalyzer', () => {
 
       const result = analyzer.analyze(codigo);
 
-      expect(result.symbolTable.soma.type).toBe('NUMBER');
-      expect(result.symbolTable.produto.type).toBe('NUMBER');
+      expect(result.symbolTable.soma.type).toBe('NUMERO');
+      expect(result.symbolTable.produto.type).toBe('NUMERO');
     });
 
     test('deve inferir concatenação de strings', () => {
@@ -174,7 +174,7 @@ describe('TypeAnalyzer', () => {
 
       const result = analyzer.analyze(codigo);
 
-      expect(result.symbolTable.nomeCompleto.type).toBe('STRING');
+      expect(result.symbolTable.nomeCompleto.type).toBe('TEXTO');
     });
   });
 
@@ -185,7 +185,7 @@ describe('TypeAnalyzer', () => {
 
       const varInfo = analyzer.getVariableType('teste');
       expect(varInfo).toBeDefined();
-      expect(varInfo.type).toBe('NUMBER');
+      expect(varInfo.type).toBe('NUMERO');
       expect(varInfo.declarationType).toBe('const');
     });
 
@@ -195,10 +195,10 @@ describe('TypeAnalyzer', () => {
     });
 
     test('deve validar compatibilidade de tipos', () => {
-      expect(analyzer.isTypeCompatible('NUMBER', 'NUMBER')).toBe(true);
-      expect(analyzer.isTypeCompatible('STRING', 'NUMBER')).toBe(true);
-      expect(analyzer.isTypeCompatible('NUMBER', 'BOOLEAN')).toBe(false);
-      expect(analyzer.isTypeCompatible('UNKNOWN', 'STRING')).toBe(true);
+      expect(analyzer.isTypeCompatible('NUMERO', 'NUMERO')).toBe(true);
+      expect(analyzer.isTypeCompatible('TEXTO', 'NUMERO')).toBe(false);
+      expect(analyzer.isTypeCompatible('NUMERO', 'BOOLEANO')).toBe(false);
+      expect(analyzer.isTypeCompatible('UNKNOWN', 'TEXTO')).toBe(true);
     });
   });
 
@@ -215,8 +215,8 @@ describe('TypeAnalyzer', () => {
       const result = analyzer.analyze(codigo);
 
       expect(result.typeCount).toBe(2);
-      expect(result.symbolTable.x.type).toBe('NUMBER');
-      expect(result.symbolTable.y.type).toBe('STRING');
+      expect(result.symbolTable.x.type).toBe('NUMERO');
+      expect(result.symbolTable.y.type).toBe('TEXTO');
     });
   });
 
@@ -239,11 +239,11 @@ describe('TypeAnalyzer', () => {
       const result = analyzer.analyze(codigo);
 
       expect(result.typeCount).toBe(5);
-      expect(result.symbolTable.nome.type).toBe('STRING');
-      expect(result.symbolTable.versao.type).toBe('NUMBER');
-      expect(result.symbolTable.recursos.type).toBe('ARRAY');
+      expect(result.symbolTable.nome.type).toBe('TEXTO');
+      expect(result.symbolTable.versao.type).toBe('NUMERO');
+      expect(result.symbolTable.recursos.type).toBe('LISTA');
       expect(result.symbolTable.inicializar.type).toBe('FUNCTION');
-      expect(result.symbolTable.contador.type).toBe('NUMBER');
+      expect(result.symbolTable.contador.type).toBe('NUMERO');
       expect(result.symbolTable.contador.declarationType).toBe('var');
     });
 

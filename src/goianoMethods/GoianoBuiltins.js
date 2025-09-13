@@ -371,6 +371,61 @@ globalThis.cancelar_repeticao = cancelar_repeticao;
   listarTiposGoianos() {
     return Object.values(this.tiposGoianos);
   }
+
+  // Obter equivalente goiano para método JS
+  obterEquivalenteGoiano(metodoJs) {
+    return this.metodosGoianos[metodoJs] || null;
+  }
+
+  // Detectar métodos proibidos em código
+  detectarMetodosProibidos(codigo) {
+    const metodosEncontrados = [];
+    this.metodosProibidos.forEach(metodo => {
+      const regex = new RegExp(`\\.${metodo}\\s*\\(`, 'g');
+      if (regex.test(codigo)) {
+        metodosEncontrados.push(metodo);
+      }
+    });
+    return metodosEncontrados;
+  }
+
+  // Obter documentação de método goiano
+  obterDocumentacaoMetodo(metodo) {
+    const docs = {
+      'trocar': 'Substitui todas as ocorrências de uma substring por outra',
+      'mapear': 'Cria um novo array com os resultados da chamada de uma função para cada elemento',
+      'filtrar': 'Cria um novo array com todos os elementos que passaram no teste',
+      'reduzir': 'Executa uma função redutora em cada elemento do array',
+      'empurrar': 'Adiciona um ou mais elementos ao final de um array'
+    };
+    return docs[metodo] || `Documentação não disponível para ${metodo}`;
+  }
+
+  // Obter exemplo de uso de método
+  obterExemploUso(metodo) {
+    const exemplos = {
+      'trocar': 'texto.trocar("a", "e")',
+      'mapear': 'lista.mapear(x => x * 2)',
+      'filtrar': 'lista.filtrar(x => x > 10)',
+      'reduzir': 'lista.reduzir((a, b) => a + b)',
+      'empurrar': 'lista.empurrar(novoElemento)'
+    };
+    return exemplos[metodo] || `Exemplo não disponível para ${metodo}`;
+  }
+
+  // Verificar se método é otimizado
+  ehMetodoOtimizado(metodo) {
+    const metodosOtimizados = ['mapear', 'filtrar', 'reduzir', 'trocar'];
+    return metodosOtimizados.includes(metodo);
+  }
+
+  // Obter versão otimizada de método
+  obterVersaoOtimizada(metodo) {
+    if (!this.ehMetodoOtimizado(metodo)) {
+      return null;
+    }
+    return `// Versão otimizada de ${metodo} com melhor performance\n// Utiliza algoritmos nativos quando possível`;
+  }
 }
 
 module.exports = GoianoBuiltins;
