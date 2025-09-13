@@ -4,12 +4,7 @@
   "description": "Projeto GoiásScript - {{projeto_descricao}}",
   "main": "src/main.gs",
   "scripts": {
-    "dev": "goiasscript bota_pra_moer src/main.gs",
-    "build": "goiasscript traduz src/main.gs",
-    "check": "goiasscript vê_se_tá_certo src/main.gs",
-    "debug": "gs-fuça fuça src/main.gs",
-    "repl": "goias",
-    "test": "goiasscript bota_pra_moer tests/test.gs"
+    "install-goiasscript": "npm install -g goiasscript"
   },
   "keywords": [
     "goiasscript",
