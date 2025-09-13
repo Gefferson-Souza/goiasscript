@@ -5,9 +5,13 @@
   "main": "src/compiler.js",
   "bin": {
     "goiasscript": "./bin/goiasscript.js",
+    "gs-balaio": "./bin/gs-balaio.js",
+    "goias": "./bin/goias.js",
+    "gs-fuça": "./bin/gs-fuça.js",
     "gspack": "./bin/gspack.js",
     "gsrepl": "./bin/gsrepl.js",
-    "gsdebug": "./bin/gsdebug.js"
+    "gsdebug": "./bin/gsdebug.js",
+    "gs-debug-adapter": "./bin/gs-debug-adapter.js"
   },
   "scripts": {
     "start": "node src/cli/index.js examples/basic/exemplo.gs",
@@ -88,6 +92,7 @@
   "dependencies": {
     "chalk": "^4.1.2",
     "commander": "^10.0.1",
-    "fs-extra": "^11.1.0"
+    "fs-extra": "^11.1.0",
+    "vscode-debugadapter": "^1.51.0"
   }
 }

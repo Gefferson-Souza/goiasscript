@@ -58,13 +58,28 @@ describe('CLI Functions', () => {
   });
 
   describe('Command Line Arguments', () => {
-    test('deve processar argumentos básicos', () => {
-      process.argv = ['node', 'cli.js', 'run', 'test.gs'];
+    test('deve processar argumentos básicos - comandos goianos', () => {
+      process.argv = ['node', 'cli.js', 'bota_pra_moer', 'test.gs'];
       
       const args = process.argv.slice(2);
-      expect(args).toEqual(['run', 'test.gs']);
-      expect(args[0]).toBe('run');
+      expect(args).toEqual(['bota_pra_moer', 'test.gs']);
+      expect(args[0]).toBe('bota_pra_moer');
       expect(args[1]).toBe('test.gs');
+    });
+
+    test('deve processar comando traduz', () => {
+      process.argv = ['node', 'cli.js', 'traduz', 'test.gs'];
+      
+      const args = process.argv.slice(2);
+      expect(args[0]).toBe('traduz');
+      expect(args[1]).toBe('test.gs');
+    });
+
+    test('deve processar comando vê_se_tá_certo', () => {
+      process.argv = ['node', 'cli.js', 'vê_se_tá_certo', 'test.gs'];
+      
+      const args = process.argv.slice(2);
+      expect(args[0]).toBe('vê_se_tá_certo');
     });
 
     test('deve identificar comando help', () => {

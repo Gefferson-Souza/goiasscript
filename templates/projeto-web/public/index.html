@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{projeto_nome}}</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🇧🇷 {{projeto_nome}}</h1>
+            <p class="subtitle">Aplicação Web feita com GoiásScript v2.0</p>
+        </header>
+        
+        <main>
+            <section class="welcome">
+                <h2>Bem-vindo, sô!</h2>
+                <p>Esta aplicação foi criada usando GoiásScript, a linguagem de programação goiana.</p>
+            </section>
+            
+            <section class="demo">
+                <h3>Demonstração</h3>
+                <div id="output">
+                    <!-- Saída do GoiásScript aparecerá aqui -->
+                </div>
+                
+                <div class="actions">
+                    <button onclick="executarDemo()">Executar Demo</button>
+                    <button onclick="limparSaida()">Limpar</button>
+                </div>
+            </section>
+            
+            <section class="info">
+                <h3>Sobre o GoiásScript</h3>
+                <ul>
+                    <li>✅ Sintaxe em português goiano</li>
+                    <li>✅ Sistema de tipos avançado</li>
+                    <li>✅ Compilador JIT integrado</li>
+                    <li>✅ Módulos e packages (balaios)</li>
+                    <li>✅ Debug integrado com VSCode</li>
+                </ul>
+            </section>
+        </main>
+        
+        <footer>
+            <p>Criado com ❤️ em Goiás</p>
+            <p><a href="https://github.com/Gefferson-Souza/goiasscript">GoiásScript no GitHub</a></p>
+        </footer>
+    </div>
+    
+    <!-- Scripts GoiásScript compilados -->
+    <script src="app.js"></script>
+</body>
+</html>

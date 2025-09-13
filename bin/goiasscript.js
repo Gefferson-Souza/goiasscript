@@ -22,13 +22,13 @@ class GoiasScriptCLI {
     this.compiler = new GoiasScriptCompiler();
   }
 
-  // Comando: compile
-  async compile(filePath, options) {
+  // Comando: traduz (compile)
+  async traduz(filePath, options) {
     try {
-      console.log('🔧 Compilando arquivo GoiásScript...\n');
+      console.log('🔧 Traduzindo arquivo GoiásScript...\n');
       
       if (!fs.existsSync(filePath)) {
-        console.error(`❌ Erro: Arquivo '${filePath}' não encontrado!`);
+        console.error(`❌ Ô rapaz! Arquivo '${filePath}' não foi achado não!`);
         process.exit(1);
       }
 
@@ -36,9 +36,9 @@ class GoiasScriptCLI {
       const result = this.compiler.compile(code, filePath);
 
       if (!result.success) {
-        console.error('❌ Falha na compilação!\n');
+        console.error('❌ Ô rapaz! Deu ruim na tradução!\n');
         if (result.errors && result.errors.length > 0) {
-          console.error('🚨 Erros:');
+          console.error('🚨 Erros encontrados:');
           result.errors.forEach(error => console.error(`  • ${error.message}`));
         }
         process.exit(1);
@@ -74,7 +74,7 @@ class GoiasScriptCLI {
       const outputPath = options.output || filePath.replace('.gs', '.js');
       fs.writeFileSync(outputPath, result.javascript, 'utf8');
 
-      console.log(`✅ Compilação concluída com sucesso!`);
+      console.log(`✅ Tradução concluída com sucesso!`);
       console.log(`📄 Arquivo gerado: ${outputPath}`);
 
       if (options.run) {
@@ -84,35 +84,38 @@ class GoiasScriptCLI {
           // Executar JavaScript gerado
           eval(result.javascript);
         } catch (execError) {
-          console.error(`\n❌ Erro na execução: ${execError.message}`);
+          console.error(`\n❌ Ô rapaz! Deu ruim na execução: ${execError.message}`);
         }
         console.log('='.repeat(50));
       }
 
     } catch (error) {
-      console.error(`❌ Erro inesperado: ${error.message}`);
+      console.error(`❌ Ô rapaz! Deu ruim aqui: ${error.message}`);
       process.exit(1);
     }
   }
 
-  // Comando: run
-  async run(filePath) {
-    await this.compile(filePath, { run: true, output: filePath.replace('.gs', '.temp.js') });
+  // Comando: bota_pra_moer (run)
+  async bota_pra_moer(filePath) {
+    console.log('🚀 Botando o código pra moer...\n');
+    console.log('='.repeat(50));
+    await this.traduz(filePath, { run: true, output: filePath.replace('.gs', '.temp.js') });
     
     // Limpar arquivo temporário
     const tempFile = filePath.replace('.gs', '.temp.js');
     if (fs.existsSync(tempFile)) {
       fs.unlinkSync(tempFile);
     }
+    console.log('='.repeat(50));
   }
 
-  // Comando: check-types
-  async checkTypes(filePath) {
+  // Comando: vê_se_tá_certo (check-types)
+  async vê_se_tá_certo(filePath) {
     try {
-      console.log('🔍 Verificando tipos GoiásScript...\n');
+      console.log('🔍 Vendo se o trem tá certo...\n');
       
       if (!fs.existsSync(filePath)) {
-        console.error(`❌ Erro: Arquivo '${filePath}' não encontrado!`);
+        console.error(`❌ Ô rapaz! Arquivo '${filePath}' não foi achado não!`);
         process.exit(1);
       }
 
@@ -147,26 +150,26 @@ class GoiasScriptCLI {
         result.errors.forEach(error => console.error(`  • ${error.message}`));
         process.exit(1);
       } else {
-        console.log('\n✅ Verificação de tipos concluída - nenhum problema encontrado!');
+        console.log('\n✅ Tá tudo certo, sô! Nenhum problema encontrado!');
       }
 
     } catch (error) {
-      console.error(`❌ Erro inesperado: ${error.message}`);
+      console.error(`❌ Ô rapaz! Deu ruim aqui: ${error.message}`);
       process.exit(1);
     }
   }
 
-  // Comando: new
-  async newProject(projectName) {
+  // Comando: arma_o_barraco (new)
+  async arma_o_barraco(projectName) {
     const projectPath = path.join(process.cwd(), projectName);
     
     try {
       if (fs.existsSync(projectPath)) {
-        console.error(`❌ Projeto '${projectName}' já existe!`);
+        console.error(`❌ Ô rapaz! Já tem um projeto '${projectName}' aqui!`);
         process.exit(1);
       }
 
-      console.log(`🚀 Criando novo projeto GoiásScript: ${projectName}\n`);
+      console.log(`🚀 Armando o barraco do projeto: ${projectName}\n`);
 
       // Criar estrutura do projeto
       fs.mkdirSync(projectPath);
@@ -211,9 +214,9 @@ principal()
         description: `Projeto GoiásScript: ${projectName}`,
         main: "src/main.gs",
         scripts: {
-          "start": "goiasscript run src/main.gs",
-          "build": "goiasscript compile src/main.gs",
-          "check": "goiasscript check-types src/main.gs"
+          "start": "goiasscript bota_pra_moer src/main.gs",
+          "build": "goiasscript traduz src/main.gs",
+          "check": "goiasscript vê_se_tá_certo src/main.gs"
         },
         keywords: ["goiasscript", "goias", "brasileiro"],
         author: "Desenvolvedor Goiano",
@@ -239,10 +242,10 @@ Projeto GoiásScript v2.0 com métodos 100% goianos!
 # Executar projeto
 npm start
 
-# Compilar para JavaScript
+# Traduzir para JavaScript  
 npm run build
 
-# Verificar tipos
+# Verificar se tá tudo certo
 npm run check
 \`\`\`
 
@@ -281,14 +284,14 @@ GoianoMath.sorteio()     // vs Math.random()
 
       fs.writeFileSync(path.join(projectPath, 'README.md'), readme);
 
-      console.log(`✅ Projeto '${projectName}' criado com sucesso!`);
+      console.log(`✅ Barraco armado com sucesso!`);
       console.log(`📁 Local: ${projectPath}`);
       console.log(`\n🎯 Próximos passos:`);
       console.log(`   cd ${projectName}`);
-      console.log(`   goiasscript run src/main.gs`);
+      console.log(`   goiasscript bota_pra_moer src/main.gs`);
 
     } catch (error) {
-      console.error(`❌ Erro ao criar projeto: ${error.message}`);
+      console.error(`❌ Ô rapaz! Deu ruim ao armar o barraco: ${error.message}`);
       process.exit(1);
     }
   }
@@ -307,8 +310,8 @@ GoianoMath.sorteio()     // vs Math.random()
     return icons[type] || '❓';
   }
 
-  // Comando: version
-  version() {
+  // Comando: dedo_de_prosa (info)
+  dedo_de_prosa() {
     console.log(logo);
     console.log('Versão: 2.0.0');
     console.log('Métodos: 100% Goianos');
@@ -325,51 +328,98 @@ program
   .description('🇧🇷 CLI do GoiásScript - Linguagem de Programação Goiana v2.0')
   .version('2.0.0');
 
-// Comando: compile
+// Comando: traduz (compile)
 program
-  .command('compile')
-  .description('Compila arquivo GoiásScript para JavaScript')
-  .argument('<file>', 'Arquivo .gs para compilar')
+  .command('traduz')
+  .description('Traduz arquivo GoiásScript para JavaScript')
+  .argument('<file>', 'Arquivo .gs para traduzir')
   .option('-o, --output <file>', 'Arquivo de saída')
   .option('-v, --verbose', 'Mostrar informações detalhadas')
-  .option('-r, --run', 'Executar após compilar')
+  .option('-r, --run', 'Executar após traduzir')
   .action(async (file, options) => {
-    await cli.compile(file, options);
+    await cli.traduz(file, options);
   });
 
-// Comando: run  
+// Comando: compile (alias para traduz - compatibilidade)
 program
-  .command('run')
-  .description('Compila e executa arquivo GoiásScript')
+  .command('compile')
+  .description('Traduz arquivo GoiásScript para JavaScript (alias para traduz)')
+  .argument('<file>', 'Arquivo .gs para traduzir')
+  .option('-o, --output <file>', 'Arquivo de saída')
+  .option('-v, --verbose', 'Mostrar informações detalhadas')
+  .option('-r, --run', 'Executar após traduzir')
+  .action(async (file, options) => {
+    await cli.traduz(file, options);
+  });
+
+// Comando: bota_pra_moer (run)
+program
+  .command('bota_pra_moer')
+  .description('Bota o código GoiásScript pra moer (traduz e executa)')
   .argument('<file>', 'Arquivo .gs para executar')
   .action(async (file) => {
-    await cli.run(file);
+    await cli.bota_pra_moer(file);
   });
 
-// Comando: check-types
+// Comando: run (alias para bota_pra_moer - compatibilidade)
 program
-  .command('check-types')
-  .description('Verifica tipos em arquivo GoiásScript')
+  .command('run')
+  .description('Bota o código GoiásScript pra moer (alias para bota_pra_moer)')
+  .argument('<file>', 'Arquivo .gs para executar')
+  .action(async (file) => {
+    await cli.bota_pra_moer(file);
+  });
+
+// Comando: vê_se_tá_certo (check-types)
+program
+  .command('vê_se_tá_certo')
+  .description('Vê se o trem tá certo (verifica tipos)')
   .argument('<file>', 'Arquivo .gs para verificar')
   .action(async (file) => {
-    await cli.checkTypes(file);
+    await cli.vê_se_tá_certo(file);
   });
 
-// Comando: new
+// Comando: check-types (alias para vê_se_tá_certo - compatibilidade)
 program
-  .command('new')
-  .description('Cria novo projeto GoiásScript')
+  .command('check-types')
+  .description('Vê se o trem tá certo (alias para vê_se_tá_certo)')
+  .argument('<file>', 'Arquivo .gs para verificar')
+  .action(async (file) => {
+    await cli.vê_se_tá_certo(file);
+  });
+
+// Comando: arma_o_barraco (new)
+program
+  .command('arma_o_barraco')
+  .description('Arma o barraco de um novo projeto GoiásScript')
   .argument('<name>', 'Nome do projeto')
   .action(async (name) => {
-    await cli.newProject(name);
+    await cli.arma_o_barraco(name);
   });
 
-// Comando: version personalizado
+// Comando: new (alias para arma_o_barraco - compatibilidade)
+program
+  .command('new')
+  .description('Arma o barraco de um novo projeto (alias para arma_o_barraco)')
+  .argument('<name>', 'Nome do projeto')
+  .action(async (name) => {
+    await cli.arma_o_barraco(name);
+  });
+
+// Comando: dedo_de_prosa (info)
+program
+  .command('dedo_de_prosa')
+  .description('Dá um dedo de prosa sobre o GoiásScript')
+  .action(() => {
+    cli.dedo_de_prosa();
+  });
+
+// Comando: info (alias para dedo_de_prosa - compatibilidade)
 program
   .command('info')
-  .description('Mostra informações sobre GoiásScript')
+  .description('Dá um dedo de prosa sobre o GoiásScript (alias para dedo_de_prosa)')
   .action(() => {
-    cli.version();
+    cli.dedo_de_prosa();
   });
 
 // Parse dos argumentos

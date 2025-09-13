@@ -146,17 +146,40 @@ Este roadmap foi **completamente atualizado** para refletir o progresso atual. *
 
 ---
 
-## 🚀 **PRÓXIMAS FASES - FUTURO**
+## ✅ **FASE 5: PERFORMANCE & OTIMIZAÇÃO** *(CONCLUÍDA)*
 
-### 🔄 **FASE 5: PERFORMANCE & OTIMIZAÇÃO** *(Planejada)*
-- [ ] **JIT Compiler**
-  - [ ] Compilação just-in-time para hot paths
-  - [ ] Otimizações específicas para código goiano
-  - [ ] Profile-guided optimization
-- [ ] **Advanced Transpiler**
-  - [ ] AST-based parsing completo
-  - [ ] Tree shaking avançado
-  - [ ] Dead code elimination
+### ✅ 5.1 JIT Compiler Implementado
+- [x] **Hot Spot Detection** - Detecta código executado frequentemente
+- [x] **Compilação Just-in-Time** - Otimiza automaticamente hot paths
+- [x] **Otimizações Específicas**:
+  - [x] Constant Folding: `10 + 20` → `30`
+  - [x] Inline Expressions: `GoianoMath.maior(a, b)` → `(a > b ? a : b)`
+  - [x] Loop Unrolling: Desenrola loops pequenos para performance
+  - [x] Dead Code Elimination: Remove código não alcançável
+
+### ✅ 5.2 AST-based Parsing Avançado
+- [x] **Parser AST Completo** (`src/parser/ASTParser.js`)
+  - [x] Tokenização avançada com metadados
+  - [x] Análise de complexidade de código
+  - [x] Detecção de hot spots por análise estática
+- [x] **Otimizações Baseadas em AST**
+  - [x] Memoização para funções puras
+  - [x] Vectorização de loops simples
+  - [x] Inlining de funções pequenas
+
+### ✅ 5.3 Sistema de Performance Profiling
+- [x] **Métricas de Performance**
+  - [x] Contadores de execução por função
+  - [x] Cache hit ratio do JIT
+  - [x] Relatórios de otimização automática
+- [x] **Configuração Flexível**
+  - [x] Threshold configurável para ativação do JIT
+  - [x] Otimizações selecionáveis individualmente
+  - [x] Profiling hooks integrados
+
+---
+
+## 🚀 **PRÓXIMAS FASES - FUTURO**
 
 ### 🌐 **FASE 6: WEB & BROWSER** *(Planejada)*
 - [ ] **Browser Runtime**
@@ -202,17 +225,19 @@ Este roadmap foi **completamente atualizado** para refletir o progresso atual. *
 ### 🏗️ **Arquitetura Final**
 ```
 goiasscript/
-├── bin/                    # 4 CLI tools
-│   ├── goiasscript.js     # Compilador
-│   ├── gspack.js          # Package manager
-│   ├── gsrepl.js          # REPL
-│   └── gsdebug.js         # Debugger
+├── bin/                    # 4 CLI tools goianos
+│   ├── goiasscript.js     # Compilador (traduz, bota_pra_moer)
+│   ├── gs-balaio.js       # Gerenciador de balaios
+│   ├── goias.js           # Roda de Prosa (REPL)
+│   └── gs-fuçá.js         # Debugger goiano
 ├── src/
 │   ├── compiler/          # Transpiler + Lexer
 │   ├── types/             # Sistema de tipos
 │   ├── modules/           # Sistema de módulos
-│   ├── packages/          # Package manager
+│   ├── packages/          # Gerenciador de balaios
 │   ├── debug/             # Debugger engine
+│   ├── performance/       # JIT Compiler (NOVO!)
+│   ├── parser/            # AST Parser (NOVO!)
 │   └── goianoMethods/     # Métodos nativos
 ├── vscode-extension/      # Extensão VS Code
 ├── tests/                 # 123 testes
@@ -237,9 +262,9 @@ Math.random()
 **Agora (v2.0):**
 ```goiasscript
 // Métodos 100% goianos nativos
-nome.pra_maiusculo()
+nome.gritando()                    // era pra_maiusculo()
 numeros.mapear(x => x vezes 2)
-GoianoMath.sorteio()
+GoianoMath.sorteia_um()            // era sorteio()
 
 // Sistema de tipos
 uai resultado: texto é processar(dados: lista)
@@ -248,8 +273,11 @@ uai resultado: texto é processar(dados: lista)
 pega { utils } de "./meus-utils"
 troca_ideia { minhaFuncao, CONSTANTE }
 
-// Ferramentas profissionais
-// goiasscript run, gspack install, gsrepl, gsdebug
+// JIT Compiler automático (NOVO!)
+// Otimiza hot spots automaticamente
+
+// Ferramentas goianas (ATUALIZADAS!)
+// goiasscript bota_pra_moer, gs-balaio pega, goias, gs-fuçá
 ```
 
 ---
