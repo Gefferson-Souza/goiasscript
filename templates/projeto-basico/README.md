@@ -4,29 +4,40 @@
 
 ## 🚀 Como Usar
 
+### Pré-requisitos
+```bash
+# Se ainda não tem o GoiásScript instalado globalmente:
+npm install -g goiasscript
+```
+
 ### Executar o projeto
 ```bash
-npm run dev
+goiasscript bota_pra_moer src/main.gs
 ```
 
 ### Construir (traduzir) o projeto  
 ```bash
-npm run build
+goiasscript traduz src/main.gs
 ```
 
 ### Verificar tipos
 ```bash
-npm run check
+goiasscript vê_se_tá_certo src/main.gs
 ```
 
 ### Debug
 ```bash
-npm run debug
+gs-fuça fuça src/main.gs
 ```
 
 ### REPL (Roda de Prosa)
 ```bash
-npm run repl
+goias
+```
+
+### Executar testes
+```bash
+goiasscript bota_pra_moer tests/test.gs
 ```
 
 ## 📁 Estrutura do Projeto
