@@ -8,19 +8,19 @@ class TypeAnalyzer {
   constructor() {
     // Type inference rules for GoiásScript
     this.typeRules = {
-      // Basic types
-      NUMBER: /^\d+(\.\d+)?$/,
-      STRING: /^["'].*["']$/,
-      BOOLEAN: /^(certeza|de_jeito_nenhum)$/,
-      NULL: /^(vazio|sei_lá|null)$/,
+      // Basic types (mais goianos!)
+      NUMERO: /^\d+(\.\d+)?$/,
+      TEXTO: /^["'].*["']$/,
+      BOOLEANO: /^(certeza|de_jeito_nenhum)$/,
+      NADA: /^(nada|indefinido|null|undefined)$/,
       
-      // Function patterns
-      FUNCTION: /^presta_serviço\s+\w+\s*\(/,
-      ASYNC_FUNCTION: /^vai_na_frente_presta_serviço\s+\w+\s*\(/,
+      // Function patterns (mais goianos!)
+      FAZ_TREM: /^faz_trem\s+\w+\s*\(/,
+      VAI_NA_FRENTE_FAZ_TREM: /^vai_na_frente_faz_trem\s+\w+\s*\(/,
       
-      // Object patterns
-      OBJECT: /^{\s*[\w"']+\s*:/,
-      ARRAY: /^\s*\[/,
+      // Object patterns (mais goianos!)  
+      COISA: /^{\s*[\w"']+\s*:/,
+      LISTA: /^\s*\[/,
     };
 
     // Variable symbol table for type tracking
@@ -109,8 +109,8 @@ class TypeAnalyzer {
       return;
     }
 
-    // Function declarations: presta_serviço minhaFuncao(params)
-    const funcDeclaration = line.match(/^(vai_na_frente_)?presta_serviço\s+(\w+)\s*\(([^)]*)\)/);
+    // Function declarations: faz_trem minhaFuncao(params)
+    const funcDeclaration = line.match(/^(vai_na_frente_)?faz_trem\s+(\w+)\s*\(([^)]*)\)/);
     if (funcDeclaration) {
       const [, isAsync, funcName, params] = funcDeclaration;
       const paramTypes = this._analyzeParameters(params);
@@ -183,16 +183,16 @@ class TypeAnalyzer {
   _inferType(value) {
     value = value.trim();
 
-    // Check each type rule
-    if (this.typeRules.NUMBER.test(value)) return 'NUMBER';
-    if (this.typeRules.STRING.test(value)) return 'STRING';
-    if (this.typeRules.BOOLEAN.test(value)) return 'BOOLEAN';
-    if (this.typeRules.NULL.test(value)) return 'NULL';
-    if (this.typeRules.ARRAY.test(value)) return 'ARRAY';
-    if (this.typeRules.OBJECT.test(value)) return 'OBJECT';
+    // Check each type rule (usando nomes goianos)
+    if (this.typeRules.NUMERO.test(value)) return 'NUMERO';
+    if (this.typeRules.TEXTO.test(value)) return 'TEXTO';
+    if (this.typeRules.BOOLEANO.test(value)) return 'BOOLEANO';
+    if (this.typeRules.NADA.test(value)) return 'NADA';
+    if (this.typeRules.LISTA.test(value)) return 'LISTA';
+    if (this.typeRules.COISA.test(value)) return 'COISA';
 
-    // Function expressions
-    if (value.includes('presta_serviço')) return 'FUNCTION';
+    // Function expressions (goiano)
+    if (value.includes('faz_trem')) return 'FAZ_TREM';
     
     // Variable reference
     if (this.symbolTable.has(value)) {
@@ -206,8 +206,8 @@ class TypeAnalyzer {
       const leftType = this.symbolTable.get(left)?.type || this._inferType(left);
       const rightType = this.symbolTable.get(right)?.type || this._inferType(right);
       
-      if (leftType === 'NUMBER' && rightType === 'NUMBER') return 'NUMBER';
-      if (op === 'mais' && (leftType === 'STRING' || rightType === 'STRING')) return 'STRING';
+      if (leftType === 'NUMERO' && rightType === 'NUMERO') return 'NUMERO';
+      if (op === 'mais' && (leftType === 'TEXTO' || rightType === 'TEXTO')) return 'TEXTO';
     }
 
     return 'UNKNOWN';
@@ -239,15 +239,16 @@ class TypeAnalyzer {
    */
   _mapGoiasTypeToInternal(goiasType) {
     const typeMap = {
-      'numero': 'NUMBER',
-      'texto': 'STRING', 
-      'booleano': 'BOOLEAN',
-      'lista': 'ARRAY',
-      'objeto': 'OBJECT',
-      'funcao': 'FUNCTION',
+      'numero': 'NUMERO',
+      'texto': 'TEXTO', 
+      'booleano': 'BOOLEANO',
+      'lista': 'LISTA',
+      'coisa': 'COISA',
+      'faz_trem': 'FAZ_TREM',
+      'nada': 'NADA',
     };
     
-    return typeMap[goiasType] || 'UNKNOWN';
+    return typeMap[goiasType] || 'DESCONHECIDO';
   }
 
   /**
@@ -256,14 +257,14 @@ class TypeAnalyzer {
    */
   _getGoiasTypeName(internalType) {
     const nameMap = {
-      'NUMBER': 'número',
-      'STRING': 'texto',
-      'BOOLEAN': 'booleano',
-      'ARRAY': 'lista',
-      'OBJECT': 'objeto',
-      'FUNCTION': 'função',
-      'NULL': 'vazio',
-      'UNKNOWN': 'trem desconhecido',
+      'NUMERO': 'número',
+      'TEXTO': 'texto',
+      'BOOLEANO': 'booleano',
+      'LISTA': 'lista',
+      'COISA': 'coisa',
+      'FAZ_TREM': 'função',
+      'NADA': 'nada',
+      'DESCONHECIDO': 'trem desconhecido',
     };
     
     return nameMap[internalType] || 'trem estranho';

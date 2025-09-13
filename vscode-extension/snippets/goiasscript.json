@@ -14,9 +14,9 @@
     "description": "Declarar variável mutável"
   },
   "Função": {
-    "prefix": "presta_serviço",
+    "prefix": "faz_trem",
     "body": [
-      "presta_serviço ${1:nome}(${2:parametros}) {",
+      "faz_trem ${1:nome}(${2:parametros}) {",
       "  ${3:// corpo da função}",
       "  faz_favor ${4:resultado};",
       "}"
@@ -24,9 +24,9 @@
     "description": "Criar função"
   },
   "Função Assíncrona": {
-    "prefix": "vai_na_frente_presta_serviço",
+    "prefix": "vai_na_frente_faz_trem",
     "body": [
-      "vai_na_frente_presta_serviço ${1:nome}(${2:parametros}) {",
+      "vai_na_frente_faz_trem ${1:nome}(${2:parametros}) {",
       "  tenta_aí {",
       "    ${3:// código assíncrono}",
       "    uai resultado é espera_um_cadim ${4:operacaoAssincrona}();",
@@ -186,5 +186,122 @@
       " */"
     ],
     "description": "Comentário de cabeçalho"
+  },
+  "Variável com Tipo": {
+    "prefix": "uai_tipo",
+    "body": [
+      "uai ${1:nome}: ${2|texto,numero,booleano,lista,objeto,funcao|} é ${3:valor};"
+    ],
+    "description": "Declarar variável constante com tipo"
+  },
+  "Variável Mutável com Tipo": {
+    "prefix": "trem_tipo",
+    "body": [
+      "trem ${1:nome}: ${2|texto,numero,booleano,lista,objeto,funcao|} é ${3:valor};"
+    ],
+    "description": "Declarar variável mutável com tipo"
+  },
+  "Função Tipada": {
+    "prefix": "faz_trem_tipos",
+    "body": [
+      "faz_trem ${1:nome}(${2:param}: ${3|texto,numero,booleano,lista,objeto|}): ${4|texto,numero,booleano,lista,objeto,vazio|} {",
+      "  ${5:// corpo da função}",
+      "  faz_favor ${6:resultado};",
+      "}"
+    ],
+    "description": "Criar função com tipos"
+  },
+  "Import Padrão": {
+    "prefix": "pega",
+    "body": [
+      "pega ${1:modulo} de \"${2:./caminho}\";"
+    ],
+    "description": "Import padrão de módulo"
+  },
+  "Import Named": {
+    "prefix": "pega_named",
+    "body": [
+      "pega { ${1:funcao1}, ${2:funcao2} } de \"${3:./modulo}\";"
+    ],
+    "description": "Import nomeado de módulo"
+  },
+  "Import Mixed": {
+    "prefix": "pega_mixed",
+    "body": [
+      "pega ${1:modulo}, { ${2:funcao1}, ${3:funcao2} } de \"${4:./modulo}\";"
+    ],
+    "description": "Import misto (default + named)"
+  },
+  "Import Namespace": {
+    "prefix": "pega_tudo_de",
+    "body": [
+      "pega tudo_de ${1:Namespace} de \"${2:./modulo}\";"
+    ],
+    "description": "Import namespace de módulo"
+  },
+  "Export Default": {
+    "prefix": "troca_ideia_principal",
+    "body": [
+      "troca_ideia_principal ${1:funcaoOuVariavel};"
+    ],
+    "description": "Export padrão"
+  },
+  "Export Named": {
+    "prefix": "troca_ideia",
+    "body": [
+      "troca_ideia { ${1:funcao1}, ${2:funcao2} };"
+    ],
+    "description": "Export nomeado"
+  },
+  "Export Single": {
+    "prefix": "troca_ideia_single",
+    "body": [
+      "troca_ideia ${1:funcao};"
+    ],
+    "description": "Export único"
+  },
+  "Módulo Completo": {
+    "prefix": "modulo_completo",
+    "body": [
+      "// Imports",
+      "pega { ${1:funcao1} } de \"${2:./utils}\";",
+      "",
+      "// Código do módulo",
+      "faz_trem ${3:minhaFuncao}(${4:param}: ${5:tipo}): ${6:tipo} {",
+      "  ${7:// implementação}",
+      "  faz_favor ${8:resultado};",
+      "}",
+      "",
+      "// Exports",
+      "troca_ideia { ${3:minhaFuncao} };"
+    ],
+    "description": "Estrutura completa de módulo"
+  },
+  "Função Async com Tipos": {
+    "prefix": "async_tipos",
+    "body": [
+      "vai_na_frente_faz_trem ${1:nome}(${2:param}: ${3:texto}): ${4:objeto} {",
+      "  tenta_aí {",
+      "    uai resultado: ${4:objeto} é espera_um_cadim ${5:operacao}(${2:param});",
+      "    faz_favor resultado;",
+      "  } se_der_ruim (erro) {",
+      "    reclama(\"Erro em ${1:nome}:\", erro);",
+      "    vixe(erro);",
+      "  }",
+      "}"
+    ],
+    "description": "Função assíncrona com tipos"
+  },
+  "Interface de Dados": {
+    "prefix": "interface_dados",
+    "body": [
+      "uai ${1:dadosExemplo}: objeto é {",
+      "  ${2:id}: ${3:1},",
+      "  ${4:nome}: \"${5:valor}\",",
+      "  ${6:ativo}: ${7|certeza,de_jeito_nenhum|},",
+      "  ${8:lista}: [${9:\"item1\", \"item2\"}]",
+      "};"
+    ],
+    "description": "Estrutura de dados tipada"
   }
 }

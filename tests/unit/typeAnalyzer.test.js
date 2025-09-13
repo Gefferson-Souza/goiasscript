@@ -52,11 +52,11 @@ describe('TypeAnalyzer', () => {
   describe('Function Analysis', () => {
     test('deve analisar declarações de função', () => {
       const codigo = `
-        presta_serviço saudar(nome) {
+        faz_trem saudar(nome) {
           faz_favor "Oi " mais nome
         }
         
-        vai_na_frente_presta_serviço buscarDados(url) {
+        vai_na_frente_faz_trem buscarDados(url) {
           faz_favor fetch(url)
         }
       `;
@@ -71,7 +71,7 @@ describe('TypeAnalyzer', () => {
 
     test('deve analisar parâmetros com tipos', () => {
       const codigo = `
-        presta_serviço calcular(a: numero, b: numero) {
+        faz_trem calcular(a: numero, b: numero) {
           faz_favor a mais b
         }
       `;
@@ -227,7 +227,7 @@ describe('TypeAnalyzer', () => {
         uai versao é 2.0
         uai recursos é ["tipos", "modules", "lsp"]
         
-        presta_serviço inicializar(config: objeto) {
+        faz_trem inicializar(config: objeto) {
           prosa("Iniciando " mais nome)
           faz_favor certeza
         }

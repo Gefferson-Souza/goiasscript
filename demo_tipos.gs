@@ -16,19 +16,19 @@ uai configuracoes: objeto é {
 }
 
 // 3. Funções com tipos
-presta_serviço calcular(a: numero, b: numero) {
+faz_trem calcular(a: numero, b: numero) {
   uai resultado: numero é a mais b
   faz_favor resultado
 }
 
-presta_serviço saudar(nome: texto, idade: numero) {
+faz_trem saudar(nome: texto, idade: numero) {
   uai mensagem: texto é "Oi " mais nome mais ", ocê tem " mais idade mais " anos!"
   prosa(mensagem)
   faz_favor mensagem
 }
 
 // 4. Async functions com tipos
-vai_na_frente_presta_serviço buscarDados(url: texto) {
+vai_na_frente_faz_trem buscarDados(url: texto) {
   uai response é espera_um_cadim fetch(url)
   uai dados: objeto é espera_um_cadim response.json()
   faz_favor dados

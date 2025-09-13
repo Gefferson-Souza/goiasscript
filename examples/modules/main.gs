@@ -23,7 +23,7 @@ Logger.info("Iniciando aplicação GoiásScript", { versao: VERSAO })
 uai appLogger é Logger.createChild("APP")
 
 // Função principal da aplicação
-presta_serviço inicializarApp(config: objeto): objeto {
+faz_trem inicializarApp(config: objeto): objeto {
   appLogger.info("Inicializando aplicação...")
   
   // Validar configuração
@@ -98,7 +98,7 @@ presta_serviço inicializarApp(config: objeto): objeto {
 }
 
 // Função para relatório
-presta_serviço gerarRelatorio(dados: objeto) {
+faz_trem gerarRelatorio(dados: objeto) {
   appLogger.info("Gerando relatório...")
   
   prosa("\n" mais "=".repeat(50))
