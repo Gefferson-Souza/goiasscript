@@ -186,7 +186,33 @@ class GoiasScriptCLI {
       let mainFile;
       
       if (template === 'web') {
-        mainFile = `// ${projectName} - Aplicação Web GoiásScript
+        // Usar template web externo
+        const templatesPath = path.join(__dirname, '..', 'templates');
+        const webTemplatePath = path.join(templatesPath, 'web-app.gs');
+        
+        if (fs.existsSync(webTemplatePath)) {
+          mainFile = fs.readFileSync(webTemplatePath, 'utf-8');
+          mainFile = mainFile.replace(/{{PROJECT_NAME}}/g, projectName);
+        } else {
+          // Fallback se não encontrar o template
+          mainFile = `// ${projectName} - Aplicação Web GoiásScript v2.0
+prosa("🚀 Carregando ${projectName}...");
+
+trem appConfig é {
+  nome: "${projectName}",
+  versao: "1.0.0",
+  tipo: "Aplicação Web GoiásScript"
+};
+
+prosta_serviço iniciarApp() {
+  prosa("🎉 " mais appConfig.nome mais " iniciado!");
+  prosa("📦 Versão: " mais appConfig.versao);
+  prosa("⚡ Powered by GoiásScript v2.0");
+}`;
+        }
+      } else {
+        // Template básico
+        mainFile = `// ${projectName} - GoiásScript v2.0
 // Arquivo principal do projeto
 
 prosa("=== Projeto ${projectName} ===");
@@ -209,81 +235,68 @@ prosa("Número da sorte: " mais numero_sorte);
 
 prosa("🎉 Projeto criado com sucesso!");
 prosa("💡 Use: goiasscript vê_se_tá_certo para verificar tipos");
-prosa("💡 Use: goiasscript traduz para gerar JavaScript");
-`;}
+prosa("💡 Use: goiasscript traduz para gerar JavaScript");`;
+      }
 
       const fileName = template === 'web' ? 'app.gs' : 'main.gs';
       fs.writeFileSync(path.join(projectPath, 'src', fileName), mainFile);
       
       // Arquivos específicos do template web
       if (template === 'web') {
-        // HTML principal
-        const htmlFile = `<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${projectName} - GoiásScript Web</title>
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        .header { background: #228B22; color: white; padding: 20px; border-radius: 8px; text-align: center; }
-        .content { margin: 20px 0; }
-        #output { background: #000; color: #00ff00; padding: 15px; border-radius: 5px; font-family: monospace; min-height: 150px; }
-        button { background: #228B22; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 5px; }
-        button:hover { background: #1e7e1e; }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <h1>🇧🇷 ${projectName}</h1>
-        <p>Aplicação Web GoiásScript v2.0</p>
-    </div>
-    
-    <div class="content">
-        <h2>Demo GoiásScript</h2>
-        <div id="output">Clique em "Executar Demo" para ver o GoiásScript funcionando!</div>
+        // Usar templates externos
+        const templatesPath = path.join(__dirname, '..', 'templates');
         
-        <div>
-            <button onclick="executarDemo()">Executar Demo</button>
-            <button onclick="limparOutput()">Limpar</button>
-        </div>
-    </div>
-    
-    <script>
-        function limparOutput() {
-            document.getElementById('output').innerHTML = 'Output limpo!';
+        // Copiar template HTML
+        const htmlTemplatePath = path.join(templatesPath, 'web-index.html');
+        if (fs.existsSync(htmlTemplatePath)) {
+          let htmlContent = fs.readFileSync(htmlTemplatePath, 'utf-8');
+          htmlContent = htmlContent.replace(/{{PROJECT_NAME}}/g, projectName);
+          fs.writeFileSync(path.join(projectPath, 'public', 'index.html'), htmlContent);
         }
-    </script>
-    <script src="app.js"></script>
-</body>
-</html>`;
-
-        fs.writeFileSync(path.join(projectPath, 'public', 'index.html'), htmlFile);
+        
+        // Copiar servidor de desenvolvimento
+        const devServerPath = path.join(templatesPath, 'dev-server.js');
+        if (fs.existsSync(devServerPath)) {
+          fs.mkdirSync(path.join(projectPath, 'scripts'), { recursive: true });
+          fs.copyFileSync(devServerPath, path.join(projectPath, 'scripts', 'dev-server.js'));
+        }
+        
+        // Copiar package.json específico para web
+        const webPackagePath = path.join(templatesPath, 'web-package.json');
+        if (fs.existsSync(webPackagePath)) {
+          let packageContent = fs.readFileSync(webPackagePath, 'utf-8');
+          packageContent = packageContent.replace(/{{PROJECT_NAME}}/g, projectName);
+          packageContent = packageContent.replace(/{{PROJECT_DESCRIPTION}}/g, `Aplicação Web GoiásScript: ${projectName}`);
+          packageContent = packageContent.replace(/{{AUTHOR_NAME}}/g, 'Desenvolvedor Goiano');
+          fs.writeFileSync(path.join(projectPath, 'package.json'), packageContent);
+        }
       }
 
-      // Package.json do projeto
-      const packageJson = {
-        name: projectName,
-        version: "1.0.0",
-        description: `Projeto GoiásScript: ${projectName}`,
-        main: "src/main.gs",
-        scripts: {
-          "start": "goiasscript bota_pra_moer src/main.gs",
-          "build": "goiasscript traduz src/main.gs",
-          "check": "goiasscript vê_se_tá_certo src/main.gs"
-        },
-        keywords: ["goiasscript", "goias", "brasileiro"],
-        author: "Desenvolvedor Goiano",
-        license: "MIT",
-        engines: {
-          "goiasscript": "^2.0.0"
-        }
-      };
+      // Package.json do projeto (apenas para template básico)
+      if (template !== 'web') {
+        const packageJson = {
+          name: projectName,
+          version: "1.0.0",
+          description: `Projeto GoiásScript: ${projectName}`,
+          main: "src/main.gs",
+          scripts: {
+            "start": "goiasscript bota_pra_moer src/main.gs",
+            "build": "goiasscript traduz src/main.gs",
+            "check": "goiasscript vê_se_tá_certo src/main.gs"
+          },
+          keywords: ["goiasscript", "goias", "brasileiro"],
+          author: "Desenvolvedor Goiano",
+          license: "MIT",
+          engines: {
+            "goiasscript": "^2.0.0"
+          }
+        };
 
-      fs.writeFileSync(
-        path.join(projectPath, 'package.json'), 
-        JSON.stringify(packageJson, null, 2)
-      );
+        fs.writeFileSync(
+          path.join(projectPath, 'package.json'), 
+          JSON.stringify(packageJson, null, 2)
+        );
+      }
 
       // README.md
       const readme = `# ${projectName}
@@ -342,7 +355,13 @@ GoianoMath.sorteio()     // vs Math.random()
       console.log(`📁 Local: ${projectPath}`);
       console.log(`\n🎯 Próximos passos:`);
       console.log(`   cd ${projectName}`);
-      console.log(`   goiasscript bota_pra_moer src/main.gs`);
+      if (template === 'web') {
+        console.log(`   npm run dev                    # Iniciar servidor de desenvolvimento`);
+        console.log(`   # ou:`);
+        console.log(`   goiasscript bota_pra_moer src/app.gs`);
+      } else {
+        console.log(`   goiasscript bota_pra_moer src/main.gs`);
+      }
 
     } catch (error) {
       console.error(`❌ Ô rapaz! Deu ruim ao armar o barraco: ${error.message}`);
