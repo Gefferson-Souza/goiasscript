@@ -177,9 +177,19 @@ class GoiasScriptCLI {
       fs.mkdirSync(path.join(projectPath, 'src'));
       fs.mkdirSync(path.join(projectPath, 'docs'));
       
-      // Estrutura adicional para template web
+      // Estrutura adicional para templates
       if (template === 'web') {
         fs.mkdirSync(path.join(projectPath, 'public'));
+      } else if (template === 'framework') {
+        // Estrutura completa do framework
+        fs.mkdirSync(path.join(projectPath, 'public'));
+        fs.mkdirSync(path.join(projectPath, 'dist'));
+        fs.mkdirSync(path.join(projectPath, 'scripts'));
+        fs.mkdirSync(path.join(projectPath, 'src', 'components'), { recursive: true });
+        fs.mkdirSync(path.join(projectPath, 'src', 'controllers'), { recursive: true });
+        fs.mkdirSync(path.join(projectPath, 'src', 'services'), { recursive: true });
+        fs.mkdirSync(path.join(projectPath, 'src', 'models'), { recursive: true });
+        fs.mkdirSync(path.join(projectPath, 'src', 'config'), { recursive: true });
       }
 
       // Arquivo principal
@@ -241,8 +251,21 @@ prosa("💡 Use: goiasscript traduz para gerar JavaScript");`;
       const fileName = template === 'web' ? 'app.gs' : 'main.gs';
       fs.writeFileSync(path.join(projectPath, 'src', fileName), mainFile);
       
-      // Arquivos específicos do template web
-      if (template === 'web') {
+      // Arquivos específicos dos templates
+      if (template === 'framework') {
+        // Copiar todos os arquivos do template framework
+        const templatesPath = path.join(__dirname, '..', 'templates');
+        const frameworkTemplatePath = path.join(templatesPath, 'goias-web-framework');
+
+        if (fs.existsSync(frameworkTemplatePath)) {
+          this.copyTemplateDirectory(frameworkTemplatePath, projectPath, projectName);
+        } else {
+          console.log('⚠️  Template framework não encontrado, usando fallback...');
+          // Criar arquivos básicos do framework
+          this.createFrameworkFiles(projectPath, projectName);
+        }
+
+      } else if (template === 'web') {
         // Usar templates externos
         const templatesPath = path.join(__dirname, '..', 'templates');
         
@@ -273,7 +296,7 @@ prosa("💡 Use: goiasscript traduz para gerar JavaScript");`;
       }
 
       // Package.json do projeto (apenas para template básico)
-      if (template !== 'web') {
+      if (template !== 'web' && template !== 'framework') {
         const packageJson = {
           name: projectName,
           version: "1.0.0",
@@ -351,8 +374,8 @@ GoianoMath.sorteio()     // vs Math.random()
 
       fs.writeFileSync(path.join(projectPath, 'README.md'), readme);
 
-      // Instalar dependências automaticamente para projetos web
-      if (template === 'web') {
+      // Instalar dependências automaticamente para projetos web e framework
+      if (template === 'web' || template === 'framework') {
         console.log(`📦 Instalando dependências...`);
         const { spawn } = require('child_process');
         
@@ -367,9 +390,21 @@ GoianoMath.sorteio()     // vs Math.random()
             console.log(`📁 Local: ${projectPath}`);
             console.log(`\n🎯 Próximos passos:`);
             console.log(`   cd ${projectName}`);
-            console.log(`   npm run dev                    # Iniciar servidor de desenvolvimento`);
-            console.log(`   # ou:`);
-            console.log(`   goiasscript bota_pra_moer src/app.gs`);
+            if (template === 'framework') {
+              console.log(`   npm run dev                    # Servidor com hot reload 🔥`);
+              console.log(`   # ou:`);
+              console.log(`   npm run build                 # Build para produção`);
+              console.log(`   npm start                     # Build + servir`);
+              console.log(`\n🚀 Recursos do Framework:`);
+              console.log(`   • Hot Reload com WebSocket`);
+              console.log(`   • TailwindCSS com tema goiano`);
+              console.log(`   • Arquitetura modular (NestJS style)`);
+              console.log(`   • Full-Stack em GoiásScript`);
+            } else {
+              console.log(`   npm run dev                    # Iniciar servidor de desenvolvimento`);
+              console.log(`   # ou:`);
+              console.log(`   goiasscript bota_pra_moer src/app.gs`);
+            }
           } else {
             console.log(`\n⚠️  Barraco criado, mas deu problema na instalação das dependências.`);
             console.log(`📁 Local: ${projectPath}`);
@@ -391,6 +426,90 @@ GoianoMath.sorteio()     // vs Math.random()
       console.error(`❌ Ô rapaz! Deu ruim ao armar o barraco: ${error.message}`);
       process.exit(1);
     }
+  }
+
+  // Função para copiar diretório de template recursivamente
+  copyTemplateDirectory(src, dest, projectName) {
+    const files = fs.readdirSync(src);
+
+    files.forEach(file => {
+      const srcPath = path.join(src, file);
+      const destPath = path.join(dest, file);
+      const stat = fs.statSync(srcPath);
+
+      if (stat.isDirectory()) {
+        // Criar diretório e copiar recursivamente
+        fs.mkdirSync(destPath, { recursive: true });
+        this.copyTemplateDirectory(srcPath, destPath, projectName);
+      } else {
+        // Copiar arquivo e substituir variáveis
+        let content = fs.readFileSync(srcPath, 'utf-8');
+
+        // Substituir variáveis do template
+        content = content.replace(/{{projectName}}/g, projectName);
+        content = content.replace(/{{PROJECT_NAME}}/g, projectName);
+        content = content.replace(/{{projeto_nome}}/g, projectName);
+        content = content.replace(/{{data_criacao}}/g, new Date().toISOString().split('T')[0]);
+        content = content.replace(/{{autor_nome}}/g, 'Desenvolvedor Goiano');
+
+        fs.writeFileSync(destPath, content);
+      }
+    });
+  }
+
+  // Função para criar arquivos básicos do framework (fallback)
+  createFrameworkFiles(projectPath, projectName) {
+    console.log('🏗️ Criando estrutura básica do framework...');
+
+    // package.json personalizado para framework
+    const frameworkPackageJson = {
+      name: projectName,
+      version: "1.0.0",
+      description: `GoiásScript Framework - ${projectName}`,
+      main: "src/main.gs",
+      type: "module",
+      scripts: {
+        dev: "node scripts/dev-server.js",
+        build: "node scripts/build.js",
+        serve: "node scripts/serve.js",
+        start: "npm run build && npm run serve",
+        check: "goiasscript vê_se_tá_certo src/**/*.gs"
+      },
+      keywords: ["goiasscript", "framework", "web", "goias", "brasileiro"],
+      author: "Desenvolvedor Goiano",
+      license: "MIT",
+      engines: {
+        node: ">=16.0.0"
+      },
+      devDependencies: {
+        chokidar: "^3.5.3",
+        ws: "^8.16.0",
+        "node-static": "^0.7.11",
+        tailwindcss: "^3.4.0"
+      }
+    };
+
+    fs.writeFileSync(
+      path.join(projectPath, 'package.json'),
+      JSON.stringify(frameworkPackageJson, null, 2)
+    );
+
+    // Criar arquivo principal básico
+    const mainContent = `// ${projectName} - GoiásScript Framework
+pega "./app.module" em { AppModule }
+
+// Inicializar aplicação
+faz_trem iniciarApp() {
+  prosa("🚀 ${projectName} iniciado com sucesso!")
+  prosa("📦 GoiásScript Framework v2.0")
+}
+
+iniciarApp()
+`;
+
+    fs.writeFileSync(path.join(projectPath, 'src', 'main.gs'), mainContent);
+
+    console.log('✅ Estrutura básica criada!');
   }
 
   // Utilitário: ícones para tipos
@@ -490,7 +609,7 @@ program
   .command('arma_o_barraco')
   .description('Arma o barraco de um novo projeto GoiásScript')
   .argument('<name>', 'Nome do projeto')
-  .option('-t, --template <type>', 'Tipo de template (basic, web)', 'basic')
+  .option('-t, --template <type>', 'Tipo de template (basic, web, framework)', 'basic')
   .action(async (name, options) => {
     await cli.arma_o_barraco(name, options);
   });
@@ -500,7 +619,7 @@ program
   .command('new')
   .description('Arma o barraco de um novo projeto (alias para arma_o_barraco)')
   .argument('<name>', 'Nome do projeto')
-  .option('-t, --template <type>', 'Tipo de template (basic, web)', 'basic')
+  .option('-t, --template <type>', 'Tipo de template (basic, web, framework)', 'basic')
   .action(async (name, options) => {
     await cli.arma_o_barraco(name, options);
   });
