@@ -2,6 +2,9 @@
   "name": "goiasscript",
   "version": "2.0.0",
   "description": "🇧🇷 Linguagem de programação goiana com métodos nativos - GoiásScript v2.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "src/compiler.js",
   "bin": {
     "goiasscript": "./bin/goiasscript.js",
