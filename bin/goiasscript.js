@@ -351,15 +351,39 @@ GoianoMath.sorteio()     // vs Math.random()
 
       fs.writeFileSync(path.join(projectPath, 'README.md'), readme);
 
-      console.log(`✅ Barraco armado com sucesso!`);
-      console.log(`📁 Local: ${projectPath}`);
-      console.log(`\n🎯 Próximos passos:`);
-      console.log(`   cd ${projectName}`);
+      // Instalar dependências automaticamente para projetos web
       if (template === 'web') {
-        console.log(`   npm run dev                    # Iniciar servidor de desenvolvimento`);
-        console.log(`   # ou:`);
-        console.log(`   goiasscript bota_pra_moer src/app.gs`);
+        console.log(`📦 Instalando dependências...`);
+        const { spawn } = require('child_process');
+        
+        const npmInstall = spawn('npm', ['install'], {
+          cwd: projectPath,
+          stdio: 'inherit'
+        });
+        
+        npmInstall.on('close', (code) => {
+          if (code === 0) {
+            console.log(`\n✅ Barraco armado com sucesso!`);
+            console.log(`📁 Local: ${projectPath}`);
+            console.log(`\n🎯 Próximos passos:`);
+            console.log(`   cd ${projectName}`);
+            console.log(`   npm run dev                    # Iniciar servidor de desenvolvimento`);
+            console.log(`   # ou:`);
+            console.log(`   goiasscript bota_pra_moer src/app.gs`);
+          } else {
+            console.log(`\n⚠️  Barraco criado, mas deu problema na instalação das dependências.`);
+            console.log(`📁 Local: ${projectPath}`);
+            console.log(`\n🎯 Execute manualmente:`);
+            console.log(`   cd ${projectName}`);
+            console.log(`   npm install`);
+            console.log(`   npm run dev`);
+          }
+        });
       } else {
+        console.log(`✅ Barraco armado com sucesso!`);
+        console.log(`📁 Local: ${projectPath}`);
+        console.log(`\n🎯 Próximos passos:`);
+        console.log(`   cd ${projectName}`);
         console.log(`   goiasscript bota_pra_moer src/main.gs`);
       }
 

@@ -309,8 +309,8 @@ class SimpleGoiasScriptTranspiler {
         const goianoEquivalent = this.goianoBuiltins.converterParaGoiano(method.replace(/[()]/g, ''));
         warnings.push({
           type: 'forbidden_method',
-          message: `⚠️ Método "${method}" não é goiano! Use "${goianoEquivalent}" em vez disso.`,
-          suggestion: `Substitua ${method} por .${goianoEquivalent}(`
+          message: `⚠️ Ô sô! O método "${method}" não é goiano não! Use "${goianoEquivalent}" que é mais da hora.`,
+          suggestion: `Troca esse ${method} por .${goianoEquivalent}(`
         });
       }
     });

@@ -168,8 +168,8 @@ class TypeAnalyzer {
       if (!this.symbolTable.has(funcName) && !this._isBuiltinFunction(funcName) && !isChainedCall) {
         this._addWarning(
           'undefined_function',
-          `Ô trem! Função '${funcName}' não existe por aqui.`,
-          'Vê se não errou o nome ou se esqueceu de declarar.',
+          `Eita sô! A função '${funcName}' não tá declarada por aqui não.`,
+          'Vê se num errou o nome ou se esqueceu de declarar ela antes, uai.',
           lineNumber
         );
       }

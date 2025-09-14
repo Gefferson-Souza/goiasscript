@@ -9,8 +9,8 @@ trem appConfig é {
 
 // Função para mostrar na página web
 presta_serviço mostrarNaPagina(mensagem) {
-  trem output = document.getElementById("output");
-  se (output) {
+  trem output é document.getElementById("output");
+  se_ocê_quiser (output) {
     output.innerHTML = output.innerHTML mais "<div class='log-line'>" mais mensagem mais "</div>";
     output.scrollTop = output.scrollHeight;
   }
@@ -25,17 +25,17 @@ presta_serviço iniciarApp() {
   trem tecnologias é ["GoiásScript", "JavaScript", "HTML5", "CSS3"];
   mostrarNaPagina("🛠️ Tecnologias:");
   
-  vai_indo (trem i é 0; i menor_que tecnologias.tamanho(); i = i mais 1) {
+  vai_indo (trem i é 0; i menor_que tecnologias.tamanho(); i é i mais 1) {
     mostrarNaPagina("  • " mais tecnologias[i]);
   }
   
-  trem numeroSorte = Math.floor(Math.random() * 1000);
+  trem numeroSorte é Math.floor(Math.random() * 1000);
   mostrarNaPagina("🎲 Número da sorte: " mais numeroSorte);
   mostrarNaPagina("✅ Aplicação carregada com sucesso!");
 }
 
 // Funções globais para HTML
-se (typeof window diferente_de "undefined") {
+se_ocê_quiser (typeof window diferente_de "undefined") {
   window.executarDemo = iniciarApp;
   window.limparOutput = presta_serviço() {
     document.getElementById("output").innerHTML = "";
@@ -44,7 +44,7 @@ se (typeof window diferente_de "undefined") {
   
   // Auto-iniciar quando carregado
   window.addEventListener("load", iniciarApp);
-} senao {
+} se_não {
   // Quando executado no Node.js
   prosa("✅ " mais appConfig.nome mais " - Aplicação web criada!");
   prosa("💡 Para testar: npm run dev");
