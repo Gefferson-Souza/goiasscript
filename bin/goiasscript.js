@@ -160,7 +160,8 @@ class GoiasScriptCLI {
   }
 
   // Comando: arma_o_barraco (new)
-  async arma_o_barraco(projectName) {
+  async arma_o_barraco(projectName, options = {}) {
+    const template = options.template || 'basic';
     const projectPath = path.join(process.cwd(), projectName);
     
     try {
@@ -169,43 +170,96 @@ class GoiasScriptCLI {
         process.exit(1);
       }
 
-      console.log(`🚀 Armando o barraco do projeto: ${projectName}\n`);
+      console.log(`🚀 Armando o barraco do projeto: ${projectName} (template: ${template})\n`);
 
       // Criar estrutura do projeto
       fs.mkdirSync(projectPath);
       fs.mkdirSync(path.join(projectPath, 'src'));
       fs.mkdirSync(path.join(projectPath, 'docs'));
+      
+      // Estrutura adicional para template web
+      if (template === 'web') {
+        fs.mkdirSync(path.join(projectPath, 'public'));
+      }
 
       // Arquivo principal
-      const mainFile = `// ${projectName} - GoiásScript v2.0
+      let mainFile;
+      
+      if (template === 'web') {
+        mainFile = `// ${projectName} - Aplicação Web GoiásScript
 // Arquivo principal do projeto
 
-uai mensagem: texto é "Oi sô! Seu projeto GoiásScript tá funcionando!"
-prosa(mensagem)
+prosa("=== Projeto ${projectName} ===");
 
-faz_trem saudar(nome: texto): texto {
-  faz_favor "Oi " mais nome mais ", tudo beleza?"
+trem mensagem é "Oi sô! Seu projeto GoiásScript tá funcionando!";
+prosa(mensagem);
+
+trem nome_projeto é "${projectName}";
+prosa("Nome do projeto: " mais nome_projeto);
+
+trem tecnologias é ["GoiásScript", "JavaScript", "Node.js"];
+prosa("Tecnologias usadas:");
+
+vai_indo (trem i é 0; i menor_que tecnologias.tamanho(); i = i mais 1) {
+  prosa("• " mais tecnologias[i]);
 }
 
-faz_trem principal() {
-  uai usuario: texto é "Desenvolvedor Goiano"
-  uai saudacao: texto é saudar(usuario)
-  prosa(saudacao)
-  
-  // Exemplo com lista
-  uai tecnologias: lista é ["GoiásScript", "JavaScript", "Node.js"]
-  prosa("Tecnologias usadas:")
-  tecnologias.pra_cada(tech => prosa("• " mais tech))
-  
-  // Exemplo com math goiano
-  uai numero_sorte: numero é GoianoMath.arredondar(GoianoMath.sorteio() vezes 100)
-  prosa("Seu número da sorte é:", numero_sorte)
-}
+trem numero_sorte = Math.floor(Math.random() * 100);
+prosa("Número da sorte: " mais numero_sorte);
 
-principal()
-`;
+prosa("🎉 Projeto criado com sucesso!");
+prosa("💡 Use: goiasscript vê_se_tá_certo para verificar tipos");
+prosa("💡 Use: goiasscript traduz para gerar JavaScript");
+`;}
 
-      fs.writeFileSync(path.join(projectPath, 'src', 'main.gs'), mainFile);
+      const fileName = template === 'web' ? 'app.gs' : 'main.gs';
+      fs.writeFileSync(path.join(projectPath, 'src', fileName), mainFile);
+      
+      // Arquivos específicos do template web
+      if (template === 'web') {
+        // HTML principal
+        const htmlFile = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${projectName} - GoiásScript Web</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .header { background: #228B22; color: white; padding: 20px; border-radius: 8px; text-align: center; }
+        .content { margin: 20px 0; }
+        #output { background: #000; color: #00ff00; padding: 15px; border-radius: 5px; font-family: monospace; min-height: 150px; }
+        button { background: #228B22; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 5px; }
+        button:hover { background: #1e7e1e; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🇧🇷 ${projectName}</h1>
+        <p>Aplicação Web GoiásScript v2.0</p>
+    </div>
+    
+    <div class="content">
+        <h2>Demo GoiásScript</h2>
+        <div id="output">Clique em "Executar Demo" para ver o GoiásScript funcionando!</div>
+        
+        <div>
+            <button onclick="executarDemo()">Executar Demo</button>
+            <button onclick="limparOutput()">Limpar</button>
+        </div>
+    </div>
+    
+    <script>
+        function limparOutput() {
+            document.getElementById('output').innerHTML = 'Output limpo!';
+        }
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>`;
+
+        fs.writeFileSync(path.join(projectPath, 'public', 'index.html'), htmlFile);
+      }
 
       // Package.json do projeto
       const packageJson = {
@@ -393,8 +447,9 @@ program
   .command('arma_o_barraco')
   .description('Arma o barraco de um novo projeto GoiásScript')
   .argument('<name>', 'Nome do projeto')
-  .action(async (name) => {
-    await cli.arma_o_barraco(name);
+  .option('-t, --template <type>', 'Tipo de template (basic, web)', 'basic')
+  .action(async (name, options) => {
+    await cli.arma_o_barraco(name, options);
   });
 
 // Comando: new (alias para arma_o_barraco - compatibilidade)
@@ -402,8 +457,9 @@ program
   .command('new')
   .description('Arma o barraco de um novo projeto (alias para arma_o_barraco)')
   .argument('<name>', 'Nome do projeto')
-  .action(async (name) => {
-    await cli.arma_o_barraco(name);
+  .option('-t, --template <type>', 'Tipo de template (basic, web)', 'basic')
+  .action(async (name, options) => {
+    await cli.arma_o_barraco(name, options);
   });
 
 // Comando: dedo_de_prosa (info)

@@ -67,12 +67,13 @@ debug-report.json
 # Diretórios temporários
 projeto-teste/
 meu-package-*/
+teste-rapido.gs
+teste-global.gs
+projeto-teste-manual/
 
 # Package manager temporário
 gspack.json
 
-# Claude Code específico
-.claude
-.github
-CLAUDE.md
+# Templates podem gerar colisões no Jest
+templates/*/node_modules/
 
