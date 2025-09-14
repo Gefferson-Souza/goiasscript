@@ -55,7 +55,7 @@ arruma_trem AppController {
   receberDados(@Corpo() dados: coisa) {
     prosa("📥 Dados recebidos:", dados);
 
-    trem resultado = ocê.appService.processarDados(dados);
+    trem resultado é ocê.appService.processarDados(dados);
 
     faz_favor {
       sucesso: certeza,

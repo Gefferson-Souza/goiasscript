@@ -240,7 +240,7 @@ module.exports = {
           color: theme('colors.gray.900'),
           backgroundColor: theme('colors.white'),
           backgroundImage: 'none',
-          border: \`1px solid \${theme('colors.gray.300')}\`,
+          border: `1px solid ${theme('colors.gray.300')}`,
           borderRadius: theme('borderRadius.md'),
           boxShadow: theme('boxShadow.sm'),
           transition: 'all 0.2s ease',

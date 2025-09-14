@@ -129,7 +129,7 @@ arruma_trem AppComponent {
   configurarEventos() {
     // Toggle do menu mobile
     document.addEventListener('click', faz_trem(event) {
-      uai target = event.target;
+      uai target é event.target;
 
       se (target.id é_igualim 'menu-toggle') {
         ocê.toggleMenu();
@@ -138,11 +138,11 @@ arruma_trem AppComponent {
 
     // Navegação SPA
     document.addEventListener('click', faz_trem(event) {
-      uai target = event.target;
+      uai target é event.target;
 
       se (target.tagName é_igualim 'A' e_mais target.href.startsWith(window.location.origin)) {
         event.preventDefault();
-        uai rota = target.getAttribute('href');
+        uai rota é target.getAttribute('href');
         ocê.navegarPara(rota);
       }
     });
@@ -157,7 +157,7 @@ arruma_trem AppComponent {
   }
 
   toggleMenu() {
-    uai menu = document.getElementById('mobile-menu');
+    uai menu é document.getElementById('mobile-menu');
 
     se (ocê.menuAberto) {
       menu.classList.add('hidden');
@@ -170,7 +170,7 @@ arruma_trem AppComponent {
 
   inicializarRoteamento() {
     // Sistema de roteamento simples
-    ocê.rotas = faz_um Map();
+    ocê.rotas é faz_um Map();
     ocê.rotas.set('/', 'home-component');
     ocê.rotas.set('/sobre', 'sobre-component');
     ocê.rotas.set('/docs', 'docs-component');
@@ -191,8 +191,8 @@ arruma_trem AppComponent {
   }
 
   renderizarRota(rota) {
-    uai outlet = document.getElementById('router-outlet');
-    uai componente = ocê.rotas.get(rota) || 'notfound-component';
+    uai outlet é document.getElementById('router-outlet');
+    uai componente é ocê.rotas.get(rota) || 'notfound-component';
 
     // Efeito de transição
     outlet.style.opacity = '0.5';
@@ -206,7 +206,7 @@ arruma_trem AppComponent {
   }
 
   mount() {
-    uai appContainer = document.getElementById('app');
+    uai appContainer é document.getElementById('app');
     se (appContainer) {
       appContainer.innerHTML = ocê.render();
       ocê.aprepara_trem();

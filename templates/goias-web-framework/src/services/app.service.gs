@@ -48,11 +48,11 @@ arruma_trem AppService {
 
   processarDados(dados: coisa) {
     // Incrementar contador
-    uai contadorAtual = ocê.dados.get("contador") || 0;
+    uai contadorAtual é ocê.dados.get("contador") || 0;
     ocê.dados.set("contador", contadorAtual mais 1);
 
     // Processar dados recebidos
-    trem resultado = {
+    trem resultado é {
       id: Math.random().toString(36).substr(2, 9),
       timestamp: faz_um Date().toISOString(),
       processado: certeza,
@@ -65,7 +65,7 @@ arruma_trem AppService {
   }
 
   obterUsuario(id: texto) {
-    uai usuario = ocê.usuarios.get(id);
+    uai usuario é ocê.usuarios.get(id);
 
     se (num usuario) {
       faz_favor {
@@ -82,9 +82,9 @@ arruma_trem AppService {
   }
 
   criarUsuario(dadosUsuario: coisa) {
-    uai novoId = (ocê.usuarios.size mais 1).toString();
+    uai novoId é (ocê.usuarios.size mais 1).toString();
 
-    uai novoUsuario = {
+    uai novoUsuario é {
       id: novoId,
       nome: dadosUsuario.nome,
       email: dadosUsuario.email,
@@ -99,7 +99,7 @@ arruma_trem AppService {
   }
 
   listarUsuarios() {
-    uai usuarios = [];
+    uai usuarios é [];
 
     ocê.usuarios.forEach((usuario, id) => {
       usuarios.empurrar(usuario);
@@ -109,7 +109,7 @@ arruma_trem AppService {
   }
 
   atualizarUsuario(id: texto, dadosAtualizacao: coisa) {
-    uai usuario = ocê.usuarios.get(id);
+    uai usuario é ocê.usuarios.get(id);
 
     se (num usuario) {
       faz_favor nada;
@@ -130,7 +130,7 @@ arruma_trem AppService {
   }
 
   removerUsuario(id: texto) {
-    uai usuario = ocê.usuarios.get(id);
+    uai usuario é ocê.usuarios.get(id);
 
     se (num usuario) {
       faz_favor de_jeito_nenhum;

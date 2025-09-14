@@ -12,7 +12,7 @@ arruma_trem HomeController {
 
   @Pegar("/")
   exibirHome() {
-    trem dadosHome = ocê.dadosService.obterDadosHome();
+    trem dadosHome é ocê.dadosService.obterDadosHome();
 
     faz_favor {
       titulo: "Bem-vindo ao GoiásScript Framework!",
@@ -45,7 +45,7 @@ arruma_trem HomeController {
       exemplos: [
         {
           nome: "Todo App Goiano",
-          codigo: "// Criar lista de tarefas goiana\\nuai tarefas = [];\\nfaz_trem adicionarTarefa(texto) {\\n  tarefas.empurrar(texto);\\n}"
+          codigo: "// Criar lista de tarefas goiana\\nuai tarefas é [];\\nfaz_trem adicionarTarefa(texto) {\\n  tarefas.empurrar(texto);\\n}"
         },
         {
           nome: "API REST Goiana",
@@ -68,7 +68,7 @@ arruma_trem HomeController {
       };
     }
 
-    trem resultados = ocê.dadosService.buscar(termo);
+    trem resultados é ocê.dadosService.buscar(termo);
 
     faz_favor {
       termo: termo,
@@ -79,7 +79,7 @@ arruma_trem HomeController {
 
   @Pegar("/categoria/:categoria")
   obterPorCategoria(@Parametros("categoria") categoria: texto) {
-    trem dados = ocê.dadosService.obterPorCategoria(categoria);
+    trem dados é ocê.dadosService.obterPorCategoria(categoria);
 
     faz_favor {
       categoria: categoria,

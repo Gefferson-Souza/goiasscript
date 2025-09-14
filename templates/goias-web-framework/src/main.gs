@@ -7,7 +7,7 @@ pega "./app.module" em { AppModule }
 
 // 🚀 Função principal da aplicação
 vai_na_frente faz_trem bootstrap() {
-  trem app = GoiasApp.criar(AppModule);
+  trem app é GoiasApp.criar(AppModule);
 
   // Configurações da aplicação
   app.configurar({
@@ -19,7 +19,7 @@ vai_na_frente faz_trem bootstrap() {
 
   // Middleware global goiano
   app.usarMiddleware("logger", faz_trem(req, res, proximo) {
-    uai agora = faz_um Date();
+    uai agora é faz_um Date();
     prosa(`[${agora.toISOString()}] ${req.method} ${req.url}`);
     proximo();
   });

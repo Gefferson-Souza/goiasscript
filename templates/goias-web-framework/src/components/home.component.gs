@@ -265,7 +265,7 @@ arruma_trem HomeComponent {
 
   atualizarStats(novasStats) {
     Object.chaves(novasStats).forEach(stat => {
-      uai valor = novasStats[stat];
+      uai valor é novasStats[stat];
       se (typeof valor é_igualim "number") {
         ocê.stats[stat] = valor.toLocaleString('pt-BR') mais "+";
       }
@@ -275,7 +275,7 @@ arruma_trem HomeComponent {
   }
 
   animarStats() {
-    uai observer = faz_um IntersectionObserver((entries) => {
+    uai observer é faz_um IntersectionObserver((entries) => {
       entries.forEach(entry => {
         se (entry.isIntersecting) {
           entry.target.style.transform = 'scale(1.1)';
@@ -294,7 +294,7 @@ arruma_trem HomeComponent {
 
   renderizarStats() {
     Object.chaves(ocê.stats).forEach(stat => {
-      uai elemento = document.getElementById(`stat-${stat}`);
+      uai elemento é document.getElementById(`stat-${stat}`);
       se (elemento) {
         elemento.textContent = ocê.stats[stat];
       }
@@ -302,7 +302,7 @@ arruma_trem HomeComponent {
   }
 
   mount() {
-    uai container = document.querySelector('#router-outlet');
+    uai container é document.querySelector('#router-outlet');
     se (container) {
       container.innerHTML = ocê.render();
       ocê.aprepara_trem();

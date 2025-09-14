@@ -1,8 +1,8 @@
 {
   "name": "goiasscript",
   "displayName": "GoiásScript",
-  "description": "Suporte completo para GoiásScript v2.0 com tipos e módulos - Linguagem de programação goiana",
-  "version": "2.0.0",
+  "description": "Suporte completo para GoiásScript Framework 2.1 - Linguagem de programação goiana com Web Framework",
+  "version": "2.2.0",
   "publisher": "gefferson-souza",
   "repository": {
     "type": "git",
@@ -31,6 +31,12 @@
     "language",
     "types",
     "modules",
+    "framework",
+    "web",
+    "fullstack",
+    "nestjs",
+    "angular",
+    "tailwind",
     "typescript",
     "javascript"
   ],
@@ -39,6 +45,7 @@
     "color": "#228B22",
     "theme": "dark"
   },
+  "main": "./src/extension.js",
   "contributes": {
     "languages": [{
       "id": "goiasscript",
@@ -284,6 +291,12 @@
     "install-extension": "code --install-extension goiasscript-0.3.0.vsix"
   },
   "devDependencies": {
-    "vsce": "^2.19.0"
-  }
+    "@vscode/vsce": "^2.24.0"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  },
+  "activationEvents": [
+    "onLanguage:goiasscript"
+  ]
 }

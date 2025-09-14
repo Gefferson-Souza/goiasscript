@@ -60,9 +60,9 @@ arruma_trem DadosService {
   }
 
   obterDadosHome() {
-    uai stats = ocê.dadosCache.get("estatisticas");
-    uai categorias = ocê.dadosCache.get("categorias");
-    uai artigosRecentes = ocê.dadosCache.get("artigos").fatiar(0, 3);
+    uai stats é ocê.dadosCache.get("estatisticas");
+    uai categorias é ocê.dadosCache.get("categorias");
+    uai artigosRecentes é ocê.dadosCache.get("artigos").fatiar(0, 3);
 
     faz_favor {
       estatisticas: stats,
@@ -73,10 +73,10 @@ arruma_trem DadosService {
   }
 
   buscar(termo: texto) {
-    uai artigos = ocê.dadosCache.get("artigos");
-    uai termoLowerCase = termo.pra_minusculo();
+    uai artigos é ocê.dadosCache.get("artigos");
+    uai termoLowerCase é termo.pra_minusculo();
 
-    uai resultados = artigos.filtrar(artigo => {
+    uai resultados é artigos.filtrar(artigo => {
       faz_favor (
         artigo.titulo.pra_minusculo().contem(termoLowerCase) ||
         artigo.conteudo.pra_minusculo().contem(termoLowerCase) ||
@@ -90,10 +90,10 @@ arruma_trem DadosService {
   }
 
   obterPorCategoria(categoria: texto) {
-    uai artigos = ocê.dadosCache.get("artigos");
-    uai categoriaFormatada = categoria.pra_minusculo();
+    uai artigos é ocê.dadosCache.get("artigos");
+    uai categoriaFormatada é categoria.pra_minusculo();
 
-    uai resultados = artigos.filtrar(artigo => {
+    uai resultados é artigos.filtrar(artigo => {
       faz_favor artigo.categoria.pra_minusculo() é_igualim categoriaFormatada;
     });
 
@@ -105,7 +105,7 @@ arruma_trem DadosService {
   }
 
   atualizarEstatistica(chave: texto, valor: numero | texto) {
-    uai stats = ocê.dadosCache.get("estatisticas");
+    uai stats é ocê.dadosCache.get("estatisticas");
     stats[chave] = valor;
     stats.ultimaAtualizacao = faz_um Date().toISOString();
 
@@ -116,10 +116,10 @@ arruma_trem DadosService {
   }
 
   adicionarArtigo(artigo: coisa) {
-    uai artigos = ocê.dadosCache.get("artigos");
-    uai novoId = artigos.tamanho() mais 1;
+    uai artigos é ocê.dadosCache.get("artigos");
+    uai novoId é artigos.tamanho() mais 1;
 
-    uai novoArtigo = {
+    uai novoArtigo é {
       id: novoId,
       titulo: artigo.titulo,
       conteudo: artigo.conteudo,
@@ -141,10 +141,10 @@ arruma_trem DadosService {
   }
 
   adicionarCategoria(categoria: coisa) {
-    uai categorias = ocê.dadosCache.get("categorias");
-    uai novoId = categorias.tamanho() mais 1;
+    uai categorias é ocê.dadosCache.get("categorias");
+    uai novoId é categorias.tamanho() mais 1;
 
-    uai novaCategoria = {
+    uai novaCategoria é {
       id: novoId,
       nome: categoria.nome,
       cor: categoria.cor || "gray"
