@@ -90,15 +90,41 @@ goias
    - Sistema de erros goianos (`ErroGoiano`)
    - Otimizações automáticas de performance
 
-2. **Mapeamento de Keywords Goianas**:
-   - `uai` → declaração de constante
-   - `trem` → declaração de variável
-   - `faz_trem` → função (mudou de `presta_serviço`)
+2. **Mapeamento de Keywords Goianas Principais**:
+   - `uai` → const (declaração de constante)
+   - `trem` → var (declaração de variável)
+   - `faz_trem` → function (função)
+   - `fazer` → function (função - alias simples)
    - `prosa()` → console.log()
    - `se` → if
-   - `pra` → for
+   - `senao` → else
+   - `se_não` → else
+   - `se_num_for` → else if
+   - `se_ocê_quiser` → if
+   - `vai_indo` → for
+   - `enquanto_tiver` → while
+   - `faz_favor` → return
    - `faz_um` → new
-   - E muitas outras (veja README.md)
+   - `é` → = (atribuição)
+   - `é_igualim` → === (comparação)
+   - `diferente` → !== (diferente)
+   - `mais` → + (soma/concatenação)
+   - `menos` → - (subtração)
+   - `vezes` → * (multiplicação)
+   - `dividido` → / (divisão)
+   - `maior_que` → >
+   - `menor_que` → <
+   - `pelo_menos` → >=
+   - `no_máximo` → <=
+   - `e_mais` → && (e lógico)
+   - `ou_então` → || (ou lógico)
+   - `num_é` → ! (negação)
+   - `certeza` → true
+   - `de_jeito_nenhum` → false
+   - `nada` → null
+   - `indefinido` → undefined
+   - `ocê` → this
+   - E muitas outras (veja compiler/simpleTranspiler.js)
 
 3. **Extensão VS Code** (`vscode-extension/`)
    - Syntax highlighting para arquivos `.gs`

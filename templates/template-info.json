@@ -19,8 +19,8 @@
     },
     {
       "nome": "projeto-web",
-      "descricao": "Template para aplicações web com GoiásScript",
-      "categoria": "web",
+      "descricao": "Template simples para aplicações web com GoiásScript",
+      "categoria": "web-simples",
       "arquivos": [
         "package.json",
         "src/app.gs",
@@ -33,11 +33,54 @@
         "{{autor_nome}}",
         "{{data_criacao}}"
       ]
+    },
+    {
+      "nome": "goias-web-framework",
+      "descricao": "Framework web completo estilo NestJS/Angular com TailwindCSS integrado",
+      "categoria": "framework",
+      "arquivos": [
+        "package.json",
+        "src/main.gs",
+        "src/app.module.gs",
+        "src/components/app.component.gs",
+        "src/components/home.component.gs",
+        "src/controllers/app.controller.gs",
+        "src/controllers/home.controller.gs",
+        "src/services/app.service.gs",
+        "src/services/dados.service.gs",
+        "scripts/dev-server.js",
+        "scripts/build.js",
+        "tailwind.config.js",
+        "goias.config.js",
+        "README.md"
+      ],
+      "variaveis": [
+        "{{projectName}}",
+        "{{projeto_descricao}}",
+        "{{autor_nome}}",
+        "{{data_criacao}}"
+      ],
+      "recursos": [
+        "🚀 Hot Reload com WebSocket",
+        "🎨 TailwindCSS com tema goiano",
+        "🏗️ Arquitetura modular (NestJS style)",
+        "⚡ Full-Stack em GoiásScript",
+        "📱 Design responsivo",
+        "🔧 Sistema de build avançado",
+        "📦 Componentes reutilizáveis",
+        "🌐 Roteamento SPA",
+        "🛠️ Backend integrado"
+      ]
     }
   ],
   "comandos": {
-    "criar_projeto": "goiasscript arma_o_barraco <nome-do-projeto> [--template=basico|web]",
-    "listar_templates": "goiasscript arma_o_barraco --list-templates"
+    "criar_projeto": "goiasscript arma_o_barraco <nome-do-projeto> [--template=basico|web|framework]",
+    "listar_templates": "goiasscript arma_o_barraco --list-templates",
+    "exemplos": [
+      "goiasscript arma_o_barraco meu-app --template=framework",
+      "goiasscript arma_o_barraco api-goiana --template=framework",
+      "goiasscript arma_o_barraco loja-online --template=framework"
+    ]
   },
   "info": {
     "versao": "2.0.0",
