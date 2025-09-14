@@ -1,0 +1,59 @@
+{
+  "name": "{{projectName}}",
+  "version": "1.0.0",
+  "description": "Aplicação GoiásScript Framework - {{projectName}}",
+  "main": "src/main.gs",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run scripts/dev-server.js",
+    "build": "bun run scripts/build.js",
+    "serve": "bun run scripts/serve.js",
+    "watch": "bun run scripts/watch.js",
+    "start": "bun run build && bun run serve",
+    "check": "goiasscript vê_se_tá_certo src/**/*.gs",
+    "limpa": "rm -rf dist/*",
+    "test": "bun run scripts/test.js",
+    "npm:dev": "node scripts/dev-server.js",
+    "npm:build": "node scripts/build.js",
+    "npm:serve": "node scripts/serve.js"
+  },
+  "keywords": [
+    "goiasscript",
+    "web-framework",
+    "goias",
+    "frontend",
+    "fullstack",
+    "brasileiro",
+    "tailwindcss"
+  ],
+  "author": "Desenvolvedor Goiano",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "devDependencies": {
+    "chokidar": "^3.5.3",
+    "ws": "^8.16.0",
+    "node-static": "^0.7.11",
+    "tailwindcss": "^3.4.0",
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.33",
+    "esbuild": "^0.19.11",
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "goiasConfig": {
+    "framework": "goias-web",
+    "version": "2.0.0",
+    "features": {
+      "hotReload": true,
+      "tailwindCSS": true,
+      "components": true,
+      "routing": true,
+      "backend": true
+    }
+  }
+}

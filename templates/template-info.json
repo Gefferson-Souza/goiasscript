@@ -71,20 +71,85 @@
         "🌐 Roteamento SPA",
         "🛠️ Backend integrado"
       ]
+    },
+    {
+      "nome": "roda-de-prosa",
+      "descricao": "🇧🇷 Framework Full-Stack Clean Architecture com filosofia goiana",
+      "categoria": "clean-architecture",
+      "arquivos": [
+        "package.json",
+        "bun.lockb",
+        "goias.config.js",
+        "tailwind.config.js",
+        "src/main.gs",
+        "src/balaio.gs",
+        "src/cores/usuarios/entidades/usuario.entidade.gs",
+        "src/cores/usuarios/casos_de_uso/criar_usuario.caso_de_uso.gs",
+        "src/cores/usuarios/casos_de_uso/buscar_usuario.caso_de_uso.gs",
+        "src/cores/usuarios/portas/usuario.repositorio.porta.gs",
+        "src/cores/produtos/entidades/produto.entidade.gs",
+        "src/cores/produtos/casos_de_uso/criar_produto.caso_de_uso.gs",
+        "src/cores/produtos/portas/produto.repositorio.porta.gs",
+        "src/chao_de_fabrica/http/usuarios/usuario.controlador.gs",
+        "src/chao_de_fabrica/http/usuarios/usuario.dto.gs",
+        "src/chao_de_fabrica/http/usuarios/usuario.balaio.gs",
+        "src/chao_de_fabrica/http/produtos/produto.controlador.gs",
+        "src/chao_de_fabrica/http/produtos/produto.dto.gs",
+        "src/chao_de_fabrica/banco_de_dados/postgres/usuario.repositorio.impl.gs",
+        "src/chao_de_fabrica/banco_de_dados/postgres/produto.repositorio.impl.gs",
+        "src/chao_de_fabrica/autenticacao/autenticacao.servico.gs",
+        "src/balaios_compartilhados/decorators/entidade.decorator.gs",
+        "src/balaios_compartilhados/decorators/caso_de_uso.decorator.gs",
+        "src/balaios_compartilhados/decorators/controlador.decorator.gs",
+        "src/balaios_compartilhados/di/container.goiano.gs",
+        "terreiro_da_prosa/componentes/app.componente.gs",
+        "terreiro_da_prosa/componentes/usuario.componente.gs",
+        "terreiro_da_prosa/paginas/home.pagina.gs",
+        "terreiro_da_prosa/paginas/usuario.pagina.gs",
+        "terreiro_da_prosa/servicos/usuario.api.gs",
+        "terreiro_da_prosa/app.gs",
+        "scripts/dev-server.js",
+        "scripts/build.js",
+        "scripts/serve.js",
+        "tests/cores/usuarios/criar_usuario.test.gs",
+        "tests/chao_de_fabrica/usuario.controlador.test.gs",
+        "README.md"
+      ],
+      "variaveis": [
+        "{{projectName}}",
+        "{{projeto_descricao}}",
+        "{{autor_nome}}",
+        "{{data_criacao}}"
+      ],
+      "recursos": [
+        "🏗️ Clean Architecture 100% goiana",
+        "🇧🇷 Nomenclatura totalmente brasileira",
+        "⚡ Powered by Bun (ultrarrápido)",
+        "🎯 Injeção de Dependência goiana",
+        "📦 Decorators nativos (@Entidade, @CasoDeUso)",
+        "🔥 Hot Reload full-stack",
+        "🎨 TailwindCSS com tema goiano",
+        "🧪 Sistema de testes integrado",
+        "📱 Frontend + Backend unificado",
+        "🚀 CLI para geração automática",
+        "🛠️ DevTools integradas",
+        "📊 Arquitetura que escala"
+      ]
     }
   ],
   "comandos": {
-    "criar_projeto": "goiasscript arma_o_barraco <nome-do-projeto> [--template=basico|web|framework]",
+    "criar_projeto": "goiasscript arma_o_barraco <nome-do-projeto> [--template=basico|web|framework|roda-de-prosa]",
     "listar_templates": "goiasscript arma_o_barraco --list-templates",
     "exemplos": [
-      "goiasscript arma_o_barraco meu-app --template=framework",
-      "goiasscript arma_o_barraco api-goiana --template=framework",
-      "goiasscript arma_o_barraco loja-online --template=framework"
+      "goiasscript arma_o_barraco meu-app --template=roda-de-prosa",
+      "goiasscript arma_o_barraco api-goiana --template=roda-de-prosa",
+      "goiasscript arma_o_barraco loja-online --template=roda-de-prosa"
     ]
   },
   "info": {
-    "versao": "2.0.0",
+    "versao": "2.1.0",
     "autor": "Gefferson-Souza",
-    "ultima_atualizacao": "2025-09-13"
+    "ultima_atualizacao": "2025-09-14",
+    "novo_framework": "Roda de Prosa - Clean Architecture Goiana"
   }
 }

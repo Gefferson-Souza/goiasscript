@@ -4,7 +4,8 @@ import path from 'path';
 import fs from 'fs';
 import express from 'express';
 import chokidar from 'chokidar';
-import WebSocket from 'ws';
+import { WebSocketServer } from 'ws';
+import http from 'http';
 import { spawn } from 'child_process';
 import { fileURLToPath } from 'url';
 
@@ -61,8 +62,8 @@ class GoiasDevServer {
   }
 
   setupWebSocket() {
-    const server = require('http').createServer(this.app);
-    this.wss = new WebSocket.Server({ server });
+    const server = http.createServer(this.app);
+    this.wss = new WebSocketServer({ server });
 
     this.wss.on('connection', (ws) => {
       console.log('🔌 Cliente conectado ao hot reload');

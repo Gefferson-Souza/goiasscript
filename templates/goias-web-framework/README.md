@@ -39,17 +39,18 @@ npx tailwindcss init -p
 ### Comandos Disponíveis
 
 ```bash
-# Desenvolvimento com hot reload
-npm run dev
+# 🟢 Desenvolvimento com Node.js (Padrão)
+npm run dev          # Hot reload server
+npm run build        # Build para produção
+npm run serve        # Servir produção
+npm run start        # Build + serve
 
-# Build para produção
-npm run build
-
-# Servir aplicação em produção
-npm run serve
-
-# Observar mudanças e rebuild automático
-npm run watch
+# 🟠 Desenvolvimento com Bun (Recomendado - Mais Rápido!)
+bun install          # Instalar deps (98% mais rápido!)
+bun run bun:dev      # Hot reload server
+bun run bun:build    # Build (6% mais rápido)
+bun run bun:serve    # Servir produção
+bun run bun:start    # Build + serve
 
 # Iniciar aplicação completa (build + serve)
 npm start

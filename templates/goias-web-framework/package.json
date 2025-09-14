@@ -12,7 +12,12 @@
     "start": "npm run build && npm run serve",
     "check": "goiasscript vê_se_tá_certo src/**/*.gs",
     "limpa": "rm -rf dist/*",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "bun:dev": "bun run scripts/dev-server.js",
+    "bun:build": "bun run scripts/build.js",
+    "bun:serve": "bun run scripts/serve.js",
+    "bun:start": "bun run bun:build && bun run bun:serve",
+    "bun:install": "bun install"
   },
   "keywords": [
     "goiasscript",
