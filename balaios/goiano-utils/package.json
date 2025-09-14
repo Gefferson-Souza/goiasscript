@@ -1,0 +1,36 @@
+{
+  "name": "goiano-utils",
+  "version": "1.0.0",
+  "description": "🧺 Utilitários goianos para GoiásScript - As funções mais úteis do cerrado",
+  "main": "index.js",
+  "type": "module",
+  "keywords": [
+    "goiasscript",
+    "utils",
+    "utilities",
+    "goiano",
+    "brasil",
+    "cerrado"
+  ],
+  "author": "GoiásScript Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gefferson-souza/goiasscript"
+  },
+  "balaio_goiano": {
+    "categoria": "utilitarios",
+    "descricao": "Funções úteis para o dia a dia goiano",
+    "metodos_principais": [
+      "formatar_cpf()",
+      "validar_email()",
+      "converter_moeda()",
+      "calcular_idade()",
+      "formatar_telefone()",
+      "limpar_texto()",
+      "sortear_numero()",
+      "formatar_data()"
+    ],
+    "compativel_com": ["goiasscript", "javascript", "node", "bun"]
+  }
+}
