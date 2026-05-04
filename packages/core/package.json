@@ -1,0 +1,79 @@
+{
+  "name": "goiasscript",
+  "version": "1.5.0-rc.1",
+  "description": "🇧🇷 Linguagem de programação goiana — transpila dialeto goianês para JavaScript",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "src/compiler.js",
+  "bin": {
+    "goiasscript": "./bin/goiasscript.js",
+    "goias": "./bin/goias.js"
+  },
+  "scripts": {
+    "start": "node src/cli/index.js examples/basic/exemplo.gs",
+    "dev": "nodemon src/cli/index.js examples/basic/exemplo.gs",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src/ tests/",
+    "lint:fix": "eslint src/ tests/ --fix",
+    "format": "prettier --write 'src/**/*.js' 'tests/**/*.js'",
+    "format:check": "prettier --check 'src/**/*.js' 'tests/**/*.js'",
+    "example:basic": "node src/cli/index.js examples/basic/exemplo.gs",
+    "example:classes": "node src/cli/index.js examples/classes/exemplo_classes.gs"
+  },
+  "keywords": [
+    "goias",
+    "goiasscript",
+    "programming-language",
+    "transpiler",
+    "javascript",
+    "brasil",
+    "portuguese",
+    "regional",
+    "compiler",
+    "dsl"
+  ],
+  "author": {
+    "name": "Gefferson-Souza",
+    "url": "https://github.com/Gefferson-Souza"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gefferson-Souza/goiasscript.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Gefferson-Souza/goiasscript/issues"
+  },
+  "homepage": "https://github.com/Gefferson-Souza/goiasscript#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "src/",
+    "bin/",
+    "examples/",
+    "templates/projeto-basico/",
+    "templates/basic-template.gs",
+    "templates/template-info.json",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.22.0",
+    "@babel/preset-env": "^7.22.0",
+    "babel-jest": "^29.5.0",
+    "eslint": "^8.42.0",
+    "jest": "^29.5.0",
+    "nodemon": "^2.0.22",
+    "prettier": "^2.8.8"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^10.0.1",
+    "fs-extra": "^11.1.0"
+  }
+}

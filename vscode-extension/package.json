@@ -1,0 +1,302 @@
+{
+  "name": "goiasscript",
+  "displayName": "GoiásScript",
+  "description": "Suporte completo para GoiásScript Framework 2.1 - Linguagem de programação goiana com Web Framework",
+  "version": "2.2.0",
+  "publisher": "gefferson-souza",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Gefferson-Souza/goiasscript.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Gefferson-Souza/goiasscript/issues"
+  },
+  "homepage": "https://github.com/Gefferson-Souza/goiasscript#readme",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Themes",
+    "Language Packs"
+  ],
+  "keywords": [
+    "goiasscript",
+    "goias",
+    "goiano",
+    "brazilian",
+    "portuguese",
+    "programming",
+    "language",
+    "types",
+    "modules",
+    "framework",
+    "web",
+    "fullstack",
+    "nestjs",
+    "angular",
+    "tailwind",
+    "typescript",
+    "javascript"
+  ],
+  "icon": "icons/goiasscript-dark.png",
+  "galleryBanner": {
+    "color": "#228B22",
+    "theme": "dark"
+  },
+  "main": "./src/extension.js",
+  "contributes": {
+    "languages": [{
+      "id": "goiasscript",
+      "aliases": ["GoiásScript", "goiasscript", "Goias Script"],
+      "extensions": [".gs"],
+      "configuration": "./language-configuration.json",
+      "icon": {
+        "light": "./icons/goiasscript-file-light.svg",
+        "dark": "./icons/goiasscript-file-dark.svg"
+      }
+    }],
+    "debuggers": [{
+      "type": "goiasscript",
+      "label": "GoiásScript Debug",
+      "program": "./out/debug/goianoDebugAdapter.js",
+      "runtime": "node",
+      "configurationAttributes": {
+        "launch": {
+          "required": ["program"],
+          "properties": {
+            "program": {
+              "type": "string",
+              "description": "Caminho para o arquivo GoiásScript",
+              "default": "${workspaceFolder}/${command:AskForProgramName}"
+            },
+            "stopOnEntry": {
+              "type": "boolean",
+              "description": "Parar automaticamente no início do programa",
+              "default": true
+            },
+            "trace": {
+              "type": "boolean",
+              "description": "Habilitar log de trace para debug",
+              "default": true
+            }
+          }
+        }
+      },
+      "initialConfigurations": [
+        {
+          "type": "goiasscript",
+          "request": "launch",
+          "name": "Debug GoiásScript",
+          "program": "${workspaceFolder}/${command:AskForProgramName}",
+          "stopOnEntry": true
+        }
+      ],
+      "configurationSnippets": [
+        {
+          "label": "GoiásScript: Debug (Launch)",
+          "description": "Nova configuração para debugar GoiásScript",
+          "body": {
+            "type": "goiasscript",
+            "request": "launch", 
+            "name": "Debug GoiásScript",
+            "program": "^\"\\${workspaceFolder}/\\${command:AskForProgramName}\"",
+            "stopOnEntry": true
+          }
+        }
+      ]
+    }],
+    "grammars": [{
+      "language": "goiasscript",
+      "scopeName": "source.gs",
+      "path": "./syntaxes/goiasscript.tmLanguage.json"
+    }],
+    "snippets": [{
+      "language": "goiasscript",
+      "path": "./snippets/goiasscript.json"
+    }],
+    "commands": [
+      {
+        "command": "goiasscript.traduz",
+        "title": "Traduzir GoiásScript",
+        "category": "GoiásScript",
+        "icon": "$(symbol-method)"
+      },
+      {
+        "command": "goiasscript.bota_pra_moer", 
+        "title": "Botar pra Moer GoiásScript",
+        "category": "GoiásScript",
+        "icon": "$(run)"
+      },
+      {
+        "command": "goiasscript.ve_se_ta_certo",
+        "title": "Vê se Tá Certo",
+        "category": "GoiásScript",
+        "icon": "$(check)"
+      },
+      {
+        "command": "goiasscript.compile",
+        "title": "Compilar GoiásScript (legacy)",
+        "category": "GoiásScript",
+        "icon": "$(play)"
+      },
+      {
+        "command": "goiasscript.run",
+        "title": "Executar GoiásScript (legacy)",
+        "category": "GoiásScript", 
+        "icon": "$(run)"
+      },
+      {
+        "command": "goiasscript.checkTypes",
+        "title": "Verificar Tipos (legacy)",
+        "category": "GoiásScript",
+        "icon": "$(check)"
+      },
+      {
+        "command": "goiasscript.arma_o_barraco", 
+        "title": "Armar o Barraco (Novo Projeto)",
+        "category": "GoiásScript",
+        "icon": "$(folder-opened)"
+      },
+      {
+        "command": "goiasscript.newFile",
+        "title": "Novo Arquivo GoiásScript",
+        "category": "GoiásScript",
+        "icon": "$(new-file)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceExtname == .gs",
+          "command": "goiasscript.traduz",
+          "group": "navigation@1"
+        },
+        {
+          "when": "resourceExtname == .gs", 
+          "command": "goiasscript.bota_pra_moer",
+          "group": "navigation@2"
+        }
+      ],
+      "editor/context": [
+        {
+          "when": "resourceExtname == .gs",
+          "command": "goiasscript.traduz",
+          "group": "goiasscript@1"
+        },
+        {
+          "when": "resourceExtname == .gs",
+          "command": "goiasscript.bota_pra_moer",
+          "group": "goiasscript@2"
+        },
+        {
+          "when": "resourceExtname == .gs",
+          "command": "goiasscript.ve_se_ta_certo",
+          "group": "goiasscript@3"
+        }
+      ],
+      "explorer/context": [
+        {
+          "when": "resourceExtname == .gs",
+          "command": "goiasscript.traduz",
+          "group": "goiasscript@1"
+        },
+        {
+          "when": "resourceExtname == .gs",
+          "command": "goiasscript.bota_pra_moer",
+          "group": "goiasscript@2"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "goiasscript.newFile",
+          "when": "true"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "goiasscript.traduz",
+        "key": "ctrl+shift+g ctrl+t",
+        "when": "resourceExtname == .gs"
+      },
+      {
+        "command": "goiasscript.bota_pra_moer", 
+        "key": "ctrl+shift+g ctrl+r",
+        "when": "resourceExtname == .gs"
+      },
+      {
+        "command": "goiasscript.ve_se_ta_certo",
+        "key": "ctrl+shift+g ctrl+c",
+        "when": "resourceExtname == .gs"
+      },
+      {
+        "command": "goiasscript.arma_o_barraco",
+        "key": "ctrl+shift+g ctrl+n",
+        "when": "true"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "GoiásScript",
+      "properties": {
+        "goiasscript.enableTypeChecking": {
+          "type": "boolean",
+          "default": true,
+          "description": "Habilita verificação de tipos em tempo real"
+        },
+        "goiasscript.enableModuleAnalysis": {
+          "type": "boolean", 
+          "default": true,
+          "description": "Habilita análise de módulos e dependências"
+        },
+        "goiasscript.showWarnings": {
+          "type": "boolean",
+          "default": true,
+          "description": "Mostra warnings goianos de tipos e módulos"
+        },
+        "goiasscript.compilerPath": {
+          "type": "string",
+          "default": "goiasscript",
+          "description": "Caminho para o compilador GoiásScript"
+        },
+        "goiasscript.autoCompileOnSave": {
+          "type": "boolean",
+          "default": false,
+          "description": "Compila automaticamente ao salvar arquivos .gs"
+        },
+        "goiasscript.outputJavaScript": {
+          "type": "boolean", 
+          "default": true,
+          "description": "Gera arquivo JavaScript transpilado"
+        },
+        "goiasscript.enableDebugMode": {
+          "type": "boolean",
+          "default": false,
+          "description": "Habilita modo debug com logs detalhados"
+        }
+      }
+    },
+    "iconThemes": [
+      {
+        "id": "goiasscript-icons",
+        "label": "GoiásScript Icons",
+        "path": "./icons/goiasscript-icon-theme.json"
+      }
+    ]
+  },
+  "scripts": {
+    "package": "vsce package",
+    "install-extension": "code --install-extension goiasscript-0.3.0.vsix"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^2.24.0"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  },
+  "activationEvents": [
+    "onLanguage:goiasscript"
+  ]
+}

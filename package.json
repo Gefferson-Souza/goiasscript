@@ -1,15 +1,37 @@
 {
-  "name": "goiasscript-projeto",
-  "version": "1.0.3",
-  "description": "Meu projeto em GoiásScript",
-  "main": "goiasscript.js",
-  "bin": {
-    "goiasscript": "./goiasscript.js"
-  },
+  "name": "goiasscript-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "description": "🇧🇷 Monorepo do GoiásScript — linguagem de programação goiana, playground web e ENGOIANADOR API",
   "scripts": {
-    "start": "node goiasscript.js exemplo.gs",
-    "build": "node goiasscript.js --compiled exemplo.gs > exemplo.js"
+    "test": "pnpm --filter goiasscript test",
+    "test:coverage": "pnpm --filter goiasscript test:coverage",
+    "lint": "pnpm --filter goiasscript lint",
+    "lint:fix": "pnpm --filter goiasscript lint:fix",
+    "format": "pnpm --filter goiasscript format",
+    "format:check": "pnpm --filter goiasscript format:check",
+    "prepare": "husky install"
   },
-  "author": "Gefferson-Souza",
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0"
+  },
+  "lint-staged": {
+    "packages/**/*.js": [
+      "prettier --write"
+    ],
+    "apps/**/*.{js,ts,tsx}": [
+      "prettier --write"
+    ]
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@10.31.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gefferson-Souza/goiasscript.git"
+  },
   "license": "MIT"
 }

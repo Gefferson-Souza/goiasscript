@@ -1,0 +1,130 @@
+# 🇧🇷 .gitignore GoiásScript - Produção
+# Arquivos que não devem subir para o repositório
+
+# === DEPENDÊNCIAS ===
+node_modules/
+bun.lockb
+package-lock.json
+yarn.lock
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# === BUILDS E CACHE ===
+dist/
+build/
+out/
+lib/
+.cache/
+.eslintcache
+.parcel-cache/
+*.tsbuildinfo
+.next/
+.nuxt/
+.output/
+*.tgz
+
+# === ARQUIVOS TEMPORÁRIOS ===
+.tmp/
+temp/
+*.tmp
+*.temp.*
+*.log
+*.pid
+*.pid.lock
+*.seed
+
+# === ARQUIVOS DE DESENVOLVIMENTO ===
+CLAUDE.md
+debug-report.json
+*.js.map
+
+# === CLAUDE CODE LOCAL CONFIG ===
+.claude/
+
+# === AMBIENTE ===
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# === SISTEMA OPERACIONAL ===
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# === EDITORES ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# === EXTENSÃO VS CODE ===
+vscode-extension/*.vsix
+vscode-extension/node_modules/
+vscode-extension/out/
+vscode-extension/.vscode-test/
+
+# === LSP SERVER ===
+lsp-server/node_modules/
+
+# === PROJETOS DE TESTE (não devem subir) ===
+/meu-projeto/
+/minha-loja/
+/teste-*/
+/testando-*/
+projeto-teste/
+meu-package-*/
+teste-rapido.gs
+teste-global.gs
+projeto-teste-manual/
+exemplo_*.gs
+teste_*.gs
+
+# === COVERAGE E TESTES ===
+coverage/
+.nyc_output/
+*.lcov
+test-results/
+screenshots/
+.coverage
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# === TEMPLATES NODE_MODULES ===
+templates/*/node_modules/
+
+# === ANTIGOS PACKAGE MANAGERS ===
+gspack.json
+
+# === CERTIFICADOS E CHAVES ===
+*.pem
+*.key
+*.cert
+
+# === BANCO DE DADOS LOCAL ===
+*.db
+*.sqlite
+*.sqlite3
+
+# === MANTER ESSENCIAL ===
+# Manter arquivos essenciais:
+!src/
+!examples/**/*.gs
+!templates/
+!balaios/
+!vscode-extension/src/
+!vscode-extension/package.json
+!vscode-extension/README.md
+!vscode-extension/CHANGELOG.md
+!lsp-server/server.js
+!lsp-server/package.json
+!lsp-server/README.md
+

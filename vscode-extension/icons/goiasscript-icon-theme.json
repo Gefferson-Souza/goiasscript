@@ -1,0 +1,26 @@
+{
+  "iconDefinitions": {
+    "goiasscript-file": {
+      "iconPath": "./goiasscript-file-light.svg"
+    },
+    "goiasscript-file-dark": {
+      "iconPath": "./goiasscript-file-dark.svg"
+    }
+  },
+  "fileExtensions": {
+    "gs": "goiasscript-file"
+  },
+  "fileNames": {},
+  "folderNames": {},
+  "folderNamesExpanded": {},
+  "light": {
+    "fileExtensions": {
+      "gs": "goiasscript-file"
+    }
+  },
+  "highContrast": {
+    "fileExtensions": {
+      "gs": "goiasscript-file-dark"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "{{projeto_nome}}",
+  "version": "1.0.0",
+  "description": "Projeto GoiásScript - {{projeto_descricao}}",
+  "main": "src/main.gs",
+  "scripts": {
+    "install-goiasscript": "npm install -g goiasscript"
+  },
+  "keywords": [
+    "goiasscript",
+    "goias",
+    "programming-language"
+  ],
+  "author": "{{autor_nome}}",
+  "license": "MIT",
+  "devDependencies": {
+    "goiasscript": "^2.0.0"
+  }
+}

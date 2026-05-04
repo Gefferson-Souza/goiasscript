@@ -25,6 +25,12 @@
 	  },
 	  {
 		"include": "#classes"
+	  },
+	  {
+		"include": "#modules"
+	  },
+	  {
+		"include": "#types"
 	  }
 	],
 	"repository": {
@@ -32,15 +38,19 @@
 		"patterns": [
 		  {
 			"name": "keyword.control.goiasscript",
-			"match": "\\b(se_ocê_quiser|se_num_for|se_não|vai_indo|enquanto_tiver|para_com_isso|continua_aí|faz_favor|tenta_aí|se_der_ruim|por_fim)\\b"
+			"match": "\\b(se|se_ocê_quiser|se_num_for|se_não|senao|vai_indo|enquanto_tiver|para_com_isso|continua_aí|faz_favor|tenta_aí|se_der_ruim|por_fim)\\b"
 		  },
 		  {
 			"name": "keyword.operator.logical.goiasscript",
-			"match": "\\b(e_mais|ou_então|num_é|é_igualim|diferente|maior_que|menor_que|pelo_menos|no_máximo|é_tipo_de)\\b"
+			"match": "\\b(e_mais|ou_então|num_é|é_igualim|diferente_de|maior_que|menor_que|pelo_menos|no_máximo|é_tipo_de|num)\\b"
 		  },
 		  {
 			"name": "keyword.other.goiasscript",
-			"match": "\\b(em|de)\\b"
+			"match": "\\b(em|de|pra)\\b"
+		  },
+		  {
+			"name": "entity.name.tag.decorator.goiasscript",
+			"match": "@(Componente|Controlador|Injectable|Servico|Entrada|Saida|Pegar|Postar|Colocar|Apagar|Corpo|Params|Query|Module|Controller|Service|Component)\\b"
 		  }
 		]
 	  },
@@ -84,15 +94,19 @@
 		"patterns": [
 		  {
 			"name": "entity.name.function.goiasscript",
-			"match": "\\b(presta_serviço)\\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\\s*\\("
+			"match": "\\b(faz_trem)\\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\\s*\\("
 		  },
 		  {
 			"name": "support.function.goiasscript",
-			"match": "\\b(prosa|reclama|vixe|promessa|quando_resolver|se_der_pobrema|por_fim|resolve_aí|rejeita_isso)\\b"
+			"match": "\\b(prosa|reclama|vixe|promessa|quando_resolver|se_der_pobrema|por_fim|resolve_aí|rejeita_isso|depois_de|espera_um_cadim)\\b"
 		  },
 		  {
 			"name": "entity.name.function.goiasscript",
-			"match": "\\b(vai_na_frente)\\s+(presta_serviço)\\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\\s*\\("
+			"match": "\\b(vai_na_frente)\\s+(faz_trem)\\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\\s*\\("
+		  },
+		  {
+			"name": "support.function.method.goiasscript",
+			"match": "\\.(filtrar|mapear|fatiar|tamanho|empurrar|contem|pra_minusculo|pra_maiusculo|gritando|cochichando|tem_no_meio|trocar|dividir|bota_no_final|arranca_o_rabo)\\b"
 		  }
 		]
 	  },
@@ -137,6 +151,49 @@
 		  {
 			"name": "constant.character.escape.goiasscript",
 			"match": "\\\\."
+		  }
+		]
+	  },
+	  "modules": {
+		"patterns": [
+		  {
+			"name": "keyword.control.import.goiasscript",
+			"match": "\\b(pega)\\s+"
+		  },
+		  {
+			"name": "keyword.control.export.goiasscript", 
+			"match": "\\b(troca_ideia|troca_ideia_principal)\\b"
+		  },
+		  {
+			"name": "keyword.other.import.goiasscript",
+			"match": "\\b(de|tudo_de)\\b"
+		  },
+		  {
+			"name": "string.quoted.double.module.goiasscript",
+			"begin": "(?<=\\bde\\s+)\"",
+			"end": "\"",
+			"patterns": [
+			  {
+				"name": "constant.character.escape.goiasscript",
+				"match": "\\\\."
+			  }
+			]
+		  }
+		]
+	  },
+	  "types": {
+		"patterns": [
+		  {
+			"name": "storage.type.primitive.goiasscript",
+			"match": "\\b(texto|numero|booleano|lista|objeto|funcao|coisa|nada)\\b"
+		  },
+		  {
+			"name": "keyword.operator.type.goiasscript",
+			"match": ":"
+		  },
+		  {
+			"name": "entity.name.type.goiasscript",
+			"match": "(?<=:\\s*)\\b(texto|numero|booleano|lista|objeto|funcao|coisa|nada)\\b"
 		  }
 		]
 	  }

@@ -1,0 +1,413 @@
+{
+  "Variável Constante": {
+    "prefix": "uai",
+    "body": [
+      "uai ${1:nome} é ${2:valor};"
+    ],
+    "description": "Declarar variável constante"
+  },
+  "Variável Mutável": {
+    "prefix": "trem",
+    "body": [
+      "trem ${1:nome} é ${2:valor};"
+    ],
+    "description": "Declarar variável mutável"
+  },
+  "Função": {
+    "prefix": "faz_trem",
+    "body": [
+      "faz_trem ${1:nome}(${2:parametros}) {",
+      "  ${3:// corpo da função}",
+      "  faz_favor ${4:resultado};",
+      "}"
+    ],
+    "description": "Criar função"
+  },
+  "Função Assíncrona": {
+    "prefix": "vai_na_frente_faz_trem",
+    "body": [
+      "vai_na_frente_faz_trem ${1:nome}(${2:parametros}) {",
+      "  tenta_aí {",
+      "    ${3:// código assíncrono}",
+      "    uai resultado é espera_um_cadim ${4:operacaoAssincrona}();",
+      "    faz_favor resultado;",
+      "  } se_der_ruim (erro) {",
+      "    reclama(\"Erro:\", erro);",
+      "  }",
+      "}"
+    ],
+    "description": "Criar função assíncrona"
+  },
+  "Condicional If": {
+    "prefix": "se_ocê_quiser",
+    "body": [
+      "se_ocê_quiser (${1:condicao}) {",
+      "  ${2:// código}",
+      "}"
+    ],
+    "description": "Estrutura condicional if"
+  },
+  "Condicional If-Else": {
+    "prefix": "se_ocê_quiser_se_não",
+    "body": [
+      "se_ocê_quiser (${1:condicao}) {",
+      "  ${2:// código verdadeiro}",
+      "} se_não {",
+      "  ${3:// código falso}",
+      "}"
+    ],
+    "description": "Estrutura condicional if-else"
+  },
+  "Loop For": {
+    "prefix": "vai_indo",
+    "body": [
+      "vai_indo (trem ${1:i} é 0; ${1:i} menor_que ${2:limite}; ${1:i} é ${1:i} mais 1) {",
+      "  ${3:// código do loop}",
+      "}"
+    ],
+    "description": "Loop for tradicional"
+  },
+  "Loop For-Of": {
+    "prefix": "vai_indo_de",
+    "body": [
+      "vai_indo (trem ${1:item} de ${2:array}) {",
+      "  ${3:// processar item}",
+      "}"
+    ],
+    "description": "Loop for-of"
+  },
+  "Loop While": {
+    "prefix": "enquanto_tiver",
+    "body": [
+      "enquanto_tiver (${1:condicao}) {",
+      "  ${2:// código}",
+      "}"
+    ],
+    "description": "Loop while"
+  },
+  "Classe": {
+    "prefix": "arruma_trem",
+    "body": [
+      "arruma_trem ${1:NomeClasse} {",
+      "  aprepara_trem(${2:parametros}) {",
+      "    ${3:// inicialização}",
+      "  }",
+      "  ",
+      "  ${4:metodo}() {",
+      "    ${5:// código do método}",
+      "  }",
+      "}"
+    ],
+    "description": "Criar classe"
+  },
+  "Classe com Herança": {
+    "prefix": "arruma_trem_inherda_de",
+    "body": [
+      "arruma_trem ${1:NomeClasse} inherda_de ${2:ClassePai} {",
+      "  aprepara_trem(${3:parametros}) {",
+      "    super(${4:parametrosPai});",
+      "    ${5:// inicialização específica}",
+      "  }",
+      "  ",
+      "  ${6:metodo}() {",
+      "    ${7:// código do método}",
+      "  }",
+      "}"
+    ],
+    "description": "Criar classe com herança"
+  },
+  "Try-Catch": {
+    "prefix": "tenta_aí",
+    "body": [
+      "tenta_aí {",
+      "  ${1:// código que pode falhar}",
+      "} se_der_ruim (${2:erro}) {",
+      "  reclama(\"Erro:\", ${2:erro});",
+      "}"
+    ],
+    "description": "Bloco try-catch"
+  },
+  "Promise": {
+    "prefix": "promessa",
+    "body": [
+      "faz_um promessa((resolve_aí, rejeita_isso) => {",
+      "  ${1:// código da promise}",
+      "  se_ocê_quiser (${2:sucesso}) {",
+      "    resolve_aí(${3:resultado});",
+      "  } se_não {",
+      "    rejeita_isso(${4:erro});",
+      "  }",
+      "})"
+    ],
+    "description": "Criar Promise"
+  },
+  "Console Log": {
+    "prefix": "prosa",
+    "body": [
+      "prosa(${1:mensagem});"
+    ],
+    "description": "Console.log"
+  },
+  "Console Error": {
+    "prefix": "reclama",
+    "body": [
+      "reclama(${1:erro});"
+    ],
+    "description": "Console.error"
+  },
+  "Array": {
+    "prefix": "array_goiano",
+    "body": [
+      "uai ${1:nomeArray} é [",
+      "  ${2:\"item1\"},",
+      "  ${3:\"item2\"},",
+      "  ${4:\"item3\"}",
+      "];"
+    ],
+    "description": "Criar array"
+  },
+  "Objeto": {
+    "prefix": "objeto_goiano",
+    "body": [
+      "uai ${1:nomeObjeto} é {",
+      "  ${2:propriedade1}: ${3:valor1},",
+      "  ${4:propriedade2}: ${5:valor2}",
+      "};"
+    ],
+    "description": "Criar objeto"
+  },
+  "Comentário de Cabeçalho": {
+    "prefix": "cabecalho_goiano",
+    "body": [
+      "/**",
+      " * ${1:Descrição do arquivo/função}",
+      " * @author ${2:Seu Nome}",
+      " * @date ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+      " */"
+    ],
+    "description": "Comentário de cabeçalho"
+  },
+  "Variável com Tipo": {
+    "prefix": "uai_tipo",
+    "body": [
+      "uai ${1:nome}: ${2|texto,numero,booleano,lista,objeto,funcao|} é ${3:valor};"
+    ],
+    "description": "Declarar variável constante com tipo"
+  },
+  "Variável Mutável com Tipo": {
+    "prefix": "trem_tipo",
+    "body": [
+      "trem ${1:nome}: ${2|texto,numero,booleano,lista,objeto,funcao|} é ${3:valor};"
+    ],
+    "description": "Declarar variável mutável com tipo"
+  },
+  "Função Tipada": {
+    "prefix": "faz_trem_tipos",
+    "body": [
+      "faz_trem ${1:nome}(${2:param}: ${3|texto,numero,booleano,lista,objeto|}): ${4|texto,numero,booleano,lista,objeto,vazio|} {",
+      "  ${5:// corpo da função}",
+      "  faz_favor ${6:resultado};",
+      "}"
+    ],
+    "description": "Criar função com tipos"
+  },
+  "Import Padrão": {
+    "prefix": "pega",
+    "body": [
+      "pega ${1:modulo} de \"${2:./caminho}\";"
+    ],
+    "description": "Import padrão de módulo"
+  },
+  "Import Named": {
+    "prefix": "pega_named",
+    "body": [
+      "pega { ${1:funcao1}, ${2:funcao2} } de \"${3:./modulo}\";"
+    ],
+    "description": "Import nomeado de módulo"
+  },
+  "Import Mixed": {
+    "prefix": "pega_mixed",
+    "body": [
+      "pega ${1:modulo}, { ${2:funcao1}, ${3:funcao2} } de \"${4:./modulo}\";"
+    ],
+    "description": "Import misto (default + named)"
+  },
+  "Import Namespace": {
+    "prefix": "pega_tudo_de",
+    "body": [
+      "pega tudo_de ${1:Namespace} de \"${2:./modulo}\";"
+    ],
+    "description": "Import namespace de módulo"
+  },
+  "Export Default": {
+    "prefix": "troca_ideia_principal",
+    "body": [
+      "troca_ideia_principal ${1:funcaoOuVariavel};"
+    ],
+    "description": "Export padrão"
+  },
+  "Export Named": {
+    "prefix": "troca_ideia",
+    "body": [
+      "troca_ideia { ${1:funcao1}, ${2:funcao2} };"
+    ],
+    "description": "Export nomeado"
+  },
+  "Export Single": {
+    "prefix": "troca_ideia_single",
+    "body": [
+      "troca_ideia ${1:funcao};"
+    ],
+    "description": "Export único"
+  },
+  "Módulo Completo": {
+    "prefix": "modulo_completo",
+    "body": [
+      "// Imports",
+      "pega { ${1:funcao1} } de \"${2:./utils}\";",
+      "",
+      "// Código do módulo",
+      "faz_trem ${3:minhaFuncao}(${4:param}: ${5:tipo}): ${6:tipo} {",
+      "  ${7:// implementação}",
+      "  faz_favor ${8:resultado};",
+      "}",
+      "",
+      "// Exports",
+      "troca_ideia { ${3:minhaFuncao} };"
+    ],
+    "description": "Estrutura completa de módulo"
+  },
+  "Função Async com Tipos": {
+    "prefix": "async_tipos",
+    "body": [
+      "vai_na_frente_faz_trem ${1:nome}(${2:param}: ${3:texto}): ${4:objeto} {",
+      "  tenta_aí {",
+      "    uai resultado: ${4:objeto} é espera_um_cadim ${5:operacao}(${2:param});",
+      "    faz_favor resultado;",
+      "  } se_der_ruim (erro) {",
+      "    reclama(\"Erro em ${1:nome}:\", erro);",
+      "    vixe(erro);",
+      "  }",
+      "}"
+    ],
+    "description": "Função assíncrona com tipos"
+  },
+  "Interface de Dados": {
+    "prefix": "interface_dados",
+    "body": [
+      "uai ${1:dadosExemplo}: objeto é {",
+      "  ${2:id}: ${3:1},",
+      "  ${4:nome}: \"${5:valor}\",",
+      "  ${6:ativo}: ${7|certeza,de_jeito_nenhum|},",
+      "  ${8:lista}: [${9:\"item1\", \"item2\"}]",
+      "};"
+    ],
+    "description": "Estrutura de dados tipada"
+  },
+  "Componente GoiásScript": {
+    "prefix": "@Componente",
+    "body": [
+      "@Componente({",
+      "  seletor: \"${1:meu-componente}\",",
+      "  template: `",
+      "    <div class=\"${2:container}\">",
+      "      <h1>${3:Título do Componente}</h1>",
+      "      <p>${4:Conteúdo}</p>",
+      "    </div>",
+      "  `,",
+      "  estilos: `",
+      "    .${2:container} {",
+      "      padding: 1rem;",
+      "    }",
+      "  `",
+      "})",
+      "arruma_trem ${5:MeuComponente} {",
+      "  aprepara_trem() {",
+      "    ${6:// inicialização}",
+      "  }",
+      "}"
+    ],
+    "description": "Componente GoiásScript Framework"
+  },
+  "Controlador GoiásScript": {
+    "prefix": "@Controlador",
+    "body": [
+      "@Controlador(\"${1:api/rota}\")",
+      "arruma_trem ${2:MeuControlador} {",
+      "",
+      "  @Pegar(\"/\")",
+      "  listar() {",
+      "    faz_favor {",
+      "      mensagem: \"${3:Dados listados com sucesso!}\",",
+      "      dados: ${4:[]}",
+      "    };",
+      "  }",
+      "",
+      "  @Postar(\"/\")",
+      "  criar(@Corpo() dados: coisa) {",
+      "    ${5:// lógica de criação}",
+      "    faz_favor {",
+      "      mensagem: \"Criado com sucesso!\",",
+      "      dados: dados",
+      "    };",
+      "  }",
+      "}"
+    ],
+    "description": "Controlador GoiásScript Framework"
+  },
+  "Serviço GoiásScript": {
+    "prefix": "@Injectable",
+    "body": [
+      "@Injectable()",
+      "arruma_trem ${1:MeuServico} {",
+      "  aprepara_trem() {",
+      "    ${2:// inicialização}",
+      "  }",
+      "",
+      "  ${3:metodo}() {",
+      "    ${4:// lógica do serviço}",
+      "    faz_favor ${5:resultado};",
+      "  }",
+      "}"
+    ],
+    "description": "Serviço GoiásScript Framework"
+  },
+  "Rota GET": {
+    "prefix": "@Pegar",
+    "body": [
+      "@Pegar(\"${1:/rota}\")",
+      "${2:metodo}(${3:@Query(\"param\") param?: texto}) {",
+      "  ${4:// lógica da rota}",
+      "  faz_favor ${5:resultado};",
+      "}"
+    ],
+    "description": "Rota GET"
+  },
+  "Rota POST": {
+    "prefix": "@Postar",
+    "body": [
+      "@Postar(\"${1:/rota}\")",
+      "${2:metodo}(@Corpo() dados: coisa) {",
+      "  ${3:// lógica da rota}",
+      "  faz_favor ${4:resultado};",
+      "}"
+    ],
+    "description": "Rota POST"
+  },
+  "Módulo GoiásScript": {
+    "prefix": "modulo_framework",
+    "body": [
+      "pega \"@goiano/core\" em { criarModulo }",
+      "pega \"./${1:controller}\" em { ${2:MeuControlador} }",
+      "pega \"./${3:service}\" em { ${4:MeuServico} }",
+      "",
+      "troca_ideia_principal criarModulo({",
+      "  controladores: [${2:MeuControlador}],",
+      "  servicos: [${4:MeuServico}],",
+      "  imports: [${5:// outros módulos}],",
+      "  exports: [${4:MeuServico}]",
+      "});"
+    ],
+    "description": "Módulo GoiásScript Framework"
+  }
+}
