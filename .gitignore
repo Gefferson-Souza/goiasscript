@@ -38,6 +38,7 @@ temp/
 CLAUDE.md
 debug-report.json
 *.js.map
+./docs
 
 # === CLAUDE CODE LOCAL CONFIG ===
 .claude/
@@ -77,6 +78,7 @@ lsp-server/node_modules/
 # === PROJETOS DE TESTE (não devem subir) ===
 /meu-projeto/
 /minha-loja/
+docs/plano/
 /teste-*/
 /testando-*/
 projeto-teste/
@@ -127,5 +129,3 @@ gspack.json
 !lsp-server/server.js
 !lsp-server/package.json
 !lsp-server/README.md
-
-docs/plano/
