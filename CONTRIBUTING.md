@@ -1,188 +1,197 @@
 # Contribuindo para o GoiásScript 🤠
 
-Ô gente, que bão que ocê quer contribuir com o GoiásScript! Este guia vai te ajudar a entender como participar do desenvolvimento desta linguagem goiana.
+Ô gente, que bão que ocê quer contribuir! Este guia explica como participar
+do desenvolvimento do GoiásScript v1.5+.
 
-## Como Contribuir
+## 🚀 Setup do ambiente
 
-### 🐛 Reportar Bugs
+### Pré-requisitos
 
-Antes de reportar um bug, verifique se não existe uma issue similar já aberta. Se não existir:
+| Ferramenta | Versão mínima |
+|---|---|
+| Node.js | `>=18.0.0` |
+| pnpm | `>=8.0.0` |
 
-1. Abra uma nova issue usando o template de bug report
-2. Inclua informações detalhadas sobre o problema
-3. Adicione exemplos de código GoiásScript que reproduzem o erro
-4. Informe sua versão do Node.js e sistema operacional
+Se ainda não tem pnpm: `npm install -g pnpm` ou ver [pnpm.io/installation](https://pnpm.io/installation).
 
-### 💡 Sugerir Features
+### Clonar e instalar
 
-Para sugerir uma nova funcionalidade:
-
-1. Abra uma issue usando o template de feature request
-2. Descreva claramente a funcionalidade desejada
-3. Explique por que seria útil para a comunidade
-4. Se possível, sugira como poderia ser implementada
-
-### 🔧 Desenvolvimento
-
-#### Configuração do Ambiente
-
-1. **Fork** este repositório
-2. **Clone** seu fork:
-   ```bash
-   git clone https://github.com/SEU_USERNAME/goiasscript.git
-   cd goiasscript
-   ```
-
-3. **Instale as dependências**:
-   ```bash
-   npm install
-   ```
-
-4. **Execute os testes** para garantir que está tudo funcionando:
-   ```bash
-   npm test
-   ```
-
-#### Estrutura do Projeto
-
-```
-src/
-├── compiler/       # Núcleo do transpiler
-├── errors/         # Sistema de erros goianos
-├── cli/           # Interface de linha de comando
-└── stdlib/        # Biblioteca padrão (futuro)
-
-examples/          # Exemplos organizados por categoria
-tests/            # Testes automatizados
-docs/             # Documentação
-```
-
-#### Fluxo de Desenvolvimento
-
-1. **Crie uma branch** para sua feature:
-   ```bash
-   git checkout -b feature/nova-funcionalidade
-   ```
-
-2. **Implemente suas mudanças** seguindo os padrões do projeto
-
-3. **Escreva testes** para suas modificações
-
-4. **Execute os testes e linting**:
-   ```bash
-   npm test
-   npm run lint
-   npm run format
-   ```
-
-5. **Commit suas mudanças** com mensagens descritivas:
-   ```bash
-   git commit -m "feat: adiciona suporte a novos operadores goianos"
-   ```
-
-6. **Push para sua branch**:
-   ```bash
-   git push origin feature/nova-funcionalidade
-   ```
-
-7. **Abra um Pull Request**
-
-### 📝 Padrões de Código
-
-#### Estilo de Código
-- Use ESLint e Prettier (já configurados)
-- Máximo 100 caracteres por linha
-- Use single quotes para strings
-- Adicione ponto e vírgula no final das instruções
-
-#### Testes
-- Todo código novo deve ter testes
-- Coverage mínimo de 80%
-- Use nomes descritivos para os testes
-- Organize testes em blocos lógicos com `describe` e `it`
-
-#### Commit Messages
-Siga o padrão [Conventional Commits](https://www.conventionalcommits.org/):
-
-- `feat:` para novas funcionalidades
-- `fix:` para correções de bugs
-- `docs:` para mudanças na documentação
-- `style:` para formatação e estilo
-- `refactor:` para refatoração de código
-- `test:` para testes
-- `chore:` para tarefas de manutenção
-
-### 🧪 Testando
-
-#### Executar Todos os Testes
 ```bash
-npm test
+# 1. Faça fork pelo GitHub e clone seu fork
+git clone https://github.com/SEU_USERNAME/goiasscript.git
+cd goiasscript
+
+# 2. Instalar dependências do monorepo
+pnpm install
+
+# 3. Confirmar que tudo funciona
+pnpm test
 ```
 
-#### Executar Testes em Modo Watch
+### Estrutura do monorepo
+
+```
+goiasscript/
+├── packages/
+│   └── core/                       # Pacote npm "goiasscript"
+│       ├── src/                    # Transpiler, lexer, runtime goiano
+│       ├── bin/                    # CLIs: goiasscript, goias (REPL)
+│       ├── tests/unit/             # Suites Jest
+│       ├── examples/               # .gs de exemplo
+│       └── templates/              # Templates de projeto
+├── apps/                           # Playground (W20), ENGOIANADOR (W23)
+├── docs/
+│   ├── plano/                      # Plano de relançamento v1.5
+│   └── METODOS_GOIANOS.md          # Referência de métodos goianos
+├── vscode-extension/               # Extensão VSCode (independente)
+├── KEEP-OR-ARCHIVE.md              # Triagem v1.5 (o que foi arquivado)
+└── CHANGELOG.md
+```
+
+## 📜 Comandos disponíveis
+
+<!-- AUTO-GENERATED:scripts -->
+
+### Root (workspace)
+
+| Comando | Descrição |
+|---|---|
+| `pnpm test` | Executa toda a suite de testes |
+| `pnpm test:coverage` | Tests com relatório de cobertura |
+| `pnpm lint` | ESLint em src/ e tests/ |
+| `pnpm lint:fix` | ESLint com auto-fix |
+| `pnpm format` | Prettier write em src/ e tests/ |
+| `pnpm format:check` | Prettier check sem modificar |
+
+### Dentro de `packages/core/`
+
+| Comando | Descrição |
+|---|---|
+| `pnpm start` | Roda o exemplo básico via CLI |
+| `pnpm dev` | Mesmo que start, mas com nodemon |
+| `pnpm test:watch` | Tests em modo watch |
+| `pnpm example:basic` | Roda `examples/basic/exemplo.gs` |
+| `pnpm example:classes` | Roda `examples/classes/exemplo_classes.gs` |
+
+<!-- /AUTO-GENERATED:scripts -->
+
+## 🐛 Reportar bugs
+
+Antes de abrir, busque issues similares. Se for novo:
+
+1. Use o template de bug report
+2. Inclua o `.gs` que reproduz o problema (mínimo possível)
+3. Rode `node --version`, `pnpm --version` e cole no relatório
+4. Anexe a saída de `pnpm test` se relevante
+
+## 💡 Sugerir features
+
+1. Abra issue com template de feature request
+2. Explique a motivação (qual problema resolve?)
+3. Considere alinhamento com o [PLANO-RELANCAMENTO](docs/plano/PLANO-RELANCAMENTO.md)
+   — features fora do roadmap atual podem demorar mais
+
+## 🔧 Fluxo de desenvolvimento
+
 ```bash
-npm run test:watch
+# 1. Branch a partir de main (ou feat/v1.5-slim enquanto não merge)
+git checkout -b feat/sua-feature
+
+# 2. Implemente + escreva testes (TDD preferido)
+# 3. Rode os checks locais
+pnpm test
+pnpm lint
+pnpm format:check
+
+# 4. Commit seguindo conventional commits
+git commit -m "feat: descrição clara da feature"
+
+# 5. Push e abra PR
+git push -u origin feat/sua-feature
 ```
 
-#### Ver Coverage
+### Convenção de commits
+
+Padrão [Conventional Commits](https://www.conventionalcommits.org/):
+
+| Tipo | Quando usar |
+|---|---|
+| `feat:` | Nova funcionalidade |
+| `fix:` | Correção de bug |
+| `refactor:` | Reorganização sem mudar comportamento |
+| `docs:` | Mudanças só em documentação |
+| `test:` | Adicionar/atualizar tests |
+| `chore:` | Build, deps, configs |
+| `perf:` | Melhoria de performance |
+| `ci:` | Mudanças no GitHub Actions |
+
+## 📐 Padrões de código
+
+- **Estilo:** ESLint + Prettier (configurados na raiz)
+- **Linha:** máx 100 caracteres
+- **Strings:** aspas simples
+- **Ponto e vírgula:** sim, sempre
+
+## 🧪 Testes
+
+- Coverage **mínimo configurado:** 50% (debt v1.5; volta pra 80% na Fase 1)
+- Use `describe`/`it` com nomes descritivos
+- Testes ficam em `packages/core/tests/unit/<modulo>.test.js`
+
 ```bash
-npm run test:coverage
+# Suite completa
+pnpm test
+
+# Watch durante dev
+cd packages/core && pnpm test:watch
+
+# Cobertura
+pnpm test:coverage
 ```
 
-#### Testar Exemplos
-```bash
-# Exemplo básico
-npm run example:basic
+## 🌟 Áreas de contribuição priorizadas
 
-# Exemplo com classes
-npm run example:classes
+Alinhadas com o [PLANO-RELANCAMENTO](docs/plano/PLANO-RELANCAMENTO.md):
 
-# Exemplo assíncrono
-npm run example:async
-```
+### Alta prioridade (W20 — Playground Web)
 
-### 🌟 Áreas de Contribuição
+- [ ] `apps/playground/` com Next.js 15 + Monaco Editor
+- [ ] Adicionar campo `exports` no `packages/core/package.json` com entry browser-safe
+- [ ] Sintaxe highlight do GoiásScript no Monaco (port do `vscode-extension/syntaxes/`)
 
-#### Prioridade Alta
-- [ ] Melhorar sistema de erros goianos
-- [ ] Adicionar mais expressões regionais
-- [ ] Otimizar performance do transpiler
-- [ ] Implementar source maps
-- [ ] Criar mais exemplos práticos
+### Alta prioridade (W23 — ENGOIANADOR API)
 
-#### Prioridade Média
-- [ ] Sistema de módulos/importação
-- [ ] Biblioteca padrão goiana
-- [ ] Integração com ferramentas de build
-- [ ] Melhorar extensão VS Code
+- [ ] `apps/engoianador-api/` com Cloudflare Worker + Groq integration
+- [ ] Rate limiting via Cloudflare KV
+- [ ] Fallback para Cloudflare Workers AI
 
-#### Prioridade Baixa
-- [ ] Suporte a TypeScript definitions
-- [ ] Plugin para webpack
-- [ ] REPL interativo
-- [ ] Documentação interativa
+### Média prioridade
 
-### 🤝 Processo de Review
+- [ ] Tests para `src/cli/index.js` (atualmente 0% cobertura)
+- [ ] Corrigir lexer para `vai_na_frente presta_serviço` (com espaço)
+- [ ] REPL com persistência de variáveis entre linhas
+- [ ] Voltar coverage threshold pra 80%
 
-1. Todo PR passa por revisão de código
-2. Testes automáticos devem passar
-3. Coverage deve ser mantido acima de 80%
-4. Documentação deve ser atualizada se necessário
-5. Pelo menos um maintainer deve aprovar
+## 🤝 Processo de review
 
-### 📚 Recursos Úteis
+1. Tests automatizados devem passar (CI/CD via GitHub Actions)
+2. Sem regressão em coverage
+3. Pelo menos um maintainer aprova
+4. Squash & merge é o padrão
 
-- [Documentação da Linguagem](README.md)
-- [Exemplos Práticos](examples/)
-- [Referência da API](docs/api/)
-- [Issues Abertas](https://github.com/Gefferson-Souza/goiasscript/issues)
+## 📚 Recursos
 
-### ❓ Dúvidas?
+- [README](README.md) — overview do projeto
+- [Plano de relançamento](docs/plano/PLANO-RELANCAMENTO.md) — roadmap detalhado
+- [Métodos goianos](docs/METODOS_GOIANOS.md) — referência da runtime
+- [KEEP-OR-ARCHIVE](KEEP-OR-ARCHIVE.md) — o que ficou e o que foi arquivado
+- [Issues](https://github.com/Gefferson-Souza/goiasscript/issues)
 
-Se tiver qualquer dúvida, pode:
-- Abrir uma issue com a tag "question"
-- Entrar em contato pelo email: gefferson.souza@example.com
+## ❓ Dúvidas?
+
+Abra uma issue com a label `question` ou inicie uma discussão em
+[GitHub Discussions](https://github.com/Gefferson-Souza/goiasscript/discussions).
 
 ---
 
-**Obrigado por contribuir com o GoiásScript! Juntos vamos fazer essa linguagem ficar cada vez mais bãzona! 🚀🤠**
+**Obrigado por contribuir com o GoiásScript! Bão demais ter ocê na turma! 🚀**
