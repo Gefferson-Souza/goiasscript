@@ -203,17 +203,6 @@ code --install-extension goiasscript-2.2.0.vsix
 
 Recursos: syntax highlighting, ícones de arquivos `.gs`, snippets goianos.
 
-## 📅 Roadmap
-
-Detalhado em [docs/plano/PLANO-RELANCAMENTO.md](docs/plano/PLANO-RELANCAMENTO.md):
-
-| Sprint | Foco |
-|---|---|
-| **W19** ✅ | Slim down + monorepo (esta versão) |
-| **W20** | Playground web — Next.js + Monaco em `apps/playground/` |
-| **W23** | ENGOIANADOR API — Cloudflare Worker + Groq |
-| **W25** | Launch day v1.5.0 — Cloudflare Pages + asset viral BR |
-
 ## 🤝 Contribuindo
 
 Veja [CONTRIBUTING.md](CONTRIBUTING.md). Resumo:
