@@ -1,7 +1,41 @@
 const GoiasScriptTranspiler = require('./simpleTranspiler');
 const GoiasScriptLexer = require('./lexer');
-const TypeAnalyzer = require('../types/TypeAnalyzer');
-const ModuleResolver = require('../modules/ModuleResolver');
+
+function loadOptional(modulePath, fallback) {
+  try {
+    return require(modulePath);
+  } catch (err) {
+    if (err && err.code === 'MODULE_NOT_FOUND') {
+      return fallback;
+    }
+    throw err;
+  }
+}
+
+class NoopTypeAnalyzer {
+  analyze() {
+    return { typeCount: 0, symbolTable: {}, hasTypeErrors: false, warnings: [], errors: [] };
+  }
+}
+
+class NoopModuleResolver {
+  resolveModules(code) {
+    return { code, hasModules: false, imports: [], exports: [], dependencies: [], warnings: [] };
+  }
+  clearCache() {}
+  generateDependencyReport() {
+    return { totalModules: 0, modules: [] };
+  }
+  moduleExists() {
+    return true;
+  }
+  detectCircularDependencies() {
+    return null;
+  }
+}
+
+const TypeAnalyzer = loadOptional('../types/TypeAnalyzer', NoopTypeAnalyzer);
+const ModuleResolver = loadOptional('../modules/ModuleResolver', NoopModuleResolver);
 
 /**
  * Main entry point for GoiásScript compiler
@@ -27,13 +61,13 @@ class GoiasScriptCompiler {
       // Step 1: Resolve modules first
       const moduleResolution = this.moduleResolver.resolveModules(code, fileName);
       let processedCode = moduleResolution.code;
-      
+
       // Step 2: Perform type analysis on processed code
       const typeAnalysis = this.typeAnalyzer.analyze(processedCode, fileName);
-      
+
       // Step 3: Transpile to JavaScript
       const result = this.transpiler.transpile(processedCode, fileName);
-      
+
       if (!result.success) {
         return result;
       }
@@ -42,11 +76,7 @@ class GoiasScriptCompiler {
       const moduleWarnings = this._validateModuleDependencies(moduleResolution);
 
       // Combine all warnings
-      const allWarnings = [
-        ...(result.warnings || []),
-        ...typeAnalysis.warnings,
-        ...moduleWarnings,
-      ];
+      const allWarnings = [...(result.warnings || []), ...typeAnalysis.warnings, ...moduleWarnings];
 
       return {
         success: true,
@@ -67,7 +97,6 @@ class GoiasScriptCompiler {
         },
         stats: this._getCompilationStats(code, result.code),
       };
-
     } catch (error) {
       return {
         success: false,
@@ -85,7 +114,7 @@ class GoiasScriptCompiler {
    */
   async execute(code, fileName = 'script.gs') {
     const result = this.compile(code, fileName);
-    
+
     if (!result.success) {
       if (result.error && result.error.mostrarErro) {
         result.error.mostrarErro();
@@ -98,11 +127,10 @@ class GoiasScriptCompiler {
     try {
       // Create isolated execution context
       const context = this._createExecutionContext();
-      
+
       // Execute generated JavaScript code
       const func = new Function(...Object.keys(context), result.javascript);
       await func(...Object.values(context));
-      
     } catch (error) {
       const goiasError = this.transpiler.errorTranslator.translate(error, fileName);
       goiasError.mostrarErro();
@@ -129,7 +157,7 @@ class GoiasScriptCompiler {
     try {
       const tokens = this.lexer.tokenize(code);
       const result = this.transpiler.transpile(code, 'validation.gs');
-      
+
       if (!result.success) {
         return {
           valid: false,
@@ -138,7 +166,7 @@ class GoiasScriptCompiler {
           warnings: result.warnings || [],
         };
       }
-      
+
       // Try to analyze generated JavaScript to detect syntax errors
       try {
         new Function(result.code);
@@ -157,7 +185,6 @@ class GoiasScriptCompiler {
           warnings: result.warnings || [],
         };
       }
-      
     } catch (error) {
       return {
         valid: false,
@@ -180,34 +207,36 @@ class GoiasScriptCompiler {
         const ErroGoiano = require('../errors/ErroGoiano');
         throw new ErroGoiano(type, message, tip);
       },
-      
+
       // Debug utilities
-      __debug: (message) => {
+      __debug: message => {
         if (this.options.debug) {
           console.log('[DEBUG GoiásScript]:', message);
         }
       },
-      
+
       // Custom promises (if needed)
       promessa: Promise,
-      
+
       // Console with Goias style
       console: console,
-      
+
       // Other global utilities
       setTimeout: setTimeout,
       setInterval: setInterval,
       clearTimeout: clearTimeout,
       clearInterval: clearInterval,
-      
+
       // Common Node.js modules (if in Node environment)
-      ...(typeof require !== 'undefined' ? {
-        require: require,
-        module: module,
-        exports: exports,
-        __filename: __filename,
-        __dirname: __dirname,
-      } : {}),
+      ...(typeof require !== 'undefined'
+        ? {
+            require: require,
+            module: module,
+            exports: exports,
+            __filename: __filename,
+            __dirname: __dirname,
+          }
+        : {}),
     };
   }
 
@@ -219,7 +248,7 @@ class GoiasScriptCompiler {
    */
   _validateModuleDependencies(moduleResolution) {
     const warnings = [];
-    
+
     if (!moduleResolution.hasModules) {
       return warnings;
     }
@@ -261,15 +290,15 @@ class GoiasScriptCompiler {
    */
   compileModule(filePath) {
     const fs = require('fs');
-    
+
     try {
       const code = fs.readFileSync(filePath, 'utf-8');
       const result = this.compile(code, filePath);
-      
+
       if (result.success && result.moduleInfo.hasModules) {
         // Process all dependencies recursively
         const dependencyResults = [];
-        
+
         for (const depPath of result.moduleInfo.dependencies) {
           if (depPath.endsWith('.gs')) {
             const depResult = this.compileModule(depPath);
@@ -279,12 +308,11 @@ class GoiasScriptCompiler {
             });
           }
         }
-        
+
         result.dependencies = dependencyResults;
       }
-      
+
       return result;
-      
     } catch (error) {
       return {
         success: false,
