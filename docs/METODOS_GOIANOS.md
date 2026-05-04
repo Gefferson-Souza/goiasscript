@@ -1,8 +1,13 @@
-# 🇧🇷 Métodos Nativos Goianos - GoiásScript v2.0
+# 🇧🇷 Métodos Nativos Goianos — GoiásScript
+
+> Última revisão: 2026-05-04 (alinhado com v1.5.0-rc.1)
 
 ## 📖 Introdução
 
-O GoiásScript v2.0 agora possui **métodos 100% goianos**, substituindo completamente os métodos JavaScript! Agora é uma linguagem verdadeiramente independente e goiana.
+O GoiásScript possui **métodos 100% goianos** que substituem os métodos
+JavaScript. Esta referência cobre os métodos nativos disponíveis em runtime
+após transpilação. Para a sintaxe da linguagem em si, veja o
+[README](../README.md).
 
 ---
 

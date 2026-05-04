@@ -1,444 +1,252 @@
-# 🇧🇷 GoiásScript v2.0
+# 🇧🇷 GoiásScript v1.5 — Goianês na Web
 
-> **Linguagem de programação goiana com métodos 100% nativos**
+> **Linguagem de programação goiana que transpila dialeto goianês para JavaScript**
 
-GoiásScript é uma linguagem de programação inspirada no dialeto goiano que compila para JavaScript. Agora na versão 2.0 com **métodos nativos goianos**, **sistema de tipos**, **módulos próprios** e **ferramentas profissionais completas**.
+GoiásScript é um experimento cultural e técnico: uma DSL brasileira que aceita
+código escrito em goianês raiz (`uai`, `prosa`, `bota_pra_moer`) e produz JS
+limpo. Esta é a versão **1.5 enxuta** — a v2.0 que ficou inflada na branch de
+desenvolvimento foi arquivada em `archive/v2-experimental` e revisitada com
+foco no que importa: zero install, identidade cultural forte, asset viral.
 
-[![Versão](https://img.shields.io/badge/versão-2.0.0-green.svg)](https://github.com/Gefferson-Souza/goiasscript)
+[![Versão](https://img.shields.io/badge/versão-1.5.0--rc.1-yellow.svg)](CHANGELOG.md)
 [![Licença](https://img.shields.io/badge/licença-MIT-blue.svg)](LICENSE)
-[![Cobertura](https://img.shields.io/badge/cobertura-70%2B-brightgreen.svg)](coverage)
-[![Node](https://img.shields.io/badge/node-%3E%3D14.0.0-brightgreen.svg)](package.json)
+[![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](package.json)
+[![pnpm](https://img.shields.io/badge/pnpm-%3E%3D8-orange.svg)](https://pnpm.io)
 
-## ✨ **Novidades da v2.0**
-
-- 🔥 **Métodos 100% Goianos** - Sem dependência de JavaScript
-- 📊 **Sistema de Tipos Nativo** - Com inferência automática
-- 📦 **Módulos GoiásScript** - Import/export goiano
-- 🛠️ **CLI Completo** - Compile, execute, debug
-- 📋 **Package Manager** - Sistema próprio (.gspack)
-- 🖥️ **REPL Interativo** - Terminal de desenvolvimento
-- 🐛 **Debugger Nativo** - Debug com breakpoints
-- 🎨 **VS Code Extension** - Suporte completo no editor
-
-## 🚀 **Instalação**
+## 🚀 Instalação
 
 ```bash
+# Via npm (a partir do release v1.5.0)
 npm install -g goiasscript
+
+# Para desenvolver no monorepo
+git clone https://github.com/Gefferson-Souza/goiasscript.git
+cd goiasscript
+pnpm install
 ```
 
-## 📋 **Ferramentas Disponíveis**
+## 🎯 Início rápido
 
-Após instalação, você terá acesso a 4 comandos goianos:
+### 1. Armar o barraco (criar projeto)
 
-```bash
-goiasscript  # Compilador principal (traduz, bota_pra_moer, vê_se_tá_certo)
-gs-balaio    # Gerenciador de balaios (pega, joga_fora, mostra_os_balaio)
-goias        # Roda de Prosa - REPL interativo goiano
-gs-fuçá      # Debugger que fuça os detalhes
-```
-
-## 🎯 **Início Rápido**
-
-### 1. Armar o barraco (criar novo projeto)
 ```bash
 goiasscript arma_o_barraco meu-projeto
 cd meu-projeto
 ```
 
-### 2. Arquivo exemplo (`main.gs`)
+### 2. Escrever um arquivo `main.gs`
+
 ```goiasscript
-// GoiásScript v2.0 - Métodos 100% Goianos!
+uai nome é "Goiás"
+uai numeros é [1, 2, 3, 4, 5]
 
-uai nome: texto é "João da Silva"
-uai idade: numero é 30
-uai tecnologias: lista é ["GoiásScript", "JavaScript", "Node.js"]
+prosa("Bem-vindo ao", nome)
 
-// Função goiana
-faz_trem saudar(pessoa: texto): texto {
-  faz_favor "Oi " mais pessoa mais ", tudo beleza?"
+uai dobrados é numeros.mapear(x => x vezes 2)
+prosa("Dobrados:", dobrados)
+
+faz_trem saudar(pessoa) {
+  faz_favor "Eai " mais pessoa mais ", tudo beleza?"
 }
 
-// Usando métodos goianos nativos
-uai nome_maiusculo: texto é nome.pra_maiusculo()
-uai primeira_tech: texto é tecnologias[0]
-uai saudacao: texto é saudar(nome)
-
-prosa("Nome:", nome_maiusculo)
-prosa("Primeira tecnologia:", primeira_tech)  
-prosa(saudacao)
-
-// Math goiano
-uai numero_sorte: numero é GoianoMath.arredondar(GoianoMath.sorteio() vezes 100)
-prosa("Número da sorte:", numero_sorte)
+prosa(saudar(nome))
 ```
 
 ### 3. Botar pra moer (executar)
+
 ```bash
 goiasscript bota_pra_moer main.gs
 ```
 
-## 🔧 **Métodos Goianos Nativos**
+## 🛠️ Ferramentas CLI
 
-### 📝 **Texto (String)**
+V1.5 entrega 2 binários enxutos (a v2 tinha 8 — os outros foram arquivados):
+
+| Binário | Função |
+|---|---|
+| `goiasscript` | CLI principal (transpile, run, validate, scaffold) |
+| `goias` | Roda de Prosa — REPL interativo goiano |
+
+### Comandos de `goiasscript`
+
+<!-- AUTO-GENERATED:cli-commands -->
+
+| Comando | Alias | Descrição |
+|---|---|---|
+| `goiasscript traduz <arquivo.gs>` | `compile` | Transpila para JavaScript |
+| `goiasscript bota_pra_moer <arquivo.gs>` | `run` | Transpila e executa |
+| `goiasscript vê_se_tá_certo <arquivo.gs>` | `check-types` | Valida sintaxe e tipos |
+| `goiasscript arma_o_barraco <nome>` | `new` | Cria estrutura de projeto novo |
+| `goiasscript dedo_de_prosa` | `info` | Exibe banner com versão e info |
+| `goiasscript --version` | — | Mostra versão (1.5.0-rc.1) |
+
+<!-- /AUTO-GENERATED:cli-commands -->
+
+### Comandos do REPL (`goias`)
+
+| Comando | Descrição |
+|---|---|
+| `.desenrola` | Mostra ajuda |
+| `.mostra_os_trem` | Lista variáveis em memória |
+| `.zera_o_trem` | Limpa o estado do REPL |
+| `.vaza` | Sai do REPL |
+
+## 🗣️ Sintaxe goiana
+
+### Declaração de variáveis
+
 ```goiasscript
-uai texto é "Oi, sô!"
-
-texto.gritando()           // "OI, SÔ!" (era pra_maiusculo)
-texto.cochichando()        // "oi, sô!" (era pra_minusculo)
-texto.dividir(", ")        // ["Oi", "sô!"]
-texto.trocar("sô", "meu")  // "Oi, meu!"
-texto.tem_no_meio("Oi")    // certeza (era contem)
-texto.tamanho()            // 7
+uai nome é "João"          // const nome = "João"
+trem contador é 0           // var contador = 0
 ```
 
-### 📋 **Lista (Array)**
+### Operadores
+
+| GoiásScript | JavaScript |
+|---|---|
+| `é` | `=` |
+| `é_igualim` | `===` |
+| `diferente` | `!==` |
+| `mais` | `+` |
+| `menos` | `-` |
+| `vezes` | `*` |
+| `dividido` | `/` |
+| `e_mais` | `&&` |
+| `ou_então` | `\|\|` |
+| `num_é` | `!` |
+| `maior_que` | `>` |
+| `menor_que` | `<` |
+
+### Controle de fluxo
+
 ```goiasscript
-uai numeros é [1, 2, 3, 4, 5]
-
-numeros.mapear(x => x vezes 2)        // [2, 4, 6, 8, 10]
-numeros.filtrar(x => x % 2 == 0)      // [2, 4]
-numeros.reduzir((a, b) => a mais b)   // 15
-numeros.bota_no_final(6)              // Adiciona 6 no final (era empurrar)
-numeros.arranca_o_rabo()              // Remove último (era tirar_ultimo)
-numeros.tamanho()                     // 6
-```
-
-### 🧮 **GoianoMath**
-```goiasscript
-GoianoMath.sorteia_um()           // Número aleatório 0-1 (era sorteio)
-GoianoMath.arredondar(3.7)        // 4
-GoianoMath.maior(10, 25, 5)       // 25
-GoianoMath.potencia(2, 3)         // 8
-```
-
-### 📦 **Coisa (Object)**
-```goiasscript
-uai pessoa é { nome: "Maria", idade: 25 }
-
-Object.chaves(pessoa)      // ["nome", "idade"]
-Object.valores(pessoa)     // ["Maria", 25]
-```
-
-## 📦 **Sistema de Modules**
-
-### Import/Export Goiano
-```goiasscript
-// utils.gs
-faz_trem formatar(texto: texto): texto {
-  faz_favor texto.pra_maiusculo().aparar()
+se_ocê_quiser (idade pelo_menos 18) {
+  prosa("Maior de idade")
+} se_num_for (idade pelo_menos 16) {
+  prosa("Pode tirar título")
+} se_não {
+  prosa("Ainda criança")
 }
 
-uai VERSAO: texto é "2.0.0"
-
-troca_ideia { formatar, VERSAO }
+vai_indo (uai i é 0; i menor_que 5; i mais 1) {
+  prosa("Iteração", i)
+}
 ```
+
+### Funções
 
 ```goiasscript
-// main.gs
-pega { formatar, VERSAO } de "./utils"
-
-uai resultado: texto é formatar("  oi sô  ")
-prosa("Resultado:", resultado)  // "OI SÔ"
-prosa("Versão:", VERSAO)       // "2.0.0"
-```
-
-## 🛠️ **CLI - Linha de Comando Goiana**
-
-### Comandos Principais
-```bash
-# Botar o código pra moer (executar)
-goiasscript bota_pra_moer arquivo.gs
-
-# Traduzir para JavaScript
-goiasscript traduz arquivo.gs
-
-# Ver se tá certo (verificar tipos)
-goiasscript vê_se_tá_certo arquivo.gs
-
-# Armar o barraco (criar projeto)
-goiasscript arma_o_barraco meu-projeto
-
-# Dedo de prosa (informações)
-goiasscript dedo_de_prosa
-```
-
-### Comandos de Compatibilidade
-```bash
-# Os comandos antigos ainda funcionam:
-goiasscript run arquivo.gs      # alias para bota_pra_moer
-goiasscript compile arquivo.gs   # alias para traduz
-goiasscript check-types arquivo.gs  # alias para vê_se_tá_certo
-goiasscript new meu-projeto      # alias para arma_o_barraco
-goiasscript info                 # alias para dedo_de_prosa
-```
-
-### Opções avançadas
-```bash
-# Traduzir com verbose
-goiasscript traduz arquivo.gs --verbose
-
-# Traduzir e executar
-goiasscript traduz arquivo.gs --run
-
-# Output customizado
-goiasscript traduz arquivo.gs -o saida.js
-```
-
-## 🧺 **Gerenciador de Balaios (GS-Balaio)**
-
-### Balaios Built-in
-```bash
-# Pegar utilitários goianos da feira
-gs-balaio pega goiano-utils
-
-# Pegar cliente HTTP
-gs-balaio pega goiano-http
-
-# Pegar banco de dados
-gs-balaio pega goiano-db
-```
-
-### Trabalhar com Balaios
-```bash
-# Arrumar um balaio novo
-gs-balaio arruma_um meu-balaio
-
-# Levar seu balaio pra feira (publicar)
-gs-balaio leva_pra_feira
-
-# Mostrar os balaios que você tem
-gs-balaio mostra_os_balaio
-
-# Jogar fora um balaio
-gs-balaio joga_fora goiano-http
-
-# Dedo de prosa sobre balaios
-gs-balaio dedo_de_prosa
-```
-
-### Usar Balaios
-```goiasscript
-// Pegar da feira: gs-balaio pega goiano-utils
-pega { formatarCPF, validarEmail } de "goiano-utils"
-
-uai cpf: texto é formatarCPF("12345678901")
-prosa("CPF:", cpf)  // "123.456.789-01"
-
-uai email_valido: booleano é validarEmail("test@goias.com")
-prosa("Email válido:", email_valido)  // certeza
-```
-
-## 💬 **Roda de Prosa (REPL Interativo)**
-
-```bash
-goias  # Entra na roda de prosa
-```
-
-```
-goiás> uai nome é "João"
-goiás> nome.gritando()  // métodos goianos!
-💬 "JOÃO"
-
-goiás> .desenrola          # Desenrola esse trem (ajuda)
-goiás> .mostra_os_trem     # Mostrar variáveis na memória
-goiás> .lembra_aí         # Lembra o que já conversamos
-goiás> .limpa_o_terreiro   # Limpar tela
-goiás> .vaza               # Vaza daqui (sair)
-```
-
-## 🔍 **GS-Fuçá - Debugger Goiano**
-
-```bash
-# Fuçar um arquivo (debug com arapuca na linha 10)
-gs-fuçá fuça arquivo.gs --arapuca 10 --de_olho nome
-
-# Armar arapuca (breakpoint)
-gs-fuçá arma_arapuca arquivo.gs 10
-
-# Ficar de olho numa variável
-gs-fuçá de_olho nome
-
-# Listar arapucas armadas
-gs-fuçá lista_arapuca
-
-# Dá o parecer (gerar relatório)
-gs-fuçá dá_o_parecer
-```
-
-### Comandos goianos durante a fuçada:
-- `toca_o_pau` (c) - Continuar execução
-- `um_cadim` (s) - Próxima linha  
-- `mostra_os_trem` (v) - Mostrar variáveis
-- `mostra_a_ruma` - Call stack (ruma de chamadas)
-- `vaza` (q) - Vaza daqui (sair)
-
-## 🎨 **Extensão VS Code**
-
-### Instalação
-```bash
-# Instalar extensão automaticamente
-cd vscode-extension
-npm run package
-code --install-extension goiasscript-2.0.0.vsix
-```
-
-### Recursos da extensão:
-- ✅ Syntax highlighting completo
-- ✅ Ícones customizados para arquivos .gs
-- ✅ Snippets GoiásScript
-- ✅ Comandos integrados (Ctrl+Shift+G)
-- ✅ Validação em tempo real
-- ✅ Configurações personalizadas
-
-## 📊 **Sistema de Tipos**
-
-### Tipos Goianos
-```goiasscript
-// Declaração com tipos explícitos
-uai nome: texto é "João"
-uai idade: numero é 30
-uai ativo: booleano é certeza
-uai lista: lista é [1, 2, 3]
-uai dados: coisa é { id: 1, nome: "Teste" }
-
-// Função com tipos
-faz_trem calcular(a: numero, b: numero): numero {
+faz_trem somar(a, b) {
   faz_favor a mais b
 }
+
+vai_na_frente faz_trem buscarDados() {
+  uai resultado é espera_um_cadim fetch("/api/dados")
+  faz_favor resultado.json()
+}
 ```
 
-### Inferência Automática
+### Valores especiais
+
+| GoiásScript | JavaScript |
+|---|---|
+| `certeza` | `true` |
+| `de_jeito_nenhum` | `false` |
+| `nada` | `null` |
+| `indefinido` | `undefined` |
+| `ocê` | `this` |
+
+## 🔧 Métodos goianos nativos
+
+Veja [docs/METODOS_GOIANOS.md](docs/METODOS_GOIANOS.md) pra referência completa.
+Resumo:
+
 ```goiasscript
-// GoiásScript infere os tipos automaticamente
-uai texto é "Olá"          // Tipo: texto
-uai numero é 42            // Tipo: numero
-uai verdadeiro é certeza   // Tipo: booleano
-uai lista é [1, 2, 3]      // Tipo: lista
+// Texto
+"Oi sô".pra_maiusculo()             // "OI SÔ"
+"Oi sô".trocar("Oi", "Eai")         // "Eai sô"
+
+// Lista
+[1, 2, 3].mapear(x => x vezes 2)    // [2, 4, 6]
+[1, 2, 3].filtrar(x => x maior_que 1) // [2, 3]
+
+// Math
+GoianoMath.sorteio()                // 0..1
+GoianoMath.arredondar(3.7)          // 4
 ```
 
-### Warnings Goianos
-```
-⚠️ Ô rapaz! Você disse que 'idade' é número, mas o valor é texto!
-💡 Vê se não tá confundindo o tipo ou se o valor tá certo.
-```
-
-## 🏗️ **Estrutura do Projeto**
+## 🏗️ Estrutura do monorepo
 
 ```
 goiasscript/
-├── bin/                    # Executáveis CLI Goianos
-│   ├── goiasscript.js     # Compilador principal (traduz, bota_pra_moer)
-│   ├── gs-balaio.js       # Gerenciador de balaios (pega, joga_fora)
-│   ├── goias.js           # Roda de Prosa - REPL interativo
-│   └── gs-fuçá.js         # Debugger que fuça os detalhes
-├── src/                    # Código fonte
-│   ├── compiler/          # Transpiler e lexer
-│   ├── types/             # Sistema de tipos goiano
-│   ├── modules/           # Sistema de módulos
-│   ├── packages/          # Gerenciador de balaios
-│   ├── debug/             # Debugger goiano
-│   ├── performance/       # JIT Compiler
-│   └── goianoMethods/     # Métodos nativos goianos
-├── examples/              # Exemplos
-├── tests/                 # Testes
-├── docs/                  # Documentação
-├── vscode-extension/      # Extensão VS Code
-└── README.md              # Este arquivo
+├── packages/core/              # Pacote npm principal (goiasscript@1.5.0-rc.1)
+├── apps/                       # W20+ — playground web e ENGOIANADOR API
+├── docs/                       # Documentação + plano de relançamento
+├── vscode-extension/           # Extensão VSCode (Marketplace)
+└── KEEP-OR-ARCHIVE.md          # Triagem v1.5 (o que foi arquivado e por quê)
 ```
 
-## 🧪 **Testes**
+## 🧪 Testes
 
 ```bash
-# Executar todos os testes
-npm test
-
-# Testes com cobertura
-npm run test:coverage
-
-# Testes em modo watch
-npm run test:watch
+pnpm test                       # 85 tests passando
+pnpm test:coverage              # Com relatório de cobertura
 ```
 
-**Cobertura atual: 70%+**
-- ✅ Transpiler: 85%
-- ✅ Sistema de Tipos: 96%
-- ✅ Sistema de Módulos: 98%
-- ✅ CLI: 75%
+## 🎨 Extensão VSCode
 
-## 🗺️ **Roadmap**
+```bash
+cd vscode-extension
+npm run package                 # Gera goiasscript-X.Y.Z.vsix
+code --install-extension goiasscript-2.2.0.vsix
+```
 
-### ✅ **Fase 1 - Fundação (CONCLUÍDA)**
-- [x] Lexer e Parser básico
-- [x] Transpiler GoiásScript → JavaScript
-- [x] Testes unitários e integração
+Recursos: syntax highlighting, ícones de arquivos `.gs`, snippets goianos.
 
-### ✅ **Fase 2 - Tipos e Módulos (CONCLUÍDA)**
-- [x] Sistema de tipos com inferência
-- [x] Sistema de módulos nativo
-- [x] Warnings e validações goianas
+## 📅 Roadmap
 
-### ✅ **Fase 3 - Ecosystem (CONCLUÍDA)**
-- [x] CLI completo (goiasscript)
-- [x] Package manager (gspack)
-- [x] REPL interativo (gsrepl)
-- [x] Debugger nativo (gsdebug)
+Detalhado em [docs/plano/PLANO-RELANCAMENTO.md](docs/plano/PLANO-RELANCAMENTO.md):
 
-### ✅ **Fase 4 - Métodos Nativos (CONCLUÍDA)**
-- [x] Métodos goianos para String, Array, Object
-- [x] GoianoMath para operações matemáticas
-- [x] Bloqueio de métodos JavaScript
-- [x] Runtime goiano completo
+| Sprint | Foco |
+|---|---|
+| **W19** ✅ | Slim down + monorepo (esta versão) |
+| **W20** | Playground web — Next.js + Monaco em `apps/playground/` |
+| **W23** | ENGOIANADOR API — Cloudflare Worker + Groq |
+| **W25** | Launch day v1.5.0 — Cloudflare Pages + asset viral BR |
 
-### 🚀 **Próximas Fases**
-- 🔄 **Fase 5 - Performance**: JIT compiler, otimizações
-- 🌐 **Fase 6 - Web**: Transpiler para browser, PWA
-- ☁️ **Fase 7 - Cloud**: Deploy automático, serverless
+## 🤝 Contribuindo
 
-## 🤝 **Contribuição**
+Veja [CONTRIBUTING.md](CONTRIBUTING.md). Resumo:
 
-1. Faça fork do projeto
-2. Crie uma branch: `git checkout -b feature/nova-funcionalidade`
-3. Commit: `git commit -m 'Adiciona nova funcionalidade'`
-4. Push: `git push origin feature/nova-funcionalidade`
-5. Abra um Pull Request
+1. Fork + clone
+2. `pnpm install && pnpm test`
+3. Branch a partir de `main`
+4. Conventional commits
+5. PR com `pnpm test` + `pnpm lint` passando
 
-### Código de Conduta
-- Use terminologia goiana sempre que possível
-- Mantenha a consistência com o dialeto
-- Adicione testes para novas funcionalidades
-- Documente em português brasileiro
+## 🗄️ Sobre o slim down
 
-## 📄 **Licença**
+A v2.0 inflou em 38k+ linhas com features over-engineered (JIT, LSP, debug
+adapter, 4 templates pesados, 6 CLIs extras) que nunca tiveram audiência. A
+v1.5 corta 70% mas preserva tudo em `archive/v2-experimental` (branch + tag
+`v2.0-pre-archive`) — recuperável a qualquer momento. Detalhes em
+[KEEP-OR-ARCHIVE.md](KEEP-OR-ARCHIVE.md).
 
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
+## 📄 Licença
 
-## 👥 **Autor**
+[MIT](LICENSE) — use, modifique, distribua.
 
-**Gefferson Souza**
-- GitHub: [@Gefferson-Souza](https://github.com/Gefferson-Souza)
-- Email: gefferson.souza@example.com
+## 👥 Autor
 
-## 🙏 **Agradecimentos**
-
-- Comunidade goiana pela inspiração
-- Contribuidores do projeto
-- Usuários que testaram e deram feedback
-
-## 📚 **Documentação Adicional**
-
-- [📖 Métodos Goianos Completos](docs/METODOS_GOIANOS.md)
-- [🗺️ Roadmap Detalhado](ROADMAP.md)
-- [📝 Changelog](CHANGELOG.md)
-- [🔒 Segurança](SECURITY.md)
-- [🤝 Contribuição](CONTRIBUTING.md)
+**Gefferson Souza** — [@Gefferson-Souza](https://github.com/Gefferson-Souza)
 
 ---
 
 <div align="center">
 
-**🇧🇷 Feito com ❤️ em Goiás**
+**🇧🇷 Feito com carinho em Goiás**
 
-*"Agora sim, sô! GoiásScript virou linguagem de programação de verdade!"*
+*"Programar em goianês é prosa boa que vira código que roda."*
 
 [![Estrelas](https://img.shields.io/github/stars/Gefferson-Souza/goiasscript?style=social)](https://github.com/Gefferson-Souza/goiasscript/stargazers)
 
