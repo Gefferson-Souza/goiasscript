@@ -20,16 +20,8 @@
     "lint:fix": "eslint src/ tests/ --fix",
     "format": "prettier --write 'src/**/*.js' 'tests/**/*.js'",
     "format:check": "prettier --check 'src/**/*.js' 'tests/**/*.js'",
-    "prepare": "husky install",
-    "precommit": "lint-staged",
     "example:basic": "node src/cli/index.js examples/basic/exemplo.gs",
     "example:classes": "node src/cli/index.js examples/classes/exemplo_classes.gs"
-  },
-  "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "prettier --write"
-    ]
   },
   "keywords": [
     "goias",
@@ -57,8 +49,7 @@
   },
   "homepage": "https://github.com/Gefferson-Souza/goiasscript#readme",
   "engines": {
-    "node": ">=14.0.0",
-    "npm": ">=6.0.0"
+    "node": ">=18.0.0"
   },
   "files": [
     "src/",
@@ -76,9 +67,7 @@
     "@babel/preset-env": "^7.22.0",
     "babel-jest": "^29.5.0",
     "eslint": "^8.42.0",
-    "husky": "^8.0.3",
     "jest": "^29.5.0",
-    "lint-staged": "^13.2.0",
     "nodemon": "^2.0.22",
     "prettier": "^2.8.8"
   },

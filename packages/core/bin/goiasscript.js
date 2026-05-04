@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const { program } = require('commander');
 const GoiasScriptCompiler = require('../src/compiler');
+const pkg = require('../package.json');
 
 // ASCII Art do GoiásScript
 const logo = `
@@ -14,7 +15,7 @@ const logo = `
 ╚██████╔╝╚██████╔╝██║██║  ██║███████║    ███████║╚██████╗██║  ██║██║██║        ██║   
  ╚═════╝  ╚═════╝ ╚═╝╚═╝  ╚═╝╚══════╝    ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝   
                                                                                       
-🇧🇷 Linguagem de Programação Goiana v2.0 - Métodos 100% Goianos!
+🇧🇷 Linguagem de Programação Goiana v${pkg.version} — Goianês na Web
 `;
 
 class GoiasScriptCLI {
@@ -26,7 +27,7 @@ class GoiasScriptCLI {
   async traduz(filePath, options) {
     try {
       console.log('🔧 Traduzindo arquivo GoiásScript...\n');
-      
+
       if (!fs.existsSync(filePath)) {
         console.error(`❌ Ô rapaz! Arquivo '${filePath}' não foi achado não!`);
         process.exit(1);
@@ -88,7 +89,6 @@ class GoiasScriptCLI {
         }
         console.log('='.repeat(50));
       }
-
     } catch (error) {
       console.error(`❌ Ô rapaz! Deu ruim aqui: ${error.message}`);
       process.exit(1);
@@ -100,7 +100,7 @@ class GoiasScriptCLI {
     console.log('🚀 Botando o código pra moer...\n');
     console.log('='.repeat(50));
     await this.traduz(filePath, { run: true, output: filePath.replace('.gs', '.temp.js') });
-    
+
     // Limpar arquivo temporário
     const tempFile = filePath.replace('.gs', '.temp.js');
     if (fs.existsSync(tempFile)) {
@@ -113,7 +113,7 @@ class GoiasScriptCLI {
   async vê_se_tá_certo(filePath) {
     try {
       console.log('🔍 Vendo se o trem tá certo...\n');
-      
+
       if (!fs.existsSync(filePath)) {
         console.error(`❌ Ô rapaz! Arquivo '${filePath}' não foi achado não!`);
         process.exit(1);
@@ -125,7 +125,7 @@ class GoiasScriptCLI {
       if (result.typeInfo) {
         console.log('📊 Análise de Tipos:');
         console.log(`  • Símbolos analisados: ${result.typeInfo.typeCount}`);
-        
+
         if (result.typeInfo.symbols && Object.keys(result.typeInfo.symbols).length > 0) {
           console.log('\n📋 Tabela de Símbolos:');
           Object.entries(result.typeInfo.symbols).forEach(([name, info]) => {
@@ -152,7 +152,6 @@ class GoiasScriptCLI {
       } else {
         console.log('\n✅ Tá tudo certo, sô! Nenhum problema encontrado!');
       }
-
     } catch (error) {
       console.error(`❌ Ô rapaz! Deu ruim aqui: ${error.message}`);
       process.exit(1);
@@ -163,7 +162,7 @@ class GoiasScriptCLI {
   async arma_o_barraco(projectName, options = {}) {
     const template = options.template || 'basic';
     const projectPath = path.join(process.cwd(), projectName);
-    
+
     try {
       if (fs.existsSync(projectPath)) {
         console.error(`❌ Ô rapaz! Já tem um projeto '${projectName}' aqui!`);
@@ -176,7 +175,7 @@ class GoiasScriptCLI {
       fs.mkdirSync(projectPath);
       fs.mkdirSync(path.join(projectPath, 'src'));
       fs.mkdirSync(path.join(projectPath, 'docs'));
-      
+
       // Estrutura adicional para templates
       if (template === 'web') {
         fs.mkdirSync(path.join(projectPath, 'public'));
@@ -194,12 +193,12 @@ class GoiasScriptCLI {
 
       // Arquivo principal
       let mainFile;
-      
+
       if (template === 'web') {
         // Usar template web externo
         const templatesPath = path.join(__dirname, '..', 'templates');
         const webTemplatePath = path.join(templatesPath, 'web-app.gs');
-        
+
         if (fs.existsSync(webTemplatePath)) {
           mainFile = fs.readFileSync(webTemplatePath, 'utf-8');
           mainFile = mainFile.replace(/{{PROJECT_NAME}}/g, projectName);
@@ -250,7 +249,7 @@ prosa("💡 Use: goiasscript traduz para gerar JavaScript");`;
 
       const fileName = template === 'web' ? 'app.gs' : 'main.gs';
       fs.writeFileSync(path.join(projectPath, 'src', fileName), mainFile);
-      
+
       // Arquivos específicos dos templates
       if (template === 'framework') {
         // Copiar todos os arquivos do template framework
@@ -264,11 +263,10 @@ prosa("💡 Use: goiasscript traduz para gerar JavaScript");`;
           // Criar arquivos básicos do framework
           this.createFrameworkFiles(projectPath, projectName);
         }
-
       } else if (template === 'web') {
         // Usar templates externos
         const templatesPath = path.join(__dirname, '..', 'templates');
-        
+
         // Copiar template HTML
         const htmlTemplatePath = path.join(templatesPath, 'web-index.html');
         if (fs.existsSync(htmlTemplatePath)) {
@@ -276,20 +274,23 @@ prosa("💡 Use: goiasscript traduz para gerar JavaScript");`;
           htmlContent = htmlContent.replace(/{{PROJECT_NAME}}/g, projectName);
           fs.writeFileSync(path.join(projectPath, 'public', 'index.html'), htmlContent);
         }
-        
+
         // Copiar servidor de desenvolvimento
         const devServerPath = path.join(templatesPath, 'dev-server.js');
         if (fs.existsSync(devServerPath)) {
           fs.mkdirSync(path.join(projectPath, 'scripts'), { recursive: true });
           fs.copyFileSync(devServerPath, path.join(projectPath, 'scripts', 'dev-server.js'));
         }
-        
+
         // Copiar package.json específico para web
         const webPackagePath = path.join(templatesPath, 'web-package.json');
         if (fs.existsSync(webPackagePath)) {
           let packageContent = fs.readFileSync(webPackagePath, 'utf-8');
           packageContent = packageContent.replace(/{{PROJECT_NAME}}/g, projectName);
-          packageContent = packageContent.replace(/{{PROJECT_DESCRIPTION}}/g, `Aplicação Web GoiásScript: ${projectName}`);
+          packageContent = packageContent.replace(
+            /{{PROJECT_DESCRIPTION}}/g,
+            `Aplicação Web GoiásScript: ${projectName}`
+          );
           packageContent = packageContent.replace(/{{AUTHOR_NAME}}/g, 'Desenvolvedor Goiano');
           fs.writeFileSync(path.join(projectPath, 'package.json'), packageContent);
         }
@@ -299,24 +300,24 @@ prosa("💡 Use: goiasscript traduz para gerar JavaScript");`;
       if (template !== 'web' && template !== 'framework') {
         const packageJson = {
           name: projectName,
-          version: "1.0.0",
+          version: '1.0.0',
           description: `Projeto GoiásScript: ${projectName}`,
-          main: "src/main.gs",
+          main: 'src/main.gs',
           scripts: {
-            "start": "goiasscript bota_pra_moer src/main.gs",
-            "build": "goiasscript traduz src/main.gs",
-            "check": "goiasscript vê_se_tá_certo src/main.gs"
+            start: 'goiasscript bota_pra_moer src/main.gs',
+            build: 'goiasscript traduz src/main.gs',
+            check: 'goiasscript vê_se_tá_certo src/main.gs',
           },
-          keywords: ["goiasscript", "goias", "brasileiro"],
-          author: "Desenvolvedor Goiano",
-          license: "MIT",
+          keywords: ['goiasscript', 'goias', 'brasileiro'],
+          author: 'Desenvolvedor Goiano',
+          license: 'MIT',
           engines: {
-            "goiasscript": "^2.0.0"
-          }
+            goiasscript: '^2.0.0',
+          },
         };
 
         fs.writeFileSync(
-          path.join(projectPath, 'package.json'), 
+          path.join(projectPath, 'package.json'),
           JSON.stringify(packageJson, null, 2)
         );
       }
@@ -378,13 +379,13 @@ GoianoMath.sorteio()     // vs Math.random()
       if (template === 'web' || template === 'framework') {
         console.log(`📦 Instalando dependências...`);
         const { spawn } = require('child_process');
-        
+
         const npmInstall = spawn('npm', ['install'], {
           cwd: projectPath,
-          stdio: 'inherit'
+          stdio: 'inherit',
         });
-        
-        npmInstall.on('close', (code) => {
+
+        npmInstall.on('close', code => {
           if (code === 0) {
             console.log(`\n✅ Barraco armado com sucesso!`);
             console.log(`📁 Local: ${projectPath}`);
@@ -401,7 +402,9 @@ GoianoMath.sorteio()     // vs Math.random()
               console.log(`   • Arquitetura modular (NestJS style)`);
               console.log(`   • Full-Stack em GoiásScript`);
             } else {
-              console.log(`   npm run dev                    # Iniciar servidor de desenvolvimento`);
+              console.log(
+                `   npm run dev                    # Iniciar servidor de desenvolvimento`
+              );
               console.log(`   # ou:`);
               console.log(`   goiasscript bota_pra_moer src/app.gs`);
             }
@@ -421,7 +424,6 @@ GoianoMath.sorteio()     // vs Math.random()
         console.log(`   cd ${projectName}`);
         console.log(`   goiasscript bota_pra_moer src/main.gs`);
       }
-
     } catch (error) {
       console.error(`❌ Ô rapaz! Deu ruim ao armar o barraco: ${error.message}`);
       process.exit(1);
@@ -464,29 +466,29 @@ GoianoMath.sorteio()     // vs Math.random()
     // package.json personalizado para framework
     const frameworkPackageJson = {
       name: projectName,
-      version: "1.0.0",
+      version: '1.0.0',
       description: `GoiásScript Framework - ${projectName}`,
-      main: "src/main.gs",
-      type: "module",
+      main: 'src/main.gs',
+      type: 'module',
       scripts: {
-        dev: "node scripts/dev-server.js",
-        build: "node scripts/build.js",
-        serve: "node scripts/serve.js",
-        start: "npm run build && npm run serve",
-        check: "goiasscript vê_se_tá_certo src/**/*.gs"
+        dev: 'node scripts/dev-server.js',
+        build: 'node scripts/build.js',
+        serve: 'node scripts/serve.js',
+        start: 'npm run build && npm run serve',
+        check: 'goiasscript vê_se_tá_certo src/**/*.gs',
       },
-      keywords: ["goiasscript", "framework", "web", "goias", "brasileiro"],
-      author: "Desenvolvedor Goiano",
-      license: "MIT",
+      keywords: ['goiasscript', 'framework', 'web', 'goias', 'brasileiro'],
+      author: 'Desenvolvedor Goiano',
+      license: 'MIT',
       engines: {
-        node: ">=16.0.0"
+        node: '>=16.0.0',
       },
       devDependencies: {
-        chokidar: "^3.5.3",
-        ws: "^8.16.0",
-        "node-static": "^0.7.11",
-        tailwindcss: "^3.4.0"
-      }
+        chokidar: '^3.5.3',
+        ws: '^8.16.0',
+        'node-static': '^0.7.11',
+        tailwindcss: '^3.4.0',
+      },
     };
 
     fs.writeFileSync(
@@ -515,13 +517,13 @@ iniciarApp()
   // Utilitário: ícones para tipos
   getTypeIcon(type) {
     const icons = {
-      'TEXTO': '📝',
-      'NUMERO': '🔢', 
-      'BOOLEANO': '✅',
-      'LISTA': '📋',
-      'COISA': '📦',
-      'FAZ_TREM': '⚡',
-      'NADA': '🚫'
+      TEXTO: '📝',
+      NUMERO: '🔢',
+      BOOLEANO: '✅',
+      LISTA: '📋',
+      COISA: '📦',
+      FAZ_TREM: '⚡',
+      NADA: '🚫',
     };
     return icons[type] || '❓';
   }
@@ -529,7 +531,7 @@ iniciarApp()
   // Comando: dedo_de_prosa (info)
   dedo_de_prosa() {
     console.log(logo);
-    console.log('Versão: 2.0.0');
+    console.log(`Versão: ${pkg.version}`);
     console.log('Métodos: 100% Goianos');
     console.log('Autor: Gefferson Souza');
     console.log('');
@@ -541,8 +543,8 @@ const cli = new GoiasScriptCLI();
 
 program
   .name('goiasscript')
-  .description('🇧🇷 CLI do GoiásScript - Linguagem de Programação Goiana v2.0')
-  .version('2.0.0');
+  .description('🇧🇷 CLI do GoiásScript — Linguagem de Programação Goiana')
+  .version(pkg.version);
 
 // Comando: traduz (compile)
 program
@@ -573,7 +575,7 @@ program
   .command('bota_pra_moer')
   .description('Bota o código GoiásScript pra moer (traduz e executa)')
   .argument('<file>', 'Arquivo .gs para executar')
-  .action(async (file) => {
+  .action(async file => {
     await cli.bota_pra_moer(file);
   });
 
@@ -582,7 +584,7 @@ program
   .command('run')
   .description('Bota o código GoiásScript pra moer (alias para bota_pra_moer)')
   .argument('<file>', 'Arquivo .gs para executar')
-  .action(async (file) => {
+  .action(async file => {
     await cli.bota_pra_moer(file);
   });
 
@@ -591,7 +593,7 @@ program
   .command('vê_se_tá_certo')
   .description('Vê se o trem tá certo (verifica tipos)')
   .argument('<file>', 'Arquivo .gs para verificar')
-  .action(async (file) => {
+  .action(async file => {
     await cli.vê_se_tá_certo(file);
   });
 
@@ -600,7 +602,7 @@ program
   .command('check-types')
   .description('Vê se o trem tá certo (alias para vê_se_tá_certo)')
   .argument('<file>', 'Arquivo .gs para verificar')
-  .action(async (file) => {
+  .action(async file => {
     await cli.vê_se_tá_certo(file);
   });
 

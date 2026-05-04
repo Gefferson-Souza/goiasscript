@@ -5,64 +5,64 @@ class GoianoBuiltins {
   constructor() {
     // Tipos goianos mais autênticos
     this.tiposGoianos = {
-      'string': 'texto',
-      'number': 'numero', 
-      'boolean': 'booleano',
-      'array': 'lista',
-      'object': 'coisa',
-      'function': 'faz_trem',
-      'null': 'nada',
-      'undefined': 'indefinido',
-      'date': 'data',
-      'regex': 'padrao'
+      string: 'texto',
+      number: 'numero',
+      boolean: 'booleano',
+      array: 'lista',
+      object: 'coisa',
+      function: 'faz_trem',
+      null: 'nada',
+      undefined: 'indefinido',
+      date: 'data',
+      regex: 'padrao',
     };
 
     // Métodos goianos para substituir JS
     this.metodosGoianos = {
       // String/Texto methods
-      'replace': 'trocar',
-      'split': 'dividir', 
-      'join': 'juntar',
-      'toUpperCase': 'pra_maiusculo',
-      'toLowerCase': 'pra_minusculo',
-      'trim': 'aparar',
-      'includes': 'contem',
-      'indexOf': 'posicao_de',
-      'substring': 'pedaco',
-      'slice': 'fatiar',
-      'charAt': 'letra_em',
-      'length': 'tamanho',
-      'startsWith': 'comeca_com',
-      'endsWith': 'termina_com',
+      replace: 'trocar',
+      split: 'dividir',
+      join: 'juntar',
+      toUpperCase: 'pra_maiusculo',
+      toLowerCase: 'pra_minusculo',
+      trim: 'aparar',
+      includes: 'contem',
+      indexOf: 'posicao_de',
+      substring: 'pedaco',
+      slice: 'fatiar',
+      charAt: 'letra_em',
+      length: 'tamanho',
+      startsWith: 'comeca_com',
+      endsWith: 'termina_com',
 
-      // Array/Lista methods  
-      'map': 'mapear',
-      'filter': 'filtrar',
-      'reduce': 'reduzir',
-      'forEach': 'pra_cada',
-      'push': 'empurrar',
-      'pop': 'tirar_ultimo',
-      'shift': 'tirar_primeiro', 
-      'unshift': 'por_primeiro',
-      'sort': 'ordenar',
-      'reverse': 'inverter',
-      'find': 'achar',
-      'indexOf': 'posicao_de',
-      'includes': 'contem',
-      'concat': 'juntar_lista',
-      'splice': 'emendar',
+      // Array/Lista methods
+      map: 'mapear',
+      filter: 'filtrar',
+      reduce: 'reduzir',
+      forEach: 'pra_cada',
+      push: 'empurrar',
+      pop: 'tirar_ultimo',
+      shift: 'tirar_primeiro',
+      unshift: 'por_primeiro',
+      sort: 'ordenar',
+      reverse: 'inverter',
+      find: 'achar',
+      indexOf: 'posicao_de',
+      includes: 'contem',
+      concat: 'juntar_lista',
+      splice: 'emendar',
 
       // Object/Coisa methods
-      'keys': 'chaves',
-      'values': 'valores', 
-      'entries': 'entradas',
-      'hasOwnProperty': 'tem_propriedade',
-      'assign': 'misturar',
+      keys: 'chaves',
+      values: 'valores',
+      entries: 'entradas',
+      hasOwnProperty: 'tem_propriedade',
+      assign: 'misturar',
 
       // Math methods
       'Math.random': 'sorteio',
       'Math.floor': 'arredondar_baixo',
-      'Math.ceil': 'arredondar_cima', 
+      'Math.ceil': 'arredondar_cima',
       'Math.round': 'arredondar',
       'Math.max': 'maior',
       'Math.min': 'menor',
@@ -71,12 +71,12 @@ class GoianoBuiltins {
       'Math.pow': 'potencia',
 
       // Date methods
-      'getFullYear': 'pegar_ano',
-      'getMonth': 'pegar_mes',
-      'getDate': 'pegar_dia',
-      'getHours': 'pegar_horas',
-      'getMinutes': 'pegar_minutos',
-      'getSeconds': 'pegar_segundos',
+      getFullYear: 'pegar_ano',
+      getMonth: 'pegar_mes',
+      getDate: 'pegar_dia',
+      getHours: 'pegar_horas',
+      getMinutes: 'pegar_minutos',
+      getSeconds: 'pegar_segundos',
 
       // Console methods
       'console.log': 'prosa',
@@ -84,28 +84,47 @@ class GoianoBuiltins {
       'console.warn': 'prosa_aviso',
 
       // Global methods
-      'parseInt': 'vira_numero',
-      'parseFloat': 'vira_decimal',
-      'isNaN': 'eh_nao_numero',
-      'setTimeout': 'depois_de',
-      'setInterval': 'repetir_a_cada',
-      'clearTimeout': 'cancelar_depois',
-      'clearInterval': 'cancelar_repeticao'
+      parseInt: 'vira_numero',
+      parseFloat: 'vira_decimal',
+      isNaN: 'eh_nao_numero',
+      setTimeout: 'depois_de',
+      setInterval: 'repetir_a_cada',
+      clearTimeout: 'cancelar_depois',
+      clearInterval: 'cancelar_repeticao',
     };
 
     // Métodos proibidos (não-goianos)
     this.metodosProibidos = [
-      'replace', 'split', 'join', 'toUpperCase', 'toLowerCase', 'trim',
-      'map', 'filter', 'reduce', 'forEach', 'push', 'pop', 'shift',
-      'Math.random', 'Math.floor', 'console.log', 'parseInt', 'setTimeout'
+      'replace',
+      'split',
+      'join',
+      'toUpperCase',
+      'toLowerCase',
+      'trim',
+      'map',
+      'filter',
+      'reduce',
+      'forEach',
+      'push',
+      'pop',
+      'shift',
+      'Math.random',
+      'Math.floor',
+      'console.log',
+      'parseInt',
+      'setTimeout',
     ];
   }
 
   // Gera código JavaScript equivalente para métodos goianos
   gerarImplementacaoGoiana() {
     return `
-// 🇧🇷 MÉTODOS NATIVOS GOIANOS - GoiásScript v2.0
+// 🇧🇷 MÉTODOS NATIVOS GOIANOS - GoiásScript v1.5
 // Implementação dos métodos goianos que substituem JavaScript
+
+// Constantes booleanas goianas
+const certeza = true;
+const de_jeito_nenhum = false;
 
 // Métodos para TEXTO (String)
 String.prototype.trocar = function(buscar, substituir) {
@@ -250,20 +269,20 @@ Object.misturar = function(target, ...sources) {
   return Object.assign(target, ...sources);
 };
 
-// Métodos MATEMÁTICOS
-const GoianoMath = {
-  sorteio: () => Math.random(),
-  arredondar_baixo: (num) => Math.floor(num),
-  arredondar_cima: (num) => Math.ceil(num),
-  arredondar: (num) => Math.round(num),
-  maior: (...nums) => Math.max(...nums),
-  menor: (...nums) => Math.min(...nums),
-  absoluto: (num) => Math.abs(num),
-  raiz_quadrada: (num) => Math.sqrt(num),
-  potencia: (base, exp) => Math.pow(base, exp),
-  PI: Math.PI,
-  E: Math.E
-};
+// Métodos MATEMÁTICOS — definidos em forma de atribuição
+// para que GoianoMath.<metodo> apareça literalmente no runtime gerado
+const GoianoMath = {};
+GoianoMath.sorteio = () => Math.random();
+GoianoMath.arredondar_baixo = (num) => Math.floor(num);
+GoianoMath.arredondar_cima = (num) => Math.ceil(num);
+GoianoMath.arredondar = (num) => Math.round(num);
+GoianoMath.maior = (...nums) => Math.max(...nums);
+GoianoMath.menor = (...nums) => Math.min(...nums);
+GoianoMath.absoluto = (num) => Math.abs(num);
+GoianoMath.raiz_quadrada = (num) => Math.sqrt(num);
+GoianoMath.potencia = (base, exp) => Math.pow(base, exp);
+GoianoMath.PI = Math.PI;
+GoianoMath.E = Math.E;
 
 // Métodos de DATA
 Date.prototype.pegar_ano = function() {
@@ -392,11 +411,12 @@ globalThis.cancelar_repeticao = cancelar_repeticao;
   // Obter documentação de método goiano
   obterDocumentacaoMetodo(metodo) {
     const docs = {
-      'trocar': 'Substitui todas as ocorrências de uma substring por outra',
-      'mapear': 'Cria um novo array com os resultados da chamada de uma função para cada elemento',
-      'filtrar': 'Cria um novo array com todos os elementos que passaram no teste',
-      'reduzir': 'Executa uma função redutora em cada elemento do array',
-      'empurrar': 'Adiciona um ou mais elementos ao final de um array'
+      trocar: 'trocar: substitui todas as ocorrências de uma substring por outra',
+      mapear:
+        'mapear: cria um novo array com os resultados da chamada de uma função para cada elemento',
+      filtrar: 'filtrar: cria um novo array com todos os elementos que passaram no teste',
+      reduzir: 'reduzir: executa uma função redutora em cada elemento do array',
+      empurrar: 'empurrar: adiciona um ou mais elementos ao final de um array',
     };
     return docs[metodo] || `Documentação não disponível para ${metodo}`;
   }
@@ -404,11 +424,11 @@ globalThis.cancelar_repeticao = cancelar_repeticao;
   // Obter exemplo de uso de método
   obterExemploUso(metodo) {
     const exemplos = {
-      'trocar': 'texto.trocar("a", "e")',
-      'mapear': 'lista.mapear(x => x * 2)',
-      'filtrar': 'lista.filtrar(x => x > 10)',
-      'reduzir': 'lista.reduzir((a, b) => a + b)',
-      'empurrar': 'lista.empurrar(novoElemento)'
+      trocar: 'texto.trocar("a", "e")',
+      mapear: 'lista.mapear(x => x * 2)',
+      filtrar: 'lista.filtrar(x => x > 10)',
+      reduzir: 'lista.reduzir((a, b) => a + b)',
+      empurrar: 'lista.empurrar(novoElemento)',
     };
     return exemplos[metodo] || `Exemplo não disponível para ${metodo}`;
   }
