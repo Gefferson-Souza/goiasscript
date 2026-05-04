@@ -39,6 +39,11 @@ CLAUDE.md
 debug-report.json
 *.js.map
 
+# === CLAUDE CODE LOCAL CONFIG ===
+.claude/settings.local.json
+.claude/.session/
+.claude/.local/
+
 # === AMBIENTE ===
 .env
 .env.local
