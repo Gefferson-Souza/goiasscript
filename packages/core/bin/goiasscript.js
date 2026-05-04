@@ -161,7 +161,9 @@ class GoiasScriptCLI {
   // Comando: arma_o_barraco (new)
   async arma_o_barraco(projectName, options = {}) {
     const template = options.template || 'basic';
-    const projectPath = path.join(process.cwd(), projectName);
+    // path.resolve respeita caminho absoluto (/tmp/x) e relativo (meu-app);
+    // path.join sempre prefixa cwd, quebra quando o user passa /tmp/...
+    const projectPath = path.resolve(process.cwd(), projectName);
 
     try {
       if (fs.existsSync(projectPath)) {

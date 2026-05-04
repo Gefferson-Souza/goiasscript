@@ -17,25 +17,25 @@ describe('GoiasScriptLexer', () => {
         type: 'KEYWORD',
         value: 'uai',
         jsValue: 'const',
-        position: { line: 1, column: 1 }
+        position: { line: 1, column: 1 },
       });
       expect(tokens[1]).toEqual({
         type: 'IDENTIFIER',
         value: 'nome',
         jsValue: 'nome',
-        position: { line: 1, column: 5 }
+        position: { line: 1, column: 5 },
       });
       expect(tokens[2]).toEqual({
         type: 'KEYWORD',
         value: 'é',
         jsValue: '=',
-        position: { line: 1, column: 10 }
+        position: { line: 1, column: 10 },
       });
       expect(tokens[3]).toEqual({
         type: 'NUMBER',
         value: '42',
         jsValue: '42',
-        position: { line: 1, column: 12 }
+        position: { line: 1, column: 12 },
       });
     });
 
@@ -102,7 +102,7 @@ prosa(x)`;
         type: 'KEYWORD',
         value: 'maior_que',
         jsValue: '>',
-        position: { line: 1, column: 6 }
+        position: { line: 1, column: 6 },
       });
     });
 
@@ -155,7 +155,7 @@ prosa(x)`;
 
     test('deve identificar strings', () => {
       expect(lexer._getTokenType('"texto"')).toBe('STRING');
-      expect(lexer._getTokenType("'texto'")).toBe('STRING');
+      expect(lexer._getTokenType('\'texto\'')).toBe('STRING');
     });
 
     test('deve identificar identificadores', () => {
@@ -204,7 +204,7 @@ prosa(x)`;
         { jsValue: 'const' },
         { jsValue: 'nome' },
         { jsValue: '=' },
-        { jsValue: '42' }
+        { jsValue: '42' },
       ];
       
       const jsCode = lexer.tokensToJS(tokens);

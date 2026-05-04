@@ -3,6 +3,7 @@
 const readline = require('readline');
 const util = require('util');
 const GoiasScriptCompiler = require('../src/compiler');
+const pkg = require('../package.json');
 
 /**
  * Roda de Prosa GoiásScript - Terminal Interativo Goiano
@@ -17,12 +18,12 @@ class RodaDeProsa {
     this.multilineMode = false;
     this.promptPrefix = 'goiás> ';
     this.multilinePrefix = '    ... ';
-    
+
     // Configurar readline
     this.rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout,
-      prompt: this.promptPrefix
+      prompt: this.promptPrefix,
     });
 
     this.setupRodaDeProsa();
@@ -30,10 +31,10 @@ class RodaDeProsa {
 
   setupRodaDeProsa() {
     console.log(this.getMensagemBoasVindas());
-    
+
     this.rl.prompt();
 
-    this.rl.on('line', (input) => {
+    this.rl.on('line', input => {
       this.handleInput(input.trim());
     });
 
@@ -54,7 +55,7 @@ class RodaDeProsa {
 ╚██████╔╝╚██████╔╝██║██║  ██║███████║    ██║  ██║███████╗██║     ███████╗
  ╚═════╝  ╚═════╝ ╚═╝╚═╝  ╚═╝╚══════╝    ╚═╝  ╚═╝╚══════╝╚═╝     ╚══════╝
 
-🇧🇷 Roda de Prosa do GoiásScript v2.0!
+🇧🇷 Roda de Prosa do GoiásScript v${pkg.version}!
 
 💡 Comandos especiais: .desenrola, .mostra_os_trem, .zera_o_trem, .vaza
 
@@ -85,7 +86,6 @@ class RodaDeProsa {
 
       // Executar código
       await this.executeCode(input);
-      
     } catch (error) {
       console.error('❌ Ô rapaz! Deu ruim:', error.message);
     }
@@ -95,12 +95,21 @@ class RodaDeProsa {
 
   isMultilineStart(input) {
     const multilineKeywords = [
-      'faz_trem', 'vai_na_frente_faz_trem', 'se', 'se_ocê_quiser', 
-      'enquanto_tiver', 'vai_indo', 'tenta_aí', 'arruma_trem'
+      'faz_trem',
+      'vai_na_frente_faz_trem',
+      'se',
+      'se_ocê_quiser',
+      'enquanto_tiver',
+      'vai_indo',
+      'tenta_aí',
+      'arruma_trem',
     ];
-    
-    return multilineKeywords.some(keyword => input.includes(keyword)) && 
-           input.includes('{') && !input.includes('}');
+
+    return (
+      multilineKeywords.some(keyword => input.includes(keyword)) &&
+      input.includes('{') &&
+      !input.includes('}')
+    );
   }
 
   handleMultiline(input) {
@@ -119,7 +128,7 @@ class RodaDeProsa {
       this.multilineBuffer = '';
       this.rl.setPrompt(this.promptPrefix);
     }
-    
+
     this.rl.prompt();
   }
 
@@ -127,10 +136,10 @@ class RodaDeProsa {
     try {
       // Adicionar à história
       this.história.push(code);
-      
+
       // Compilar e executar
       const result = this.compiler.compile(code, 'repl.gs');
-      
+
       if (!result.success) {
         console.error('❌ Ô rapaz! Deu ruim na tradução:');
         if (result.errors) {
@@ -149,12 +158,11 @@ class RodaDeProsa {
 
       // Executar JavaScript gerado
       const evalResult = this.safeEval(result.javascript);
-      
+
       // Mostrar resultado se não for undefined
       if (evalResult !== undefined) {
         console.log('💬', this.formatOutput(evalResult));
       }
-
     } catch (error) {
       console.error('❌ Ô rapaz! Deu ruim na execução:', error.message);
     }
@@ -172,12 +180,11 @@ class RodaDeProsa {
         Date: Date,
         Math: Math,
         JSON: JSON,
-        ...this.getGlobalVariables()
+        ...this.getGlobalVariables(),
       };
 
       // Executar código no contexto
       return eval(`(function() { ${code} })()`);
-      
     } catch (error) {
       throw new Error(`Erro de execução: ${error.message}`);
     }
@@ -186,21 +193,21 @@ class RodaDeProsa {
   getGlobalVariables() {
     // Retornar variáveis que devem estar disponíveis globalmente
     const globals = {};
-    
+
     // Adicionar métodos goianos
     globals.prosa = console.log;
     globals.prosa_erro = console.error;
     globals.prosa_aviso = console.warn;
-    
+
     return globals;
   }
 
   formatOutput(value) {
     if (typeof value === 'object') {
-      return util.inspect(value, { 
-        colors: true, 
+      return util.inspect(value, {
+        colors: true,
         depth: 3,
-        compact: false 
+        compact: false,
       });
     }
     return value;
@@ -208,49 +215,49 @@ class RodaDeProsa {
 
   handleCommand(command) {
     const cmd = command.toLowerCase();
-    
+
     switch (cmd) {
       case '.desenrola':
       case '.help':
         this.desenrola();
         break;
-        
+
       case '.mostra_os_trem':
       case '.vars':
         this.mostra_os_trem();
         break;
-        
+
       case '.lembra_aí':
       case '.history':
         this.lembra_aí();
         break;
-        
+
       case '.limpa_o_terreiro':
       case '.clear':
         console.clear();
         console.log('🧹 Terreiro limpo, sô!');
         break;
-        
+
       case '.zera_o_trem':
       case '.reset':
         this.zera_o_trem();
         break;
-        
+
       case '.vaza':
       case '.cabô_a_prosa':
       case '.exit':
         this.cabô_a_prosa();
         break;
-        
+
       case '.mostra_as_tralha':
       case '.packages':
         this.mostra_as_tralha();
         break;
-        
+
       case '.methods':
         this.mostra_métodos_goianos();
         break;
-        
+
       default:
         console.log(`❓ Não entendi esse comando: ${command}`);
         console.log('💡 Digite .desenrola para ver os comandos disponíveis');
@@ -295,7 +302,7 @@ class RodaDeProsa {
 
   mostra_os_trem() {
     console.log('📋 Variáveis na prosa:');
-    
+
     if (this.variables.size === 0) {
       console.log('  Nenhuma variável ainda, sô');
     } else {
@@ -307,7 +314,7 @@ class RodaDeProsa {
 
   lembra_aí() {
     console.log('📚 Lembrando o que já conversamos:');
-    
+
     if (this.história.length === 0) {
       console.log('  Ainda não conversamos nada');
     } else {
@@ -322,7 +329,7 @@ class RodaDeProsa {
     this.variables.clear();
     this.multilineBuffer = '';
     this.multilineMode = false;
-    
+
     console.log('🔄 Zerou tudo, sô!');
     console.log('✨ Histórico e variáveis limpinhos');
   }
@@ -365,20 +372,46 @@ class RodaDeProsa {
 
   autocomplete(line) {
     const keywords = [
-      'uai', 'trem', 'é', 'faz_trem', 'faz_favor', 'se', 'senão',
-      'enquanto_tiver', 'vai_indo', 'para', 'em', 'de', 'certeza',
-      'de_jeito_nenhum', 'nada', 'prosa', 'GoianoMath', 'pega',
-      'troca_ideia', 'vai_na_frente', 'espera_um_cadim'
+      'uai',
+      'trem',
+      'é',
+      'faz_trem',
+      'faz_favor',
+      'se',
+      'senão',
+      'enquanto_tiver',
+      'vai_indo',
+      'para',
+      'em',
+      'de',
+      'certeza',
+      'de_jeito_nenhum',
+      'nada',
+      'prosa',
+      'GoianoMath',
+      'pega',
+      'troca_ideia',
+      'vai_na_frente',
+      'espera_um_cadim',
     ];
-    
+
     const methods = [
-      'gritando', 'cochichando', 'dividir', 'trocar', 'tem_no_meio',
-      'mapear', 'filtrar', 'reduzir', 'bota_no_final', 'sorteia_um', 'arredondar'
+      'gritando',
+      'cochichando',
+      'dividir',
+      'trocar',
+      'tem_no_meio',
+      'mapear',
+      'filtrar',
+      'reduzir',
+      'bota_no_final',
+      'sorteia_um',
+      'arredondar',
     ];
 
     const allCompletions = [...keywords, ...methods];
     const hits = allCompletions.filter(c => c.startsWith(line));
-    
+
     return [hits.length ? hits : allCompletions, line];
   }
 }

@@ -34,24 +34,23 @@ class SimpleGoiasScriptTranspiler {
 
       // Apply all substitutions
       jsCode = this._applySubstitutions(jsCode);
-      
+
       // Check for forbidden non-Goiano methods
       const warnings = this._checkForbiddenMethods(jsCode);
-      
+
       // Add Goiano builtin methods at the beginning
       const goianoRuntime = this.goianoBuiltins.gerarImplementacaoGoiana();
       jsCode = goianoRuntime + '\n\n' + jsCode;
-      
+
       // Generate simple tokens for validation
       const tokens = this._generateTokens(code);
-      
+
       return {
         success: true,
         code: jsCode,
         warnings: warnings,
         tokens: tokens,
       };
-      
     } catch (error) {
       const goiasError = this.errorTranslator.translate(error, fileName);
       return {
@@ -72,17 +71,17 @@ class SimpleGoiasScriptTranspiler {
     // First, protect strings from being modified
     const stringPlaceholders = [];
     let stringIndex = 0;
-    
+
     // Replace strings temporarily
-    result = result.replace(/(['"])((?:(?!\1)[^\\]|\\.)*)(\1)/g, (match) => {
+    result = result.replace(/(['"])((?:(?!\1)[^\\]|\\.)*)(\1)/g, match => {
       const placeholder = `__STRING_${stringIndex++}__`;
-      stringPlaceholders.push({placeholder, original: match});
+      stringPlaceholders.push({ placeholder, original: match });
       return placeholder;
     });
 
     // Convert forbidden JS methods to Goiano methods first
     result = this._convertJSMethodsToGoiano(result);
-    
+
     // Remove type annotations for JavaScript output
     result = this._removeTypeAnnotations(result);
 
@@ -90,17 +89,17 @@ class SimpleGoiasScriptTranspiler {
     const mappings = [
       // Async functions first
       ['vai_na_frente_faz_trem', 'async function'],
-      
+
       // Compound operators with 'é' first
       ['é_tipo_de', 'instanceof'],
       ['é_igualim', '==='],
-      
+
       // Classes and inheritance
       ['arruma_trem', 'class'],
       ['inherda_de', 'extends'],
       ['aprepara_trem', 'constructor'],
       ['num_muda', 'static'],
-      
+
       // Control structures
       ['se_ocê_quiser', 'if'],
       ['se_num_for', 'else if'],
@@ -109,13 +108,13 @@ class SimpleGoiasScriptTranspiler {
       ['enquanto_tiver', 'while'],
       ['para_com_isso', 'break'],
       ['continua_aí', 'continue'],
-      
+
       // Functions
       ['faz_trem', 'function'],
       ['faz_favor', 'return'],
       ['vai_na_frente', 'async'],
       ['espera_um_cadim', 'await'],
-      
+
       // Logical operators (é_igualim already above)
       ['diferente', '!=='],
       ['maior_que', '>'],
@@ -125,47 +124,47 @@ class SimpleGoiasScriptTranspiler {
       ['e_mais', '&&'],
       ['ou_então', '||'],
       ['num_é', '!'],
-      
+
       // Arithmetic operators
       ['mais', '+'],
       ['menos', '-'],
       ['vezes', '*'],
       ['dividido', '/'],
       ['sobrou', '%'],
-      
+
       // Console and control
       ['prosa', 'console.log'],
       ['reclama', 'console.error'],
-      
+
       // Promises
       ['promessa', 'Promise'],
       ['quando_resolver', 'then'],
       ['se_der_pobrema', 'catch'],
       ['resolve_aí', 'resolve'],
       ['rejeita_isso', 'reject'],
-      
+
       // Try/catch
       ['tenta_aí', 'try'],
       ['se_der_ruim', 'catch'],
       ['por_fim', 'finally'],
-      
+
       // Types (mais goianos!)
       ['certeza', 'true'],
-      ['de_jeito_nenhum', 'false'], 
+      ['de_jeito_nenhum', 'false'],
       ['nada', 'null'],
       ['indefinido', 'undefined'],
-      
+
       // Other simple words
       ['ocê', 'this'],
       ['faz_um', 'new'],
       ['vixe', 'throw new Error'],
       ['rejeita_isso', 'reject'],
       ['resolve_aí', 'resolve'],
-      
+
       // Loop keywords
       ['em', 'in'],
       ['de', 'of'],
-      
+
       // Declarations - 'é' needs to come before compound operators
       ['trem', 'var'],
       ['uai', 'const'],
@@ -197,7 +196,7 @@ class SimpleGoiasScriptTranspiler {
     });
 
     // Restore original strings
-    stringPlaceholders.forEach(({placeholder, original}) => {
+    stringPlaceholders.forEach(({ placeholder, original }) => {
       result = result.replace(placeholder, original);
     });
 
@@ -220,10 +219,7 @@ class SimpleGoiasScriptTranspiler {
    */
   _convertJSMethodsToGoiano(code) {
     let result = code;
-    
-    // Convert JS methods to Goiano equivalents
-    const jsToGoiano = this.goianoBuiltins.metodosGoianos;
-    
+
     // String methods
     result = result.replace(/\.replace\s*\(/g, '.trocar(');
     result = result.replace(/\.split\s*\(/g, '.dividir(');
@@ -239,7 +235,7 @@ class SimpleGoiasScriptTranspiler {
     result = result.replace(/\.length\b/g, '.tamanho()');
     result = result.replace(/\.startsWith\s*\(/g, '.comeca_com(');
     result = result.replace(/\.endsWith\s*\(/g, '.termina_com(');
-    
+
     // Array methods
     result = result.replace(/\.map\s*\(/g, '.mapear(');
     result = result.replace(/\.filter\s*\(/g, '.filtrar(');
@@ -254,14 +250,14 @@ class SimpleGoiasScriptTranspiler {
     result = result.replace(/\.find\s*\(/g, '.achar(');
     result = result.replace(/\.concat\s*\(/g, '.juntar_lista(');
     result = result.replace(/\.splice\s*\(/g, '.emendar(');
-    
+
     // Object methods
     result = result.replace(/Object\.keys\s*\(/g, 'Object.chaves(');
     result = result.replace(/Object\.values\s*\(/g, 'Object.valores(');
     result = result.replace(/Object\.entries\s*\(/g, 'Object.entradas(');
     result = result.replace(/\.hasOwnProperty\s*\(/g, '.tem_propriedade(');
     result = result.replace(/Object\.assign\s*\(/g, 'Object.misturar(');
-    
+
     // Math methods
     result = result.replace(/Math\.random\s*\(\)/g, 'GoianoMath.sorteio()');
     result = result.replace(/Math\.floor\s*\(/g, 'GoianoMath.arredondar_baixo(');
@@ -274,7 +270,7 @@ class SimpleGoiasScriptTranspiler {
     result = result.replace(/Math\.pow\s*\(/g, 'GoianoMath.potencia(');
     result = result.replace(/Math\.PI\b/g, 'GoianoMath.PI');
     result = result.replace(/Math\.E\b/g, 'GoianoMath.E');
-    
+
     // Global functions
     result = result.replace(/parseInt\s*\(/g, 'vira_numero(');
     result = result.replace(/parseFloat\s*\(/g, 'vira_decimal(');
@@ -283,12 +279,12 @@ class SimpleGoiasScriptTranspiler {
     result = result.replace(/setInterval\s*\(/g, 'repetir_a_cada(');
     result = result.replace(/clearTimeout\s*\(/g, 'cancelar_depois(');
     result = result.replace(/clearInterval\s*\(/g, 'cancelar_repeticao(');
-    
-    // Console methods  
+
+    // Console methods
     result = result.replace(/console\.log\s*\(/g, 'prosa(');
     result = result.replace(/console\.error\s*\(/g, 'prosa_erro(');
     result = result.replace(/console\.warn\s*\(/g, 'prosa_aviso(');
-    
+
     return result;
   }
 
@@ -299,22 +295,37 @@ class SimpleGoiasScriptTranspiler {
   _checkForbiddenMethods(code) {
     const warnings = [];
     const forbiddenMethods = [
-      '.replace(', '.split(', '.join(', '.toUpperCase()', '.toLowerCase()', 
-      '.map(', '.filter(', '.reduce(', '.forEach(', '.push(', '.pop()',
-      'Math.random()', 'Math.floor(', 'console.log(', 'parseInt(', 'setTimeout('
+      '.replace(',
+      '.split(',
+      '.join(',
+      '.toUpperCase()',
+      '.toLowerCase()',
+      '.map(',
+      '.filter(',
+      '.reduce(',
+      '.forEach(',
+      '.push(',
+      '.pop()',
+      'Math.random()',
+      'Math.floor(',
+      'console.log(',
+      'parseInt(',
+      'setTimeout(',
     ];
-    
+
     forbiddenMethods.forEach(method => {
       if (code.includes(method)) {
-        const goianoEquivalent = this.goianoBuiltins.converterParaGoiano(method.replace(/[()]/g, ''));
+        const goianoEquivalent = this.goianoBuiltins.converterParaGoiano(
+          method.replace(/[()]/g, ''),
+        );
         warnings.push({
           type: 'forbidden_method',
           message: `⚠️ Ô sô! O método "${method}" não é goiano não! Use "${goianoEquivalent}" que é mais da hora.`,
-          suggestion: `Troca esse ${method} por .${goianoEquivalent}(`
+          suggestion: `Troca esse ${method} por .${goianoEquivalent}(`,
         });
       }
     });
-    
+
     return warnings;
   }
 
@@ -325,38 +336,40 @@ class SimpleGoiasScriptTranspiler {
   _validateSyntax(code) {
     const errors = [];
     const lines = code.split('\n');
-    
+
     lines.forEach((line, index) => {
       const trimmed = line.trim();
       if (trimmed && !trimmed.startsWith('//')) {
-        // Check for unmatched braces/brackets
-        const openBraces = (line.match(/\{/g) || []).length;
-        const closeBraces = (line.match(/\}/g) || []).length;
-        const openBrackets = (line.match(/\[/g) || []).length;
-        const closeBrackets = (line.match(/\]/g) || []).length;
-        const openParens = (line.match(/\(/g) || []).length;
-        const closeParens = (line.match(/\)/g) || []).length;
-        
         // Simple check for obvious syntax errors
         if (trimmed.includes('{{{') || trimmed.includes('}}}')) {
           errors.push({
             message: `Erro de sintaxe na linha ${index + 1}: Chaves desbalanceadas`,
             type: 'syntax_error',
-            line: index + 1
+            line: index + 1,
           });
         }
-        
-        // Check for incomplete variable declarations
-        if (trimmed.startsWith('uai ') && !trimmed.includes(' é ')) {
+
+        // Check for incomplete variable declarations.
+        // Aceita 'uai x é valor', 'uai x = valor' (forma JS) e
+        // desestruturação 'uai { a, b } = obj' / 'uai [a, b] = lista'.
+        // Falso-positivo conhecido da v2 corrigido aqui — a validação real
+        // é feita pelo lexer/transpiler abaixo.
+        if (
+          trimmed.startsWith('uai ') &&
+          !trimmed.includes(' é ') &&
+          !trimmed.includes(' = ') &&
+          !trimmed.includes('{') &&
+          !trimmed.includes('[')
+        ) {
           errors.push({
             message: `Erro de sintaxe na linha ${index + 1}: Declaração de variável incompleta`,
             type: 'syntax_error',
-            line: index + 1
+            line: index + 1,
           });
         }
       }
     });
-    
+
     return errors;
   }
 
@@ -367,7 +380,7 @@ class SimpleGoiasScriptTranspiler {
   _generateTokens(code) {
     const tokens = [];
     const lines = code.split('\n');
-    
+
     lines.forEach((line, index) => {
       const trimmed = line.trim();
       if (trimmed && !trimmed.startsWith('//')) {
@@ -377,12 +390,12 @@ class SimpleGoiasScriptTranspiler {
           tokens.push({
             type: this._getTokenType(word),
             value: word,
-            line: index + 1
+            line: index + 1,
           });
         });
       }
     });
-    
+
     return tokens;
   }
 
@@ -391,7 +404,17 @@ class SimpleGoiasScriptTranspiler {
    * @private
    */
   _getTokenType(word) {
-    const keywords = ['uai', 'trem', 'faz_trem', 'prosa', 'faz_favor', 'se', 'senao', 'pra', 'enquanto'];
+    const keywords = [
+      'uai',
+      'trem',
+      'faz_trem',
+      'prosa',
+      'faz_favor',
+      'se',
+      'senao',
+      'pra',
+      'enquanto',
+    ];
     if (keywords.includes(word)) return 'keyword';
     if (/^\d+(\.\d+)?$/.test(word)) return 'number';
     if (/^["'].*["']$/.test(word)) return 'string';
