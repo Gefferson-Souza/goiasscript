@@ -1,0 +1,31 @@
+{
+  "templates": [
+    {
+      "nome": "projeto-basico",
+      "descricao": "Template básico para projetos GoiásScript",
+      "categoria": "basico",
+      "arquivos": [
+        "package.json",
+        "src/main.gs",
+        "tests/test.gs",
+        "README.md"
+      ],
+      "variaveis": [
+        "{{projeto_nome}}",
+        "{{projeto_descricao}}",
+        "{{autor_nome}}",
+        "{{data_criacao}}"
+      ]
+    }
+  ],
+  "comandos": {
+    "criar_projeto": "goiasscript arma_o_barraco <nome-do-projeto>",
+    "listar_templates": "goiasscript arma_o_barraco --list-templates"
+  },
+  "info": {
+    "versao": "1.5.0-rc.1",
+    "autor": "Gefferson-Souza",
+    "ultima_atualizacao": "2026-05-03",
+    "nota": "Templates web e clean-architecture preservados em archive/v2-experimental"
+  }
+}
