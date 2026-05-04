@@ -1,8 +1,64 @@
 const SimpleTranspiler = require('./compiler/simpleTranspiler');
-const TypeAnalyzer = require('./types/TypeAnalyzer');
-const ModuleResolver = require('./modules/ModuleResolver');
 const GoianoBuiltins = require('./goianoMethods/GoianoBuiltins');
-const GoianoJITCompiler = require('./performance/JITCompiler');
+
+// Optional feature modules — gracefully degrade when absent (v1.5 slim build).
+// When the source files exist, full v2 behavior is preserved; when they're
+// archived for v1.5, the compiler falls back to no-op stubs so transpilation
+// keeps working without type checking, module resolution, or JIT optimization.
+function loadOptional(modulePath, fallback) {
+  try {
+    return require(modulePath);
+  } catch (err) {
+    if (err && err.code === 'MODULE_NOT_FOUND') {
+      return fallback;
+    }
+    throw err;
+  }
+}
+
+class NoopTypeAnalyzer {
+  analyze() {
+    return { typeCount: 0, symbolTable: {}, hasTypeErrors: false, warnings: [], errors: [] };
+  }
+}
+
+class NoopModuleResolver {
+  resolveModules(code) {
+    return { code, hasModules: false, imports: [], exports: [], dependencies: [], warnings: [] };
+  }
+  clearCache() {}
+  generateDependencyReport() {
+    return { totalModules: 0, modules: [] };
+  }
+  moduleExists() {
+    return true;
+  }
+  detectCircularDependencies() {
+    return null;
+  }
+}
+
+class NoopJITCompiler {
+  shouldApplyJIT() {
+    return false;
+  }
+  compile(code) {
+    return code;
+  }
+  generatePerformanceReport() {
+    return null;
+  }
+  clearCache() {}
+  setOptimizations() {}
+  setThreshold() {}
+  getHotSpots() {
+    return [];
+  }
+}
+
+const TypeAnalyzer = loadOptional('./types/TypeAnalyzer', NoopTypeAnalyzer);
+const ModuleResolver = loadOptional('./modules/ModuleResolver', NoopModuleResolver);
+const GoianoJITCompiler = loadOptional('./performance/JITCompiler', NoopJITCompiler);
 
 /**
  * Main GoiásScript Compiler
@@ -20,7 +76,7 @@ class GoiasScriptCompiler {
       enableModuleResolution: true,
       enableGoianoMethods: true,
       enableJIT: true,
-      ...options
+      ...options,
     };
   }
 
@@ -38,7 +94,7 @@ class GoiasScriptCompiler {
         typeInfo: null,
         moduleInfo: null,
         warnings: [],
-        errors: []
+        errors: [],
       };
 
       // 1. Module Resolution (if enabled)
@@ -50,7 +106,7 @@ class GoiasScriptCompiler {
           hasModules: moduleResult.hasModules,
           imports: moduleResult.imports,
           exports: moduleResult.exports,
-          dependencies: moduleResult.dependencies
+          dependencies: moduleResult.dependencies,
         };
         result.warnings.push(...(moduleResult.warnings || []));
       }
@@ -61,7 +117,7 @@ class GoiasScriptCompiler {
         result.typeInfo = {
           typeCount: typeResult.typeCount,
           symbols: typeResult.symbolTable,
-          hasTypeErrors: typeResult.hasTypeErrors
+          hasTypeErrors: typeResult.hasTypeErrors,
         };
         result.warnings.push(...(typeResult.warnings || []));
         result.errors.push(...(typeResult.errors || []));
@@ -69,7 +125,7 @@ class GoiasScriptCompiler {
 
       // 3. Transpilation
       const transpileResult = this.transpiler.transpile(processedCode, fileName);
-      
+
       if (!transpileResult.success) {
         result.errors.push(transpileResult.error);
         return result;
@@ -77,24 +133,23 @@ class GoiasScriptCompiler {
 
       result.javascript = transpileResult.code;
       result.warnings.push(...(transpileResult.warnings || []));
-      
+
       // 4. JIT Optimization (if enabled)
       if (this.options.enableJIT) {
         const identifier = this._generateIdentifier(fileName, code);
-        
+
         if (this.jitCompiler.shouldApplyJIT(result.javascript, identifier)) {
           result.javascript = this.jitCompiler.compile(result.javascript, identifier);
           result.jitOptimized = true;
           result.warnings.push({
             type: 'jit_optimization',
-            message: `🔥 Código otimizado via JIT para "${identifier}"`
+            message: `🔥 Código otimizado via JIT para "${identifier}"`,
           });
         }
       }
-      
+
       result.success = true;
       return result;
-
     } catch (error) {
       return {
         success: false,
@@ -102,12 +157,14 @@ class GoiasScriptCompiler {
         typeInfo: null,
         moduleInfo: null,
         warnings: [],
-        errors: [{
-          type: 'compilation_error',
-          message: `Erro na compilação: ${error.message}`,
-          line: 0,
-          column: 0
-        }]
+        errors: [
+          {
+            type: 'compilation_error',
+            message: `Erro na compilação: ${error.message}`,
+            line: 0,
+            column: 0,
+          },
+        ],
       };
     }
   }
@@ -167,19 +224,19 @@ class GoiasScriptCompiler {
     try {
       // Use transpiler to validate syntax
       const transpileResult = this.transpiler.transpile(code, fileName);
-      
+
       return {
         valid: transpileResult.success,
         errors: transpileResult.success ? [] : [transpileResult.error],
         tokens: transpileResult.tokens || [],
-        warnings: transpileResult.warnings || []
+        warnings: transpileResult.warnings || [],
       };
     } catch (error) {
       return {
         valid: false,
         errors: [{ message: error.message, type: 'validation_error' }],
         tokens: [],
-        warnings: []
+        warnings: [],
       };
     }
   }
@@ -202,7 +259,7 @@ class GoiasScriptCompiler {
    */
   getCompilationStats(code, fileName = 'script.gs') {
     const result = this.compile(code, fileName);
-    
+
     return {
       success: result.success,
       linesOfCode: code.split('\n').length,
@@ -211,7 +268,7 @@ class GoiasScriptCompiler {
       warningCount: result.warnings.length,
       errorCount: result.errors.length,
       hasModules: result.moduleInfo ? result.moduleInfo.hasModules : false,
-      hasTypes: result.typeInfo ? result.typeInfo.typeCount > 0 : false
+      hasTypes: result.typeInfo ? result.typeInfo.typeCount > 0 : false,
     };
   }
 
@@ -224,28 +281,28 @@ class GoiasScriptCompiler {
   execute(code, fileName = 'script.gs') {
     try {
       const compileResult = this.compile(code, fileName);
-      
+
       if (!compileResult.success) {
         return {
           success: false,
           error: compileResult.errors[0] || { message: 'Compilation failed' },
-          output: null
+          output: null,
         };
       }
 
       // Execute compiled JavaScript
       const result = eval(compileResult.javascript);
-      
+
       return {
         success: true,
         output: result,
-        error: null
+        error: null,
       };
     } catch (error) {
       return {
         success: false,
         error: { message: error.message, type: 'execution_error' },
-        output: null
+        output: null,
       };
     }
   }
@@ -269,7 +326,7 @@ class GoiasScriptCompiler {
     const hash = code.split('').reduce((hash, char) => {
       return ((hash << 5) - hash + char.charCodeAt(0)) & 0xffffffff;
     }, 0);
-    
+
     return `${fileName.replace(/[^\w]/g, '_')}_${Math.abs(hash)}`;
   }
 
@@ -318,16 +375,16 @@ class GoiasScriptCompiler {
    */
   compileWithStats(code, fileName = 'script.gs') {
     const result = this.compile(code, fileName);
-    
+
     if (result.success) {
       result.stats = {
         originalSize: code.length,
         compiledSize: result.javascript.length,
         originalLines: code.split('\n').length,
-        compiledLines: result.javascript.split('\n').length
+        compiledLines: result.javascript.split('\n').length,
       };
     }
-    
+
     return result;
   }
 }
