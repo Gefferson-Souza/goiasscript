@@ -47,8 +47,6 @@ class GoianoBuiltins {
       sort: 'ordenar',
       reverse: 'inverter',
       find: 'achar',
-      indexOf: 'posicao_de',
-      includes: 'contem',
       concat: 'juntar_lista',
       splice: 'emendar',
 

@@ -290,7 +290,12 @@ class GoiasScriptCompiler {
         };
       }
 
-      // Execute compiled JavaScript
+      // Execute compiled JavaScript in the local Node scope.
+      // eval is intentional here: this method is called only by the CLI
+      // (bin/goiasscript.js bota_pra_moer) on user-owned .gs files. The
+      // browser playground (Fase 1) MUST NOT use this path — it has to
+      // sandbox via new Function or Web Workers in an isolated iframe.
+      // eslint-disable-next-line no-eval
       const result = eval(compileResult.javascript);
 
       return {
