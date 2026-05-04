@@ -1,41 +1,29 @@
 {
   "name": "goiasscript",
-  "version": "2.0.0",
-  "description": "🇧🇷 Linguagem de programação goiana com métodos nativos - GoiásScript v2.0",
+  "version": "1.5.0-rc.1",
+  "description": "🇧🇷 Linguagem de programação goiana — transpila dialeto goianês para JavaScript",
   "publishConfig": {
     "access": "public"
   },
   "main": "src/compiler.js",
   "bin": {
     "goiasscript": "./bin/goiasscript.js",
-    "gs-balaio": "./bin/gs-balaio.js",
-    "goias": "./bin/goias.js",
-    "gs-fuça": "./bin/gs-fuça.js",
-    "gspack": "./bin/gspack.js",
-    "gsrepl": "./bin/gsrepl.js",
-    "gsdebug": "./bin/gsdebug.js",
-    "gs-debug-adapter": "./bin/gs-debug-adapter.js"
+    "goias": "./bin/goias.js"
   },
   "scripts": {
     "start": "node src/cli/index.js examples/basic/exemplo.gs",
     "dev": "nodemon src/cli/index.js examples/basic/exemplo.gs",
-    "build": "npm run clean && npm run compile",
-    "clean": "rm -rf dist/",
-    "compile": "node scripts/build.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "lint": "eslint src/ tests/ scripts/",
-    "lint:fix": "eslint src/ tests/ scripts/ --fix",
-    "format": "prettier --write 'src/**/*.js' 'tests/**/*.js' 'scripts/**/*.js'",
-    "format:check": "prettier --check 'src/**/*.js' 'tests/**/*.js' 'scripts/**/*.js'",
+    "lint": "eslint src/ tests/",
+    "lint:fix": "eslint src/ tests/ --fix",
+    "format": "prettier --write 'src/**/*.js' 'tests/**/*.js'",
+    "format:check": "prettier --check 'src/**/*.js' 'tests/**/*.js'",
     "prepare": "husky install",
     "precommit": "lint-staged",
-    "release": "semantic-release",
-    "docs": "jsdoc src/ -d docs/api/",
     "example:basic": "node src/cli/index.js examples/basic/exemplo.gs",
-    "example:classes": "node src/cli/index.js examples/classes/exemplo_classes.gs",
-    "example:async": "node src/cli/index.js examples/async/async_exemplo.gs"
+    "example:classes": "node src/cli/index.js examples/classes/exemplo_classes.gs"
   },
   "lint-staged": {
     "*.js": [
@@ -52,11 +40,11 @@
     "brasil",
     "portuguese",
     "regional",
-    "compiler"
+    "compiler",
+    "dsl"
   ],
   "author": {
     "name": "Gefferson-Souza",
-    "email": "gefferson.souza@example.com",
     "url": "https://github.com/Gefferson-Souza"
   },
   "license": "MIT",
@@ -74,7 +62,11 @@
   },
   "files": [
     "src/",
+    "bin/",
     "examples/",
+    "templates/projeto-basico/",
+    "templates/basic-template.gs",
+    "templates/template-info.json",
     "README.md",
     "LICENSE",
     "CHANGELOG.md"
@@ -86,16 +78,13 @@
     "eslint": "^8.42.0",
     "husky": "^8.0.3",
     "jest": "^29.5.0",
-    "jsdoc": "^4.0.0",
     "lint-staged": "^13.2.0",
     "nodemon": "^2.0.22",
-    "prettier": "^2.8.8",
-    "semantic-release": "^21.0.0"
+    "prettier": "^2.8.8"
   },
   "dependencies": {
     "chalk": "^4.1.2",
     "commander": "^10.0.1",
-    "fs-extra": "^11.1.0",
-    "vscode-debugadapter": "^1.51.0"
+    "fs-extra": "^11.1.0"
   }
 }
