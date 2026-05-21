@@ -10,6 +10,12 @@
     "lint:fix": "pnpm --filter goiasscript lint:fix",
     "format": "pnpm --filter goiasscript format",
     "format:check": "pnpm --filter goiasscript format:check",
+    "playground:dev": "pnpm --filter playground dev",
+    "playground:build": "pnpm --filter playground build",
+    "playground:start": "pnpm --filter playground start",
+    "engoianador:dev": "pnpm --filter engoianador-api dev",
+    "engoianador:deploy": "pnpm --filter engoianador-api deploy",
+    "engoianador:typecheck": "pnpm --filter engoianador-api typecheck",
     "prepare": "husky install"
   },
   "devDependencies": {

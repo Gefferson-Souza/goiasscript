@@ -4,11 +4,11 @@
 
 GoiásScript é um experimento cultural e técnico: uma DSL brasileira que aceita
 código escrito em goianês raiz (`uai`, `prosa`, `bota_pra_moer`) e produz JS
-limpo. Esta é a versão **1.5 enxuta** — a v2.0 que ficou inflada na branch de
-desenvolvimento foi arquivada em `archive/v2-experimental` e revisitada com
-foco no que importa: zero install, identidade cultural forte, asset viral.
+limpo. A v1.5 entrega três coisas: o pacote `goiasscript` no npm (CLI + REPL),
+um **playground web** com Monaco Editor que roda no navegador, e o
+**Engoianador** — uma API que converte qualquer texto em goianês raiz via LLM.
 
-[![Versão](https://img.shields.io/badge/versão-1.5.0--rc.1-yellow.svg)](CHANGELOG.md)
+[![Versão](https://img.shields.io/badge/versão-1.5.0-brightgreen.svg)](CHANGELOG.md)
 [![Licença](https://img.shields.io/badge/licença-MIT-blue.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](package.json)
 [![pnpm](https://img.shields.io/badge/pnpm-%3E%3D8-orange.svg)](https://pnpm.io)
@@ -78,7 +78,7 @@ V1.5 entrega 2 binários enxutos (a v2 tinha 8 — os outros foram arquivados):
 | `goiasscript vê_se_tá_certo <arquivo.gs>` | `check-types` | Valida sintaxe e tipos |
 | `goiasscript arma_o_barraco <nome>` | `new` | Cria estrutura de projeto novo |
 | `goiasscript dedo_de_prosa` | `info` | Exibe banner com versão e info |
-| `goiasscript --version` | — | Mostra versão (1.5.0-rc.1) |
+| `goiasscript --version` | — | Mostra versão (1.5.0) |
 
 <!-- /AUTO-GENERATED:cli-commands -->
 
@@ -175,13 +175,39 @@ GoianoMath.sorteio()                // 0..1
 GoianoMath.arredondar(3.7)          // 4
 ```
 
+## 🎮 Playground
+
+Editor web com Monaco que transpila e roda goianês direto no navegador (via
+Web Worker isolado, sem ida ao servidor).
+
+- **Deploy:** Vercel — configure URL após o primeiro deploy.
+- **Local:** `pnpm install && pnpm playground:dev` → http://localhost:3000.
+
+## 🪄 Engoianador
+
+API que recebe texto qualquer e devolve em goianês raiz, usando LLM
+(Groq + fallback Workers AI). Sem código, só cultura.
+
+```bash
+curl -X POST https://<seu-worker>.workers.dev/engoiana \
+  -H "Content-Type: application/json" \
+  -d '{"texto":"Olá, tudo bem com você?"}'
+# → { "engoianado": "Ô sô, e aí, tudo joia com ocê?" }
+```
+
+- **Limites:** 2000 caracteres por requisição, 10 req/min/IP.
+- **Local:** `pnpm engoianador:dev` (precisa de `GROQ_API_KEY` em
+  `apps/engoianador-api/.dev.vars`).
+
 ## 🏗️ Estrutura do monorepo
 
 ```
 goiasscript/
-├── packages/core/              # Pacote npm principal (goiasscript@1.5.0-rc.1)
-├── apps/                       # W20+ — playground web e ENGOIANADOR API
-├── docs/                       # Documentação + plano de relançamento
+├── packages/core/              # Pacote npm principal (goiasscript@1.5.0)
+├── apps/
+│   ├── playground/             # Next.js 15 + Monaco (deploy Vercel)
+│   └── engoianador-api/        # Cloudflare Worker (Groq + KV)
+├── docs/                       # Documentação
 ├── vscode-extension/           # Extensão VSCode (Marketplace)
 └── KEEP-OR-ARCHIVE.md          # Triagem v1.5 (o que foi arquivado e por quê)
 ```
