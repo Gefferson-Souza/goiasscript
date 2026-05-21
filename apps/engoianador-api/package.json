@@ -1,0 +1,16 @@
+{
+  "name": "engoianador-api",
+  "version": "1.5.0",
+  "private": true,
+  "description": "🪄 Cloudflare Worker que engoiana texto via LLM (Groq + fallback Workers AI)",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240909.0",
+    "typescript": "^5.4.0",
+    "wrangler": "^3.78.0"
+  }
+}
