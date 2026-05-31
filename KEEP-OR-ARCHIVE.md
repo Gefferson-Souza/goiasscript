@@ -174,3 +174,8 @@ git checkout archive/v2-experimental
 
 A tag `v2.0-pre-archive` aponta pro último commit da staging antes do slim
 down — snapshot imutável.
+
+---
+
+> **Atualização (2026-05-21):** v1.5.0 lançada com playground (`apps/playground`)
+> e engoianador (`apps/engoianador-api`). Veja `CHANGELOG.md`.

@@ -1,0 +1,19 @@
+name = "engoianador-api"
+main = "src/index.ts"
+compatibility_date = "2025-01-15"
+
+# Vars públicas. Secrets (GROQ_API_KEY) ficam via `wrangler secret put`.
+[vars]
+ALLOWED_ORIGINS = "http://localhost:3000,https://playground.goiasscript.com.br"
+RATE_LIMIT_PER_MINUTE = "10"
+MAX_INPUT_CHARS = "2000"
+
+# Para produção, criar o namespace e colar o ID:
+#   wrangler kv namespace create ENGOIANADOR_RL
+# [[kv_namespaces]]
+# binding = "ENGOIANADOR_RL"
+# id = "<preencher_após_criar>"
+
+# Workers AI fallback (descomenta se quiser usar):
+# [ai]
+# binding = "AI"
