@@ -5,6 +5,37 @@ Todas as mudanças importantes deste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.5.0] — 2026-05-21 — *Goianês na Web (lançamento)*
+
+Lançamento estável da v1.5 com playground web e API do engoianador. O pacote
+`goiasscript` no npm sai do `-rc` e os apps ganham seus respectivos targets de
+deploy (Vercel + Cloudflare Workers).
+
+### Adicionado
+
+- `packages/core/src/browser.js` — entry browser-safe que envelopa só
+  `SimpleTranspiler` + `GoianoBuiltins`, sem `loadOptional()` (que confunde
+  bundlers).
+- Campo `exports` em `packages/core/package.json` expondo `.` (Node) e
+  `./browser` (browser/bundler).
+- `apps/playground/` — Next.js 15 + Monaco Editor, executando GoiásScript no
+  navegador via Web Worker isolado com timeout de 3s. Inclui página
+  `/engoianador` integrada à API.
+- `apps/engoianador-api/` — Cloudflare Worker que engoiana texto qualquer via
+  Groq (`llama-3.1-70b-versatile`) com fallback opcional pro Workers AI,
+  rate limit de 10 req/min/IP via KV, CORS por allowlist.
+- Scripts root: `playground:dev`/`build`/`start`, `engoianador:dev`/`deploy`/
+  `typecheck`.
+- Job `build-apps` no CI, dependente do job `test`.
+- Smoke test do browser entry no CI.
+
+### Modificado
+
+- Versão `1.5.0-rc.1` → `1.5.0`.
+- README, CONTRIBUTING e KEEP-OR-ARCHIVE refletem a entrega do W20 e W23.
+- `.gitignore` cobre `.wrangler/`, `apps/*/.env.local`,
+  `apps/*/.next/`, `apps/playground/public/examples/` (gerado em build).
+
 ## [1.5.0-rc.1] — 2026-05-04 — *Goianês na Web*
 
 Relançamento estratégico após período de hibernação. A v2.0 (nunca lançada

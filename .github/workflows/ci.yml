@@ -56,3 +56,33 @@ jobs:
           node bin/goiasscript.js --version
           node bin/goiasscript.js dedo_de_prosa
           node bin/goiasscript.js traduz examples/basic/exemplo.gs
+
+      - name: Smoke test browser entry
+        run: |
+          cd packages/core
+          node -e "const {GoiasScriptBrowserCompiler}=require('./src/browser'); const r=new GoiasScriptBrowserCompiler().transpile('uai x é 42; prosa(x)'); if(!r.success) {console.error(r.error); process.exit(1)}; console.log('browser entry OK')"
+
+  build-apps:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'pnpm'
+
+      - name: Instalar dependências
+        run: pnpm install --frozen-lockfile
+
+      - name: Build do playground
+        run: pnpm playground:build
+
+      - name: Typecheck do engoianador
+        run: pnpm engoianador:typecheck

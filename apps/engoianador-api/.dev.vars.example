@@ -1,0 +1,3 @@
+# Copie para .dev.vars e preencha os valores.
+# .dev.vars é lido automaticamente pelo `wrangler dev`.
+GROQ_API_KEY=

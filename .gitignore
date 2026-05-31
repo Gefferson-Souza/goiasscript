@@ -49,6 +49,17 @@ debug-report.json
 .env.development.local
 .env.test.local
 .env.production.local
+apps/*/.env.local
+apps/*/.dev.vars
+
+# === APPS (Next.js + Cloudflare) ===
+apps/*/.next/
+apps/*/.vercel/
+apps/*/.wrangler/
+apps/playground/public/examples/
+# Não ignorar lib/ dentro dos apps (o lib/ raiz acima é pra build output)
+!apps/**/lib/
+!apps/**/lib/**
 
 # === SISTEMA OPERACIONAL ===
 .DS_Store
