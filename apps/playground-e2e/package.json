@@ -1,0 +1,13 @@
+{
+  "name": "playground-e2e",
+  "version": "1.5.0",
+  "private": true,
+  "description": "Testes E2E (Playwright) do playground do GoiásScript",
+  "scripts": {
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0"
+  }
+}
