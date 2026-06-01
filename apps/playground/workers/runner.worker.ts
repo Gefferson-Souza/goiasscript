@@ -47,13 +47,15 @@ function runUser(jsCode: string, logs: LogEntry[]): void {
   // levantamos a barra: sombreamos os globais perigosos passando-os como
   // parâmetros que lançam erro se tocados. O hard timeout fica no main
   // thread via worker.terminate().
-  const blocked = new Proxy(Object.create(null), {
-    get() {
-      throw new Error('Acesso negado nesse trem aqui no playground, sô.');
-    },
-    apply() {
-      throw new Error('Acesso negado nesse trem aqui no playground, sô.');
-    },
+  // Target precisa ser uma função pro trap `apply` valer (chamada direta tipo
+  // fetch(...)); o trap `get` cobre acesso a propriedade (self.postMessage...).
+  const negado = () => {
+    throw new Error('Acesso negado nesse trem aqui no playground, sô.');
+  };
+  const blocked = new Proxy(negado, {
+    get: negado,
+    apply: negado,
+    construct: negado,
   });
   const DANGEROUS = [
     'self',

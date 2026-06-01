@@ -32,11 +32,12 @@ export default function PlaygroundPage() {
   const { outcome, run } = useRunner();
 
   // Autoload do exemplo "Olá Mundo" na primeira renderização cliente.
+  // Só substitui se o usuário ainda não mexeu (evita clobber de seleção/edição).
   useEffect(() => {
     fetch('/examples/ola-mundo.gs')
       .then(r => (r.ok ? r.text() : null))
       .then(text => {
-        if (text && text.trim()) setCode(text);
+        if (text && text.trim()) setCode(prev => (prev === STARTER ? text : prev));
       })
       .catch(() => {
         /* mantém o STARTER */

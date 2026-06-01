@@ -1,6 +1,10 @@
 'use client';
-import { Editor as MonacoEditor, type OnMount } from '@monaco-editor/react';
+import { Editor as MonacoEditor, loader, type OnMount } from '@monaco-editor/react';
 import { GOIAS_LANGUAGE_ID, registerGoiasScript } from '@/lib/monaco-goias';
+
+// Self-host: carrega o Monaco do próprio domínio (/vs), não de CDN externo.
+// Necessário porque a CSP do site é script-src 'self' (sem CDN).
+loader.config({ paths: { vs: '/vs' } });
 
 type Props = {
   value: string;
