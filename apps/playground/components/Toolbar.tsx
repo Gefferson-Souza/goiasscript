@@ -34,23 +34,26 @@ export function Toolbar({ running, onRun, onClear, onLoadExample }: Props) {
       <button
         onClick={onRun}
         disabled={running}
-        className="px-4 py-1.5 bg-goias-verde hover:bg-goias-verde/80 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded text-sm"
+        className="rounded bg-goias-verde px-4 py-1.5 text-sm font-semibold text-white hover:bg-goias-verde/80 disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-amarelo"
       >
         {running ? '🔥 Moendo...' : '🔥 Bota pra moer'}
       </button>
       <button
         onClick={onClear}
-        className="px-3 py-1.5 bg-goias-fundo hover:bg-goias-fundo/80 border border-goias-borda text-goias-texto rounded text-sm"
+        className="rounded border border-goias-borda bg-goias-fundo px-3 py-1.5 text-sm text-goias-texto hover:bg-goias-fundo/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-amarelo"
       >
         🧹 Limpa o terreiro
       </button>
 
       <div className="ml-auto flex items-center gap-2 text-sm">
-        <label className="text-goias-texto/70">Exemplos:</label>
+        <label htmlFor="seletor-exemplo" className="text-goias-texto/70">
+          Exemplos:
+        </label>
         <select
+          id="seletor-exemplo"
           onChange={e => handlePickExample(e.target.value)}
           defaultValue=""
-          className="bg-goias-fundo border border-goias-borda text-goias-texto rounded px-2 py-1 text-sm"
+          className="rounded border border-goias-borda bg-goias-fundo px-2 py-1 text-sm text-goias-texto focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-amarelo"
         >
           <option value="" disabled>
             Escolhe um, sô

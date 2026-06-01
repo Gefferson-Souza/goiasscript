@@ -25,12 +25,20 @@ function formatArg(v: unknown): string {
 }
 
 function runUser(jsCode: string, logs: LogEntry[]): void {
+  // Cada log é registrado E transmitido na hora pro main thread, pra que um
+  // código que imprime e depois trava (loop infinito) ainda mostre o que saiu
+  // antes do timeout terminar o worker.
+  const record = (level: LogEntry['level'], args: unknown[]) => {
+    const entry: LogEntry = { level, parts: args.map(formatArg) };
+    logs.push(entry);
+    self.postMessage({ type: 'log', entry });
+  };
   const stubConsole = {
-    log: (...args: unknown[]) => logs.push({ level: 'log', parts: args.map(formatArg) }),
-    warn: (...args: unknown[]) => logs.push({ level: 'warn', parts: args.map(formatArg) }),
-    error: (...args: unknown[]) => logs.push({ level: 'error', parts: args.map(formatArg) }),
-    info: (...args: unknown[]) => logs.push({ level: 'log', parts: args.map(formatArg) }),
-    debug: (...args: unknown[]) => logs.push({ level: 'log', parts: args.map(formatArg) }),
+    log: (...args: unknown[]) => record('log', args),
+    warn: (...args: unknown[]) => record('warn', args),
+    error: (...args: unknown[]) => record('error', args),
+    info: (...args: unknown[]) => record('log', args),
+    debug: (...args: unknown[]) => record('log', args),
   };
 
   // Defesa em profundidade. O isolamento REAL é dado pela CSP do site

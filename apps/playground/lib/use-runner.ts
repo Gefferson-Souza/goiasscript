@@ -45,6 +45,11 @@ export function useRunner() {
 
       worker.onmessage = (event: MessageEvent) => {
         const data = event.data;
+        if (data.type === 'log') {
+          // Log incremental: acumula pra aparecer mesmo se der timeout depois.
+          partialLogsRef.current.push(data.entry);
+          return;
+        }
         if (data.type === 'ok') {
           setOutcome({ kind: 'ok', logs: data.logs, js: data.js });
         } else if (data.type === 'compile-error') {

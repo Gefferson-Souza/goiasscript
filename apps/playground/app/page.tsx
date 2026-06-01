@@ -31,9 +31,9 @@ export default function PlaygroundPage() {
   const [code, setCode] = useState(STARTER);
   const { outcome, run } = useRunner();
 
-  // Autoload do exemplo básico na primeira renderização cliente, se disponível.
+  // Autoload do exemplo "Olá Mundo" na primeira renderização cliente.
   useEffect(() => {
-    fetch('/examples/exemplo.gs')
+    fetch('/examples/ola-mundo.gs')
       .then(r => (r.ok ? r.text() : null))
       .then(text => {
         if (text && text.trim()) setCode(text);
@@ -51,11 +51,11 @@ export default function PlaygroundPage() {
         onClear={() => setCode('')}
         onLoadExample={code => setCode(code)}
       />
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-2 p-2 min-h-0">
-        <div className="border border-goias-borda rounded-md overflow-hidden min-h-[400px]">
+      <div className="grid min-h-0 flex-1 grid-cols-1 gap-2 p-2 lg:grid-cols-2">
+        <div className="h-[55vh] overflow-hidden rounded-md border border-goias-borda lg:h-auto lg:min-h-[400px]">
           <Editor value={code} onChange={setCode} />
         </div>
-        <div className="min-h-[400px]">
+        <div className="h-[45vh] lg:h-auto lg:min-h-[400px]">
           <OutputPanel outcome={outcome} />
         </div>
       </div>
