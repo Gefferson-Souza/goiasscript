@@ -1,3 +1,9 @@
 # Copie para .dev.vars e preencha os valores.
 # .dev.vars é lido automaticamente pelo `wrangler dev`.
+
+# Chave da Groq (https://console.groq.com). Sem ela, cai no fallback Workers AI.
 GROQ_API_KEY=
+
+# Em dev não há KV de rate limit. Deixe "true" pra liberar localmente.
+# NUNCA defina isso em produção — lá o rate limit é obrigatório (fail-closed).
+ALLOW_UNLIMITED=true
