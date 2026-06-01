@@ -4,6 +4,9 @@ const SITE = 'https://playground.goiasscript.com.br';
 
 /** Gera um PNG do nó (alta resolução) e devolve o dataURL. */
 export async function nodeToPng(node: HTMLElement): Promise<string> {
+  if (!node || node.offsetHeight === 0 || node.offsetWidth === 0) {
+    throw new Error('Nada pra renderizar no card ainda, sô.');
+  }
   return toPng(node, {
     pixelRatio: 2,
     cacheBust: true,
