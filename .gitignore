@@ -57,6 +57,13 @@ apps/*/.next/
 apps/*/.vercel/
 apps/*/.wrangler/
 apps/playground/public/examples/
+apps/playground/public/vs/
+
+# === PLAYWRIGHT E2E ===
+apps/playground-e2e/test-results/
+apps/playground-e2e/playwright-report/
+apps/playground-e2e/.last-run.json
+apps/playground-e2e/blob-report/
 # Não ignorar lib/ dentro dos apps (o lib/ raiz acima é pra build output)
 !apps/**/lib/
 !apps/**/lib/**

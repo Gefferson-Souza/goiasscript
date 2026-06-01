@@ -16,6 +16,8 @@
     "engoianador:dev": "pnpm --filter engoianador-api dev",
     "engoianador:deploy": "pnpm --filter engoianador-api deploy",
     "engoianador:typecheck": "pnpm --filter engoianador-api typecheck",
+    "engoianador:test": "pnpm --filter engoianador-api test",
+    "e2e": "pnpm --filter playground-e2e test:e2e",
     "prepare": "husky install"
   },
   "devDependencies": {
