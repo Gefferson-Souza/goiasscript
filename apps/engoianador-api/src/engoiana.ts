@@ -4,8 +4,9 @@ export type Env = {
   GROQ_API_KEY?: string;
   AI?: { run: (model: string, input: unknown) => Promise<unknown> };
   ALLOWED_ORIGINS?: string;
-  RATE_LIMIT_PER_MINUTE?: string;
+  RATE_LIMIT_PER_DAY?: string;
   MAX_INPUT_CHARS?: string;
+  ALLOW_UNLIMITED?: string;
   ENGOIANADOR_RL?: KVNamespace;
 };
 
@@ -17,7 +18,11 @@ export async function engoianarTexto(texto: string, env: Env): Promise<string> {
     try {
       return await callGroq(texto, env.GROQ_API_KEY);
     } catch (err) {
-      console.warn('Groq falhou, tentando Workers AI:', err);
+      // Loga só a mensagem (sem body cru da Groq) e segue pro fallback.
+      console.warn(
+        'Groq falhou, tentando Workers AI:',
+        err instanceof Error ? err.message : String(err)
+      );
     }
   }
   if (env.AI) {
@@ -40,10 +45,12 @@ async function callGroq(texto: string, apiKey: string): Promise<string> {
       max_tokens: 1024,
       stream: false,
     }),
+    // Evita pendurar o Worker até o limite de CPU (30s) se a Groq travar.
+    signal: AbortSignal.timeout(15000),
   });
   if (!res.ok) {
-    const body = await res.text();
-    throw new Error(`Groq ${res.status}: ${body.slice(0, 200)}`);
+    // Não propaga o body cru (pode conter detalhes internos da API).
+    throw new Error(`Groq respondeu ${res.status}`);
   }
   const data = (await res.json()) as {
     choices?: Array<{ message?: { content?: string } }>;

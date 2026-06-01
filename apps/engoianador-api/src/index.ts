@@ -72,14 +72,21 @@ async function handleEngoiana(request: Request, env: Env): Promise<Response> {
     );
   }
 
-  const ip =
-    request.headers.get('cf-connecting-ip') ||
-    request.headers.get('x-forwarded-for') ||
-    'anon';
+  // Só confia no cf-connecting-ip (injetado pela Cloudflare, não-spoofável).
+  // x-forwarded-for é controlável pelo cliente, então não entra como fallback.
+  const ip = request.headers.get('cf-connecting-ip') || 'anon';
   const rl = await checkRateLimit(ip, env);
+  if (!rl.ok && rl.reason === 'misconfig') {
+    return jsonResponse(
+      { erro: 'Ô rapaz, o engoianador tá de recesso (config). Volta já já.' },
+      { status: 503 },
+      request,
+      env
+    );
+  }
   if (!rl.ok) {
     return jsonResponse(
-      { erro: `Calma aí, sô! Espera ${rl.retryAfterSec}s pra engoianar de novo.` },
+      { erro: 'Calma aí, sô! Ocê já engoianou demais hoje. Volta amanhã.' },
       {
         status: 429,
         headers: { 'Retry-After': String(rl.retryAfterSec) },

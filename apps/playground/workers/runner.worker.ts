@@ -33,13 +33,36 @@ function runUser(jsCode: string, logs: LogEntry[]): void {
     debug: (...args: unknown[]) => logs.push({ level: 'log', parts: args.map(formatArg) }),
   };
 
-  // Executa num escopo controlado. `new Function` com `console` injetado
-  // evita acesso ao `self`/`globalThis` do worker (não é sandbox 100%, mas
-  // joga o usuário num escopo limpo o suficiente para o playground).
-  // O timeout fica por conta do main thread via worker.terminate().
+  // Defesa em profundidade. O isolamento REAL é dado pela CSP do site
+  // (connect-src 'self' bloqueia exfiltração; script-src 'self' bloqueia
+  // importScripts externo) + o worker rodar sem credenciais/DOM. Aqui só
+  // levantamos a barra: sombreamos os globais perigosos passando-os como
+  // parâmetros que lançam erro se tocados. O hard timeout fica no main
+  // thread via worker.terminate().
+  const blocked = new Proxy(Object.create(null), {
+    get() {
+      throw new Error('Acesso negado nesse trem aqui no playground, sô.');
+    },
+    apply() {
+      throw new Error('Acesso negado nesse trem aqui no playground, sô.');
+    },
+  });
+  const DANGEROUS = [
+    'self',
+    'globalThis',
+    'fetch',
+    'XMLHttpRequest',
+    'WebSocket',
+    'importScripts',
+    'indexedDB',
+    'caches',
+    'Worker',
+    'SharedWorker',
+    'EventSource',
+  ];
   // eslint-disable-next-line no-new-func
-  const fn = new Function('console', `"use strict"; ${jsCode}`);
-  fn(stubConsole);
+  const fn = new Function('console', ...DANGEROUS, `"use strict"; ${jsCode}`);
+  fn(stubConsole, ...DANGEROUS.map(() => blocked));
 }
 
 self.addEventListener('message', (event: MessageEvent<InMessage>) => {
