@@ -12,6 +12,9 @@ type Props = {
 
 export function Toolbar({ running, onRun, onClear, onLoadExample }: Props) {
   const [examples, setExamples] = useState<ExampleEntry[]>([]);
+  // Select controlado: volta pro placeholder após carregar, permitindo
+  // recarregar o mesmo exemplo (defaultValue ficava preso na seleção).
+  const [selecionado, setSelecionado] = useState('');
 
   useEffect(() => {
     fetch('/examples/manifest.json')
@@ -23,7 +26,7 @@ export function Toolbar({ running, onRun, onClear, onLoadExample }: Props) {
   async function handlePickExample(arquivo: string) {
     if (!arquivo) return;
     const res = await fetch(`/examples/${arquivo}`);
-    if (!res.ok) return;
+    if (!res.ok) throw new Error(`Falha ao carregar ${arquivo} (HTTP ${res.status})`);
     const text = await res.text();
     const entry = examples.find(e => e.arquivo === arquivo);
     onLoadExample(text, entry?.nome ?? arquivo);
@@ -51,8 +54,16 @@ export function Toolbar({ running, onRun, onClear, onLoadExample }: Props) {
         </label>
         <select
           id="seletor-exemplo"
-          onChange={e => handlePickExample(e.target.value)}
-          defaultValue=""
+          value={selecionado}
+          onChange={e => {
+            const arquivo = e.target.value;
+            setSelecionado(''); // reseta pro placeholder (permite repicar o mesmo)
+            if (arquivo) {
+              handlePickExample(arquivo).catch(err =>
+                console.error('Erro ao carregar exemplo:', err)
+              );
+            }
+          }}
           className="rounded border border-goias-borda bg-goias-fundo px-2 py-1 text-sm text-goias-texto focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-amarelo"
         >
           <option value="" disabled>
