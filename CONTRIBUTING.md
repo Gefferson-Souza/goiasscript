@@ -153,17 +153,23 @@ pnpm test:coverage
 
 Alinhadas com o [PLANO-RELANCAMENTO](docs/plano/PLANO-RELANCAMENTO.md):
 
-### Alta prioridade (W20 — Playground Web)
+### W20 — Playground Web ✅ (entregue na v1.5.0)
 
-- [ ] `apps/playground/` com Next.js 15 + Monaco Editor
-- [ ] Adicionar campo `exports` no `packages/core/package.json` com entry browser-safe
-- [ ] Sintaxe highlight do GoiásScript no Monaco (port do `vscode-extension/syntaxes/`)
+- [x] `apps/playground/` com Next.js 15 + Monaco Editor
+- [x] Campo `exports` no `packages/core/package.json` com entry browser-safe
+- [x] Sintaxe highlight do GoiásScript no Monaco (port do `vscode-extension/syntaxes/`)
 
-### Alta prioridade (W23 — ENGOIANADOR API)
+### W23 — ENGOIANADOR API ✅ (entregue na v1.5.0)
 
-- [ ] `apps/engoianador-api/` com Cloudflare Worker + Groq integration
-- [ ] Rate limiting via Cloudflare KV
-- [ ] Fallback para Cloudflare Workers AI
+- [x] `apps/engoianador-api/` com Cloudflare Worker + Groq integration
+- [x] Rate limiting via Cloudflare KV
+- [x] Fallback opcional para Cloudflare Workers AI
+
+### Próximos alvos (pós v1.5.0)
+
+- [ ] Persistência de snippets no playground (LocalStorage + share URL)
+- [ ] Histórico de engoianações na UI
+- [ ] LSP simples reaproveitando `vscode-extension/syntaxes/`
 
 ### Média prioridade
 

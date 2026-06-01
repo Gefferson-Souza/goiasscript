@@ -1,0 +1,23 @@
+name = "engoianador-api"
+main = "src/index.ts"
+compatibility_date = "2025-01-15"
+
+# Vars públicas. Secrets (GROQ_API_KEY) ficam via `wrangler secret put GROQ_API_KEY`.
+[vars]
+ALLOWED_ORIGINS = "http://localhost:3000,https://playground.goiasscript.com.br"
+RATE_LIMIT_PER_DAY = "20"
+MAX_INPUT_CHARS = "2000"
+
+# Rate limit por IP exige este KV. ANTES do primeiro deploy, rode:
+#   wrangler kv namespace create ENGOIANADOR_RL
+# e cole o id retornado abaixo. Sem um id válido o deploy FALHA de propósito —
+# é a trava que impede subir produção sem rate limit (o código também recusa
+# requisições com 503 se o KV não estiver presente, exceto em dev com
+# ALLOW_UNLIMITED="true" no .dev.vars).
+[[kv_namespaces]]
+binding = "ENGOIANADOR_RL"
+id = "COLE_O_ID_DO_wrangler_kv_namespace_create"
+
+# Workers AI fallback (descomenta se quiser usar quando a Groq falhar):
+# [ai]
+# binding = "AI"
