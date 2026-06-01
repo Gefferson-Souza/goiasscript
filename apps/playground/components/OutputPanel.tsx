@@ -15,31 +15,42 @@ export function OutputPanel({ outcome }: { outcome: RunOutcome }) {
 
   const errorMessage =
     outcome.kind === 'compile-error' || outcome.kind === 'runtime-error' ? outcome.message : null;
-  const logs = outcome.kind === 'ok' || outcome.kind === 'runtime-error' || outcome.kind === 'timeout'
-    ? outcome.logs
-    : [];
+  const logs =
+    outcome.kind === 'ok' || outcome.kind === 'runtime-error' || outcome.kind === 'timeout'
+      ? outcome.logs
+      : [];
   const js = outcome.kind === 'ok' || outcome.kind === 'runtime-error' ? outcome.js : '';
 
   return (
-    <div className="flex flex-col h-full bg-goias-painel border border-goias-borda rounded-md overflow-hidden">
-      <div className="flex border-b border-goias-borda">
+    <div className="flex h-full flex-col overflow-hidden rounded-md border border-goias-borda bg-goias-painel">
+      <div className="flex border-b border-goias-borda" role="tablist" aria-label="Resultado">
         {(Object.keys(TAB_LABELS) as Tab[]).map(t => (
           <button
             key={t}
+            id={`tab-${t}`}
+            role="tab"
+            aria-selected={tab === t}
+            aria-controls={`painel-${t}`}
             onClick={() => setTab(t)}
-            className={`px-4 py-2 text-sm transition-colors ${
+            className={`px-4 py-2 text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-goias-amarelo ${
               tab === t
-                ? 'text-goias-amarelo border-b-2 border-goias-amarelo bg-goias-fundo/40'
+                ? 'border-b-2 border-goias-amarelo bg-goias-fundo/40 text-goias-amarelo'
                 : 'text-goias-texto/70 hover:text-goias-amarelo'
             }`}
           >
             {TAB_LABELS[t]}
             {t === 'erros' && errorMessage ? (
-              <span className="ml-2 text-red-400">●</span>
+              <span className="ml-2 text-red-400" aria-label="tem erro">
+                ●
+              </span>
             ) : null}
           </button>
         ))}
-        <div className="ml-auto px-3 py-2 text-xs text-goias-texto/60">
+        <div
+          className="ml-auto px-3 py-2 text-xs text-goias-texto/60"
+          role="status"
+          aria-live="polite"
+        >
           {outcome.kind === 'running' && '⏳ Moendo esse trem...'}
           {outcome.kind === 'idle' && 'Aguardando...'}
           {outcome.kind === 'ok' && '✅ Rodou bonito'}
@@ -49,7 +60,12 @@ export function OutputPanel({ outcome }: { outcome: RunOutcome }) {
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto p-3 font-mono text-sm">
+      <div
+        id={`painel-${tab}`}
+        role="tabpanel"
+        aria-labelledby={`tab-${tab}`}
+        className="flex-1 overflow-auto p-3 font-mono text-sm"
+      >
         {tab === 'saida' && <SaidaView outcome={outcome} logs={logs} />}
         {tab === 'js' && <JsView js={js} />}
         {tab === 'erros' && <ErrosView message={errorMessage} />}
@@ -58,9 +74,19 @@ export function OutputPanel({ outcome }: { outcome: RunOutcome }) {
   );
 }
 
-function SaidaView({ outcome, logs }: { outcome: RunOutcome; logs: Array<{ level: string; parts: string[] }> }) {
+function SaidaView({
+  outcome,
+  logs,
+}: {
+  outcome: RunOutcome;
+  logs: Array<{ level: string; parts: string[] }>;
+}) {
   if (outcome.kind === 'idle') {
-    return <p className="text-goias-texto/60">Clica em &quot;Bota pra moer&quot; pra ver o resultado, sô.</p>;
+    return (
+      <p className="text-goias-texto/60">
+        Clica em &quot;Bota pra moer&quot; pra ver o resultado, sô.
+      </p>
+    );
   }
   if (outcome.kind === 'running') {
     return <p className="text-goias-texto/60">Moendo... 🔥</p>;
