@@ -1,0 +1,142 @@
+   Compiling proc-macro2 v1.0.94
+   Compiling unicode-ident v1.0.18
+   Compiling utf8parse v0.2.2
+   Compiling anstyle-query v1.1.2
+   Compiling is_terminal_polyfill v1.70.1
+   Compiling colorchoice v1.0.3
+   Compiling anstyle v1.0.10
+   Compiling beef v0.5.2
+   Compiling fnv v1.0.7
+   Compiling regex-syntax v0.6.29
+   Compiling strsim v0.11.1
+   Compiling clap_lex v0.7.4
+   Compiling heck v0.5.0
+   Compiling anyhow v1.0.97
+   Compiling thiserror v1.0.69
+   Compiling lazy_static v1.5.0
+   Compiling once_cell v1.21.3
+   Compiling anstyle-parse v0.2.6
+   Compiling colored v2.2.0
+   Compiling anstream v0.6.18
+   Compiling clap_builder v4.5.36
+   Compiling quote v1.0.40
+   Compiling syn v2.0.100
+   Compiling logos-codegen v0.13.0
+   Compiling clap_derive v4.5.32
+   Compiling thiserror-impl v1.0.69
+   Compiling logos-derive v0.13.0
+   Compiling logos v0.13.0
+   Compiling clap v4.5.36
+   Compiling goiasscript v0.1.0 (<scratchpad>/audit/probes-gov/rust-latest/goiasscript-language/goiasscript-rust)
+warning: unused import: `std::fs`
+ --> src/translator.rs:1:5
+  |
+1 | use std::fs;
+  |     ^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `self`
+ --> src/translator.rs:2:15
+  |
+2 | use std::io::{self, Write};
+  |               ^^^^
+
+warning: unused imports: `PathBuf` and `Path`
+ --> src/translator.rs:3:17
+  |
+3 | use std::path::{Path, PathBuf};
+  |                 ^^^^  ^^^^^^^
+
+warning: unused import: `Context`
+ --> src/translator.rs:4:14
+  |
+4 | use anyhow::{Context, Result};
+  |              ^^^^^^^
+
+error[E0308]: mismatched types
+   --> src/translator.rs:265:17
+    |
+263 | /          match expr {
+264 | |              Expression::Literal { value } => {
+265 | |/                 match value {
+266 | ||                     LiteralValue::String(s) => self.write(&format!("\"{}\"", s)),
+267 | ||                     LiteralValue::Number(n) => self.write(&n.to_string()),
+268 | ||                     LiteralValue::Bool(b) => self.write(if *b { "true" } else { "false" }),
+269 | ||                     LiteralValue::Null => self.write("None"),
+270 | ||                 }
+    | ||_________________^ expected `()`, found `Result<(), Error>`
+...   |
+428 | |          }
+    | |__________- expected this to be `()`
+    |
+    = note: expected unit type `()`
+                    found enum `Result<(), anyhow::Error>`
+help: consider using a semicolon here
+    |
+270 |                 };
+    |                  +
+help: consider using a semicolon here
+    |
+428 |         };
+    |          +
+help: you might have meant to return this value
+    |
+265 |                 return match value {
+    |                 ++++++
+help: use the `?` operator to extract the `Result<(), anyhow::Error>` value, propagating a `Result::Err` value to the caller
+    |
+270 |                 }?
+    |                  +
+
+error[E0308]: mismatched types
+   --> src/translator.rs:309:21
+    |
+309 | /                     match operator {
+310 | |                         BinaryOperator::Add => self.write(" + "),
+311 | |                         BinaryOperator::Subtract => self.write(" - "),
+312 | |                         BinaryOperator::Multiply => self.write(" * "),
+...   |
+322 | |                         BinaryOperator::Or => self.write(" || "),
+323 | |                     }
+    | |_____________________^ expected `()`, found `Result<(), Error>`
+    |
+    = note: expected unit type `()`
+                    found enum `Result<(), anyhow::Error>`
+help: use the `?` operator to extract the `Result<(), anyhow::Error>` value, propagating a `Result::Err` value to the caller
+    |
+323 |                     }?
+    |                      +
+help: consider using a semicolon here
+    |
+323 |                     };
+    |                      +
+
+error[E0308]: mismatched types
+   --> src/main.rs:72:43
+    |
+ 72 |     let rust_code = translator::translate(ast)?;
+    |                     --------------------- ^^^ expected `&Program`, found `Program`
+    |                     |
+    |                     arguments to this function are incorrect
+    |
+note: function defined here
+   --> src/translator.rs:435:8
+    |
+435 | pub fn translate(program: &Program) -> Result<String> {
+    |        ^^^^^^^^^ -----------------
+help: consider borrowing here
+    |
+ 72 |     let rust_code = translator::translate(&ast)?;
+    |                                           +
+
+warning: unused import: `Write`
+ --> src/translator.rs:2:21
+  |
+2 | use std::io::{self, Write};
+  |                     ^^^^^
+
+For more information about this error, try `rustc --explain E0308`.
+warning: `goiasscript` (bin "goiasscript") generated 5 warnings
+error: could not compile `goiasscript` (bin "goiasscript") due to 3 previous errors; 5 warnings emitted
+CARGO_TARGET_DIR=$P/target-rust-latest timeout 280 cargo build 2>&1  17,43s user 2,32s system 350% cpu 5,640 total

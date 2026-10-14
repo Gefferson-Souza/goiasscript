@@ -1,0 +1,161 @@
+[
+  {
+    "id": "goiasscript@1.5.0",
+    "name": "goiasscript",
+    "version": "1.5.0",
+    "size": 33597,
+    "unpackedSize": 125426,
+    "shasum": "8688c4f4803c7cf0d85525138109cc5d2f6ca669",
+    "integrity": "sha512-6cj4EpD9QF5lB5UQjT6yL32xHrJbhx9nwJgvq+qDmxMEWeU3VqDO9y7DbGcM+NRUVNoGhs4dlyXp/UqCdlzqzA==",
+    "filename": "goiasscript-1.5.0.tgz",
+    "files": [
+      {
+        "path": "bin/goias.js",
+        "size": 11314,
+        "mode": 493
+      },
+      {
+        "path": "bin/goiasscript.js",
+        "size": 23657,
+        "mode": 493
+      },
+      {
+        "path": "examples/advanced/teste_classes_simples.gs",
+        "size": 2015,
+        "mode": 420
+      },
+      {
+        "path": "examples/advanced/teste_classes.gs",
+        "size": 4520,
+        "mode": 420
+      },
+      {
+        "path": "examples/advanced/teste_erros.gs",
+        "size": 1875,
+        "mode": 420
+      },
+      {
+        "path": "examples/advanced/teste_instanceof.gs",
+        "size": 2615,
+        "mode": 420
+      },
+      {
+        "path": "examples/async/async_exemplo.gs",
+        "size": 2500,
+        "mode": 420
+      },
+      {
+        "path": "examples/basic/exemplo_simples.gs",
+        "size": 1323,
+        "mode": 420
+      },
+      {
+        "path": "examples/basic/exemplo.gs",
+        "size": 226,
+        "mode": 420
+      },
+      {
+        "path": "examples/basic/lista-mapeamento.gs",
+        "size": 432,
+        "mode": 420
+      },
+      {
+        "path": "examples/basic/ola-mundo.gs",
+        "size": 199,
+        "mode": 420
+      },
+      {
+        "path": "examples/classes/exemplo_classes.gs",
+        "size": 2468,
+        "mode": 420
+      },
+      {
+        "path": "examples/classes/pequi.gs",
+        "size": 672,
+        "mode": 420
+      },
+      {
+        "path": "examples/README.md",
+        "size": 2174,
+        "mode": 420
+      },
+      {
+        "path": "package.json",
+        "size": 2251,
+        "mode": 420
+      },
+      {
+        "path": "src/browser.js",
+        "size": 1034,
+        "mode": 420
+      },
+      {
+        "path": "src/cli/index.js",
+        "size": 10352,
+        "mode": 420
+      },
+      {
+        "path": "src/compiler.js",
+        "size": 11103,
+        "mode": 420
+      },
+      {
+        "path": "src/compiler/lexer.js",
+        "size": 4724,
+        "mode": 420
+      },
+      {
+        "path": "src/compiler/simpleTranspiler.js",
+        "size": 13812,
+        "mode": 420
+      },
+      {
+        "path": "src/errors/ErroGoiano.js",
+        "size": 2609,
+        "mode": 420
+      },
+      {
+        "path": "src/errors/errorTranslator.js",
+        "size": 6639,
+        "mode": 420
+      },
+      {
+        "path": "src/goianoMethods/GoianoBuiltins.js",
+        "size": 11062,
+        "mode": 420
+      },
+      {
+        "path": "templates/basic-template.gs",
+        "size": 585,
+        "mode": 420
+      },
+      {
+        "path": "templates/projeto-basico/package.json",
+        "size": 406,
+        "mode": 420
+      },
+      {
+        "path": "templates/projeto-basico/README.md",
+        "size": 1829,
+        "mode": 420
+      },
+      {
+        "path": "templates/projeto-basico/src/main.gs",
+        "size": 646,
+        "mode": 420
+      },
+      {
+        "path": "templates/projeto-basico/tests/test.gs",
+        "size": 1591,
+        "mode": 420
+      },
+      {
+        "path": "templates/template-info.json",
+        "size": 793,
+        "mode": 420
+      }
+    ],
+    "entryCount": 29,
+    "bundled": []
+  }
+]

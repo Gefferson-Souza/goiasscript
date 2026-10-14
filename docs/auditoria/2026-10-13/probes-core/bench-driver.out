@@ -1,0 +1,10 @@
+cenário                        JS nativo (mediana ms)   como o transpilador emite (mediana ms)    razão
+length                                            7.7                                      5.4     0.70x
+floor                                            32.8                                     15.2     0.46x
+map                                              42.6                                     49.6     1.16x
+reduce                                           36.2                                       36     0.99x
+push                                              9.5                                     10.8     1.14x
+includes                                          1.4                                    175.5   125.36x
+replace                                          49.1                                     78.2     1.59x
+forin                                            15.6                                    134.6     8.63x
+forin_array_small_objects                           9                                     97.6    10.84x

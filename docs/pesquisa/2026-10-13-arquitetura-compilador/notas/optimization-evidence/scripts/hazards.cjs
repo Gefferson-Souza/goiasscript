@@ -1,0 +1,22 @@
+const vm = require('node:vm');
+const { performance } = require('node:perf_hooks');
+const B = require('<repo>/packages/core/src/goianoMethods/GoianoBuiltins.js');
+const prelude = new B().gerarImplementacaoGoiana();
+console.log('prelude bytes:', Buffer.byteLength(prelude), '| lines:', prelude.split('\n').length);
+const times = [];
+for (let i = 0; i < 300; i++) { const ctx = vm.createContext({ console }); const t0 = performance.now(); vm.runInContext(prelude, ctx); times.push(performance.now() - t0); }
+const first = times[0]; times.sort((a, b) => a - b);
+console.log(`prelude compile+run in fresh context (ms): first=${first.toFixed(3)} p50=${times[150].toFixed(3)} p90=${times[270].toFixed(3)}`);
+(0, eval)(prelude);
+const tryIt = (f) => { try { return JSON.stringify(f()); } catch (e) { return e.constructor.name + ': ' + e.message; } };
+console.log("'a.b.c'.trocar('.', '-')   =>", tryIt(() => 'a.b.c'.trocar('.', '-')), '| native replaceAll =>', tryIt(() => 'a.b.c'.replaceAll('.', '-')));
+console.log("'1+1'.trocar('+', '-')     =>", tryIt(() => '1+1'.trocar('+', '-')), '| native replaceAll =>', tryIt(() => '1+1'.replaceAll('+', '-')));
+const keys = []; for (const k in { a: 1 }) keys.push(k);
+console.log('for (k in {a:1}) keys      =>', JSON.stringify(keys));
+console.log("'tem_propriedade' in {}    =>", 'tem_propriedade' in {});
+console.log('Object.keys({a:1})         =>', JSON.stringify(Object.keys({ a: 1 })));
+console.log('String.prototype.tamanho enumerable =>', Object.getOwnPropertyDescriptor(String.prototype, 'tamanho').enumerable, '| Object.prototype.tem_propriedade enumerable =>', Object.getOwnPropertyDescriptor(Object.prototype, 'tem_propriedade').enumerable);
+String.prototype.tipoDeThis = function () { return typeof this; };
+console.log("sloppy method on primitive: typeof this =>", 'abc'.tipoDeThis());
+const obj = { mapear(f) { return 'metodo proprio do usuario'; } };
+console.log('user-defined mapear on plain object =>', obj.mapear((x) => x), '(a blind compile-time rewrite to .map would break this)');

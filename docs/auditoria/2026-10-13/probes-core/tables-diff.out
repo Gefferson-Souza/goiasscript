@@ -1,0 +1,40 @@
+=== 1) Tabela de keywords do transpilador (simpleTranspiler.js) ===
+entradas=55 únicas=53 duplicadas=2: rejeita_isso (linhas 144 e 161); resolve_aí (linhas 143 e 162)
+mesmo valor JS para mais de uma keyword: catch <- se_der_pobrema | se_der_ruim
+
+=== 2) Lexer (lexer.js, código morto) x transpilador ===
+keywords no lexer=52, no transpilador=53
+só no lexer (3): presta_serviço, vazio, sei_lá
+só no transpilador (4): vai_na_frente_faz_trem, faz_trem, nada, indefinido
+mesmo nome, valor diferente (0): -
+
+=== 3) Keywords citadas na documentação/exemplos que o transpilador NÃO traduz ===
+NÃO TRADUZ | presta_serviço (README da extensão, exemplos, templates do arma_o_barraco, lexer)
+             entrada: presta_serviço f() {}  ->  presta_serviço f() {}
+NÃO TRADUZ | vai_na_frente presta_serviço (CONTRIBUTING.md:177)
+             entrada: vai_na_frente presta_serviço f() {}  ->  async presta_serviço f() {}
+NÃO TRADUZ | mexe_assim (exemplos advanced)
+             entrada: mexe_assim f() {}  ->  mexe_assim f() {}
+NÃO TRADUZ | é_igual_a (template projeto-basico/tests)
+             entrada: x é_igual_a 1  ->  x é_igual_a 1
+NÃO TRADUZ | vixe_que (exemplo teste_erros + .github/copilot-instructions.md)
+             entrada: vixe_que("a")  ->  vixe_que("a")
+NÃO TRADUZ | se (METODOS_GOIANOS.md:309 e CLAUDE.md local)
+             entrada: se (x) { }  ->  se (x) { }
+NÃO TRADUZ | senao (CLAUDE.md local)
+             entrada: senao { }  ->  senao { }
+NÃO TRADUZ | fazer (CLAUDE.md local: "alias simples" de function)
+             entrada: fazer f() {}  ->  fazer f() {}
+NÃO TRADUZ | vazio / sei_lá (tabela do lexer)
+             entrada: uai x é vazio; uai y é sei_lá;  ->  const x = vazio; const y = sei_lá;
+
+=== 4) metodosGoianos (GoianoBuiltins) x _convertJSMethodsToGoiano x runtime x metodosProibidos ===
+entradas em metodosGoianos=57
+sem regra de reescrita (18): toUpperCase->pra_maiusculo, toLowerCase->pra_minusculo, trim->aparar, pop->tirar_ultimo, shift->tirar_primeiro, reverse->inverter, keys->chaves, values->valores, entries->entradas, assign->misturar, Math.random->sorteio, getFullYear->pegar_ano, getMonth->pegar_mes, getDate->pegar_dia, getHours->pegar_horas, getMinutes->pegar_minutos, getSeconds->pegar_segundos, console.log->prosa
+sem implementação no runtime (0): -
+na lista metodosProibidos=18; conversões por método proibido dão aviso? Testando 'x.replace(1)':
+   avisos emitidos: []
+   lista de _checkForbiddenMethods (16) vs metodosProibidos (18): só em _check: - | só em metodosProibidos: trim, shift
+
+nomes definidos no runtime (48) que não constam em metodosGoianos (0): 
+métodos citados no METODOS_GOIANOS.md sem definição no runtime (0): -

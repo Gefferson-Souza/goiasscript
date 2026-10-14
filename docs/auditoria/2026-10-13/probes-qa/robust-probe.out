@@ -1,0 +1,15 @@
+transpile(null)                                                  0.9 ms  {"success":false,"err":"Ô gente! Deu tipo errado de trem no arquivo \"playground.gs\" na linha 338, coluna 24: Não consi
+transpile(undefined)                                             0.3 ms  {"success":false,"err":"Ô gente! Deu tipo errado de trem no arquivo \"playground.gs\" na linha 338, coluna 24: Não consi
+transpile(123)                                                   0.3 ms  {"success":false,"err":"Ô gente! Deu tipo errado de trem no arquivo \"playground.gs\" na linha 338, coluna 24: 'split' n
+transpile({})                                                    0.3 ms  {"success":false,"err":"Ô gente! Deu tipo errado de trem no arquivo \"playground.gs\" na linha 338, coluna 24: 'split' n
+compile(null) (compiler.js)                                      0.5 ms  {"success":false}
+CRLF: "uai x é 1;\r\nprosa(x);"                                  6.3 ms  {"success":true}
+BOM no inicio                                                    3.5 ms  {"success":true}
+tabs                                                             3.4 ms  {"success":true}
+NFD (e + acento combinante) em "é"                               0.1 ms  {"success":false,"err":"Erro de sintaxe na linha 1: Declaração de variável incompleta"}
+200k chars sem aspas                                           113.4 ms  {"success":true}
+100k aspas duplas nao fechadas                               17209.9 ms  {"success":true}
+30k pares "a"a"a                                              1349.4 ms  {"success":true}
+50k barras invertidas                                            2.6 ms  {"success":true}
+palavra-chave repetida 100k vezes                               60.4 ms  {"success":true}
+aninhamento de parenteses 20k                                    1.9 ms  {"success":true}

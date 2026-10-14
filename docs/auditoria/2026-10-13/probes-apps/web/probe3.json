@@ -1,0 +1,134 @@
+{
+  "monarchVsTranspiler": {
+    "monarchTotal": 78,
+    "mappedTotal": 53,
+    "monarchNotTranspiled": [
+      "se",
+      "senao",
+      "pega",
+      "troca_ideia",
+      "troca_ideia_principal",
+      "pra",
+      "tudo_de",
+      "vazio",
+      "sei_lá",
+      "ninguem_fuça",
+      "só_da_famia",
+      "todo_mundo_vê",
+      "fixo",
+      "numero",
+      "booleano",
+      "lista",
+      "objeto",
+      "funcao",
+      "coisa",
+      "tem"
+    ],
+    "mappedNotHighlighted": [
+      "vai_na_frente_faz_trem",
+      "promessa",
+      "quando_resolver",
+      "se_der_pobrema",
+      "resolve_aí",
+      "rejeita_isso"
+    ]
+  },
+  "preamble": {
+    "totalLines": 248,
+    "userCodeStartsAtLine": 248,
+    "preambleConsoleLogCount": 1
+  },
+  "tokens": {
+    "languageId": "goiasscript",
+    "byType": {
+      "": 19,
+      "number.gs": 3,
+      "delimiter.gs": 5,
+      "identifier.gs": 11,
+      "delimiter.parenthesis.gs": 6,
+      "comment.gs": 1,
+      "string.gs": 1
+    },
+    "detail": [
+      "\"uai x é \":(vazio) \"5\":number.gs \";\":delimiter.gs",
+      "\"p\":identifier.gs \"rosa\":(vazio) \"(\":delimiter.parenthesis.gs \"x mais \":(vazio) \"1\":number.gs \")\":delimiter.parenthesis.gs \";\":delimiter.gs",
+      "\"se\":(vazio) \"_\":identifier.gs \"ocê\":(vazio) \"_\":identifier.gs \"quiser \":(vazio) \"(\":delimiter.parenthesis.gs \"certeza e\":(vazio) \"_\":identifier.gs \"mais x maior\":(vazio) \"_\":identifier.gs \"que \":(vazio) \"3\":number.gs \")\":delimiter.parenthesis.gs \" \":(vazio) \"{\":identifier.gs",
+      "\"  faz\":(vazio) \"_\":identifier.gs \"trem soma\":(vazio) \"(\":delimiter.parenthesis.gs \"a\":(vazio) \",\":delimiter.gs \" b\":(vazio) \")\":delimiter.parenthesis.gs \" \":(vazio) \"{\":identifier.gs \" faz\":(vazio) \"_\":identifier.gs \"favor a mais b\":(vazio) \";\":delimiter.gs \" \":(vazio) \"}\":identifier.gs",
+      "\"}\":identifier.gs",
+      "\"// comentário\":comment.gs",
+      "\"uai s é \":(vazio) \"\\\"texto\\\"\":string.gs \";\":delimiter.gs"
+    ]
+  },
+  "tokensUnicodeFix": {
+    "withUnicodeTrue": {
+      "byType": {
+        "keyword.storage.gs": 3,
+        "": 23,
+        "identifier.gs": 9,
+        "keyword.operator.gs": 6,
+        "number.gs": 3,
+        "delimiter.gs": 5,
+        "support.function.gs": 1,
+        "delimiter.parenthesis.gs": 6,
+        "keyword.gs": 2,
+        "constant.gs": 1,
+        "delimiter.curly.gs": 4,
+        "comment.gs": 1,
+        "string.gs": 1
+      },
+      "detail": [
+        "\"uai\":keyword.storage.gs \" \":(vazio) \"x\":identifier.gs \" \":(vazio) \"é\":keyword.operator.gs \" \":(vazio) \"5\":number.gs \";\":delimiter.gs",
+        "\"prosa\":support.function.gs \"(\":delimiter.parenthesis.gs \"x\":identifier.gs \" \":(vazio) \"mais\":keyword.operator.gs \" \":(vazio) \"1\":number.gs \")\":delimiter.parenthesis.gs \";\":delimiter.gs",
+        "\"se_ocê_quiser\":keyword.gs \" \":(vazio) \"(\":delimiter.parenthesis.gs \"certeza\":constant.gs \" \":(vazio) \"e_mais\":keyword.operator.gs \" \":(vazio) \"x\":identifier.gs \" \":(vazio) \"maior_que\":keyword.operator.gs \" \":(vazio) \"3\":number.gs \")\":delimiter.parenthesis.gs \" \":(vazio) \"{\":delimiter.curly.gs",
+        "\"  \":(vazio) \"faz_trem\":keyword.storage.gs \" \":(vazio) \"soma\":identifier.gs \"(\":delimiter.parenthesis.gs \"a\":identifier.gs \",\":delimiter.gs \" \":(vazio) \"b\":identifier.gs \")\":delimiter.parenthesis.gs \" \":(vazio) \"{\":delimiter.curly.gs \" \":(vazio) \"faz_favor\":keyword.gs \" \":(vazio) \"a\":identifier.gs \" \":(vazio) \"mais\":keyword.operator.gs \" \":(vazio) \"b\":identifier.gs \";\":delimiter.gs \" \":(vazio) \"}\":delimiter.curly.gs",
+        "\"}\":delimiter.curly.gs",
+        "\"// comentário\":comment.gs",
+        "\"uai\":keyword.storage.gs \" \":(vazio) \"s\":identifier.gs \" \":(vazio) \"é\":keyword.operator.gs \" \":(vazio) \"\\\"texto\\\"\":string.gs \";\":delimiter.gs"
+      ]
+    },
+    "withoutUnicode_control": {
+      "byType": {
+        "": 19,
+        "number.gs": 3,
+        "delimiter.gs": 5,
+        "identifier.gs": 11,
+        "delimiter.parenthesis.gs": 6,
+        "comment.gs": 1,
+        "string.gs": 1
+      }
+    }
+  },
+  "async": {
+    "depois_de": {
+      "status": "✅ Rodou bonito",
+      "saida": "›agora",
+      "saidaApos1500ms": "›agora"
+    },
+    "promise_then": {
+      "status": "✅ Rodou bonito",
+      "saida": "›sync",
+      "saidaApos1500ms": "›sync"
+    },
+    "async_await": {
+      "status": "✅ Rodou bonito",
+      "saida": "›sync",
+      "saidaApos1500ms": "›sync"
+    },
+    "async_so_com_await": {
+      "status": "✅ Rodou bonito",
+      "saida": "Rodou, mas num falou nada.",
+      "saidaApos1500ms": "Rodou, mas num falou nada."
+    },
+    "erro_assincrono": {
+      "status": "✅ Rodou bonito",
+      "saida": "›agendado",
+      "saidaApos1500ms": "›agendado"
+    }
+  },
+  "starter": {
+    "startsWith": "// Bem-vindo ao playground do GoiásScript!\n// Escreva goianê",
+    "status": "✅ Rodou bonito",
+    "saida": "›Bão demais da conta!\n›Oi, João!\n›Oi, Maria!\n›Oi, Zé!",
+    "saidaApos1500ms": "›Bão demais da conta!\n›Oi, João!\n›Oi, Maria!\n›Oi, Zé!"
+  }
+}

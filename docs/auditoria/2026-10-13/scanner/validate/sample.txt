@@ -1,0 +1,947 @@
+[R01-001] packages/core/bin/goias.js:1
+  achado: 424 linhas
+>   1| #!/usr/bin/env node
+    2| 
+
+[R01-002] packages/core/bin/goiasscript.js:1
+  achado: 654 linhas
+>   1| #!/usr/bin/env node
+    2| 
+
+[R01-003] packages/core/src/compiler/simpleTranspiler.js:1
+  achado: 434 linhas
+>   1| const ErrorTranslator = require('../errors/errorTranslator');
+    2| const GoianoBuiltins = require('../goianoMethods/GoianoBuiltins');
+
+[R01-004] packages/core/src/goianoMethods/GoianoBuiltins.js:1
+  achado: 449 linhas
+>   1| // GoianoBuiltins.js - Métodos nativos goianos
+    2| // Substitui todos os métodos JavaScript por versões goianas
+
+[R03-005] apps/engoianador-api/src/index.ts:47
+  achado: handleEngoiana: 66 linhas
+   46| 
+>  47| async function handleEngoiana(request: Request, env: Env): Promise<Response> {
+   48|   let body: { texto?: unknown };
+
+[R03-006] apps/playground/app/engoianador/page.tsx:34
+  achado: EngoianadorPage: 153 linhas
+   33| 
+>  34| export default function EngoianadorPage() {
+   35|   const [entrada, setEntrada] = useState('');
+
+[R03-007] apps/playground/app/opengraph-image.tsx:8
+  achado: OpengraphImage: 58 linhas
+    7| // Tipográfica de propósito: sem emoji para não depender de rede em build.
+>   8| export default function OpengraphImage() {
+    9|   return new ImageResponse(
+
+[R03-008] apps/playground/components/DonationLinks.tsx:11
+  achado: DonationLinks: 92 linhas
+   10| 
+>  11| export function DonationLinks({ variant = 'compact' }: Props) {
+   12|   const [copiado, setCopiado] = useState(false);
+
+[R03-009] apps/playground/components/Toolbar.tsx:13
+  achado: Toolbar: 69 linhas
+   12| 
+>  13| export function Toolbar({ running, onRun, onClear, onLoadExample }: Props) {
+   14|   const [examples, setExamples] = useState<ExampleEntry[]>([]);
+
+[R03-010] packages/core/bin/goiasscript.js:465
+  achado: createFrameworkFiles: 53 linhas
+  464|   // Função para criar arquivos básicos do framework (fallback)
+> 465|   createFrameworkFiles(projectPath, projectName) {
+  466|     console.log('🏗️ Criando estrutura básica do framework...');
+
+[R03-011] packages/core/src/cli/index.js:25
+  achado: setupCommands: 53 linhas
+   24|    */
+>  25|   setupCommands() {
+   26|     this.program
+
+[R03-012] packages/core/src/cli/index.js:148
+  achado: initProject: 79 linhas
+  147|    */
+> 148|   async initProject(options = {}) {
+  149|     const nome = options.name || 'meu-projeto-goiasscript';
+
+[R03-013] packages/core/src/compiler/lexer.js:6
+  achado: constructor: 94 linhas
+    5| class GoiasScriptLexer {
+>   6|   constructor() {
+    7|     // Mapeamento de palavras-chave GoiásScript -> JavaScript
+
+[R03-014] packages/core/src/goianoMethods/GoianoBuiltins.js:5
+  achado: constructor: 111 linhas
+    4| class GoianoBuiltins {
+>   5|   constructor() {
+    6|     // Tipos goianos mais autênticos
+
+[R05-015] packages/core/bin/goiasscript.js:162
+  achado: arma_o_barraco: 5 níveis
+  161|   // Comando: arma_o_barraco (new)
+> 162|   async arma_o_barraco(projectName, options = {}) {
+  163|     const template = options.template || 'basic';
+
+[R06-016] apps/engoianador-api/src/engoiana.ts:22
+  achado: console.warn( 'Groq falhou, tentando Workers AI:', err instanceof Err…
+   21|       // Loga só a mensagem (sem body cru da Groq) e segue pro fallback.
+>  22|       console.warn(
+   23|         'Groq falhou, tentando Workers AI:',
+
+[R06-017] apps/engoianador-api/src/index.ts:104
+  achado: console.error('engoiana erro:', message)
+  103|     const message = err instanceof Error ? err.message : String(err);
+> 104|     console.error('engoiana erro:', message);
+  105|     return jsonResponse(
+
+[R06-018] apps/playground/components/Toolbar.tsx:63
+  achado: console.error('Erro ao carregar exemplo:', err)
+   62|               handlePickExample(arquivo).catch(err =>
+>  63|                 console.error('Erro ao carregar exemplo:', err)
+   64|               );
+
+[R06-019] apps/playground/scripts/copy-examples.mjs:28
+  achado: console.log(`[copy-examples] Monaco copiado → ${vsDest}`)
+   27|   await cp(vsSrc, vsDest, { recursive: true });
+>  28|   console.log(`[copy-examples] Monaco copiado → ${vsDest}`);
+   29| }
+
+[R06-020] apps/playground/scripts/copy-examples.mjs:56
+  achado: console.error('[copy-examples] erro:', err)
+   55| main().catch((err) => {
+>  56|   console.error('[copy-examples] erro:', err);
+   57|   process.exit(1);
+
+[R06-021] packages/core/bin/goiasscript.js:52
+  achado: console.warn(` • ${warning.message}`)
+   51|         result.warnings.forEach(warning => {
+>  52|           console.warn(`  • ${warning.message}`);
+   53|           if (warning.suggestion) {
+
+[R06-022] packages/core/bin/goiasscript.js:150
+  achado: console.error(` • ${error.message}`)
+  149|         console.log('\n🚨 Erros de Tipos:');
+> 150|         result.errors.forEach(error => console.error(`  • ${error.message}`));
+  151|         process.exit(1);
+
+[R06-023] packages/core/src/cli/index.js:266
+  achado: console.error(chalk.red('❌ Erro na validação:'), error.message)
+  265|     } catch (error) {
+> 266|       console.error(chalk.red('❌ Erro na validação:'), error.message);
+  267|     }
+
+[R06-024] vscode-extension/src/extension.js:8
+  achado: console.log('🇧🇷 GoiásScript Extension está ativa!')
+    7| function activate(context) {
+>   8|     console.log('🇧🇷 GoiásScript Extension está ativa!');
+    9| 
+
+[R06-025] vscode-extension/src/extension.js:54
+  achado: console.log('🚀 GoiásScript LSP Client iniciado!')
+   53| 
+>  54|     console.log('🚀 GoiásScript LSP Client iniciado!');
+   55| }
+
+[R07-026] apps/playground-e2e/tests/examples.spec.ts:13
+  achado: annotation: : any
+   12|         page.evaluate(() => {
+>  13|           const m = (window as unknown as { monaco?: any }).monaco;
+   14|           return m?.editor?.getModels?.()[0]?.getValue?.() ?? '';
+
+[R07-027] apps/playground-e2e/tests/security.spec.ts:26
+  achado: cast: window as any
+   25|     // Seta via API do Monaco (evita auto-close de aspas/parênteses ao digitar).
+>  26|     await expect.poll(() => page.evaluate(() => typeof (window as any).monaco)).toBe('object');
+   27|     await page.evaluate(() => {
+
+[R07-028] apps/playground-e2e/tests/security.spec.ts:28
+  achado: cast: window as any
+   27|     await page.evaluate(() => {
+>  28|       const m = (window as any).monaco;
+   29|       m.editor.getModels()[0].setValue('fetch("https://evil.example/roubo")');
+
+[R09-029] apps/playground/workers/runner.worker.ts:73
+  achado: eslint-disable-next-line no-new-func
+   72|   ];
+>  73|   // eslint-disable-next-line no-new-func
+   74|   const fn = new Function('console', ...DANGEROUS, `"use strict"; ${jsCode}`);
+
+[R09-030] packages/core/src/compiler.js:298
+  achado: eslint-disable-next-line no-eval
+  297|       // sandbox via new Function or Web Workers in an isolated iframe.
+> 298|       // eslint-disable-next-line no-eval
+  299|       const result = eval(compileResult.javascript);
+
+[R11-031] apps/playground/next.config.mjs:3
+  achado: 5 linhas: CSP é a fronteira de segurança real do playground: mesmo que código do usuário escape o escopo do Web Worker,…
+    2| 
+>   3| // CSP é a fronteira de segurança real do playground: mesmo que código do
+    4| // usuário escape o escopo do Web Worker, connect-src 'self' impede
+
+[R11-032] apps/playground/workers/runner.worker.ts:44
+  achado: 8 linhas: Defesa em profundidade. O isolamento REAL é dado pela CSP do site (connect-src 'self' bloqueia exfiltração; s…
+   43| 
+>  44|   // Defesa em profundidade. O isolamento REAL é dado pela CSP do site
+   45|   // (connect-src 'self' bloqueia exfiltração; script-src 'self' bloqueia
+
+[R11-033] packages/core/src/compiler.js:293
+  achado: 5 linhas: Execute compiled JavaScript in the local Node scope. eval is intentional here: this method is called only by …
+  292| 
+> 293|       // Execute compiled JavaScript in the local Node scope.
+  294|       // eval is intentional here: this method is called only by the CLI
+
+[R11-034] packages/core/src/compiler/lexer.js:119
+  achado: 5 linhas: Tokeniza uma única linha @private @param {string} line - Linha de código @param {number} lineNumber - Número …
+  118| 
+> 119|   /**
+  120|    * Tokeniza uma única linha
+
+[R11-035] packages/core/src/compiler/simpleTranspiler.js:352
+  achado: 5 linhas: Check for incomplete variable declarations. Aceita 'uai x é valor', 'uai x = valor' (forma JS) e desestrutura…
+  351| 
+> 352|         // Check for incomplete variable declarations.
+  353|         // Aceita 'uai x é valor', 'uai x = valor' (forma JS) e
+
+[R11-036] packages/core/src/errors/ErroGoiano.js:7
+  achado: 6 linhas: @param {string} tipo - Tipo do erro (sintaxe, referencia, tipo, etc.) @param {string} mensagem - Mensagem de …
+    6| class ErroGoiano extends Error {
+>   7|   /**
+    8|    * @param {string} tipo - Tipo do erro (sintaxe, referencia, tipo, etc.)
+
+[R12-037] apps/engoianador-api/src/rate-limit.ts:8
+  achado: janela diária (plano: 20 req/dia)
+    7| 
+>   8| const WINDOW_SEC = 24 * 60 * 60; // janela diária (plano: 20 req/dia)
+    9| 
+
+[R12-038] apps/engoianador-api/src/rate-limit.ts:36
+  achado: só dev
+   35|   if (!env.ENGOIANADOR_RL) {
+>  36|     if (env.ALLOW_UNLIMITED === 'true') return { ok: true }; // só dev
+   37|     return { ok: false, reason: 'misconfig' };
+
+[R12-039] apps/playground-e2e/tests/security.spec.ts:9
+  achado: bloqueia exfiltração
+    8|     expect(csp).toContain("default-src 'self'");
+>   9|     expect(csp).toContain("connect-src 'self'"); // bloqueia exfiltração
+   10|     expect(csp).toContain("frame-ancestors 'none'");
+
+[R12-040] apps/playground/components/Toolbar.tsx:60
+  achado: reseta pro placeholder (permite repicar o mesmo)
+   59|             const arquivo = e.target.value;
+>  60|             setSelecionado(''); // reseta pro placeholder (permite repicar o mesmo)
+   61|             if (arquivo) {
+
+[R12-041] packages/core/src/errors/ErroGoiano.js:69
+  achado: Linha em branco para melhor legibilidade
+   68|     
+>  69|     console.error(); // Linha em branco para melhor legibilidade
+   70|   }
+
+[R12-042] packages/core/tests/unit/compiler.test.js:235
+  achado: Incomplete variable declaration
+  234|       // Test with a code that causes validation errors
+> 235|       const codigo = 'uai sem_tipo';  // Incomplete variable declaration
+  236|       
+
+[R13-043] apps/playground/components/DonationLinks.tsx:4
+  achado: [pendencia:antes do lançamento] Chave Pix do projeto. Trocar pela chave real antes do lançamento.
+    3| 
+>   4| // Chave Pix do projeto. Trocar pela chave real antes do lançamento.
+    5| export const PIX_KEY = 'goiasscript@proton.me';
+
+[R13-044] packages/core/src/browser.js:1
+  achado: [marcador-versao:v2] Browser-safe entry for goiasscript@1.5+ Wraps SimpleTranspiler + GoianoBuiltins without the optional v2 modul…
+>   1| // Browser-safe entry for goiasscript@1.5+
+    2| // Wraps SimpleTranspiler + GoianoBuiltins without the optional v2 modules
+
+[R13-045] packages/core/src/compiler.js:4
+  achado: [marcador-versao:v1.5] Optional feature modules — gracefully degrade when absent (v1.5 slim build). When the source files exist, ful…
+    3| 
+>   4| // Optional feature modules — gracefully degrade when absent (v1.5 slim build).
+    5| // When the source files exist, full v2 behavior is preserved; when they're
+
+[R13-046] packages/core/src/compiler.js:293
+  achado: [marcador-fase:Fase 1] Execute compiled JavaScript in the local Node scope. eval is intentional here: this method is called only by …
+  292| 
+> 293|       // Execute compiled JavaScript in the local Node scope.
+  294|       // eval is intentional here: this method is called only by the CLI
+
+[R13-047] packages/core/src/compiler/lexer.js:94
+  achado: [roadmap:para futuro] Modificadores de acesso (para futuro)
+   93| 
+>  94|       // Modificadores de acesso (para futuro)
+   95|       { from: /ninguem_fuça\s+/g, to: 'private ' },
+
+[R13-048] packages/core/src/compiler/simpleTranspiler.js:352
+  achado: [corrige:corrigido,marcador-versao:v2] Check for incomplete variable declarations. Aceita 'uai x é valor', 'uai x = valor' (forma JS) e desestrutura…
+  351| 
+> 352|         // Check for incomplete variable declarations.
+  353|         // Aceita 'uai x é valor', 'uai x = valor' (forma JS) e
+
+[R15-049] apps/engoianador-api/src/engoiana.ts:45
+  achado: 1024 (property:max_tokens): max_tokens: 1024
+   44|       temperature: 0.7,
+>  45|       max_tokens: 1024,
+   46|       stream: false,
+
+[R15-050] apps/engoianador-api/src/engoiana.ts:49
+  achado: 15000 (call-arg): AbortSignal.timeout(15000)
+   48|     // Evita pendurar o Worker até o limite de CPU (30s) se a Groq travar.
+>  49|     signal: AbortSignal.timeout(15000),
+   50|   });
+
+[R15-051] apps/engoianador-api/src/index.ts:82
+  achado: 503 (property:status): status: 503
+   81|       { erro: 'Ô rapaz, o engoianador tá de recesso (config). Volta já já.' },
+>  82|       { status: 503 },
+   83|       request,
+
+[R15-052] apps/engoianador-api/src/rate-limit.ts:52
+  achado: 60 (operand:+): WINDOW_SEC + 60
+   51|   await env.ENGOIANADOR_RL.put(key, JSON.stringify(next), {
+>  52|     expirationTtl: WINDOW_SEC + 60,
+   53|   });
+
+[R15-053] apps/playground/app/opengraph-image.tsx:39
+  achado: 28 (property:padding): padding: 28
+   38|             borderRadius: 16,
+>  39|             padding: 28,
+   40|             fontSize: 30,
+
+[R15-054] apps/playground/app/opengraph-image.tsx:47
+  achado: 6 (property:marginTop): marginTop: 6
+   46|           <span style={{ color: '#f5c518' }}>&quot;bão demais da conta!&quot;</span>
+>  47|           <span style={{ marginTop: 6 }}>prosa(saudacao)</span>
+   48|         </div>
+
+[R15-055] apps/playground/components/DonationLinks.tsx:18
+  achado: 1800 (call-arg): setTimeout(() => setCopiado(false), 1800)
+   17|       setCopiado(true);
+>  18|       setTimeout(() => setCopiado(false), 1800);
+   19|     } catch {
+
+[R15-056] apps/playground/components/Editor.tsx:29
+  achado: 14 (property:fontSize): fontSize: 14
+   28|       options={{
+>  29|         fontSize: 14,
+   30|         minimap: { enabled: false },
+
+[R15-057] packages/core/bin/goiasscript.js:90
+  achado: 50 (call-arg): '='.repeat(50)
+   89|         }
+>  90|         console.log('='.repeat(50));
+   91|       }
+
+[R15-058] packages/core/bin/goiasscript.js:109
+  achado: 50 (call-arg): '='.repeat(50)
+  108|     }
+> 109|     console.log('='.repeat(50));
+  110|   }
+
+[R15-059] packages/core/src/cli/index.js:120
+  achado: 50 (call-arg): '─'.repeat(50)
+  119|           console.log(chalk.green('📄 Código JavaScript gerado:'));
+> 120|           console.log(chalk.dim('─'.repeat(50)));
+  121|           console.log(resultado.javascript);
+
+[R15-060] packages/core/src/cli/index.js:134
+  achado: 30 (call-arg): '─'.repeat(30)
+  133|         console.log(chalk.blue(`🤠 Executando: ${arquivo}`));
+> 134|         console.log(chalk.dim('─'.repeat(30)));
+  135|         
+
+[R15-061] packages/core/src/compiler.js:332
+  achado: 4294967295 (operand:&): ((hash << 5) - hash + char.charCodeAt(0)) & 0xffffffff
+  331|     const hash = code.split('').reduce((hash, char) => {
+> 332|       return ((hash << 5) - hash + char.charCodeAt(0)) & 0xffffffff;
+  333|     }, 0);
+
+[R15-062] vscode-extension/src/extension.js:105
+  achado: 100 (call-arg): vscode.window.createStatusBarItem( vscode.StatusBarAlignment.Right, 1…
+  104|         vscode.StatusBarAlignment.Right,
+> 105|         100
+  106|     );
+
+[R16-063] apps/playground/app/opengraph-image.tsx:15
+  achado: "flex" x4
+   14|           height: '100%',
+>  15|           display: 'flex',
+   16|           flexDirection: 'column',
+
+[R16-064] apps/playground/app/opengraph-image.tsx:16
+  achado: "column" x3
+   15|           display: 'flex',
+>  16|           flexDirection: 'column',
+   17|           justifyContent: 'space-between',
+
+[R16-065] apps/playground/lib/monaco-goias.ts:98
+  achado: "comment" x6
+   97|     root: [
+>  98|       [/\/\/.*$/, 'comment'],
+   99|       [/\/\*/, 'comment', '@comment'],
+
+[R16-066] apps/playground/lib/monaco-goias.ts:100
+  achado: "string" x3
+   99|       [/\/\*/, 'comment', '@comment'],
+> 100|       [/"([^"\\]|\\.)*"/, 'string'],
+  101|       [/'([^'\\]|\\.)*'/, 'string'],
+
+[R16-067] apps/playground/workers/runner.worker.ts:37
+  achado: "log" x3
+   36|   const stubConsole = {
+>  37|     log: (...args: unknown[]) => record('log', args),
+   38|     warn: (...args: unknown[]) => record('warn', args),
+
+[R16-068] packages/core/bin/goiasscript.js:178
+  achado: "src" x8
+  177|       fs.mkdirSync(projectPath);
+> 178|       fs.mkdirSync(path.join(projectPath, 'src'));
+  179|       fs.mkdirSync(path.join(projectPath, 'docs'));
+
+[R16-069] packages/core/bin/goiasscript.js:182
+  achado: "web" x7
+  181|       // Estrutura adicional para templates
+> 182|       if (template === 'web') {
+  183|         fs.mkdirSync(path.join(projectPath, 'public'));
+
+[R16-070] packages/core/bin/goiasscript.js:184
+  achado: "framework" x6
+  183|         fs.mkdirSync(path.join(projectPath, 'public'));
+> 184|       } else if (template === 'framework') {
+  185|         // Estrutura completa do framework
+
+[R16-071] packages/core/bin/goiasscript.js:296
+  achado: "Desenvolvedor Goiano" x4
+  295|           );
+> 296|           packageContent = packageContent.replace(/{{AUTHOR_NAME}}/g, 'Desenvolvedor Goiano');
+  297|           fs.writeFileSync(path.join(projectPath, 'package.json'), packageContent);
+
+[R16-072] packages/core/bin/goiasscript.js:205
+  achado: "utf-8" x4
+  204|         if (fs.existsSync(webTemplatePath)) {
+> 205|           mainFile = fs.readFileSync(webTemplatePath, 'utf-8');
+  206|           mainFile = mainFile.replace(/{{PROJECT_NAME}}/g, projectName);
+
+[R16-073] packages/core/bin/goiasscript.js:75
+  achado: ".gs" x3
+   74|       // Salvar arquivo JavaScript
+>  75|       const outputPath = options.output || filePath.replace('.gs', '.js');
+   76|       fs.writeFileSync(outputPath, result.javascript, 'utf8');
+
+[R16-074] packages/core/bin/goiasscript.js:163
+  achado: "basic" x3
+  162|   async arma_o_barraco(projectName, options = {}) {
+> 163|     const template = options.template || 'basic';
+  164|     // path.resolve respeita caminho absoluto (/tmp/x) e relativo (meu-app);
+
+[R16-075] packages/core/bin/goiasscript.js:313
+  achado: "goiasscript" x3
+  312|           },
+> 313|           keywords: ['goiasscript', 'goias', 'brasileiro'],
+  314|           author: 'Desenvolvedor Goiano',
+
+[R16-076] packages/core/bin/goiasscript.js:297
+  achado: "package.json" x3
+  296|           packageContent = packageContent.replace(/{{AUTHOR_NAME}}/g, 'Desenvolvedor Goiano');
+> 297|           fs.writeFileSync(path.join(projectPath, 'package.json'), packageContent);
+  298|         }
+
+[R16-077] packages/core/bin/goiasscript.js:183
+  achado: "public" x3
+  182|       if (template === 'web') {
+> 183|         fs.mkdirSync(path.join(projectPath, 'public'));
+  184|       } else if (template === 'framework') {
+
+[R16-078] packages/core/bin/goiasscript.js:188
+  achado: "scripts" x3
+  187|         fs.mkdirSync(path.join(projectPath, 'dist'));
+> 188|         fs.mkdirSync(path.join(projectPath, 'scripts'));
+  189|         fs.mkdirSync(path.join(projectPath, 'src', 'components'), { recursive: true });
+
+[R16-079] packages/core/bin/goiasscript.js:201
+  achado: "templates" x3
+  200|         // Usar template web externo
+> 201|         const templatesPath = path.join(__dirname, '..', 'templates');
+  202|         const webTemplatePath = path.join(templatesPath, 'web-app.gs');
+
+[R16-080] packages/core/bin/goiasscript.js:36
+  achado: "utf8" x3
+   35| 
+>  36|       const code = fs.readFileSync(filePath, 'utf8');
+   37|       const result = this.compiler.compile(code, filePath);
+
+[R16-081] packages/core/src/cli/index.js:106
+  achado: "utf8" x3
+  105| 
+> 106|       const codigo = await fs.readFile(caminhoCompleto, 'utf8');
+  107|       
+
+[R16-082] packages/core/src/compiler.js:89
+  achado: "script.gs" x7
+   88|    */
+>  89|   compile(code, fileName = 'script.gs') {
+   90|     try {
+
+[R16-083] vscode-extension/src/extension.js:29
+  achado: "goiasscript" x4
+   28|         documentSelector: [
+>  29|             { scheme: 'file', language: 'goiasscript' }
+   30|         ],
+
+[R18-084] apps/playground/next.config.mjs:41
+  achado: assign-prop: config.resolve.fallback = { ...config.resolve.fallback, fs: false, pa…
+   40|     // que o Webpack tente polyfill de Node built-ins nunca importados.
+>  41|     config.resolve.fallback = { ...config.resolve.fallback, fs: false, path: false };
+   42|     return config;
+
+[R18-085] apps/playground/workers/runner.worker.ts:33
+  achado: mutator-push: logs.push(entry)
+   32|     const entry: LogEntry = { level, parts: args.map(formatArg) };
+>  33|     logs.push(entry);
+   34|     self.postMessage({ type: 'log', entry });
+
+[R18-086] vscode-extension/src/extension.js:96
+  achado: mutator-push: context.subscriptions.push( traduzCommand, botaPraMoerCommand )
+   95| 
+>  96|     context.subscriptions.push(
+   97|         traduzCommand,
+
+[R18-087] vscode-extension/src/extension.js:112
+  achado: mutator-push: context.subscriptions.push(statusBarItem)
+  111| 
+> 112|     context.subscriptions.push(statusBarItem);
+  113| 
+
+[R20-088] apps/engoianador-api/src/engoiana.ts:20
+  achado: log-only: { // Loga só a mensagem (sem body cru da Groq) e segue pro fallback. console.warn( 'Groq …
+   19|       return await callGroq(texto, env.GROQ_API_KEY);
+>  20|     } catch (err) {
+   21|       // Loga só a mensagem (sem body cru da Groq) e segue pro fallback.
+
+[R20-089] apps/engoianador-api/src/rate-limit.ts:23
+  achado: empty-with-comment: { /* corrompido — reseta */ }
+   22|     }
+>  23|   } catch {
+   24|     /* corrompido — reseta */
+
+[R20-090] apps/playground/app/engoianador/page.tsx:68
+  achado: empty-with-comment: { /* clipboard indisponível */ }
+   67|       setTimeout(() => setCopiado(false), 1500);
+>  68|     } catch {
+   69|       /* clipboard indisponível */
+
+[R20-091] apps/playground/app/page.tsx:37
+  achado: promise-catch-vazio: fetch('/examples/ola-mundo.gs') .then(r => (r.ok ? r.text() : null)) .then(text => { if (…
+   36|   useEffect(() => {
+>  37|     fetch('/examples/ola-mundo.gs')
+   38|       .then(r => (r.ok ? r.text() : null))
+
+[R20-092] apps/playground/components/DonationLinks.tsx:19
+  achado: empty-with-comment: { /* clipboard indisponível — ignora */ }
+   18|       setTimeout(() => setCopiado(false), 1800);
+>  19|     } catch {
+   20|       /* clipboard indisponível — ignora */
+
+[R20-093] packages/core/bin/goias.js:89
+  achado: log-only: { console.error('❌ Ô rapaz! Deu ruim:', error.message); }
+   88|       await this.executeCode(input);
+>  89|     } catch (error) {
+   90|       console.error('❌ Ô rapaz! Deu ruim:', error.message);
+
+[R20-094] packages/core/bin/goias.js:166
+  achado: log-only: { console.error('❌ Ô rapaz! Deu ruim na execução:', error.message); }
+  165|       }
+> 166|     } catch (error) {
+  167|       console.error('❌ Ô rapaz! Deu ruim na execução:', error.message);
+
+[R20-095] packages/core/bin/goiasscript.js:87
+  achado: log-only: { console.error(`\n❌ Ô rapaz! Deu ruim na execução: ${execError.message}`); }
+   86|           eval(result.javascript);
+>  87|         } catch (execError) {
+   88|           console.error(`\n❌ Ô rapaz! Deu ruim na execução: ${execError.message}`);
+
+[R20-096] packages/core/src/cli/index.js:139
+  achado: log-only: { console.error(chalk.red('❌ Erro:'), error.message); }
+  138| 
+> 139|     } catch (error) {
+  140|       console.error(chalk.red('❌ Erro:'), error.message);
+
+[R20-097] packages/core/src/cli/index.js:223
+  achado: log-only: { console.error(chalk.red('❌ Erro ao criar projeto:'), error.message); }
+  222| 
+> 223|     } catch (error) {
+  224|       console.error(chalk.red('❌ Erro ao criar projeto:'), error.message);
+
+[R20-098] packages/core/src/cli/index.js:265
+  achado: log-only: { console.error(chalk.red('❌ Erro na validação:'), error.message); }
+  264| 
+> 265|     } catch (error) {
+  266|       console.error(chalk.red('❌ Erro na validação:'), error.message);
+
+[R20-099] packages/core/src/cli/index.js:308
+  achado: log-only: { console.error(chalk.red('❌ Erro na transpilação:'), error.message); }
+  307| 
+> 308|     } catch (error) {
+  309|       console.error(chalk.red('❌ Erro na transpilação:'), error.message);
+
+[R21-100] apps/playground-e2e/tests/home.spec.ts:9
+  achado: Abas com semântica acessível
+    8|     await expect(page.getByLabel('Exemplos:')).toBeVisible();
+>   9|     // Abas com semântica acessível
+   10|     await expect(page.getByRole('tab', { name: 'Saída' })).toBeVisible();
+
+[R21-101] apps/playground-e2e/tests/home.spec.ts:12
+  achado: Monaco montou
+   11|     await expect(page.getByRole('tab', { name: 'JS gerado' })).toBeVisible();
+>  12|     // Monaco montou
+   13|     await expect(page.locator('.monaco-editor').first()).toBeVisible({ timeout: 15_000 });
+
+[R21-102] packages/core/bin/goias.js:68
+  achado: Comandos especiais da Roda de Prosa
+   67|     try {
+>  68|       // Comandos especiais da Roda de Prosa
+   69|       if (input.startsWith('.')) {
+
+[R21-103] packages/core/bin/goias.js:87
+  achado: Executar código
+   86| 
+>  87|       // Executar código
+   88|       await this.executeCode(input);
+
+[R21-104] packages/core/bin/goias.js:124
+  achado: Verificar se chegou ao final do bloco
+  123| 
+> 124|     // Verificar se chegou ao final do bloco
+  125|     if (input.includes('}') || input === '') {
+
+[R21-105] packages/core/bin/goias.js:419
+  achado: Iniciar Roda de Prosa
+  418| 
+> 419| // Iniciar Roda de Prosa
+  420| if (require.main === module) {
+
+[R21-106] packages/core/bin/goiasscript.js:255
+  achado: Arquivos específicos dos templates
+  254| 
+> 255|       // Arquivos específicos dos templates
+  256|       if (template === 'framework') {
+
+[R21-107] packages/core/bin/goiasscript.js:435
+  achado: Função para copiar diretório de template recursivamente
+  434| 
+> 435|   // Função para copiar diretório de template recursivamente
+  436|   copyTemplateDirectory(src, dest, projectName) {
+
+[R21-108] packages/core/src/compiler/lexer.js:31
+  achado: Funções
+   30| 
+>  31|       // Funções
+   32|       presta_serviço: 'function',
+
+[R21-109] packages/core/src/compiler/lexer.js:48
+  achado: Operações aritméticas
+   47| 
+>  48|       // Operações aritméticas
+   49|       mais: '+',
+
+[R21-110] packages/core/src/compiler/lexer.js:129
+  achado: Remover comentários
+  128| 
+> 129|     // Remover comentários
+  130|     const commentIndex = line.indexOf('//');
+
+[R21-111] packages/core/src/compiler/simpleTranspiler.js:97
+  achado: Classes and inheritance
+   96| 
+>  97|       // Classes and inheritance
+   98|       ['arruma_trem', 'class'],
+
+[R21-112] packages/core/src/goianoMethods/GoianoBuiltins.js:38
+  achado: Array/Lista methods
+   37| 
+>  38|       // Array/Lista methods
+   39|       map: 'mapear',
+
+[R21-113] packages/core/src/goianoMethods/GoianoBuiltins.js:387
+  achado: Lista todos os tipos goianos
+  386| 
+> 387|   // Lista todos os tipos goianos
+  388|   listarTiposGoianos() {
+
+[R21-114] packages/core/src/goianoMethods/GoianoBuiltins.js:392
+  achado: Obter equivalente goiano para método JS
+  391| 
+> 392|   // Obter equivalente goiano para método JS
+  393|   obterEquivalenteGoiano(metodoJs) {
+
+[R21-115] packages/core/tests/unit/cli.test.js:155
+  achado: Mock path operations
+  154|       
+> 155|       // Mock path operations
+  156|       path.resolve.mockReturnValue('/full/path/test.gs');
+
+[R21-116] vscode-extension/src/extension.js:10
+  achado: Configurar Language Server
+    9| 
+>  10|     // Configurar Language Server
+   11|     const serverModule = context.asAbsolutePath(
+
+[R21-117] vscode-extension/src/extension.js:37
+  achado: Criar e iniciar cliente
+   36| 
+>  37|     // Criar e iniciar cliente
+   38|     client = new LanguageClient(
+
+[R21-118] vscode-extension/src/extension.js:45
+  achado: Iniciar cliente
+   44| 
+>  45|     // Iniciar cliente
+   46|     client.start();
+
+[R21-119] vscode-extension/src/extension.js:48
+  achado: Registrar comandos
+   47| 
+>  48|     // Registrar comandos
+   49|     registerCommands(context);
+
+[R21-120] vscode-extension/src/extension.js:51
+  achado: Status bar
+   50| 
+>  51|     // Status bar
+   52|     createStatusBar(context);
+
+[R21-121] vscode-extension/src/extension.js:58
+  achado: Comando para traduzir GoiásScript
+   57| function registerCommands(context) {
+>  58|     // Comando para traduzir GoiásScript
+   59|     const traduzCommand = vscode.commands.registerCommand('goiasscript.traduz', () => {
+
+[R21-122] vscode-extension/src/extension.js:77
+  achado: Comando para executar GoiásScript
+   76| 
+>  77|     // Comando para executar GoiásScript
+   78|     const botaPraMoerCommand = vscode.commands.registerCommand('goiasscript.bota_pra_moer', () => {
+
+[R21-123] vscode-extension/src/extension.js:114
+  achado: Atualizar status baseado no arquivo ativo
+  113| 
+> 114|     // Atualizar status baseado no arquivo ativo
+  115|     vscode.window.onDidChangeActiveTextEditor((editor) => {
+
+[R14-124] apps/engoianador-api/src/engoiana.ts:63  {internal-strong}
+  achado: texto (param, strong, internal)
+   62| 
+>  63| async function callWorkersAI(texto: string, env: Env): Promise<string> {
+   64|   if (!env.AI) throw new Error('Workers AI não disponível');
+
+[R14-125] apps/engoianador-api/src/index.ts:39  {internal-strong}
+  achado: erro (object-key, strong, internal)
+   38|     return jsonResponse(
+>  39|       { erro: 'Cabôu o caminho, sô. Tenta POST /engoiana' },
+   40|       { status: 404 },
+
+[R14-126] apps/engoianador-api/src/prompt.ts:53  {internal-strong}
+  achado: texto (param, strong, internal)
+   52|  */
+>  53| export function sanitizeUserText(texto: string): string {
+   54|   // Captura variações com espaços/atributos: </texto_do_usuario >, < texto... >, etc.
+
+[R14-127] apps/playground-e2e/tests/engoianador.spec.ts:6  {internal-strong}
+  achado: texto (property, strong, internal)
+    5|   await page.route('**/engoiana', async route => {
+>   6|     const body = route.request().postDataJSON() as { texto?: string };
+    7|     await route.fulfill({
+
+[R14-128] apps/playground-e2e/tests/examples.spec.ts:5  {internal-strong}
+  achado: marcador (param, strong, internal)
+    4| // Espera o conteúdo entrar no editor antes de rodar (o select faz fetch async).
+>   5| async function carregarExemplo(page: Page, label: string, marcador: RegExp) {
+    6|   await page.goto('/');
+
+[R14-129] apps/playground-e2e/tests/security.spec.ts:16  {internal-strong}
+  achado: chamou (variable, strong, internal)
+   15|   test('código do usuário não acessa fetch/globais (sandbox)', async ({ page }) => {
+>  16|     let chamou = false;
+   17|     await page.route('https://evil.example/**', route => {
+
+[R14-130] apps/playground/app/doacao/page.tsx:10  {internal-strong}
+  achado: DoacaoPage (function, strong, internal)
+    9| 
+>  10| export default function DoacaoPage() {
+   11|   return (
+
+[R14-131] apps/playground/components/OutputPanel.tsx:8  {internal-strong}
+  achado: saida (object-key, strong, internal)
+    7| const TAB_LABELS: Record<Tab, string> = {
+>   8|   saida: 'Saída',
+    9|   js: 'JS gerado',
+
+[R14-132] apps/playground/tailwind.config.ts:10  {internal-strong}
+  achado: amarelo (object-key, strong, internal)
+    9|           verde: '#1f7a3d',
+>  10|           amarelo: '#f5c518',
+   11|           terra: '#9b6a3e',
+
+[R14-133] packages/core/src/errors/ErroGoiano.js:83  {internal-strong}
+  achado: linha (object-key, strong, internal)
+   82|         arquivo: this.arquivo,
+>  83|         linha: this.linha,
+   84|         coluna: this.coluna,
+
+[R14-134] packages/core/src/errors/errorTranslator.js:1  {internal-strong}
+  achado: ErroGoiano (variable, strong, internal)
+>   1| const ErroGoiano = require('./ErroGoiano');
+    2| 
+
+[R14-135] packages/core/tests/unit/compiler.test.js:100  {internal-strong}
+  achado: codigo (variable, strong, internal)
+   99|     test('deve compilar promises', () => {
+> 100|       const codigo = `
+  101|         faz_um promessa((resolve_aí, rejeita_isso) => {
+
+[R14-136] vscode-extension/src/extension.js:59  {internal-strong}
+  achado: traduzCommand (variable, strong, internal)
+   58|     // Comando para traduzir GoiásScript
+>  59|     const traduzCommand = vscode.commands.registerCommand('goiasscript.traduz', () => {
+   60|         const editor = vscode.window.activeTextEditor;
+
+[R14-137] vscode-extension/src/extension.js:78  {internal-strong}
+  achado: botaPraMoerCommand (variable, strong, internal)
+   77|     // Comando para executar GoiásScript
+>  78|     const botaPraMoerCommand = vscode.commands.registerCommand('goiasscript.bota_pra_moer', () => {
+   79|         const editor = vscode.window.activeTextEditor;
+
+[R14-138] packages/core/src/goianoMethods/GoianoBuiltins.js:128  {internal-embedded}
+  achado: buscar (param, strong, internal, embutido)
+  127| // Métodos para TEXTO (String)
+> 128| String.prototype.trocar = function(buscar, substituir) {
+  129|   return this.replace(new RegExp(buscar, 'g'), substituir);
+
+[R14-139] packages/core/src/goianoMethods/GoianoBuiltins.js:148  {internal-embedded}
+  achado: texto (param, strong, internal, embutido)
+  147| 
+> 148| String.prototype.contem = function(texto) {
+  149|   return this.includes(texto);
+
+[R14-140] packages/core/src/goianoMethods/GoianoBuiltins.js:152  {internal-embedded}
+  achado: texto (param, strong, internal, embutido)
+  151| 
+> 152| String.prototype.posicao_de = function(texto) {
+  153|   return this.indexOf(texto);
+
+[R14-141] packages/core/src/goianoMethods/GoianoBuiltins.js:160  {internal-embedded}
+  achado: fim (param, strong, internal, embutido)
+  159| 
+> 160| String.prototype.fatiar = function(inicio, fim) {
+  161|   return this.slice(inicio, fim);
+
+[R14-142] packages/core/bin/goias.js:267  {surface-mirror}
+  achado: desenrola (method, strong, surface-mirror)
+  266| 
+> 267|   desenrola() {
+  268|     console.log(`
+
+[R14-143] packages/core/bin/goias.js:337  {surface-mirror}
+  achado: cabô_a_prosa (method, strong, surface-mirror)
+  336| 
+> 337|   cabô_a_prosa() {
+  338|     console.log('\n🇧🇷 Tchau, sô! Volte sempre pra mais dois dedo de prosa!');
+
+[R14-144] packages/core/bin/goias.js:343  {surface-mirror}
+  achado: mostra_as_tralha (method, strong, surface-mirror)
+  342| 
+> 343|   mostra_as_tralha() {
+  344|     console.log('🧺 Balaios GoiásScript disponíveis:');
+
+[R14-145] packages/core/bin/goiasscript.js:99  {surface-mirror}
+  achado: bota_pra_moer (method, strong, surface-mirror)
+   98|   // Comando: bota_pra_moer (run)
+>  99|   async bota_pra_moer(filePath) {
+  100|     console.log('🚀 Botando o código pra moer...\n');
+
+[R14-146] packages/core/bin/goiasscript.js:534  {surface-mirror}
+  achado: dedo_de_prosa (method, strong, surface-mirror)
+  533|   // Comando: dedo_de_prosa (info)
+> 534|   dedo_de_prosa() {
+  535|     console.log(logo);
+
+[R14-147] packages/core/src/compiler/lexer.js:13  {surface-exact (excluída)}
+  achado: ocê (object-key, strong, surface-exact)
+   12|       é: '=',
+>  13|       ocê: 'this',
+   14| 
+
+[R14-148] packages/core/src/compiler/lexer.js:46  {surface-exact (excluída)}
+  achado: no_máximo (object-key, strong, surface-exact)
+   45|       pelo_menos: '>=',
+>  46|       no_máximo: '<=',
+   47| 
+
+[R14-149] packages/core/src/compiler/lexer.js:61  {surface-exact (excluída)}
+  achado: vazio (object-key, strong, surface-exact)
+   60|       // Tipos e valores
+>  61|       vazio: 'null',
+   62|       sei_lá: 'undefined',
+
+[R14-150] packages/core/src/compiler/lexer.js:63  {surface-exact (excluída)}
+  achado: certeza (object-key, strong, surface-exact)
+   62|       sei_lá: 'undefined',
+>  63|       certeza: 'true',
+   64|       de_jeito_nenhum: 'false',
+
+[R14-151] packages/core/src/compiler/lexer.js:64  {surface-exact (excluída)}
+  achado: de_jeito_nenhum (object-key, strong, surface-exact)
+   63|       certeza: 'true',
+>  64|       de_jeito_nenhum: 'false',
+   65| 
+
+[R14-152] packages/core/src/compiler/lexer.js:71  {surface-exact (excluída)}
+  achado: promessa (object-key, strong, surface-exact)
+   70|       // Promises e async
+>  71|       promessa: 'Promise',
+   72|       quando_resolver: 'then',
+
+[R14-153] packages/core/src/goianoMethods/GoianoBuiltins.js:319  {surface-exact (excluída)}
+  achado: eh_nao_numero (function, strong, surface-exact, embutido)
+  318| 
+> 319| function eh_nao_numero(val) {
+  320|   return isNaN(val);
+
+[R14-154] packages/core/src/goianoMethods/GoianoBuiltins.js:348  {surface-exact (excluída)}
+  achado: prosa_aviso (function, strong, surface-exact, embutido)
+  347| 
+> 348| function prosa_aviso(...args) {
+  349|   console.warn(...args);
+
+[R14-155] apps/engoianador-api/src/index.ts:47  {domain (excluída)}
+  achado: handleEngoiana (function, domain, internal)
+   46| 
+>  47| async function handleEngoiana(request: Request, env: Env): Promise<Response> {
+   48|   let body: { texto?: unknown };
+
+[R14-156] apps/playground-e2e/tests/engoianador.spec.ts:10  {domain (excluída)}
+  achado: engoianado (object-key, domain, internal)
+    9|       contentType: 'application/json',
+>  10|       body: JSON.stringify({ engoianado: `Ô sô: ${body?.texto ?? ''}`.slice(0, 80) }),
+   11|     });
+
+[R14-157] apps/playground/components/ShareCard.tsx:4  {domain (excluída)}
+  achado: engoianado (property, domain, internal)
+    3| 
+>   4| type Props = { original: string; engoianado: string };
+    5| 
+
+[R14-158] packages/core/src/compiler.js:176  {domain (excluída)}
+  achado: getGoianoMethods (method, domain, internal)
+  175|    */
+> 176|   getGoianoMethods() {
+  177|     return this.goianoBuiltins.listarMetodosGoianos();
+
+[R14-159] packages/core/src/compiler.js:184  {domain (excluída)}
+  achado: getGoianoTypes (method, domain, internal)
+  183|    */
+> 184|   getGoianoTypes() {
+  185|     return this.goianoBuiltins.listarTiposGoianos();

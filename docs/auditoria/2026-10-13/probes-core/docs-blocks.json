@@ -1,0 +1,137 @@
+[
+  {
+    "rel": "README.md",
+    "line": 40,
+    "estado": "ok"
+  },
+  {
+    "rel": "README.md",
+    "line": 99,
+    "estado": "ok"
+  },
+  {
+    "rel": "README.md",
+    "line": 123,
+    "estado": "erro-execucao",
+    "motivo": "ReferenceError: idade is not defined"
+  },
+  {
+    "rel": "README.md",
+    "line": 139,
+    "estado": "ok"
+  },
+  {
+    "rel": "README.md",
+    "line": 165,
+    "estado": "erro-execucao",
+    "motivo": "TypeError: \"Oi sô\".trocar(...)[(1 , 2 , 3)].mapear is not a function"
+  },
+  {
+    "rel": "docs/METODOS_GOIANOS.md",
+    "line": 19,
+    "estado": "erro-execucao",
+    "motivo": "ReferenceError: nome is not defined"
+  },
+  {
+    "rel": "docs/METODOS_GOIANOS.md",
+    "line": 55,
+    "estado": "ok"
+  },
+  {
+    "rel": "docs/METODOS_GOIANOS.md",
+    "line": 65,
+    "estado": "erro-execucao",
+    "motivo": "ReferenceError: nome is not defined"
+  },
+  {
+    "rel": "docs/METODOS_GOIANOS.md",
+    "line": 80,
+    "estado": "erro-execucao",
+    "motivo": "ReferenceError: nome is not defined"
+  },
+  {
+    "rel": "docs/METODOS_GOIANOS.md",
+    "line": 97,
+    "estado": "ok"
+  },
+  {
+    "rel": "docs/METODOS_GOIANOS.md",
+    "line": 114,
+    "estado": "erro-execucao",
+    "motivo": "ReferenceError: numeros is not defined"
+  },
+  {
+    "rel": "docs/METODOS_GOIANOS.md",
+    "line": 123,
+    "estado": "erro-execucao",
+    "motivo": "ReferenceError: numeros is not defined"
+  },
+  {
+    "rel": "docs/METODOS_GOIANOS.md",
+    "line": 146,
+    "estado": "ok"
+  },
+  {
+    "rel": "docs/METODOS_GOIANOS.md",
+    "line": 171,
+    "estado": "ok"
+  },
+  {
+    "rel": "docs/METODOS_GOIANOS.md",
+    "line": 176,
+    "estado": "ok"
+  },
+  {
+    "rel": "docs/METODOS_GOIANOS.md",
+    "line": 185,
+    "estado": "ok"
+  },
+  {
+    "rel": "docs/METODOS_GOIANOS.md",
+    "line": 192,
+    "estado": "ok"
+  },
+  {
+    "rel": "docs/METODOS_GOIANOS.md",
+    "line": 198,
+    "estado": "erro-execucao",
+    "motivo": "ReferenceError: GoianoGoianoMath is not defined"
+  },
+  {
+    "rel": "docs/METODOS_GOIANOS.md",
+    "line": 207,
+    "estado": "ok"
+  },
+  {
+    "rel": "docs/METODOS_GOIANOS.md",
+    "line": 224,
+    "estado": "ok"
+  },
+  {
+    "rel": "docs/METODOS_GOIANOS.md",
+    "line": 231,
+    "estado": "erro-execucao",
+    "motivo": "ReferenceError: timerId is not defined"
+  },
+  {
+    "rel": "docs/METODOS_GOIANOS.md",
+    "line": 248,
+    "estado": "ok"
+  },
+  {
+    "rel": "docs/METODOS_GOIANOS.md",
+    "line": 259,
+    "estado": "ok"
+  },
+  {
+    "rel": "docs/METODOS_GOIANOS.md",
+    "line": 277,
+    "estado": "ok"
+  },
+  {
+    "rel": "docs/METODOS_GOIANOS.md",
+    "line": 298,
+    "estado": "sintaxe-invalida",
+    "motivo": "Unexpected token '{'"
+  }
+]

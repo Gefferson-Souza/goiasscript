@@ -1,0 +1,11 @@
+ESLint 8.57.1 | arquivos 52 | erros 21 | avisos 254 | fatais 0
+@eslint-community/eslint-comments/require-description erro=   2 aviso=   0 arquivos=2
+@typescript-eslint/no-explicit-any             erro=   3 aviso=   0 arquivos=2
+@typescript-eslint/no-magic-numbers            erro=   0 aviso=  34 arquivos=9
+id-match                                       erro=   2 aviso=   0 arquivos=1
+max-lines                                      erro=   0 aviso=   4 arquivos=4
+max-lines-per-function                         erro=   0 aviso=  19 arquivos=13
+no-console                                     erro=   8 aviso= 172 arquivos=9
+no-inline-comments                             erro=   6 aviso=   0 arquivos=5
+no-magic-numbers                               erro=   0 aviso=  11 arquivos=5
+no-restricted-syntax                           erro=   0 aviso=  14 arquivos=8

@@ -1,0 +1,110 @@
+
+> goiasscript-monorepo@0.0.0 lint <repo>
+> pnpm --filter goiasscript lint
+
+
+> goiasscript@1.5.0 lint <repo>/packages/core
+> eslint src/ tests/
+
+
+<repo>/packages/core/src/cli/index.js
+   86:7   warning  Unexpected console statement                           no-console
+   87:7   warning  Unexpected console statement                           no-console
+   88:7   warning  Unexpected console statement                           no-console
+   89:7   warning  Unexpected console statement                           no-console
+   97:9   warning  Unexpected console statement                           no-console
+  102:9   warning  Unexpected console statement                           no-console
+  119:11  warning  Unexpected console statement                           no-console
+  120:11  warning  Unexpected console statement                           no-console
+  121:11  warning  Unexpected console statement                           no-console
+  122:11  warning  Unexpected console statement                           no-console
+  126:13  warning  Unexpected console statement                           no-console
+  133:9   warning  Unexpected console statement                           no-console
+  134:9   warning  Unexpected console statement                           no-console
+  140:7   warning  Unexpected console statement                           no-console
+  212:1   warning  This line has a length of 117. Maximum allowed is 100  max-len
+  217:7   warning  Unexpected console statement                           no-console
+  218:7   warning  Unexpected console statement                           no-console
+  219:7   warning  Unexpected console statement                           no-console
+  220:7   warning  Unexpected console statement                           no-console
+  221:7   warning  Unexpected console statement                           no-console
+  224:7   warning  Unexpected console statement                           no-console
+  237:9   warning  Unexpected console statement                           no-console
+  245:9   warning  Unexpected console statement                           no-console
+  246:9   warning  Unexpected console statement                           no-console
+  248:9   warning  Unexpected console statement                           no-console
+  253:13  warning  Unexpected console statement                           no-console
+  259:9   warning  Unexpected console statement                           no-console
+  261:11  warning  Unexpected console statement                           no-console
+  266:7   warning  Unexpected console statement                           no-console
+  280:9   warning  Unexpected console statement                           no-console
+  301:9   warning  Unexpected console statement                           no-console
+  302:9   warning  Unexpected console statement                           no-console
+  303:1   warning  This line has a length of 125. Maximum allowed is 100  max-len
+  303:9   warning  Unexpected console statement                           no-console
+  309:7   warning  Unexpected console statement                           no-console
+  320:5   warning  Unexpected console statement                           no-console
+  321:5   warning  Unexpected console statement                           no-console
+  329:9   warning  Unexpected console statement                           no-console
+  330:9   warning  Unexpected console statement                           no-console
+  341:7   warning  Unexpected console statement                           no-console
+  343:9   warning  Unexpected console statement                           no-console
+
+<repo>/packages/core/src/compiler.js
+  89:10  warning  Method 'compile' has a complexity of 11. Maximum allowed is 10  complexity
+
+<repo>/packages/core/src/compiler/simpleTranspiler.js
+  323:1   warning  This line has a length of 115. Maximum allowed is 100  max-len
+  388:41  warning  Unnecessary escape character: \(                       no-useless-escape
+  388:43  warning  Unnecessary escape character: \)                       no-useless-escape
+  388:45  warning  Unnecessary escape character: \{                       no-useless-escape
+  388:47  warning  Unnecessary escape character: \}                       no-useless-escape
+  388:49  warning  Unnecessary escape character: \[                       no-useless-escape
+  388:55  warning  Unnecessary escape character: \.                       no-useless-escape
+
+<repo>/packages/core/src/errors/ErroGoiano.js
+  37:40  warning  Unnecessary escape character: \"  no-useless-escape
+  37:52  warning  Unnecessary escape character: \"  no-useless-escape
+  63:5   warning  Unexpected console statement      no-console
+  66:7   warning  Unexpected console statement      no-console
+  69:5   warning  Unexpected console statement      no-console
+
+<repo>/packages/core/src/goianoMethods/GoianoBuiltins.js
+  445:1  warning  This line has a length of 116. Maximum allowed is 100  max-len
+
+<repo>/packages/core/tests/setup.js
+  26:23  warning  Unexpected console statement  no-console
+  29:3   warning  Unexpected console statement  no-console
+  37:7   warning  Unexpected console statement  no-console
+
+<repo>/packages/core/tests/unit/compiler.test.js
+   12:34  warning  Unnecessary escape character: \"  no-useless-escape
+   12:40  warning  Unnecessary escape character: \"  no-useless-escape
+   16:60  warning  Unnecessary escape character: \"  no-useless-escape
+   16:66  warning  Unnecessary escape character: \"  no-useless-escape
+   23:21  warning  Unnecessary escape character: \"  no-useless-escape
+   23:28  warning  Unnecessary escape character: \"  no-useless-escape
+   30:54  warning  Unnecessary escape character: \"  no-useless-escape
+   30:61  warning  Unnecessary escape character: \"  no-useless-escape
+   36:17  warning  Unnecessary escape character: \"  no-useless-escape
+   36:33  warning  Unnecessary escape character: \"  no-useless-escape
+   38:17  warning  Unnecessary escape character: \"  no-useless-escape
+   38:33  warning  Unnecessary escape character: \"  no-useless-escape
+   88:49  warning  Unnecessary escape character: \"  no-useless-escape
+   88:61  warning  Unnecessary escape character: \"  no-useless-escape
+   96:77  warning  Unnecessary escape character: \"  no-useless-escape
+   96:89  warning  Unnecessary escape character: \"  no-useless-escape
+  102:39  warning  Unnecessary escape character: \"  no-useless-escape
+  102:48  warning  Unnecessary escape character: \"  no-useless-escape
+  109:55  warning  Unnecessary escape character: \"  no-useless-escape
+  109:64  warning  Unnecessary escape character: \"  no-useless-escape
+  117:17  warning  Unnecessary escape character: \"  no-useless-escape
+  117:32  warning  Unnecessary escape character: \"  no-useless-escape
+  152:33  warning  Unnecessary escape character: \"  no-useless-escape
+  152:40  warning  Unnecessary escape character: \"  no-useless-escape
+  156:49  warning  Unnecessary escape character: \"  no-useless-escape
+  156:56  warning  Unnecessary escape character: \"  no-useless-escape
+
+✖ 84 problems (0 errors, 84 warnings)
+
+corepack pnpm lint  2,15s user 0,28s system 68% cpu 3,563 total

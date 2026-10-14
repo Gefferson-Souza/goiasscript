@@ -1,0 +1,244 @@
+packages/core/bin/goias.js(6,21): error TS2732: Cannot find module '../package.json'. Consider using '--resolveJsonModule' to import module with '.json' extension.
+packages/core/bin/goias.js(15,5): error TS7008: Member 'história' implicitly has an 'any[]' type.
+packages/core/bin/goias.js(66,21): error TS7006: Parameter 'input' implicitly has an 'any' type.
+packages/core/bin/goias.js(90,45): error TS18046: 'error' is of type 'unknown'.
+packages/core/bin/goias.js(96,20): error TS7006: Parameter 'input' implicitly has an 'any' type.
+packages/core/bin/goias.js(115,19): error TS7006: Parameter 'input' implicitly has an 'any' type.
+packages/core/bin/goias.js(135,21): error TS7006: Parameter 'code' implicitly has an 'any' type.
+packages/core/bin/goias.js(143,19): error TS2339: Property 'success' does not exist on type 'Object'.
+packages/core/bin/goias.js(145,20): error TS2339: Property 'errors' does not exist on type 'Object'.
+packages/core/bin/goias.js(146,18): error TS2339: Property 'errors' does not exist on type 'Object'.
+packages/core/bin/goias.js(146,33): error TS7006: Parameter 'error' implicitly has an 'any' type.
+packages/core/bin/goias.js(152,18): error TS2339: Property 'warnings' does not exist on type 'Object'.
+packages/core/bin/goias.js(152,37): error TS2339: Property 'warnings' does not exist on type 'Object'.
+packages/core/bin/goias.js(154,16): error TS2339: Property 'warnings' does not exist on type 'Object'.
+packages/core/bin/goias.js(154,33): error TS7006: Parameter 'warning' implicitly has an 'any' type.
+packages/core/bin/goias.js(160,47): error TS2339: Property 'javascript' does not exist on type 'Object'.
+packages/core/bin/goias.js(167,57): error TS18046: 'error' is of type 'unknown'.
+packages/core/bin/goias.js(171,12): error TS7006: Parameter 'code' implicitly has an 'any' type.
+packages/core/bin/goias.js(189,44): error TS18046: 'error' is of type 'unknown'.
+packages/core/bin/goias.js(205,16): error TS7006: Parameter 'value' implicitly has an 'any' type.
+packages/core/bin/goias.js(216,17): error TS7006: Parameter 'command' implicitly has an 'any' type.
+packages/core/bin/goias.js(373,16): error TS7006: Parameter 'line' implicitly has an 'any' type.
+packages/core/bin/goiasscript.js(7,21): error TS2732: Cannot find module '../package.json'. Consider using '--resolveJsonModule' to import module with '.json' extension.
+packages/core/bin/goiasscript.js(27,16): error TS7006: Parameter 'filePath' implicitly has an 'any' type.
+packages/core/bin/goiasscript.js(27,26): error TS7006: Parameter 'options' implicitly has an 'any' type.
+packages/core/bin/goiasscript.js(39,19): error TS2339: Property 'success' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(41,20): error TS2339: Property 'errors' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(41,37): error TS2339: Property 'errors' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(43,18): error TS2339: Property 'errors' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(43,33): error TS7006: Parameter 'error' implicitly has an 'any' type.
+packages/core/bin/goiasscript.js(49,18): error TS2339: Property 'warnings' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(49,37): error TS2339: Property 'warnings' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(51,16): error TS2339: Property 'warnings' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(51,33): error TS7006: Parameter 'warning' implicitly has an 'any' type.
+packages/core/bin/goiasscript.js(63,53): error TS2339: Property 'typeInfo' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(64,44): error TS2339: Property 'moduleInfo' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(65,20): error TS2339: Property 'moduleInfo' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(66,46): error TS2339: Property 'moduleInfo' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(68,20): error TS2339: Property 'moduleInfo' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(69,46): error TS2339: Property 'moduleInfo' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(76,43): error TS2339: Property 'javascript' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(86,23): error TS2339: Property 'javascript' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(88,63): error TS18046: 'execError' is of type 'unknown'.
+packages/core/bin/goiasscript.js(93,50): error TS18046: 'error' is of type 'unknown'.
+packages/core/bin/goiasscript.js(99,23): error TS7006: Parameter 'filePath' implicitly has an 'any' type.
+packages/core/bin/goiasscript.js(113,24): error TS7006: Parameter 'filePath' implicitly has an 'any' type.
+packages/core/bin/goiasscript.js(125,18): error TS2339: Property 'typeInfo' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(127,56): error TS2339: Property 'typeInfo' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(129,20): error TS2339: Property 'typeInfo' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(129,59): error TS2339: Property 'typeInfo' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(131,33): error TS2339: Property 'typeInfo' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(138,18): error TS2339: Property 'warnings' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(138,37): error TS2339: Property 'warnings' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(140,16): error TS2339: Property 'warnings' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(140,33): error TS7006: Parameter 'warning' implicitly has an 'any' type.
+packages/core/bin/goiasscript.js(148,18): error TS2339: Property 'errors' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(148,35): error TS2339: Property 'errors' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(150,16): error TS2339: Property 'errors' does not exist on type 'Object'.
+packages/core/bin/goiasscript.js(150,31): error TS7006: Parameter 'error' implicitly has an 'any' type.
+packages/core/bin/goiasscript.js(156,50): error TS18046: 'error' is of type 'unknown'.
+packages/core/bin/goiasscript.js(162,24): error TS7006: Parameter 'projectName' implicitly has an 'any' type.
+packages/core/bin/goiasscript.js(163,30): error TS2339: Property 'template' does not exist on type '{}'.
+packages/core/bin/goiasscript.js(430,64): error TS18046: 'error' is of type 'unknown'.
+packages/core/bin/goiasscript.js(436,25): error TS7006: Parameter 'src' implicitly has an 'any' type.
+packages/core/bin/goiasscript.js(436,30): error TS7006: Parameter 'dest' implicitly has an 'any' type.
+packages/core/bin/goiasscript.js(436,36): error TS7006: Parameter 'projectName' implicitly has an 'any' type.
+packages/core/bin/goiasscript.js(465,24): error TS7006: Parameter 'projectPath' implicitly has an 'any' type.
+packages/core/bin/goiasscript.js(465,37): error TS7006: Parameter 'projectName' implicitly has an 'any' type.
+packages/core/bin/goiasscript.js(520,15): error TS7006: Parameter 'type' implicitly has an 'any' type.
+packages/core/bin/goiasscript.js(530,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ TEXTO: string; NUMERO: string; BOOLEANO: string; LISTA: string; COISA: string; FAZ_TREM: string; NADA: string; }'.
+packages/core/src/browser.js(15,13): error TS7006: Parameter 'code' implicitly has an 'any' type.
+packages/core/src/browser.js(27,20): error TS7006: Parameter 'metodo' implicitly has an 'any' type.
+packages/core/src/cli/index.js(5,20): error TS7016: Could not find a declaration file for module 'fs-extra'. '<repo>/node_modules/.pnpm/fs-extra@11.3.4/node_modules/fs-extra/lib/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/fs-extra` if it exists or add a new declaration (.d.ts) file containing `declare module 'fs-extra';`
+packages/core/src/cli/index.js(9,29): error TS2732: Cannot find module '../../package.json'. Consider using '--resolveJsonModule' to import module with '.json' extension.
+packages/core/src/cli/index.js(110,24): error TS2339: Property 'debug' does not exist on type 'Object'.
+packages/core/src/cli/index.js(111,28): error TS2339: Property 'sourceMap' does not exist on type 'Object'.
+packages/core/src/cli/index.js(114,19): error TS2339: Property 'compiled' does not exist on type 'Object'.
+packages/core/src/cli/index.js(118,23): error TS2339: Property 'success' does not exist on type 'Object'.
+packages/core/src/cli/index.js(121,33): error TS2339: Property 'javascript' does not exist on type 'Object'.
+packages/core/src/cli/index.js(124,23): error TS2339: Property 'output' does not exist on type 'Object'.
+packages/core/src/cli/index.js(125,40): error TS2339: Property 'output' does not exist on type 'Object'.
+packages/core/src/cli/index.js(125,58): error TS2339: Property 'javascript' does not exist on type 'Object'.
+packages/core/src/cli/index.js(126,60): error TS2339: Property 'output' does not exist on type 'Object'.
+packages/core/src/cli/index.js(129,21): error TS2339: Property 'error' does not exist on type 'Object'.
+packages/core/src/cli/index.js(140,43): error TS18046: 'error' is of type 'unknown'.
+packages/core/src/cli/index.js(149,26): error TS2339: Property 'name' does not exist on type 'Object'.
+packages/core/src/cli/index.js(224,60): error TS18046: 'error' is of type 'unknown'.
+packages/core/src/cli/index.js(244,21): error TS2339: Property 'valid' does not exist on type 'Object'.
+packages/core/src/cli/index.js(246,48): error TS2339: Property 'tokens' does not exist on type 'Object'.
+packages/core/src/cli/index.js(249,19): error TS2339: Property 'errors' does not exist on type 'Object'.
+packages/core/src/cli/index.js(249,34): error TS7006: Parameter 'erro' implicitly has an 'any' type.
+packages/core/src/cli/index.js(258,21): error TS2339: Property 'warnings' does not exist on type 'Object'.
+packages/core/src/cli/index.js(260,19): error TS2339: Property 'warnings' does not exist on type 'Object'.
+packages/core/src/cli/index.js(260,36): error TS7006: Parameter 'warning' implicitly has an 'any' type.
+packages/core/src/cli/index.js(266,56): error TS18046: 'error' is of type 'unknown'.
+packages/core/src/cli/index.js(287,28): error TS2339: Property 'sourceMap' does not exist on type 'Object'.
+packages/core/src/cli/index.js(292,21): error TS2339: Property 'success' does not exist on type 'Object'.
+packages/core/src/cli/index.js(293,36): error TS2339: Property 'output' does not exist on type 'Object'.
+packages/core/src/cli/index.js(295,50): error TS2339: Property 'javascript' does not exist on type 'Object'.
+packages/core/src/cli/index.js(297,23): error TS2339: Property 'sourceMap' does not exist on type 'Object'.
+packages/core/src/cli/index.js(297,44): error TS2339: Property 'sourceMap' does not exist on type 'Object'.
+packages/core/src/cli/index.js(298,61): error TS2339: Property 'sourceMap' does not exist on type 'Object'.
+packages/core/src/cli/index.js(303,61): error TS2339: Property 'stats' does not exist on type 'Object'.
+packages/core/src/cli/index.js(303,96): error TS2339: Property 'stats' does not exist on type 'Object'.
+packages/core/src/cli/index.js(305,19): error TS2339: Property 'error' does not exist on type 'Object'.
+packages/core/src/cli/index.js(309,59): error TS18046: 'error' is of type 'unknown'.
+packages/core/src/cli/index.js(341,55): error TS18046: 'error' is of type 'unknown'.
+packages/core/src/cli/index.js(342,11): error TS18046: 'error' is of type 'unknown'.
+packages/core/src/cli/index.js(343,33): error TS18046: 'error' is of type 'unknown'.
+packages/core/src/compiler.js(8,23): error TS7006: Parameter 'modulePath' implicitly has an 'any' type.
+packages/core/src/compiler.js(8,35): error TS7006: Parameter 'fallback' implicitly has an 'any' type.
+packages/core/src/compiler.js(12,20): error TS2339: Property 'code' does not exist on type '{}'.
+packages/core/src/compiler.js(26,18): error TS7006: Parameter 'code' implicitly has an 'any' type.
+packages/core/src/compiler.js(45,11): error TS7006: Parameter 'code' implicitly has an 'any' type.
+packages/core/src/compiler.js(105,9): error TS2322: Type '{ hasModules: any; imports: any; exports: any; dependencies: any; }' is not assignable to type 'null'.
+packages/core/src/compiler.js(111,30): error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
+packages/core/src/compiler.js(117,9): error TS2322: Type '{ typeCount: any; symbols: any; hasTypeErrors: any; }' is not assignable to type 'null'.
+packages/core/src/compiler.js(122,30): error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
+packages/core/src/compiler.js(123,28): error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
+packages/core/src/compiler.js(129,28): error TS2339: Property 'success' does not exist on type 'Object'.
+packages/core/src/compiler.js(130,28): error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
+packages/core/src/compiler.js(130,44): error TS2339: Property 'error' does not exist on type 'Object'.
+packages/core/src/compiler.js(134,43): error TS2339: Property 'code' does not exist on type 'Object'.
+packages/core/src/compiler.js(135,28): error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
+packages/core/src/compiler.js(135,48): error TS2339: Property 'warnings' does not exist on type 'Object'.
+packages/core/src/compiler.js(143,18): error TS2339: Property 'jitOptimized' does not exist on type '{ success: boolean; javascript: null; typeInfo: null; moduleInfo: null; warnings: never[]; errors: never[]; }'.
+packages/core/src/compiler.js(144,32): error TS2345: Argument of type '{ type: string; message: string; }' is not assignable to parameter of type 'never'.
+packages/core/src/compiler.js(163,45): error TS18046: 'error' is of type 'unknown'.
+packages/core/src/compiler.js(174,16): error TS2314: Generic type 'Array<T>' requires 1 type argument(s).
+packages/core/src/compiler.js(182,16): error TS2314: Generic type 'Array<T>' requires 1 type argument(s).
+packages/core/src/compiler.js(229,32): error TS2339: Property 'success' does not exist on type 'Object'.
+packages/core/src/compiler.js(230,33): error TS2339: Property 'success' does not exist on type 'Object'.
+packages/core/src/compiler.js(230,65): error TS2339: Property 'error' does not exist on type 'Object'.
+packages/core/src/compiler.js(231,33): error TS2339: Property 'tokens' does not exist on type 'Object'.
+packages/core/src/compiler.js(232,35): error TS2339: Property 'warnings' does not exist on type 'Object'.
+packages/core/src/compiler.js(237,29): error TS18046: 'error' is of type 'unknown'.
+packages/core/src/compiler.js(264,23): error TS2339: Property 'success' does not exist on type 'Object'.
+packages/core/src/compiler.js(266,25): error TS2339: Property 'typeInfo' does not exist on type 'Object'.
+packages/core/src/compiler.js(266,43): error TS2339: Property 'typeInfo' does not exist on type 'Object'.
+packages/core/src/compiler.js(267,27): error TS2339: Property 'moduleInfo' does not exist on type 'Object'.
+packages/core/src/compiler.js(267,47): error TS2339: Property 'moduleInfo' does not exist on type 'Object'.
+packages/core/src/compiler.js(268,28): error TS2339: Property 'warnings' does not exist on type 'Object'.
+packages/core/src/compiler.js(269,26): error TS2339: Property 'errors' does not exist on type 'Object'.
+packages/core/src/compiler.js(270,26): error TS2339: Property 'moduleInfo' does not exist on type 'Object'.
+packages/core/src/compiler.js(270,46): error TS2339: Property 'moduleInfo' does not exist on type 'Object'.
+packages/core/src/compiler.js(271,24): error TS2339: Property 'typeInfo' does not exist on type 'Object'.
+packages/core/src/compiler.js(271,42): error TS2339: Property 'typeInfo' does not exist on type 'Object'.
+packages/core/src/compiler.js(285,26): error TS2339: Property 'success' does not exist on type 'Object'.
+packages/core/src/compiler.js(288,32): error TS2339: Property 'errors' does not exist on type 'Object'.
+packages/core/src/compiler.js(299,41): error TS2339: Property 'javascript' does not exist on type 'Object'.
+packages/core/src/compiler.js(309,27): error TS18046: 'error' is of type 'unknown'.
+packages/core/src/compiler.js(323,19): error TS2339: Property 'success' does not exist on type 'Object'.
+packages/core/src/compiler.js(323,36): error TS2339: Property 'javascript' does not exist on type 'Object'.
+packages/core/src/compiler.js(323,49): error TS2322: Type 'null' is not assignable to type 'string'.
+packages/core/src/compiler.js(330,23): error TS7006: Parameter 'fileName' implicitly has an 'any' type.
+packages/core/src/compiler.js(330,33): error TS7006: Parameter 'code' implicitly has an 'any' type.
+packages/core/src/compiler.js(331,41): error TS7006: Parameter 'hash' implicitly has an 'any' type.
+packages/core/src/compiler.js(331,47): error TS7006: Parameter 'char' implicitly has an 'any' type.
+packages/core/src/compiler.js(357,16): error TS7006: Parameter 'options' implicitly has an 'any' type.
+packages/core/src/compiler.js(384,16): error TS2339: Property 'success' does not exist on type 'Object'.
+packages/core/src/compiler.js(385,14): error TS2339: Property 'stats' does not exist on type 'Object'.
+packages/core/src/compiler.js(387,30): error TS2339: Property 'javascript' does not exist on type 'Object'.
+packages/core/src/compiler.js(389,31): error TS2339: Property 'javascript' does not exist on type 'Object'.
+packages/core/src/compiler/lexer.js(104,16): error TS2314: Generic type 'Array<T>' requires 1 type argument(s).
+packages/core/src/compiler/lexer.js(124,16): error TS2314: Generic type 'Array<T>' requires 1 type argument(s).
+packages/core/src/compiler/lexer.js(127,11): error TS7034: Variable 'tokens' implicitly has type 'any[]' in some locations where its type cannot be determined.
+packages/core/src/compiler/lexer.js(134,14): error TS7005: Variable 'tokens' implicitly has an 'any[]' type.
+packages/core/src/compiler/lexer.js(148,18): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ uai: string; trem: string; é: string; ocê: string; arruma_trem: string; aprepara_trem: string; inherda_de: string; é_tipo_de: string; num_muda: string; se_ocê_quiser: string; se_num_for: string; ... 40 more ...; faz_um: string; }'.
+  No index signature with a parameter of type 'string' was found on type '{ uai: string; trem: string; é: string; ocê: string; arruma_trem: string; aprepara_trem: string; inherda_de: string; é_tipo_de: string; num_muda: string; se_ocê_quiser: string; se_num_for: string; ... 40 more ...; faz_um: string; }'.
+packages/core/src/compiler/lexer.js(168,9): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ uai: string; trem: string; é: string; ocê: string; arruma_trem: string; aprepara_trem: string; inherda_de: string; é_tipo_de: string; num_muda: string; se_ocê_quiser: string; se_num_for: string; ... 40 more ...; faz_um: string; }'.
+  No index signature with a parameter of type 'string' was found on type '{ uai: string; trem: string; é: string; ocê: string; arruma_trem: string; aprepara_trem: string; inherda_de: string; é_tipo_de: string; num_muda: string; se_ocê_quiser: string; se_num_for: string; ... 40 more ...; faz_um: string; }'.
+packages/core/src/compiler/lexer.js(197,14): error TS2314: Generic type 'Array<T>' requires 1 type argument(s).
+packages/core/src/compiler/simpleTranspiler.js(55,57): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'Error'.
+packages/core/src/compiler/simpleTranspiler.js(68,23): error TS7006: Parameter 'code' implicitly has an 'any' type.
+packages/core/src/compiler/simpleTranspiler.js(72,11): error TS7034: Variable 'stringPlaceholders' implicitly has type 'any[]' in some locations where its type cannot be determined.
+packages/core/src/compiler/simpleTranspiler.js(76,66): error TS7006: Parameter 'match' implicitly has an 'any' type.
+packages/core/src/compiler/simpleTranspiler.js(199,5): error TS7005: Variable 'stringPlaceholders' implicitly has an 'any[]' type.
+packages/core/src/compiler/simpleTranspiler.js(210,26): error TS7006: Parameter 'code' implicitly has an 'any' type.
+packages/core/src/compiler/simpleTranspiler.js(220,29): error TS7006: Parameter 'code' implicitly has an 'any' type.
+packages/core/src/compiler/simpleTranspiler.js(295,26): error TS7006: Parameter 'code' implicitly has an 'any' type.
+packages/core/src/compiler/simpleTranspiler.js(296,11): error TS7034: Variable 'warnings' implicitly has type 'any[]' in some locations where its type cannot be determined.
+packages/core/src/compiler/simpleTranspiler.js(329,12): error TS7005: Variable 'warnings' implicitly has an 'any[]' type.
+packages/core/src/compiler/simpleTranspiler.js(336,19): error TS7006: Parameter 'code' implicitly has an 'any' type.
+packages/core/src/compiler/simpleTranspiler.js(337,11): error TS7034: Variable 'errors' implicitly has type 'any[]' in some locations where its type cannot be determined.
+packages/core/src/compiler/simpleTranspiler.js(340,20): error TS7006: Parameter 'line' implicitly has an 'any' type.
+packages/core/src/compiler/simpleTranspiler.js(340,26): error TS7006: Parameter 'index' implicitly has an 'any' type.
+packages/core/src/compiler/simpleTranspiler.js(373,12): error TS7005: Variable 'errors' implicitly has an 'any[]' type.
+packages/core/src/compiler/simpleTranspiler.js(380,19): error TS7006: Parameter 'code' implicitly has an 'any' type.
+packages/core/src/compiler/simpleTranspiler.js(381,11): error TS7034: Variable 'tokens' implicitly has type 'any[]' in some locations where its type cannot be determined.
+packages/core/src/compiler/simpleTranspiler.js(384,20): error TS7006: Parameter 'line' implicitly has an 'any' type.
+packages/core/src/compiler/simpleTranspiler.js(384,26): error TS7006: Parameter 'index' implicitly has an 'any' type.
+packages/core/src/compiler/simpleTranspiler.js(388,69): error TS7006: Parameter 'w' implicitly has an 'any' type.
+packages/core/src/compiler/simpleTranspiler.js(389,23): error TS7006: Parameter 'word' implicitly has an 'any' type.
+packages/core/src/compiler/simpleTranspiler.js(399,12): error TS7005: Variable 'tokens' implicitly has an 'any[]' type.
+packages/core/src/compiler/simpleTranspiler.js(406,17): error TS7006: Parameter 'word' implicitly has an 'any' type.
+packages/core/src/compiler/simpleTranspiler.js(429,16): error TS7006: Parameter 'string' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(34,22): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ SyntaxError: (error: any, fileName: any, line: any, column: any) => ErroGoiano; ReferenceError: (error: any, fileName: any, line: any, column: any) => ErroGoiano; TypeError: (error: any, fileName: any, line: any, column: any) => ErroGoiano; URIError: (error: any, fileName: any, line: any, column: any) => ErroGoian...'.
+  No index signature with a parameter of type 'string' was found on type '{ SyntaxError: (error: any, fileName: any, line: any, column: any) => ErroGoiano; ReferenceError: (error: any, fileName: any, line: any, column: any) => ErroGoiano; TypeError: (error: any, fileName: any, line: any, column: any) => ErroGoiano; URIError: (error: any, fileName: any, line: any, column: any) => ErroGoian...'.
+packages/core/src/errors/errorTranslator.js(48,20): error TS7006: Parameter 'error' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(69,25): error TS7006: Parameter 'error' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(69,32): error TS7006: Parameter 'fileName' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(69,42): error TS7006: Parameter 'line' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(69,48): error TS7006: Parameter 'column' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(96,28): error TS7006: Parameter 'error' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(96,35): error TS7006: Parameter 'fileName' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(96,45): error TS7006: Parameter 'line' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(96,51): error TS7006: Parameter 'column' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(114,23): error TS7006: Parameter 'error' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(114,30): error TS7006: Parameter 'fileName' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(114,40): error TS7006: Parameter 'line' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(114,46): error TS7006: Parameter 'column' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(135,22): error TS7006: Parameter 'error' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(135,29): error TS7006: Parameter 'fileName' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(135,39): error TS7006: Parameter 'line' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(135,45): error TS7006: Parameter 'column' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(150,24): error TS7006: Parameter 'error' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(150,31): error TS7006: Parameter 'fileName' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(150,41): error TS7006: Parameter 'line' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(150,47): error TS7006: Parameter 'column' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(167,23): error TS7006: Parameter 'error' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(167,30): error TS7006: Parameter 'fileName' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(167,40): error TS7006: Parameter 'line' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(167,46): error TS7006: Parameter 'column' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(182,26): error TS7006: Parameter 'error' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(182,33): error TS7006: Parameter 'fileName' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(182,43): error TS7006: Parameter 'line' implicitly has an 'any' type.
+packages/core/src/errors/errorTranslator.js(182,49): error TS7006: Parameter 'column' implicitly has an 'any' type.
+packages/core/src/goianoMethods/GoianoBuiltins.js(368,20): error TS7006: Parameter 'metodo' implicitly has an 'any' type.
+packages/core/src/goianoMethods/GoianoBuiltins.js(373,23): error TS7006: Parameter 'metodoJs' implicitly has an 'any' type.
+packages/core/src/goianoMethods/GoianoBuiltins.js(374,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ replace: string; split: string; join: string; toUpperCase: string; toLowerCase: string; trim: string; includes: string; indexOf: string; substring: string; slice: string; charAt: string; length: string; ... 44 more ...; clearInterval: string; }'.
+packages/core/src/goianoMethods/GoianoBuiltins.js(378,27): error TS7006: Parameter 'tipoJs' implicitly has an 'any' type.
+packages/core/src/goianoMethods/GoianoBuiltins.js(379,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ string: string; number: string; boolean: string; array: string; object: string; function: string; null: string; undefined: string; date: string; regex: string; }'.
+packages/core/src/goianoMethods/GoianoBuiltins.js(393,26): error TS7006: Parameter 'metodoJs' implicitly has an 'any' type.
+packages/core/src/goianoMethods/GoianoBuiltins.js(394,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ replace: string; split: string; join: string; toUpperCase: string; toLowerCase: string; trim: string; includes: string; indexOf: string; substring: string; slice: string; charAt: string; length: string; ... 44 more ...; clearInterval: string; }'.
+packages/core/src/goianoMethods/GoianoBuiltins.js(398,28): error TS7006: Parameter 'codigo' implicitly has an 'any' type.
+packages/core/src/goianoMethods/GoianoBuiltins.js(399,11): error TS7034: Variable 'metodosEncontrados' implicitly has type 'any[]' in some locations where its type cannot be determined.
+packages/core/src/goianoMethods/GoianoBuiltins.js(406,12): error TS7005: Variable 'metodosEncontrados' implicitly has an 'any[]' type.
+packages/core/src/goianoMethods/GoianoBuiltins.js(410,27): error TS7006: Parameter 'metodo' implicitly has an 'any' type.
+packages/core/src/goianoMethods/GoianoBuiltins.js(419,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ trocar: string; mapear: string; filtrar: string; reduzir: string; empurrar: string; }'.
+packages/core/src/goianoMethods/GoianoBuiltins.js(423,19): error TS7006: Parameter 'metodo' implicitly has an 'any' type.
+packages/core/src/goianoMethods/GoianoBuiltins.js(431,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ trocar: string; mapear: string; filtrar: string; reduzir: string; empurrar: string; }'.
+packages/core/src/goianoMethods/GoianoBuiltins.js(435,21): error TS7006: Parameter 'metodo' implicitly has an 'any' type.
+packages/core/src/goianoMethods/GoianoBuiltins.js(441,24): error TS7006: Parameter 'metodo' implicitly has an 'any' type.

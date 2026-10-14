@@ -1,0 +1,20 @@
+uai p é { nome: "Maria", idade: 30 }
+   "uai"=storage.type  " p "=-  "é"=keyword.operator  " { nome"=-  ":"=keyword.operator.type  "\""=string.quoted.double  "Maria"=string.quoted.double  "\""=string.quoted.double  ", idade"=-  ":"=keyword.operator.type  "30"=constant.numeric  " }"=-
+uai r é a maior_que b ? 1 : 2
+   "uai"=storage.type  " r "=-  "é"=keyword.operator  " a "=-  "maior_que"=keyword.operator.logical  " b ? "=-  "1"=constant.numeric  ":"=keyword.operator.type  "2"=constant.numeric
+uai t é `olá ${nome} se_ocê_quiser`
+   "uai"=storage.type  " t "=-  "é"=keyword.operator  " `olá ${nome} "=-  "se_ocê_quiser"=keyword.control  "`"=-
+prosa('uai dentro de aspas simples')
+   "prosa"=support.function  "('"=-  "uai"=storage.type  " dentro "=-  "de"=keyword.other  " aspas simples')"=-
+uai url é "http://exemplo.com" // comentário
+   "uai"=storage.type  " url "=-  "é"=keyword.operator  "\""=string.quoted.double  "http://exemplo.com"=string.quoted.double  "\""=string.quoted.double  "// comentário"=comment.line.double-slash
+uai pi é GoianoMath.PI
+   "uai"=storage.type  " pi "=-  "é"=keyword.operator  " GoianoMath.PI"=-
+lista.pra_cada(x => prosa(x))
+   "lista"=storage.type.primitive  ".pra_cada(x => "=-  "prosa"=support.function  "(x))"=-
+prosa(`total: ${a mais b}`)
+   "prosa"=support.function  "(`total"=-  ":"=keyword.operator.type  " ${a "=-  "mais"=keyword.operator  " b}`)"=-
+uai re é /se_ocê_quiser/g
+   "uai"=storage.type  " re "=-  "é"=keyword.operator  " /"=-  "se_ocê_quiser"=keyword.control  "/g"=-
+uai x: texto é "a"
+   "uai"=storage.type  " x"=-  ":"=keyword.operator.type  "texto"=storage.type.primitive  "é"=keyword.operator  "\""=string.quoted.double  "a"=string.quoted.double  "\""=string.quoted.double

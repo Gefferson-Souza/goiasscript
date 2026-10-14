@@ -1,0 +1,6 @@
+fetch direto (o que o E2E testa)                 => BLOQUEADO: Acesso negado
+self.fetch                                       => BLOQUEADO: Acesso negado
+escape via construtor de arrow function          => function
+escape via AsyncFunction                         => undefined
+escape via Function do prototype de objeto       => function
+import() dinamico                                => ERRO SyntaxError: Cannot use import statement outside a module

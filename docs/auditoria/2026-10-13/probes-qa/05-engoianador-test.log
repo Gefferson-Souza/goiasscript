@@ -1,0 +1,18 @@
+
+> goiasscript-monorepo@0.0.0 engoianador:test <repo>
+> pnpm --filter engoianador-api test
+
+
+> engoianador-api@1.5.0 test <repo>/apps/engoianador-api
+> vitest run
+
+
+ RUN  v4.1.8 <repo>/apps/engoianador-api
+
+
+ Test Files  3 passed (3)
+      Tests  16 passed (16)
+   Start at  16:25:00
+   Duration  528ms (transform 245ms, setup 0ms, import 371ms, tests 71ms, environment 1ms)
+
+corepack pnpm engoianador:test  1,92s user 0,46s system 118% cpu 2,023 total

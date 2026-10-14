@@ -1,0 +1,781 @@
+[
+  {
+    "id": "conv:L224:result = result.replace(/\\.replace\\s*\\(/g, '.trocar(');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L225:result = result.replace(/\\.split\\s*\\(/g, '.dividir(');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L226:result = result.replace(/\\.join\\s*\\(/g, '.juntar(');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L227:result = result.replace(/\\.toUpperCase\\s*\\(\\)/g, '.pra_maius",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L228:result = result.replace(/\\.toLowerCase\\s*\\(\\)/g, '.pra_minus",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L229:result = result.replace(/\\.trim\\s*\\(\\)/g, '.aparar()');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L230:result = result.replace(/\\.includes\\s*\\(/g, '.contem(');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L231:result = result.replace(/\\.indexOf\\s*\\(/g, '.posicao_de(');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L232:result = result.replace(/\\.substring\\s*\\(/g, '.pedaco(');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L233:result = result.replace(/\\.slice\\s*\\(/g, '.fatiar(');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L234:result = result.replace(/\\.charAt\\s*\\(/g, '.letra_em(');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L235:result = result.replace(/\\.length\\b/g, '.tamanho()');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L236:result = result.replace(/\\.startsWith\\s*\\(/g, '.comeca_com('",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L237:result = result.replace(/\\.endsWith\\s*\\(/g, '.termina_com(')",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L240:result = result.replace(/\\.map\\s*\\(/g, '.mapear(');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L241:result = result.replace(/\\.filter\\s*\\(/g, '.filtrar(');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L242:result = result.replace(/\\.reduce\\s*\\(/g, '.reduzir(');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L243:result = result.replace(/\\.forEach\\s*\\(/g, '.pra_cada(');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L244:result = result.replace(/\\.push\\s*\\(/g, '.empurrar(');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L245:result = result.replace(/\\.pop\\s*\\(\\)/g, '.tirar_ultimo()');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L246:result = result.replace(/\\.shift\\s*\\(\\)/g, '.tirar_primeiro(",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L247:result = result.replace(/\\.unshift\\s*\\(/g, '.por_primeiro(')",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L248:result = result.replace(/\\.sort\\s*\\(/g, '.ordenar(');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L249:result = result.replace(/\\.reverse\\s*\\(\\)/g, '.inverter()');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L250:result = result.replace(/\\.find\\s*\\(/g, '.achar(');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L251:result = result.replace(/\\.concat\\s*\\(/g, '.juntar_lista(');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L252:result = result.replace(/\\.splice\\s*\\(/g, '.emendar(');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L255:result = result.replace(/Object\\.keys\\s*\\(/g, 'Object.chaves",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L256:result = result.replace(/Object\\.values\\s*\\(/g, 'Object.valo",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L257:result = result.replace(/Object\\.entries\\s*\\(/g, 'Object.ent",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L258:result = result.replace(/\\.hasOwnProperty\\s*\\(/g, '.tem_prop",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L259:result = result.replace(/Object\\.assign\\s*\\(/g, 'Object.mist",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L262:result = result.replace(/Math\\.random\\s*\\(\\)/g, 'GoianoMath.",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L263:result = result.replace(/Math\\.floor\\s*\\(/g, 'GoianoMath.arr",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L264:result = result.replace(/Math\\.ceil\\s*\\(/g, 'GoianoMath.arre",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L265:result = result.replace(/Math\\.round\\s*\\(/g, 'GoianoMath.arr",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L266:result = result.replace(/Math\\.max\\s*\\(/g, 'GoianoMath.maior",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L267:result = result.replace(/Math\\.min\\s*\\(/g, 'GoianoMath.menor",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L268:result = result.replace(/Math\\.abs\\s*\\(/g, 'GoianoMath.absol",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L269:result = result.replace(/Math\\.sqrt\\s*\\(/g, 'GoianoMath.raiz",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L270:result = result.replace(/Math\\.pow\\s*\\(/g, 'GoianoMath.poten",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L271:result = result.replace(/Math\\.PI\\b/g, 'GoianoMath.PI');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L272:result = result.replace(/Math\\.E\\b/g, 'GoianoMath.E');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L275:result = result.replace(/parseInt\\s*\\(/g, 'vira_numero(');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L276:result = result.replace(/parseFloat\\s*\\(/g, 'vira_decimal(')",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L277:result = result.replace(/isNaN\\s*\\(/g, 'eh_nao_numero(');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L278:result = result.replace(/setTimeout\\s*\\(/g, 'depois_de(');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L279:result = result.replace(/setInterval\\s*\\(/g, 'repetir_a_cada",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L280:result = result.replace(/clearTimeout\\s*\\(/g, 'cancelar_depo",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L281:result = result.replace(/clearInterval\\s*\\(/g, 'cancelar_rep",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L284:result = result.replace(/console\\.log\\s*\\(/g, 'prosa(');",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L285:result = result.replace(/console\\.error\\s*\\(/g, 'prosa_erro(",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "conv:L286:result = result.replace(/console\\.warn\\s*\\(/g, 'prosa_aviso(",
+    "kind": "convert",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "manual:checkForbidden: nunca avisa@L317",
+    "kind": "manual",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "manual:ramo-acento/underscore: troca jsWord@L190",
+    "kind": "manual",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Compilação Básica › deve compilar função simples",
+      "● GoiasScriptCompiler › Compilação Básica › deve compilar estruturas condicionais"
+    ]
+  },
+  {
+    "id": "manual:ramo-boundary: troca jsWord@L194",
+    "kind": "manual",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Compilação Básica › deve compilar código simples com sucesso",
+      "● GoiasScriptCompiler › Compilação Básica › deve compilar função simples"
+    ]
+  },
+  {
+    "id": "manual:ramo-é: ' = '@L179",
+    "kind": "manual",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Compilação Básica › deve compilar código simples com sucesso",
+      "● GoiasScriptCompiler › Classes e Objetos › deve compilar classe simples"
+    ]
+  },
+  {
+    "id": "manual:ramo-ocê: $1this$2@L182",
+    "kind": "manual",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Classes e Objetos › deve compilar classe simples"
+    ]
+  },
+  {
+    "id": "manual:remove runtime prefixado@L43",
+    "kind": "manual",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "manual:removeTypeAnnotations: no-op@L213",
+    "kind": "manual",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "manual:restaura strings: placeholder vira vazio@L200",
+    "kind": "manual",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Compilação Básica › deve compilar código simples com sucesso",
+      "● GoiasScriptCompiler › Compilação Básica › deve compilar função simples"
+    ]
+  },
+  {
+    "id": "manual:tokens: sempre vazio@L46",
+    "kind": "manual",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Validação › deve validar sintaxe correta"
+    ]
+  },
+  {
+    "id": "manual:validate: ignora 'uai ' incompleto@L358",
+    "kind": "manual",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Casos Edge e Validação Avançada › deve lidar com erro durante tokenização"
+    ]
+  },
+  {
+    "id": "manual:validate: ignora {{{@L344",
+    "kind": "manual",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Validação › deve detectar erros de sintaxe",
+      "● GoiasScriptCompiler › Casos Edge e Validação Avançada › deve detectar erro de JavaScript gerado"
+    ]
+  },
+  {
+    "id": "mapa:aprepara_trem->constructor@L100",
+    "kind": "mapping",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Classes e Objetos › deve compilar classe simples",
+      "● GoiasScriptCompiler › Classes e Objetos › deve compilar herança de classes"
+    ]
+  },
+  {
+    "id": "mapa:arruma_trem->class@L98",
+    "kind": "mapping",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Classes e Objetos › deve compilar classe simples",
+      "● GoiasScriptCompiler › Classes e Objetos › deve compilar herança de classes"
+    ]
+  },
+  {
+    "id": "mapa:certeza->true@L152",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:continua_aí->continue@L110",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:de_jeito_nenhum->false@L153",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:de->of@L166",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:diferente->!==@L119",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:dividido->/@L132",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:é_igualim->===@L95",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:e_mais->&&@L124",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:é_tipo_de->instanceof@L94",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:é->=@L171",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:em->in@L165",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:enquanto_tiver->while@L108",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:espera_um_cadim->await@L116",
+    "kind": "mapping",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Programação Assíncrona › deve compilar função async/await"
+    ]
+  },
+  {
+    "id": "mapa:faz_favor->return@L114",
+    "kind": "mapping",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Compilação Básica › deve compilar função simples"
+    ]
+  },
+  {
+    "id": "mapa:faz_trem->function@L113",
+    "kind": "mapping",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Compilação Básica › deve compilar função simples"
+    ]
+  },
+  {
+    "id": "mapa:faz_um->new@L159",
+    "kind": "mapping",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Programação Assíncrona › deve compilar promises"
+    ]
+  },
+  {
+    "id": "mapa:indefinido->undefined@L155",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:inherda_de->extends@L99",
+    "kind": "mapping",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Classes e Objetos › deve compilar herança de classes"
+    ]
+  },
+  {
+    "id": "mapa:maior_que->>@L120",
+    "kind": "mapping",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Compilação Básica › deve compilar estruturas condicionais"
+    ]
+  },
+  {
+    "id": "mapa:mais->+@L129",
+    "kind": "mapping",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Compilação Básica › deve compilar função simples"
+    ]
+  },
+  {
+    "id": "mapa:menor_que-><@L121",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:menos->-@L130",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:nada->null@L154",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:no_máximo-><=@L123",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:num_é->!@L126",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:num_muda->static@L101",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:ocê->this@L158",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:ou_então->||@L125",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:para_com_isso->break@L109",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:pelo_menos->>=@L122",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:por_fim->finally@L149",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:promessa->Promise@L140",
+    "kind": "mapping",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Programação Assíncrona › deve compilar promises"
+    ]
+  },
+  {
+    "id": "mapa:prosa->console.log@L136",
+    "kind": "mapping",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Compilação Básica › deve compilar código simples com sucesso",
+      "● GoiasScriptCompiler › Transpilação › deve transpilar apenas sem executar"
+    ]
+  },
+  {
+    "id": "mapa:quando_resolver->then@L141",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:reclama->console.error@L137",
+    "kind": "mapping",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Tratamento de Erros › deve compilar try/catch"
+    ]
+  },
+  {
+    "id": "mapa:rejeita_isso->reject@L144",
+    "kind": "mapping",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Programação Assíncrona › deve compilar promises"
+    ]
+  },
+  {
+    "id": "mapa:rejeita_isso->reject@L161",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:resolve_aí->resolve@L143",
+    "kind": "mapping",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Programação Assíncrona › deve compilar promises"
+    ]
+  },
+  {
+    "id": "mapa:resolve_aí->resolve@L162",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:se_der_pobrema->catch@L142",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:se_der_ruim->catch@L148",
+    "kind": "mapping",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Tratamento de Erros › deve compilar try/catch"
+    ]
+  },
+  {
+    "id": "mapa:se_não->else@L106",
+    "kind": "mapping",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Compilação Básica › deve compilar estruturas condicionais"
+    ]
+  },
+  {
+    "id": "mapa:se_num_for->else if@L105",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:se_ocê_quiser->if@L104",
+    "kind": "mapping",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Compilação Básica › deve compilar estruturas condicionais"
+    ]
+  },
+  {
+    "id": "mapa:sobrou->%@L133",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:tenta_aí->try@L147",
+    "kind": "mapping",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Tratamento de Erros › deve compilar try/catch"
+    ]
+  },
+  {
+    "id": "mapa:trem->var@L169",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:uai->const@L170",
+    "kind": "mapping",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Compilação Básica › deve compilar código simples com sucesso",
+      "● GoiasScriptCompiler › Programação Assíncrona › deve compilar função async/await"
+    ]
+  },
+  {
+    "id": "mapa:vai_indo->for@L107",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:vai_na_frente_faz_trem->async function@L91",
+    "kind": "mapping",
+    "status": "MORTO",
+    "failedTests": [
+      "● GoiasScriptCompiler › Programação Assíncrona › deve compilar função async/await"
+    ]
+  },
+  {
+    "id": "mapa:vai_na_frente->async@L115",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:vezes->*@L131",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  },
+  {
+    "id": "mapa:vixe->throw new Error@L160",
+    "kind": "mapping",
+    "status": "SOBREVIVEU",
+    "failedTests": []
+  }
+]

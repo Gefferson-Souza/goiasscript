@@ -1,0 +1,137 @@
+
+### E1 — variável inexistente (erro real na linha 3 do .gs)
+1
+  erro nativo   : ReferenceError: naoExiste is not defined
+  1ª linha stack: ReferenceError: naoExiste is not defined |     at eval (eval at hostMethod (<scratchpad>…(+62)
+  CLI imprime   : "❌ Ô rapaz! Deu ruim na execução: naoExiste is not defined"  (bin/goiasscript.js:88 — só .message, sem linha)
+  translator    : Ô gente! Deu trem que não existe no arquivo "prog.gs" na linha 28, coluna 12: Esse trem 'naoExiste' não existe por aqui, uai!
+  dica          : Ocê precisa declarar ele com "uai" ou "trem" antes de usar, ou então errou o nome.
+  linha/coluna  : 28/12 | linha real no .gs: 3 | linha no JS gerado ≈ 250
+  aponta p/ .gs?: NÃO
+
+### E2 — chamar string como função (erro real na linha 3 do .gs)
+antes
+  erro nativo   : TypeError: coisa is not a function
+  1ª linha stack: TypeError: coisa is not a function |     at eval (eval at hostMethod (<scratchpad>/audit…(+55)
+  CLI imprime   : "❌ Ô rapaz! Deu ruim na execução: coisa is not a function"  (bin/goiasscript.js:88 — só .message, sem linha)
+  translator    : Ô gente! Deu tipo errado de trem no arquivo "prog.gs" na linha 28, coluna 12: 'coisa' não é uma função, não dá pra chamar assim não!
+  dica          : Vê se não tá confundindo variável com função. Funções são chamadas com parênteses.
+  linha/coluna  : 28/12 | linha real no .gs: 3 | linha no JS gerado ≈ 250
+  aponta p/ .gs?: NÃO
+
+### E3 — ler propriedade de null (nada) (erro real na linha 3 do .gs)
+antes
+  erro nativo   : TypeError: Cannot read properties of null (reading 'x')
+  1ª linha stack: TypeError: Cannot read properties of null (reading 'x') |     at eval (eval at hostMethod (<scratchpad>)
+  CLI imprime   : "❌ Ô rapaz! Deu ruim na execução: Cannot read properties of null (reading 'x')"  (bin/goiasscript.js:88 — só .message, sem linha)
+  translator    : Ô gente! Deu tipo errado de trem no arquivo "prog.gs" na linha 28, coluna 12: Não consigo ler essa propriedade. O trem tá vazio!
+  dica          : Vê se a variável não tá vazia (null/undefined) antes de usar.
+  linha/coluna  : 28/12 | linha real no .gs: 3 | linha no JS gerado ≈ 250
+  aponta p/ .gs?: NÃO
+
+### E4 — sintaxe: parêntese aberto (erro real na linha 2 do .gs)
+  erro nativo   : SyntaxError: Unexpected token ';'
+  1ª linha stack: SyntaxError: Unexpected token ';' |     at hostMethod (<scratchpad>/audit/probes-core/er…(+20)
+  CLI imprime   : "❌ Ô rapaz! Deu ruim na execução: Unexpected token ';'"  (bin/goiasscript.js:88 — só .message, sem linha)
+  translator    : Ô gente! Deu sintaxe torta no arquivo "prog.gs" na linha 28, coluna 17: Achei um ';' onde não deveria ter!
+  dica          : Vê se não escreveu alguma coisa fora do lugar ou esqueceu de fechar parênteses, chaves ou colchetes.
+  linha/coluna  : 28/17 | linha real no .gs: 2 | linha no JS gerado ≈ 249
+  aponta p/ .gs?: NÃO
+
+### E5 — recursão infinita (erro real na linha 1 do .gs)
+antes
+  erro nativo   : RangeError: Maximum call stack size exceeded
+  1ª linha stack: RangeError: Maximum call stack size exceeded |     at f (eval at hostMethod (<scratchpad>)
+  CLI imprime   : "❌ Ô rapaz! Deu ruim na execução: Maximum call stack size exceeded"  (bin/goiasscript.js:88 — só .message, sem linha)
+  translator    : Ô gente! Deu trem desconhecido no arquivo "prog.gs" na linha 28, coluna 12: O código tá chamando ele mesmo mais que comitiva em festa!
+  dica          : Ocê tem uma função que tá chamando ela mesma sem parar (recursão infinita).
+  linha/coluna  : 28/12 | linha real no .gs: 1 | linha no JS gerado ≈ 248
+  aponta p/ .gs?: NÃO
+
+### E6 — identificador acentuado inexistente (erro real na linha 2 do .gs)
+antes
+  erro nativo   : ReferenceError: número_inexistente is not defined
+  1ª linha stack: ReferenceError: número_inexistente is not defined |     at eval (eval at hostMethod (<scratchpad>)
+  CLI imprime   : "❌ Ô rapaz! Deu ruim na execução: número_inexistente is not defined"  (bin/goiasscript.js:88 — só .message, sem linha)
+  translator    : Ô gente! Deu trem que não existe no arquivo "prog.gs" na linha 28, coluna 12: Esse trem 'mero_inexistente' não existe por aqui, uai!
+  dica          : Ocê precisa declarar ele com "uai" ou "trem" antes de usar, ou então errou o nome.
+  linha/coluna  : 28/12 | linha real no .gs: 2 | linha no JS gerado ≈ 249
+  aponta p/ .gs?: NÃO
+
+### E7 — .length em objeto do usuário (erro real na linha 2 do .gs)
+  erro nativo   : TypeError: o.tamanho is not a function
+  1ª linha stack: TypeError: o.tamanho is not a function |     at eval (eval at hostMethod (<scratchpad>/a…(+60)
+  CLI imprime   : "❌ Ô rapaz! Deu ruim na execução: o.tamanho is not a function"  (bin/goiasscript.js:88 — só .message, sem linha)
+  translator    : Ô gente! Deu tipo errado de trem no arquivo "prog.gs" na linha 28, coluna 12: 'tamanho' não é uma função, não dá pra chamar assim não!
+  dica          : Vê se não tá confundindo variável com função. Funções são chamadas com parênteses.
+  linha/coluna  : 28/12 | linha real no .gs: 2 | linha no JS gerado ≈ 249
+  aponta p/ .gs?: NÃO
+
+### E8 — reatribuir uai (const) (erro real na linha 2 do .gs)
+  erro nativo   : TypeError: Assignment to constant variable.
+  1ª linha stack: TypeError: Assignment to constant variable. |     at eval (eval at hostMethod (<scratchpad>)
+  CLI imprime   : "❌ Ô rapaz! Deu ruim na execução: Assignment to constant variable."  (bin/goiasscript.js:88 — só .message, sem linha)
+  translator    : Ô gente! Deu tipo errado de trem no arquivo "prog.gs" na linha 28, coluna 12: Ocê tá tentando usar o trem do jeito errado!
+  dica          : Veja se não tá confundindo os tipos.
+  linha/coluna  : 28/12 | linha real no .gs: 2 | linha no JS gerado ≈ 249
+  aponta p/ .gs?: NÃO
+
+### E9 — JSON.parse inválido (SyntaxError de runtime) (erro real na linha 2 do .gs)
+antes
+  erro nativo   : SyntaxError: Expected property name or '}' in JSON at position 1 (line 1 column 2)
+  1ª linha stack: SyntaxError: Expected property name or '}' in JSON at position 1 (line 1 column 2) |     at JSON.parse (<anonymous>)
+  CLI imprime   : "❌ Ô rapaz! Deu ruim na execução: Expected property name or '}' in JSON at position 1 (line 1 column 2)"  (bin/goiasscript.js:88 — só .message, sem linha)
+  translator    : Ô gente! Deu sintaxe torta no arquivo "prog.gs" na linha 28, coluna 12: Sintaxe tá embrulhada que nem pamonha!
+  dica          : Dá uma olhada boa no código que deve ter algo errado na escrita.
+  linha/coluna  : 28/12 | linha real no .gs: 2 | linha no JS gerado ≈ 249
+  aponta p/ .gs?: NÃO
+
+### E10 — erro lançado pelo usuário com vixe (erro real na linha 2 do .gs)
+antes
+  erro nativo   : Error: quebrou de propósito
+  1ª linha stack: Error: quebrou de propósito |     at eval (eval at hostMethod (<scratchpad>/audit/probes…(+48)
+  CLI imprime   : "❌ Ô rapaz! Deu ruim na execução: quebrou de propósito"  (bin/goiasscript.js:88 — só .message, sem linha)
+  translator    : Ô gente! Deu execução deu ruim no arquivo "prog.gs" na linha 28, coluna 12: Erro não identificado: quebrou de propósito
+  dica          : Esse tipo de erro é meio cabrero de entender. Tenta ver o que causou ele.
+  linha/coluna  : 28/12 | linha real no .gs: 2 | linha no JS gerado ≈ 249
+  aponta p/ .gs?: NÃO
+
+### E11 — erro de digitação em método goiano (erro real na linha 2 do .gs)
+  erro nativo   : TypeError: l.mapeear is not a function
+  1ª linha stack: TypeError: l.mapeear is not a function |     at eval (eval at hostMethod (<scratchpad>/a…(+60)
+  CLI imprime   : "❌ Ô rapaz! Deu ruim na execução: l.mapeear is not a function"  (bin/goiasscript.js:88 — só .message, sem linha)
+  translator    : Ô gente! Deu tipo errado de trem no arquivo "prog.gs" na linha 28, coluna 12: 'mapeear' não é uma função, não dá pra chamar assim não!
+  dica          : Vê se não tá confundindo variável com função. Funções são chamadas com parênteses.
+  linha/coluna  : 28/12 | linha real no .gs: 2 | linha no JS gerado ≈ 249
+  aponta p/ .gs?: NÃO
+
+### E12 — palavra goiana desconhecida (presta_serviço) (erro real na linha 1 do .gs)
+  erro nativo   : SyntaxError: Unexpected identifier 'soma'
+  1ª linha stack: SyntaxError: Unexpected identifier 'soma' |     at hostMethod (<scratchpad>/audit/probes…(+28)
+  CLI imprime   : "❌ Ô rapaz! Deu ruim na execução: Unexpected identifier 'soma'"  (bin/goiasscript.js:88 — só .message, sem linha)
+  translator    : Ô gente! Deu sintaxe torta no arquivo "prog.gs" na linha 28, coluna 17: Esse identificador 'soma' tá no lugar errado!
+  dica          : Vê se não tá faltando uma vírgula, ponto-e-vírgula ou operador entre as palavras.
+  linha/coluna  : 28/17 | linha real no .gs: 1 | linha no JS gerado ≈ 248
+  aponta p/ .gs?: NÃO
+
+### Catálogo: tipos que o ErrorTranslator emite vs tipos conhecidos pelo ErroGoiano
+  sintaxe              -> Ô gente! Deu sintaxe torta no arquivo "a.gs" na linha 3, coluna 4: MENSAGEM
+  referencia           -> Ô gente! Deu trem que não existe no arquivo "a.gs" na linha 3, coluna 4: MENSAGEM
+  tipo                 -> Ô gente! Deu tipo errado de trem no arquivo "a.gs" na linha 3, coluna 4: MENSAGEM
+  execucao             -> Ô gente! Deu execução deu ruim no arquivo "a.gs" na linha 3, coluna 4: MENSAGEM
+  falta_virgula        -> Ô gente! Deu faltou ponto-e-vírgula no arquivo "a.gs" na linha 3, coluna 4: MENSAGEM
+  falta_parentese      -> Ô gente! Deu faltou um parêntese no arquivo "a.gs" na linha 3, coluna 4: MENSAGEM
+  falta_chave          -> Ô gente! Deu faltou uma chave no arquivo "a.gs" na linha 3, coluna 4: MENSAGEM
+  erro_nome            -> Ô gente! Deu nome tá errado no arquivo "a.gs" na linha 3, coluna 4: MENSAGEM
+  divisao_zero         -> Ô gente! Deu dividiu por zero no arquivo "a.gs" na linha 3, coluna 4: MENSAGEM
+  argumento_invalido   -> Ô gente! Deu parâmetro não tá bão no arquivo "a.gs" na linha 3, coluna 4: MENSAGEM
+  promessa_rejeitada   -> Ô gente! Deu promessa não cumprida no arquivo "a.gs" na linha 3, coluna 4: MENSAGEM
+  importacao           -> Ô gente! Deu importação deu problema no arquivo "a.gs" na linha 3, coluna 4: MENSAGEM
+  interno              -> Ô gente! Deu algo deu errado no sistema no arquivo "a.gs" na linha 3, coluna 4: MENSAGEM
+  uri                  -> Ô gente! Deu trem desconhecido no arquivo "a.gs" na linha 3, coluna 4: MENSAGEM
+  intervalo            -> Ô gente! Deu trem desconhecido no arquivo "a.gs" na linha 3, coluna 4: MENSAGEM
+  eval                 -> Ô gente! Deu trem desconhecido no arquivo "a.gs" na linha 3, coluna 4: MENSAGEM
+
+### getDetalhes()/mostrarErro()
+  getDetalhes(): {"tipo":"sintaxe","mensagem":"Ô gente! Deu sintaxe torta no arquivo \"a.gs\" na linha 3, coluna 4: Sintaxe tá embrulhada que nem pamonha!","dica":"Dá uma olhada boa no código.","localizacao":{"arquivo":"a.gs","linha":3,"coluna":4},"timestamp":"2026-10-13T19:46:02.541Z"}
+  mostrarErro() imprime em stderr: ["\n🤠 ErroGoiano: Ô gente! Deu sintaxe torta no arquivo \"a.gs\" na linha 3, coluna 4: Sintaxe tá embrulhada que nem pamonha!","\n💡 Dica goiana: Dá uma olhada boa no código.",""]

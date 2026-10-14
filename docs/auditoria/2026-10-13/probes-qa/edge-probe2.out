@@ -1,0 +1,24 @@
+GS : "trem i é 0;\nenquanto_tiver (certeza) { i é i mais 1; se_ocê_quiser (i pelo_menos 3) { para_com_isso; } }\nprosa(i);"
+JS : "var i = 0;\nwhile (true) { i = i + 1; if (i >= 3) { para_com_isso; } }\nconsole.log(i);"
+=> parse ok exec ERRO ReferenceError: para_com_isso is not defined
+
+GS : "trem i é 0;\nenquanto_tiver (certeza) { i é i mais 1; se_ocê_quiser (i pelo_menos 3) { para_com_isso } }\nprosa(i);"
+JS : "var i = 0;\nwhile (true) { i = i + 1; if (i >= 3) { break } }\nconsole.log(i);"
+=> parse ok exec ok ["3"]
+
+GS : "trem i é 0;\nenquanto_tiver (i menor_que 5) { i é i mais 1; se_ocê_quiser (i é_igualim 2) { continua_aí; } prosa(i); }"
+JS : "var i = 0;\nwhile (i < 5) { i = i + 1; if (i === 2) { continua_aí; } console.log(i); }"
+=> parse ok exec ERRO ReferenceError: continua_aí is not defined
+
+GS : "faz_trem f(x) { se_ocê_quiser (x) { faz_favor; } faz_favor 1; }\nprosa(f(0));"
+JS : "function f(x) { if (x) { faz_favor; } return 1; }\nconsole.log(f(0));"
+=> parse ok exec ok ["1"]
+
+GS : "faz_trem f() { tenta_aí { vixe(\"xi\"); } se_der_ruim (e) { faz_favor e.message; } }\nprosa(f());"
+JS : "function f() { try { throw new Error(\"xi\"); } catch (e) { return e.message; } }\nconsole.log(f());"
+=> parse ok exec ok ["xi"]
+
+GS : "uai r é /mais|menos/;\nprosa(r.test(\"mais\"));"
+JS : "const r = /+|-/;\nconsole.log(r.test(\"mais\"));"
+=> PARSE INVALIDO: Invalid regular expression: /+|-/: Nothing to repeat 
+

@@ -1,0 +1,62 @@
+   |     ----- field in this variant
+38 |         statements: Vec<Statement>,
+   |         ^^^^^^^^^^
+   |
+   = note: `Statement` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: fields `try_block`, `catch_var`, and `catch_block` are never read
+  --> src/ast.rs:41:9
+   |
+40 |     TryStatement {
+   |     ------------ fields in this variant
+41 |         try_block: Vec<Statement>,
+   |         ^^^^^^^^^
+42 |         catch_var: String,
+   |         ^^^^^^^^^
+43 |         catch_block: Vec<Statement>,
+   |         ^^^^^^^^^^^
+   |
+   = note: `Statement` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: variants `Unary`, `GetProperty`, `SetProperty`, `Array`, `Object`, and `Await` are never constructed
+  --> src/ast.rs:62:5
+   |
+50 | pub enum Expression {
+   |          ---------- variants in this enum
+...
+62 |     Unary {
+   |     ^^^^^
+...
+70 |     GetProperty {
+   |     ^^^^^^^^^^^
+...
+74 |     SetProperty {
+   |     ^^^^^^^^^^^
+...
+79 |     Array {
+   |     ^^^^^
+...
+82 |     Object {
+   |     ^^^^^^
+...
+85 |     Await {
+   |     ^^^^^
+   |
+   = note: `Expression` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: variants `Not` and `Negate` are never constructed
+   --> src/ast.rs:117:5
+    |
+116 | pub enum UnaryOperator {
+    |          ------------- variants in this enum
+117 |     Not,
+    |     ^^^
+118 |     Negate,
+    |     ^^^^^^
+    |
+    = note: `UnaryOperator` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: `goiasscript` (bin "goiasscript") generated 5 warnings
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 6.80s
+CARGO_TARGET_DIR=$P/target-rust-adee62c timeout 280 cargo build 2>&1  17,99s user 2,84s system 304% cpu 6,832 total
+tail -60  0,00s user 0,00s system 0% cpu 6,832 total

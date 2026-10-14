@@ -1,0 +1,133 @@
+R01-001	TP	424 linhas, acima do alvo de 400
+R01-002	TP	654 linhas
+R01-003	TP	434 linhas
+R01-004	TP	449 linhas; 245 são o template do runtime embutido, que deveria viver em arquivo próprio
+R03-005	TP	handleEngoiana: 66 linhas de lógica
+R03-006	TP	EngoianadorPage: 153 linhas, 56 mesmo descontando as 97 de JSX
+R03-007	TP-fraco	OpengraphImage: 58 linhas, 51 são JSX declarativo
+R03-008	TP-fraco	DonationLinks: 92 linhas, 71 são JSX declarativo
+R03-009	TP-fraco	Toolbar: 69 linhas, 44 são JSX declarativo
+R03-010	TP-fraco	createFrameworkFiles: 53 linhas, 10 são template de texto
+R03-011	TP	setupCommands: 53 linhas brutas (43 sem brancos/comentários)
+R03-012	TP-fraco	initProject: 79 linhas, 31 são template de texto
+R03-013	TP	constructor do lexer: 94 linhas, tabela de dados inline
+R03-014	TP	constructor do GoianoBuiltins: 111 linhas, tabelas de dados inline
+R06-015	TP-fraco	log de fallback no Worker; console é o canal de log do Cloudflare Workers
+R06-016	TP-fraco	log de erro no Worker
+R06-017	TP	console.error como único tratamento de erro num componente de UI; usuário não vê nada
+R06-018	TP-fraco	saída de script de build
+R06-019	TP-fraco	erro de script de build seguido de exit(1)
+R06-020	TP-fraco	saída de CLI voltada ao usuário
+R06-021	TP-fraco	saída de CLI voltada ao usuário
+R06-022	TP-fraco	saída de CLI voltada ao usuário
+R06-023	TP	log de depuração deixado na extensão do VS Code
+R06-024	TP	log de depuração deixado na extensão do VS Code
+R07-025	TP	monaco?: any dentro de cast
+R07-026	TP	window as any
+R07-027	TP	window as any
+R09-028	TP	diretiva sem '-- motivo'; a justificativa existe só no bloco de 8 linhas acima
+R09-029	TP	diretiva sem '-- motivo'; a justificativa existe só no bloco de 5 linhas acima
+R11-030	TP	5 linhas; conteúdo é restrição de segurança válida (R1), mas excede o limite de 4
+R11-031	TP	8 linhas
+R11-032	TP	5 linhas, em inglês
+R11-033	TP	JSDoc de 5 linhas com @private e @param em método interno
+R11-034	TP	5 linhas; também narra histórico e descreve outro trecho
+R11-035	TP	JSDoc de 6 linhas com @param
+R12-036	TP	comentário ao lado do código
+R12-037	TP	comentário ao lado do código
+R12-038	TP	comentário ao lado do código
+R12-039	TP	comentário ao lado do código; também narra o que a linha faz
+R12-040	TP	comentário ao lado do código; narra o óbvio
+R12-041	TP	comentário ao lado do código, em inglês
+R13-042	TP	pendência de status ("trocar pela chave real antes do lançamento") no fonte
+R13-043	TP-fraco	explica por que a entrada existe, mas amarra o texto a "v2"
+R13-044	TP	narra história de versões (slim build v1.5, comportamento v2)
+R13-045	TP	marcador de fase "Fase 1" dentro de justificativa de segurança válida
+R13-046	TP	"corrigido aqui" (histórico) e afirma que o lexer valida, o que é falso em produção
+R15-047	TP	max_tokens literal de LLM
+R15-048	TP	timeout em ms literal
+R15-049	TP	status HTTP literal
+R15-050	TP	tolerância de TTL literal
+R15-051	TP-fraco	padding em objeto de estilo
+R15-052	TP-fraco	marginTop em objeto de estilo
+R15-053	TP	duração de feedback de UI literal
+R15-054	TP-fraco	fontSize em opções do Monaco
+R15-055	TP-fraco	largura de separador de CLI
+R15-056	TP-fraco	largura de separador de CLI
+R15-057	TP-fraco	largura de separador de CLI
+R15-058	TP-fraco	largura de separador de CLI
+R15-059	TP	máscara de bits e deslocamento literais num hash
+R15-060	TP	prioridade da status bar literal
+R16-061	FP	valor CSS de flexDirection, tipado por CSSProperties
+R16-062	TP-fraco	nome de token do Monarch repetido em tabela declarativa
+R16-063	TP-fraco	nome de token do Monarch repetido em tabela declarativa
+R16-064	TP-fraco	autor padrão repetido; erro de digitação só muda um texto padrão
+R16-065	TP-fraco	nome do pacote em template, três sentidos distintos
+R16-066	TP-fraco	nome de arquivo repetido
+R16-067	TP-fraco	segmento de caminho repetido
+R16-068	TP-fraco	segmento de caminho repetido
+R16-069	TP-fraco	encoding repetido
+R16-070	TP-fraco	encoding repetido
+R16-071	TP-fraco	nome de arquivo padrão repetido 7 vezes em assinaturas
+R16-072	TP	id da linguagem repetido; inconsistência quebra o registro da extensão
+R16-073	FP	valor CSS de display, tipado por CSSProperties
+R16-074	FP	nível de log passado a parâmetro tipado LogEntry['level']
+R16-075	TP-fraco	segmento de caminho repetido
+R16-076	TP	nome de template comparado em 6 lugares sem enum
+R16-077	TP	nome de template comparado em 5 lugares sem enum
+R16-078	TP-fraco	encoding repetido
+R16-079	TP-fraco	extensão de arquivo repetida
+R16-080	TP	nome de template padrão do mesmo conjunto web/framework
+R16-081	TP-fraco	segmento de caminho repetido
+R18-082	TP-fraco	mutação do config do webpack, API documentada do Next.js
+R18-083	TP	acumulador recebido por parâmetro e mutado
+R18-084	TP-fraco	context.subscriptions.push, idioma documentado da API do VS Code
+R18-085	TP-fraco	context.subscriptions.push, idioma documentado da API do VS Code
+R20-086	TP-fraco	log e segue para o fallback do Workers AI, deliberado
+R20-087	TP-fraco	catch vazio com comentário; reseta estado corrompido
+R20-088	TP-fraco	catch vazio com comentário; clipboard indisponível
+R20-089	TP-fraco	catch vazio com comentário; mantém o STARTER
+R20-090	TP-fraco	catch vazio com comentário; clipboard indisponível
+R20-091	FP	REPL imprime o erro e reabre o prompt; é tratamento explícito na borda
+R20-092	FP	REPL imprime o erro da execução e segue; é tratamento explícito na borda
+R20-093	TP	erro da execução do programa do usuário é impresso e o processo termina com código 0
+R20-094	TP	CLI imprime o erro e termina com código 0
+R20-095	TP	CLI imprime o erro e termina com código 0
+R20-096	TP	CLI imprime o erro e termina com código 0
+R20-097	TP	CLI imprime o erro e termina com código 0
+R14-098	TP	parâmetro texto
+R14-099	TP	chave erro do corpo JSON da API; contrato público que exige mudança coordenada
+R14-100	TP	parâmetro texto
+R14-101	TP	campo texto do contrato da API espelhado no teste
+R14-102	TP	parâmetro marcador
+R14-103	TP	variável chamou
+R14-104	TP	componente DoacaoPage
+R14-105	TP	chave saida da união Tab
+R14-106	TP	chave amarelo do tema
+R14-107	TP	chave linha do retorno de getDetalhes
+R14-108	TP	classe ErroGoiano
+R14-109	TP	variável codigo em teste
+R14-110	TP	variável traduzCommand
+R14-111	TP	variável botaPraMoerCommand
+R14-112	TP	parâmetro do runtime embutido, não observável pelo código .gs
+R14-113	TP	parâmetro do runtime embutido
+R14-114	TP	parâmetro do runtime embutido
+R14-115	TP	parâmetro do runtime embutido
+R14-116	TP	método interno; o REPL despacha por switch, o nome não precisa espelhar o comando
+R14-117	TP	método interno; despacho por switch
+R14-118	TP	método interno; despacho por switch
+R14-119	TP	método interno; commander registra o comando por string
+R14-120	TP	método interno; commander registra o comando por string
+R14-121	TN	keyword da linguagem
+R14-122	TN	keyword da linguagem
+R14-123	TN?	keyword só da tabela do lexer, código morto; fora do transpilador real
+R14-124	TN	keyword da linguagem
+R14-125	TN	keyword da linguagem
+R14-126	TN	keyword da linguagem
+R14-127	TN	função global exposta ao código .gs
+R14-128	TN	função global exposta ao código .gs
+R14-129	TN	Engoiana é nome próprio da funcionalidade
+R14-130	TN?	engoianado é particípio derivado do nome próprio; discutível
+R14-131	TN?	engoianado é particípio derivado do nome próprio; discutível
+R14-132	TN	Goiano é nome próprio do dialeto
+R14-133	TN	Goiano é nome próprio do dialeto

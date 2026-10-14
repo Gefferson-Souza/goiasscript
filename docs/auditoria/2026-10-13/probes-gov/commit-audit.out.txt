@@ -1,0 +1,67 @@
+
+== TODO o histórico (todas as refs): 71 commits (7 merges) -> 64 não-merge analisados
+  formato <type>[(scope)]: descrição : 51 (80%)
+  com scope                          : 3 (5%)  scopes: seguranca, viral, ux
+  descrição em minúscula (entre as conformes): 29/51
+  idioma pt / en / indef              : 36 / 20 / 8
+  assunto > 72 caracteres             : 15 (23%)
+  assunto termina com ponto           : 2 (3%)
+  mensagens vagas / padrão da UI do GitHub : 6 (9%)  25f9d62 a492ede 2bf9ce5 f6f6b6f c04b25f ecade5b
+  com corpo                           : 34 (53%)
+  trailer Co-Authored-By/Claude-Session: 1
+
+== Últimos 60 commits (por data): 60 commits (6 merges) -> 54 não-merge analisados
+  formato <type>[(scope)]: descrição : 43 (80%)
+  com scope                          : 3 (6%)  scopes: seguranca, viral, ux
+  descrição em minúscula (entre as conformes): 26/43
+  idioma pt / en / indef              : 30 / 18 / 6
+  assunto > 72 caracteres             : 14 (26%)
+  assunto termina com ponto           : 2 (4%)
+  mensagens vagas / padrão da UI do GitHub : 5 (9%)  25f9d62 a492ede 2bf9ce5 f6f6b6f c04b25f
+  com corpo                           : 34 (63%)
+  trailer Co-Authored-By/Claude-Session: 1
+
+== Desde o relançamento (>= 2026-05-03): 27 commits (2 merges) -> 25 não-merge analisados
+  formato <type>[(scope)]: descrição : 24 (96%)
+  com scope                          : 3 (12%)  scopes: seguranca, viral, ux
+  descrição em minúscula (entre as conformes): 24/24
+  idioma pt / en / indef              : 23 / 1 / 1
+  assunto > 72 caracteres             : 4 (16%)
+  assunto termina com ponto           : 1 (4%)
+  mensagens vagas / padrão da UI do GitHub : 0 (0%)  
+  com corpo                           : 23 (92%)
+  trailer Co-Authored-By/Claude-Session: 1
+
+== Antes do relançamento (< 2026-05-03): 44 commits (5 merges) -> 39 não-merge analisados
+  formato <type>[(scope)]: descrição : 27 (69%)
+  com scope                          : 0 (0%)  scopes: -
+  descrição em minúscula (entre as conformes): 5/27
+  idioma pt / en / indef              : 13 / 19 / 7
+  assunto > 72 caracteres             : 11 (28%)
+  assunto termina com ponto           : 1 (3%)
+  mensagens vagas / padrão da UI do GitHub : 6 (15%)  25f9d62 a492ede 2bf9ce5 f6f6b6f c04b25f ecade5b
+  com corpo                           : 11 (28%)
+  trailer Co-Authored-By/Claude-Session: 0
+
+--- não conformes desde o relançamento (>= 2026-05-03) ---
+  2066cac 2026-06-01 feat(viral): compartilhar PNG, doacoes, OG image, favicon, prompts e exemplos  [conv=true len=77]
+  f943efe 2026-05-04 fix: adiciona docs/plano ao .gitignore e remove seção de roadmap do README  [conv=true len=74]
+  26b6857 2026-05-04 Remove outdated documentation and plans for GoiásScript v1.5 relaunch, including the detailed roadmap, stack architecture, and pro…  [conv=false len=261]
+  568c3bf 2026-05-04 fix: atualiza .gitignore para incluir a pasta docs/plano e remove duplicação  [conv=true len=76]
+
+--- não conformes antes do relançamento ---
+  f02f968 2025-09-14 Refactor code structure and remove redundant sections for improved readability and maintainability
+  2a3b148 2025-09-14 Remove all files and configurations related to the teste-react-bench project, including package.json, public a
+  067b653 2025-09-12 Add comprehensive tests for GoiasScript compiler, lexer, module resolver, and type analyzer
+  b2fdb21 2025-04-19 Syntax Highlight v0.2.0
+  25f9d62 2025-04-13 Initial commit
+  a492ede 2025-04-13 Create README.md
+  2bf9ce5 2025-04-13 Add files via upload
+  f6f6b6f 2025-04-13 Update README.md
+  56328f3 2025-04-13 Exttensão goiasscript
+  c04b25f 2025-04-13 Update README.md
+  ecade5b 2025-04-13 Update README.md
+  44bde44 2025-04-13 Atualiza exemplos no README para usar corretamente a sintaxe do GoiásScript
+
+--- autoria (nomes distintos) ---
+{"Gefferson-Souza":54,"Gefferson Teodoro de Souza":13,"google-labs-jules[bot]":4}

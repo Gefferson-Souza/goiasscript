@@ -1,0 +1,56 @@
+MAPEAMENTOS: 53 | COM ESCOPO: 50 | SEM ESCOPO: 3
+--- SEM ESCOPO (nenhuma regra da gramática casa) ---
+  vai_na_frente_faz_trem  (-> async function)
+  faz_trem  (-> function)
+  indefinido  (-> undefined)
+--- COM ESCOPO ---
+  é_tipo_de                keyword.operator.logical.goiasscript
+  é_igualim                keyword.operator.logical.goiasscript
+  arruma_trem              storage.type.goiasscript
+  inherda_de               storage.type.goiasscript
+  aprepara_trem            storage.modifier.goiasscript
+  num_muda                 storage.modifier.goiasscript
+  se_ocê_quiser            keyword.control.goiasscript
+  se_num_for               keyword.control.goiasscript
+  se_não                   keyword.control.goiasscript
+  vai_indo                 keyword.control.goiasscript
+  enquanto_tiver           keyword.control.goiasscript
+  para_com_isso            keyword.control.goiasscript
+  continua_aí              keyword.control.goiasscript
+  faz_favor                keyword.control.goiasscript
+  vai_na_frente            storage.modifier.goiasscript
+  espera_um_cadim          storage.modifier.goiasscript
+  diferente                keyword.operator.comparison.goiasscript
+  maior_que                keyword.operator.logical.goiasscript
+  menor_que                keyword.operator.logical.goiasscript
+  pelo_menos               keyword.operator.logical.goiasscript
+  no_máximo                keyword.operator.logical.goiasscript
+  e_mais                   keyword.operator.logical.goiasscript
+  ou_então                 keyword.operator.logical.goiasscript
+  num_é                    keyword.operator.logical.goiasscript
+  mais                     keyword.operator.goiasscript
+  menos                    keyword.operator.goiasscript
+  vezes                    keyword.operator.goiasscript
+  dividido                 keyword.operator.goiasscript
+  sobrou                   keyword.operator.goiasscript
+  prosa                    support.function.goiasscript
+  reclama                  support.function.goiasscript
+  promessa                 support.function.goiasscript
+  quando_resolver          support.function.goiasscript
+  se_der_pobrema           support.function.goiasscript
+  resolve_aí               support.function.goiasscript
+  rejeita_isso             support.function.goiasscript
+  tenta_aí                 keyword.control.goiasscript
+  se_der_ruim              keyword.control.goiasscript
+  por_fim                  keyword.control.goiasscript
+  certeza                  constant.language.goiasscript
+  de_jeito_nenhum          constant.language.goiasscript
+  nada                     storage.type.primitive.goiasscript
+  ocê                      variable.language.this.goiasscript
+  faz_um                   storage.modifier.goiasscript
+  vixe                     support.function.goiasscript
+  em                       keyword.other.goiasscript
+  de                       keyword.other.goiasscript
+  trem                     storage.type.goiasscript
+  uai                      storage.type.goiasscript
+  é                        keyword.operator.goiasscript

@@ -1,0 +1,123 @@
+### CLAUDE.md: "se" simples
+  fonte      : "uai x é 5\nse (x maior_que 1) { prosa(\"maior\") }"
+  transpilou : true | sintaxe JS ok: false | rodou ok: null
+  js usuário : "const x = 5\nse (x > 1) { console.log(\"maior\") }"
+  avisos     : ["⚠️ Ô sô! O método \"console.log(\" não é goiano não! Use \"prosa\" que é mais da hora."]
+  erro       : SyntaxError: Unexpected token '{'
+### CLAUDE.md: "senao"
+  fonte      : "uai x é 0\nse_ocê_quiser (x maior_que 1) { prosa(\"a\") } senao { prosa(\"b\") }"
+  transpilou : true | sintaxe JS ok: false | rodou ok: null
+  js usuário : "const x = 0\nif (x > 1) { console.log(\"a\") } senao { console.log(\"b\") }"
+  avisos     : ["⚠️ Ô sô! O método \"console.log(\" não é goiano não! Use \"prosa\" que é mais da hora."]
+  erro       : SyntaxError: Unexpected token '{'
+### CLAUDE.md: "fazer" (alias de function)
+  fonte      : "fazer soma(a, b) { faz_favor a mais b }\nprosa(soma(1, 2))"
+  transpilou : true | sintaxe JS ok: false | rodou ok: null
+  js usuário : "fazer soma(a, b) { return a + b }\nconsole.log(soma(1, 2))"
+  avisos     : ["⚠️ Ô sô! O método \"console.log(\" não é goiano não! Use \"prosa\" que é mais da hora."]
+  erro       : SyntaxError: Unexpected identifier 'soma'
+### CLAUDE.md: .gritando()
+  fonte      : "prosa(\"oi\".gritando())"
+  transpilou : true | sintaxe JS ok: true | rodou ok: false
+  js usuário : "console.log(\"oi\".gritando())"
+  avisos     : ["⚠️ Ô sô! O método \"console.log(\" não é goiano não! Use \"prosa\" que é mais da hora."]
+  erro       : TypeError: "oi".gritando is not a function
+### CLAUDE.md: .cochichando()
+  fonte      : "prosa(\"OI\".cochichando())"
+  transpilou : true | sintaxe JS ok: true | rodou ok: false
+  js usuário : "console.log(\"OI\".cochichando())"
+  avisos     : ["⚠️ Ô sô! O método \"console.log(\" não é goiano não! Use \"prosa\" que é mais da hora."]
+  erro       : TypeError: "OI".cochichando is not a function
+### CLAUDE.md: .tem_no_meio()
+  fonte      : "prosa(\"abc\".tem_no_meio(\"b\"))"
+  transpilou : true | sintaxe JS ok: true | rodou ok: false
+  js usuário : "console.log(\"abc\".tem_no_meio(\"b\"))"
+  avisos     : ["⚠️ Ô sô! O método \"console.log(\" não é goiano não! Use \"prosa\" que é mais da hora."]
+  erro       : TypeError: "abc".tem_no_meio is not a function
+### CLAUDE.md: .bota_no_final()
+  fonte      : "uai l é [1]\nl.bota_no_final(2)\nprosa(l)"
+  transpilou : true | sintaxe JS ok: true | rodou ok: false
+  js usuário : "const l = [1]\nl.bota_no_final(2)\nconsole.log(l)"
+  avisos     : ["⚠️ Ô sô! O método \"console.log(\" não é goiano não! Use \"prosa\" que é mais da hora."]
+  erro       : TypeError: l.bota_no_final is not a function
+### CLAUDE.md: .arranca_o_rabo()
+  fonte      : "uai l é [1, 2]\nl.arranca_o_rabo()\nprosa(l)"
+  transpilou : true | sintaxe JS ok: true | rodou ok: false
+  js usuário : "const l = [1, 2]\nl.arranca_o_rabo()\nconsole.log(l)"
+  avisos     : ["⚠️ Ô sô! O método \"console.log(\" não é goiano não! Use \"prosa\" que é mais da hora."]
+  erro       : TypeError: l.arranca_o_rabo is not a function
+### CLAUDE.md: GoianoMath.sorteia_um()
+  fonte      : "prosa(GoianoMath.sorteia_um())"
+  transpilou : true | sintaxe JS ok: true | rodou ok: false
+  js usuário : "console.log(GoianoMath.sorteia_um())"
+  avisos     : ["⚠️ Ô sô! O método \"console.log(\" não é goiano não! Use \"prosa\" que é mais da hora."]
+  erro       : TypeError: GoianoMath.sorteia_um is not a function
+### README: GoianoMath.sorteio()
+  fonte      : "prosa(GoianoMath.sorteio() menor_que 1)"
+  transpilou : true | sintaxe JS ok: true | rodou ok: true
+  js usuário : "console.log(GoianoMath.sorteio() < 1)"
+  avisos     : ["⚠️ Ô sô! O método \"console.log(\" não é goiano não! Use \"prosa\" que é mais da hora."]
+  saída      : ["true"]
+### CLAUDE.md: tipos (uai x: texto)
+  fonte      : "uai x: texto é \"a\"\nprosa(x)"
+  transpilou : true | sintaxe JS ok: true | rodou ok: true
+  js usuário : "const x = \"a\"\nconsole.log(x)"
+  avisos     : ["⚠️ Ô sô! O método \"console.log(\" não é goiano não! Use \"prosa\" que é mais da hora."]
+  saída      : ["a"]
+### CLAUDE.md: tipo errado (uai x: numero é "a")
+  fonte      : "uai x: numero é \"a\"\nprosa(x)"
+  transpilou : true | sintaxe JS ok: true | rodou ok: true
+  js usuário : "const x = \"a\"\nconsole.log(x)"
+  avisos     : ["⚠️ Ô sô! O método \"console.log(\" não é goiano não! Use \"prosa\" que é mais da hora."]
+  saída      : ["a"]
+### CLAUDE.md: modulos pega/troca_ideia
+  fonte      : "pega { a } de \"./x.gs\"\nprosa(a)"
+  transpilou : true | sintaxe JS ok: false | rodou ok: null
+  js usuário : "pega { a } of \"./x.gs\"\nconsole.log(a)"
+  avisos     : ["⚠️ Ô sô! O método \"console.log(\" não é goiano não! Use \"prosa\" que é mais da hora."]
+  erro       : SyntaxError: Unexpected token '{'
+### CLAUDE.md: exportar troca_ideia
+  fonte      : "troca_ideia faz_trem f() { faz_favor 1 }"
+  transpilou : true | sintaxe JS ok: false | rodou ok: null
+  js usuário : "troca_ideia function f() { return 1 }"
+  erro       : SyntaxError: Unexpected token 'function'
+### ext README: vai_na_frente presta_serviço
+  fonte      : "vai_na_frente presta_serviço carrega() { faz_favor 1 }"
+  transpilou : true | sintaxe JS ok: false | rodou ok: null
+  js usuário : "async presta_serviço carrega() { return 1 }"
+  erro       : SyntaxError: Unexpected identifier 'presta_serviço'
+### METODOS: .map JS "bloqueado/warning"
+  fonte      : "uai r é [1, 2].map(x => x * 2)\nprosa(r)"
+  transpilou : true | sintaxe JS ok: true | rodou ok: true
+  js usuário : "const r = [1, 2].mapear(x => x * 2)\nconsole.log(r)"
+  avisos     : ["⚠️ Ô sô! O método \"console.log(\" não é goiano não! Use \"prosa\" que é mais da hora."]
+  saída      : ["2,4"]
+### METODOS: Math.random "bloqueado/warning"
+  fonte      : "prosa(Math.random() menor_que 1)"
+  transpilou : true | sintaxe JS ok: true | rodou ok: true
+  js usuário : "console.log(GoianoMath.sorteio() < 1)"
+  avisos     : ["⚠️ Ô sô! O método \"console.log(\" não é goiano não! Use \"prosa\" que é mais da hora."]
+  saída      : ["true"]
+### METODOS: console.log direto
+  fonte      : "console.log(\"oi\")"
+  transpilou : true | sintaxe JS ok: true | rodou ok: true
+  js usuário : "console.log(\"oi\")"
+  avisos     : ["⚠️ Ô sô! O método \"console.log(\" não é goiano não! Use \"prosa\" que é mais da hora."]
+  saída      : ["oi"]
+### prosa simples (gera aviso falso?)
+  fonte      : "prosa(\"oi\")"
+  transpilou : true | sintaxe JS ok: true | rodou ok: true
+  js usuário : "console.log(\"oi\")"
+  avisos     : ["⚠️ Ô sô! O método \"console.log(\" não é goiano não! Use \"prosa\" que é mais da hora."]
+  saída      : ["oi"]
+### ext README: se_der_ruim (erro)
+  fonte      : "tenta_aí { vixe(\"x\") } se_der_ruim (erro) { reclama(\"falhou\") }"
+  transpilou : true | sintaxe JS ok: true | rodou ok: true
+  js usuário : "try { throw new Error(\"x\") } catch (erro) { console.error(\"falhou\") }"
+  saída      : ["[err] falhou"]
+### classes goianas
+  fonte      : "arruma_trem Bixo { aprepara_trem(nome) { ocê.nome é nome } fala() { faz_favor \"oi \" mais ocê.nome } }\nprosa(faz_um Bixo(\"Zé\").fala())"
+  transpilou : true | sintaxe JS ok: true | rodou ok: true
+  js usuário : "class Bixo { constructor(nome) { this.nome = nome } fala() { return \"oi \" + this.nome } }\nconsole.log(new Bixo(\"Zé\").fala())"
+  avisos     : ["⚠️ Ô sô! O método \"console.log(\" não é goiano não! Use \"prosa\" que é mais da hora."]
+  saída      : ["oi Zé"]

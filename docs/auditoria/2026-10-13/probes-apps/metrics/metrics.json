@@ -1,0 +1,1417 @@
+{
+  "files": [
+    {
+      "file": "apps/playground/app/doacao/page.tsx",
+      "lines": 33,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [],
+      "idents": [
+        "DoacaoPage",
+        "description",
+        "metadata",
+        "title"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground/app/engoianador/layout.tsx",
+      "lines": 21,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [],
+      "idents": [
+        "EngoianadorLayout",
+        "children",
+        "description",
+        "metadata",
+        "openGraph",
+        "title",
+        "twitter"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground/app/engoianador/page.tsx",
+      "lines": 187,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [
+        "34-186 (153 linhas) EngoianadorPage"
+      ],
+      "deepNesting": [],
+      "magic": [
+        "67: 1500 em «setTimeout(() => setCopiado(false), 1500)»"
+      ],
+      "idents": [
+        "EngoianadorPage",
+        "MAX_CHARS",
+        "PRESETS",
+        "cardRef",
+        "compartilhando",
+        "copiado",
+        "dataUrl",
+        "e",
+        "entrada",
+        "erro",
+        "executar",
+        "handleCopy",
+        "handlePreset",
+        "handleShare",
+        "label",
+        "loading",
+        "out",
+        "p",
+        "saida",
+        "setCompartilhando",
+        "setCopiado",
+        "setEntrada",
+        "setErro",
+        "setLoading",
+        "setSaida",
+        "texto"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground/app/layout.tsx",
+      "lines": 76,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [],
+      "idents": [
+        "RootLayout",
+        "SITE",
+        "applicationName",
+        "card",
+        "children",
+        "default",
+        "description",
+        "locale",
+        "metadata",
+        "metadataBase",
+        "openGraph",
+        "siteName",
+        "template",
+        "title",
+        "twitter",
+        "type",
+        "url"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground/app/opengraph-image.tsx",
+      "lines": 66,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [
+        "8-65 (58 linhas) OpengraphImage"
+      ],
+      "deepNesting": [],
+      "magic": [
+        "4: 1200 em «width: 1200»",
+        "4: 630 em «height: 630»",
+        "19: 72 em «padding: 72»",
+        "24: 76 em «fontSize: 76»",
+        "24: 800 em «fontWeight: 800»",
+        "27: 34 em «fontSize: 34»",
+        "27: 8 em «marginTop: 8»",
+        "38: 16 em «borderRadius: 16»",
+        "39: 28 em «padding: 28»",
+        "40: 30 em «fontSize: 30»",
+        "47: 6 em «marginTop: 6»",
+        "54: 26 em «fontSize: 26»"
+      ],
+      "idents": [
+        "OpengraphImage",
+        "alt",
+        "background",
+        "border",
+        "borderRadius",
+        "color",
+        "contentType",
+        "display",
+        "flexDirection",
+        "fontFamily",
+        "fontSize",
+        "fontWeight",
+        "height",
+        "justifyContent",
+        "marginTop",
+        "padding",
+        "size",
+        "width"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground/app/page.tsx",
+      "lines": 66,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [],
+      "idents": [
+        "Editor",
+        "PlaygroundPage",
+        "STARTER",
+        "code",
+        "loading",
+        "m",
+        "outcome",
+        "prev",
+        "r",
+        "run",
+        "setCode",
+        "ssr",
+        "text"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground/components/DonationLinks.tsx",
+      "lines": 103,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [
+        "11-102 (92 linhas) DonationLinks"
+      ],
+      "deepNesting": [],
+      "magic": [
+        "18: 1800 em «setTimeout(() => setCopiado(false), 1800)»"
+      ],
+      "idents": [
+        "DonationLinks",
+        "KOFI_URL",
+        "PIX_KEY",
+        "Props",
+        "SPONSORS_URL",
+        "copiado",
+        "copiarPix",
+        "setCopiado",
+        "variant"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground/components/Editor.tsx",
+      "lines": 41,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [
+        "29: 14 em «fontSize: 14»",
+        "33: 2 em «tabSize: 2»"
+      ],
+      "idents": [
+        "Editor",
+        "Props",
+        "_editor",
+        "automaticLayout",
+        "enabled",
+        "fontSize",
+        "handleMount",
+        "lineNumbers",
+        "minimap",
+        "monaco",
+        "onChange",
+        "paths",
+        "renderLineHighlight",
+        "scrollBeyondLastLine",
+        "tabSize",
+        "v",
+        "value",
+        "vs",
+        "wordWrap"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground/components/OutputPanel.tsx",
+      "lines": 141,
+      "any": [],
+      "asCast": [
+        "27: as Tab[]"
+      ],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [
+        "13-75 (63 linhas) OutputPanel"
+      ],
+      "deepNesting": [],
+      "magic": [],
+      "idents": [
+        "ErrosView",
+        "JsView",
+        "OutputPanel",
+        "SaidaView",
+        "TAB_LABELS",
+        "Tab",
+        "entry",
+        "errorMessage",
+        "erros",
+        "i",
+        "js",
+        "level",
+        "logs",
+        "message",
+        "outcome",
+        "parts",
+        "saida",
+        "setTab",
+        "t",
+        "tab"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground/components/ShareCard.tsx",
+      "lines": 43,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [
+        "17: 600 em «width: 600»"
+      ],
+      "idents": [
+        "Props",
+        "ShareCard",
+        "engoianado",
+        "original",
+        "ref",
+        "width"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": [
+          6
+        ]
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground/components/Toolbar.tsx",
+      "lines": 82,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [
+        "63: console.error"
+      ],
+      "letDecl": [],
+      "longFunctions": [
+        "13-81 (69 linhas) Toolbar"
+      ],
+      "deepNesting": [],
+      "magic": [],
+      "idents": [
+        "ExampleEntry",
+        "Props",
+        "Toolbar",
+        "arquivo",
+        "code",
+        "e",
+        "entry",
+        "err",
+        "ex",
+        "examples",
+        "handlePickExample",
+        "nome",
+        "onClear",
+        "onLoadExample",
+        "onRun",
+        "r",
+        "res",
+        "running",
+        "selecionado",
+        "setExamples",
+        "setSelecionado",
+        "text"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [
+          "60: setSelecionado(''); // reseta pro placeholder (permite repicar o mesmo)"
+        ],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground/lib/engoianador-client.ts",
+      "lines": 51,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [
+        21,
+        36
+      ],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [],
+      "idents": [
+        "DEV_URL",
+        "body",
+        "data",
+        "engoianado",
+        "engoianar",
+        "env",
+        "err",
+        "erro",
+        "getEngoianadorUrl",
+        "headers",
+        "isProd",
+        "method",
+        "res",
+        "texto"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground/lib/monaco-goias.ts",
+      "lines": 184,
+      "any": [],
+      "asCast": [
+        "136: as [string, string]",
+        "137: as [string, string][]",
+        "180: as never"
+      ],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [
+        174
+      ],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [],
+      "idents": [
+        "GOIAS_LANGUAGE_ID",
+        "autoClosingPairs",
+        "base",
+        "blockComment",
+        "brackets",
+        "builtins",
+        "cases",
+        "close",
+        "colors",
+        "comment",
+        "comments",
+        "constants",
+        "defaultToken",
+        "extensions",
+        "fontStyle",
+        "foreground",
+        "goiasDarkTheme",
+        "goiasLanguageConfig",
+        "goiasMonarchLanguage",
+        "id",
+        "inherit",
+        "keywords",
+        "lineComment",
+        "monaco",
+        "open",
+        "operators",
+        "registerGoiasScript",
+        "registered",
+        "root",
+        "rules",
+        "storage",
+        "symbols",
+        "token",
+        "tokenPostfix",
+        "tokenizer",
+        "types"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground/lib/share.ts",
+      "lines": 36,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [
+        "11: 2 em «pixelRatio: 2»"
+      ],
+      "idents": [
+        "SHARE_SITE",
+        "SITE",
+        "a",
+        "backgroundColor",
+        "cacheBust",
+        "dataUrl",
+        "downloadDataUrl",
+        "filename",
+        "node",
+        "nodeToPng",
+        "openTwitterIntent",
+        "pixelRatio",
+        "texto",
+        "url"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": [
+          5,
+          17,
+          27
+        ]
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground/lib/use-runner.ts",
+      "lines": 90,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [
+        "16-89 (74 linhas) useRunner"
+      ],
+      "deepNesting": [],
+      "magic": [],
+      "idents": [
+        "HARD_TIMEOUT_MS",
+        "LogEntry",
+        "RunOutcome",
+        "code",
+        "data",
+        "err",
+        "event",
+        "js",
+        "kind",
+        "level",
+        "logs",
+        "message",
+        "outcome",
+        "partialLogsRef",
+        "parts",
+        "run",
+        "setOutcome",
+        "teardown",
+        "timeoutRef",
+        "type",
+        "useRunner",
+        "worker",
+        "workerRef"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground/workers/runner.worker.ts",
+      "lines": 103,
+      "any": [],
+      "asCast": [
+        "19: as { name?: string }"
+      ],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [
+        "21: 2 em «JSON.stringify(v, null, 2)»"
+      ],
+      "idents": [
+        "DANGEROUS",
+        "InMessage",
+        "LogEntry",
+        "RunMessage",
+        "apply",
+        "args",
+        "blocked",
+        "code",
+        "compiler",
+        "construct",
+        "debug",
+        "entry",
+        "err",
+        "error",
+        "event",
+        "fn",
+        "formatArg",
+        "get",
+        "info",
+        "js",
+        "jsCode",
+        "level",
+        "log",
+        "logs",
+        "message",
+        "msg",
+        "name",
+        "negado",
+        "parts",
+        "record",
+        "result",
+        "runUser",
+        "stubConsole",
+        "type",
+        "v",
+        "warn",
+        "warnings"
+      ],
+      "comments": {
+        "over4": [
+          "44-51 (8 linhas)"
+        ],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": [
+        "73: // eslint-disable-next-line no-new-func"
+      ]
+    },
+    {
+      "file": "apps/engoianador-api/src/cors.ts",
+      "lines": 33,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [
+        "31: 204 em «status: 204»"
+      ],
+      "idents": [
+        "BASE_HEADERS",
+        "Vary",
+        "allowed",
+        "corsHeaders",
+        "env",
+        "handlePreflight",
+        "headers",
+        "origin",
+        "request",
+        "s",
+        "status"
+      ],
+      "comments": {
+        "over4": [
+          "10-15 (6 linhas)"
+        ],
+        "trailing": [],
+        "jsdoc": [
+          10
+        ]
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/engoianador-api/src/engoiana.ts",
+      "lines": 84,
+      "any": [],
+      "asCast": [
+        "55: as {\n    choices?: Array<{ message?: { cont",
+        "65: as { response?: string }"
+      ],
+      "nonNull": [],
+      "consoleCalls": [
+        "22: console.warn"
+      ],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [
+        "44: 0.7 em «temperature: 0.7»",
+        "45: 1024 em «max_tokens: 1024»",
+        "49: 15000 em «AbortSignal.timeout(15000)»"
+      ],
+      "idents": [
+        "AI",
+        "ALLOWED_ORIGINS",
+        "ALLOW_UNLIMITED",
+        "Authorization",
+        "ENGOIANADOR_RL",
+        "Env",
+        "GROQ_API_KEY",
+        "GROQ_MODEL",
+        "MAX_INPUT_CHARS",
+        "RATE_LIMIT_PER_DAY",
+        "WORKERS_AI_MODEL",
+        "apiKey",
+        "body",
+        "callGroq",
+        "callWorkersAI",
+        "choices",
+        "content",
+        "data",
+        "engoianarTexto",
+        "env",
+        "err",
+        "headers",
+        "input",
+        "max_tokens",
+        "message",
+        "messages",
+        "method",
+        "model",
+        "out",
+        "res",
+        "response",
+        "run",
+        "s",
+        "signal",
+        "stream",
+        "stripWrappingQuotes",
+        "temperature",
+        "texto"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/engoianador-api/src/index.ts",
+      "lines": 113,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [
+        "104: console.error"
+      ],
+      "letDecl": [
+        48
+      ],
+      "longFunctions": [
+        "47-112 (66 linhas) handleEngoiana"
+      ],
+      "deepNesting": [],
+      "magic": [
+        "31: 200 em «status: 200»",
+        "40: 404 em «status: 404»",
+        "52: 400 em «status: 400»",
+        "56: 10 em «parseInt(env.MAX_INPUT_CHARS || '2000', 10)»",
+        "61: 400 em «status: 400»",
+        "69: 413 em «status: 413»",
+        "82: 503 em «status: 503»",
+        "91: 429 em «status: 429»",
+        "101: 200 em «status: 200»",
+        "107: 502 em «status: 502»"
+      ],
+      "idents": [
+        "STATUS",
+        "body",
+        "endpoints",
+        "engoianado",
+        "env",
+        "err",
+        "erro",
+        "fetch",
+        "handleEngoiana",
+        "headers",
+        "init",
+        "ip",
+        "jsonResponse",
+        "maxChars",
+        "message",
+        "ok",
+        "request",
+        "rl",
+        "status",
+        "texto",
+        "url",
+        "versao"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/engoianador-api/src/prompt.ts",
+      "lines": 66,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [],
+      "idents": [
+        "FEW_SHOT",
+        "SYSTEM_PROMPT",
+        "buildMessages",
+        "content",
+        "role",
+        "safe",
+        "sanitizeUserText",
+        "texto"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": [
+          49
+        ]
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/engoianador-api/src/rate-limit.ts",
+      "lines": 56,
+      "any": [],
+      "asCast": [
+        "15: as Partial<Bucket>"
+      ],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [
+        "8: 24 em «24 * 60»",
+        "8: 60 em «24 * 60»",
+        "8: 60 em «24 * 60 * 60»",
+        "40: 10 em «parseInt(env.RATE_LIMIT_PER_DAY || '20', 10)»",
+        "42: 1000 em «Date.now() / 1000»",
+        "52: 60 em «WINDOW_SEC + 60»"
+      ],
+      "idents": [
+        "Bucket",
+        "RateLimitResult",
+        "WINDOW_SEC",
+        "bucket",
+        "checkRateLimit",
+        "count",
+        "env",
+        "expirationTtl",
+        "ip",
+        "key",
+        "limit",
+        "next",
+        "now",
+        "ok",
+        "parseBucket",
+        "parsed",
+        "raw",
+        "reason",
+        "retryAfterSec",
+        "windowStart"
+      ],
+      "comments": {
+        "over4": [
+          "29-33 (5 linhas)"
+        ],
+        "trailing": [
+          "8: const WINDOW_SEC = 24 * 60 * 60; // janela diária (plano: 20 req/dia)",
+          "36: if (env.ALLOW_UNLIMITED === 'true') return { ok: true }; // só dev"
+        ],
+        "jsdoc": [
+          29
+        ]
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/engoianador-api/test/cors.test.ts",
+      "lines": 41,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [],
+      "idents": [
+        "ALLOWED",
+        "ALLOWED_ORIGINS",
+        "h",
+        "headers",
+        "origin",
+        "reqWithOrigin"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/engoianador-api/test/helpers.ts",
+      "lines": 26,
+      "any": [],
+      "asCast": [
+        "19: as Env"
+      ],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [],
+      "idents": [
+        "ALLOWED_ORIGINS",
+        "MAX_INPUT_CHARS",
+        "RATE_LIMIT_PER_DAY",
+        "delete",
+        "fakeKV",
+        "get",
+        "key",
+        "makeEnv",
+        "overrides",
+        "put",
+        "store",
+        "value"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": [
+          3
+        ]
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/engoianador-api/test/prompt.test.ts",
+      "lines": 45,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [],
+      "idents": [
+        "abre",
+        "fecha",
+        "last",
+        "malicioso",
+        "msgs"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/engoianador-api/test/rate-limit.test.ts",
+      "lines": 49,
+      "any": [],
+      "asCast": [
+        "19: as never",
+        "35: as never",
+        "44: as never"
+      ],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [],
+      "idents": [
+        "ALLOW_UNLIMITED",
+        "ENGOIANADOR_RL",
+        "RATE_LIMIT_PER_DAY",
+        "env",
+        "ip",
+        "kv",
+        "quarta",
+        "r"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground-e2e/tests/doacao.spec.ts",
+      "lines": 23,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [],
+      "idents": [
+        "context",
+        "main",
+        "name",
+        "page"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground-e2e/tests/engoianador.spec.ts",
+      "lines": 44,
+      "any": [],
+      "asCast": [
+        "6: as { texto?: string }"
+      ],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [
+        "8: 200 em «status: 200»",
+        "10: 80 em «`Ô sô: ${body?.texto ?? ''}`.slice(0, 80)»",
+        "19: 15000 em «timeout: 15_000»",
+        "28: 15000 em «timeout: 15_000»",
+        "34: 503 em «status: 503»",
+        "40: 15000 em «timeout: 15_000»"
+      ],
+      "idents": [
+        "body",
+        "contentType",
+        "engoianado",
+        "name",
+        "page",
+        "route",
+        "status",
+        "texto",
+        "timeout"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground-e2e/tests/examples.spec.ts",
+      "lines": 44,
+      "any": [
+        13
+      ],
+      "asCast": [
+        "13: as { monaco?: any }",
+        "13: as unknown"
+      ],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [
+        "7: 15000 em «timeout: 15_000»",
+        "16: 15000 em «timeout: 15_000»",
+        "20: 15000 em «timeout: 15_000»"
+      ],
+      "idents": [
+        "carregarExemplo",
+        "label",
+        "m",
+        "marcador",
+        "monaco",
+        "name",
+        "page",
+        "timeout"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground-e2e/tests/home.spec.ts",
+      "lines": 23,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [
+        "13: 15000 em «timeout: 15_000»"
+      ],
+      "idents": [
+        "name",
+        "page",
+        "timeout"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground-e2e/tests/security.spec.ts",
+      "lines": 42,
+      "any": [
+        26,
+        28
+      ],
+      "asCast": [
+        "26: as any",
+        "28: as any"
+      ],
+      "nonNull": [
+        6
+      ],
+      "consoleCalls": [],
+      "letDecl": [
+        16
+      ],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [
+        "23: 15000 em «timeout: 15_000»",
+        "35: 15000 em «timeout: 15_000»"
+      ],
+      "idents": [
+        "chamou",
+        "csp",
+        "headers",
+        "m",
+        "name",
+        "page",
+        "res",
+        "route",
+        "timeout"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [
+          "9: expect(csp).toContain(\"connect-src 'self'\"); // bloqueia exfiltração"
+        ],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground-e2e/playwright.config.ts",
+      "lines": 38,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [
+        "10: 30000 em «timeout: 30_000»",
+        "27: 180000 em «timeout: 180_000»"
+      ],
+      "idents": [
+        "BASE",
+        "NEXT_PUBLIC_ENGOIANADOR_URL",
+        "PORT",
+        "baseURL",
+        "command",
+        "cwd",
+        "env",
+        "fullyParallel",
+        "name",
+        "projects",
+        "reporter",
+        "retries",
+        "reuseExistingServer",
+        "screenshot",
+        "testDir",
+        "timeout",
+        "trace",
+        "url",
+        "use",
+        "webServer"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/engoianador-api/vitest.config.ts",
+      "lines": 9,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [],
+      "idents": [
+        "environment",
+        "include",
+        "test"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground/next.config.mjs",
+      "lines": 47,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [],
+      "idents": [
+        "config",
+        "connectExtra",
+        "csp",
+        "engoianadorUrl",
+        "fs",
+        "headers",
+        "key",
+        "nextConfig",
+        "path",
+        "reactStrictMode",
+        "securityHeaders",
+        "source",
+        "transpilePackages",
+        "value",
+        "webpack"
+      ],
+      "comments": {
+        "over4": [
+          "3-7 (5 linhas)"
+        ],
+        "trailing": [],
+        "jsdoc": [
+          1
+        ]
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground/tailwind.config.ts",
+      "lines": 27,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [],
+      "idents": [
+        "amarelo",
+        "borda",
+        "colors",
+        "config",
+        "content",
+        "extend",
+        "fontFamily",
+        "fundo",
+        "goias",
+        "mono",
+        "painel",
+        "plugins",
+        "terra",
+        "texto",
+        "theme",
+        "verde"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    },
+    {
+      "file": "apps/playground/scripts/copy-examples.mjs",
+      "lines": 59,
+      "any": [],
+      "asCast": [],
+      "nonNull": [],
+      "consoleCalls": [
+        "24: console.warn",
+        "28: console.log",
+        "44: console.warn",
+        "51: console.log",
+        "56: console.error"
+      ],
+      "letDecl": [],
+      "longFunctions": [],
+      "deepNesting": [],
+      "magic": [
+        "50: 2 em «JSON.stringify(manifest, null, 2)»"
+      ],
+      "idents": [
+        "CORE",
+        "CURATED",
+        "DEST",
+        "PUBLIC",
+        "__dirname",
+        "arquivo",
+        "copyMonaco",
+        "err",
+        "ex",
+        "from",
+        "main",
+        "manifest",
+        "monacoPkg",
+        "nome",
+        "recursive",
+        "require",
+        "src",
+        "vsDest",
+        "vsSrc"
+      ],
+      "comments": {
+        "over4": [],
+        "trailing": [],
+        "jsdoc": []
+      },
+      "directives": []
+    }
+  ],
+  "totals": {
+    "files": 35,
+    "lines": 2192,
+    "any": 3,
+    "asCast": 17,
+    "asConst": 3,
+    "nonNull": 1,
+    "tsIgnore": 0,
+    "eslintDisable": 1,
+    "consoleCalls": 8,
+    "letDecl": 5,
+    "varDecl": 0,
+    "longFunctions": 7,
+    "deepNesting": 0,
+    "magicNumbers": 54,
+    "commentBlocksOver4": 4,
+    "trailingComments": 4,
+    "jsdocBlocks": 9
+  }
+}

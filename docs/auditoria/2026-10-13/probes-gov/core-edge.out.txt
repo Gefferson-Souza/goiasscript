@@ -1,0 +1,40 @@
+### DEVELOPMENT-fix: continua_aí/para_com_isso seguidos de ;
+  fonte      : "trem a é 0\nenquanto_tiver (a menor_que 5) {\n  continua_aí;\n  para_com_isso;\n}"
+  js usuário : "var a = 0\nwhile (a < 5) {\n  continua_aí;\n  para_com_isso;\n}"
+  sintaxe ok : true | rodou ok: false | ReferenceError: continua_aí is not defined
+### de_jeito_nenhum seguido de ;
+  fonte      : "uai c é de_jeito_nenhum;\nprosa(c)"
+  js usuário : "const c = de_jeito_nenhum;\nconsole.log(c)"
+  sintaxe ok : true | rodou ok: true | saída: ["false"]
+### template literal com keyword dentro
+  fonte      : "uai a é 1\nuai b é 2\nprosa(`soma: ${a} mais ${b}`)"
+  js usuário : "const a = 1\nconst b = 2\nconsole.log(`soma: ${a} + ${b}`)"
+  sintaxe ok : true | rodou ok: true | saída: ["soma: 1 + 2"]
+### comentário com keyword
+  fonte      : "// Clica em mais um\nprosa(\"oi\")"
+  js usuário : "// Clica in + um\nconsole.log(\"oi\")"
+  sintaxe ok : true | rodou ok: true | saída: ["oi"]
+### identificador chamado "de"
+  fonte      : "uai de é 1\nprosa(de)"
+  js usuário : "const of = 1\nconsole.log(of)"
+  sintaxe ok : true | rodou ok: true | saída: ["1"]
+### identificador chamado "mais"
+  fonte      : "uai mais é 1\nprosa(mais)"
+  js usuário : "const + = 1\nconsole.log(+)"
+  sintaxe ok : false | rodou ok: null | SyntaxError: Unexpected token '+'
+### propriedade chamada "nada"
+  fonte      : "uai o é { nada: 1 }\nprosa(o.nada)"
+  js usuário : "const o = { null: 1 }\nconsole.log(o.null)"
+  sintaxe ok : true | rodou ok: true | saída: ["1"]
+### chave de objeto "em"
+  fonte      : "uai o é { em: 1 }\nprosa(o.em)"
+  js usuário : "const o = { in: 1 }\nconsole.log(o.in)"
+  sintaxe ok : true | rodou ok: true | saída: ["1"]
+### string com aspas simples + keyword
+  fonte      : "prosa('mais um trem')"
+  js usuário : "console.log('mais um trem')"
+  sintaxe ok : true | rodou ok: true | saída: ["mais um trem"]
+### ASI: linha iniciando com [
+  fonte      : "uai a é \"x\"\n[1, 2].mapear(n => n)"
+  js usuário : "const a = \"x\"\n[1, 2].mapear(n => n)"
+  sintaxe ok : true | rodou ok: false | TypeError: Cannot read properties of undefined (reading 'mapear')

@@ -1,0 +1,26 @@
+TOTAL blocos: 25 {"OK":15,"REF_ERROR(fragmento)":8,"ERRO_EXECUCAO":1,"SINTAXE_JS_INVALIDA":1}
+OK                     README.md:39 [goiasscript] 
+OK                     README.md:98 [goiasscript] 
+REF_ERROR(fragmento)   README.md:122 [goiasscript] -> ReferenceError: idade is not defined
+OK                     README.md:138 [goiasscript] 
+ERRO_EXECUCAO          README.md:164 [goiasscript] -> TypeError: "Oi sô".trocar(...)[(1 , 2 , 3)].mapear is not a function
+REF_ERROR(fragmento)   docs/METODOS_GOIANOS.md:18 [goiasscript] -> ReferenceError: nome is not defined
+OK                     docs/METODOS_GOIANOS.md:54 [goiasscript] 
+REF_ERROR(fragmento)   docs/METODOS_GOIANOS.md:64 [goiasscript] -> ReferenceError: nome is not defined
+REF_ERROR(fragmento)   docs/METODOS_GOIANOS.md:79 [goiasscript] -> ReferenceError: nome is not defined
+OK                     docs/METODOS_GOIANOS.md:96 [goiasscript] 
+REF_ERROR(fragmento)   docs/METODOS_GOIANOS.md:113 [goiasscript] -> ReferenceError: numeros is not defined
+REF_ERROR(fragmento)   docs/METODOS_GOIANOS.md:122 [goiasscript] -> ReferenceError: numeros is not defined
+OK                     docs/METODOS_GOIANOS.md:145 [goiasscript] 
+OK                     docs/METODOS_GOIANOS.md:170 [goiasscript] 
+OK                     docs/METODOS_GOIANOS.md:175 [goiasscript] 
+OK                     docs/METODOS_GOIANOS.md:184 [goiasscript] 
+OK                     docs/METODOS_GOIANOS.md:191 [goiasscript] 
+REF_ERROR(fragmento)   docs/METODOS_GOIANOS.md:197 [goiasscript] -> ReferenceError: GoianoGoianoMath is not defined
+OK                     docs/METODOS_GOIANOS.md:206 [goiasscript] 
+OK                     docs/METODOS_GOIANOS.md:223 [goiasscript] 
+REF_ERROR(fragmento)   docs/METODOS_GOIANOS.md:230 [goiasscript] -> ReferenceError: timerId is not defined
+OK                     docs/METODOS_GOIANOS.md:247 [goiasscript] 
+OK                     docs/METODOS_GOIANOS.md:258 [goiasscript] 
+OK                     docs/METODOS_GOIANOS.md:276 [goiasscript] 
+SINTAXE_JS_INVALIDA    docs/METODOS_GOIANOS.md:297 [goiasscript] -> SyntaxError: Unexpected token '{'

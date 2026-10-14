@@ -1,0 +1,122 @@
+
+### template literal com palavra-chave no texto
+gs : "uai n é 3;\nprosa(`Tem mais de ${n} em estoque, nada a declarar`);"
+js : "const n = 3;\nconsole.log(`Tem + of ${n} in estoque, null a declarar`);"
+warnings: 1
+parse ok; exec ok -> ["Tem + of 3 in estoque, null a declarar"]
+
+### palavra-chave dentro de string simples
+gs : "prosa(\"Tem mais de 3 em estoque, nada a declarar\");"
+js : "console.log(\"Tem mais de 3 em estoque, nada a declarar\");"
+warnings: 1
+parse ok; exec ok -> ["Tem mais de 3 em estoque, nada a declarar"]
+
+### palavra-chave em comentario
+gs : "// uai isso é um trem de comentario com mais de nada\nprosa(\"oi\");"
+js : "// const isso = um var of comentario com + of null\nconsole.log(\"oi\");"
+warnings: 1
+parse ok; exec ok -> ["oi"]
+
+### regex literal com palavra-chave
+gs : "uai r é /mais|menos/;\nprosa(r.test(\"mais\"));"
+js : "const r = /+|-/;\nconsole.log(r.test(\"mais\"));"
+warnings: 1
+parse INVALIDO (Invalid regular expression: /+|-/: Nothing to repeat); 
+
+### string nao fechada
+gs : "prosa(\"abc);"
+js : "console.log(\"abc);"
+warnings: 1
+parse INVALIDO (Invalid or unexpected token); 
+
+### placeholder colide com identificador
+gs : "uai __STRING_0__ é 5;\nprosa(\"a\");\nprosa(__STRING_0__);"
+js : "const \"a\" = 5;\nconsole.log(__STRING_0__);\nconsole.log(__STRING_0__);"
+warnings: 1
+parse INVALIDO (Unexpected string); 
+
+### codigo vazio
+gs : ""
+js : ""
+warnings: 0
+parse ok; exec ok -> []
+
+### so comentario
+gs : "// nada"
+js : "// null"
+warnings: 0
+parse ok; exec ok -> []
+
+### aspas aninhadas/escapadas
+gs : "prosa(\"ele disse \\\"mais\\\" ontem\");"
+js : "console.log(\"ele disse \\\"mais\\\" ontem\");"
+warnings: 1
+parse ok; exec ok -> ["ele disse \"mais\" ontem"]
+
+### propriedade chamada "de"/"em"
+gs : "uai o é { de: 1, em: 2 };\nprosa(o.de mais o.em);"
+js : "const o = { of: 1, in: 2 };\nconsole.log(o.of + o.in);"
+warnings: 1
+parse ok; exec ok -> ["3"]
+
+### identificador contendo palavra-chave
+gs : "uai mais_um é 1;\nuai demais é 2;\nprosa(mais_um mais demais);"
+js : "const mais_um = 1;\nconst demais = 2;\nconsole.log(mais_um + demais);"
+warnings: 1
+parse ok; exec ok -> ["3"]
+
+### uso de .length (convertido para .tamanho())
+gs : "uai l é [1,2,3];\nprosa(l.length);"
+js : "const l = [1,2,3];\nconsole.log(l.tamanho());"
+warnings: 1
+parse ok; exec ok -> ["3"]
+
+### objeto com campo length
+gs : "uai o é { length: 7 };\nprosa(o.length);"
+js : "const o = { length: 7 };\nconsole.log(o.tamanho());"
+warnings: 1
+parse ok; exec ERRO TypeError: o.tamanho is not a function
+
+### string.length em string vazia
+gs : "prosa(\"\".length);"
+js : "console.log(\"\".tamanho());"
+warnings: 1
+parse ok; exec ok -> ["0"]
+
+### Math.max com spread
+gs : "prosa(Math.max(...[1,5,3]));"
+js : "console.log(GoianoMath.maior(...[1,5,3]));"
+warnings: 1
+parse ok; exec ok -> ["5"]
+
+### comparacao encadeada com e_mais
+gs : "uai a é 5;\nse_ocê_quiser (a maior_que 1 e_mais a menor_que 10) { prosa(\"dentro\"); }"
+js : "const a = 5;\nif (a > 1 && a < 10) { console.log(\"dentro\"); }"
+warnings: 1
+parse ok; exec ok -> ["dentro"]
+
+### else if
+gs : "uai a é 5;\nse_ocê_quiser (a maior_que 9) { prosa(\"A\"); } se_num_for (a maior_que 3) { prosa(\"B\"); } se_não { prosa(\"C\"); }"
+js : "const a = 5;\nif (a > 9) { console.log(\"A\"); } else if (a > 3) { console.log(\"B\"); } else { console.log(\"C\"); }"
+warnings: 1
+parse ok; exec ok -> ["B"]
+
+### while + break
+gs : "uai i é 0;\nenquanto_tiver (certeza) { i é i mais 1; se_ocê_quiser (i pelo_menos 3) { para_com_isso; } }\nprosa(i);"
+js : "const i = 0;\nwhile (true) { i = i + 1; if (i >= 3) { para_com_isso; } }\nconsole.log(i);"
+warnings: 1
+parse ok; exec ERRO TypeError: Assignment to constant variable.
+
+### try/catch/finally
+gs : "tenta_aí { vixe \"xi\"; } se_der_ruim (e) { prosa(e.message); } por_fim { prosa(\"fim\"); }"
+js : "try { throw new Error \"xi\"; } catch (e) { console.log(e.message); } finally { console.log(\"fim\"); }"
+warnings: 1
+parse INVALIDO (Unexpected string); 
+
+### for
+gs : "vai_indo (uai i é 0; i menor_que 3; i é i mais 1) { prosa(i); }"
+js : "for (const i = 0; i < 3; i = i + 1) { console.log(i); }"
+warnings: 1
+parse ok; exec ERRO TypeError: Assignment to constant variable.
+
+JS invalido gerado com success=true em 4 casos

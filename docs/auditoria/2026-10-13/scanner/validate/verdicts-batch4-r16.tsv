@@ -1,0 +1,21 @@
+@R16|apps/playground/app/opengraph-image.tsx|16|"column" x3	FP	valor CSS de flexDirection, tipado por CSSProperties
+@R16|apps/playground/lib/monaco-goias.ts|98|"comment" x6	TP-fraco	nome de token do Monarch repetido em tabela declarativa
+@R16|apps/playground/lib/monaco-goias.ts|100|"string" x3	TP-fraco	nome de token do Monarch repetido em tabela declarativa
+@R16|packages/core/bin/goiasscript.js|296|"Desenvolvedor Goiano" x4	TP-fraco	autor padrão repetido; erro de digitação só muda um texto padrão
+@R16|packages/core/bin/goiasscript.js|313|"goiasscript" x3	TP-fraco	nome do pacote em template, três sentidos distintos
+@R16|packages/core/bin/goiasscript.js|297|"package.json" x3	TP-fraco	nome de arquivo repetido
+@R16|packages/core/bin/goiasscript.js|188|"scripts" x3	TP-fraco	segmento de caminho repetido
+@R16|packages/core/bin/goiasscript.js|201|"templates" x3	TP-fraco	segmento de caminho repetido
+@R16|packages/core/bin/goiasscript.js|36|"utf8" x3	TP-fraco	encoding repetido
+@R16|packages/core/src/cli/index.js|106|"utf8" x3	TP-fraco	encoding repetido
+@R16|packages/core/src/compiler.js|89|"script.gs" x7	TP-fraco	nome de arquivo padrão repetido 7 vezes em assinaturas
+@R16|vscode-extension/src/extension.js|29|"goiasscript" x4	TP	id da linguagem repetido; inconsistência quebra o registro da extensão
+@R16|apps/playground/app/opengraph-image.tsx|15|"flex" x4	FP	valor CSS de display, tipado por CSSProperties
+@R16|apps/playground/workers/runner.worker.ts|37|"log" x3	FP	nível de log passado a parâmetro tipado LogEntry['level']
+@R16|packages/core/bin/goiasscript.js|178|"src" x8	TP-fraco	segmento de caminho repetido
+@R16|packages/core/bin/goiasscript.js|182|"web" x7	TP	nome de template comparado em 6 lugares sem enum
+@R16|packages/core/bin/goiasscript.js|184|"framework" x6	TP	nome de template comparado em 5 lugares sem enum
+@R16|packages/core/bin/goiasscript.js|205|"utf-8" x4	TP-fraco	encoding repetido
+@R16|packages/core/bin/goiasscript.js|75|".gs" x3	TP-fraco	extensão de arquivo repetida
+@R16|packages/core/bin/goiasscript.js|163|"basic" x3	TP	nome de template padrão do mesmo conjunto web/framework
+@R16|packages/core/bin/goiasscript.js|183|"public" x3	TP-fraco	segmento de caminho repetido

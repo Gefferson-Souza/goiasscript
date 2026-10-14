@@ -1,0 +1,16 @@
+SINTAXE_JS_INVALIDA  packages/core/examples/advanced/teste_classes.gs  -> SyntaxError: Unexpected identifier 'ComidaGoiana'
+SINTAXE_JS_INVALIDA  packages/core/examples/advanced/teste_classes_simples.gs  -> SyntaxError: Unexpected identifier 'faizBaruio'
+OK                   packages/core/examples/advanced/teste_erros.gs
+SINTAXE_JS_INVALIDA  packages/core/examples/advanced/teste_instanceof.gs  -> SyntaxError: Unexpected identifier 'fazerVeiculoFuncionar'
+SINTAXE_JS_INVALIDA  packages/core/examples/async/async_exemplo.gs  -> SyntaxError: Unexpected identifier 'esperaUmPoquim'
+OK                   packages/core/examples/basic/exemplo.gs
+SINTAXE_JS_INVALIDA  packages/core/examples/basic/exemplo_simples.gs  -> SyntaxError: Unexpected identifier 'presta_serviço'
+OK                   packages/core/examples/basic/lista-mapeamento.gs
+OK                   packages/core/examples/basic/ola-mundo.gs
+SINTAXE_JS_INVALIDA  packages/core/examples/classes/exemplo_classes.gs  -> SyntaxError: Unexpected identifier 'Pamonharia'
+OK                   packages/core/examples/classes/pequi.gs
+OK                   packages/core/templates/basic-template.gs
+SINTAXE_JS_INVALIDA  packages/core/templates/projeto-basico/src/main.gs  -> SyntaxError: Unexpected identifier 'saudar'
+SINTAXE_JS_INVALIDA  packages/core/templates/projeto-basico/tests/test.gs  -> SyntaxError: Unexpected identifier 'é_igual_a'
+SINTAXE_JS_INVALIDA  packages/core/tests/fixtures/test-basic.gs  -> SyntaxError: Unexpected identifier 'digaOla'
+RESUMO 15 {"SINTAXE_JS_INVALIDA":9,"OK":6}

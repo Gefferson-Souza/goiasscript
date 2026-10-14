@@ -1,0 +1,85 @@
+=== Tamanho dos arquivos ===
+arquivo                              linhas  em branco  comentários(linhas)  funções  maior função
+compiler.js                          398     41         97                   33       compile (82 linhas, L89-170)
+browser.js                           33      7          4                    5        constructor (4 linhas, L10-13)
+compiler/simpleTranspiler.js         435     53         89                   18       _applySubstitutions (137 linhas, L68-204)
+compiler/lexer.js                    206     35         46                   6        constructor (94 linhas, L6-99)
+goianoMethods/GoianoBuiltins.js      450     77         24                   14       gerarImplementacaoGoiana (248 linhas, L118-365)
+errors/ErroGoiano.js                 91      11         23                   3        constructor (43 linhas, L15-57)
+errors/errorTranslator.js            194     24         47                   10       _translateSyntaxError (22 linhas, L69-90)
+
+=== Funções com mais de 50 linhas ou aninhamento > 4 ===
+compiler.js:89-170  compile  linhas=82  aninhamento=3
+compiler/simpleTranspiler.js:68-204  _applySubstitutions  linhas=137  aninhamento=2
+compiler/simpleTranspiler.js:220-289  _convertJSMethodsToGoiano  linhas=70  aninhamento=0
+compiler/lexer.js:6-99  constructor  linhas=94  aninhamento=0
+goianoMethods/GoianoBuiltins.js:5-115  constructor  linhas=111  aninhamento=0
+goianoMethods/GoianoBuiltins.js:118-365  gerarImplementacaoGoiana  linhas=248  aninhamento=0
+
+=== Distribuição: funções (total / >50 linhas / aninhamento máx) ===
+compiler.js                          total=33 >50=1 aninhamentoMax=3
+browser.js                           total=5 >50=0 aninhamentoMax=0
+compiler/simpleTranspiler.js         total=18 >50=2 aninhamentoMax=3
+compiler/lexer.js                    total=6 >50=1 aninhamentoMax=1
+goianoMethods/GoianoBuiltins.js      total=14 >50=2 aninhamentoMax=2
+errors/ErroGoiano.js                 total=3 >50=0 aninhamentoMax=2
+errors/errorTranslator.js            total=10 >50=0 aninhamentoMax=2
+
+=== Comentários ===
+compiler.js                          jsdoc=18 bloco=0 linha(//)=15 linhasOcupadas=97 blocos>4linhas=9 emojis=0 TODOs=0 eslint-disable=1
+      bloco de 6 linhas em L83-88: *
+      bloco de 6 linhas em L217-222: *
+      bloco de 6 linhas em L244-249: *
+      bloco de 6 linhas em L254-259: *
+      bloco de 6 linhas em L275-280: *
+      bloco de 6 linhas em L293-298: Execute compiled JavaScript in the local Node scope.
+      bloco de 6 linhas em L315-320: *
+      bloco de 6 linhas em L375-380: *
+      eslint-disable L298: eslint-disable-next-line no-eval
+browser.js                           jsdoc=0 bloco=0 linha(//)=4 linhasOcupadas=4 blocos>4linhas=0 emojis=0 TODOs=0 eslint-disable=0
+compiler/simpleTranspiler.js         jsdoc=10 bloco=0 linha(//)=47 linhasOcupadas=89 blocos>4linhas=2 emojis=0 TODOs=0 eslint-disable=0
+      bloco de 6 linhas em L15-20: *
+      bloco de 5 linhas em L352-356: Check for incomplete variable declarations.
+compiler/lexer.js                    jsdoc=5 bloco=0 linha(//)=19 linhasOcupadas=46 blocos>4linhas=4 emojis=0 TODOs=0 eslint-disable=0
+      bloco de 7 linhas em L119-125: *
+      bloco de 6 linhas em L161-166: *
+      bloco de 5 linhas em L101-105: *
+      bloco de 5 linhas em L195-199: *
+goianoMethods/GoianoBuiltins.js      jsdoc=0 bloco=0 linha(//)=24 linhasOcupadas=24 blocos>4linhas=0 emojis=0 TODOs=0 eslint-disable=0
+errors/ErroGoiano.js                 jsdoc=4 bloco=0 linha(//)=3 linhasOcupadas=23 blocos>4linhas=2 emojis=0 TODOs=0 eslint-disable=0
+      bloco de 8 linhas em L7-14: *
+      bloco de 5 linhas em L1-5: *
+errors/errorTranslator.js            jsdoc=10 bloco=0 linha(//)=5 linhasOcupadas=47 blocos>4linhas=1 emojis=0 TODOs=0 eslint-disable=0
+      bloco de 6 linhas em L20-25: *
+
+=== console.*, eval, mutação ===
+compiler.js                          console=0 eval=1 (L299) reatribuições=1 (de parâmetro: 0) push()=6 atribuições-a-membro=14 var/let/const=0/1/17
+browser.js                           console=0 eval=0 reatribuições=0 (de parâmetro: 0) push()=0 atribuições-a-membro=3 var/let/const=0/0/3
+compiler/simpleTranspiler.js         console=0 eval=0 reatribuições=63 (de parâmetro: 0) push()=5 atribuições-a-membro=4 var/let/const=0/4/23
+compiler/lexer.js                    console=0 eval=0 reatribuições=1 (de parâmetro: 0) push()=2 atribuições-a-membro=3 var/let/const=0/2/11
+goianoMethods/GoianoBuiltins.js      console=0 eval=0 reatribuições=0 (de parâmetro: 0) push()=1 atribuições-a-membro=4 var/let/const=0/0/5
+errors/ErroGoiano.js                 console=3 (L63:error, L66:error, L69:error) eval=0 reatribuições=4 (de parâmetro: 0) push()=0 atribuições-a-membro=7 var/let/const=0/1/1
+errors/errorTranslator.js            console=0 eval=0 reatribuições=16 (de parâmetro: 0) push()=0 atribuições-a-membro=2 var/let/const=0/10/13
+
+=== Identificadores declarados (únicos por arquivo) — para classificação manual de idioma ===
+
+# compiler.js (57)
+catch:err catch:error classe:GoiasScriptCompiler classe:NoopJITCompiler classe:NoopModuleResolver classe:NoopTypeAnalyzer função:loadOptional método:_generateIdentifier método:analyze método:clearCache método:clearJITCache método:clearModuleCache método:compile método:compileWithStats método:configureJIT método:constructor método:detectCircularDependencies método:execute método:generateDependencyReport método:generatePerformanceReport método:getCompilationStats método:getGoianoMethods método:getGoianoTypes método:getHotSpots método:getJITHotSpots método:getJITReport método:getModuleDependencyReport método:isForbiddenMethod método:moduleExists método:resolveModules método:setOptimizations método:setThreshold método:shouldApplyJIT método:transpile método:transpileOnly método:validate param:char param:code param:fallback param:fileName param:hash param:method param:modulePath param:options var:GoianoBuiltins var:GoianoJITCompiler var:ModuleResolver var:SimpleTranspiler var:TypeAnalyzer var:compileResult var:hash var:identifier var:moduleResult var:processedCode var:result var:transpileResult var:typeResult
+
+# browser.js (13)
+classe:GoiasScriptBrowserCompiler método:constructor método:ehMetodoProibido método:listarMetodosGoianos método:listarTiposGoianos método:transpile param:code param:fileName param:metodo param:options var:ErroGoiano var:GoianoBuiltins var:SimpleTranspiler
+
+# compiler/simpleTranspiler.js (44)
+catch:error classe:SimpleGoiasScriptTranspiler método:_applySubstitutions método:_checkForbiddenMethods método:_convertJSMethodsToGoiano método:_escapeRegex método:_generateTokens método:_getTokenType método:_removeTypeAnnotations método:_validateSyntax método:constructor método:transpile param:code param:fileName param:index param:line param:match param:method param:options param:string param:w param:word var:ErrorTranslator var:GoianoBuiltins var:boundaryRegex var:errors var:forbiddenMethods var:goianoEquivalent var:goianoRuntime var:goiasError var:jsCode var:keywords var:lines var:mappings var:placeholder var:result var:stringIndex var:stringPlaceholders var:syntaxErrors var:tokens var:trimmed var:warnings var:wordRegex var:words
+
+# compiler/lexer.js (24)
+classe:GoiasScriptLexer método:_getTokenType método:_tokenizeLine método:constructor método:tokenize método:tokensToJS param:codigo param:line param:lineNumber param:token param:tokens param:value var:codeLine var:column var:commentIndex var:line var:lineNumber var:lineTokens var:lines var:match var:token var:tokenRegex var:tokens var:value
+
+# goianoMethods/GoianoBuiltins.js (23)
+classe:GoianoBuiltins método:constructor método:converterParaGoiano método:converterTipoParaGoiano método:detectarMetodosProibidos método:ehMetodoOtimizado método:ehMetodoProibido método:gerarImplementacaoGoiana método:listarMetodosGoianos método:listarTiposGoianos método:obterDocumentacaoMetodo método:obterEquivalenteGoiano método:obterExemploUso método:obterVersaoOtimizada param:codigo param:metodo param:metodoJs param:tipoJs var:docs var:exemplos var:metodosEncontrados var:metodosOtimizados var:regex
+
+# errors/ErroGoiano.js (12)
+classe:ErroGoiano método:constructor método:getDetalhes método:mostrarErro param:arquivo param:coluna param:dica param:linha param:mensagem param:tipo var:mensagemCompleta var:tipoTraduzido
+
+# errors/errorTranslator.js (28)
+classe:ErrorTranslator método:_extractLocation método:_translateEvalError método:_translateGenericError método:_translateRangeError método:_translateReferenceError método:_translateSyntaxError método:_translateTypeError método:_translateURIError método:constructor método:translate param:column param:error param:fileName param:line var:ErroGoiano var:column var:funcName var:goiasMessage var:id var:line var:match var:originalMessage var:stack var:strategy var:tip var:token var:varName

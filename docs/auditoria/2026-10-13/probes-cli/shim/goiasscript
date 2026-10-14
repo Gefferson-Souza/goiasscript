@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+exec node <repo>/packages/core/bin/goiasscript.js "$@"

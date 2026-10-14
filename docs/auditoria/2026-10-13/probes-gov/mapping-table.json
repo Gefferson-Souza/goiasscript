@@ -1,0 +1,283 @@
+{
+  "totalEntries": 55,
+  "uniqueKeys": 53,
+  "duplicates": [
+    {
+      "goias": "rejeita_isso",
+      "js": "reject",
+      "line": 161
+    },
+    {
+      "goias": "resolve_aí",
+      "js": "resolve",
+      "line": 162
+    }
+  ],
+  "unique": [
+    {
+      "goias": "vai_na_frente_faz_trem",
+      "js": "async function",
+      "line": 91
+    },
+    {
+      "goias": "é_tipo_de",
+      "js": "instanceof",
+      "line": 94
+    },
+    {
+      "goias": "é_igualim",
+      "js": "===",
+      "line": 95
+    },
+    {
+      "goias": "arruma_trem",
+      "js": "class",
+      "line": 98
+    },
+    {
+      "goias": "inherda_de",
+      "js": "extends",
+      "line": 99
+    },
+    {
+      "goias": "aprepara_trem",
+      "js": "constructor",
+      "line": 100
+    },
+    {
+      "goias": "num_muda",
+      "js": "static",
+      "line": 101
+    },
+    {
+      "goias": "se_ocê_quiser",
+      "js": "if",
+      "line": 104
+    },
+    {
+      "goias": "se_num_for",
+      "js": "else if",
+      "line": 105
+    },
+    {
+      "goias": "se_não",
+      "js": "else",
+      "line": 106
+    },
+    {
+      "goias": "vai_indo",
+      "js": "for",
+      "line": 107
+    },
+    {
+      "goias": "enquanto_tiver",
+      "js": "while",
+      "line": 108
+    },
+    {
+      "goias": "para_com_isso",
+      "js": "break",
+      "line": 109
+    },
+    {
+      "goias": "continua_aí",
+      "js": "continue",
+      "line": 110
+    },
+    {
+      "goias": "faz_trem",
+      "js": "function",
+      "line": 113
+    },
+    {
+      "goias": "faz_favor",
+      "js": "return",
+      "line": 114
+    },
+    {
+      "goias": "vai_na_frente",
+      "js": "async",
+      "line": 115
+    },
+    {
+      "goias": "espera_um_cadim",
+      "js": "await",
+      "line": 116
+    },
+    {
+      "goias": "diferente",
+      "js": "!==",
+      "line": 119
+    },
+    {
+      "goias": "maior_que",
+      "js": ">",
+      "line": 120
+    },
+    {
+      "goias": "menor_que",
+      "js": "<",
+      "line": 121
+    },
+    {
+      "goias": "pelo_menos",
+      "js": ">=",
+      "line": 122
+    },
+    {
+      "goias": "no_máximo",
+      "js": "<=",
+      "line": 123
+    },
+    {
+      "goias": "e_mais",
+      "js": "&&",
+      "line": 124
+    },
+    {
+      "goias": "ou_então",
+      "js": "||",
+      "line": 125
+    },
+    {
+      "goias": "num_é",
+      "js": "!",
+      "line": 126
+    },
+    {
+      "goias": "mais",
+      "js": "+",
+      "line": 129
+    },
+    {
+      "goias": "menos",
+      "js": "-",
+      "line": 130
+    },
+    {
+      "goias": "vezes",
+      "js": "*",
+      "line": 131
+    },
+    {
+      "goias": "dividido",
+      "js": "/",
+      "line": 132
+    },
+    {
+      "goias": "sobrou",
+      "js": "%",
+      "line": 133
+    },
+    {
+      "goias": "prosa",
+      "js": "console.log",
+      "line": 136
+    },
+    {
+      "goias": "reclama",
+      "js": "console.error",
+      "line": 137
+    },
+    {
+      "goias": "promessa",
+      "js": "Promise",
+      "line": 140
+    },
+    {
+      "goias": "quando_resolver",
+      "js": "then",
+      "line": 141
+    },
+    {
+      "goias": "se_der_pobrema",
+      "js": "catch",
+      "line": 142
+    },
+    {
+      "goias": "resolve_aí",
+      "js": "resolve",
+      "line": 143
+    },
+    {
+      "goias": "rejeita_isso",
+      "js": "reject",
+      "line": 144
+    },
+    {
+      "goias": "tenta_aí",
+      "js": "try",
+      "line": 147
+    },
+    {
+      "goias": "se_der_ruim",
+      "js": "catch",
+      "line": 148
+    },
+    {
+      "goias": "por_fim",
+      "js": "finally",
+      "line": 149
+    },
+    {
+      "goias": "certeza",
+      "js": "true",
+      "line": 152
+    },
+    {
+      "goias": "de_jeito_nenhum",
+      "js": "false",
+      "line": 153
+    },
+    {
+      "goias": "nada",
+      "js": "null",
+      "line": 154
+    },
+    {
+      "goias": "indefinido",
+      "js": "undefined",
+      "line": 155
+    },
+    {
+      "goias": "ocê",
+      "js": "this",
+      "line": 158
+    },
+    {
+      "goias": "faz_um",
+      "js": "new",
+      "line": 159
+    },
+    {
+      "goias": "vixe",
+      "js": "throw new Error",
+      "line": 160
+    },
+    {
+      "goias": "em",
+      "js": "in",
+      "line": 165
+    },
+    {
+      "goias": "de",
+      "js": "of",
+      "line": 166
+    },
+    {
+      "goias": "trem",
+      "js": "var",
+      "line": 169
+    },
+    {
+      "goias": "uai",
+      "js": "const",
+      "line": 170
+    },
+    {
+      "goias": "é",
+      "js": "=",
+      "line": 171
+    }
+  ]
+}

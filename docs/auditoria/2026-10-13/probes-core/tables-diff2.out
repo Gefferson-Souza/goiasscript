@@ -1,0 +1,30 @@
+metodosGoianos=57 | com regra de reescrita=51 | sem regra=6
+sem regra (amostra -> resultado):
+   getFullYear -> pegar_ano   amostra "x.getFullYear(1)" => "x.getFullYear(1)"
+   getMonth -> pegar_mes   amostra "x.getMonth(1)" => "x.getMonth(1)"
+   getDate -> pegar_dia   amostra "x.getDate(1)" => "x.getDate(1)"
+   getHours -> pegar_horas   amostra "x.getHours(1)" => "x.getHours(1)"
+   getMinutes -> pegar_minutos   amostra "x.getMinutes(1)" => "x.getMinutes(1)"
+   getSeconds -> pegar_segundos   amostra "x.getSeconds(1)" => "x.getSeconds(1)"
+
+Regras de reescrita que NÃO têm entrada em metodosGoianos (fonte da verdade duplicada):
+regras de reescrita=55; sem correspondente em metodosGoianos=4: \s+é\s+-> = , (^|\s)ocê(\s|\.)->$1this$2, Math\.PI\b->GoianoMath.PI, Math\.E\b->GoianoMath.E
+
+=== Quais avisos de _checkForbiddenMethods conseguem disparar com CÓDIGO real (fora de string)? ===
+.replace(                      -> avisos: (nenhum)
+.split(                        -> avisos: (nenhum)
+.join(                         -> avisos: (nenhum)
+.toUpperCase()                 -> avisos: (nenhum)
+.toLowerCase()                 -> avisos: (nenhum)
+.map(                          -> avisos: (nenhum)
+.filter(                       -> avisos: (nenhum)
+.reduce(                       -> avisos: (nenhum)
+.forEach(                      -> avisos: (nenhum)
+.push(                         -> avisos: (nenhum)
+.pop()                         -> avisos: (nenhum)
+Math.random()                  -> avisos: (nenhum)
+Math.floor(                    -> avisos: (nenhum)
+console.log(                   -> avisos: console.log(
+parseInt(                      -> avisos: (nenhum)
+setTimeout(                    -> avisos: (nenhum)
+prosa("x") (keyword goiana)    -> avisos: console.log(

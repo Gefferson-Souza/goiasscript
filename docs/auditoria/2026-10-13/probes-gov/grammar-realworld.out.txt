@@ -1,0 +1,37 @@
+Arquivos .gs analisados: 15
+{"keywordOccurrences":453,"keywordUnscoped":0,"singleQuoteStrings":3,"templateStrings":0,"singleQuoteStringsScopedAsString":0}
+Palavras-chave sem escopo (contagem por termo): {}
+  packages/core/examples/advanced/teste_classes.gs               kw=76 semEscopo=0 aspasSimples=1 template=0
+  packages/core/examples/advanced/teste_classes_simples.gs       kw=44 semEscopo=0 aspasSimples=1 template=0
+  packages/core/examples/advanced/teste_erros.gs                 kw=4 semEscopo=0 aspasSimples=1 template=0
+  packages/core/examples/advanced/teste_instanceof.gs            kw=64 semEscopo=0 aspasSimples=0 template=0
+  packages/core/examples/async/async_exemplo.gs                  kw=55 semEscopo=0 aspasSimples=0 template=0
+  packages/core/examples/basic/exemplo.gs                        kw=11 semEscopo=0 aspasSimples=0 template=0
+  packages/core/examples/basic/exemplo_simples.gs                kw=27 semEscopo=0 aspasSimples=0 template=0
+  packages/core/examples/basic/lista-mapeamento.gs               kw=22 semEscopo=0 aspasSimples=0 template=0
+  packages/core/examples/basic/ola-mundo.gs                      kw=8 semEscopo=0 aspasSimples=0 template=0
+  packages/core/examples/classes/exemplo_classes.gs              kw=50 semEscopo=0 aspasSimples=0 template=0
+  packages/core/examples/classes/pequi.gs                        kw=15 semEscopo=0 aspasSimples=0 template=0
+  packages/core/templates/basic-template.gs                      kw=19 semEscopo=0 aspasSimples=0 template=0
+  packages/core/templates/projeto-basico/src/main.gs             kw=16 semEscopo=0 aspasSimples=0 template=0
+  packages/core/templates/projeto-basico/tests/test.gs           kw=30 semEscopo=0 aspasSimples=0 template=0
+  packages/core/tests/fixtures/test-basic.gs                     kw=12 semEscopo=0 aspasSimples=0 template=0
+--- sondagens de contexto ---
+"uai a é 'se_ocê_quiser vai_indo uai'"               "'se_ocê_quiser" -> (nenhum)
+"uai b é `uai x é ${mais}`"                          "uai x" -> storage.type.goiasscript
+"uai c é \"uai x é 1\""                              "uai x" -> string.quoted.double.goiasscript
+"faz_trem somar(a, b) {"                             "faz_trem" -> entity.name.function.goiasscript
+"vai_na_frente faz_trem buscar() {"                  "vai_na_frente" -> storage.modifier.goiasscript
+"vai_na_frente_faz_trem buscar() {"                  "vai_na_frente_faz_trem" -> (nenhum)
+"uai v é indefinido"                                 "indefinido" -> (nenhum)
+"uai v é nada"                                       "nada" -> storage.type.primitive.goiasscript
+"arruma_trem Cachorro inherda_de Bicho {"            "arruma_trem" -> storage.type.goiasscript
+"senao { }"                                          "senao" -> keyword.control.goiasscript
+"se (a) { }"                                         "se" -> keyword.control.goiasscript
+"fazer soma() { }"                                   "fazer" -> (nenhum)
+"\"abc\".gritando()"                                 "gritando" -> support.function.method.goiasscript
+"lista.pra_cada(x => 1)"                             "pra_cada" -> (nenhum)
+"lista.mapear(x => x)"                               "mapear" -> support.function.method.goiasscript
+"GoianoMath.sorteio()"                               "sorteio" -> (nenhum)
+"vira_numero(\"1\")"                                 "vira_numero" -> (nenhum)
+"depois_de(f, 10)"                                   "depois_de" -> support.function.goiasscript

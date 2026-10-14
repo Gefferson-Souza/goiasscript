@@ -1,0 +1,32 @@
+
+##### README.md: 5 blocos `goiasscript`
+  L40   ok                | uai nome é "Goiás"
+  L99   ok                | uai nome é "João"          // const nome = "João"
+  L123  ERRO EM EXECUÇÃO  | se_ocê_quiser (idade pelo_menos 18) { | ReferenceError: idade is not defined
+  L139  ok                | faz_trem somar(a, b) {
+  L165  ERRO EM EXECUÇÃO  | "Oi sô".pra_maiusculo()             // "OI SÔ" | TypeError: "Oi sô".trocar(...)[(1 , 2 , 3)].mapear is not a function
+
+##### docs/METODOS_GOIANOS.md: 20 blocos `goiasscript`
+  L19   ERRO EM EXECUÇÃO  | nome.replace("João", "Maria")  // Warning: Use 'trocar' em vez disso | ReferenceError: nome is not defined
+  L55   ok                | uai nome é "João da Silva"
+  L65   ERRO EM EXECUÇÃO  | nome.tamanho()           // 13 (número de caracteres) | ReferenceError: nome is not defined
+  L80   ERRO EM EXECUÇÃO  | nome.trocar("João", "Maria")    // "Maria da Silva" | ReferenceError: nome is not defined
+  L97   ok                | uai numeros é [1, 2, 3, 4, 5]
+  L114  ERRO EM EXECUÇÃO  | numeros.tamanho()         // 5 (quantidade de elementos) | ReferenceError: numeros is not defined
+  L123  ERRO EM EXECUÇÃO  | numeros.empurrar(6)         // Adiciona no final | ReferenceError: numeros is not defined
+  L146  ok                | uai pessoa é {
+  L171  ok                | GoianoMath.sorteio()                    // 0.0 - 1.0 aleatório
+  L176  ok                | uai numero é 3.7
+  L185  ok                | GoianoMath.maior(10, 25, 5, 30)        // 30 (maior número)
+  L192  ok                | GoianoMath.potencia(2, 3)              // 8 (2 elevado a 3)
+  L198  ERRO EM EXECUÇÃO  | GoianoMath.PI                          // 3.14159... | ReferenceError: GoianoGoianoMath is not defined
+  L207  ok                | uai agora é faz_um Date()
+  L224  ok                | vira_numero("123")         // 123 (string para número)
+  L231  ERRO EM EXECUÇÃO  | depois_de(() => { | ReferenceError: timerId is not defined
+  L248  ok                | prosa("Mensagem normal")           // console.log
+  L259  ok                | faz_trem processarNome(nome_completo) {
+  L277  ok                | faz_trem analisarVendas(vendas) {
+  L298  SINTAXE INVÁLIDA  | faz_trem criarConfig(opcoes) { | Unexpected token '{'
+        trecho suspeito no JS gerado: se (config_final[chave] == null) {
+
+RESUMO: 25 blocos | {"ok":15,"erro-execucao":9,"sintaxe-invalida":1}

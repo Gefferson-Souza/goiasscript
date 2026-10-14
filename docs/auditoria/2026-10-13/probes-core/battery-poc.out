@@ -1,0 +1,46 @@
+casos comparáveis=168 (ignorados por serem custom/API: K07, D04, D05, D06, D07)
+produção: 68 ✅ / 100 ❌ | prova de conceito: 155 ✅ / 13 ❌
+corrigidos pela PoC: 89 de 100 | regressões (✅ na produção, ❌ na PoC): 2 | continuam ❌: 11
+
+--- REGRESSÕES ---
+V05 anotação de tipo em declaração `uai nome: texto é "a"` (controle)
+     saída: (erro) Unexpected token (linha 1)
+     transpile falhou: Unexpected token (linha 1)
+M42 usuário define `empurrar` e chama `.push` de outra coisa
+     saída: const q = { empurrar(x) { return "meu:" + x; } };⏎console.log(q.push(1), [].push(1));
+     execução falhou: TypeError: q.push is not a function
+
+--- CONTINUAM FALHANDO NA PoC ---
+A11 [MEDIUM] variável chamada `vezes` (palavra comum)
+     saída: (erro) Unexpected token (linha 1)
+     transpile falhou: Unexpected token (linha 1)
+A16 [LOW] método do usuário chamado `prosa`
+     saída: (erro) Unexpected token (linha 1)
+     transpile falhou: Unexpected token (linha 1)
+R03 [HIGH] função clássica de escape HTML (regex com aspa simples e dupla)
+     saída: function escapa(s) {⏎  return s.replace(/&/g, "&amp;").replace(/'/g, "&#39;").replace(/"/g, "&quot;");⏎}⏎console.log(escapa('a "b" ' + "c'd"…(+3)
+     stdout=a &quot;b&quot; c&#39;d | residual na saída: prosa( false / .replace( true
+O07 [HIGH] README:131 `vai_indo (uai i é 0; i menor_que 5; i mais 1)` (laço da documentação)
+     saída: for (const i = 0; i < 5; i + 1) {⏎  console.log("Iteração", i)⏎}
+     exec=Error: Script execution timed out after 300ms | linhas capturadas=5 (+1900934 descartadas)
+V06 [LOW] anotação de tipo em parâmetros/retorno de função
+     saída: (erro) Unexpected token (linha 1)
+     transpile falhou: Unexpected token (linha 1)
+V07 [LOW] anotação em identificador acentuado `uai número: numero é 5`
+     saída: (erro) Unexpected token (linha 1)
+     transpile falhou: Unexpected token (linha 1)
+W02 [LOW] documentado: `nome.replace(...)` gera aviso "use trocar"
+     saída: const n = "abc"; console.log(n.replace("a", "b"));
+     avisos=[]
+X03 [MEDIUM] README: linha começando com `[` sem ponto-e-vírgula (armadilha de ASI do JS)
+     saída: "Oi sô".replaceAll("Oi", "Eai")⏎[1, 2, 3].map(x => x * 2)
+     TypeError: "Oi sô".replaceAll(...)[(1 , 2 , 3)].map is not a function
+X04 [LOW] ASI: linha começando com `(` após expressão sem ponto-e-vírgula
+     saída: const a = 1⏎(function() { console.log("iife"); })()
+     TypeError: 1 is not a function
+X06 [MEDIUM] `se (...)` como no METODOS_GOIANOS.md
+     saída: (erro) Unexpected token (linha 1)
+     transpile falhou: Unexpected token (linha 1)
+X07 [HIGH] `presta_serviço` (keyword usada em 7 dos 15 .gs versionados e nos templates)
+     saída: (erro) Unexpected token (linha 1)
+     transpile falhou: Unexpected token (linha 1)

@@ -1,0 +1,11 @@
+Chaves canônicas: 53
+  README.md                                            cita 31/53
+  docs/METODOS_GOIANOS.md                              cita 17/53
+  CLAUDE.md                                            cita 32/53
+  CONTRIBUTING.md                                      cita  7/53
+  packages/core/examples/README.md                     cita  2/53
+  packages/core/templates/projeto-basico/README.md     cita  1/53
+  vscode-extension/README.md                           cita 13/53
+Chaves que NÃO aparecem em nenhum markdown (14): vai_na_frente_faz_trem é_tipo_de arruma_trem inherda_de aprepara_trem num_muda para_com_isso continua_aí sobrou quando_resolver se_der_pobrema rejeita_isso por_fim vixe
+Chaves que NÃO aparecem em nenhum exemplo .gs (16): vai_na_frente_faz_trem num_muda para_com_isso continua_aí diferente maior_que pelo_menos no_máximo e_mais ou_então num_é menos por_fim nada indefinido vixe
+Chaves em nenhum markdown E nenhum exemplo (6): vai_na_frente_faz_trem num_muda para_com_isso continua_aí por_fim vixe

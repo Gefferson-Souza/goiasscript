@@ -1,0 +1,17 @@
+arquivos .gs no archive: 36 | linhas: 4317
+resultado no transpiler 1.5: {"SINTAXE_JS_INVALIDA":33,"OK":3}
+  templates/roda-de-prosa                  arquivos= 8 linhas= 1403 rodam_no_1.5=0
+  templates/goias-web-framework            arquivos= 8 linhas= 1082 rodam_no_1.5=0
+  examples/modules                         arquivos= 3 linhas=  373 rodam_no_1.5=0
+  balaios/goiano-http                      arquivos= 1 linhas=  365 rodam_no_1.5=0
+  examples/advanced                        arquivos= 4 linhas=  353 rodam_no_1.5=1
+  balaios/goiano-utils                     arquivos= 1 linhas=  230 rodam_no_1.5=0
+  examples/async                           arquivos= 1 linhas=   92 rodam_no_1.5=0
+  templates/projeto-basico                 arquivos= 2 linhas=   84 rodam_no_1.5=0
+  examples/classes                         arquivos= 1 linhas=   76 rodam_no_1.5=0
+  templates/projeto-web                    arquivos= 1 linhas=   67 rodam_no_1.5=0
+  examples/basic                           arquivos= 2 linhas=   60 rodam_no_1.5=1
+  templates/web-app.gs                     arquivos= 1 linhas=   51 rodam_no_1.5=0
+  examples/performance                     arquivos= 1 linhas=   46 rodam_no_1.5=0
+  templates/basic-template.gs              arquivos= 1 linhas=   20 rodam_no_1.5=1
+  tests/fixtures                           arquivos= 1 linhas=   15 rodam_no_1.5=0

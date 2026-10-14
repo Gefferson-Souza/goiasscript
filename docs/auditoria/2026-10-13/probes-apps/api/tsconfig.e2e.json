@@ -1,0 +1,5 @@
+{
+  "compilerOptions": { "target": "ES2022", "module": "ESNext", "moduleResolution": "Bundler", "lib": ["ES2022", "DOM"], "strict": true, "noEmit": true, "skipLibCheck": true, "esModuleInterop": true,
+    "typeRoots": ["<repo>/apps/playground/node_modules/@types"], "types": ["node"] },
+  "include": ["<repo>/apps/playground-e2e/tests/**/*.ts", "<repo>/apps/playground-e2e/playwright.config.ts"]
+}

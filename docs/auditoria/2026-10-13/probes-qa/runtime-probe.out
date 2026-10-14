@@ -1,0 +1,26 @@
+FALHA "a.b.c".trocar(".", "-")                             esperado="a-b-c" obtido="-----"
+FALHA "1+1".trocar("+", "-")                               esperado="1-1" obtido="ERRO SyntaxError: Invalid regular expression: /+/g: Nothing to repeat"
+ok   "abc".pra_maiusculo()                                esperado="ABC" obtido="ABC"
+ok   [1,2,3].mapear(x => x * 2).join(",")                 esperado="2,4,6" obtido="2,4,6"
+ok   [1,2,3].filtrar(x => x > 1).join(",")                esperado="2,3" obtido="2,3"
+ok   [3,1,2].ordenar().join(",")                          esperado="1,2,3" obtido="1,2,3"
+ok   [1,2,3].reduzir((a, b) => a + b, 0)                  esperado=6 obtido=6
+ok   [1,2,3].tamanho()                                    esperado=3 obtido=3
+ok   "abc".tamanho()                                      esperado=3 obtido=3
+ok   GoianoMath.maior(1, 9, 3)                            esperado=9 obtido=9
+ok   GoianoMath.arredondar(2.5)                           esperado=3 obtido=3
+ok   GoianoMath.potencia(2, 10)                           esperado=1024 obtido=1024
+ok   Object.chaves({a: 1, b: 2}).join(",")                esperado="a,b" obtido="a,b"
+ok   typeof GoianoMath.sorteio()                          esperado="number" obtido="number"
+ok   "Goiás".pra_minusculo()                              esperado="goiás" obtido="goiás"
+ok   "  x ".aparar()                                      esperado="x" obtido="x"
+ok   "abcdef".pedaco(1, 3)                                esperado="bc" obtido="bc"
+ok   [1,2,3].achar(x => x === 2)                          esperado=2 obtido=2
+ok   [1,2,3].tirar_ultimo()                               esperado=3 obtido=3
+ok   "abc".contem("b")                                    esperado=true obtido=true
+ok   "abc".comeca_com("a")                                esperado=true obtido=true
+ok   vira_numero("42")                                    esperado=42 obtido=42
+ok   "a,b".dividir(",").length                            esperado=2 obtido=2
+ok   [[1],[2]].juntar_lista([3]).length                   esperado=3 obtido=3
+
+falhas=2/24

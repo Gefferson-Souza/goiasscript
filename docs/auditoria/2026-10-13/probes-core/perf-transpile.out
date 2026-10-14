@@ -1,0 +1,43 @@
+=== A) Escala: transpile() — código realista (≈4 strings / 15 linhas) ===
+linhas | KB entrada | strings | transpile mediana ms | 1ª execução ms | compile() mediana ms
+  1005 |         23 |     201 |                  3.5 |            9.8 |                  4.9
+  2010 |         46 |     402 |                  6.5 |            6.5 |                  7.8
+  5010 |        115 |    1002 |                 30.0 |           27.4 |                 38.7
+ 10005 |        231 |    2001 |                384.1 |          356.8 |                384.8
+ 20010 |        467 |    4002 |               1107.7 |         1346.8 |                905.2
+ 40005 |        945 |    8001 |               3293.9 |         3363.0 |               3266.9
+
+=== B) Escala: alta densidade de strings (1 string por linha) ===
+linhas | KB entrada | strings | transpile mediana ms
+  1000 |         19 |    1000 |                  6.0
+  2000 |         40 |    2000 |                 13.7
+  5000 |        101 |    5000 |                379.4
+ 10000 |        204 |   10000 |               1303.6
+ 20000 |        419 |   20000 |               5354.0
+
+=== C) Custo isolado por etapa em 10.000 linhas realistas (estimativa por réplica fiel do algoritmo) ===
+placeholders (strings) = 2001
+proteger strings        : 1.5 ms
+_convertJSMethodsToGoiano: 2.5 ms
+_validateSyntax          : 1.3 ms
+_generateTokens          : 10.6 ms (resultado só alimenta validate().tokens)
+_checkForbiddenMethods   : 0.4 ms
+restaurar strings (loop) : 469.5 ms
+_applySubstitutions total: 318.1 ms
+
+=== D) Entradas patológicas (tempo de transpile) ===
+espaços x5000 + "é" no fim (sem espaço depois)                   35.4 ms  
+espaços x10000 + "é" no fim (sem espaço depois)                 141.7 ms  
+espaços x20000 + "é" no fim (sem espaço depois)                 574.6 ms  
+espaços x40000 + "é" no fim (sem espaço depois)                1714.5 ms  
+quebras de linha x5000 + "é" no fim                              17.7 ms  
+quebras de linha x10000 + "é" no fim                             53.0 ms  
+quebras de linha x20000 + "é" no fim                            261.6 ms  
+quebras de linha x40000 + "é" no fim                           1527.0 ms  
+espaços x20000 puros (sem "é")                                  230.3 ms  
+espaços x100000 puros (sem "é")                               11639.5 ms  
+uma aspa solta + 1 MB de texto                                  126.3 ms  
+1 MB de linha única "uai x é 1;"                                151.8 ms  
+20.000 aspas simples soltas (pares)                             547.9 ms  
+barra invertida + quebra repetidas (aspa aberta)                  3.5 ms  
+aninhamento: 5000 "{" seguidos                                    0.1 ms  (falhou: Erro de sintaxe na linha 1: Chaves desbalanceadas)
