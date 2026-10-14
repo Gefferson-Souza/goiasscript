@@ -1,0 +1,100 @@
+{
+ "seed": 20261013,
+ "groups": {
+  "R01": {
+   "populacao": 4,
+   "mantidos": 4,
+   "sorteados": 0
+  },
+  "R03": {
+   "populacao": 19,
+   "mantidos": 10,
+   "sorteados": 0
+  },
+  "R05": {
+   "populacao": 1,
+   "mantidos": 1,
+   "sorteados": 0
+  },
+  "R06": {
+   "populacao": 180,
+   "mantidos": 10,
+   "sorteados": 0
+  },
+  "R07": {
+   "populacao": 3,
+   "mantidos": 3,
+   "sorteados": 0
+  },
+  "R09": {
+   "populacao": 2,
+   "mantidos": 2,
+   "sorteados": 0
+  },
+  "R11": {
+   "populacao": 6,
+   "mantidos": 6,
+   "sorteados": 0
+  },
+  "R12": {
+   "populacao": 6,
+   "mantidos": 6,
+   "sorteados": 0
+  },
+  "R13": {
+   "populacao": 6,
+   "mantidos": 6,
+   "sorteados": 0
+  },
+  "R15": {
+   "populacao": 42,
+   "mantidos": 14,
+   "sorteados": 0
+  },
+  "R16": {
+   "populacao": 21,
+   "mantidos": 21,
+   "sorteados": 0
+  },
+  "R18": {
+   "populacao": 4,
+   "mantidos": 4,
+   "sorteados": 0
+  },
+  "R20": {
+   "populacao": 12,
+   "mantidos": 12,
+   "sorteados": 0
+  },
+  "R21": {
+   "populacao": 180,
+   "mantidos": 24,
+   "sorteados": 0
+  },
+  "R14/internal-strong": {
+   "populacao": 254,
+   "mantidos": 14,
+   "sorteados": 0
+  },
+  "R14/internal-embedded": {
+   "populacao": 18,
+   "mantidos": 4,
+   "sorteados": 0
+  },
+  "R14/surface-mirror": {
+   "populacao": 11,
+   "mantidos": 5,
+   "sorteados": 0
+  },
+  "R14/surface-exact (excluída)": {
+   "populacao": 131,
+   "mantidos": 8,
+   "sorteados": 0
+  },
+  "R14/domain (excluída)": {
+   "populacao": 24,
+   "mantidos": 5,
+   "sorteados": 0
+  }
+ }
+}

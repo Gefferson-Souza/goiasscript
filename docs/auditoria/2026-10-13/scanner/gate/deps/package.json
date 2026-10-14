@@ -1,0 +1,1 @@
+{"name":"gate-deps","private":true,"version":"0.0.0","description":"Plugins extras só para validar o gate; fora do repo auditado","dependencies":{"@eslint-community/eslint-plugin-eslint-comments":"^4.8.1"}}

@@ -1,0 +1,23 @@
+{
+  "regra": "R21",
+  "metodo": "censo visual dos 180 itens; tudo que não está listado foi julgado TP",
+  "fp": [
+    "packages/core/src/compiler/simpleTranspiler.js:88",
+    "packages/core/src/compiler/simpleTranspiler.js:90",
+    "packages/core/src/compiler/simpleTranspiler.js:93",
+    "packages/core/bin/goiasscript.js:563",
+    "packages/core/bin/goiasscript.js:584",
+    "packages/core/bin/goiasscript.js:602",
+    "packages/core/bin/goiasscript.js:621",
+    "packages/core/bin/goiasscript.js:639"
+  ],
+  "fraco": [
+    "packages/core/src/compiler/simpleTranspiler.js:71",
+    "packages/core/bin/goias.js:173",
+    "packages/core/bin/goias.js:194",
+    "packages/core/src/compiler/lexer.js:86",
+    "packages/core/tests/unit/lexer.test.js:48",
+    "packages/core/tests/unit/lexer.test.js:51",
+    "apps/playground-e2e/tests/home.spec.ts:9"
+  ]
+}

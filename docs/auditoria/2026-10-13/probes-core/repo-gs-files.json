@@ -1,0 +1,122 @@
+[
+  {
+    "arquivo": "packages/core/examples/advanced/teste_classes.gs",
+    "linhas": 141,
+    "transpile": "ok",
+    "avisos": 1,
+    "execucao": "ERRO SyntaxError: Unexpected identifier 'ComidaGoiana'",
+    "primeirasLinhas": ""
+  },
+  {
+    "arquivo": "packages/core/examples/advanced/teste_classes_simples.gs",
+    "linhas": 71,
+    "transpile": "ok",
+    "avisos": 1,
+    "execucao": "ERRO SyntaxError: Unexpected identifier 'faizBaruio'",
+    "primeirasLinhas": ""
+  },
+  {
+    "arquivo": "packages/core/examples/advanced/teste_erros.gs",
+    "linhas": 49,
+    "transpile": "ok",
+    "avisos": 1,
+    "execucao": "ok (6 linhas de saída)",
+    "primeirasLinhas": "=== Testando erros personalizados em GoiásScript ===⏎⏎=== Menu de Testes de Erro ===⏎Descomente apenas um teste por vez para ver o erro correspondente:⏎⏎Descome…(+75)"
+  },
+  {
+    "arquivo": "packages/core/examples/advanced/teste_instanceof.gs",
+    "linhas": 92,
+    "transpile": "ok",
+    "avisos": 1,
+    "execucao": "ERRO SyntaxError: Unexpected identifier 'fazerVeiculoFuncionar'",
+    "primeirasLinhas": ""
+  },
+  {
+    "arquivo": "packages/core/examples/async/async_exemplo.gs",
+    "linhas": 92,
+    "transpile": "ok",
+    "avisos": 1,
+    "execucao": "ERRO SyntaxError: Unexpected identifier 'esperaUmPoquim'",
+    "primeirasLinhas": ""
+  },
+  {
+    "arquivo": "packages/core/examples/basic/exemplo.gs",
+    "linhas": 14,
+    "transpile": "ok",
+    "avisos": 1,
+    "execucao": "ok (3 linhas de saída)",
+    "primeirasLinhas": "Bão demais da conta!⏎Oi, João!⏎Oi, Maria!"
+  },
+  {
+    "arquivo": "packages/core/examples/basic/exemplo_simples.gs",
+    "linhas": 46,
+    "transpile": "ok",
+    "avisos": 1,
+    "execucao": "ERRO SyntaxError: Unexpected identifier 'presta_serviço'",
+    "primeirasLinhas": ""
+  },
+  {
+    "arquivo": "packages/core/examples/basic/lista-mapeamento.gs",
+    "linhas": 15,
+    "transpile": "ok",
+    "avisos": 1,
+    "execucao": "ok (8 linhas de saída)",
+    "primeirasLinhas": "Os número: [ 1, 2, 3, 4, 5 ]⏎Dobrados, sô: [ 2, 4, 6, 8, 10 ]⏎Só os par: [ 2, 4 ]⏎Item 0: 2⏎Item 1: 4⏎Item 2: 6⏎Item 3: 8⏎Item 4: 10"
+  },
+  {
+    "arquivo": "packages/core/examples/basic/ola-mundo.gs",
+    "linhas": 8,
+    "transpile": "ok",
+    "avisos": 1,
+    "execucao": "ok (2 linhas de saída)",
+    "primeirasLinhas": "Eai sô, bão demais da conta!⏎Salve, Goiás!"
+  },
+  {
+    "arquivo": "packages/core/examples/classes/exemplo_classes.gs",
+    "linhas": 76,
+    "transpile": "ok",
+    "avisos": 1,
+    "execucao": "ERRO SyntaxError: Unexpected identifier 'Pamonharia'",
+    "primeirasLinhas": ""
+  },
+  {
+    "arquivo": "packages/core/examples/classes/pequi.gs",
+    "linhas": 26,
+    "transpile": "ok",
+    "avisos": 1,
+    "execucao": "ok (3 linhas de saída)",
+    "primeirasLinhas": "Pequi verde, com espinho: cuidado pra num se furar!⏎O pequi amadureceu, sô! Tá no ponto de pôr no arroz.⏎Pequi maduro, com espinho: cuidado pra num se furar!"
+  },
+  {
+    "arquivo": "packages/core/templates/basic-template.gs",
+    "linhas": 20,
+    "transpile": "ok",
+    "avisos": 1,
+    "execucao": "ok (9 linhas de saída)",
+    "primeirasLinhas": "=== Projeto {{PROJECT_NAME}} ===⏎GoiásScript v2.0 funcionando!⏎Oi sô! Seu projeto tá rodando perfeitamente!⏎Tecnologias:⏎• GoiásScript⏎• JavaScript⏎• Node.js⏎Nú…(+48)"
+  },
+  {
+    "arquivo": "packages/core/templates/projeto-basico/src/main.gs",
+    "linhas": 28,
+    "transpile": "ok",
+    "avisos": 1,
+    "execucao": "ERRO SyntaxError: Unexpected identifier 'saudar'",
+    "primeirasLinhas": ""
+  },
+  {
+    "arquivo": "packages/core/templates/projeto-basico/tests/test.gs",
+    "linhas": 56,
+    "transpile": "ok",
+    "avisos": 1,
+    "execucao": "ERRO SyntaxError: Unexpected identifier 'é_igual_a'",
+    "primeirasLinhas": ""
+  },
+  {
+    "arquivo": "packages/core/tests/fixtures/test-basic.gs",
+    "linhas": 15,
+    "transpile": "ok",
+    "avisos": 1,
+    "execucao": "ERRO SyntaxError: Unexpected identifier 'digaOla'",
+    "primeirasLinhas": ""
+  }
+]

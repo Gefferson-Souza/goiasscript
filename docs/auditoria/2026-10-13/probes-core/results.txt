@@ -1,0 +1,1104 @@
+[OK ] A01 (identificador) prosaico (prefixo de keyword)
+    entrada : uai prosaico é 1; prosa(prosaico);
+    saida   : const prosaico = 1; console.log(prosaico);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 1
+    exec    : ok -> 1
+[OK ] A02 (identificador) maisum
+    entrada : uai maisum é 2; prosa(maisum);
+    saida   : const maisum = 2; console.log(maisum);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 2
+    exec    : ok -> 2
+[OK ] A03 (identificador) uaizinho
+    entrada : uai uaizinho é 3; prosa(uaizinho);
+    saida   : const uaizinho = 3; console.log(uaizinho);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 3
+    exec    : ok -> 3
+[OK ] A04 (identificador) trem2
+    entrada : uai trem2 é 4; prosa(trem2);
+    saida   : const trem2 = 4; console.log(trem2);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 4
+    exec    : ok -> 4
+[OK ] A05 (identificador) emprego
+    entrada : uai emprego é "dev"; prosa(emprego);
+    saida   : const emprego = "dev"; console.log(emprego);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: dev
+    exec    : ok -> dev
+[OK ] A06 (identificador) desde
+    entrada : uai desde é 2020; prosa(desde);
+    saida   : const desde = 2020; console.log(desde);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 2020
+    exec    : ok -> 2020
+[OK ] A07 (identificador) mais_um (underscore)
+    entrada : uai mais_um é 7; prosa(mais_um);
+    saida   : const mais_um = 7; console.log(mais_um);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 7
+    exec    : ok -> 7
+[OK ] A08 (identificador) identificadores acentuados sem keyword
+    entrada : uai número é 3; uai açúcar é 4; prosa(número mais açúcar);
+    saida   : const número = 3; const açúcar = 4; console.log(número + açúcar);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 7
+    exec    : ok -> 7
+[OK ] A09 (identificador) variável chamada `de` (funciona por acidente: `of` é identificador válido em JS)
+    entrada : uai de é 5; prosa(de);
+    saida   : const of = 5; console.log(of);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 5
+    exec    : ok -> 5
+[FALHA] A10 (identificador) parâmetro chamado `em`  sev=MEDIUM
+    entrada : faz_trem f(em) { faz_favor em mais 1; } prosa(f(1));
+    saida   : function f(in) { return in + 1; } console.log(f(1));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 2
+    exec    : ERRO SyntaxError: Unexpected token 'in' | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Unexpected token 'in'
+[FALHA] A11 (identificador) variável chamada `vezes` (palavra comum)  sev=MEDIUM
+    entrada : uai vezes é 3; prosa(vezes);
+    saida   : const * = 3; console.log(*);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 3
+    exec    : ERRO SyntaxError: Unexpected token '*' | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Unexpected token '*'
+[FALHA] A12 (identificador) chaves de objeto `mais`/`menos`  sev=MEDIUM
+    entrada : uai total é { mais: 1, menos: 2 }; prosa(total.mais, total.menos);
+    saida   : const total = { +: 1, -: 2 }; console.log(total.+, total.-);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 1 2
+    exec    : ERRO SyntaxError: Unexpected token '+' | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Unexpected token '+'
+[FALHA] A13 (identificador) chaves de JSON externo `de`/`em`/`nada` via ponto  sev=HIGH
+    entrada : uai o é JSON.parse('{"de":"SP","em":"RJ","nada":"x"}'); prosa(o.de, o.em, o.nada);
+    saida   : const o = JSON.parse('{"de":"SP","em":"RJ","nada":"x"}'); console.log(o.of, o.in, o.null);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: SP RJ x
+    exec    : ok -> undefined undefined undefined
+    detalhe : stdout obtido=undefined undefined undefined
+[FALHA] A14 (identificador) \b ASCII: `nadação` vira `nullção` e vaza para os dados  sev=MEDIUM
+    entrada : uai o é { nadação: 1 }; prosa(Object.keys(o)[0]);
+    saida   : const o = { nullção: 1 }; console.log(Object.chaves(o)[0]);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: nadação
+    exec    : ok -> nullção
+    detalhe : stdout obtido=nullção
+[FALHA] A15 (identificador) `$mais` (dólar é fronteira de palavra)  sev=LOW
+    entrada : uai $mais é 7; prosa($mais);
+    saida   : const $+ = 7; console.log($+);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 7
+    exec    : ERRO SyntaxError: Missing initializer in const declaration | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Missing initializer in const declaration
+[FALHA] A16 (identificador) método do usuário chamado `prosa`  sev=LOW
+    entrada : uai o é { prosa() { faz_favor 1; } }; prosa(o.prosa());
+    saida   : const o = { console.log() { return 1; } }; console.log(o.console.log());
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 1
+    exec    : ERRO SyntaxError: Unexpected token '.' | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Unexpected token '.'
+[OK ] G01 (estrutura) se_ocê_quiser / se_não se_ocê_quiser / se_não encadeado
+    entrada : uai x é 3;⏎se_ocê_quiser (x maior_que 5) { prosa("a"); } se_não se_ocê_quiser (x maior_que 2) { prosa("b"); } se_não { prosa("c"); }
+    saida   : const x = 3;⏎if (x > 5) { console.log("a"); } else if (x > 2) { console.log("b"); } else { console.log("c"); }
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: b
+    exec    : ok -> b
+[OK ] G02 (estrutura) se_num_for
+    entrada : uai x é 1;⏎se_ocê_quiser (x maior_que 5) { prosa("a"); } se_num_for (x menor_que 2) { prosa("b"); } se_não { prosa("c"); }
+    saida   : const x = 1;⏎if (x > 5) { console.log("a"); } else if (x < 2) { console.log("b"); } else { console.log("c"); }
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: b
+    exec    : ok -> b
+[OK ] G03 (estrutura) for-of com `de` e for com vai_indo
+    entrada : uai lista é [10, 20];⏎vai_indo (uai x de lista) { prosa(x); }⏎vai_indo (trem i é 0; i menor_que 2; i é i mais 1) { prosa(i); }
+    saida   : const lista = [10, 20];⏎for (const x of lista) { console.log(x); }⏎for (var i = 0; i < 2; i = i + 1) { console.log(i); }
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 10⏎20⏎0⏎1
+    exec    : ok -> 10⏎20⏎0⏎1
+[OK ] G04 (estrutura) classe com herança, super, static e ocê
+    entrada : arruma_trem Animal {⏎  aprepara_trem(nome) { ocê.nome é nome; }⏎  falar() { faz_favor ocê.nome mais " faz barulho"; }⏎  num_muda criar(n) { faz_favor faz_um Animal(n); }⏎}⏎arruma_trem Cachorro inherda_de Animal {⏎  aprepara_trem(nome) { super(nome); }⏎  falar() { faz_favor super.falar() mais " - au"…(+128)
+    saida   : class Animal {⏎  constructor(nome) { this.nome = nome; }⏎  falar() { return this.nome + " faz barulho"; }⏎  static criar(n) { return new Animal(n); }⏎}⏎class Cachorro extends Animal {⏎  constructor(nome) { super(nome); }⏎  falar() { return super.falar() + " - au"; }⏎}⏎console.log(new Cachorro("Rex")…(+104)
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: Rex faz barulho - au⏎Tom faz barulho⏎true
+    exec    : ok -> Rex faz barulho - au⏎Tom faz barulho⏎true
+[OK ] G05 (estrutura) async/await + promessa + quando_resolver/se_der_pobrema
+    entrada : vai_na_frente_faz_trem soma() {⏎  uai v é espera_um_cadim faz_um promessa((resolve_aí) => resolve_aí(40 mais 2));⏎  faz_favor v;⏎}⏎soma().quando_resolver(v => prosa("v=" mais v)).se_der_pobrema(e => prosa("erro"));
+    saida   : async function soma() {⏎  const v = await new Promise((resolve) => resolve(40 + 2));⏎  return v;⏎}⏎soma().then(v => console.log("v=" + v)).catch(e => console.log("erro"));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: v=42
+    exec    : ok -> v=42
+[OK ] G06 (estrutura) tenta_aí / se_der_ruim / por_fim + vixe(...)
+    entrada : tenta_aí {⏎  vixe("quebrou");⏎} se_der_ruim (e) {⏎  prosa("pegou:", e.message);⏎} por_fim {⏎  prosa("fim");⏎}
+    saida   : try {⏎  throw new Error("quebrou");⏎} catch (e) {⏎  console.log("pegou:", e.message);⏎} finally {⏎  console.log("fim");⏎}
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: pegou: quebrou⏎fim
+    exec    : ok -> pegou: quebrou⏎fim
+[OK ] G07 (estrutura) enquanto_tiver + para_com_isso com espaço antes do `}`
+    entrada : trem i é 0;⏎enquanto_tiver (i menor_que 10) { i é i mais 1; se_ocê_quiser (i é_igualim 3) { para_com_isso }⏎}⏎prosa(i);
+    saida   : var i = 0;⏎while (i < 10) { i = i + 1; if (i === 3) { break }⏎}⏎console.log(i);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 3
+    exec    : ok -> 3
+[OK ] G08 (estrutura) funções: declaração, anônima e arrow
+    entrada : faz_trem dobra(a) { faz_favor a vezes 2; }⏎uai tripla é faz_trem(a) { faz_favor a vezes 3; };⏎uai soma é (a, b) => a mais b;⏎prosa(dobra(4), tripla(4), soma(4, 4));
+    saida   : function dobra(a) { return a * 2; }⏎const tripla = function(a) { return a * 3; };⏎const soma = (a, b) => a + b;⏎console.log(dobra(4), tripla(4), soma(4, 4));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 8 12 8
+    exec    : ok -> 8 12 8
+[FALHA] G09 (estrutura) `continua_aí;` e `para_com_isso;` com ponto-e-vírgula  sev=HIGH
+    entrada : vai_indo (trem i é 0; i menor_que 5; i é i mais 1) {⏎  se_ocê_quiser (i é_igualim 2) { continua_aí; }⏎  se_ocê_quiser (i é_igualim 4) { para_com_isso; }⏎  prosa(i);⏎}
+    saida   : for (var i = 0; i < 5; i = i + 1) {⏎  if (i === 2) { continua_aí; }⏎  if (i === 4) { para_com_isso; }⏎  console.log(i);⏎}
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 0⏎1⏎3
+    exec    : ERRO ReferenceError: continua_aí is not defined | stdout parcial=0⏎1
+    detalhe : execução falhou: ReferenceError: continua_aí is not defined
+[FALHA] G10 (estrutura) `faz_favor;` (return vazio)  sev=HIGH
+    entrada : faz_trem f(x) { se_ocê_quiser (x) { faz_favor; } prosa("fim"); }⏎f(certeza); f(de_jeito_nenhum);
+    saida   : function f(x) { if (x) { faz_favor; } console.log("fim"); }⏎f(true); f(false);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: fim
+    exec    : ERRO ReferenceError: faz_favor is not defined | stdout parcial=
+    detalhe : execução falhou: ReferenceError: faz_favor is not defined
+[FALHA] G11 (estrutura) estilo compacto `tenta_aí{ ... }se_der_ruim(e){ ... }`  sev=LOW
+    entrada : tenta_aí{ vixe("x"); }se_der_ruim(e){ prosa(e.message); }
+    saida   : tenta_aí{ throw new Error("x"); }se_der_ruim(e){ console.log(e.message); }
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: x
+    exec    : ERRO SyntaxError: Unexpected token '{' | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Unexpected token '{'
+[FALHA] G12 (estrutura) `faz_favor ocê;` (retorno encadeável)  sev=HIGH
+    entrada : arruma_trem Contador {⏎  aprepara_trem() { ocê.n é 0; }⏎  inc() { ocê.n é ocê.n mais 1; faz_favor ocê; }⏎}⏎prosa(faz_um Contador().inc().inc().n);
+    saida   : class Contador {⏎  constructor() { this.n = 0; }⏎  inc() { this.n = this.n + 1; return ocê; }⏎}⏎console.log(new Contador().inc().inc().n);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 2
+    exec    : ERRO ReferenceError: ocê is not defined | stdout parcial=
+    detalhe : execução falhou: ReferenceError: ocê is not defined
+[FALHA] G13 (estrutura) `(ocê.x)` e `[ocê]` (ocê após parêntese/colchete)  sev=MEDIUM
+    entrada : arruma_trem P {⏎  aprepara_trem() { ocê.x é 5; }⏎  v() { faz_favor (ocê.x mais 1); }⏎  l() { faz_favor [ocê].tamanho(); }⏎}⏎prosa(faz_um P().v(), faz_um P().l());
+    saida   : class P {⏎  constructor() { this.x = 5; }⏎  v() { return (ocê.x + 1); }⏎  l() { return [ocê].tamanho(); }⏎}⏎console.log(new P().v(), new P().l());
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 6 1
+    exec    : ERRO ReferenceError: ocê is not defined | stdout parcial=
+    detalhe : execução falhou: ReferenceError: ocê is not defined
+[FALHA] G14 (estrutura) negação dupla `num_é num_é x` (keywords iguais adjacentes)  sev=LOW
+    entrada : prosa(num_é num_é certeza);
+    saida   : console.log(! num_é true);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: true
+    exec    : ERRO SyntaxError: missing ) after argument list | stdout parcial=
+    detalhe : execução falhou: SyntaxError: missing ) after argument list
+[FALHA] G15 (estrutura) keyword colada em string: `faz_favor"ok"`  sev=LOW
+    entrada : faz_trem f() { faz_favor"ok"; } prosa(f());
+    saida   : function f() { faz_favor"ok"; } console.log(f());
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: ok
+    exec    : ERRO SyntaxError: Unexpected string | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Unexpected string
+[OK ] S01 (string) aspas duplas escapadas contendo keyword
+    entrada : prosa("ele disse \"mais\" e saiu");
+    saida   : console.log("ele disse \"mais\" e saiu");
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: ele disse "mais" e saiu
+    exec    : ok -> ele disse "mais" e saiu
+[OK ] S02 (string) aspas simples escapadas
+    entrada : prosa('it\'s mais de um');
+    saida   : console.log('it\'s mais de um');
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: it's mais de um
+    exec    : ok -> it's mais de um
+[OK ] S03 (string) apóstrofo dentro de string com aspas duplas
+    entrada : prosa("d'água mais fria");
+    saida   : console.log("d'água mais fria");
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: d'água mais fria
+    exec    : ok -> d'água mais fria
+[FALHA] S04 (string) string com `$&` (padrão especial de String.replace)  sev=HIGH
+    entrada : prosa("preço $& fim");
+    saida   : console.log("preço __STRING_0__ fim");
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: preço $& fim
+    exec    : ok -> preço __STRING_0__ fim
+    detalhe : stdout obtido=preço __STRING_0__ fim
+[FALHA] S05 (string) string com `$$` (moeda: "US$$")  sev=HIGH
+    entrada : prosa("custa US$$ 10");
+    saida   : console.log("custa US$ 10");
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: custa US$$ 10
+    exec    : ok -> custa US$ 10
+    detalhe : stdout obtido=custa US$ 10
+[FALHA] S06 (string) string com `$'` (insere o resto do código!)  sev=HIGH
+    entrada : prosa("a $' b");⏎prosa("depois");
+    saida   : console.log("a );⏎console.log("depois"); b");⏎console.log(__STRING_1__);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: a $' b⏎depois
+    exec    : ERRO SyntaxError: Invalid or unexpected token | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Invalid or unexpected token
+[OK ] S07 (string) string com `$1` e `$<x>` (controle: não são especiais para padrão-string)
+    entrada : prosa("custa $1 e $<x>");
+    saida   : console.log("custa $1 e $<x>");
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: custa $1 e $<x>
+    exec    : ok -> custa $1 e $<x>
+[FALHA] S08 (string) literal "__STRING_1__" dentro de uma string (colisão com placeholder)  sev=LOW
+    entrada : prosa("__STRING_1__");⏎prosa("b");
+    saida   : console.log(""b"");⏎console.log(__STRING_1__);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: __STRING_1__⏎b
+    exec    : ERRO SyntaxError: missing ) after argument list | stdout parcial=
+    detalhe : execução falhou: SyntaxError: missing ) after argument list
+[FALHA] S09 (string) identificador do usuário `__STRING_0__`  sev=LOW
+    entrada : uai __STRING_0__ é 5;⏎prosa("a", __STRING_0__);
+    saida   : const "a" = 5;⏎console.log(__STRING_0__, __STRING_0__);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: a 5
+    exec    : ERRO SyntaxError: Unexpected string | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Unexpected string
+[FALHA] S10 (string) continuação de linha dentro de string ("abc\<LF>def")  sev=LOW
+    entrada : uai s é "abc\⏎def"; uai k é "mais"; prosa(s, k);
+    saida   : const s = "abc\⏎def"; uai k é "mais"; console.log(s, k);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: abcdef mais
+    exec    : ERRO SyntaxError: Unexpected identifier 'k' | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Unexpected identifier 'k'
+[OK ] S11 (string) URL com // em string
+    entrada : prosa("http://x.com/mais/de");
+    saida   : console.log("http://x.com/mais/de");
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: http://x.com/mais/de
+    exec    : ok -> http://x.com/mais/de
+[FALHA] S12 (string) texto ".replace(" dentro de string gera aviso  sev=LOW
+    entrada : prosa("use .replace( pra trocar");
+    saida   : console.log("use .replace( pra trocar");
+    avisos  : ⚠️ Ô sô! O método ".replace(" não é goiano não! Use ".replace" que é mais da hora. || ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    exec    : ok -> use .replace( pra trocar
+    detalhe : avisos=["⚠️ Ô sô! O método \".replace(\" não é goiano não! Use \".replace\" que é mais da hora.","⚠️ Ô sô! O método \"console.log(\" não é goiano não! Use \"prosa\" que é mais da hora."]
+[FALHA] S13 (string) string não terminada: erro deve ser reportado na tradução com linha  sev=MEDIUM
+    entrada : uai a é 1;⏎prosa("abc);⏎prosa(a);
+    saida   : const a = 1;⏎console.log("abc);⏎console.log(a);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    exec    : ERRO SyntaxError: Invalid or unexpected token | stdout parcial=
+    detalhe : transpile=success (erro só aparece ao executar, sem linha do .gs): SyntaxError: Invalid or unexpected token
+[FALHA] C01 (comentario) comentário // com keywords é preservado  sev=LOW
+    entrada : // vai de mais em menos⏎prosa("ok");
+    saida   : // vai of + in -⏎console.log("ok");
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    exec    : ok -> ok
+    detalhe : saída=// vai of + in -
+[FALHA] C02 (comentario) apóstrofo solto em comentário // engole o código até o próximo '  sev=HIGH
+    entrada : // não esqueça d'água⏎uai x é 5;⏎prosa(x mais 1);⏎// outro comentário com ' aspas
+    saida   : // não esqueça d'água⏎uai x é 5;⏎prosa(x mais 1);⏎// outro comentário com ' aspas
+    esperado: 6
+    exec    : ERRO SyntaxError: Unexpected identifier 'x' | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Unexpected identifier 'x'
+[FALHA] C03 (comentario) aspa dupla ímpar em comentário /* */ dessincroniza strings  sev=HIGH
+    entrada : /* ele disse: "oi */⏎uai x é 1;⏎prosa("fim", x);
+    saida   : /* ele disse: "oi */⏎uai x é 1;⏎prosa("fim", x);
+    esperado: fim 1
+    exec    : ERRO SyntaxError: Unexpected identifier 'x' | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Unexpected identifier 'x'
+[FALHA] C04 (comentario) polegadas em comentário: // 5" de altura  sev=HIGH
+    entrada : // tela de 5" de altura⏎uai a é "x";⏎uai b é 1 mais 2;⏎prosa(a, b);
+    saida   : // tela of 5" de altura⏎uai a é "x";⏎const b = 1 + 2;⏎console.log(a, b);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: x 3
+    exec    : ERRO SyntaxError: Unexpected identifier 'a' | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Unexpected identifier 'a'
+[OK ] C05 (comentario) comentário final de linha com URL e aspas balanceadas
+    entrada : uai x é 1; // veja "http://a.b/c" mais⏎prosa(x);
+    saida   : const x = 1; // veja "http://a.b/c" +⏎console.log(x);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 1
+    exec    : ok -> 1
+[OK ] T01 (template) template simples com interpolação
+    entrada : uai nome é "Ana"; prosa(`Olá, ${nome}!`);
+    saida   : const nome = "Ana"; console.log(`Olá, ${nome}!`);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: Olá, Ana!
+    exec    : ok -> Olá, Ana!
+[FALHA] T02 (template) texto em português dentro do template (é/mais/de/em)  sev=HIGH
+    entrada : prosa(`isso é mais de um em muitos`);
+    saida   : console.log(`isso = + of um in muitos`);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: isso é mais de um em muitos
+    exec    : ok -> isso = + of um in muitos
+    detalhe : stdout obtido=isso = + of um in muitos
+[OK ] T03 (template) keyword dentro de ${ } é traduzida (comportamento desejável)
+    entrada : prosa(`soma: ${1 mais 2}`);
+    saida   : console.log(`soma: ${1 + 2}`);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: soma: 3
+    exec    : ok -> soma: 3
+[FALHA] T04 (template) template com aspas internas e a palavra mais  sev=HIGH
+    entrada : prosa(`ele disse "oi" e 'tchau' mais uma vez`);
+    saida   : console.log(`ele disse "oi" e 'tchau' + uma vez`);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: ele disse "oi" e 'tchau' mais uma vez
+    exec    : ok -> ele disse "oi" e 'tchau' + uma vez
+    detalhe : stdout obtido=ele disse "oi" e 'tchau' + uma vez
+[FALHA] T05 (template) template aninhado  sev=HIGH
+    entrada : prosa(`a ${`b ${1 mais 1}`} de c`);
+    saida   : console.log(`a ${`b ${1 + 1}`} of c`);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: a b 2 de c
+    exec    : ok -> a b 2 of c
+    detalhe : stdout obtido=a b 2 of c
+[FALHA] T06 (template) template com texto ".length"  sev=MEDIUM
+    entrada : prosa(`o .length da lista`);
+    saida   : console.log(`o .tamanho() da lista`);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: o .length da lista
+    exec    : ok -> o .tamanho() da lista
+    detalhe : stdout obtido=o .tamanho() da lista
+[FALHA] T07 (template) apóstrofo em template engole código até o próximo '  sev=HIGH
+    entrada : prosa(`d'água`);⏎uai y é 2;⏎prosa(y mais 1);⏎prosa('fim');
+    saida   : console.log(`d'água`);⏎uai y é 2;⏎prosa(y mais 1);⏎prosa('fim');
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: d'água⏎3⏎fim
+    exec    : ERRO SyntaxError: Unexpected identifier 'y' | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Unexpected identifier 'y'
+[FALHA] T08 (template) template multilinha com `é` entre palavras  sev=HIGH
+    entrada : prosa(`linha 1⏎isso é a linha 2`);
+    saida   : console.log(`linha 1⏎isso = a linha 2`);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: linha 1⏎isso é a linha 2
+    exec    : ok -> linha 1⏎isso = a linha 2
+    detalhe : stdout obtido=linha 1⏎isso = a linha 2
+[FALHA] R01 (regex) regex literal com `de|em`  sev=MEDIUM
+    entrada : uai r é /de|em/g; prosa("de em".match(r).length);
+    saida   : const r = /of|in/g; console.log("de em".match(r).tamanho());
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 2
+    exec    : ERRO TypeError: Cannot read properties of null (reading 'tamanho') | stdout parcial=
+    detalhe : execução falhou: TypeError: Cannot read properties of null (reading 'tamanho')
+[FALHA] R02 (regex) regex com aspa dupla: s.replace(/"/g, "") desalinha as strings seguintes  sev=HIGH
+    entrada : uai limpo é "x".replace(/"/g, "");⏎uai y é "mais de" mais " em";⏎prosa(limpo, y);
+    saida   : const limpo = "x".trocar(/"/g, "");⏎uai y é "mais de" mais " in";⏎console.log(limpo, y);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: x mais de em
+    exec    : ERRO SyntaxError: Unexpected identifier 'y' | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Unexpected identifier 'y'
+[FALHA] R03 (regex) função clássica de escape HTML (regex com aspa simples e dupla)  sev=HIGH
+    entrada : faz_trem escapa(s) {⏎  faz_favor s.replace(/&/g, "&amp;").replace(/'/g, "&#39;").replace(/"/g, "&quot;");⏎}⏎prosa(escapa('a "b" ' + "c'd"));
+    saida   : function escapa(s) {⏎  return s.trocar(/&/g, "&amp;").trocar(/'/g, "&#39;").replace(/"/g, "&quot;");⏎}⏎prosa(escapa('a "b" ' + "c'd"));
+    avisos  : ⚠️ Ô sô! O método ".replace(" não é goiano não! Use ".replace" que é mais da hora.
+    exec    : ok -> a &quot;b&quot; c&#39;d
+    detalhe : stdout=a &quot;b&quot; c&#39;d | residual na saída: prosa( true / .replace( true
+[OK ] R04 (regex) regex com classe de caracteres e \b
+    entrada : prosa("a-b".split(/-/).length);
+    saida   : console.log("a-b".dividir(/-/).tamanho());
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 2
+    exec    : ok -> 2
+[OK ] O01 (operador) operador colado `x mais-1`
+    entrada : uai x é 5; prosa(x mais-1);
+    saida   : const x = 5; console.log(x +-1);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 4
+    exec    : ok -> 4
+[OK ] O02 (operador) operador com parêntese `x mais(1)` e `vezes(2)`
+    entrada : uai x é 5; prosa(x mais(1) vezes(2));
+    saida   : const x = 5; console.log(x +(1) *(2));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 7
+    exec    : ok -> 7
+[OK ] O03 (operador) decimais e ponto flutuante
+    entrada : prosa(0.1 mais 0.2, 3.14 vezes 2, 10 dividido 4, 7 sobrou 3);
+    saida   : console.log(0.1 + 0.2, 3.14 * 2, 10 / 4, 7 % 3);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 0.30000000000000004 6.28 2.5 1
+    exec    : ok -> 0.30000000000000004 6.28 2.5 1
+[OK ] O04 (operador) literal numérico com expoente e ponto inicial
+    entrada : prosa(1e3 mais .5, 2 ** 3);
+    saida   : console.log(1e3 + .5, 2 ** 3);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 1000.5 8
+    exec    : ok -> 1000.5 8
+[OK ] O05 (operador) operadores de comparação e lógicos
+    entrada : prosa(3 maior_que 2 e_mais 1 menor_que 2, 1 diferente 1 ou_então certeza, 2 pelo_menos 2, 2 no_máximo 1);
+    saida   : console.log(3 > 2 && 1 < 2, 1 !== 1 || true, 2 >= 2, 2 <= 1);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: true true true false
+    exec    : ok -> true true true false
+[OK ] O06 (operador) sem igualdade frouxa (==) nem incremento/atribuição composta em português
+    entrada : trem n é 0;⏎n++;⏎n += 2;⏎prosa(n, 1 == "1");
+    saida   : var n = 0;⏎n++;⏎n += 2;⏎console.log(n, 1 == "1");
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 3 true
+    exec    : ok -> 3 true
+[FALHA] O07 (operador) README:131 `vai_indo (uai i é 0; i menor_que 5; i mais 1)` (laço da documentação)  sev=HIGH
+    entrada : vai_indo (uai i é 0; i menor_que 5; i mais 1) {⏎  prosa("Iteração", i)⏎}
+    saida   : for (const i = 0; i < 5; i + 1) {⏎  console.log("Iteração", i)⏎}
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    exec    : ERRO Error: Script execution timed out after 300ms | stdout parcial=Iteração 0⏎Iteração 0⏎Iteração 0⏎Iteração 0⏎Iteração 0
+    detalhe : exec=Error: Script execution timed out after 300ms | linhas capturadas=5 (+1961650 descartadas)
+[OK ] E01 (operador-é) baseline `uai x é 5`
+    entrada : uai x é 5; prosa(x);
+    saida   : const x = 5; console.log(x);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 5
+    exec    : ok -> 5
+[FALHA] E02 (operador-é) `é` colado em colchete: `uai x é[1,2]`  sev=LOW
+    entrada : uai x é[1,2]; prosa(x[0]);
+    saida   : const x é[1,2]; console.log(x[0]);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 1
+    exec    : ERRO SyntaxError: Missing initializer in const declaration | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Missing initializer in const declaration
+[FALHA] E03 (operador-é) `é` colado em parêntese/negativo: `x é(1)`, `y é-1`  sev=LOW
+    entrada : trem x é(1);⏎trem y é-1;⏎prosa(x, y);
+    saida   : var x é(1);⏎var y é-1;⏎console.log(x, y);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 1 -1
+    exec    : ERRO SyntaxError: Unexpected identifier 'é' | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Unexpected identifier 'é'
+[FALHA] E04 (operador-é) `uai total é` com o valor na linha seguinte (quebra estilo Prettier)  sev=MEDIUM
+    entrada : uai total é⏎  5;⏎prosa(total);
+    saida   : (sem saída: transpile falhou)
+    esperado: 5
+    exec    : 
+    detalhe : transpile falhou: Erro de sintaxe na linha 1: Declaração de variável incompleta
+[FALHA] E04b (operador-é) atribuição com `é` no fim da linha preserva a contagem de linhas?  sev=MEDIUM
+    entrada : trem total;⏎total é⏎  5;⏎prosa(total);
+    saida   : var total;⏎total = 5;⏎console.log(total);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    exec    : ok -> 5
+    detalhe : stdout=5 | linhas da saída=3 (entrada tem 4)
+[FALHA] E05 (operador-é) `é` no começo da linha seguinte (continuação)  sev=LOW
+    entrada : uai total⏎  é 5;⏎prosa(total);
+    saida   : (sem saída: transpile falhou)
+    esperado: 5
+    exec    : 
+    detalhe : transpile falhou: Erro de sintaxe na linha 1: Declaração de variável incompleta
+[OK ] E07 (operador-é) atribuição encadeada `a é b é 3`
+    entrada : trem a;⏎trem b;⏎a é b é 3;⏎prosa(a, b);
+    saida   : var a;⏎var b;⏎a = b = 3;⏎console.log(a, b);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 3 3
+    exec    : ok -> 3 3
+[OK ] E08 (operador-é) é_igualim e é_tipo_de ao lado de é
+    entrada : uai ok é 2 é_igualim 2;⏎uai d é faz_um Date() é_tipo_de Date;⏎prosa(ok, d);
+    saida   : const ok = 2 === 2;⏎const d = new Date() instanceof Date;⏎console.log(ok, d);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: true true
+    exec    : ok -> true true
+[OK ] E09 (operador-é) tabulação em vez de espaço: `uai\tx\té\t5`
+    entrada : uai	x	é	5;⏎prosa(x);
+    saida   : const	x = 5;⏎console.log(x);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 5
+    exec    : ok -> 5
+[FALHA] U01 (unicode) `é` decomposto (e + U+0301) — texto idêntico na tela  sev=MEDIUM
+    entrada : uai x é 5; prosa(x);
+    saida   : (sem saída: transpile falhou)
+    esperado: 5
+    exec    : 
+    detalhe : transpile falhou: Erro de sintaxe na linha 1: Declaração de variável incompleta
+[FALHA] U02 (unicode) `se_não` e `ocê` decompostos  sev=MEDIUM
+    entrada : arruma_trem A { aprepara_trem() { ocê.v é 1; } }⏎se_ocê_quiser (de_jeito_nenhum) { prosa("a"); } se_não { prosa("b"); }
+    saida   : class A { constructor() { ocê.v = 1; } }⏎if (false) { console.log("a"); } se_não { console.log("b"); }
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: b
+    exec    : ERRO SyntaxError: Unexpected token '{' | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Unexpected token '{'
+[OK ] U03 (unicode) identificador `café` (NFC) com keyword colada
+    entrada : uai café é 1; uai cafemais é 2; prosa(café mais cafemais);
+    saida   : const café = 1; const cafemais = 2; console.log(café + cafemais);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 3
+    exec    : ok -> 3
+[OK ] L01 (formato) CRLF (arquivo Windows)
+    entrada : uai x é 5;⏎prosa(x);⏎
+    saida   : const x = 5;⏎console.log(x);⏎
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 5
+    exec    : ok -> 5
+[OK ] L02 (formato) BOM (U+FEFF) no começo
+    entrada : ﻿uai x é 5;⏎prosa(x);
+    saida   : ﻿const x = 5;⏎console.log(x);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 5
+    exec    : ok -> 5
+[OK ] L03 (formato) ASI: sem ponto-e-vírgula (estilo do README)
+    entrada : uai nome é "Goiás"⏎uai numeros é [1, 2, 3]⏎prosa("Bem-vindo ao", nome)⏎uai dobrados é numeros.mapear(x => x vezes 2)⏎prosa("Dobrados:", dobrados)
+    saida   : const nome = "Goiás"⏎const numeros = [1, 2, 3]⏎console.log("Bem-vindo ao", nome)⏎const dobrados = numeros.mapear(x => x * 2)⏎console.log("Dobrados:", dobrados)
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: Bem-vindo ao Goiás⏎Dobrados: [ 2, 4, 6 ]
+    exec    : ok -> Bem-vindo ao Goiás⏎Dobrados: [ 2, 4, 6 ]
+[OK ] L04 (formato) expressão multilinha com operador no começo da linha
+    entrada : uai soma é 1⏎  mais 2⏎  mais 3⏎prosa(soma)
+    saida   : const soma = 1⏎  + 2⏎  + 3⏎console.log(soma)
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 6
+    exec    : ok -> 6
+[FALHA] L05 (formato) linhas do JS gerado == linhas do .gs (mapeamento 1:1 do código do usuário)  sev=MEDIUM
+    entrada : trem a;⏎trem b;⏎b é⏎  2;⏎a é 1;⏎prosa(a, b);
+    saida   : var a;⏎var b;⏎b = 2;⏎a = 1;⏎console.log(a, b);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    exec    : ok -> 1 2
+    detalhe : linhas na saída=5 (entrada tem 6)
+[FALHA] V01 (validacao) objeto compacto aninhado `{a:{b:{c:1}}}` (contém `}}}`)  sev=MEDIUM
+    entrada : uai o é {a:{b:{c:1}}}; prosa(o.a.b.c);
+    saida   : (sem saída: transpile falhou)
+    esperado: 1
+    exec    : 
+    detalhe : transpile falhou: Erro de sintaxe na linha 1: Chaves desbalanceadas
+[FALHA] V02 (validacao) string com `{{{nome}}}` (mustache)  sev=LOW
+    entrada : prosa("<p>{{{nome}}}</p>");
+    saida   : (sem saída: transpile falhou)
+    esperado: <p>{{{nome}}}</p>
+    exec    : 
+    detalhe : transpile falhou: Erro de sintaxe na linha 1: Chaves desbalanceadas
+[FALHA] V03 (validacao) comentário final com `{{{`  sev=LOW
+    entrada : uai x é 1; // {{{ início de região⏎prosa(x);
+    saida   : (sem saída: transpile falhou)
+    esperado: 1
+    exec    : 
+    detalhe : transpile falhou: Erro de sintaxe na linha 1: Chaves desbalanceadas
+[FALHA] V04 (validacao) JS sintaticamente quebrado deve ser reprovado na tradução  sev=HIGH
+    entrada : uai x é (;
+    saida   : const x = (;
+    exec    : ERRO SyntaxError: Unexpected token ';' | stdout parcial=
+    detalhe : transpile=success; só falha ao executar: SyntaxError: Unexpected token ';'
+[OK ] V05 (validacao) anotação de tipo em declaração `uai nome: texto é "a"` (controle)
+    entrada : uai nome: texto é "Ana"; prosa(nome);
+    saida   : const nome = "Ana"; console.log(nome);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: Ana
+    exec    : ok -> Ana
+[FALHA] V06 (validacao) anotação de tipo em parâmetros/retorno de função  sev=LOW
+    entrada : faz_trem soma(a: numero, b: numero): numero { faz_favor a mais b; }⏎prosa(soma(1, 2));
+    saida   : function soma(a: numero, b: numero): numero { return a + b; }⏎console.log(soma(1, 2));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 3
+    exec    : ERRO SyntaxError: Unexpected token ':' | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Unexpected token ':'
+[FALHA] V07 (validacao) anotação em identificador acentuado `uai número: numero é 5`  sev=LOW
+    entrada : uai número: numero é 5; prosa(número);
+    saida   : const número: numero = 5; console.log(número);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 5
+    exec    : ERRO SyntaxError: Missing initializer in const declaration | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Missing initializer in const declaration
+[OK ] V08 (validacao) `uai x;` sem valor é rejeitado (controle)
+    entrada : uai x;
+    saida   : (sem saída: transpile falhou)
+    exec    : 
+    detalhe : Erro de sintaxe na linha 1: Declaração de variável incompleta
+[FALHA] W01 (aviso) programa que só usa `prosa` não deve receber aviso de método proibido  sev=MEDIUM
+    entrada : prosa("oi");
+    saida   : console.log("oi");
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    exec    : ok -> oi
+    detalhe : avisos=["⚠️ Ô sô! O método \"console.log(\" não é goiano não! Use \"prosa\" que é mais da hora."]
+[FALHA] W02 (aviso) documentado: `nome.replace(...)` gera aviso "use trocar"  sev=LOW
+    entrada : uai n é "abc"; prosa(n.replace("a", "b"));
+    saida   : const n = "abc"; console.log(n.trocar("a", "b"));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    exec    : ok -> bbc
+    detalhe : avisos=["⚠️ Ô sô! O método \"console.log(\" não é goiano não! Use \"prosa\" que é mais da hora."]
+[FALHA] M01 (reescrita) `arr.length = 0` (atribuição ao length)  sev=MEDIUM
+    entrada : uai a é [1, 2, 3];⏎a.length é 0;⏎prosa(a.length);
+    saida   : const a = [1, 2, 3];⏎a.tamanho() = 0;⏎console.log(a.tamanho());
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 0
+    exec    : ERRO ReferenceError: Invalid left-hand side in assignment | stdout parcial=
+    detalhe : execução falhou: ReferenceError: Invalid left-hand side in assignment
+[FALHA] M02 (reescrita) objeto do usuário com propriedade `length`  sev=HIGH
+    entrada : uai o é { length: 3 }; prosa(o.length);
+    saida   : const o = { length: 3 }; console.log(o.tamanho());
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 3
+    exec    : ERRO TypeError: o.tamanho is not a function | stdout parcial=
+    detalhe : execução falhou: TypeError: o.tamanho is not a function
+[FALHA] M03 (reescrita) `arguments.length`  sev=MEDIUM
+    entrada : faz_trem f() { faz_favor arguments.length; } prosa(f(1, 2, 3));
+    saida   : function f() { return arguments.tamanho(); } console.log(f(1, 2, 3));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 3
+    exec    : ERRO TypeError: arguments.tamanho is not a function | stdout parcial=
+    detalhe : execução falhou: TypeError: arguments.tamanho is not a function
+[FALHA] M04 (reescrita) `Uint8Array.length`  sev=LOW
+    entrada : prosa((faz_um Uint8Array(4)).length);
+    saida   : console.log((new Uint8Array(4)).tamanho());
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 4
+    exec    : ERRO TypeError: (intermediate value).tamanho is not a function | stdout parcial=
+    detalhe : execução falhou: TypeError: (intermediate value).tamanho is not a function
+[FALHA] M05 (reescrita) `fn.length` (aridade)  sev=LOW
+    entrada : prosa((faz_trem(a, b) {}).length);
+    saida   : console.log((function(a, b) {}).tamanho());
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 2
+    exec    : ERRO TypeError: (intermediate value).tamanho is not a function | stdout parcial=
+    detalhe : execução falhou: TypeError: (intermediate value).tamanho is not a function
+[OK ] M06 (reescrita) `.length` em array e string (controle)
+    entrada : prosa([1, 2, 3].length, "abcd".length);
+    saida   : console.log([1, 2, 3].tamanho(), "abcd".tamanho());
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 3 4
+    exec    : ok -> 3 4
+[FALHA] M07 (reescrita) getter `length` em classe do usuário  sev=MEDIUM
+    entrada : arruma_trem Fila {⏎  aprepara_trem() { ocê.xs é [1, 2]; }⏎  get length() { faz_favor ocê.xs.length; }⏎}⏎prosa(faz_um Fila().length);
+    saida   : class Fila {⏎  constructor() { this.xs = [1, 2]; }⏎  get length() { return this.xs.tamanho(); }⏎}⏎console.log(new Fila().tamanho());
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 2
+    exec    : ERRO TypeError: (intermediate value).tamanho is not a function | stdout parcial=
+    detalhe : execução falhou: TypeError: (intermediate value).tamanho is not a function
+[FALHA] M10 (reescrita) `array.slice(1)`  sev=HIGH
+    entrada : prosa([1, 2, 3].slice(1));
+    saida   : console.log([1, 2, 3].fatiar(1));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: [ 2, 3 ]
+    exec    : ERRO TypeError: [1,2,3].fatiar is not a function | stdout parcial=
+    detalhe : execução falhou: TypeError: [1,2,3].fatiar is not a function
+[FALHA] M11 (reescrita) `"abc".concat("d")`  sev=MEDIUM
+    entrada : prosa("abc".concat("d"));
+    saida   : console.log("abc".juntar_lista("d"));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: abcd
+    exec    : ERRO TypeError: "abc".juntar_lista is not a function | stdout parcial=
+    detalhe : execução falhou: TypeError: "abc".juntar_lista is not a function
+[FALHA] M12 (reescrita) `Map.forEach`  sev=HIGH
+    entrada : uai m é faz_um Map([[1, 2]]);⏎m.forEach((v, k) => prosa(k, v));
+    saida   : const m = new Map([[1, 2]]);⏎m.pra_cada((v, k) => console.log(k, v));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 1 2
+    exec    : ERRO TypeError: m.pra_cada is not a function | stdout parcial=
+    detalhe : execução falhou: TypeError: m.pra_cada is not a function
+[FALHA] M13 (reescrita) `Set.forEach`  sev=MEDIUM
+    entrada : faz_um Set([1, 2]).forEach(v => prosa(v));
+    saida   : new Set([1, 2]).pra_cada(v => console.log(v));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 1⏎2
+    exec    : ERRO TypeError: (intermediate value).pra_cada is not a function | stdout parcial=
+    detalhe : execução falhou: TypeError: (intermediate value).pra_cada is not a function
+[FALHA] M14 (reescrita) `Number.isNaN` (isNaN( sem \b)  sev=HIGH
+    entrada : prosa(Number.isNaN(NaN), isNaN("x"));
+    saida   : console.log(Number.eh_nao_numero(NaN), eh_nao_numero("x"));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: true true
+    exec    : ERRO TypeError: Number.eh_nao_numero is not a function | stdout parcial=
+    detalhe : execução falhou: TypeError: Number.eh_nao_numero is not a function
+[FALHA] M15 (reescrita) `Number.parseFloat` / `Number.parseInt`  sev=MEDIUM
+    entrada : prosa(Number.parseFloat("1.5"), Number.parseInt("7"));
+    saida   : console.log(Number.vira_decimal("1.5"), Number.vira_numero("7"));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 1.5 7
+    exec    : ERRO TypeError: Number.vira_decimal is not a function | stdout parcial=
+    detalhe : execução falhou: TypeError: Number.vira_decimal is not a function
+[OK ] M16 (reescrita) `globalThis.setTimeout(...)`
+    entrada : globalThis.setTimeout(() => prosa("tic"), 1);
+    saida   : globalThis.depois_de(() => console.log("tic"), 1);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: tic
+    exec    : ok -> tic
+[FALHA] M20 (wrapper) `reduzir` sem valor inicial (exemplo do METODOS_GOIANOS.md)  sev=HIGH
+    entrada : prosa([1, 2, 3, 4, 5].reduzir((a, b) => a mais b));
+    saida   : console.log([1, 2, 3, 4, 5].reduzir((a, b) => a + b));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 15
+    exec    : ok -> NaN
+    detalhe : stdout obtido=NaN
+[FALHA] M21 (wrapper) `.reduce` (JS) sem valor inicial  sev=HIGH
+    entrada : prosa([1, 2, 3].reduce((a, b) => a + b));
+    saida   : console.log([1, 2, 3].reduzir((a, b) => a + b));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 6
+    exec    : ok -> NaN
+    detalhe : stdout obtido=NaN
+[FALHA] M22 (wrapper) `splice(1)` (sem deleteCount)  sev=MEDIUM
+    entrada : uai a é [1, 2, 3];⏎a.splice(1);⏎prosa(a);
+    saida   : const a = [1, 2, 3];⏎a.emendar(1);⏎console.log(a);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: [ 1 ]
+    exec    : ok -> [ 1, 2, 3 ]
+    detalhe : stdout obtido=[ 1, 2, 3 ]
+[FALHA] M23 (wrapper) `join()` sem separador  sev=MEDIUM
+    entrada : prosa([1, 2, 3].join());
+    saida   : console.log([1, 2, 3].juntar());
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 1,2,3
+    exec    : ok -> 123
+    detalhe : stdout obtido=123
+[FALHA] M24 (wrapper) `parseInt("ff", 16)` (radix descartado)  sev=HIGH
+    entrada : prosa(parseInt("ff", 16), parseInt("101", 2));
+    saida   : console.log(vira_numero("ff", 16), vira_numero("101", 2));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 255 5
+    exec    : ok -> NaN 101
+    detalhe : stdout obtido=NaN 101
+[FALHA] M25 (wrapper) `indexOf(x, from)`  sev=LOW
+    entrada : prosa("abab".indexOf("a", 1), [1, 2, 1].indexOf(1, 1));
+    saida   : console.log("abab".posicao_de("a", 1), [1, 2, 1].posicao_de(1, 1));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 2 2
+    exec    : ok -> 0 0
+    detalhe : stdout obtido=0 0
+[FALHA] M26 (wrapper) `split(sep, limit)`  sev=LOW
+    entrada : prosa("a,b,c".split(",", 2));
+    saida   : console.log("a,b,c".dividir(",", 2));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: [ 'a', 'b' ]
+    exec    : ok -> [ 'a', 'b', 'c' ]
+    detalhe : stdout obtido=[ 'a', 'b', 'c' ]
+[FALHA] M27 (wrapper) `setTimeout(fn, ms, arg)` — args extras descartados  sev=LOW
+    entrada : setTimeout((x) => prosa("arg:", x), 1, "ok");
+    saida   : depois_de((x) => console.log("arg:", x), 1, "ok");
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: arg: ok
+    exec    : ok -> arg: undefined
+    detalhe : stdout obtido=arg: undefined
+[FALHA] M28 (wrapper) `forEach(fn, thisArg)`  sev=LOW
+    entrada : uai o é { k: 7 };⏎[1].forEach(function (x) { prosa(this.k); }, o);
+    saida   : const o = { k: 7 };⏎[1].pra_cada(function (x) { console.log(this.k); }, o);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 7
+    exec    : ok -> undefined
+    detalhe : stdout obtido=undefined
+[FALHA] M30 (trocar) `"1.5".replace(".", ",")` (vírgula decimal)  sev=HIGH
+    entrada : prosa("1.5".replace(".", ","));
+    saida   : console.log("1.5".trocar(".", ","));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 1,5
+    exec    : ok -> ,,,
+    detalhe : stdout obtido=,,,
+[FALHA] M31 (trocar) `"a.b.c".trocar(".", "-")` (API goiana documentada)  sev=HIGH
+    entrada : prosa("a.b.c".trocar(".", "-"));
+    saida   : console.log("a.b.c".trocar(".", "-"));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: a-b-c
+    exec    : ok -> -----
+    detalhe : stdout obtido=-----
+[FALHA] M32 (trocar) `"f(x)".replace("(", "[")` — metacaractere inválido  sev=HIGH
+    entrada : prosa("f(x)".replace("(", "["));
+    saida   : console.log("f(x)".trocar("(", "["));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: f[x)
+    exec    : ERRO SyntaxError: Invalid regular expression: /(/g: Unterminated group | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Invalid regular expression: /(/g: Unterminated group
+[FALHA] M33 (trocar) `"a+b".replace("+", " mais ")`  sev=MEDIUM
+    entrada : prosa("a+b".replace("+", " mais "));
+    saida   : console.log("a+b".trocar("+", " mais "));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: a mais b
+    exec    : ERRO SyntaxError: Invalid regular expression: /+/g: Nothing to repeat | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Invalid regular expression: /+/g: Nothing to repeat
+[FALHA] M34 (trocar) flag `i` do regex é descartada  sev=HIGH
+    entrada : prosa("aXb".replace(/x/i, "-"));
+    saida   : console.log("aXb".trocar(/x/i, "-"));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: a-b
+    exec    : ok -> aXb
+    detalhe : stdout obtido=aXb
+[FALHA] M35 (trocar) regex sem /g troca só a 1ª ocorrência (semântica do JS)  sev=MEDIUM
+    entrada : prosa("aaa".replace(/a/, "b"));
+    saida   : console.log("aaa".trocar(/a/, "b"));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: baa
+    exec    : ok -> bbb
+    detalhe : stdout obtido=bbb
+[OK ] M36 (trocar) replace com função de callback
+    entrada : prosa("a1b2".replace(/\d/g, d => "<" + d + ">"));
+    saida   : console.log("a1b2".trocar(/\d/g, d => "<" + d + ">"));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: a<1>b<2>
+    exec    : ok -> a<1>b<2>
+[FALHA] M40 (colisao) classe do usuário com métodos push/find (chamada reescrita, definição não)  sev=HIGH
+    entrada : arruma_trem Pilha {⏎  aprepara_trem() { ocê.itens é []; }⏎  push(x) { ocê.itens.push(x); }⏎  find(pred) { faz_favor ocê.itens.find(pred); }⏎}⏎uai p é faz_um Pilha();⏎p.push(1);⏎p.push(2);⏎prosa(p.find(x => x maior_que 1));
+    saida   : class Pilha {⏎  constructor() { this.itens = []; }⏎  push(x) { this.itens.empurrar(x); }⏎  find(pred) { return this.itens.achar(pred); }⏎}⏎const p = new Pilha();⏎p.empurrar(1);⏎p.empurrar(2);⏎console.log(p.achar(x => x > 1));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 2
+    exec    : ERRO TypeError: p.empurrar is not a function | stdout parcial=
+    detalhe : execução falhou: TypeError: p.empurrar is not a function
+[FALHA] M41 (colisao) objeto literal com método `map` chamado depois  sev=HIGH
+    entrada : uai r é { map(f) { faz_favor f(1); } };⏎prosa(r.map(x => x mais 1));
+    saida   : const r = { map(f) { return f(1); } };⏎console.log(r.mapear(x => x + 1));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 2
+    exec    : ERRO TypeError: r.mapear is not a function | stdout parcial=
+    detalhe : execução falhou: TypeError: r.mapear is not a function
+[OK ] M42 (colisao) usuário define `empurrar` e chama `.push` de outra coisa
+    entrada : uai q é { empurrar(x) { faz_favor "meu:" mais x; } };⏎prosa(q.empurrar(1), [].push(1));
+    saida   : const q = { empurrar(x) { return "meu:" + x; } };⏎console.log(q.empurrar(1), [].empurrar(1));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: meu:1 1
+    exec    : ok -> meu:1 1
+[OK ] M50 (reescrita) strings: toUpperCase/trim/split/join/startsWith/endsWith/includes/indexOf/charAt/substring/slice
+    entrada : console.log(" a b ".trim().toUpperCase().split(" ").join("-"), "abcdef".slice(2), "abcdef".substring(1, 3), "abc".charAt(1), "abc".startsWith("a"), "abc".endsWith("c"), "abc".includes("b"), "abc".indexOf("c"));
+    saida   : console.log(" a b ".aparar().pra_maiusculo().dividir(" ").juntar("-"), "abcdef".fatiar(2), "abcdef".pedaco(1, 3), "abc".letra_em(1), "abc".comeca_com("a"), "abc".termina_com("c"), "abc".contem("b"), "abc".posicao_de("c"));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: A-B cdef bc b true true true 2
+    exec    : ok -> A-B cdef bc b true true true 2
+[OK ] M51 (reescrita) arrays: filter/map/reduce(c/ inicial)/sort/reverse/find/push/pop/shift/unshift/concat
+    entrada : const a = [4, 1, 3]; a.push(9); a.unshift(0); console.log(a.pop(), a.shift(), a.filter(x => x > 1).map(x => x * 10).reduce((s, x) => s + x, 0), [3, 1, 2].sort(), [1, 2, 3].reverse(), [1, 2, 3].find(x => x > 1), [1].concat([2], [3]));
+    saida   : const a = [4, 1, 3]; a.empurrar(9); a.por_primeiro(0); console.log(a.tirar_ultimo(), a.tirar_primeiro(), a.filtrar(x => x > 1).mapear(x => x * 10).reduzir((s, x) => s + x, 0), [3, 1, 2].ordenar(), [1, 2, 3].inverter(), [1, 2, 3].achar(x => x > 1), [1].juntar_lista([2], [3]));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 9 0 70 [ 1, 2, 3 ] [ 3, 2, 1 ] 2 [ 1, 2, 3 ]
+    exec    : ok -> 9 0 70 [ 1, 2, 3 ] [ 3, 2, 1 ] 2 [ 1, 2, 3 ]
+[OK ] M52 (reescrita) Object.keys/values/entries/assign + hasOwnProperty
+    entrada : const o = { a: 1, b: 2 }; console.log(Object.keys(o), Object.values(o), Object.entries(o), Object.assign({}, o, { c: 3 }), o.hasOwnProperty("a"));
+    saida   : const o = { a: 1, b: 2 }; console.log(Object.chaves(o), Object.valores(o), Object.entradas(o), Object.misturar({}, o, { c: 3 }), o.tem_propriedade("a"));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: [ 'a', 'b' ] [ 1, 2 ] [ [ 'a', 1 ], [ 'b', 2 ] ] { a: 1, b: 2, c: 3 } true
+    exec    : ok -> [ 'a', 'b' ] [ 1, 2 ] [ [ 'a', 1 ], [ 'b', 2 ] ] { a: 1, b: 2, c: 3 } true
+[OK ] M53 (reescrita) Math: floor/ceil/round/max/min/abs/sqrt/pow/PI/E/random
+    entrada : console.log(Math.floor(2.7), Math.ceil(2.1), Math.round(2.5), Math.max(1, 5, 3), Math.min(4, 2), Math.abs(-3), Math.sqrt(16), Math.pow(2, 10), Math.PI.toFixed(2), Math.E.toFixed(2), typeof Math.random());
+    saida   : console.log(GoianoMath.arredondar_baixo(2.7), GoianoMath.arredondar_cima(2.1), GoianoMath.arredondar(2.5), GoianoMath.maior(1, 5, 3), GoianoMath.menor(4, 2), GoianoMath.absoluto(-3), GoianoMath.raiz_quadrada(16), GoianoMath.potencia(2, 10), GoianoMath.PI.toFixed(2), GoianoMath.E.toFixed(2), typeof G…(+21)
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 2 3 3 5 2 3 4 1024 3.14 2.72 number
+    exec    : ok -> 2 3 3 5 2 3 4 1024 3.14 2.72 number
+[OK ] M54 (reescrita) console.error / console.warn diretos
+    entrada : console.error("e"); console.warn("w");
+    saida   : prosa_erro("e"); prosa_aviso("w");
+    esperado: e⏎w
+    exec    : ok -> e⏎w
+[OK ] M55 (reescrita) Date: getFullYear etc. nativos e pegar_* goianos
+    entrada : uai d é faz_um Date(2020, 0, 15, 10, 20, 30); prosa(d.getFullYear(), d.pegar_ano(), d.pegar_mes(), d.pegar_dia());
+    saida   : const d = new Date(2020, 0, 15, 10, 20, 30); console.log(d.getFullYear(), d.pegar_ano(), d.pegar_mes(), d.pegar_dia());
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 2020 2020 0 15
+    exec    : ok -> 2020 2020 0 15
+[FALHA] K01 (runtime) for...in sobre objeto enumera `tem_propriedade` (Object.prototype enumerável)  sev=HIGH
+    entrada : uai o é { a: 1, b: 2 };⏎vai_indo (uai k em o) { prosa(k); }
+    saida   : const o = { a: 1, b: 2 };⏎for (const k in o) { console.log(k); }
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: a⏎b
+    exec    : ok -> a⏎b⏎tem_propriedade
+    detalhe : stdout obtido=a⏎b⏎tem_propriedade
+[FALHA] K02 (runtime) for...in sobre array enumera índices + métodos goianos  sev=HIGH
+    entrada : uai l é [10, 20];⏎vai_indo (uai i em l) { prosa(i); }
+    saida   : const l = [10, 20];⏎for (const i in l) { console.log(i); }
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 0⏎1
+    exec    : ok -> 0⏎1⏎mapear⏎filtrar⏎reduzir⏎pra_cada⏎empurrar⏎tirar_ultimo⏎tirar_primeiro⏎por_primeiro⏎ordenar⏎inverter⏎achar⏎posicao_de⏎contem⏎juntar_lista⏎emendar⏎tamanho⏎juntar⏎tem_propriedade
+    detalhe : stdout obtido=0⏎1⏎mapear⏎filtrar⏎reduzir⏎pra_cada⏎empurrar⏎tirar_ultimo⏎tirar_primeiro⏎por_primeiro⏎ordenar⏎inverter⏎achar⏎posicao_de⏎contem⏎juntar_lista⏎emendar⏎tamanho⏎juntar⏎tem_propriedade
+[FALHA] K03 (runtime) for...in sobre string  sev=MEDIUM
+    entrada : vai_indo (uai i em "ab") { prosa(i); }
+    saida   : for (const i in "ab") { console.log(i); }
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 0⏎1
+    exec    : ok -> 0⏎1⏎trocar⏎dividir⏎pra_maiusculo⏎pra_minusculo⏎aparar⏎contem⏎posicao_de⏎pedaco⏎fatiar⏎letra_em⏎tamanho⏎comeca_com⏎termina_com⏎tem_propriedade
+    detalhe : stdout obtido=0⏎1⏎trocar⏎dividir⏎pra_maiusculo⏎pra_minusculo⏎aparar⏎contem⏎posicao_de⏎pedaco⏎fatiar⏎letra_em⏎tamanho⏎comeca_com⏎termina_com⏎tem_propriedade
+[FALHA] K04 (runtime) mapa de contagem indexado por chave "tem_propriedade"  sev=LOW
+    entrada : uai c é {};⏎c["tem_propriedade"] é (c["tem_propriedade"] || 0) mais 1;⏎prosa(c["tem_propriedade"]);
+    saida   : const c = {};⏎c["tem_propriedade"] = (c["tem_propriedade"] || 0) + 1;⏎console.log(c["tem_propriedade"]);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 1
+    exec    : ok -> function(prop) {⏎  return this.hasOwnProperty(prop);⏎}1
+    detalhe : stdout obtido=function(prop) {⏎  return this.hasOwnProperty(prop);⏎}1
+[FALHA] K05 (runtime) usuário declara `uai GoianoMath` (colisão com const do runtime)  sev=LOW
+    entrada : uai GoianoMath é 1; prosa(GoianoMath);
+    saida   : const GoianoMath = 1; console.log(GoianoMath);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 1
+    exec    : ERRO SyntaxError: Identifier 'GoianoMath' has already been declared | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Identifier 'GoianoMath' has already been declared
+[OK ] K06 (runtime) usuário declara `uai certeza é 1` (const duplicado + keyword)
+    entrada : uai certeza2 é certeza; prosa(certeza2);
+    saida   : const certeza2 = true; console.log(certeza2);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: true
+    exec    : ok -> true
+[FALHA] K07 (runtime) executar o JS gerado duas vezes no mesmo escopo global (REPL / playground que reaproveita contexto)  sev=LOW
+    entrada : prosa("oi"); (2x no mesmo contexto)
+    saida   : (runtime + código)
+    exec    : ERRO SyntaxError: Identifier 'certeza' has already been declared
+    detalhe : const certeza/de_jeito_nenhum/GoianoMath no topo do script não são re-declaráveis
+[OK ] P01 (js-puro) classes/extends/super/template sem palavras reservadas goianas
+    entrada : class Animal { constructor(nome) { this.nome = nome; } falar() { return `${this.nome} faz barulho`; } }⏎class Cachorro extends Animal { falar() { return `${super.falar()} - au au`; } }⏎console.log(new Cachorro("Rex").falar());
+    saida   : class Animal { constructor(nome) { this.nome = nome; } falar() { return `${this.nome} faz barulho`; } }⏎class Cachorro extends Animal { falar() { return `${super.falar()} - au au`; } }⏎console.log(new Cachorro("Rex").falar());
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: Rex faz barulho - au au
+    exec    : ok -> Rex faz barulho - au au
+[FALHA] P02 (js-puro) copiar e ordenar array: l.slice().sort()  sev=HIGH
+    entrada : const l = [3, 1, 2];⏎console.log(l.slice().sort(), l.length);
+    saida   : const l = [3, 1, 2];⏎console.log(l.fatiar().ordenar(), l.tamanho());
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: [ 1, 2, 3 ] 3
+    exec    : ERRO TypeError: l.fatiar is not a function | stdout parcial=
+    detalhe : execução falhou: TypeError: l.fatiar is not a function
+[OK ] P03 (js-puro) destructuring, rest e spread
+    entrada : const { a, ...resto } = { a: 1, b: 2, c: 3 };⏎console.log(a, resto, [..."abc"].length);
+    saida   : const { a, ...resto } = { a: 1, b: 2, c: 3 };⏎console.log(a, resto, [..."abc"].tamanho());
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 1 { b: 2, c: 3 } 3
+    exec    : ok -> 1 { b: 2, c: 3 } 3
+[OK ] P04 (js-puro) async/await + Promise.then
+    entrada : async function f() { return await Promise.resolve(7); }⏎f().then(v => console.log("async", v));
+    saida   : async function f() { return await Promise.resolve(7); }⏎f().then(v => console.log("async", v));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: async 7
+    exec    : ok -> async 7
+[OK ] P05 (js-puro) generators + spread
+    entrada : function* g() { yield 1; yield 2; }⏎console.log([...g()]);
+    saida   : function* g() { yield 1; yield 2; }⏎console.log([...g()]);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: [ 1, 2 ]
+    exec    : ok -> [ 1, 2 ]
+[FALHA] P06 (js-puro) Map/Set com forEach e size  sev=HIGH
+    entrada : const m = new Map([[1, "a"]]);⏎m.forEach((v, k) => console.log(k, v));⏎console.log(new Set([1, 2, 2]).size);
+    saida   : const m = new Map([[1, "a"]]);⏎m.pra_cada((v, k) => console.log(k, v));⏎console.log(new Set([1, 2, 2]).size);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 1 a⏎2
+    exec    : ERRO TypeError: m.pra_cada is not a function | stdout parcial=
+    detalhe : execução falhou: TypeError: m.pra_cada is not a function
+[FALHA] P07 (js-puro) formatação numérica: replace de ponto por vírgula  sev=HIGH
+    entrada : console.log((1234.5).toFixed(2).replace(".", ","));
+    saida   : console.log((1234.5).toFixed(2).trocar(".", ","));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 1234,50
+    exec    : ok -> ,,,,,,,
+    detalhe : stdout obtido=,,,,,,,
+[OK ] P08 (js-puro) try/catch/finally com Error customizado
+    entrada : class MeuErro extends Error {}⏎try { throw new MeuErro("x"); } catch (e) { console.log(e instanceof MeuErro, e.message); } finally { console.log("fim"); }
+    saida   : class MeuErro extends Error {}⏎try { throw new MeuErro("x"); } catch (e) { console.log(e instanceof MeuErro, e.message); } finally { console.log("fim"); }
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: true x⏎fim
+    exec    : ok -> true x⏎fim
+[OK ] P09 (js-puro) optional chaining e nullish
+    entrada : const o = null;⏎console.log(o?.x ?? "padrao", [1, 2]?.[1]);
+    saida   : const o = null;⏎console.log(o?.x ?? "padrao", [1, 2]?.[1]);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: padrao 2
+    exec    : ok -> padrao 2
+[FALHA] P10 (js-puro) "use strict" do usuário é diretiva? (strict revela atribuição a variável não declarada)  sev=LOW
+    entrada : "use strict";⏎try { naoDeclarada = 5; console.log("sloppy"); } catch (e) { console.log(e.name); }
+    saida   : "use strict";⏎try { naoDeclarada = 5; console.log("sloppy"); } catch (e) { console.log(e.name); }
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: ReferenceError
+    exec    : ok -> sloppy
+    detalhe : stdout obtido=sloppy
+[OK ] P11 (js-puro) JSON, typeof e Date
+    entrada : console.log(JSON.stringify({ a: [1, 2] }), typeof null, typeof undefined, new Date(0).toISOString());
+    saida   : console.log(JSON.stringify({ a: [1, 2] }), typeof null, typeof undefined, new Date(0).toISOString());
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: {"a":[1,2]} object undefined 1970-01-01T00:00:00.000Z
+    exec    : ok -> {"a":[1,2]} object undefined 1970-01-01T00:00:00.000Z
+[OK ] P12 (js-puro) arguments + Array.prototype.slice.call
+    entrada : function f() { return Array.prototype.slice.call(arguments).length; }⏎console.log(f(1, 2, 3));
+    saida   : function f() { return Array.prototype.slice.call(arguments).tamanho(); }⏎console.log(f(1, 2, 3));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 3
+    exec    : ok -> 3
+[OK ] P13 (js-puro) array de objetos com sort(comparador) e find
+    entrada : const xs = [{ n: 3 }, { n: 1 }];⏎xs.sort((a, b) => a.n - b.n);⏎console.log(xs[0].n, xs.find(x => x.n === 3).n);
+    saida   : const xs = [{ n: 3 }, { n: 1 }];⏎xs.ordenar((a, b) => a.n - b.n);⏎console.log(xs[0].n, xs.achar(x => x.n === 3).n);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 1 3
+    exec    : ok -> 1 3
+[OK ] P14 (js-puro) string.padStart/repeat/replaceAll/at (APIs modernas)
+    entrada : console.log("5".padStart(3, "0"), "ab".repeat(2), "a-b-c".replaceAll("-", "+"), [1, 2, 3].at(-1));
+    saida   : console.log("5".padStart(3, "0"), "ab".repeat(2), "a-b-c".replaceAll("-", "+"), [1, 2, 3].at(-1));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 005 abab a+b+c 3
+    exec    : ok -> 005 abab a+b+c 3
+[OK ] D01 (entrada) entrada vazia ""
+    entrada : 
+    saida   : 
+    exec    : ok -> 
+    detalhe : transpiled=true bytes_saida=0
+[OK ] D02 (entrada) só espaços e quebras de linha
+    entrada :    ⏎⏎	  
+    saida   :    ⏎⏎	  
+    exec    : ok -> 
+[OK ] D03 (entrada) só comentários
+    entrada : // nada aqui⏎/* nem aqui */
+    saida   : // null aqui⏎/* nem aqui */
+    exec    : ok -> 
+[FALHA] D04 (entrada) transpile(undefined): erro claro, sem apontar para o código interno do compilador  sev=MEDIUM
+    entrada : transpile(undefined)
+    saida   : success=false
+    exec    : mensagem=Ô gente! Deu tipo errado de trem no arquivo "probe.gs" na linha 338, coluna 24: Não consigo ler essa propriedade. O trem tá vazio!
+    detalhe : linha/coluna reportadas apontam para probe.gs mas são do JS interno do transpilador
+[FALHA] D05 (entrada) transpile(123): mensagem coerente  sev=LOW
+    entrada : transpile(123)
+    saida   : success=false
+    exec    : mensagem=Ô gente! Deu tipo errado de trem no arquivo "probe.gs" na linha 338, coluna 24: 'split' não é uma função, não dá pra chamar assim não!
+[OK ] D06 (entrada) GoiasScriptCompiler.compile(null) não deve lançar e deve reportar erro
+    entrada : compile(null)
+    saida   : {"success":false,"errors":["Ô gente! Deu tipo errado de trem no arquivo \"script.gs\" na linha 338, coluna 24: Não consigo ler essa propriedade. O trem tá vazio!"]}
+    exec    : 
+[FALHA] D07 (entrada) validate() de código com SyntaxError de JS  sev=HIGH
+    entrada : validate("uai x é (;")
+    saida   : valid=true errors=0
+    exec    : 
+    detalhe : validate()/vê_se_tá_certo só roda 2 heurísticas por linha e nunca parseia o JS gerado
+[FALHA] X01 (identificador) objeto com chaves `de`/`em`: `{ de: "SP", em: "RJ" }` (rotas, e-mails)  sev=HIGH
+    entrada : uai rota é { de: "SP", em: "RJ" }; prosa(Object.keys(rota).join(","), JSON.stringify(rota));
+    saida   : const rota = { of: "SP", in: "RJ" }; console.log(Object.chaves(rota).juntar(","), JSON.stringify(rota));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: de,em {"de":"SP","em":"RJ"}
+    exec    : ok -> of,in {"of":"SP","in":"RJ"}
+    detalhe : stdout obtido=of,in {"of":"SP","in":"RJ"}
+[FALHA] X02 (identificador) chaves `nada`/`certeza` de objeto do usuário (renomeadas para null/true nos dados)  sev=MEDIUM
+    entrada : uai r é { nada: 1, certeza: 2 }; prosa(Object.keys(r).join(","));
+    saida   : const r = { null: 1, true: 2 }; console.log(Object.chaves(r).juntar(","));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: nada,certeza
+    exec    : ok -> null,true
+    detalhe : stdout obtido=null,true
+[FALHA] X03 (estrutura) README: linha começando com `[` sem ponto-e-vírgula (armadilha de ASI do JS)  sev=MEDIUM
+    entrada : "Oi sô".trocar("Oi", "Eai")⏎[1, 2, 3].mapear(x => x vezes 2)
+    saida   : "Oi sô".trocar("Oi", "Eai")⏎[1, 2, 3].mapear(x => x * 2)
+    exec    : ERRO TypeError: "Oi sô".trocar(...)[(1 , 2 , 3)].mapear is not a function | stdout parcial=
+    detalhe : TypeError: "Oi sô".trocar(...)[(1 , 2 , 3)].mapear is not a function
+[FALHA] X04 (estrutura) ASI: linha começando com `(` após expressão sem ponto-e-vírgula  sev=LOW
+    entrada : uai a é 1⏎(faz_trem() { prosa("iife"); })()
+    saida   : const a = 1⏎(function() { console.log("iife"); })()
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    exec    : ERRO TypeError: 1 is not a function | stdout parcial=
+    detalhe : TypeError: 1 is not a function
+[FALHA] X05 (runtime) `GoianoMath.PI` e `GoianoMath.E` (constantes documentadas)  sev=HIGH
+    entrada : prosa(GoianoMath.PI > 3.14, GoianoMath.E > 2.71);
+    saida   : console.log(GoianoGoianoMath.PI > 3.14, GoianoGoianoMath.E > 2.71);
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: true true
+    exec    : ERRO ReferenceError: GoianoGoianoMath is not defined | stdout parcial=
+    detalhe : execução falhou: ReferenceError: GoianoGoianoMath is not defined
+[FALHA] X06 (estrutura) `se (...)` como no METODOS_GOIANOS.md  sev=MEDIUM
+    entrada : uai x é 1; se (x é_igualim 1) { prosa("um"); }
+    saida   : const x = 1; se (x === 1) { console.log("um"); }
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: um
+    exec    : ERRO SyntaxError: Unexpected token '{' | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Unexpected token '{'
+[FALHA] X07 (estrutura) `presta_serviço` (keyword usada em 7 dos 15 .gs versionados e nos templates)  sev=HIGH
+    entrada : presta_serviço soma(a, b) { faz_favor a mais b; }⏎prosa(soma(1, 2));
+    saida   : presta_serviço soma(a, b) { return a + b; }⏎console.log(soma(1, 2));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 3
+    exec    : ERRO SyntaxError: Unexpected identifier 'soma' | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Unexpected identifier 'soma'
+[FALHA] G16 (estrutura) chaves coladas na keyword: `{faz_favor 1}` e `x => {faz_favor x}`  sev=MEDIUM
+    entrada : faz_trem f() {faz_favor 1}⏎uai g é x => {faz_favor x mais 1};⏎prosa(f(), g(1));
+    saida   : function f() {faz_favor 1}⏎const g = x => {faz_favor x + 1};⏎console.log(f(), g(1));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 1 2
+    exec    : ERRO SyntaxError: Unexpected number | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Unexpected number
+[FALHA] G17 (estrutura) keyword logo após `;` na mesma linha: `uai a é 1;faz_favor a;`  sev=LOW
+    entrada : faz_trem f() { uai a é 1;faz_favor a; }⏎prosa(f());
+    saida   : function f() { const a = 1;faz_favor a; }⏎console.log(f());
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 1
+    exec    : ERRO SyntaxError: Unexpected identifier 'a' | stdout parcial=
+    detalhe : execução falhou: SyntaxError: Unexpected identifier 'a'
+[FALHA] G18 (estrutura) `ocê` seguido de `[`, `)`, `,` ou `;`  sev=MEDIUM
+    entrada : arruma_trem B {⏎  aprepara_trem() { ocê.v é [7]; }⏎  p() { faz_favor ocê["v"][0]; }⏎}⏎prosa(faz_um B().p());
+    saida   : class B {⏎  constructor() { this.v = [7]; }⏎  p() { return ocê["v"][0]; }⏎}⏎console.log(new B().p());
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 7
+    exec    : ERRO ReferenceError: ocê is not defined | stdout parcial=
+    detalhe : execução falhou: ReferenceError: ocê is not defined
+[OK ] G19 (estrutura) parâmetro padrão e rest/spread com keywords ao redor
+    entrada : faz_trem f(a, b é 2, ...resto) { faz_favor a mais b mais resto.length; }⏎prosa(f(1), f(1, 5, 9, 9));
+    saida   : function f(a, b = 2, ...resto) { return a + b + resto.tamanho(); }⏎console.log(f(1), f(1, 5, 9, 9));
+    avisos  : ⚠️ Ô sô! O método "console.log(" não é goiano não! Use "prosa" que é mais da hora.
+    esperado: 3 8
+    exec    : ok -> 3 8
+
+TOTAL 173 | OK 69 | FALHA 104 | por severidade: {"MEDIUM":32,"HIGH":41,"LOW":31}

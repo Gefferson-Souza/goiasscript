@@ -1,0 +1,58 @@
+{
+ "eslint": "8.57.1",
+ "errors": 21,
+ "warnings": 254,
+ "fatal": 0,
+ "rules": {
+  "@typescript-eslint/no-magic-numbers": {
+   "error": 0,
+   "warn": 34,
+   "files": 9
+  },
+  "no-restricted-syntax": {
+   "error": 0,
+   "warn": 14,
+   "files": 8
+  },
+  "no-console": {
+   "error": 8,
+   "warn": 172,
+   "files": 9
+  },
+  "max-lines-per-function": {
+   "error": 0,
+   "warn": 19,
+   "files": 13
+  },
+  "no-inline-comments": {
+   "error": 6,
+   "warn": 0,
+   "files": 5
+  },
+  "@typescript-eslint/no-explicit-any": {
+   "error": 3,
+   "warn": 0,
+   "files": 2
+  },
+  "@eslint-community/eslint-comments/require-description": {
+   "error": 2,
+   "warn": 0,
+   "files": 2
+  },
+  "id-match": {
+   "error": 2,
+   "warn": 0,
+   "files": 1
+  },
+  "no-magic-numbers": {
+   "error": 0,
+   "warn": 11,
+   "files": 5
+  },
+  "max-lines": {
+   "error": 0,
+   "warn": 4,
+   "files": 4
+  }
+ }
+}

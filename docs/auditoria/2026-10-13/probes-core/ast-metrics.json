@@ -1,0 +1,1333 @@
+{
+  "files": {
+    "compiler.js": {
+      "linhasTotais": 398,
+      "linhasEmBranco": 41,
+      "funcoes": [
+        {
+          "nome": "loadOptional",
+          "tipo": "FunctionDeclaration",
+          "de": 8,
+          "ate": 17,
+          "linhas": 10,
+          "params": 2,
+          "aninhamentoMax": 3
+        },
+        {
+          "nome": "analyze",
+          "tipo": "ClassMethod",
+          "de": 20,
+          "ate": 22,
+          "linhas": 3,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "resolveModules",
+          "tipo": "ClassMethod",
+          "de": 26,
+          "ate": 28,
+          "linhas": 3,
+          "params": 1,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "clearCache",
+          "tipo": "ClassMethod",
+          "de": 29,
+          "ate": 29,
+          "linhas": 1,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "generateDependencyReport",
+          "tipo": "ClassMethod",
+          "de": 30,
+          "ate": 32,
+          "linhas": 3,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "moduleExists",
+          "tipo": "ClassMethod",
+          "de": 33,
+          "ate": 35,
+          "linhas": 3,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "detectCircularDependencies",
+          "tipo": "ClassMethod",
+          "de": 36,
+          "ate": 38,
+          "linhas": 3,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "shouldApplyJIT",
+          "tipo": "ClassMethod",
+          "de": 42,
+          "ate": 44,
+          "linhas": 3,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "compile",
+          "tipo": "ClassMethod",
+          "de": 45,
+          "ate": 47,
+          "linhas": 3,
+          "params": 1,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "generatePerformanceReport",
+          "tipo": "ClassMethod",
+          "de": 48,
+          "ate": 50,
+          "linhas": 3,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "clearCache",
+          "tipo": "ClassMethod",
+          "de": 51,
+          "ate": 51,
+          "linhas": 1,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "setOptimizations",
+          "tipo": "ClassMethod",
+          "de": 52,
+          "ate": 52,
+          "linhas": 1,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "setThreshold",
+          "tipo": "ClassMethod",
+          "de": 53,
+          "ate": 53,
+          "linhas": 1,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "getHotSpots",
+          "tipo": "ClassMethod",
+          "de": 54,
+          "ate": 56,
+          "linhas": 3,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "constructor",
+          "tipo": "ClassMethod",
+          "de": 68,
+          "ate": 81,
+          "linhas": 14,
+          "params": 1,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "compile",
+          "tipo": "ClassMethod",
+          "de": 89,
+          "ate": 170,
+          "linhas": 82,
+          "params": 2,
+          "aninhamentoMax": 3
+        },
+        {
+          "nome": "getGoianoMethods",
+          "tipo": "ClassMethod",
+          "de": 176,
+          "ate": 178,
+          "linhas": 3,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "getGoianoTypes",
+          "tipo": "ClassMethod",
+          "de": 184,
+          "ate": 186,
+          "linhas": 3,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "clearModuleCache",
+          "tipo": "ClassMethod",
+          "de": 191,
+          "ate": 195,
+          "linhas": 5,
+          "params": 0,
+          "aninhamentoMax": 1
+        },
+        {
+          "nome": "getModuleDependencyReport",
+          "tipo": "ClassMethod",
+          "de": 201,
+          "ate": 206,
+          "linhas": 6,
+          "params": 0,
+          "aninhamentoMax": 1
+        },
+        {
+          "nome": "isForbiddenMethod",
+          "tipo": "ClassMethod",
+          "de": 213,
+          "ate": 215,
+          "linhas": 3,
+          "params": 1,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "validate",
+          "tipo": "ClassMethod",
+          "de": 223,
+          "ate": 242,
+          "linhas": 20,
+          "params": 2,
+          "aninhamentoMax": 2
+        },
+        {
+          "nome": "transpile",
+          "tipo": "ClassMethod",
+          "de": 250,
+          "ate": 252,
+          "linhas": 3,
+          "params": 2,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "getCompilationStats",
+          "tipo": "ClassMethod",
+          "de": 260,
+          "ate": 273,
+          "linhas": 14,
+          "params": 2,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "execute",
+          "tipo": "ClassMethod",
+          "de": 281,
+          "ate": 313,
+          "linhas": 33,
+          "params": 2,
+          "aninhamentoMax": 2
+        },
+        {
+          "nome": "transpileOnly",
+          "tipo": "ClassMethod",
+          "de": 321,
+          "ate": 324,
+          "linhas": 4,
+          "params": 2,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "_generateIdentifier",
+          "tipo": "ClassMethod",
+          "de": 330,
+          "ate": 336,
+          "linhas": 7,
+          "params": 2,
+          "aninhamentoMax": 1
+        },
+        {
+          "nome": "(callback)",
+          "tipo": "ArrowFunctionExpression",
+          "de": 331,
+          "ate": 333,
+          "linhas": 3,
+          "params": 2,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "getJITReport",
+          "tipo": "ClassMethod",
+          "de": 341,
+          "ate": 343,
+          "linhas": 3,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "clearJITCache",
+          "tipo": "ClassMethod",
+          "de": 348,
+          "ate": 352,
+          "linhas": 5,
+          "params": 0,
+          "aninhamentoMax": 1
+        },
+        {
+          "nome": "configureJIT",
+          "tipo": "ClassMethod",
+          "de": 357,
+          "ate": 366,
+          "linhas": 10,
+          "params": 1,
+          "aninhamentoMax": 2
+        },
+        {
+          "nome": "getJITHotSpots",
+          "tipo": "ClassMethod",
+          "de": 371,
+          "ate": 373,
+          "linhas": 3,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "compileWithStats",
+          "tipo": "ClassMethod",
+          "de": 381,
+          "ate": 394,
+          "linhas": 14,
+          "params": 2,
+          "aninhamentoMax": 1
+        }
+      ],
+      "comentarios": {
+        "jsdoc": 18,
+        "bloco": 0,
+        "linha": 15,
+        "linhasOcupadas": 97,
+        "maioresBlocos": [
+          {
+            "linhas": 6,
+            "de": 83,
+            "ate": 88,
+            "texto": "*"
+          },
+          {
+            "linhas": 6,
+            "de": 217,
+            "ate": 222,
+            "texto": "*"
+          },
+          {
+            "linhas": 6,
+            "de": 244,
+            "ate": 249,
+            "texto": "*"
+          },
+          {
+            "linhas": 6,
+            "de": 254,
+            "ate": 259,
+            "texto": "*"
+          },
+          {
+            "linhas": 6,
+            "de": 275,
+            "ate": 280,
+            "texto": "*"
+          },
+          {
+            "linhas": 6,
+            "de": 293,
+            "ate": 298,
+            "texto": "Execute compiled JavaScript in the local Node scope."
+          },
+          {
+            "linhas": 6,
+            "de": 315,
+            "ate": 320,
+            "texto": "*"
+          },
+          {
+            "linhas": 6,
+            "de": 375,
+            "ate": 380,
+            "texto": "*"
+          }
+        ],
+        "blocosMaioresQue4": 9
+      },
+      "consoleCalls": [],
+      "evalCalls": [
+        {
+          "linha": 299
+        }
+      ],
+      "reatribuicoes": 1,
+      "reatribuicaoDeParametro": 0,
+      "chamadasPush": 6,
+      "atribuicoesAMembro": 14,
+      "declaracoesVar": 0,
+      "declaracoesLet": 1,
+      "declaracoesConst": 17,
+      "eslintDisable": [
+        {
+          "linha": 298,
+          "texto": "eslint-disable-next-line no-eval"
+        }
+      ],
+      "todos": [],
+      "emojisEmComentarios": 0
+    },
+    "browser.js": {
+      "linhasTotais": 33,
+      "linhasEmBranco": 7,
+      "funcoes": [
+        {
+          "nome": "constructor",
+          "tipo": "ClassMethod",
+          "de": 10,
+          "ate": 13,
+          "linhas": 4,
+          "params": 1,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "transpile",
+          "tipo": "ClassMethod",
+          "de": 15,
+          "ate": 17,
+          "linhas": 3,
+          "params": 2,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "listarMetodosGoianos",
+          "tipo": "ClassMethod",
+          "de": 19,
+          "ate": 21,
+          "linhas": 3,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "listarTiposGoianos",
+          "tipo": "ClassMethod",
+          "de": 23,
+          "ate": 25,
+          "linhas": 3,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "ehMetodoProibido",
+          "tipo": "ClassMethod",
+          "de": 27,
+          "ate": 29,
+          "linhas": 3,
+          "params": 1,
+          "aninhamentoMax": 0
+        }
+      ],
+      "comentarios": {
+        "jsdoc": 0,
+        "bloco": 0,
+        "linha": 4,
+        "linhasOcupadas": 4,
+        "maioresBlocos": [],
+        "blocosMaioresQue4": 0
+      },
+      "consoleCalls": [],
+      "evalCalls": [],
+      "reatribuicoes": 0,
+      "reatribuicaoDeParametro": 0,
+      "chamadasPush": 0,
+      "atribuicoesAMembro": 3,
+      "declaracoesVar": 0,
+      "declaracoesLet": 0,
+      "declaracoesConst": 3,
+      "eslintDisable": [],
+      "todos": [],
+      "emojisEmComentarios": 0
+    },
+    "compiler/simpleTranspiler.js": {
+      "linhasTotais": 435,
+      "linhasEmBranco": 53,
+      "funcoes": [
+        {
+          "nome": "constructor",
+          "tipo": "ClassMethod",
+          "de": 9,
+          "ate": 13,
+          "linhas": 5,
+          "params": 1,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "transpile",
+          "tipo": "ClassMethod",
+          "de": 21,
+          "ate": 62,
+          "linhas": 42,
+          "params": 2,
+          "aninhamentoMax": 2
+        },
+        {
+          "nome": "_applySubstitutions",
+          "tipo": "ClassMethod",
+          "de": 68,
+          "ate": 204,
+          "linhas": 137,
+          "params": 1,
+          "aninhamentoMax": 2
+        },
+        {
+          "nome": "(callback)",
+          "tipo": "ArrowFunctionExpression",
+          "de": 76,
+          "ate": 80,
+          "linhas": 5,
+          "params": 1,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "(callback)",
+          "tipo": "ArrowFunctionExpression",
+          "de": 175,
+          "ate": 196,
+          "linhas": 22,
+          "params": 1,
+          "aninhamentoMax": 1
+        },
+        {
+          "nome": "(callback)",
+          "tipo": "ArrowFunctionExpression",
+          "de": 199,
+          "ate": 201,
+          "linhas": 3,
+          "params": 1,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "_removeTypeAnnotations",
+          "tipo": "ClassMethod",
+          "de": 210,
+          "ate": 214,
+          "linhas": 5,
+          "params": 1,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "_convertJSMethodsToGoiano",
+          "tipo": "ClassMethod",
+          "de": 220,
+          "ate": 289,
+          "linhas": 70,
+          "params": 1,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "_checkForbiddenMethods",
+          "tipo": "ClassMethod",
+          "de": 295,
+          "ate": 330,
+          "linhas": 36,
+          "params": 1,
+          "aninhamentoMax": 2
+        },
+        {
+          "nome": "(callback)",
+          "tipo": "ArrowFunctionExpression",
+          "de": 316,
+          "ate": 327,
+          "linhas": 12,
+          "params": 1,
+          "aninhamentoMax": 1
+        },
+        {
+          "nome": "_validateSyntax",
+          "tipo": "ClassMethod",
+          "de": 336,
+          "ate": 374,
+          "linhas": 39,
+          "params": 1,
+          "aninhamentoMax": 3
+        },
+        {
+          "nome": "(callback)",
+          "tipo": "ArrowFunctionExpression",
+          "de": 340,
+          "ate": 371,
+          "linhas": 32,
+          "params": 2,
+          "aninhamentoMax": 2
+        },
+        {
+          "nome": "_generateTokens",
+          "tipo": "ClassMethod",
+          "de": 380,
+          "ate": 400,
+          "linhas": 21,
+          "params": 1,
+          "aninhamentoMax": 3
+        },
+        {
+          "nome": "(callback)",
+          "tipo": "ArrowFunctionExpression",
+          "de": 384,
+          "ate": 397,
+          "linhas": 14,
+          "params": 2,
+          "aninhamentoMax": 2
+        },
+        {
+          "nome": "(callback)",
+          "tipo": "ArrowFunctionExpression",
+          "de": 388,
+          "ate": 388,
+          "linhas": 1,
+          "params": 1,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "(callback)",
+          "tipo": "ArrowFunctionExpression",
+          "de": 389,
+          "ate": 395,
+          "linhas": 7,
+          "params": 1,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "_getTokenType",
+          "tipo": "ClassMethod",
+          "de": 406,
+          "ate": 423,
+          "linhas": 18,
+          "params": 1,
+          "aninhamentoMax": 1
+        },
+        {
+          "nome": "_escapeRegex",
+          "tipo": "ClassMethod",
+          "de": 429,
+          "ate": 431,
+          "linhas": 3,
+          "params": 1,
+          "aninhamentoMax": 0
+        }
+      ],
+      "comentarios": {
+        "jsdoc": 10,
+        "bloco": 0,
+        "linha": 47,
+        "linhasOcupadas": 89,
+        "maioresBlocos": [
+          {
+            "linhas": 6,
+            "de": 15,
+            "ate": 20,
+            "texto": "*"
+          },
+          {
+            "linhas": 5,
+            "de": 352,
+            "ate": 356,
+            "texto": "Check for incomplete variable declarations."
+          }
+        ],
+        "blocosMaioresQue4": 2
+      },
+      "consoleCalls": [],
+      "evalCalls": [],
+      "reatribuicoes": 63,
+      "reatribuicaoDeParametro": 0,
+      "chamadasPush": 5,
+      "atribuicoesAMembro": 4,
+      "declaracoesVar": 0,
+      "declaracoesLet": 4,
+      "declaracoesConst": 23,
+      "eslintDisable": [],
+      "todos": [],
+      "emojisEmComentarios": 0
+    },
+    "compiler/lexer.js": {
+      "linhasTotais": 206,
+      "linhasEmBranco": 35,
+      "funcoes": [
+        {
+          "nome": "constructor",
+          "tipo": "ClassMethod",
+          "de": 6,
+          "ate": 99,
+          "linhas": 94,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "tokenize",
+          "tipo": "ClassMethod",
+          "de": 106,
+          "ate": 117,
+          "linhas": 12,
+          "params": 1,
+          "aninhamentoMax": 1
+        },
+        {
+          "nome": "_tokenizeLine",
+          "tipo": "ClassMethod",
+          "de": 126,
+          "ate": 159,
+          "linhas": 34,
+          "params": 2,
+          "aninhamentoMax": 1
+        },
+        {
+          "nome": "_getTokenType",
+          "tipo": "ClassMethod",
+          "de": 167,
+          "ate": 193,
+          "linhas": 27,
+          "params": 1,
+          "aninhamentoMax": 1
+        },
+        {
+          "nome": "tokensToJS",
+          "tipo": "ClassMethod",
+          "de": 200,
+          "ate": 202,
+          "linhas": 3,
+          "params": 1,
+          "aninhamentoMax": 1
+        },
+        {
+          "nome": "(callback)",
+          "tipo": "ArrowFunctionExpression",
+          "de": 201,
+          "ate": 201,
+          "linhas": 1,
+          "params": 1,
+          "aninhamentoMax": 0
+        }
+      ],
+      "comentarios": {
+        "jsdoc": 5,
+        "bloco": 0,
+        "linha": 19,
+        "linhasOcupadas": 46,
+        "maioresBlocos": [
+          {
+            "linhas": 7,
+            "de": 119,
+            "ate": 125,
+            "texto": "*"
+          },
+          {
+            "linhas": 6,
+            "de": 161,
+            "ate": 166,
+            "texto": "*"
+          },
+          {
+            "linhas": 5,
+            "de": 101,
+            "ate": 105,
+            "texto": "*"
+          },
+          {
+            "linhas": 5,
+            "de": 195,
+            "ate": 199,
+            "texto": "*"
+          }
+        ],
+        "blocosMaioresQue4": 4
+      },
+      "consoleCalls": [],
+      "evalCalls": [],
+      "reatribuicoes": 1,
+      "reatribuicaoDeParametro": 0,
+      "chamadasPush": 2,
+      "atribuicoesAMembro": 3,
+      "declaracoesVar": 0,
+      "declaracoesLet": 2,
+      "declaracoesConst": 11,
+      "eslintDisable": [],
+      "todos": [],
+      "emojisEmComentarios": 0
+    },
+    "goianoMethods/GoianoBuiltins.js": {
+      "linhasTotais": 450,
+      "linhasEmBranco": 77,
+      "funcoes": [
+        {
+          "nome": "constructor",
+          "tipo": "ClassMethod",
+          "de": 5,
+          "ate": 115,
+          "linhas": 111,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "gerarImplementacaoGoiana",
+          "tipo": "ClassMethod",
+          "de": 118,
+          "ate": 365,
+          "linhas": 248,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "ehMetodoProibido",
+          "tipo": "ClassMethod",
+          "de": 368,
+          "ate": 370,
+          "linhas": 3,
+          "params": 1,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "converterParaGoiano",
+          "tipo": "ClassMethod",
+          "de": 373,
+          "ate": 375,
+          "linhas": 3,
+          "params": 1,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "converterTipoParaGoiano",
+          "tipo": "ClassMethod",
+          "de": 378,
+          "ate": 380,
+          "linhas": 3,
+          "params": 1,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "listarMetodosGoianos",
+          "tipo": "ClassMethod",
+          "de": 383,
+          "ate": 385,
+          "linhas": 3,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "listarTiposGoianos",
+          "tipo": "ClassMethod",
+          "de": 388,
+          "ate": 390,
+          "linhas": 3,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "obterEquivalenteGoiano",
+          "tipo": "ClassMethod",
+          "de": 393,
+          "ate": 395,
+          "linhas": 3,
+          "params": 1,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "detectarMetodosProibidos",
+          "tipo": "ClassMethod",
+          "de": 398,
+          "ate": 407,
+          "linhas": 10,
+          "params": 1,
+          "aninhamentoMax": 2
+        },
+        {
+          "nome": "(callback)",
+          "tipo": "ArrowFunctionExpression",
+          "de": 400,
+          "ate": 405,
+          "linhas": 6,
+          "params": 1,
+          "aninhamentoMax": 1
+        },
+        {
+          "nome": "obterDocumentacaoMetodo",
+          "tipo": "ClassMethod",
+          "de": 410,
+          "ate": 420,
+          "linhas": 11,
+          "params": 1,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "obterExemploUso",
+          "tipo": "ClassMethod",
+          "de": 423,
+          "ate": 432,
+          "linhas": 10,
+          "params": 1,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "ehMetodoOtimizado",
+          "tipo": "ClassMethod",
+          "de": 435,
+          "ate": 438,
+          "linhas": 4,
+          "params": 1,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "obterVersaoOtimizada",
+          "tipo": "ClassMethod",
+          "de": 441,
+          "ate": 446,
+          "linhas": 6,
+          "params": 1,
+          "aninhamentoMax": 1
+        }
+      ],
+      "comentarios": {
+        "jsdoc": 0,
+        "bloco": 0,
+        "linha": 24,
+        "linhasOcupadas": 24,
+        "maioresBlocos": [],
+        "blocosMaioresQue4": 0
+      },
+      "consoleCalls": [],
+      "evalCalls": [],
+      "reatribuicoes": 0,
+      "reatribuicaoDeParametro": 0,
+      "chamadasPush": 1,
+      "atribuicoesAMembro": 4,
+      "declaracoesVar": 0,
+      "declaracoesLet": 0,
+      "declaracoesConst": 5,
+      "eslintDisable": [],
+      "todos": [],
+      "emojisEmComentarios": 0
+    },
+    "errors/ErroGoiano.js": {
+      "linhasTotais": 91,
+      "linhasEmBranco": 11,
+      "funcoes": [
+        {
+          "nome": "constructor",
+          "tipo": "ClassMethod",
+          "de": 15,
+          "ate": 57,
+          "linhas": 43,
+          "params": 6,
+          "aninhamentoMax": 2
+        },
+        {
+          "nome": "mostrarErro",
+          "tipo": "ClassMethod",
+          "de": 62,
+          "ate": 70,
+          "linhas": 9,
+          "params": 0,
+          "aninhamentoMax": 1
+        },
+        {
+          "nome": "getDetalhes",
+          "tipo": "ClassMethod",
+          "de": 76,
+          "ate": 88,
+          "linhas": 13,
+          "params": 0,
+          "aninhamentoMax": 0
+        }
+      ],
+      "comentarios": {
+        "jsdoc": 4,
+        "bloco": 0,
+        "linha": 3,
+        "linhasOcupadas": 23,
+        "maioresBlocos": [
+          {
+            "linhas": 8,
+            "de": 7,
+            "ate": 14,
+            "texto": "*"
+          },
+          {
+            "linhas": 5,
+            "de": 1,
+            "ate": 5,
+            "texto": "*"
+          }
+        ],
+        "blocosMaioresQue4": 2
+      },
+      "consoleCalls": [
+        {
+          "linha": 63,
+          "metodo": "error"
+        },
+        {
+          "linha": 66,
+          "metodo": "error"
+        },
+        {
+          "linha": 69,
+          "metodo": "error"
+        }
+      ],
+      "evalCalls": [],
+      "reatribuicoes": 4,
+      "reatribuicaoDeParametro": 0,
+      "chamadasPush": 0,
+      "atribuicoesAMembro": 7,
+      "declaracoesVar": 0,
+      "declaracoesLet": 1,
+      "declaracoesConst": 1,
+      "eslintDisable": [],
+      "todos": [],
+      "emojisEmComentarios": 0
+    },
+    "errors/errorTranslator.js": {
+      "linhasTotais": 194,
+      "linhasEmBranco": 24,
+      "funcoes": [
+        {
+          "nome": "constructor",
+          "tipo": "ClassMethod",
+          "de": 8,
+          "ate": 18,
+          "linhas": 11,
+          "params": 0,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "translate",
+          "tipo": "ClassMethod",
+          "de": 26,
+          "ate": 42,
+          "linhas": 17,
+          "params": 2,
+          "aninhamentoMax": 1
+        },
+        {
+          "nome": "_extractLocation",
+          "tipo": "ClassMethod",
+          "de": 48,
+          "ate": 63,
+          "linhas": 16,
+          "params": 1,
+          "aninhamentoMax": 2
+        },
+        {
+          "nome": "_translateSyntaxError",
+          "tipo": "ClassMethod",
+          "de": 69,
+          "ate": 90,
+          "linhas": 22,
+          "params": 4,
+          "aninhamentoMax": 1
+        },
+        {
+          "nome": "_translateReferenceError",
+          "tipo": "ClassMethod",
+          "de": 96,
+          "ate": 108,
+          "linhas": 13,
+          "params": 4,
+          "aninhamentoMax": 1
+        },
+        {
+          "nome": "_translateTypeError",
+          "tipo": "ClassMethod",
+          "de": 114,
+          "ate": 129,
+          "linhas": 16,
+          "params": 4,
+          "aninhamentoMax": 1
+        },
+        {
+          "nome": "_translateURIError",
+          "tipo": "ClassMethod",
+          "de": 135,
+          "ate": 144,
+          "linhas": 10,
+          "params": 4,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "_translateRangeError",
+          "tipo": "ClassMethod",
+          "de": 150,
+          "ate": 161,
+          "linhas": 12,
+          "params": 4,
+          "aninhamentoMax": 1
+        },
+        {
+          "nome": "_translateEvalError",
+          "tipo": "ClassMethod",
+          "de": 167,
+          "ate": 176,
+          "linhas": 10,
+          "params": 4,
+          "aninhamentoMax": 0
+        },
+        {
+          "nome": "_translateGenericError",
+          "tipo": "ClassMethod",
+          "de": 182,
+          "ate": 191,
+          "linhas": 10,
+          "params": 4,
+          "aninhamentoMax": 0
+        }
+      ],
+      "comentarios": {
+        "jsdoc": 10,
+        "bloco": 0,
+        "linha": 5,
+        "linhasOcupadas": 47,
+        "maioresBlocos": [
+          {
+            "linhas": 6,
+            "de": 20,
+            "ate": 25,
+            "texto": "*"
+          }
+        ],
+        "blocosMaioresQue4": 1
+      },
+      "consoleCalls": [],
+      "evalCalls": [],
+      "reatribuicoes": 16,
+      "reatribuicaoDeParametro": 0,
+      "chamadasPush": 0,
+      "atribuicoesAMembro": 2,
+      "declaracoesVar": 0,
+      "declaracoesLet": 10,
+      "declaracoesConst": 13,
+      "eslintDisable": [],
+      "todos": [],
+      "emojisEmComentarios": 0
+    }
+  },
+  "identifiersByFile": {
+    "compiler.js": [
+      "catch:err",
+      "catch:error",
+      "classe:GoiasScriptCompiler",
+      "classe:NoopJITCompiler",
+      "classe:NoopModuleResolver",
+      "classe:NoopTypeAnalyzer",
+      "função:loadOptional",
+      "método:_generateIdentifier",
+      "método:analyze",
+      "método:clearCache",
+      "método:clearJITCache",
+      "método:clearModuleCache",
+      "método:compile",
+      "método:compileWithStats",
+      "método:configureJIT",
+      "método:constructor",
+      "método:detectCircularDependencies",
+      "método:execute",
+      "método:generateDependencyReport",
+      "método:generatePerformanceReport",
+      "método:getCompilationStats",
+      "método:getGoianoMethods",
+      "método:getGoianoTypes",
+      "método:getHotSpots",
+      "método:getJITHotSpots",
+      "método:getJITReport",
+      "método:getModuleDependencyReport",
+      "método:isForbiddenMethod",
+      "método:moduleExists",
+      "método:resolveModules",
+      "método:setOptimizations",
+      "método:setThreshold",
+      "método:shouldApplyJIT",
+      "método:transpile",
+      "método:transpileOnly",
+      "método:validate",
+      "param:char",
+      "param:code",
+      "param:fallback",
+      "param:fileName",
+      "param:hash",
+      "param:method",
+      "param:modulePath",
+      "param:options",
+      "var:GoianoBuiltins",
+      "var:GoianoJITCompiler",
+      "var:ModuleResolver",
+      "var:SimpleTranspiler",
+      "var:TypeAnalyzer",
+      "var:compileResult",
+      "var:hash",
+      "var:identifier",
+      "var:moduleResult",
+      "var:processedCode",
+      "var:result",
+      "var:transpileResult",
+      "var:typeResult"
+    ],
+    "browser.js": [
+      "classe:GoiasScriptBrowserCompiler",
+      "método:constructor",
+      "método:ehMetodoProibido",
+      "método:listarMetodosGoianos",
+      "método:listarTiposGoianos",
+      "método:transpile",
+      "param:code",
+      "param:fileName",
+      "param:metodo",
+      "param:options",
+      "var:ErroGoiano",
+      "var:GoianoBuiltins",
+      "var:SimpleTranspiler"
+    ],
+    "compiler/simpleTranspiler.js": [
+      "catch:error",
+      "classe:SimpleGoiasScriptTranspiler",
+      "método:_applySubstitutions",
+      "método:_checkForbiddenMethods",
+      "método:_convertJSMethodsToGoiano",
+      "método:_escapeRegex",
+      "método:_generateTokens",
+      "método:_getTokenType",
+      "método:_removeTypeAnnotations",
+      "método:_validateSyntax",
+      "método:constructor",
+      "método:transpile",
+      "param:code",
+      "param:fileName",
+      "param:index",
+      "param:line",
+      "param:match",
+      "param:method",
+      "param:options",
+      "param:string",
+      "param:w",
+      "param:word",
+      "var:ErrorTranslator",
+      "var:GoianoBuiltins",
+      "var:boundaryRegex",
+      "var:errors",
+      "var:forbiddenMethods",
+      "var:goianoEquivalent",
+      "var:goianoRuntime",
+      "var:goiasError",
+      "var:jsCode",
+      "var:keywords",
+      "var:lines",
+      "var:mappings",
+      "var:placeholder",
+      "var:result",
+      "var:stringIndex",
+      "var:stringPlaceholders",
+      "var:syntaxErrors",
+      "var:tokens",
+      "var:trimmed",
+      "var:warnings",
+      "var:wordRegex",
+      "var:words"
+    ],
+    "compiler/lexer.js": [
+      "classe:GoiasScriptLexer",
+      "método:_getTokenType",
+      "método:_tokenizeLine",
+      "método:constructor",
+      "método:tokenize",
+      "método:tokensToJS",
+      "param:codigo",
+      "param:line",
+      "param:lineNumber",
+      "param:token",
+      "param:tokens",
+      "param:value",
+      "var:codeLine",
+      "var:column",
+      "var:commentIndex",
+      "var:line",
+      "var:lineNumber",
+      "var:lineTokens",
+      "var:lines",
+      "var:match",
+      "var:token",
+      "var:tokenRegex",
+      "var:tokens",
+      "var:value"
+    ],
+    "goianoMethods/GoianoBuiltins.js": [
+      "classe:GoianoBuiltins",
+      "método:constructor",
+      "método:converterParaGoiano",
+      "método:converterTipoParaGoiano",
+      "método:detectarMetodosProibidos",
+      "método:ehMetodoOtimizado",
+      "método:ehMetodoProibido",
+      "método:gerarImplementacaoGoiana",
+      "método:listarMetodosGoianos",
+      "método:listarTiposGoianos",
+      "método:obterDocumentacaoMetodo",
+      "método:obterEquivalenteGoiano",
+      "método:obterExemploUso",
+      "método:obterVersaoOtimizada",
+      "param:codigo",
+      "param:metodo",
+      "param:metodoJs",
+      "param:tipoJs",
+      "var:docs",
+      "var:exemplos",
+      "var:metodosEncontrados",
+      "var:metodosOtimizados",
+      "var:regex"
+    ],
+    "errors/ErroGoiano.js": [
+      "classe:ErroGoiano",
+      "método:constructor",
+      "método:getDetalhes",
+      "método:mostrarErro",
+      "param:arquivo",
+      "param:coluna",
+      "param:dica",
+      "param:linha",
+      "param:mensagem",
+      "param:tipo",
+      "var:mensagemCompleta",
+      "var:tipoTraduzido"
+    ],
+    "errors/errorTranslator.js": [
+      "classe:ErrorTranslator",
+      "método:_extractLocation",
+      "método:_translateEvalError",
+      "método:_translateGenericError",
+      "método:_translateRangeError",
+      "método:_translateReferenceError",
+      "método:_translateSyntaxError",
+      "método:_translateTypeError",
+      "método:_translateURIError",
+      "método:constructor",
+      "método:translate",
+      "param:column",
+      "param:error",
+      "param:fileName",
+      "param:line",
+      "var:ErroGoiano",
+      "var:column",
+      "var:funcName",
+      "var:goiasMessage",
+      "var:id",
+      "var:line",
+      "var:match",
+      "var:originalMessage",
+      "var:stack",
+      "var:strategy",
+      "var:tip",
+      "var:token",
+      "var:varName"
+    ]
+  }
+}

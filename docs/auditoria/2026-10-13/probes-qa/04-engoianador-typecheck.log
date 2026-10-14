@@ -1,0 +1,9 @@
+
+> goiasscript-monorepo@0.0.0 engoianador:typecheck <repo>
+> pnpm --filter engoianador-api typecheck
+
+
+> engoianador-api@1.5.0 typecheck <repo>/apps/engoianador-api
+> tsc --noEmit
+
+corepack pnpm engoianador:typecheck  1,58s user 0,24s system 131% cpu 1,385 total

@@ -1,0 +1,373 @@
+[
+  {
+    "keyword": "vai_na_frente_faz_trem",
+    "js": "async function",
+    "covered": false,
+    "scopes": "",
+    "partial": false
+  },
+  {
+    "keyword": "é_tipo_de",
+    "js": "instanceof",
+    "covered": true,
+    "scopes": "keyword.operator.logical.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "é_igualim",
+    "js": "===",
+    "covered": true,
+    "scopes": "keyword.operator.logical.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "arruma_trem",
+    "js": "class",
+    "covered": true,
+    "scopes": "storage.type.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "inherda_de",
+    "js": "extends",
+    "covered": true,
+    "scopes": "storage.type.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "aprepara_trem",
+    "js": "constructor",
+    "covered": true,
+    "scopes": "storage.modifier.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "num_muda",
+    "js": "static",
+    "covered": true,
+    "scopes": "storage.modifier.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "se_ocê_quiser",
+    "js": "if",
+    "covered": true,
+    "scopes": "keyword.control.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "se_num_for",
+    "js": "else if",
+    "covered": true,
+    "scopes": "keyword.control.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "se_não",
+    "js": "else",
+    "covered": true,
+    "scopes": "keyword.control.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "vai_indo",
+    "js": "for",
+    "covered": true,
+    "scopes": "keyword.control.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "enquanto_tiver",
+    "js": "while",
+    "covered": true,
+    "scopes": "keyword.control.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "para_com_isso",
+    "js": "break",
+    "covered": true,
+    "scopes": "keyword.control.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "continua_aí",
+    "js": "continue",
+    "covered": true,
+    "scopes": "keyword.control.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "faz_trem",
+    "js": "function",
+    "covered": false,
+    "scopes": "",
+    "partial": false
+  },
+  {
+    "keyword": "faz_favor",
+    "js": "return",
+    "covered": true,
+    "scopes": "keyword.control.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "vai_na_frente",
+    "js": "async",
+    "covered": true,
+    "scopes": "storage.modifier.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "espera_um_cadim",
+    "js": "await",
+    "covered": true,
+    "scopes": "storage.modifier.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "diferente",
+    "js": "!==",
+    "covered": true,
+    "scopes": "keyword.operator.comparison.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "maior_que",
+    "js": ">",
+    "covered": true,
+    "scopes": "keyword.operator.logical.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "menor_que",
+    "js": "<",
+    "covered": true,
+    "scopes": "keyword.operator.logical.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "pelo_menos",
+    "js": ">=",
+    "covered": true,
+    "scopes": "keyword.operator.logical.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "no_máximo",
+    "js": "<=",
+    "covered": true,
+    "scopes": "keyword.operator.logical.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "e_mais",
+    "js": "&&",
+    "covered": true,
+    "scopes": "keyword.operator.logical.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "ou_então",
+    "js": "||",
+    "covered": true,
+    "scopes": "keyword.operator.logical.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "num_é",
+    "js": "!",
+    "covered": true,
+    "scopes": "keyword.operator.logical.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "mais",
+    "js": "+",
+    "covered": true,
+    "scopes": "keyword.operator.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "menos",
+    "js": "-",
+    "covered": true,
+    "scopes": "keyword.operator.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "vezes",
+    "js": "*",
+    "covered": true,
+    "scopes": "keyword.operator.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "dividido",
+    "js": "/",
+    "covered": true,
+    "scopes": "keyword.operator.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "sobrou",
+    "js": "%",
+    "covered": true,
+    "scopes": "keyword.operator.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "prosa",
+    "js": "console.log",
+    "covered": true,
+    "scopes": "support.function.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "reclama",
+    "js": "console.error",
+    "covered": true,
+    "scopes": "support.function.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "promessa",
+    "js": "Promise",
+    "covered": true,
+    "scopes": "support.function.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "quando_resolver",
+    "js": "then",
+    "covered": true,
+    "scopes": "support.function.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "se_der_pobrema",
+    "js": "catch",
+    "covered": true,
+    "scopes": "support.function.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "resolve_aí",
+    "js": "resolve",
+    "covered": true,
+    "scopes": "support.function.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "rejeita_isso",
+    "js": "reject",
+    "covered": true,
+    "scopes": "support.function.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "tenta_aí",
+    "js": "try",
+    "covered": true,
+    "scopes": "keyword.control.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "se_der_ruim",
+    "js": "catch",
+    "covered": true,
+    "scopes": "keyword.control.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "por_fim",
+    "js": "finally",
+    "covered": true,
+    "scopes": "keyword.control.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "certeza",
+    "js": "true",
+    "covered": true,
+    "scopes": "constant.language.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "de_jeito_nenhum",
+    "js": "false",
+    "covered": true,
+    "scopes": "constant.language.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "nada",
+    "js": "null",
+    "covered": true,
+    "scopes": "storage.type.primitive.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "indefinido",
+    "js": "undefined",
+    "covered": false,
+    "scopes": "",
+    "partial": false
+  },
+  {
+    "keyword": "ocê",
+    "js": "this",
+    "covered": true,
+    "scopes": "variable.language.this.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "faz_um",
+    "js": "new",
+    "covered": true,
+    "scopes": "storage.modifier.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "vixe",
+    "js": "throw new Error",
+    "covered": true,
+    "scopes": "support.function.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "em",
+    "js": "in",
+    "covered": true,
+    "scopes": "keyword.other.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "de",
+    "js": "of",
+    "covered": true,
+    "scopes": "keyword.other.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "trem",
+    "js": "var",
+    "covered": true,
+    "scopes": "storage.type.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "uai",
+    "js": "const",
+    "covered": true,
+    "scopes": "storage.type.goiasscript",
+    "partial": false
+  },
+  {
+    "keyword": "é",
+    "js": "=",
+    "covered": true,
+    "scopes": "keyword.operator.goiasscript",
+    "partial": false
+  }
+]

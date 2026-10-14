@@ -1,0 +1,76 @@
+=== 1) Colisão de nomes com as variáveis locais de execute() (eval direto) ===
+[trem result]
+    valor: 7
+    success=true
+[trem compileResult]
+    valor: 7
+    success=true
+[trem code]
+    valor: 7
+    success=true
+[trem fileName]
+    valor: 7
+    success=true
+[trem error]
+    valor: 7
+    success=true
+[trem arguments]
+    success=false erro=Unexpected eval or arguments in strict mode
+[uai result (const)]
+    valor: 7
+    success=true
+[faz_trem result()]
+    valor: 1
+    success=true
+
+=== 2) Poluição do processo hospedeiro após execute() ===
+[antes/depois de execute()]
+    oi
+    for..in em {}  antes=[] depois=["tem_propriedade"]
+    for..in em [1] antes=1 chaves, depois=19 chaves
+    typeof Array.prototype.mapear=function | typeof globalThis.prosa=function
+    success=true
+[libs que usam for..in sem guarda (Object.assign de terceiros)]
+    1
+    legacyExtend({}, {a:1}) -> ["a","tem_propriedade"] (esperado: ["a"])
+    typeof o.tem_propriedade (todo objeto JSON agora tem) = function
+
+=== 3) execute(): erros assíncronos não são capturados ===
+[rejeição não tratada] SAIU COM CÓDIGO 1
+    stdout: depois do f()
+execute() retornou success=true (antes da rejeição ocorrer)
+    <anonymous_script>:248
+    async function f() { throw new Error("boom async"); } f(); console.log("depois do f()");
+                               ^
+    
+    Error: boom async
+        at f (eval at execute (<repo>/packages/core/src/compiler.js:299:22), <anonymous>:248:28)
+[exceção dentro de setTimeout] SAIU COM CÓDIGO 1
+    stdout: agendado
+execute() retornou success=true
+    <anonymous_script>:248
+    depois_de(() => { throw new Error("boom timer"); }, 1); console.log("agendado");
+                      ^
+    
+    Error: boom timer
+        at Timeout.eval [as _onTimeout] (eval at execute (<repo>/packages/core/src/compiler.js:299:22), <anonymous>:248:25)
+
+=== 4) execute(): valor de retorno e estado entre chamadas ===
+[valor de conclusão do eval]
+    sem valor
+    output(1)=42 output(2)=undefined
+[chamar execute() 2x com declarações top-level]
+    1ª 1
+    2ª 2
+    1ª success=true | 2ª success=true
+
+=== 5) compile(): resultado, campos e custo de módulos opcionais ===
+[forma do resultado e módulos opcionais]
+    chaves do resultado: success, javascript, typeInfo, moduleInfo, warnings, errors
+    typeInfo={"typeCount":0,"symbols":{},"hasTypeErrors":false} moduleInfo={"hasModules":false,"imports":[],"exports":[],"dependencies":[]}
+    transpiler.options usado? {}
+    com {debug,sourceMap}: mesmas chaves? true | tem sourceMap? false
+    métodos mortos retornam: getJITReport=null getJITHotSpots=[] getModuleDependencyReport={"totalModules":0,"modules":[]}
+[transpile() do compilador vs transpile() do browser: formas diferentes]
+    compiler.transpile -> chaves: success, javascript, typeInfo, moduleInfo, warnings, errors
+    browser.transpile  -> chaves: success, code, warnings, tokens

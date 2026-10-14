@@ -1,0 +1,5 @@
+2000 literais de string (38 KiB)                  65 ms  success=true
+4000 literais de string (77 KiB)                 162 ms  success=true
+8000 literais de string (155 KiB)               1748 ms  success=true
+16000 literais de string (317 KiB)              6417 ms  success=true
+32000 literais de string (645 KiB)             21430 ms  success=true

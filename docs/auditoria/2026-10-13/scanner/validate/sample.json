@@ -1,0 +1,1310 @@
+[
+ {
+  "rule": "R01",
+  "line": 1,
+  "text": "424 linhas",
+  "file": "packages/core/bin/goias.js",
+  "pkg": "core",
+  "id": "R01-001"
+ },
+ {
+  "rule": "R01",
+  "line": 1,
+  "text": "654 linhas",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R01-002"
+ },
+ {
+  "rule": "R01",
+  "line": 1,
+  "text": "434 linhas",
+  "file": "packages/core/src/compiler/simpleTranspiler.js",
+  "pkg": "core",
+  "id": "R01-003"
+ },
+ {
+  "rule": "R01",
+  "line": 1,
+  "text": "449 linhas",
+  "file": "packages/core/src/goianoMethods/GoianoBuiltins.js",
+  "pkg": "core",
+  "id": "R01-004"
+ },
+ {
+  "rule": "R03",
+  "line": 47,
+  "text": "handleEngoiana: 66 linhas",
+  "file": "apps/engoianador-api/src/index.ts",
+  "pkg": "engoianador-api",
+  "id": "R03-005"
+ },
+ {
+  "rule": "R03",
+  "line": 34,
+  "text": "EngoianadorPage: 153 linhas",
+  "file": "apps/playground/app/engoianador/page.tsx",
+  "pkg": "playground",
+  "id": "R03-006"
+ },
+ {
+  "rule": "R03",
+  "line": 8,
+  "text": "OpengraphImage: 58 linhas",
+  "file": "apps/playground/app/opengraph-image.tsx",
+  "pkg": "playground",
+  "id": "R03-007"
+ },
+ {
+  "rule": "R03",
+  "line": 11,
+  "text": "DonationLinks: 92 linhas",
+  "file": "apps/playground/components/DonationLinks.tsx",
+  "pkg": "playground",
+  "id": "R03-008"
+ },
+ {
+  "rule": "R03",
+  "line": 13,
+  "text": "Toolbar: 69 linhas",
+  "file": "apps/playground/components/Toolbar.tsx",
+  "pkg": "playground",
+  "id": "R03-009"
+ },
+ {
+  "rule": "R03",
+  "line": 465,
+  "text": "createFrameworkFiles: 53 linhas",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R03-010"
+ },
+ {
+  "rule": "R03",
+  "line": 25,
+  "text": "setupCommands: 53 linhas",
+  "file": "packages/core/src/cli/index.js",
+  "pkg": "core",
+  "id": "R03-011"
+ },
+ {
+  "rule": "R03",
+  "line": 148,
+  "text": "initProject: 79 linhas",
+  "file": "packages/core/src/cli/index.js",
+  "pkg": "core",
+  "id": "R03-012"
+ },
+ {
+  "rule": "R03",
+  "line": 6,
+  "text": "constructor: 94 linhas",
+  "file": "packages/core/src/compiler/lexer.js",
+  "pkg": "core",
+  "id": "R03-013"
+ },
+ {
+  "rule": "R03",
+  "line": 5,
+  "text": "constructor: 111 linhas",
+  "file": "packages/core/src/goianoMethods/GoianoBuiltins.js",
+  "pkg": "core",
+  "id": "R03-014"
+ },
+ {
+  "rule": "R05",
+  "line": 162,
+  "text": "arma_o_barraco: 5 níveis",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R05-015"
+ },
+ {
+  "rule": "R06",
+  "line": 22,
+  "text": "console.warn( 'Groq falhou, tentando Workers AI:', err instanceof Err…",
+  "file": "apps/engoianador-api/src/engoiana.ts",
+  "pkg": "engoianador-api",
+  "id": "R06-016"
+ },
+ {
+  "rule": "R06",
+  "line": 104,
+  "text": "console.error('engoiana erro:', message)",
+  "file": "apps/engoianador-api/src/index.ts",
+  "pkg": "engoianador-api",
+  "id": "R06-017"
+ },
+ {
+  "rule": "R06",
+  "line": 63,
+  "text": "console.error('Erro ao carregar exemplo:', err)",
+  "file": "apps/playground/components/Toolbar.tsx",
+  "pkg": "playground",
+  "id": "R06-018"
+ },
+ {
+  "rule": "R06",
+  "line": 28,
+  "text": "console.log(`[copy-examples] Monaco copiado → ${vsDest}`)",
+  "file": "apps/playground/scripts/copy-examples.mjs",
+  "pkg": "playground",
+  "id": "R06-019"
+ },
+ {
+  "rule": "R06",
+  "line": 56,
+  "text": "console.error('[copy-examples] erro:', err)",
+  "file": "apps/playground/scripts/copy-examples.mjs",
+  "pkg": "playground",
+  "id": "R06-020"
+ },
+ {
+  "rule": "R06",
+  "line": 52,
+  "text": "console.warn(` • ${warning.message}`)",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R06-021"
+ },
+ {
+  "rule": "R06",
+  "line": 150,
+  "text": "console.error(` • ${error.message}`)",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R06-022"
+ },
+ {
+  "rule": "R06",
+  "line": 266,
+  "text": "console.error(chalk.red('❌ Erro na validação:'), error.message)",
+  "file": "packages/core/src/cli/index.js",
+  "pkg": "core",
+  "id": "R06-023"
+ },
+ {
+  "rule": "R06",
+  "line": 8,
+  "text": "console.log('🇧🇷 GoiásScript Extension está ativa!')",
+  "file": "vscode-extension/src/extension.js",
+  "pkg": "vscode-extension",
+  "id": "R06-024"
+ },
+ {
+  "rule": "R06",
+  "line": 54,
+  "text": "console.log('🚀 GoiásScript LSP Client iniciado!')",
+  "file": "vscode-extension/src/extension.js",
+  "pkg": "vscode-extension",
+  "id": "R06-025"
+ },
+ {
+  "rule": "R07",
+  "line": 13,
+  "text": "annotation: : any",
+  "file": "apps/playground-e2e/tests/examples.spec.ts",
+  "pkg": "playground-e2e",
+  "id": "R07-026"
+ },
+ {
+  "rule": "R07",
+  "line": 26,
+  "text": "cast: window as any",
+  "file": "apps/playground-e2e/tests/security.spec.ts",
+  "pkg": "playground-e2e",
+  "id": "R07-027"
+ },
+ {
+  "rule": "R07",
+  "line": 28,
+  "text": "cast: window as any",
+  "file": "apps/playground-e2e/tests/security.spec.ts",
+  "pkg": "playground-e2e",
+  "id": "R07-028"
+ },
+ {
+  "rule": "R09",
+  "line": 73,
+  "text": "eslint-disable-next-line no-new-func",
+  "file": "apps/playground/workers/runner.worker.ts",
+  "pkg": "playground",
+  "id": "R09-029"
+ },
+ {
+  "rule": "R09",
+  "line": 298,
+  "text": "eslint-disable-next-line no-eval",
+  "file": "packages/core/src/compiler.js",
+  "pkg": "core",
+  "id": "R09-030"
+ },
+ {
+  "rule": "R11",
+  "line": 3,
+  "text": "5 linhas: CSP é a fronteira de segurança real do playground: mesmo que código do usuário escape o escopo do Web Worker,…",
+  "file": "apps/playground/next.config.mjs",
+  "pkg": "playground",
+  "id": "R11-031"
+ },
+ {
+  "rule": "R11",
+  "line": 44,
+  "text": "8 linhas: Defesa em profundidade. O isolamento REAL é dado pela CSP do site (connect-src 'self' bloqueia exfiltração; s…",
+  "file": "apps/playground/workers/runner.worker.ts",
+  "pkg": "playground",
+  "id": "R11-032"
+ },
+ {
+  "rule": "R11",
+  "line": 293,
+  "text": "5 linhas: Execute compiled JavaScript in the local Node scope. eval is intentional here: this method is called only by …",
+  "file": "packages/core/src/compiler.js",
+  "pkg": "core",
+  "id": "R11-033"
+ },
+ {
+  "rule": "R11",
+  "line": 119,
+  "text": "5 linhas: Tokeniza uma única linha @private @param {string} line - Linha de código @param {number} lineNumber - Número …",
+  "file": "packages/core/src/compiler/lexer.js",
+  "pkg": "core",
+  "id": "R11-034"
+ },
+ {
+  "rule": "R11",
+  "line": 352,
+  "text": "5 linhas: Check for incomplete variable declarations. Aceita 'uai x é valor', 'uai x = valor' (forma JS) e desestrutura…",
+  "file": "packages/core/src/compiler/simpleTranspiler.js",
+  "pkg": "core",
+  "id": "R11-035"
+ },
+ {
+  "rule": "R11",
+  "line": 7,
+  "text": "6 linhas: @param {string} tipo - Tipo do erro (sintaxe, referencia, tipo, etc.) @param {string} mensagem - Mensagem de …",
+  "file": "packages/core/src/errors/ErroGoiano.js",
+  "pkg": "core",
+  "id": "R11-036"
+ },
+ {
+  "rule": "R12",
+  "line": 8,
+  "text": "janela diária (plano: 20 req/dia)",
+  "file": "apps/engoianador-api/src/rate-limit.ts",
+  "pkg": "engoianador-api",
+  "id": "R12-037"
+ },
+ {
+  "rule": "R12",
+  "line": 36,
+  "text": "só dev",
+  "file": "apps/engoianador-api/src/rate-limit.ts",
+  "pkg": "engoianador-api",
+  "id": "R12-038"
+ },
+ {
+  "rule": "R12",
+  "line": 9,
+  "text": "bloqueia exfiltração",
+  "file": "apps/playground-e2e/tests/security.spec.ts",
+  "pkg": "playground-e2e",
+  "id": "R12-039"
+ },
+ {
+  "rule": "R12",
+  "line": 60,
+  "text": "reseta pro placeholder (permite repicar o mesmo)",
+  "file": "apps/playground/components/Toolbar.tsx",
+  "pkg": "playground",
+  "id": "R12-040"
+ },
+ {
+  "rule": "R12",
+  "line": 69,
+  "text": "Linha em branco para melhor legibilidade",
+  "file": "packages/core/src/errors/ErroGoiano.js",
+  "pkg": "core",
+  "id": "R12-041"
+ },
+ {
+  "rule": "R12",
+  "line": 235,
+  "text": "Incomplete variable declaration",
+  "file": "packages/core/tests/unit/compiler.test.js",
+  "pkg": "core",
+  "id": "R12-042"
+ },
+ {
+  "rule": "R13",
+  "line": 4,
+  "text": "[pendencia:antes do lançamento] Chave Pix do projeto. Trocar pela chave real antes do lançamento.",
+  "file": "apps/playground/components/DonationLinks.tsx",
+  "pkg": "playground",
+  "id": "R13-043"
+ },
+ {
+  "rule": "R13",
+  "line": 1,
+  "text": "[marcador-versao:v2] Browser-safe entry for goiasscript@1.5+ Wraps SimpleTranspiler + GoianoBuiltins without the optional v2 modul…",
+  "file": "packages/core/src/browser.js",
+  "pkg": "core",
+  "id": "R13-044"
+ },
+ {
+  "rule": "R13",
+  "line": 4,
+  "text": "[marcador-versao:v1.5] Optional feature modules — gracefully degrade when absent (v1.5 slim build). When the source files exist, ful…",
+  "file": "packages/core/src/compiler.js",
+  "pkg": "core",
+  "id": "R13-045"
+ },
+ {
+  "rule": "R13",
+  "line": 293,
+  "text": "[marcador-fase:Fase 1] Execute compiled JavaScript in the local Node scope. eval is intentional here: this method is called only by …",
+  "file": "packages/core/src/compiler.js",
+  "pkg": "core",
+  "id": "R13-046"
+ },
+ {
+  "rule": "R13",
+  "line": 94,
+  "text": "[roadmap:para futuro] Modificadores de acesso (para futuro)",
+  "file": "packages/core/src/compiler/lexer.js",
+  "pkg": "core",
+  "id": "R13-047"
+ },
+ {
+  "rule": "R13",
+  "line": 352,
+  "text": "[corrige:corrigido,marcador-versao:v2] Check for incomplete variable declarations. Aceita 'uai x é valor', 'uai x = valor' (forma JS) e desestrutura…",
+  "file": "packages/core/src/compiler/simpleTranspiler.js",
+  "pkg": "core",
+  "id": "R13-048"
+ },
+ {
+  "rule": "R15",
+  "line": 45,
+  "text": "1024 (property:max_tokens): max_tokens: 1024",
+  "file": "apps/engoianador-api/src/engoiana.ts",
+  "pkg": "engoianador-api",
+  "id": "R15-049"
+ },
+ {
+  "rule": "R15",
+  "line": 49,
+  "text": "15000 (call-arg): AbortSignal.timeout(15000)",
+  "file": "apps/engoianador-api/src/engoiana.ts",
+  "pkg": "engoianador-api",
+  "id": "R15-050"
+ },
+ {
+  "rule": "R15",
+  "line": 82,
+  "text": "503 (property:status): status: 503",
+  "file": "apps/engoianador-api/src/index.ts",
+  "pkg": "engoianador-api",
+  "id": "R15-051"
+ },
+ {
+  "rule": "R15",
+  "line": 52,
+  "text": "60 (operand:+): WINDOW_SEC + 60",
+  "file": "apps/engoianador-api/src/rate-limit.ts",
+  "pkg": "engoianador-api",
+  "id": "R15-052"
+ },
+ {
+  "rule": "R15",
+  "line": 39,
+  "text": "28 (property:padding): padding: 28",
+  "file": "apps/playground/app/opengraph-image.tsx",
+  "pkg": "playground",
+  "id": "R15-053"
+ },
+ {
+  "rule": "R15",
+  "line": 47,
+  "text": "6 (property:marginTop): marginTop: 6",
+  "file": "apps/playground/app/opengraph-image.tsx",
+  "pkg": "playground",
+  "id": "R15-054"
+ },
+ {
+  "rule": "R15",
+  "line": 18,
+  "text": "1800 (call-arg): setTimeout(() => setCopiado(false), 1800)",
+  "file": "apps/playground/components/DonationLinks.tsx",
+  "pkg": "playground",
+  "id": "R15-055"
+ },
+ {
+  "rule": "R15",
+  "line": 29,
+  "text": "14 (property:fontSize): fontSize: 14",
+  "file": "apps/playground/components/Editor.tsx",
+  "pkg": "playground",
+  "id": "R15-056"
+ },
+ {
+  "rule": "R15",
+  "line": 90,
+  "text": "50 (call-arg): '='.repeat(50)",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R15-057"
+ },
+ {
+  "rule": "R15",
+  "line": 109,
+  "text": "50 (call-arg): '='.repeat(50)",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R15-058"
+ },
+ {
+  "rule": "R15",
+  "line": 120,
+  "text": "50 (call-arg): '─'.repeat(50)",
+  "file": "packages/core/src/cli/index.js",
+  "pkg": "core",
+  "id": "R15-059"
+ },
+ {
+  "rule": "R15",
+  "line": 134,
+  "text": "30 (call-arg): '─'.repeat(30)",
+  "file": "packages/core/src/cli/index.js",
+  "pkg": "core",
+  "id": "R15-060"
+ },
+ {
+  "rule": "R15",
+  "line": 332,
+  "text": "4294967295 (operand:&): ((hash << 5) - hash + char.charCodeAt(0)) & 0xffffffff",
+  "file": "packages/core/src/compiler.js",
+  "pkg": "core",
+  "id": "R15-061"
+ },
+ {
+  "rule": "R15",
+  "line": 105,
+  "text": "100 (call-arg): vscode.window.createStatusBarItem( vscode.StatusBarAlignment.Right, 1…",
+  "file": "vscode-extension/src/extension.js",
+  "pkg": "vscode-extension",
+  "id": "R15-062"
+ },
+ {
+  "rule": "R16",
+  "line": 15,
+  "text": "\"flex\" x4",
+  "file": "apps/playground/app/opengraph-image.tsx",
+  "pkg": "playground",
+  "id": "R16-063"
+ },
+ {
+  "rule": "R16",
+  "line": 16,
+  "text": "\"column\" x3",
+  "file": "apps/playground/app/opengraph-image.tsx",
+  "pkg": "playground",
+  "id": "R16-064"
+ },
+ {
+  "rule": "R16",
+  "line": 98,
+  "text": "\"comment\" x6",
+  "file": "apps/playground/lib/monaco-goias.ts",
+  "pkg": "playground",
+  "id": "R16-065"
+ },
+ {
+  "rule": "R16",
+  "line": 100,
+  "text": "\"string\" x3",
+  "file": "apps/playground/lib/monaco-goias.ts",
+  "pkg": "playground",
+  "id": "R16-066"
+ },
+ {
+  "rule": "R16",
+  "line": 37,
+  "text": "\"log\" x3",
+  "file": "apps/playground/workers/runner.worker.ts",
+  "pkg": "playground",
+  "id": "R16-067"
+ },
+ {
+  "rule": "R16",
+  "line": 178,
+  "text": "\"src\" x8",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R16-068"
+ },
+ {
+  "rule": "R16",
+  "line": 182,
+  "text": "\"web\" x7",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R16-069"
+ },
+ {
+  "rule": "R16",
+  "line": 184,
+  "text": "\"framework\" x6",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R16-070"
+ },
+ {
+  "rule": "R16",
+  "line": 296,
+  "text": "\"Desenvolvedor Goiano\" x4",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R16-071"
+ },
+ {
+  "rule": "R16",
+  "line": 205,
+  "text": "\"utf-8\" x4",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R16-072"
+ },
+ {
+  "rule": "R16",
+  "line": 75,
+  "text": "\".gs\" x3",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R16-073"
+ },
+ {
+  "rule": "R16",
+  "line": 163,
+  "text": "\"basic\" x3",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R16-074"
+ },
+ {
+  "rule": "R16",
+  "line": 313,
+  "text": "\"goiasscript\" x3",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R16-075"
+ },
+ {
+  "rule": "R16",
+  "line": 297,
+  "text": "\"package.json\" x3",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R16-076"
+ },
+ {
+  "rule": "R16",
+  "line": 183,
+  "text": "\"public\" x3",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R16-077"
+ },
+ {
+  "rule": "R16",
+  "line": 188,
+  "text": "\"scripts\" x3",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R16-078"
+ },
+ {
+  "rule": "R16",
+  "line": 201,
+  "text": "\"templates\" x3",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R16-079"
+ },
+ {
+  "rule": "R16",
+  "line": 36,
+  "text": "\"utf8\" x3",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R16-080"
+ },
+ {
+  "rule": "R16",
+  "line": 106,
+  "text": "\"utf8\" x3",
+  "file": "packages/core/src/cli/index.js",
+  "pkg": "core",
+  "id": "R16-081"
+ },
+ {
+  "rule": "R16",
+  "line": 89,
+  "text": "\"script.gs\" x7",
+  "file": "packages/core/src/compiler.js",
+  "pkg": "core",
+  "id": "R16-082"
+ },
+ {
+  "rule": "R16",
+  "line": 29,
+  "text": "\"goiasscript\" x4",
+  "file": "vscode-extension/src/extension.js",
+  "pkg": "vscode-extension",
+  "id": "R16-083"
+ },
+ {
+  "rule": "R18",
+  "line": 41,
+  "text": "assign-prop: config.resolve.fallback = { ...config.resolve.fallback, fs: false, pa…",
+  "file": "apps/playground/next.config.mjs",
+  "pkg": "playground",
+  "id": "R18-084"
+ },
+ {
+  "rule": "R18",
+  "line": 33,
+  "text": "mutator-push: logs.push(entry)",
+  "file": "apps/playground/workers/runner.worker.ts",
+  "pkg": "playground",
+  "id": "R18-085"
+ },
+ {
+  "rule": "R18",
+  "line": 96,
+  "text": "mutator-push: context.subscriptions.push( traduzCommand, botaPraMoerCommand )",
+  "file": "vscode-extension/src/extension.js",
+  "pkg": "vscode-extension",
+  "id": "R18-086"
+ },
+ {
+  "rule": "R18",
+  "line": 112,
+  "text": "mutator-push: context.subscriptions.push(statusBarItem)",
+  "file": "vscode-extension/src/extension.js",
+  "pkg": "vscode-extension",
+  "id": "R18-087"
+ },
+ {
+  "rule": "R20",
+  "line": 20,
+  "text": "log-only: { // Loga só a mensagem (sem body cru da Groq) e segue pro fallback. console.warn( 'Groq …",
+  "file": "apps/engoianador-api/src/engoiana.ts",
+  "pkg": "engoianador-api",
+  "id": "R20-088"
+ },
+ {
+  "rule": "R20",
+  "line": 23,
+  "text": "empty-with-comment: { /* corrompido — reseta */ }",
+  "file": "apps/engoianador-api/src/rate-limit.ts",
+  "pkg": "engoianador-api",
+  "id": "R20-089"
+ },
+ {
+  "rule": "R20",
+  "line": 68,
+  "text": "empty-with-comment: { /* clipboard indisponível */ }",
+  "file": "apps/playground/app/engoianador/page.tsx",
+  "pkg": "playground",
+  "id": "R20-090"
+ },
+ {
+  "rule": "R20",
+  "line": 37,
+  "text": "promise-catch-vazio: fetch('/examples/ola-mundo.gs') .then(r => (r.ok ? r.text() : null)) .then(text => { if (…",
+  "file": "apps/playground/app/page.tsx",
+  "pkg": "playground",
+  "id": "R20-091"
+ },
+ {
+  "rule": "R20",
+  "line": 19,
+  "text": "empty-with-comment: { /* clipboard indisponível — ignora */ }",
+  "file": "apps/playground/components/DonationLinks.tsx",
+  "pkg": "playground",
+  "id": "R20-092"
+ },
+ {
+  "rule": "R20",
+  "line": 89,
+  "text": "log-only: { console.error('❌ Ô rapaz! Deu ruim:', error.message); }",
+  "file": "packages/core/bin/goias.js",
+  "pkg": "core",
+  "id": "R20-093"
+ },
+ {
+  "rule": "R20",
+  "line": 166,
+  "text": "log-only: { console.error('❌ Ô rapaz! Deu ruim na execução:', error.message); }",
+  "file": "packages/core/bin/goias.js",
+  "pkg": "core",
+  "id": "R20-094"
+ },
+ {
+  "rule": "R20",
+  "line": 87,
+  "text": "log-only: { console.error(`\\n❌ Ô rapaz! Deu ruim na execução: ${execError.message}`); }",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R20-095"
+ },
+ {
+  "rule": "R20",
+  "line": 139,
+  "text": "log-only: { console.error(chalk.red('❌ Erro:'), error.message); }",
+  "file": "packages/core/src/cli/index.js",
+  "pkg": "core",
+  "id": "R20-096"
+ },
+ {
+  "rule": "R20",
+  "line": 223,
+  "text": "log-only: { console.error(chalk.red('❌ Erro ao criar projeto:'), error.message); }",
+  "file": "packages/core/src/cli/index.js",
+  "pkg": "core",
+  "id": "R20-097"
+ },
+ {
+  "rule": "R20",
+  "line": 265,
+  "text": "log-only: { console.error(chalk.red('❌ Erro na validação:'), error.message); }",
+  "file": "packages/core/src/cli/index.js",
+  "pkg": "core",
+  "id": "R20-098"
+ },
+ {
+  "rule": "R20",
+  "line": 308,
+  "text": "log-only: { console.error(chalk.red('❌ Erro na transpilação:'), error.message); }",
+  "file": "packages/core/src/cli/index.js",
+  "pkg": "core",
+  "id": "R20-099"
+ },
+ {
+  "rule": "R21",
+  "line": 9,
+  "text": "Abas com semântica acessível",
+  "file": "apps/playground-e2e/tests/home.spec.ts",
+  "pkg": "playground-e2e",
+  "id": "R21-100"
+ },
+ {
+  "rule": "R21",
+  "line": 12,
+  "text": "Monaco montou",
+  "file": "apps/playground-e2e/tests/home.spec.ts",
+  "pkg": "playground-e2e",
+  "id": "R21-101"
+ },
+ {
+  "rule": "R21",
+  "line": 68,
+  "text": "Comandos especiais da Roda de Prosa",
+  "file": "packages/core/bin/goias.js",
+  "pkg": "core",
+  "id": "R21-102"
+ },
+ {
+  "rule": "R21",
+  "line": 87,
+  "text": "Executar código",
+  "file": "packages/core/bin/goias.js",
+  "pkg": "core",
+  "id": "R21-103"
+ },
+ {
+  "rule": "R21",
+  "line": 124,
+  "text": "Verificar se chegou ao final do bloco",
+  "file": "packages/core/bin/goias.js",
+  "pkg": "core",
+  "id": "R21-104"
+ },
+ {
+  "rule": "R21",
+  "line": 419,
+  "text": "Iniciar Roda de Prosa",
+  "file": "packages/core/bin/goias.js",
+  "pkg": "core",
+  "id": "R21-105"
+ },
+ {
+  "rule": "R21",
+  "line": 255,
+  "text": "Arquivos específicos dos templates",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R21-106"
+ },
+ {
+  "rule": "R21",
+  "line": 435,
+  "text": "Função para copiar diretório de template recursivamente",
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "id": "R21-107"
+ },
+ {
+  "rule": "R21",
+  "line": 31,
+  "text": "Funções",
+  "file": "packages/core/src/compiler/lexer.js",
+  "pkg": "core",
+  "id": "R21-108"
+ },
+ {
+  "rule": "R21",
+  "line": 48,
+  "text": "Operações aritméticas",
+  "file": "packages/core/src/compiler/lexer.js",
+  "pkg": "core",
+  "id": "R21-109"
+ },
+ {
+  "rule": "R21",
+  "line": 129,
+  "text": "Remover comentários",
+  "file": "packages/core/src/compiler/lexer.js",
+  "pkg": "core",
+  "id": "R21-110"
+ },
+ {
+  "rule": "R21",
+  "line": 97,
+  "text": "Classes and inheritance",
+  "file": "packages/core/src/compiler/simpleTranspiler.js",
+  "pkg": "core",
+  "id": "R21-111"
+ },
+ {
+  "rule": "R21",
+  "line": 38,
+  "text": "Array/Lista methods",
+  "file": "packages/core/src/goianoMethods/GoianoBuiltins.js",
+  "pkg": "core",
+  "id": "R21-112"
+ },
+ {
+  "rule": "R21",
+  "line": 387,
+  "text": "Lista todos os tipos goianos",
+  "file": "packages/core/src/goianoMethods/GoianoBuiltins.js",
+  "pkg": "core",
+  "id": "R21-113"
+ },
+ {
+  "rule": "R21",
+  "line": 392,
+  "text": "Obter equivalente goiano para método JS",
+  "file": "packages/core/src/goianoMethods/GoianoBuiltins.js",
+  "pkg": "core",
+  "id": "R21-114"
+ },
+ {
+  "rule": "R21",
+  "line": 155,
+  "text": "Mock path operations",
+  "file": "packages/core/tests/unit/cli.test.js",
+  "pkg": "core",
+  "id": "R21-115"
+ },
+ {
+  "rule": "R21",
+  "line": 10,
+  "text": "Configurar Language Server",
+  "file": "vscode-extension/src/extension.js",
+  "pkg": "vscode-extension",
+  "id": "R21-116"
+ },
+ {
+  "rule": "R21",
+  "line": 37,
+  "text": "Criar e iniciar cliente",
+  "file": "vscode-extension/src/extension.js",
+  "pkg": "vscode-extension",
+  "id": "R21-117"
+ },
+ {
+  "rule": "R21",
+  "line": 45,
+  "text": "Iniciar cliente",
+  "file": "vscode-extension/src/extension.js",
+  "pkg": "vscode-extension",
+  "id": "R21-118"
+ },
+ {
+  "rule": "R21",
+  "line": 48,
+  "text": "Registrar comandos",
+  "file": "vscode-extension/src/extension.js",
+  "pkg": "vscode-extension",
+  "id": "R21-119"
+ },
+ {
+  "rule": "R21",
+  "line": 51,
+  "text": "Status bar",
+  "file": "vscode-extension/src/extension.js",
+  "pkg": "vscode-extension",
+  "id": "R21-120"
+ },
+ {
+  "rule": "R21",
+  "line": 58,
+  "text": "Comando para traduzir GoiásScript",
+  "file": "vscode-extension/src/extension.js",
+  "pkg": "vscode-extension",
+  "id": "R21-121"
+ },
+ {
+  "rule": "R21",
+  "line": 77,
+  "text": "Comando para executar GoiásScript",
+  "file": "vscode-extension/src/extension.js",
+  "pkg": "vscode-extension",
+  "id": "R21-122"
+ },
+ {
+  "rule": "R21",
+  "line": 114,
+  "text": "Atualizar status baseado no arquivo ativo",
+  "file": "vscode-extension/src/extension.js",
+  "pkg": "vscode-extension",
+  "id": "R21-123"
+ },
+ {
+  "rule": "R14",
+  "line": 63,
+  "file": "apps/engoianador-api/src/engoiana.ts",
+  "pkg": "engoianador-api",
+  "text": "texto (param, strong, internal)",
+  "stratum": "internal-strong",
+  "id": "R14-124"
+ },
+ {
+  "rule": "R14",
+  "line": 39,
+  "file": "apps/engoianador-api/src/index.ts",
+  "pkg": "engoianador-api",
+  "text": "erro (object-key, strong, internal)",
+  "stratum": "internal-strong",
+  "id": "R14-125"
+ },
+ {
+  "rule": "R14",
+  "line": 53,
+  "file": "apps/engoianador-api/src/prompt.ts",
+  "pkg": "engoianador-api",
+  "text": "texto (param, strong, internal)",
+  "stratum": "internal-strong",
+  "id": "R14-126"
+ },
+ {
+  "rule": "R14",
+  "line": 6,
+  "file": "apps/playground-e2e/tests/engoianador.spec.ts",
+  "pkg": "playground-e2e",
+  "text": "texto (property, strong, internal)",
+  "stratum": "internal-strong",
+  "id": "R14-127"
+ },
+ {
+  "rule": "R14",
+  "line": 5,
+  "file": "apps/playground-e2e/tests/examples.spec.ts",
+  "pkg": "playground-e2e",
+  "text": "marcador (param, strong, internal)",
+  "stratum": "internal-strong",
+  "id": "R14-128"
+ },
+ {
+  "rule": "R14",
+  "line": 16,
+  "file": "apps/playground-e2e/tests/security.spec.ts",
+  "pkg": "playground-e2e",
+  "text": "chamou (variable, strong, internal)",
+  "stratum": "internal-strong",
+  "id": "R14-129"
+ },
+ {
+  "rule": "R14",
+  "line": 10,
+  "file": "apps/playground/app/doacao/page.tsx",
+  "pkg": "playground",
+  "text": "DoacaoPage (function, strong, internal)",
+  "stratum": "internal-strong",
+  "id": "R14-130"
+ },
+ {
+  "rule": "R14",
+  "line": 8,
+  "file": "apps/playground/components/OutputPanel.tsx",
+  "pkg": "playground",
+  "text": "saida (object-key, strong, internal)",
+  "stratum": "internal-strong",
+  "id": "R14-131"
+ },
+ {
+  "rule": "R14",
+  "line": 10,
+  "file": "apps/playground/tailwind.config.ts",
+  "pkg": "playground",
+  "text": "amarelo (object-key, strong, internal)",
+  "stratum": "internal-strong",
+  "id": "R14-132"
+ },
+ {
+  "rule": "R14",
+  "line": 83,
+  "file": "packages/core/src/errors/ErroGoiano.js",
+  "pkg": "core",
+  "text": "linha (object-key, strong, internal)",
+  "stratum": "internal-strong",
+  "id": "R14-133"
+ },
+ {
+  "rule": "R14",
+  "line": 1,
+  "file": "packages/core/src/errors/errorTranslator.js",
+  "pkg": "core",
+  "text": "ErroGoiano (variable, strong, internal)",
+  "stratum": "internal-strong",
+  "id": "R14-134"
+ },
+ {
+  "rule": "R14",
+  "line": 100,
+  "file": "packages/core/tests/unit/compiler.test.js",
+  "pkg": "core",
+  "text": "codigo (variable, strong, internal)",
+  "stratum": "internal-strong",
+  "id": "R14-135"
+ },
+ {
+  "rule": "R14",
+  "line": 59,
+  "file": "vscode-extension/src/extension.js",
+  "pkg": "vscode-extension",
+  "text": "traduzCommand (variable, strong, internal)",
+  "stratum": "internal-strong",
+  "id": "R14-136"
+ },
+ {
+  "rule": "R14",
+  "line": 78,
+  "file": "vscode-extension/src/extension.js",
+  "pkg": "vscode-extension",
+  "text": "botaPraMoerCommand (variable, strong, internal)",
+  "stratum": "internal-strong",
+  "id": "R14-137"
+ },
+ {
+  "rule": "R14",
+  "line": 128,
+  "file": "packages/core/src/goianoMethods/GoianoBuiltins.js",
+  "pkg": "core",
+  "text": "buscar (param, strong, internal, embutido)",
+  "stratum": "internal-embedded",
+  "id": "R14-138"
+ },
+ {
+  "rule": "R14",
+  "line": 148,
+  "file": "packages/core/src/goianoMethods/GoianoBuiltins.js",
+  "pkg": "core",
+  "text": "texto (param, strong, internal, embutido)",
+  "stratum": "internal-embedded",
+  "id": "R14-139"
+ },
+ {
+  "rule": "R14",
+  "line": 152,
+  "file": "packages/core/src/goianoMethods/GoianoBuiltins.js",
+  "pkg": "core",
+  "text": "texto (param, strong, internal, embutido)",
+  "stratum": "internal-embedded",
+  "id": "R14-140"
+ },
+ {
+  "rule": "R14",
+  "line": 160,
+  "file": "packages/core/src/goianoMethods/GoianoBuiltins.js",
+  "pkg": "core",
+  "text": "fim (param, strong, internal, embutido)",
+  "stratum": "internal-embedded",
+  "id": "R14-141"
+ },
+ {
+  "rule": "R14",
+  "line": 267,
+  "file": "packages/core/bin/goias.js",
+  "pkg": "core",
+  "text": "desenrola (method, strong, surface-mirror)",
+  "stratum": "surface-mirror",
+  "id": "R14-142"
+ },
+ {
+  "rule": "R14",
+  "line": 337,
+  "file": "packages/core/bin/goias.js",
+  "pkg": "core",
+  "text": "cabô_a_prosa (method, strong, surface-mirror)",
+  "stratum": "surface-mirror",
+  "id": "R14-143"
+ },
+ {
+  "rule": "R14",
+  "line": 343,
+  "file": "packages/core/bin/goias.js",
+  "pkg": "core",
+  "text": "mostra_as_tralha (method, strong, surface-mirror)",
+  "stratum": "surface-mirror",
+  "id": "R14-144"
+ },
+ {
+  "rule": "R14",
+  "line": 99,
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "text": "bota_pra_moer (method, strong, surface-mirror)",
+  "stratum": "surface-mirror",
+  "id": "R14-145"
+ },
+ {
+  "rule": "R14",
+  "line": 534,
+  "file": "packages/core/bin/goiasscript.js",
+  "pkg": "core",
+  "text": "dedo_de_prosa (method, strong, surface-mirror)",
+  "stratum": "surface-mirror",
+  "id": "R14-146"
+ },
+ {
+  "rule": "R14",
+  "line": 13,
+  "file": "packages/core/src/compiler/lexer.js",
+  "pkg": "core",
+  "text": "ocê (object-key, strong, surface-exact)",
+  "stratum": "surface-exact (excluída)",
+  "id": "R14-147"
+ },
+ {
+  "rule": "R14",
+  "line": 46,
+  "file": "packages/core/src/compiler/lexer.js",
+  "pkg": "core",
+  "text": "no_máximo (object-key, strong, surface-exact)",
+  "stratum": "surface-exact (excluída)",
+  "id": "R14-148"
+ },
+ {
+  "rule": "R14",
+  "line": 61,
+  "file": "packages/core/src/compiler/lexer.js",
+  "pkg": "core",
+  "text": "vazio (object-key, strong, surface-exact)",
+  "stratum": "surface-exact (excluída)",
+  "id": "R14-149"
+ },
+ {
+  "rule": "R14",
+  "line": 63,
+  "file": "packages/core/src/compiler/lexer.js",
+  "pkg": "core",
+  "text": "certeza (object-key, strong, surface-exact)",
+  "stratum": "surface-exact (excluída)",
+  "id": "R14-150"
+ },
+ {
+  "rule": "R14",
+  "line": 64,
+  "file": "packages/core/src/compiler/lexer.js",
+  "pkg": "core",
+  "text": "de_jeito_nenhum (object-key, strong, surface-exact)",
+  "stratum": "surface-exact (excluída)",
+  "id": "R14-151"
+ },
+ {
+  "rule": "R14",
+  "line": 71,
+  "file": "packages/core/src/compiler/lexer.js",
+  "pkg": "core",
+  "text": "promessa (object-key, strong, surface-exact)",
+  "stratum": "surface-exact (excluída)",
+  "id": "R14-152"
+ },
+ {
+  "rule": "R14",
+  "line": 319,
+  "file": "packages/core/src/goianoMethods/GoianoBuiltins.js",
+  "pkg": "core",
+  "text": "eh_nao_numero (function, strong, surface-exact, embutido)",
+  "stratum": "surface-exact (excluída)",
+  "id": "R14-153"
+ },
+ {
+  "rule": "R14",
+  "line": 348,
+  "file": "packages/core/src/goianoMethods/GoianoBuiltins.js",
+  "pkg": "core",
+  "text": "prosa_aviso (function, strong, surface-exact, embutido)",
+  "stratum": "surface-exact (excluída)",
+  "id": "R14-154"
+ },
+ {
+  "rule": "R14",
+  "line": 47,
+  "file": "apps/engoianador-api/src/index.ts",
+  "pkg": "engoianador-api",
+  "text": "handleEngoiana (function, domain, internal)",
+  "stratum": "domain (excluída)",
+  "id": "R14-155"
+ },
+ {
+  "rule": "R14",
+  "line": 10,
+  "file": "apps/playground-e2e/tests/engoianador.spec.ts",
+  "pkg": "playground-e2e",
+  "text": "engoianado (object-key, domain, internal)",
+  "stratum": "domain (excluída)",
+  "id": "R14-156"
+ },
+ {
+  "rule": "R14",
+  "line": 4,
+  "file": "apps/playground/components/ShareCard.tsx",
+  "pkg": "playground",
+  "text": "engoianado (property, domain, internal)",
+  "stratum": "domain (excluída)",
+  "id": "R14-157"
+ },
+ {
+  "rule": "R14",
+  "line": 176,
+  "file": "packages/core/src/compiler.js",
+  "pkg": "core",
+  "text": "getGoianoMethods (method, domain, internal)",
+  "stratum": "domain (excluída)",
+  "id": "R14-158"
+ },
+ {
+  "rule": "R14",
+  "line": 184,
+  "file": "packages/core/src/compiler.js",
+  "pkg": "core",
+  "text": "getGoianoTypes (method, domain, internal)",
+  "stratum": "domain (excluída)",
+  "id": "R14-159"
+ }
+]

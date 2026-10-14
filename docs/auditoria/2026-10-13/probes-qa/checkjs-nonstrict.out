@@ -1,0 +1,6 @@
+packages/core/bin/goias.js(6,21): error TS2732: Cannot find module '../package.json'. Consider using '--resolveJsonModule' to import module with '.json' extension.
+packages/core/bin/goiasscript.js(7,21): error TS2732: Cannot find module '../package.json'. Consider using '--resolveJsonModule' to import module with '.json' extension.
+packages/core/src/cli/index.js(9,29): error TS2732: Cannot find module '../../package.json'. Consider using '--resolveJsonModule' to import module with '.json' extension.
+packages/core/src/cli/index.js(341,61): error TS2339: Property 'message' does not exist on type 'unknown'.
+packages/core/src/cli/index.js(342,17): error TS2339: Property 'stack' does not exist on type 'unknown'.
+packages/core/src/cli/index.js(343,39): error TS2339: Property 'stack' does not exist on type 'unknown'.

@@ -1,0 +1,25 @@
+R13-047	TP	nota de roadmap ("para futuro") no fonte
+R21-099	TP	narra o if seguinte
+R21-100	TP	narra o que a próxima asserção faz
+R21-101	TP	narra a criação do cliente
+R21-102	TP	rótulo de seção em tabela de dados
+R21-103	TP-fraco	explicita a intenção da asserção, mas o título do teste deveria dizê-lo
+R21-104	TP	narra o handler seguinte
+R21-105	TP	repete o nome do método copyTemplateDirectory
+R21-106	TP	repete o nome da função registerCommands
+R21-107	TP	narra o mock seguinte
+R21-108	TP	rótulo curto
+R21-109	TP	rótulo de seção em tabela de dados
+R21-110	TP	narra a configuração seguinte
+R21-111	TP	rótulo do if seguinte
+R21-112	TP	repete client.start()
+R21-113	TP	repete o nome do método listarTiposGoianos
+R21-114	TP	rótulo; o nome do comando já diz
+R21-115	TP	narra o bloco require.main
+R21-116	TP	rótulo; o nome do comando já diz
+R21-117	TP	rótulo de seção em tabela de dados
+R21-118	TP	repete o nome do método obterEquivalenteGoiano
+R21-119	TP	narra as linhas seguintes
+R21-120	TP	rótulo de seção em tabela de dados
+R21-121	TP	rótulo do if seguinte
+R21-122	TP	narra a chamada seguinte

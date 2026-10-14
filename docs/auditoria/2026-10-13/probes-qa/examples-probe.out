@@ -1,0 +1,17 @@
+examples/advanced/teste_classes.gs             compile=ok     sintaxeJS=INVALIDA exec=-     SyntaxError: Unexpected identifier 'ComidaGoiana'
+examples/advanced/teste_classes_simples.gs     compile=ok     sintaxeJS=INVALIDA exec=-     SyntaxError: Unexpected identifier 'faizBaruio'
+examples/advanced/teste_erros.gs               compile=ok     sintaxeJS=ok       exec=ok    4 linhas de saida
+examples/advanced/teste_instanceof.gs          compile=ok     sintaxeJS=INVALIDA exec=-     SyntaxError: Unexpected identifier 'fazerVeiculoFuncionar'
+examples/async/async_exemplo.gs                compile=ok     sintaxeJS=INVALIDA exec=-     SyntaxError: Unexpected identifier 'esperaUmPoquim'
+examples/basic/exemplo.gs                      compile=ok     sintaxeJS=ok       exec=ok    3 linhas de saida
+examples/basic/exemplo_simples.gs              compile=ok     sintaxeJS=INVALIDA exec=-     SyntaxError: Unexpected identifier 'presta_serviço'
+examples/basic/lista-mapeamento.gs             compile=ok     sintaxeJS=ok       exec=ok    8 linhas de saida
+examples/basic/ola-mundo.gs                    compile=ok     sintaxeJS=ok       exec=ok    2 linhas de saida
+examples/classes/exemplo_classes.gs            compile=ok     sintaxeJS=INVALIDA exec=-     SyntaxError: Unexpected identifier 'Pamonharia'
+examples/classes/pequi.gs                      compile=ok     sintaxeJS=ok       exec=ok    3 linhas de saida
+templates/basic-template.gs                    compile=ok     sintaxeJS=ok       exec=ok    9 linhas de saida
+templates/projeto-basico/src/main.gs           compile=ok     sintaxeJS=INVALIDA exec=-     SyntaxError: Unexpected identifier 'saudar'
+templates/projeto-basico/tests/test.gs         compile=ok     sintaxeJS=INVALIDA exec=-     SyntaxError: Unexpected identifier 'é_igual_a'
+tests/fixtures/test-basic.gs                   compile=ok     sintaxeJS=INVALIDA exec=-     SyntaxError: Unexpected identifier 'digaOla'
+
+TOTAL=15 problematicos=9

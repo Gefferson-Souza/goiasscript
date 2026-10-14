@@ -1,0 +1,404 @@
+
+## apps/engoianador-api/src/cors.ts
+10-15 [jsdoc/pt] Resolve a origem permitida. Fail-closed: se a origem da requisição não estiver explicitamente na allowlist (ALLOWED_ORIGINS),
+26 [line/pt] Origem não autorizada (ou ausente): sem ACAO header → browser bloqueia.
+
+## apps/engoianador-api/src/engoiana.ts
+21 [line/pt] Loga só a mensagem (sem body cru da Groq) e segue pro fallback.
+48 [line/pt] Evita pendurar o Worker até o limite de CPU (30s) se a Groq travar.
+52 [line/pt] Não propaga o body cru (pode conter detalhes internos da API).
+74 [line/pt] A LLM às vezes envolve a resposta em aspas. Remove se for o caso.
+
+## apps/engoianador-api/src/index.ts
+75-76 [line-group/pt] Só confia no cf-connecting-ip (injetado pela Cloudflare, não-spoofável). x-forwarded-for é controlável pelo cliente, então nã
+
+## apps/engoianador-api/src/prompt.ts
+1-3 [line-group/pt] Prompt do engoianador: instrui a LLM a reescrever qualquer texto em goianês raiz, preservando o sentido sem inventar fatos no
+49-52 [jsdoc/pt] Sanitiza o texto do usuário removendo as tags delimitadoras para impedir que ele "feche" o bloco e injete instruções fora del
+54 [line/pt] Captura variações com espaços/atributos: </texto_do_usuario >, < texto... >, etc.
+
+## apps/engoianador-api/src/rate-limit.ts
+8(lado) [line/pt] janela diária (plano: 20 req/dia)
+24 [block/unk] corrompido — reseta
+29-33 [jsdoc/pt] Rate limit por IP via KV. FAIL-CLOSED: se o KV não estiver configurado e o ambiente não permitir explicitamente (ALLOW_UNLIMI
+36(lado) [line/unk] só dev
+
+## apps/engoianador-api/test/helpers.ts
+3 [jsdoc/pt] KV em memória que imita a interface usada por rate-limit.ts.
+
+## apps/engoianador-api/test/prompt.test.ts
+38 [line/pt] só pode haver um par de tags (a injeção foi sanitizada)
+
+## apps/playground-e2e/tests/engoianador.spec.ts
+3 [line/pt] Intercepta a API do engoianador pra testar a UI sem depender do Worker real.
+20 [line/pt] Botões de copiar e compartilhar habilitam após ter saída
+
+## apps/playground-e2e/tests/examples.spec.ts
+3-4 [line-group/pt] Carrega exemplos via o <select> (não depende de digitar no Monaco) e roda. Espera o conteúdo entrar no editor antes de rodar 
+32 [line/pt] O worker formata arrays com JSON pretty (multilinha); confere rótulo + valores.
+
+## apps/playground-e2e/tests/home.spec.ts
+9 [line/pt] Abas com semântica acessível
+12 [line/unk] Monaco montou
+
+## apps/playground-e2e/tests/security.spec.ts
+9(lado) [line/unk] bloqueia exfiltração
+25 [line/pt] Seta via API do Monaco (evita auto-close de aspas/parênteses ao digitar).
+33 [line/pt] Deve falhar na execução (global bloqueado) e nunca tocar a rede.
+
+## apps/playground/app/engoianador/layout.tsx
+3-4 [line-group/pt] A página é 'use client', então a metadata fica neste layout (server). O og:image é herdado do app/opengraph-image.tsx da raiz
+
+## apps/playground/app/engoianador/page.tsx
+9 [line/pt] Exemplos pré-prontos: clica e já engoiana (zero fricção).
+69 [block/unk] clipboard indisponível
+180 [block/pt] Card de marca renderizado fora da tela só pra captura do PNG.
+
+## apps/playground/app/opengraph-image.tsx
+7 [line/pt] Tipográfica de propósito: sem emoji para não depender de rede em build.
+
+## apps/playground/app/page.tsx
+34-35 [line-group/pt] Autoload do exemplo "Olá Mundo" na primeira renderização cliente. Só substitui se o usuário ainda não mexeu (evita clobber de
+43 [block/pt] mantém o STARTER
+
+## apps/playground/components/DonationLinks.tsx
+4 [line/pt] Chave Pix do projeto. Trocar pela chave real antes do lançamento.
+20 [block/pt] clipboard indisponível — ignora
+
+## apps/playground/components/Editor.tsx
+5-6 [line-group/pt] Self-host: carrega o Monaco do próprio domínio (/vs), não de CDN externo. Necessário porque a CSP do site é script-src 'self'
+
+## apps/playground/components/ShareCard.tsx
+6-9 [jsdoc/pt] Card de marca renderizado fora da tela e capturado como PNG pelo botão "Compartilhar". Layout fixo (1200x630-ish ao 2x) com b
+
+## apps/playground/components/Toolbar.tsx
+15-16 [line-group/pt] Select controlado: volta pro placeholder após carregar, permitindo recarregar o mesmo exemplo (defaultValue ficava preso na s
+60(lado) [line/unk] reseta pro placeholder (permite repicar o mesmo)
+
+## apps/playground/lib/engoianador-client.ts
+1-2 [line-group/pt] URL da API do Engoianador. Em produção, NEXT_PUBLIC_ENGOIANADOR_URL é obrigatória — sem ela, falha explícito em vez de cair e
+
+## apps/playground/lib/monaco-goias.ts
+1-3 [line-group/pt] Definição da linguagem GoiásScript para o Monaco Editor. Tokens portados de vscode-extension/syntaxes/goiasscript.tmLanguage.
+
+## apps/playground/lib/share.ts
+5 [jsdoc/pt] Gera um PNG do nó (alta resolução) e devolve o dataURL.
+17 [jsdoc/pt] Dispara o download de um dataURL como arquivo .png.
+27 [jsdoc/pt] Abre o compositor do X/Twitter com texto + link do site.
+
+## apps/playground/lib/use-runner.ts
+49 [line/pt] Log incremental: acumula pra aparecer mesmo se der timeout depois.
+
+## apps/playground/next.config.mjs
+1 [jsdoc/unk] @type {import('next').NextConfig}
+3-7 [line-group/pt] CSP é a fronteira de segurança real do playground: mesmo que código do usuário escape o escopo do Web Worker, connect-src 'se
+39-40 [line-group/pt] O entry browser do goiasscript é CommonJS puro sem fs/path; só evitamos que o Webpack tente polyfill de Node built-ins nunca 
+
+## apps/playground/scripts/copy-examples.mjs
+2-3 [line-group/pt] Copia os exemplos .gs curados do packages/core para o public/ do playground e gera um manifest com nomes amigáveis. Roda ante
+15-16 [line-group/pt] Self-host do Monaco: copia min/vs pra public/vs pra carregar same-origin (a CSP do site bloqueia CDN externo). Roda só se ain
+31 [line/pt] Lista curada: ordem e nomes amigáveis exibidos no playground.
+
+## apps/playground/workers/runner.worker.ts
+2-4 [line-group/pt] Web Worker que transpila e executa GoiásScript isolado do main thread. Não toca DOM, não toca window. Hard timeout fica do la
+28-30 [line-group/pt] Cada log é registrado E transmitido na hora pro main thread, pra que um código que imprime e depois trava (loop infinito) ain
+44-51 [line-group/pt] Defesa em profundidade. O isolamento REAL é dado pela CSP do site (connect-src 'self' bloqueia exfiltração; script-src 'self'
+
+## packages/core/bin/goias.js
+8-11 [jsdoc/pt] Roda de Prosa GoiásScript - Terminal Interativo Goiano Terminal interativo para testar código GoiásScript
+22 [line/unk] Configurar readline
+45 [line/unk] Configurar autocompletar
+68 [line/pt] Comandos especiais da Roda de Prosa
+75 [line/pt] Verificar se é linha vazia
+81 [line/unk] Detectar modo multilinha
+87 [line/unk] Executar código
+124 [line/pt] Verificar se chegou ao final do bloco
+137 [line/pt] Adicionar à história
+140 [line/unk] Compilar e executar
+151 [line/pt] Mostrar warnings se houver
+159 [line/unk] Executar JavaScript gerado
+162 [line/pt] Mostrar resultado se não for undefined
+173 [line/pt] Criar contexto isolado para execução
+186 [line/pt] Executar código no contexto
+194 [line/pt] Retornar variáveis que devem estar disponíveis globalmente
+197 [line/pt] Adicionar métodos goianos
+419 [line/pt] Iniciar Roda de Prosa
+
+## packages/core/bin/goiasscript.js
+9 [line/pt] ASCII Art do GoiásScript
+26 [line/unk] Comando: traduz (compile)
+48 [line/unk] Mostrar warnings
+60 [line/pt] Mostrar informações de compilação
+74 [line/unk] Salvar arquivo JavaScript
+85 [line/unk] Executar JavaScript gerado
+98 [line/pt] Comando: bota_pra_moer (run)
+104 [line/pt] Limpar arquivo temporário
+112 [line/pt] Comando: vê_se_tá_certo (check-types)
+161 [line/unk] Comando: arma_o_barraco (new)
+164-165 [line-group/pt] path.resolve respeita caminho absoluto (/tmp/x) e relativo (meu-app); path.join sempre prefixa cwd, quebra quando o user pass
+176 [line/pt] Criar estrutura do projeto
+181 [line/pt] Estrutura adicional para templates
+185 [line/pt] Estrutura completa do framework
+196 [line/unk] Arquivo principal
+200 [line/unk] Usar template web externo
+208 [line/pt] Fallback se não encontrar o template
+225 [line/unk] Template básico
+255 [line/pt] Arquivos específicos dos templates
+257 [line/pt] Copiar todos os arquivos do template framework
+265 [line/pt] Criar arquivos básicos do framework
+269 [line/unk] Usar templates externos
+272 [line/unk] Copiar template HTML
+280 [line/pt] Copiar servidor de desenvolvimento
+287 [line/pt] Copiar package.json específico para web
+301 [line/pt] Package.json do projeto (apenas para template básico)
+327 [line/unk] README.md
+380 [line/pt] Instalar dependências automaticamente para projetos web e framework
+435 [line/pt] Função para copiar diretório de template recursivamente
+445 [line/pt] Criar diretório e copiar recursivamente
+449 [line/pt] Copiar arquivo e substituir variáveis
+452 [line/pt] Substituir variáveis do template
+464 [line/pt] Função para criar arquivos básicos do framework (fallback)
+468 [line/pt] package.json personalizado para framework
+501 [line/pt] Criar arquivo principal básico
+519 [line/pt] Utilitário: ícones para tipos
+533 [line/pt] Comando: dedo_de_prosa (info)
+543 [line/pt] Configuração do CLI
+551 [line/unk] Comando: traduz (compile)
+563 [line/pt] Comando: compile (alias para traduz - compatibilidade)
+575 [line/pt] Comando: bota_pra_moer (run)
+584 [line/pt] Comando: run (alias para bota_pra_moer - compatibilidade)
+593 [line/pt] Comando: vê_se_tá_certo (check-types)
+602 [line/pt] Comando: check-types (alias para vê_se_tá_certo - compatibilidade)
+611 [line/unk] Comando: arma_o_barraco (new)
+621 [line/pt] Comando: new (alias para arma_o_barraco - compatibilidade)
+631 [line/pt] Comando: dedo_de_prosa (info)
+639 [line/pt] Comando: info (alias para dedo_de_prosa - compatibilidade)
+647 [line/pt] Parse dos argumentos
+650 [line/pt] Se nenhum comando foi especificado, mostrar ajuda
+
+## packages/core/src/browser.js
+1-4 [line-group/en] Browser-safe entry for goiasscript@1.5+ Wraps SimpleTranspiler + GoianoBuiltins without the optional v2 modules (TypeAnalyzer
+
+## packages/core/src/cli/index.js
+11-14 [jsdoc/pt] CLI principal do GoiásScript Implementa Command Pattern para diferentes comandos
+22-24 [jsdoc/pt] Configura todos os comandos disponíveis
+31 [line/unk] Comando principal: executar arquivo
+43 [line/unk] Comando init
+52 [line/unk] Comando validate
+60 [line/unk] Comando transpile
+70 [line/unk] Comando docs
+79-83 [jsdoc/pt] Executa arquivo GoiásScript @param {string} arquivo - Caminho do arquivo @param {Object} options - Opções do comando
+108 [line/unk] Configurar compilador
+115 [line/unk] Apenas transpila e mostra o resultado
+132 [line/pt] Executa o código
+144-147 [jsdoc/pt] Inicializa projeto GoiásScript @param {Object} options - Opções do comando
+153 [line/pt] Criar estrutura de projeto
+158 [line/unk] Criar package.json
+176 [line/unk] Criar arquivo principal
+192 [line/unk] Criar README
+228-231 [jsdoc/pt] Valida sintaxe de arquivo @param {string} arquivo - Caminho do arquivo
+270-274 [jsdoc/pt] Transpila arquivo para JavaScript @param {string} arquivo - Caminho do arquivo @param {Object} options - Opções do comando
+313-315 [jsdoc/unk] Abre documentação
+323 [line/pt] Tentar abrir no navegador padrão
+335-337 [jsdoc/unk] Inicia o CLI
+339 [line/pt] Tratamento de erros não capturados
+352 [line/pt] Executar CLI se chamado diretamente
+
+## packages/core/src/compiler.js
+4-7 [line-group/en] Optional feature modules — gracefully degrade when absent (v1.5 slim build). When the source files exist, full v2 behavior is
+63-66 [jsdoc/pt] Main GoiásScript Compiler Integrates transpilation, type checking, and module resolution
+83-88 [jsdoc/pt] Compile GoiásScript code to JavaScript @param {string} code - GoiásScript source code @param {string} fileName - Source file 
+100 [line/en] 1. Module Resolution (if enabled)
+114 [line/en] 2. Type Analysis (if enabled)
+126 [line/unk] 3. Transpilation
+137 [line/en] 4. JIT Optimization (if enabled)
+172-175 [jsdoc/en] Get available Goiano methods @returns {Array} List of available Goiano methods
+180-183 [jsdoc/en] Get available Goiano types @returns {Array} List of available Goiano types
+188-190 [jsdoc/unk] Clear module cache
+197-200 [jsdoc/unk] Get module dependency report @returns {Object} Dependency report
+208-212 [jsdoc/en] Check if a method is forbidden (non-Goiano) @param {string} method - Method name to check @returns {boolean} True if method i
+217-222 [jsdoc/pt] Validate GoiásScript code syntax @param {string} code - GoiásScript source code @param {string} fileName - Source file name @
+225 [line/en] Use transpiler to validate syntax
+244-249 [jsdoc/pt] Transpile code without execution @param {string} code - GoiásScript source code @param {string} fileName - Source file name @
+254-259 [jsdoc/pt] Get compilation statistics @param {string} code - GoiásScript source code @param {string} fileName - Source file name @return
+275-280 [jsdoc/pt] Execute compiled GoiásScript code @param {string} code - GoiásScript source code @param {string} fileName - Source file name 
+293-297 [line-group/en] Execute compiled JavaScript in the local Node scope. eval is intentional here: this method is called only by the CLI (bin/goi
+315-320 [jsdoc/unk] Transpile only (alias for transpile method) @param {string} code - GoiásScript source code @param {string} fileName - Source 
+326-329 [jsdoc/en] Generate unique identifier for JIT caching @private
+338-340 [jsdoc/unk] Get JIT performance report
+345-347 [jsdoc/unk] Clear JIT cache
+354-356 [jsdoc/unk] Configure JIT optimizations
+368-370 [jsdoc/unk] Get JIT hot spots
+375-380 [jsdoc/unk] Compile with additional statistics @param {string} code - GoiásScript source code @param {string} fileName - Source file name
+
+## packages/core/src/compiler/lexer.js
+1-4 [jsdoc/pt] Lexer (Analisador Léxico) do GoiásScript Responsável por quebrar o código fonte em tokens
+7 [line/pt] Mapeamento de palavras-chave GoiásScript -> JavaScript
+9 [line/pt] Declarações e atribuições
+15 [line/unk] Classes e objetos
+22 [line/pt] Estruturas de controle
+31 [line/unk] Funções
+37 [line/unk] Operadores lógicos
+48 [line/unk] Operações aritméticas
+55 [line/unk] Console e controle
+60 [line/unk] Tipos e valores
+66 [line/unk] Loop específicos
+70 [line/unk] Promises e async
+77 [line/unk] Try/catch
+82 [line/unk] Outros
+86 [line/pt] Mapeamentos especiais que precisam de tratamento diferenciado
+88 [line/unk] Funções assíncronas
+91 [line/pt] Construtores e métodos
+94 [line/pt] Modificadores de acesso (para futuro)
+101-105 [jsdoc/pt] Tokeniza o código GoiásScript @param {string} codigo - Código fonte em GoiásScript @returns {Array} Array de tokens
+119-125 [jsdoc/pt] Tokeniza uma única linha @private @param {string} line - Linha de código @param {number} lineNumber - Número da linha @return
+129 [line/unk] Remover comentários
+137 [line/pt] Regex para identificar tokens
+161-166 [jsdoc/pt] Determina o tipo do token @private @param {string} value - Valor do token @returns {string} Tipo do token
+195-199 [jsdoc/pt] Converte tokens para JavaScript @param {Array} tokens - Array de tokens @returns {string} Código JavaScript
+
+## packages/core/src/compiler/simpleTranspiler.js
+4-7 [jsdoc/pt] Transpiler simplificado do GoiásScript Implementa substituições diretas para funcionar imediatamente
+15-20 [jsdoc/pt] Transpiles GoiásScript code to JavaScript @param {string} code - GoiásScript source code @param {string} fileName - Source fi
+23 [line/unk] Basic syntax validation
+35 [line/en] Apply all substitutions
+38 [line/en] Check for forbidden non-Goiano methods
+41 [line/en] Add Goiano builtin methods at the beginning
+45 [line/en] Generate simple tokens for validation
+64-67 [jsdoc/en] Apply all necessary substitutions @private
+71 [line/en] First, protect strings from being modified
+75 [line/unk] Replace strings temporarily
+82 [line/en] Convert forbidden JS methods to Goiano methods first
+85 [line/en] Remove type annotations for JavaScript output
+88 [line/en] Direct mappings ordered by size (largest first)
+90 [line/unk] Async functions first
+93 [line/pt] Compound operators with 'é' first
+97 [line/en] Classes and inheritance
+103 [line/unk] Control structures
+112 [line/unk] Functions
+118 [line/pt] Logical operators (é_igualim already above)
+128 [line/unk] Arithmetic operators
+135 [line/en] Console and control
+139 [line/unk] Promises
+146 [line/unk] Try/catch
+151 [line/pt] Types (mais goianos!)
+157 [line/unk] Other simple words
+164 [line/unk] Loop keywords
+168 [line/pt] Declarations - 'é' needs to come before compound operators
+174 [line/en] Apply each mapping
+176 [line/en] For accented words, use a more specific approach
+178 [line/pt] Handle 'é' specially - must be between spaces
+181 [line/en] Handle 'ocê' which can be followed by dot or at beginning
+184-185 [line-group/en] Words with underscore or accents need special treatment Include common punctuation as delimiters
+192 [line/en] Use word boundary to avoid partial substitutions
+198 [line/unk] Restore original strings
+206-209 [jsdoc/unk] Remove type annotations from GoiásScript code for JavaScript compatibility @private
+211-212 [line-group/pt] Remove type annotations like: uai nome: texto é "value" Convert to: uai nome é "value"
+216-219 [jsdoc/en] Convert JavaScript methods to Goiano methods @private
+223 [line/unk] String methods
+239 [line/unk] Array methods
+254 [line/unk] Object methods
+261 [line/unk] Math methods
+274 [line/unk] Global functions
+283 [line/unk] Console methods
+291-294 [jsdoc/en] Check for forbidden non-Goiano methods @private
+332-335 [jsdoc/unk] Validate basic syntax patterns @private
+343 [line/en] Simple check for obvious syntax errors
+352-356 [line-group/pt] Check for incomplete variable declarations. Aceita 'uai x é valor', 'uai x = valor' (forma JS) e desestruturação 'uai { a, b 
+376-379 [jsdoc/en] Generate simple tokens for validation @private
+387 [line/en] Simple tokenization - split on spaces and common separators
+402-405 [jsdoc/en] Get token type for simple validation @private
+425-428 [jsdoc/en] Escape special characters for regex @private
+
+## packages/core/src/errors/ErroGoiano.js
+1-5 [jsdoc/pt] Classe de erro personalizada em estilo goiano @class ErroGoiano @extends Error
+7-14 [jsdoc/pt] @param {string} tipo - Tipo do erro (sintaxe, referencia, tipo, etc.) @param {string} mensagem - Mensagem de erro em portuguê
+16 [line/pt] Mapear tipos de erro para expressões goianas
+33 [line/pt] Construir a mensagem de erro em estilo goiano
+59-61 [jsdoc/pt] Método para mostrar o erro com estilo goiano
+69(lado) [line/pt] Linha em branco para melhor legibilidade
+72-75 [jsdoc/pt] Retorna informações estruturadas do erro @returns {Object} Objeto com detalhes do erro
+
+## packages/core/src/errors/errorTranslator.js
+3-6 [jsdoc/en] JavaScript to Goias error translator Implements Strategy Pattern for different error types
+9 [line/pt] Strategy Pattern - estratégias para traduzir diferentes tipos de erros
+20-25 [jsdoc/en] Translates JavaScript errors to Goias errors @param {Error} error - Original JavaScript error @param {string} fileName - Name
+27 [line/en] If already a Goias error, return as is
+32 [line/unk] Extract error information
+40 [line/en] Fallback for unmapped errors
+44-47 [jsdoc/en] Extracts line and column from stack trace @private
+53 [line/en] Extract from stack trace if not available
+65-68 [jsdoc/pt] Strategy para SyntaxError @private
+92-95 [jsdoc/pt] Strategy para ReferenceError @private
+110-113 [jsdoc/pt] Strategy para TypeError @private
+131-134 [jsdoc/pt] Strategy para URIError @private
+146-149 [jsdoc/pt] Strategy para RangeError @private
+163-166 [jsdoc/pt] Strategy para EvalError @private
+178-181 [jsdoc/pt] Fallback para erros genéricos @private
+
+## packages/core/src/goianoMethods/GoianoBuiltins.js
+1-2 [line-group/pt] GoianoBuiltins.js - Métodos nativos goianos Substitui todos os métodos JavaScript por versões goianas
+6 [line/pt] Tipos goianos mais autênticos
+20 [line/pt] Métodos goianos para substituir JS
+22 [line/unk] String/Texto methods
+38 [line/unk] Array/Lista methods
+53 [line/unk] Object/Coisa methods
+60 [line/unk] Math methods
+71 [line/unk] Date methods
+79 [line/unk] Console methods
+84 [line/unk] Global methods
+94 [line/pt] Métodos proibidos (não-goianos)
+117 [line/pt] Gera código JavaScript equivalente para métodos goianos
+367 [line/pt] Verifica se um método é proibido (não-goiano)
+372 [line/pt] Converte método JavaScript para goiano
+377 [line/pt] Converte tipo JavaScript para goiano
+382 [line/pt] Lista todos os métodos goianos disponíveis
+387 [line/pt] Lista todos os tipos goianos
+392 [line/pt] Obter equivalente goiano para método JS
+397 [line/pt] Detectar métodos proibidos em código
+409 [line/pt] Obter documentação de método goiano
+422 [line/pt] Obter exemplo de uso de método
+434 [line/pt] Verificar se método é otimizado
+440 [line/pt] Obter versão otimizada de método
+
+## packages/core/tests/setup.js
+1-4 [jsdoc/pt] Configuração global para testes do GoiásScript Este arquivo é executado antes de todos os testes
+6 [line/pt] Configurar timeout global para testes
+9 [line/pt] Mocks globais para console
+12 [line/pt] Mock console.log nos testes para não poluir output
+19 [line/pt] Helper para limpar mocks entre testes
+24 [line/pt] Helper para capturar output do console nos testes
+42 [line/pt] Utilitário para testar arquivos GoiásScript
+
+## packages/core/tests/unit/cli.test.js
+4 [line/en] Mock fs methods for testing
+8 [line/en] We'll test the CLI functions by requiring modules directly
+12 [line/unk] Reset process.argv
+18 [line/unk] Mock fs.existsSync
+151 [line/unk] Mock file system
+155 [line/unk] Mock path operations
+159 [line/unk] Simulate CLI flow
+
+## packages/core/tests/unit/compiler.test.js
+178 [line/en] Spy on console.log to capture output
+198 [line/en] Test successful error handling in execution flow
+209 [line/en] Test with code that has syntax errors
+218 [line/en] Mock transpiler to throw an error
+229 [line/unk] Restore original method
+234 [line/en] Test with a code that causes validation errors
+235(lado) [line/unk] Incomplete variable declaration
+
+## packages/core/tests/unit/lexer.test.js
+48 [line/unk] Primeira linha
+51 [line/unk] Segunda linha
+62 [line/pt] Deve ter apenas os tokens da primeira e terceira linha (8 tokens total)
+
+## vscode-extension/src/extension.js
+10 [line/unk] Configurar Language Server
+37 [line/unk] Criar e iniciar cliente
+45 [line/unk] Iniciar cliente
+48 [line/unk] Registrar comandos
+51 [line/unk] Status bar
+58 [line/pt] Comando para traduzir GoiásScript
+77 [line/pt] Comando para executar GoiásScript
+114 [line/pt] Atualizar status baseado no arquivo ativo

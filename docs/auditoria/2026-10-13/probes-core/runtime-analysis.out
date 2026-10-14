@@ -1,0 +1,43 @@
+=== 1) Tamanho ===
+runtime: 5441 chars, 5464 bytes, 246 linhas, gzip=1499 bytes
+entrada "prosa("oi");" (12 bytes) -> saída 5484 bytes (fator 455x)
+
+=== 2) Globais criados e protótipos nativos alterados (contexto vm novo) ===
+String.prototype     +13 propriedades (13 enumeráveis): trocar, dividir, pra_maiusculo, pra_minusculo, aparar, contem, posicao_de, pedaco, fatiar, letra_em, tamanho, comeca_com, termina_com
+Array.prototype      +17 propriedades (17 enumeráveis): mapear, filtrar, reduzir, pra_cada, empurrar, tirar_ultimo, tirar_primeiro, por_primeiro, ordenar, inverter, achar, posicao_de, contem, juntar_lista, emendar, tamanho, juntar
+Object.prototype     + 1 propriedades (1 enumeráveis): tem_propriedade
+Date.prototype       + 6 propriedades (6 enumeráveis): pegar_ano, pegar_mes, pegar_dia, pegar_horas, pegar_minutos, pegar_segundos
+Object (estáticos)   + 4 propriedades (4 enumeráveis): chaves, valores, entradas, misturar
+Math                 + 0 propriedades (0 enumeráveis): 
+globalThis           +11 propriedades (11 enumeráveis): vira_numero, vira_decimal, eh_nao_numero, depois_de, repetir_a_cada, cancelar_depois, cancelar_repeticao, prosa, prosa_erro, prosa_aviso, GoianoMath
+TOTAL de propriedades novas: 52
+bindings lexicais de topo (const) fora do objeto global: certeza=boolean, de_jeito_nenhum=boolean, GoianoMath=object
+
+=== 3) Descritores das propriedades adicionadas (amostra) ===
+trocar           enumerable=true writable=true configurable=true
+mapear           enumerable=true writable=true configurable=true
+tem_propriedade  enumerable=true writable=true configurable=true
+pegar_ano        enumerable=true writable=true configurable=true
+chaves           enumerable=true writable=true configurable=true
+prosa            enumerable=true writable=true configurable=true
+
+=== 4) Sobrescreve algo que já existia no Node atual? ===
+nenhuma propriedade nativa preexistente foi sobrescrita (apenas adições)
+
+=== 5) Efeitos observáveis no código do usuário (mesmo contexto) ===
+for (k in {a:1})                                     -> a,tem_propriedade
+for (i in [10])                                      -> 19 chaves: 0,mapear,filtrar,reduzir,...
+Object.keys({a:1})                                   -> a
+JSON.stringify({a:[1]})                              -> {"a":[1]}
+typeof ({}).tem_propriedade (existe em todo objeto)  -> function
+typeof Object.create(null).tem_propriedade           -> undefined
+Object.getOwnPropertyNames(Array.prototype).length   -> 57
+
+=== 6) Custo de parse + execução do runtime (por execução de programa) ===
+parse do runtime (vm.Script, cache de compilação do V8 ativo): 0.005 ms
+criar contexto + executar runtime: 1.071 ms | só criar contexto: 0.512 ms | execução líquida do runtime ≈ 0.559 ms
+
+=== 7) Poluição do processo hospedeiro quando o CLI usa eval no próprio processo (bin/goiasscript.js:86) ===
+for..in em {} antes do eval: [] | depois: [tem_propriedade]
+for..in em [1] depois do eval: 19 chaves (índice + 18 métodos goianos)
+typeof globalThis.prosa depois do eval: function

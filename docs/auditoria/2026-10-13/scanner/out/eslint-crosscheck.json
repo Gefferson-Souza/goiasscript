@@ -1,0 +1,2159 @@
+{
+ "eslintVersion": "8.57.1",
+ "tsEslintVersion": "8.59.4",
+ "scanCommit": "cacbbcd25bbc48bb9d2d88c00bba35cecc2765da",
+ "fatalParses": [],
+ "results": {
+  "R01": {
+   "apps/engoianador-api/src/cors.ts": [],
+   "apps/engoianador-api/src/engoiana.ts": [],
+   "apps/engoianador-api/src/index.ts": [],
+   "apps/engoianador-api/src/prompt.ts": [],
+   "apps/engoianador-api/src/rate-limit.ts": [],
+   "apps/engoianador-api/test/cors.test.ts": [],
+   "apps/engoianador-api/test/helpers.ts": [],
+   "apps/engoianador-api/test/prompt.test.ts": [],
+   "apps/engoianador-api/test/rate-limit.test.ts": [],
+   "apps/playground-e2e/tests/doacao.spec.ts": [],
+   "apps/playground-e2e/tests/engoianador.spec.ts": [],
+   "apps/playground-e2e/tests/examples.spec.ts": [],
+   "apps/playground-e2e/tests/home.spec.ts": [],
+   "apps/playground-e2e/tests/security.spec.ts": [],
+   "apps/playground/app/doacao/page.tsx": [],
+   "apps/playground/app/engoianador/layout.tsx": [],
+   "apps/playground/app/engoianador/page.tsx": [],
+   "apps/playground/app/layout.tsx": [],
+   "apps/playground/app/opengraph-image.tsx": [],
+   "apps/playground/app/page.tsx": [],
+   "apps/playground/components/DonationLinks.tsx": [],
+   "apps/playground/components/Editor.tsx": [],
+   "apps/playground/components/OutputPanel.tsx": [],
+   "apps/playground/components/ShareCard.tsx": [],
+   "apps/playground/components/Toolbar.tsx": [],
+   "apps/playground/lib/engoianador-client.ts": [],
+   "apps/playground/lib/monaco-goias.ts": [],
+   "apps/playground/lib/share.ts": [],
+   "apps/playground/lib/use-runner.ts": [],
+   "apps/playground/next.config.mjs": [],
+   "apps/playground/postcss.config.mjs": [],
+   "apps/playground/scripts/copy-examples.mjs": [],
+   "apps/playground/tailwind.config.ts": [],
+   "apps/playground/types/goiasscript.d.ts": [],
+   "apps/playground/workers/runner.worker.ts": [],
+   "packages/core/bin/goias.js": [
+    {
+     "line": 401,
+     "message": "File has too many lines (424). Maximum allowed is 400."
+    }
+   ],
+   "packages/core/bin/goiasscript.js": [
+    {
+     "line": 401,
+     "message": "File has too many lines (654). Maximum allowed is 400."
+    }
+   ],
+   "packages/core/src/browser.js": [],
+   "packages/core/src/cli/index.js": [],
+   "packages/core/src/compiler.js": [],
+   "packages/core/src/compiler/lexer.js": [],
+   "packages/core/src/compiler/simpleTranspiler.js": [
+    {
+     "line": 401,
+     "message": "File has too many lines (434). Maximum allowed is 400."
+    }
+   ],
+   "packages/core/src/errors/ErroGoiano.js": [],
+   "packages/core/src/errors/errorTranslator.js": [],
+   "packages/core/src/goianoMethods/GoianoBuiltins.js": [
+    {
+     "line": 401,
+     "message": "File has too many lines (449). Maximum allowed is 400."
+    }
+   ],
+   "packages/core/tests/setup.js": [],
+   "packages/core/tests/unit/cli.test.js": [],
+   "packages/core/tests/unit/compiler.test.js": [],
+   "packages/core/tests/unit/errors.test.js": [],
+   "packages/core/tests/unit/goianoBuiltins.test.js": [],
+   "packages/core/tests/unit/lexer.test.js": [],
+   "vscode-extension/src/extension.js": []
+  },
+  "R02": {
+   "apps/engoianador-api/src/cors.ts": [],
+   "apps/engoianador-api/src/engoiana.ts": [],
+   "apps/engoianador-api/src/index.ts": [],
+   "apps/engoianador-api/src/prompt.ts": [],
+   "apps/engoianador-api/src/rate-limit.ts": [],
+   "apps/engoianador-api/test/cors.test.ts": [],
+   "apps/engoianador-api/test/helpers.ts": [],
+   "apps/engoianador-api/test/prompt.test.ts": [],
+   "apps/engoianador-api/test/rate-limit.test.ts": [],
+   "apps/playground-e2e/tests/doacao.spec.ts": [],
+   "apps/playground-e2e/tests/engoianador.spec.ts": [],
+   "apps/playground-e2e/tests/examples.spec.ts": [],
+   "apps/playground-e2e/tests/home.spec.ts": [],
+   "apps/playground-e2e/tests/security.spec.ts": [],
+   "apps/playground/app/doacao/page.tsx": [],
+   "apps/playground/app/engoianador/layout.tsx": [],
+   "apps/playground/app/engoianador/page.tsx": [],
+   "apps/playground/app/layout.tsx": [],
+   "apps/playground/app/opengraph-image.tsx": [],
+   "apps/playground/app/page.tsx": [],
+   "apps/playground/components/DonationLinks.tsx": [],
+   "apps/playground/components/Editor.tsx": [],
+   "apps/playground/components/OutputPanel.tsx": [],
+   "apps/playground/components/ShareCard.tsx": [],
+   "apps/playground/components/Toolbar.tsx": [],
+   "apps/playground/lib/engoianador-client.ts": [],
+   "apps/playground/lib/monaco-goias.ts": [],
+   "apps/playground/lib/share.ts": [],
+   "apps/playground/lib/use-runner.ts": [],
+   "apps/playground/next.config.mjs": [],
+   "apps/playground/postcss.config.mjs": [],
+   "apps/playground/scripts/copy-examples.mjs": [],
+   "apps/playground/tailwind.config.ts": [],
+   "apps/playground/types/goiasscript.d.ts": [],
+   "apps/playground/workers/runner.worker.ts": [],
+   "packages/core/bin/goias.js": [],
+   "packages/core/bin/goiasscript.js": [],
+   "packages/core/src/browser.js": [],
+   "packages/core/src/cli/index.js": [],
+   "packages/core/src/compiler.js": [],
+   "packages/core/src/compiler/lexer.js": [],
+   "packages/core/src/compiler/simpleTranspiler.js": [],
+   "packages/core/src/errors/ErroGoiano.js": [],
+   "packages/core/src/errors/errorTranslator.js": [],
+   "packages/core/src/goianoMethods/GoianoBuiltins.js": [],
+   "packages/core/tests/setup.js": [],
+   "packages/core/tests/unit/cli.test.js": [],
+   "packages/core/tests/unit/compiler.test.js": [],
+   "packages/core/tests/unit/errors.test.js": [],
+   "packages/core/tests/unit/goianoBuiltins.test.js": [],
+   "packages/core/tests/unit/lexer.test.js": [],
+   "vscode-extension/src/extension.js": []
+  },
+  "R03": {
+   "apps/engoianador-api/src/cors.ts": [],
+   "apps/engoianador-api/src/engoiana.ts": [],
+   "apps/engoianador-api/src/index.ts": [
+    {
+     "line": 47,
+     "message": "Async function 'handleEngoiana' has too many lines (66). Maximum allowed is 50."
+    }
+   ],
+   "apps/engoianador-api/src/prompt.ts": [],
+   "apps/engoianador-api/src/rate-limit.ts": [],
+   "apps/engoianador-api/test/cors.test.ts": [],
+   "apps/engoianador-api/test/helpers.ts": [],
+   "apps/engoianador-api/test/prompt.test.ts": [],
+   "apps/engoianador-api/test/rate-limit.test.ts": [],
+   "apps/playground-e2e/tests/doacao.spec.ts": [],
+   "apps/playground-e2e/tests/engoianador.spec.ts": [],
+   "apps/playground-e2e/tests/examples.spec.ts": [],
+   "apps/playground-e2e/tests/home.spec.ts": [],
+   "apps/playground-e2e/tests/security.spec.ts": [],
+   "apps/playground/app/doacao/page.tsx": [],
+   "apps/playground/app/engoianador/layout.tsx": [],
+   "apps/playground/app/engoianador/page.tsx": [
+    {
+     "line": 34,
+     "message": "Function 'EngoianadorPage' has too many lines (153). Maximum allowed is 50."
+    }
+   ],
+   "apps/playground/app/layout.tsx": [],
+   "apps/playground/app/opengraph-image.tsx": [
+    {
+     "line": 8,
+     "message": "Function 'OpengraphImage' has too many lines (58). Maximum allowed is 50."
+    }
+   ],
+   "apps/playground/app/page.tsx": [],
+   "apps/playground/components/DonationLinks.tsx": [
+    {
+     "line": 11,
+     "message": "Function 'DonationLinks' has too many lines (92). Maximum allowed is 50."
+    }
+   ],
+   "apps/playground/components/Editor.tsx": [],
+   "apps/playground/components/OutputPanel.tsx": [
+    {
+     "line": 13,
+     "message": "Function 'OutputPanel' has too many lines (63). Maximum allowed is 50."
+    }
+   ],
+   "apps/playground/components/ShareCard.tsx": [],
+   "apps/playground/components/Toolbar.tsx": [
+    {
+     "line": 13,
+     "message": "Function 'Toolbar' has too many lines (69). Maximum allowed is 50."
+    }
+   ],
+   "apps/playground/lib/engoianador-client.ts": [],
+   "apps/playground/lib/monaco-goias.ts": [],
+   "apps/playground/lib/share.ts": [],
+   "apps/playground/lib/use-runner.ts": [
+    {
+     "line": 16,
+     "message": "Function 'useRunner' has too many lines (74). Maximum allowed is 50."
+    }
+   ],
+   "apps/playground/next.config.mjs": [],
+   "apps/playground/postcss.config.mjs": [],
+   "apps/playground/scripts/copy-examples.mjs": [],
+   "apps/playground/tailwind.config.ts": [],
+   "apps/playground/types/goiasscript.d.ts": [],
+   "apps/playground/workers/runner.worker.ts": [],
+   "packages/core/bin/goias.js": [],
+   "packages/core/bin/goiasscript.js": [
+    {
+     "line": 27,
+     "message": "Async method 'traduz' has too many lines (70). Maximum allowed is 50."
+    },
+    {
+     "line": 162,
+     "message": "Async method 'arma_o_barraco' has too many lines (272). Maximum allowed is 50."
+    },
+    {
+     "line": 465,
+     "message": "Method 'createFrameworkFiles' has too many lines (53). Maximum allowed is 50."
+    }
+   ],
+   "packages/core/src/browser.js": [],
+   "packages/core/src/cli/index.js": [
+    {
+     "line": 25,
+     "message": "Method 'setupCommands' has too many lines (53). Maximum allowed is 50."
+    },
+    {
+     "line": 84,
+     "message": "Async method 'runFile' has too many lines (59). Maximum allowed is 50."
+    },
+    {
+     "line": 148,
+     "message": "Async method 'initProject' has too many lines (79). Maximum allowed is 50."
+    }
+   ],
+   "packages/core/src/compiler.js": [
+    {
+     "line": 89,
+     "message": "Method 'compile' has too many lines (82). Maximum allowed is 50."
+    }
+   ],
+   "packages/core/src/compiler/lexer.js": [
+    {
+     "line": 6,
+     "message": "Constructor has too many lines (94). Maximum allowed is 50."
+    }
+   ],
+   "packages/core/src/compiler/simpleTranspiler.js": [
+    {
+     "line": 68,
+     "message": "Method '_applySubstitutions' has too many lines (137). Maximum allowed is 50."
+    },
+    {
+     "line": 220,
+     "message": "Method '_convertJSMethodsToGoiano' has too many lines (70). Maximum allowed is 50."
+    }
+   ],
+   "packages/core/src/errors/ErroGoiano.js": [],
+   "packages/core/src/errors/errorTranslator.js": [],
+   "packages/core/src/goianoMethods/GoianoBuiltins.js": [
+    {
+     "line": 5,
+     "message": "Constructor has too many lines (111). Maximum allowed is 50."
+    },
+    {
+     "line": 118,
+     "message": "Method 'gerarImplementacaoGoiana' has too many lines (248). Maximum allowed is 50."
+    }
+   ],
+   "packages/core/tests/setup.js": [],
+   "packages/core/tests/unit/cli.test.js": [
+    {
+     "line": 9,
+     "message": "Arrow function has too many lines (162). Maximum allowed is 50."
+    }
+   ],
+   "packages/core/tests/unit/compiler.test.js": [
+    {
+     "line": 3,
+     "message": "Arrow function has too many lines (241). Maximum allowed is 50."
+    }
+   ],
+   "packages/core/tests/unit/errors.test.js": [
+    {
+     "line": 52,
+     "message": "Arrow function has too many lines (72). Maximum allowed is 50."
+    }
+   ],
+   "packages/core/tests/unit/goianoBuiltins.test.js": [
+    {
+     "line": 3,
+     "message": "Arrow function has too many lines (171). Maximum allowed is 50."
+    }
+   ],
+   "packages/core/tests/unit/lexer.test.js": [
+    {
+     "line": 3,
+     "message": "Arrow function has too many lines (217). Maximum allowed is 50."
+    },
+    {
+     "line": 10,
+     "message": "Arrow function has too many lines (125). Maximum allowed is 50."
+    }
+   ],
+   "vscode-extension/src/extension.js": []
+  },
+  "R04": {
+   "apps/engoianador-api/src/cors.ts": [],
+   "apps/engoianador-api/src/engoiana.ts": [],
+   "apps/engoianador-api/src/index.ts": [],
+   "apps/engoianador-api/src/prompt.ts": [],
+   "apps/engoianador-api/src/rate-limit.ts": [],
+   "apps/engoianador-api/test/cors.test.ts": [],
+   "apps/engoianador-api/test/helpers.ts": [],
+   "apps/engoianador-api/test/prompt.test.ts": [],
+   "apps/engoianador-api/test/rate-limit.test.ts": [],
+   "apps/playground-e2e/tests/doacao.spec.ts": [],
+   "apps/playground-e2e/tests/engoianador.spec.ts": [],
+   "apps/playground-e2e/tests/examples.spec.ts": [],
+   "apps/playground-e2e/tests/home.spec.ts": [],
+   "apps/playground-e2e/tests/security.spec.ts": [],
+   "apps/playground/app/doacao/page.tsx": [],
+   "apps/playground/app/engoianador/layout.tsx": [],
+   "apps/playground/app/engoianador/page.tsx": [],
+   "apps/playground/app/layout.tsx": [],
+   "apps/playground/app/opengraph-image.tsx": [],
+   "apps/playground/app/page.tsx": [],
+   "apps/playground/components/DonationLinks.tsx": [],
+   "apps/playground/components/Editor.tsx": [],
+   "apps/playground/components/OutputPanel.tsx": [],
+   "apps/playground/components/ShareCard.tsx": [],
+   "apps/playground/components/Toolbar.tsx": [],
+   "apps/playground/lib/engoianador-client.ts": [],
+   "apps/playground/lib/monaco-goias.ts": [],
+   "apps/playground/lib/share.ts": [],
+   "apps/playground/lib/use-runner.ts": [],
+   "apps/playground/next.config.mjs": [],
+   "apps/playground/postcss.config.mjs": [],
+   "apps/playground/scripts/copy-examples.mjs": [],
+   "apps/playground/tailwind.config.ts": [],
+   "apps/playground/types/goiasscript.d.ts": [],
+   "apps/playground/workers/runner.worker.ts": [],
+   "packages/core/bin/goias.js": [],
+   "packages/core/bin/goiasscript.js": [],
+   "packages/core/src/browser.js": [],
+   "packages/core/src/cli/index.js": [],
+   "packages/core/src/compiler.js": [],
+   "packages/core/src/compiler/lexer.js": [],
+   "packages/core/src/compiler/simpleTranspiler.js": [],
+   "packages/core/src/errors/ErroGoiano.js": [],
+   "packages/core/src/errors/errorTranslator.js": [],
+   "packages/core/src/goianoMethods/GoianoBuiltins.js": [],
+   "packages/core/tests/setup.js": [],
+   "packages/core/tests/unit/cli.test.js": [],
+   "packages/core/tests/unit/compiler.test.js": [],
+   "packages/core/tests/unit/errors.test.js": [],
+   "packages/core/tests/unit/goianoBuiltins.test.js": [],
+   "packages/core/tests/unit/lexer.test.js": [],
+   "vscode-extension/src/extension.js": []
+  },
+  "R06": {
+   "apps/engoianador-api/src/cors.ts": [],
+   "apps/engoianador-api/src/engoiana.ts": [
+    {
+     "line": 22,
+     "message": "Unexpected console statement."
+    }
+   ],
+   "apps/engoianador-api/src/index.ts": [
+    {
+     "line": 104,
+     "message": "Unexpected console statement."
+    }
+   ],
+   "apps/engoianador-api/src/prompt.ts": [],
+   "apps/engoianador-api/src/rate-limit.ts": [],
+   "apps/playground/app/doacao/page.tsx": [],
+   "apps/playground/app/engoianador/layout.tsx": [],
+   "apps/playground/app/engoianador/page.tsx": [],
+   "apps/playground/app/layout.tsx": [],
+   "apps/playground/app/opengraph-image.tsx": [],
+   "apps/playground/app/page.tsx": [],
+   "apps/playground/components/DonationLinks.tsx": [],
+   "apps/playground/components/Editor.tsx": [],
+   "apps/playground/components/OutputPanel.tsx": [],
+   "apps/playground/components/ShareCard.tsx": [],
+   "apps/playground/components/Toolbar.tsx": [
+    {
+     "line": 63,
+     "message": "Unexpected console statement."
+    }
+   ],
+   "apps/playground/lib/engoianador-client.ts": [],
+   "apps/playground/lib/monaco-goias.ts": [],
+   "apps/playground/lib/share.ts": [],
+   "apps/playground/lib/use-runner.ts": [],
+   "apps/playground/next.config.mjs": [],
+   "apps/playground/postcss.config.mjs": [],
+   "apps/playground/scripts/copy-examples.mjs": [
+    {
+     "line": 24,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 28,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 44,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 51,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 56,
+     "message": "Unexpected console statement."
+    }
+   ],
+   "apps/playground/tailwind.config.ts": [],
+   "apps/playground/types/goiasscript.d.ts": [],
+   "apps/playground/workers/runner.worker.ts": [],
+   "packages/core/bin/goias.js": [
+    {
+     "line": 33,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 90,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 144,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 146,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 153,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 155,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 164,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 167,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 198,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 199,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 200,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 237,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 238,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 262,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 263,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 268,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 304,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 307,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 310,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 316,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 319,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 322,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 333,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 334,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 338,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 339,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 344,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 345,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 346,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 347,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 348,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 349,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 350,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 351,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 355,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 356,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 357,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 358,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 359,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 360,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 361,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 362,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 363,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 364,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 365,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 366,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 367,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 368,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 369,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 370,
+     "message": "Unexpected console statement."
+    }
+   ],
+   "packages/core/bin/goiasscript.js": [
+    {
+     "line": 29,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 32,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 40,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 42,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 43,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 50,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 52,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 54,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 57,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 62,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 63,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 64,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 66,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 69,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 71,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 78,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 79,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 82,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 83,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 88,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 90,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 93,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 100,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 101,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 109,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 115,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 118,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 126,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 127,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 130,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 133,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 139,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 141,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 143,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 149,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 150,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 153,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 156,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 170,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 174,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 264,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 382,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 392,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 393,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 394,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 395,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 397,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 398,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 399,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 400,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 401,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 402,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 403,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 404,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 405,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 407,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 410,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 411,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 414,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 415,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 416,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 417,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 418,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 419,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 423,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 424,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 425,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 426,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 427,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 430,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 466,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 516,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 535,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 536,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 537,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 538,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 539,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 652,
+     "message": "Unexpected console statement."
+    }
+   ],
+   "packages/core/src/browser.js": [],
+   "packages/core/src/cli/index.js": [
+    {
+     "line": 86,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 87,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 88,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 89,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 97,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 102,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 119,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 120,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 121,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 122,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 126,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 133,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 134,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 140,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 217,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 218,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 219,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 220,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 221,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 224,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 237,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 245,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 246,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 248,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 253,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 259,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 261,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 266,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 280,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 301,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 302,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 303,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 309,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 320,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 321,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 329,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 330,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 341,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 343,
+     "message": "Unexpected console statement."
+    }
+   ],
+   "packages/core/src/compiler.js": [],
+   "packages/core/src/compiler/lexer.js": [],
+   "packages/core/src/compiler/simpleTranspiler.js": [],
+   "packages/core/src/errors/ErroGoiano.js": [
+    {
+     "line": 63,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 66,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 69,
+     "message": "Unexpected console statement."
+    }
+   ],
+   "packages/core/src/errors/errorTranslator.js": [],
+   "packages/core/src/goianoMethods/GoianoBuiltins.js": [],
+   "vscode-extension/src/extension.js": [
+    {
+     "line": 8,
+     "message": "Unexpected console statement."
+    },
+    {
+     "line": 54,
+     "message": "Unexpected console statement."
+    }
+   ]
+  },
+  "R07": {
+   "apps/engoianador-api/src/cors.ts": [],
+   "apps/engoianador-api/src/engoiana.ts": [],
+   "apps/engoianador-api/src/index.ts": [],
+   "apps/engoianador-api/src/prompt.ts": [],
+   "apps/engoianador-api/src/rate-limit.ts": [],
+   "apps/engoianador-api/test/cors.test.ts": [],
+   "apps/engoianador-api/test/helpers.ts": [],
+   "apps/engoianador-api/test/prompt.test.ts": [],
+   "apps/engoianador-api/test/rate-limit.test.ts": [],
+   "apps/playground-e2e/tests/doacao.spec.ts": [],
+   "apps/playground-e2e/tests/engoianador.spec.ts": [],
+   "apps/playground-e2e/tests/examples.spec.ts": [
+    {
+     "line": 13,
+     "message": "Unexpected any. Specify a different type."
+    }
+   ],
+   "apps/playground-e2e/tests/home.spec.ts": [],
+   "apps/playground-e2e/tests/security.spec.ts": [
+    {
+     "line": 26,
+     "message": "Unexpected any. Specify a different type."
+    },
+    {
+     "line": 28,
+     "message": "Unexpected any. Specify a different type."
+    }
+   ],
+   "apps/playground/app/doacao/page.tsx": [],
+   "apps/playground/app/engoianador/layout.tsx": [],
+   "apps/playground/app/engoianador/page.tsx": [],
+   "apps/playground/app/layout.tsx": [],
+   "apps/playground/app/opengraph-image.tsx": [],
+   "apps/playground/app/page.tsx": [],
+   "apps/playground/components/DonationLinks.tsx": [],
+   "apps/playground/components/Editor.tsx": [],
+   "apps/playground/components/OutputPanel.tsx": [],
+   "apps/playground/components/ShareCard.tsx": [],
+   "apps/playground/components/Toolbar.tsx": [],
+   "apps/playground/lib/engoianador-client.ts": [],
+   "apps/playground/lib/monaco-goias.ts": [],
+   "apps/playground/lib/share.ts": [],
+   "apps/playground/lib/use-runner.ts": [],
+   "apps/playground/tailwind.config.ts": [],
+   "apps/playground/types/goiasscript.d.ts": [],
+   "apps/playground/workers/runner.worker.ts": []
+  },
+  "R08": {
+   "apps/engoianador-api/src/cors.ts": [],
+   "apps/engoianador-api/src/engoiana.ts": [],
+   "apps/engoianador-api/src/index.ts": [],
+   "apps/engoianador-api/src/prompt.ts": [],
+   "apps/engoianador-api/src/rate-limit.ts": [],
+   "apps/engoianador-api/test/cors.test.ts": [],
+   "apps/engoianador-api/test/helpers.ts": [],
+   "apps/engoianador-api/test/prompt.test.ts": [],
+   "apps/engoianador-api/test/rate-limit.test.ts": [],
+   "apps/playground-e2e/tests/doacao.spec.ts": [],
+   "apps/playground-e2e/tests/engoianador.spec.ts": [],
+   "apps/playground-e2e/tests/examples.spec.ts": [],
+   "apps/playground-e2e/tests/home.spec.ts": [],
+   "apps/playground-e2e/tests/security.spec.ts": [],
+   "apps/playground/app/doacao/page.tsx": [],
+   "apps/playground/app/engoianador/layout.tsx": [],
+   "apps/playground/app/engoianador/page.tsx": [],
+   "apps/playground/app/layout.tsx": [],
+   "apps/playground/app/opengraph-image.tsx": [],
+   "apps/playground/app/page.tsx": [],
+   "apps/playground/components/DonationLinks.tsx": [],
+   "apps/playground/components/Editor.tsx": [],
+   "apps/playground/components/OutputPanel.tsx": [],
+   "apps/playground/components/ShareCard.tsx": [],
+   "apps/playground/components/Toolbar.tsx": [],
+   "apps/playground/lib/engoianador-client.ts": [],
+   "apps/playground/lib/monaco-goias.ts": [],
+   "apps/playground/lib/share.ts": [],
+   "apps/playground/lib/use-runner.ts": [],
+   "apps/playground/tailwind.config.ts": [],
+   "apps/playground/types/goiasscript.d.ts": [],
+   "apps/playground/workers/runner.worker.ts": []
+  },
+  "R09": {
+   "apps/engoianador-api/src/cors.ts": [],
+   "apps/engoianador-api/src/engoiana.ts": [],
+   "apps/engoianador-api/src/index.ts": [],
+   "apps/engoianador-api/src/prompt.ts": [],
+   "apps/engoianador-api/src/rate-limit.ts": [],
+   "apps/engoianador-api/test/cors.test.ts": [],
+   "apps/engoianador-api/test/helpers.ts": [],
+   "apps/engoianador-api/test/prompt.test.ts": [],
+   "apps/engoianador-api/test/rate-limit.test.ts": [],
+   "apps/playground-e2e/tests/doacao.spec.ts": [],
+   "apps/playground-e2e/tests/engoianador.spec.ts": [],
+   "apps/playground-e2e/tests/examples.spec.ts": [],
+   "apps/playground-e2e/tests/home.spec.ts": [],
+   "apps/playground-e2e/tests/security.spec.ts": [],
+   "apps/playground/app/doacao/page.tsx": [],
+   "apps/playground/app/engoianador/layout.tsx": [],
+   "apps/playground/app/engoianador/page.tsx": [],
+   "apps/playground/app/layout.tsx": [],
+   "apps/playground/app/opengraph-image.tsx": [],
+   "apps/playground/app/page.tsx": [],
+   "apps/playground/components/DonationLinks.tsx": [],
+   "apps/playground/components/Editor.tsx": [],
+   "apps/playground/components/OutputPanel.tsx": [],
+   "apps/playground/components/ShareCard.tsx": [],
+   "apps/playground/components/Toolbar.tsx": [],
+   "apps/playground/lib/engoianador-client.ts": [],
+   "apps/playground/lib/monaco-goias.ts": [],
+   "apps/playground/lib/share.ts": [],
+   "apps/playground/lib/use-runner.ts": [],
+   "apps/playground/next.config.mjs": [],
+   "apps/playground/postcss.config.mjs": [],
+   "apps/playground/scripts/copy-examples.mjs": [],
+   "apps/playground/tailwind.config.ts": [],
+   "apps/playground/types/goiasscript.d.ts": [],
+   "apps/playground/workers/runner.worker.ts": [
+    {
+     "line": 73,
+     "message": "Unexpected undescribed directive comment. Include descriptions to explain why the comment is necessary."
+    }
+   ],
+   "packages/core/bin/goias.js": [],
+   "packages/core/bin/goiasscript.js": [],
+   "packages/core/src/browser.js": [],
+   "packages/core/src/cli/index.js": [],
+   "packages/core/src/compiler.js": [
+    {
+     "line": 298,
+     "message": "Unexpected undescribed directive comment. Include descriptions to explain why the comment is necessary."
+    }
+   ],
+   "packages/core/src/compiler/lexer.js": [],
+   "packages/core/src/compiler/simpleTranspiler.js": [],
+   "packages/core/src/errors/ErroGoiano.js": [],
+   "packages/core/src/errors/errorTranslator.js": [],
+   "packages/core/src/goianoMethods/GoianoBuiltins.js": [],
+   "packages/core/tests/setup.js": [],
+   "packages/core/tests/unit/cli.test.js": [],
+   "packages/core/tests/unit/compiler.test.js": [],
+   "packages/core/tests/unit/errors.test.js": [],
+   "packages/core/tests/unit/goianoBuiltins.test.js": [],
+   "packages/core/tests/unit/lexer.test.js": [],
+   "vscode-extension/src/extension.js": []
+  },
+  "R10": {
+   "apps/engoianador-api/src/cors.ts": [],
+   "apps/engoianador-api/src/engoiana.ts": [],
+   "apps/engoianador-api/src/index.ts": [],
+   "apps/engoianador-api/src/prompt.ts": [],
+   "apps/engoianador-api/src/rate-limit.ts": [],
+   "apps/engoianador-api/test/cors.test.ts": [],
+   "apps/engoianador-api/test/helpers.ts": [],
+   "apps/engoianador-api/test/prompt.test.ts": [],
+   "apps/engoianador-api/test/rate-limit.test.ts": [],
+   "apps/playground-e2e/tests/doacao.spec.ts": [],
+   "apps/playground-e2e/tests/engoianador.spec.ts": [],
+   "apps/playground-e2e/tests/examples.spec.ts": [],
+   "apps/playground-e2e/tests/home.spec.ts": [],
+   "apps/playground-e2e/tests/security.spec.ts": [],
+   "apps/playground/app/doacao/page.tsx": [],
+   "apps/playground/app/engoianador/layout.tsx": [],
+   "apps/playground/app/engoianador/page.tsx": [],
+   "apps/playground/app/layout.tsx": [],
+   "apps/playground/app/opengraph-image.tsx": [],
+   "apps/playground/app/page.tsx": [],
+   "apps/playground/components/DonationLinks.tsx": [],
+   "apps/playground/components/Editor.tsx": [],
+   "apps/playground/components/OutputPanel.tsx": [],
+   "apps/playground/components/ShareCard.tsx": [],
+   "apps/playground/components/Toolbar.tsx": [],
+   "apps/playground/lib/engoianador-client.ts": [],
+   "apps/playground/lib/monaco-goias.ts": [],
+   "apps/playground/lib/share.ts": [],
+   "apps/playground/lib/use-runner.ts": [],
+   "apps/playground/next.config.mjs": [],
+   "apps/playground/postcss.config.mjs": [],
+   "apps/playground/scripts/copy-examples.mjs": [],
+   "apps/playground/tailwind.config.ts": [],
+   "apps/playground/types/goiasscript.d.ts": [],
+   "apps/playground/workers/runner.worker.ts": [],
+   "packages/core/bin/goias.js": [],
+   "packages/core/bin/goiasscript.js": [],
+   "packages/core/src/browser.js": [],
+   "packages/core/src/cli/index.js": [],
+   "packages/core/src/compiler.js": [],
+   "packages/core/src/compiler/lexer.js": [],
+   "packages/core/src/compiler/simpleTranspiler.js": [],
+   "packages/core/src/errors/ErroGoiano.js": [],
+   "packages/core/src/errors/errorTranslator.js": [],
+   "packages/core/src/goianoMethods/GoianoBuiltins.js": [],
+   "packages/core/tests/setup.js": [],
+   "packages/core/tests/unit/cli.test.js": [],
+   "packages/core/tests/unit/compiler.test.js": [],
+   "packages/core/tests/unit/errors.test.js": [],
+   "packages/core/tests/unit/goianoBuiltins.test.js": [],
+   "packages/core/tests/unit/lexer.test.js": [],
+   "vscode-extension/src/extension.js": []
+  },
+  "R12": {
+   "apps/engoianador-api/src/cors.ts": [],
+   "apps/engoianador-api/src/engoiana.ts": [],
+   "apps/engoianador-api/src/index.ts": [],
+   "apps/engoianador-api/src/prompt.ts": [],
+   "apps/engoianador-api/src/rate-limit.ts": [
+    {
+     "line": 8,
+     "message": "Unexpected comment inline with code."
+    },
+    {
+     "line": 36,
+     "message": "Unexpected comment inline with code."
+    }
+   ],
+   "apps/engoianador-api/test/cors.test.ts": [],
+   "apps/engoianador-api/test/helpers.ts": [],
+   "apps/engoianador-api/test/prompt.test.ts": [],
+   "apps/engoianador-api/test/rate-limit.test.ts": [],
+   "apps/playground-e2e/tests/doacao.spec.ts": [],
+   "apps/playground-e2e/tests/engoianador.spec.ts": [],
+   "apps/playground-e2e/tests/examples.spec.ts": [],
+   "apps/playground-e2e/tests/home.spec.ts": [],
+   "apps/playground-e2e/tests/security.spec.ts": [
+    {
+     "line": 9,
+     "message": "Unexpected comment inline with code."
+    }
+   ],
+   "apps/playground/app/doacao/page.tsx": [],
+   "apps/playground/app/engoianador/layout.tsx": [],
+   "apps/playground/app/engoianador/page.tsx": [],
+   "apps/playground/app/layout.tsx": [],
+   "apps/playground/app/opengraph-image.tsx": [],
+   "apps/playground/app/page.tsx": [],
+   "apps/playground/components/DonationLinks.tsx": [],
+   "apps/playground/components/Editor.tsx": [],
+   "apps/playground/components/OutputPanel.tsx": [],
+   "apps/playground/components/ShareCard.tsx": [],
+   "apps/playground/components/Toolbar.tsx": [
+    {
+     "line": 60,
+     "message": "Unexpected comment inline with code."
+    }
+   ],
+   "apps/playground/lib/engoianador-client.ts": [],
+   "apps/playground/lib/monaco-goias.ts": [],
+   "apps/playground/lib/share.ts": [],
+   "apps/playground/lib/use-runner.ts": [],
+   "apps/playground/next.config.mjs": [],
+   "apps/playground/postcss.config.mjs": [],
+   "apps/playground/scripts/copy-examples.mjs": [],
+   "apps/playground/tailwind.config.ts": [],
+   "apps/playground/types/goiasscript.d.ts": [],
+   "apps/playground/workers/runner.worker.ts": [],
+   "packages/core/bin/goias.js": [],
+   "packages/core/bin/goiasscript.js": [],
+   "packages/core/src/browser.js": [],
+   "packages/core/src/cli/index.js": [],
+   "packages/core/src/compiler.js": [],
+   "packages/core/src/compiler/lexer.js": [],
+   "packages/core/src/compiler/simpleTranspiler.js": [],
+   "packages/core/src/errors/ErroGoiano.js": [
+    {
+     "line": 69,
+     "message": "Unexpected comment inline with code."
+    }
+   ],
+   "packages/core/src/errors/errorTranslator.js": [],
+   "packages/core/src/goianoMethods/GoianoBuiltins.js": [],
+   "packages/core/tests/setup.js": [],
+   "packages/core/tests/unit/cli.test.js": [],
+   "packages/core/tests/unit/compiler.test.js": [
+    {
+     "line": 235,
+     "message": "Unexpected comment inline with code."
+    }
+   ],
+   "packages/core/tests/unit/errors.test.js": [],
+   "packages/core/tests/unit/goianoBuiltins.test.js": [],
+   "packages/core/tests/unit/lexer.test.js": [],
+   "vscode-extension/src/extension.js": []
+  },
+  "R14d": {
+   "apps/engoianador-api/src/cors.ts": [],
+   "apps/engoianador-api/src/engoiana.ts": [],
+   "apps/engoianador-api/src/index.ts": [],
+   "apps/engoianador-api/src/prompt.ts": [],
+   "apps/engoianador-api/src/rate-limit.ts": [],
+   "apps/engoianador-api/test/cors.test.ts": [],
+   "apps/engoianador-api/test/helpers.ts": [],
+   "apps/engoianador-api/test/prompt.test.ts": [],
+   "apps/engoianador-api/test/rate-limit.test.ts": [],
+   "apps/playground-e2e/tests/doacao.spec.ts": [],
+   "apps/playground-e2e/tests/engoianador.spec.ts": [],
+   "apps/playground-e2e/tests/examples.spec.ts": [],
+   "apps/playground-e2e/tests/home.spec.ts": [],
+   "apps/playground-e2e/tests/security.spec.ts": [],
+   "apps/playground/app/doacao/page.tsx": [],
+   "apps/playground/app/engoianador/layout.tsx": [],
+   "apps/playground/app/engoianador/page.tsx": [],
+   "apps/playground/app/layout.tsx": [],
+   "apps/playground/app/opengraph-image.tsx": [],
+   "apps/playground/app/page.tsx": [],
+   "apps/playground/components/DonationLinks.tsx": [],
+   "apps/playground/components/Editor.tsx": [],
+   "apps/playground/components/OutputPanel.tsx": [],
+   "apps/playground/components/ShareCard.tsx": [],
+   "apps/playground/components/Toolbar.tsx": [],
+   "apps/playground/lib/engoianador-client.ts": [],
+   "apps/playground/lib/monaco-goias.ts": [],
+   "apps/playground/lib/share.ts": [],
+   "apps/playground/lib/use-runner.ts": [],
+   "apps/playground/next.config.mjs": [],
+   "apps/playground/postcss.config.mjs": [],
+   "apps/playground/scripts/copy-examples.mjs": [],
+   "apps/playground/tailwind.config.ts": [],
+   "apps/playground/types/goiasscript.d.ts": [],
+   "apps/playground/workers/runner.worker.ts": [],
+   "packages/core/bin/goias.js": [
+    {
+     "line": 15,
+     "message": "Identifier 'história' does not match the pattern '^[^áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑ]*$'."
+    },
+    {
+     "line": 328,
+     "message": "Identifier 'história' does not match the pattern '^[^áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑ]*$'."
+    }
+   ],
+   "packages/core/bin/goiasscript.js": [],
+   "packages/core/src/browser.js": [],
+   "packages/core/src/cli/index.js": [],
+   "packages/core/src/compiler.js": [],
+   "packages/core/src/compiler/lexer.js": [
+    {
+     "line": 12,
+     "message": "Identifier 'é' does not match the pattern '^[^áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑ]*$'."
+    },
+    {
+     "line": 13,
+     "message": "Identifier 'ocê' does not match the pattern '^[^áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑ]*$'."
+    },
+    {
+     "line": 19,
+     "message": "Identifier 'é_tipo_de' does not match the pattern '^[^áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑ]*$'."
+    },
+    {
+     "line": 23,
+     "message": "Identifier 'se_ocê_quiser' does not match the pattern '^[^áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑ]*$'."
+    },
+    {
+     "line": 25,
+     "message": "Identifier 'se_não' does not match the pattern '^[^áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑ]*$'."
+    },
+    {
+     "line": 29,
+     "message": "Identifier 'continua_aí' does not match the pattern '^[^áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑ]*$'."
+    },
+    {
+     "line": 32,
+     "message": "Identifier 'presta_serviço' does not match the pattern '^[^áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑ]*$'."
+    },
+    {
+     "line": 39,
+     "message": "Identifier 'ou_então' does not match the pattern '^[^áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑ]*$'."
+    },
+    {
+     "line": 40,
+     "message": "Identifier 'num_é' does not match the pattern '^[^áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑ]*$'."
+    },
+    {
+     "line": 41,
+     "message": "Identifier 'é_igualim' does not match the pattern '^[^áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑ]*$'."
+    },
+    {
+     "line": 46,
+     "message": "Identifier 'no_máximo' does not match the pattern '^[^áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑ]*$'."
+    },
+    {
+     "line": 62,
+     "message": "Identifier 'sei_lá' does not match the pattern '^[^áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑ]*$'."
+    },
+    {
+     "line": 74,
+     "message": "Identifier 'resolve_aí' does not match the pattern '^[^áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑ]*$'."
+    },
+    {
+     "line": 78,
+     "message": "Identifier 'tenta_aí' does not match the pattern '^[^áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑ]*$'."
+    }
+   ],
+   "packages/core/src/compiler/simpleTranspiler.js": [],
+   "packages/core/src/errors/ErroGoiano.js": [],
+   "packages/core/src/errors/errorTranslator.js": [],
+   "packages/core/src/goianoMethods/GoianoBuiltins.js": [],
+   "packages/core/tests/setup.js": [],
+   "packages/core/tests/unit/cli.test.js": [],
+   "packages/core/tests/unit/compiler.test.js": [],
+   "packages/core/tests/unit/errors.test.js": [],
+   "packages/core/tests/unit/goianoBuiltins.test.js": [],
+   "packages/core/tests/unit/lexer.test.js": [],
+   "vscode-extension/src/extension.js": []
+  },
+  "R15": {
+   "apps/engoianador-api/src/cors.ts": [
+    {
+     "line": 31,
+     "message": "No magic number: 204."
+    }
+   ],
+   "apps/engoianador-api/src/engoiana.ts": [
+    {
+     "line": 44,
+     "message": "No magic number: 0.7."
+    },
+    {
+     "line": 45,
+     "message": "No magic number: 1024."
+    },
+    {
+     "line": 49,
+     "message": "No magic number: 15000."
+    }
+   ],
+   "apps/engoianador-api/src/index.ts": [
+    {
+     "line": 31,
+     "message": "No magic number: 200."
+    },
+    {
+     "line": 40,
+     "message": "No magic number: 404."
+    },
+    {
+     "line": 52,
+     "message": "No magic number: 400."
+    },
+    {
+     "line": 61,
+     "message": "No magic number: 400."
+    },
+    {
+     "line": 69,
+     "message": "No magic number: 413."
+    },
+    {
+     "line": 82,
+     "message": "No magic number: 503."
+    },
+    {
+     "line": 91,
+     "message": "No magic number: 429."
+    },
+    {
+     "line": 101,
+     "message": "No magic number: 200."
+    },
+    {
+     "line": 107,
+     "message": "No magic number: 502."
+    }
+   ],
+   "apps/engoianador-api/src/prompt.ts": [],
+   "apps/engoianador-api/src/rate-limit.ts": [
+    {
+     "line": 8,
+     "message": "No magic number: 24."
+    },
+    {
+     "line": 8,
+     "message": "No magic number: 60."
+    },
+    {
+     "line": 8,
+     "message": "No magic number: 60."
+    },
+    {
+     "line": 42,
+     "message": "No magic number: 1000."
+    },
+    {
+     "line": 52,
+     "message": "No magic number: 60."
+    }
+   ],
+   "apps/playground/app/doacao/page.tsx": [],
+   "apps/playground/app/engoianador/layout.tsx": [],
+   "apps/playground/app/engoianador/page.tsx": [
+    {
+     "line": 67,
+     "message": "No magic number: 1500."
+    }
+   ],
+   "apps/playground/app/layout.tsx": [],
+   "apps/playground/app/opengraph-image.tsx": [
+    {
+     "line": 4,
+     "message": "No magic number: 1200."
+    },
+    {
+     "line": 4,
+     "message": "No magic number: 630."
+    },
+    {
+     "line": 19,
+     "message": "No magic number: 72."
+    },
+    {
+     "line": 24,
+     "message": "No magic number: 76."
+    },
+    {
+     "line": 24,
+     "message": "No magic number: 800."
+    },
+    {
+     "line": 27,
+     "message": "No magic number: 34."
+    },
+    {
+     "line": 27,
+     "message": "No magic number: 8."
+    },
+    {
+     "line": 38,
+     "message": "No magic number: 16."
+    },
+    {
+     "line": 39,
+     "message": "No magic number: 28."
+    },
+    {
+     "line": 40,
+     "message": "No magic number: 30."
+    },
+    {
+     "line": 47,
+     "message": "No magic number: 6."
+    },
+    {
+     "line": 54,
+     "message": "No magic number: 26."
+    }
+   ],
+   "apps/playground/app/page.tsx": [],
+   "apps/playground/components/DonationLinks.tsx": [
+    {
+     "line": 18,
+     "message": "No magic number: 1800."
+    }
+   ],
+   "apps/playground/components/Editor.tsx": [
+    {
+     "line": 29,
+     "message": "No magic number: 14."
+    }
+   ],
+   "apps/playground/components/OutputPanel.tsx": [],
+   "apps/playground/components/ShareCard.tsx": [
+    {
+     "line": 17,
+     "message": "No magic number: 600."
+    }
+   ],
+   "apps/playground/components/Toolbar.tsx": [],
+   "apps/playground/lib/engoianador-client.ts": [],
+   "apps/playground/lib/monaco-goias.ts": [],
+   "apps/playground/lib/share.ts": [],
+   "apps/playground/lib/use-runner.ts": [],
+   "apps/playground/next.config.mjs": [],
+   "apps/playground/postcss.config.mjs": [],
+   "apps/playground/scripts/copy-examples.mjs": [],
+   "apps/playground/tailwind.config.ts": [],
+   "apps/playground/types/goiasscript.d.ts": [],
+   "apps/playground/workers/runner.worker.ts": [],
+   "packages/core/bin/goias.js": [
+    {
+     "line": 209,
+     "message": "No magic number: 3."
+    }
+   ],
+   "packages/core/bin/goiasscript.js": [
+    {
+     "line": 83,
+     "message": "No magic number: 50."
+    },
+    {
+     "line": 90,
+     "message": "No magic number: 50."
+    },
+    {
+     "line": 101,
+     "message": "No magic number: 50."
+    },
+    {
+     "line": 109,
+     "message": "No magic number: 50."
+    }
+   ],
+   "packages/core/src/browser.js": [],
+   "packages/core/src/cli/index.js": [
+    {
+     "line": 120,
+     "message": "No magic number: 50."
+    },
+    {
+     "line": 122,
+     "message": "No magic number: 50."
+    },
+    {
+     "line": 134,
+     "message": "No magic number: 30."
+    }
+   ],
+   "packages/core/src/compiler.js": [
+    {
+     "line": 332,
+     "message": "No magic number: 5."
+    },
+    {
+     "line": 332,
+     "message": "No magic number: 0xffffffff."
+    }
+   ],
+   "packages/core/src/compiler/lexer.js": [],
+   "packages/core/src/compiler/simpleTranspiler.js": [],
+   "packages/core/src/errors/ErroGoiano.js": [],
+   "packages/core/src/errors/errorTranslator.js": [],
+   "packages/core/src/goianoMethods/GoianoBuiltins.js": [],
+   "vscode-extension/src/extension.js": [
+    {
+     "line": 105,
+     "message": "No magic number: 100."
+    }
+   ]
+  },
+  "R17": {
+   "apps/engoianador-api/src/cors.ts": [],
+   "apps/engoianador-api/src/engoiana.ts": [],
+   "apps/engoianador-api/src/index.ts": [],
+   "apps/engoianador-api/src/prompt.ts": [],
+   "apps/engoianador-api/src/rate-limit.ts": [],
+   "apps/engoianador-api/test/cors.test.ts": [],
+   "apps/engoianador-api/test/helpers.ts": [],
+   "apps/engoianador-api/test/prompt.test.ts": [],
+   "apps/engoianador-api/test/rate-limit.test.ts": [],
+   "apps/playground-e2e/tests/doacao.spec.ts": [],
+   "apps/playground-e2e/tests/engoianador.spec.ts": [],
+   "apps/playground-e2e/tests/examples.spec.ts": [],
+   "apps/playground-e2e/tests/home.spec.ts": [],
+   "apps/playground-e2e/tests/security.spec.ts": [],
+   "apps/playground/app/doacao/page.tsx": [],
+   "apps/playground/app/engoianador/layout.tsx": [],
+   "apps/playground/app/engoianador/page.tsx": [],
+   "apps/playground/app/layout.tsx": [],
+   "apps/playground/app/opengraph-image.tsx": [],
+   "apps/playground/app/page.tsx": [],
+   "apps/playground/components/DonationLinks.tsx": [],
+   "apps/playground/components/Editor.tsx": [],
+   "apps/playground/components/OutputPanel.tsx": [],
+   "apps/playground/components/ShareCard.tsx": [],
+   "apps/playground/components/Toolbar.tsx": [],
+   "apps/playground/lib/engoianador-client.ts": [],
+   "apps/playground/lib/monaco-goias.ts": [],
+   "apps/playground/lib/share.ts": [],
+   "apps/playground/lib/use-runner.ts": [],
+   "apps/playground/next.config.mjs": [],
+   "apps/playground/postcss.config.mjs": [],
+   "apps/playground/scripts/copy-examples.mjs": [],
+   "apps/playground/tailwind.config.ts": [],
+   "apps/playground/types/goiasscript.d.ts": [],
+   "apps/playground/workers/runner.worker.ts": [],
+   "packages/core/bin/goias.js": [],
+   "packages/core/bin/goiasscript.js": [],
+   "packages/core/src/browser.js": [],
+   "packages/core/src/cli/index.js": [],
+   "packages/core/src/compiler.js": [],
+   "packages/core/src/compiler/lexer.js": [],
+   "packages/core/src/compiler/simpleTranspiler.js": [],
+   "packages/core/src/errors/ErroGoiano.js": [],
+   "packages/core/src/errors/errorTranslator.js": [],
+   "packages/core/src/goianoMethods/GoianoBuiltins.js": [],
+   "packages/core/tests/setup.js": [],
+   "packages/core/tests/unit/cli.test.js": [],
+   "packages/core/tests/unit/compiler.test.js": [],
+   "packages/core/tests/unit/errors.test.js": [],
+   "packages/core/tests/unit/goianoBuiltins.test.js": [],
+   "packages/core/tests/unit/lexer.test.js": [],
+   "vscode-extension/src/extension.js": []
+  },
+  "R18": {
+   "apps/engoianador-api/src/cors.ts": [],
+   "apps/engoianador-api/src/engoiana.ts": [],
+   "apps/engoianador-api/src/index.ts": [],
+   "apps/engoianador-api/src/prompt.ts": [],
+   "apps/engoianador-api/src/rate-limit.ts": [],
+   "apps/engoianador-api/test/cors.test.ts": [],
+   "apps/engoianador-api/test/helpers.ts": [],
+   "apps/engoianador-api/test/prompt.test.ts": [],
+   "apps/engoianador-api/test/rate-limit.test.ts": [],
+   "apps/playground-e2e/tests/doacao.spec.ts": [],
+   "apps/playground-e2e/tests/engoianador.spec.ts": [],
+   "apps/playground-e2e/tests/examples.spec.ts": [],
+   "apps/playground-e2e/tests/home.spec.ts": [],
+   "apps/playground-e2e/tests/security.spec.ts": [],
+   "apps/playground/app/doacao/page.tsx": [],
+   "apps/playground/app/engoianador/layout.tsx": [],
+   "apps/playground/app/engoianador/page.tsx": [],
+   "apps/playground/app/layout.tsx": [],
+   "apps/playground/app/opengraph-image.tsx": [],
+   "apps/playground/app/page.tsx": [],
+   "apps/playground/components/DonationLinks.tsx": [],
+   "apps/playground/components/Editor.tsx": [],
+   "apps/playground/components/OutputPanel.tsx": [],
+   "apps/playground/components/ShareCard.tsx": [],
+   "apps/playground/components/Toolbar.tsx": [],
+   "apps/playground/lib/engoianador-client.ts": [],
+   "apps/playground/lib/monaco-goias.ts": [],
+   "apps/playground/lib/share.ts": [],
+   "apps/playground/lib/use-runner.ts": [],
+   "apps/playground/next.config.mjs": [
+    {
+     "line": 41,
+     "message": "Assignment to property of function parameter 'config'."
+    }
+   ],
+   "apps/playground/postcss.config.mjs": [],
+   "apps/playground/scripts/copy-examples.mjs": [],
+   "apps/playground/tailwind.config.ts": [],
+   "apps/playground/types/goiasscript.d.ts": [],
+   "apps/playground/workers/runner.worker.ts": [],
+   "packages/core/bin/goias.js": [],
+   "packages/core/bin/goiasscript.js": [],
+   "packages/core/src/browser.js": [],
+   "packages/core/src/cli/index.js": [],
+   "packages/core/src/compiler.js": [],
+   "packages/core/src/compiler/lexer.js": [],
+   "packages/core/src/compiler/simpleTranspiler.js": [],
+   "packages/core/src/errors/ErroGoiano.js": [],
+   "packages/core/src/errors/errorTranslator.js": [],
+   "packages/core/src/goianoMethods/GoianoBuiltins.js": [],
+   "packages/core/tests/setup.js": [],
+   "packages/core/tests/unit/cli.test.js": [],
+   "packages/core/tests/unit/compiler.test.js": [],
+   "packages/core/tests/unit/errors.test.js": [],
+   "packages/core/tests/unit/goianoBuiltins.test.js": [],
+   "packages/core/tests/unit/lexer.test.js": [],
+   "vscode-extension/src/extension.js": []
+  },
+  "R19a": {
+   "apps/engoianador-api/src/cors.ts": [],
+   "apps/engoianador-api/src/engoiana.ts": [],
+   "apps/engoianador-api/src/index.ts": [],
+   "apps/engoianador-api/src/prompt.ts": [],
+   "apps/engoianador-api/src/rate-limit.ts": [],
+   "apps/engoianador-api/test/cors.test.ts": [],
+   "apps/engoianador-api/test/helpers.ts": [],
+   "apps/engoianador-api/test/prompt.test.ts": [],
+   "apps/engoianador-api/test/rate-limit.test.ts": [],
+   "apps/playground-e2e/tests/doacao.spec.ts": [],
+   "apps/playground-e2e/tests/engoianador.spec.ts": [],
+   "apps/playground-e2e/tests/examples.spec.ts": [],
+   "apps/playground-e2e/tests/home.spec.ts": [],
+   "apps/playground-e2e/tests/security.spec.ts": [],
+   "apps/playground/app/doacao/page.tsx": [],
+   "apps/playground/app/engoianador/layout.tsx": [],
+   "apps/playground/app/engoianador/page.tsx": [],
+   "apps/playground/app/layout.tsx": [],
+   "apps/playground/app/opengraph-image.tsx": [],
+   "apps/playground/app/page.tsx": [],
+   "apps/playground/components/DonationLinks.tsx": [],
+   "apps/playground/components/Editor.tsx": [],
+   "apps/playground/components/OutputPanel.tsx": [],
+   "apps/playground/components/ShareCard.tsx": [],
+   "apps/playground/components/Toolbar.tsx": [],
+   "apps/playground/lib/engoianador-client.ts": [],
+   "apps/playground/lib/monaco-goias.ts": [],
+   "apps/playground/lib/share.ts": [],
+   "apps/playground/lib/use-runner.ts": [],
+   "apps/playground/next.config.mjs": [],
+   "apps/playground/postcss.config.mjs": [],
+   "apps/playground/scripts/copy-examples.mjs": [],
+   "apps/playground/tailwind.config.ts": [],
+   "apps/playground/types/goiasscript.d.ts": [],
+   "apps/playground/workers/runner.worker.ts": [],
+   "packages/core/bin/goias.js": [],
+   "packages/core/bin/goiasscript.js": [],
+   "packages/core/src/browser.js": [],
+   "packages/core/src/cli/index.js": [],
+   "packages/core/src/compiler.js": [],
+   "packages/core/src/compiler/lexer.js": [],
+   "packages/core/src/compiler/simpleTranspiler.js": [],
+   "packages/core/src/errors/ErroGoiano.js": [],
+   "packages/core/src/errors/errorTranslator.js": [],
+   "packages/core/src/goianoMethods/GoianoBuiltins.js": [],
+   "packages/core/tests/setup.js": [],
+   "packages/core/tests/unit/cli.test.js": [],
+   "packages/core/tests/unit/compiler.test.js": [],
+   "packages/core/tests/unit/errors.test.js": [],
+   "packages/core/tests/unit/goianoBuiltins.test.js": [],
+   "packages/core/tests/unit/lexer.test.js": [],
+   "vscode-extension/src/extension.js": []
+  },
+  "R19b": {
+   "apps/engoianador-api/src/cors.ts": [],
+   "apps/engoianador-api/src/engoiana.ts": [],
+   "apps/engoianador-api/src/index.ts": [],
+   "apps/engoianador-api/src/prompt.ts": [],
+   "apps/engoianador-api/src/rate-limit.ts": [],
+   "apps/engoianador-api/test/cors.test.ts": [],
+   "apps/engoianador-api/test/helpers.ts": [],
+   "apps/engoianador-api/test/prompt.test.ts": [],
+   "apps/engoianador-api/test/rate-limit.test.ts": [],
+   "apps/playground-e2e/tests/doacao.spec.ts": [],
+   "apps/playground-e2e/tests/engoianador.spec.ts": [],
+   "apps/playground-e2e/tests/examples.spec.ts": [],
+   "apps/playground-e2e/tests/home.spec.ts": [],
+   "apps/playground-e2e/tests/security.spec.ts": [],
+   "apps/playground/app/doacao/page.tsx": [],
+   "apps/playground/app/engoianador/layout.tsx": [],
+   "apps/playground/app/engoianador/page.tsx": [],
+   "apps/playground/app/layout.tsx": [],
+   "apps/playground/app/opengraph-image.tsx": [],
+   "apps/playground/app/page.tsx": [],
+   "apps/playground/components/DonationLinks.tsx": [],
+   "apps/playground/components/Editor.tsx": [],
+   "apps/playground/components/OutputPanel.tsx": [],
+   "apps/playground/components/ShareCard.tsx": [],
+   "apps/playground/components/Toolbar.tsx": [],
+   "apps/playground/lib/engoianador-client.ts": [],
+   "apps/playground/lib/monaco-goias.ts": [],
+   "apps/playground/lib/share.ts": [],
+   "apps/playground/lib/use-runner.ts": [],
+   "apps/playground/next.config.mjs": [],
+   "apps/playground/postcss.config.mjs": [],
+   "apps/playground/scripts/copy-examples.mjs": [],
+   "apps/playground/tailwind.config.ts": [],
+   "apps/playground/types/goiasscript.d.ts": [],
+   "apps/playground/workers/runner.worker.ts": [],
+   "packages/core/bin/goias.js": [],
+   "packages/core/bin/goiasscript.js": [],
+   "packages/core/src/browser.js": [],
+   "packages/core/src/cli/index.js": [],
+   "packages/core/src/compiler.js": [],
+   "packages/core/src/compiler/lexer.js": [],
+   "packages/core/src/compiler/simpleTranspiler.js": [],
+   "packages/core/src/errors/ErroGoiano.js": [],
+   "packages/core/src/errors/errorTranslator.js": [],
+   "packages/core/src/goianoMethods/GoianoBuiltins.js": [],
+   "packages/core/tests/setup.js": [],
+   "packages/core/tests/unit/cli.test.js": [],
+   "packages/core/tests/unit/compiler.test.js": [],
+   "packages/core/tests/unit/errors.test.js": [],
+   "packages/core/tests/unit/goianoBuiltins.test.js": [],
+   "packages/core/tests/unit/lexer.test.js": [],
+   "vscode-extension/src/extension.js": []
+  },
+  "R20": {
+   "apps/engoianador-api/src/cors.ts": [],
+   "apps/engoianador-api/src/engoiana.ts": [],
+   "apps/engoianador-api/src/index.ts": [],
+   "apps/engoianador-api/src/prompt.ts": [],
+   "apps/engoianador-api/src/rate-limit.ts": [],
+   "apps/engoianador-api/test/cors.test.ts": [],
+   "apps/engoianador-api/test/helpers.ts": [],
+   "apps/engoianador-api/test/prompt.test.ts": [],
+   "apps/engoianador-api/test/rate-limit.test.ts": [],
+   "apps/playground-e2e/tests/doacao.spec.ts": [],
+   "apps/playground-e2e/tests/engoianador.spec.ts": [],
+   "apps/playground-e2e/tests/examples.spec.ts": [],
+   "apps/playground-e2e/tests/home.spec.ts": [],
+   "apps/playground-e2e/tests/security.spec.ts": [],
+   "apps/playground/app/doacao/page.tsx": [],
+   "apps/playground/app/engoianador/layout.tsx": [],
+   "apps/playground/app/engoianador/page.tsx": [],
+   "apps/playground/app/layout.tsx": [],
+   "apps/playground/app/opengraph-image.tsx": [],
+   "apps/playground/app/page.tsx": [],
+   "apps/playground/components/DonationLinks.tsx": [],
+   "apps/playground/components/Editor.tsx": [],
+   "apps/playground/components/OutputPanel.tsx": [],
+   "apps/playground/components/ShareCard.tsx": [],
+   "apps/playground/components/Toolbar.tsx": [],
+   "apps/playground/lib/engoianador-client.ts": [],
+   "apps/playground/lib/monaco-goias.ts": [],
+   "apps/playground/lib/share.ts": [],
+   "apps/playground/lib/use-runner.ts": [],
+   "apps/playground/next.config.mjs": [],
+   "apps/playground/postcss.config.mjs": [],
+   "apps/playground/scripts/copy-examples.mjs": [],
+   "apps/playground/tailwind.config.ts": [],
+   "apps/playground/types/goiasscript.d.ts": [],
+   "apps/playground/workers/runner.worker.ts": [],
+   "packages/core/bin/goias.js": [],
+   "packages/core/bin/goiasscript.js": [],
+   "packages/core/src/browser.js": [],
+   "packages/core/src/cli/index.js": [],
+   "packages/core/src/compiler.js": [],
+   "packages/core/src/compiler/lexer.js": [],
+   "packages/core/src/compiler/simpleTranspiler.js": [],
+   "packages/core/src/errors/ErroGoiano.js": [],
+   "packages/core/src/errors/errorTranslator.js": [],
+   "packages/core/src/goianoMethods/GoianoBuiltins.js": [],
+   "packages/core/tests/setup.js": [],
+   "packages/core/tests/unit/cli.test.js": [],
+   "packages/core/tests/unit/compiler.test.js": [],
+   "packages/core/tests/unit/errors.test.js": [],
+   "packages/core/tests/unit/goianoBuiltins.test.js": [],
+   "packages/core/tests/unit/lexer.test.js": [],
+   "vscode-extension/src/extension.js": []
+  },
+  "R20s": {
+   "apps/engoianador-api/src/cors.ts": [],
+   "apps/engoianador-api/src/engoiana.ts": [
+    {
+     "line": 20,
+     "message": "catch sem throw/return/exit"
+    }
+   ],
+   "apps/engoianador-api/src/index.ts": [],
+   "apps/engoianador-api/src/prompt.ts": [],
+   "apps/engoianador-api/src/rate-limit.ts": [
+    {
+     "line": 23,
+     "message": "catch sem throw/return/exit"
+    }
+   ],
+   "apps/engoianador-api/test/cors.test.ts": [],
+   "apps/engoianador-api/test/helpers.ts": [],
+   "apps/engoianador-api/test/prompt.test.ts": [],
+   "apps/engoianador-api/test/rate-limit.test.ts": [],
+   "apps/playground-e2e/tests/doacao.spec.ts": [],
+   "apps/playground-e2e/tests/engoianador.spec.ts": [],
+   "apps/playground-e2e/tests/examples.spec.ts": [],
+   "apps/playground-e2e/tests/home.spec.ts": [],
+   "apps/playground-e2e/tests/security.spec.ts": [],
+   "apps/playground/app/doacao/page.tsx": [],
+   "apps/playground/app/engoianador/layout.tsx": [],
+   "apps/playground/app/engoianador/page.tsx": [
+    {
+     "line": 50,
+     "message": "catch sem throw/return/exit"
+    },
+    {
+     "line": 68,
+     "message": "catch sem throw/return/exit"
+    },
+    {
+     "line": 80,
+     "message": "catch sem throw/return/exit"
+    }
+   ],
+   "apps/playground/app/layout.tsx": [],
+   "apps/playground/app/opengraph-image.tsx": [],
+   "apps/playground/app/page.tsx": [],
+   "apps/playground/components/DonationLinks.tsx": [
+    {
+     "line": 19,
+     "message": "catch sem throw/return/exit"
+    }
+   ],
+   "apps/playground/components/Editor.tsx": [],
+   "apps/playground/components/OutputPanel.tsx": [],
+   "apps/playground/components/ShareCard.tsx": [],
+   "apps/playground/components/Toolbar.tsx": [],
+   "apps/playground/lib/engoianador-client.ts": [],
+   "apps/playground/lib/monaco-goias.ts": [],
+   "apps/playground/lib/share.ts": [],
+   "apps/playground/lib/use-runner.ts": [],
+   "apps/playground/next.config.mjs": [],
+   "apps/playground/postcss.config.mjs": [],
+   "apps/playground/scripts/copy-examples.mjs": [],
+   "apps/playground/tailwind.config.ts": [],
+   "apps/playground/types/goiasscript.d.ts": [],
+   "apps/playground/workers/runner.worker.ts": [
+    {
+     "line": 96,
+     "message": "catch sem throw/return/exit"
+    }
+   ],
+   "packages/core/bin/goias.js": [
+    {
+     "line": 89,
+     "message": "catch sem throw/return/exit"
+    },
+    {
+     "line": 166,
+     "message": "catch sem throw/return/exit"
+    }
+   ],
+   "packages/core/bin/goiasscript.js": [
+    {
+     "line": 87,
+     "message": "catch sem throw/return/exit"
+    }
+   ],
+   "packages/core/src/browser.js": [],
+   "packages/core/src/cli/index.js": [
+    {
+     "line": 139,
+     "message": "catch sem throw/return/exit"
+    },
+    {
+     "line": 223,
+     "message": "catch sem throw/return/exit"
+    },
+    {
+     "line": 265,
+     "message": "catch sem throw/return/exit"
+    },
+    {
+     "line": 308,
+     "message": "catch sem throw/return/exit"
+    }
+   ],
+   "packages/core/src/compiler.js": [],
+   "packages/core/src/compiler/lexer.js": [],
+   "packages/core/src/compiler/simpleTranspiler.js": [],
+   "packages/core/src/errors/ErroGoiano.js": [],
+   "packages/core/src/errors/errorTranslator.js": [],
+   "packages/core/src/goianoMethods/GoianoBuiltins.js": [],
+   "packages/core/tests/setup.js": [],
+   "packages/core/tests/unit/cli.test.js": [],
+   "packages/core/tests/unit/compiler.test.js": [],
+   "packages/core/tests/unit/errors.test.js": [],
+   "packages/core/tests/unit/goianoBuiltins.test.js": [],
+   "packages/core/tests/unit/lexer.test.js": [],
+   "vscode-extension/src/extension.js": []
+  }
+ }
+}

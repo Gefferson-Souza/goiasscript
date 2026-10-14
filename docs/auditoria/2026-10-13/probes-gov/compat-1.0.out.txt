@@ -1,0 +1,5 @@
+1.0.x: 62 entradas | 1.5: 53 chaves
+mantidas: 49 (com tradução JS diferente: 0)
+mantidas com JS diferente: -
+REMOVIDAS no 1.5 (13): presta_serviço->function mexe_assim->method lista->Array um_tanto_de->Object tem->: vixe_que->vixeGoiano vazio->null sei_lá->undefined vai_na_frente_presta_serviço->async function ninguem_fuça->private só_da_famia->protected todo_mundo_vê->public fixo->final
+NOVAS no 1.5 (4): vai_na_frente_faz_trem faz_trem nada indefinido

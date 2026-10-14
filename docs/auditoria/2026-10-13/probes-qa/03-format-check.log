@@ -1,0 +1,25 @@
+
+> goiasscript-monorepo@0.0.0 format:check <repo>
+> pnpm --filter goiasscript format:check
+
+
+> goiasscript@1.5.0 format:check <repo>/packages/core
+> prettier --check 'src/**/*.js' 'tests/**/*.js'
+
+Checking formatting...
+[warn] src/cli/index.js
+[warn] src/compiler/simpleTranspiler.js
+[warn] src/errors/ErroGoiano.js
+[warn] src/errors/errorTranslator.js
+[warn] tests/setup.js
+[warn] tests/unit/cli.test.js
+[warn] tests/unit/compiler.test.js
+[warn] tests/unit/errors.test.js
+[warn] tests/unit/goianoBuiltins.test.js
+[warn] tests/unit/lexer.test.js
+[warn] Code style issues found in 10 files. Forgot to run Prettier?
+<repo>/packages/core:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  goiasscript@1.5.0 format:check: `prettier --check 'src/**/*.js' 'tests/**/*.js'`
+Exit status 1
+ ELIFECYCLE  Command failed with exit code 1.
+corepack pnpm format:check  2,03s user 0,27s system 100% cpu 2,282 total

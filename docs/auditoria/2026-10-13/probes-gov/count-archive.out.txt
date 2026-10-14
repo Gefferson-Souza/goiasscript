@@ -1,0 +1,69 @@
+REF archive/v2-experimental: arquivos-texto=140 linhas=25892 (excluindo lockfiles: 16222 linhas) | binários=2 (2.5 MiB)
+--- por pasta de 1o nível ---
+  templates                    arquivos=  42 linhas=   6392
+  src                          arquivos=  15 linhas=   5301
+  (raiz)                       arquivos=  19 linhas=   2840
+  tests                        arquivos=  13 linhas=   2573
+  bin                          arquivos=   8 linhas=   2408
+  goiasscript                  arquivos=   4 linhas=   1394
+  vscode-extension             arquivos=  11 linhas=   1241
+  examples                     arquivos=  13 linhas=   1070
+  balaios                      arquivos=   3 linhas=    631
+  lsp-server                   arquivos=   3 linhas=    606
+  .claude                      arquivos=   1 linhas=    479
+  docs                         arquivos=   1 linhas=    351
+  .github                      arquivos=   5 linhas=    350
+  .vscode                      arquivos=   1 linhas=    150
+  scripts                      arquivos=   1 linhas=    106
+--- por extensão ---
+  .js          arquivos=  49 linhas=  13584
+  .md          arquivos=  29 linhas=   5446
+  .gs          arquivos=  36 linhas=   4317
+  .json        arquivos=  15 linhas=   1647
+  .html        arquivos=   2 linhas=    393
+  .css         arquivos=   1 linhas=    194
+  (sem ext)    arquivos=   4 linhas=    178
+  .yml         arquivos=   1 linhas=     83
+  .svg         arquivos=   2 linhas=     48
+  .bat         arquivos=   1 linhas=      2
+--- 40 maiores arquivos ---
+     650  bin/goiasscript.js
+     650  src/packages/PackageManager.js
+     535  goiasscript.js
+     479  .claude/plan/relancamento-fase0-triagem.md
+     456  lsp-server/server.js
+     449  goiasscript/DESIGN-BRIEF.md
+     445  README.md
+     441  src/debug/GoianoDebugger.js
+     438  templates/goias-web-framework/scripts/build.js
+     431  goiasscript/STACK-ZERO-CUSTO.md
+     431  src/goianoMethods/GoianoBuiltins.js
+     428  src/parser/ASTParser.js
+     413  vscode-extension/snippets/goiasscript.json
+     411  src/compiler/simpleTranspiler.js
+     391  bin/goias.js
+     390  bin/gsrepl.js
+     390  src/performance/JITCompiler.js
+     383  tests/unit/moduleResolver.test.js
+     382  goiasscript/PLANO-RELANCAMENTO.md
+     373  src/modules/ModuleResolver.js
+     365  balaios/goiano-http/index.gs
+     363  tests/integration/modules.test.js
+     358  src/cli/index.js
+     351  docs/METODOS_GOIANOS.md
+     351  src/types/TypeAnalyzer.js
+     338  templates/web-index.html
+     335  src/compiler.js
+     332  src/compiler/index.js
+     331  ROADMAP.md
+     322  bin/gs-fuça.js
+     322  templates/goias-web-framework/src/components/home.component.gs
+     309  src/debug/GoianoDebugAdapter.js
+     309  templates/roda-de-prosa/scripts/build.js
+     303  templates/goias-web-framework/tailwind.config.js
+     302  vscode-extension/package.json
+     289  templates/goias-web-framework/README.md
+     288  templates/roda-de-prosa/src/chao_de_fabrica/http/usuarios/usuario.controlador.gs
+     275  templates/roda-de-prosa/README.md
+     266  templates/goias-web-framework/goias.config.js
+     265  tests/unit/typeAnalyzer.test.js

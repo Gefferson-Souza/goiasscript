@@ -1,0 +1,956 @@
+{
+ "R01|packages/core/bin/goias.js|1|424 linhas": {
+  "v": "TP",
+  "n": "424 linhas, acima do alvo de 400",
+  "rule": "R01",
+  "stratum": null
+ },
+ "R01|packages/core/bin/goiasscript.js|1|654 linhas": {
+  "v": "TP",
+  "n": "654 linhas",
+  "rule": "R01",
+  "stratum": null
+ },
+ "R01|packages/core/src/compiler/simpleTranspiler.js|1|434 linhas": {
+  "v": "TP",
+  "n": "434 linhas",
+  "rule": "R01",
+  "stratum": null
+ },
+ "R01|packages/core/src/goianoMethods/GoianoBuiltins.js|1|449 linhas": {
+  "v": "TP",
+  "n": "449 linhas; 245 são o template do runtime embutido, que deveria viver em arquivo próprio",
+  "rule": "R01",
+  "stratum": null
+ },
+ "R03|apps/engoianador-api/src/index.ts|47|handleEngoiana: 66 linhas": {
+  "v": "TP",
+  "n": "handleEngoiana: 66 linhas de lógica",
+  "rule": "R03",
+  "stratum": null
+ },
+ "R03|apps/playground/app/engoianador/page.tsx|34|EngoianadorPage: 153 linhas": {
+  "v": "TP",
+  "n": "EngoianadorPage: 153 linhas, 56 mesmo descontando as 97 de JSX",
+  "rule": "R03",
+  "stratum": null
+ },
+ "R03|apps/playground/app/opengraph-image.tsx|8|OpengraphImage: 58 linhas": {
+  "v": "TP-fraco",
+  "n": "OpengraphImage: 58 linhas, 51 são JSX declarativo",
+  "rule": "R03",
+  "stratum": null
+ },
+ "R03|apps/playground/components/DonationLinks.tsx|11|DonationLinks: 92 linhas": {
+  "v": "TP-fraco",
+  "n": "DonationLinks: 92 linhas, 71 são JSX declarativo",
+  "rule": "R03",
+  "stratum": null
+ },
+ "R03|apps/playground/components/Toolbar.tsx|13|Toolbar: 69 linhas": {
+  "v": "TP-fraco",
+  "n": "Toolbar: 69 linhas, 44 são JSX declarativo",
+  "rule": "R03",
+  "stratum": null
+ },
+ "R03|packages/core/bin/goiasscript.js|465|createFrameworkFiles: 53 linhas": {
+  "v": "TP-fraco",
+  "n": "createFrameworkFiles: 53 linhas, 10 são template de texto",
+  "rule": "R03",
+  "stratum": null
+ },
+ "R03|packages/core/src/cli/index.js|25|setupCommands: 53 linhas": {
+  "v": "TP",
+  "n": "setupCommands: 53 linhas brutas (43 sem brancos/comentários)",
+  "rule": "R03",
+  "stratum": null
+ },
+ "R03|packages/core/src/cli/index.js|148|initProject: 79 linhas": {
+  "v": "TP-fraco",
+  "n": "initProject: 79 linhas, 31 são template de texto",
+  "rule": "R03",
+  "stratum": null
+ },
+ "R03|packages/core/src/compiler/lexer.js|6|constructor: 94 linhas": {
+  "v": "TP",
+  "n": "constructor do lexer: 94 linhas, tabela de dados inline",
+  "rule": "R03",
+  "stratum": null
+ },
+ "R03|packages/core/src/goianoMethods/GoianoBuiltins.js|5|constructor: 111 linhas": {
+  "v": "TP",
+  "n": "constructor do GoianoBuiltins: 111 linhas, tabelas de dados inline",
+  "rule": "R03",
+  "stratum": null
+ },
+ "R06|apps/engoianador-api/src/engoiana.ts|22|console.warn( 'Groq falhou, tentando Wor": {
+  "v": "TP-fraco",
+  "n": "log de fallback no Worker; console é o canal de log do Cloudflare Workers",
+  "rule": "R06",
+  "stratum": null
+ },
+ "R06|apps/engoianador-api/src/index.ts|104|console.error('engoiana erro:', message)": {
+  "v": "TP-fraco",
+  "n": "log de erro no Worker",
+  "rule": "R06",
+  "stratum": null
+ },
+ "R06|apps/playground/components/Toolbar.tsx|63|console.error('Erro ao carregar exemplo:": {
+  "v": "TP",
+  "n": "console.error como único tratamento de erro num componente de UI; usuário não vê nada",
+  "rule": "R06",
+  "stratum": null
+ },
+ "R06|apps/playground/scripts/copy-examples.mjs|28|console.log(`[copy-examples] Monaco copi": {
+  "v": "TP-fraco",
+  "n": "saída de script de build",
+  "rule": "R06",
+  "stratum": null
+ },
+ "R06|apps/playground/scripts/copy-examples.mjs|56|console.error('[copy-examples] erro:', e": {
+  "v": "TP-fraco",
+  "n": "erro de script de build seguido de exit(1)",
+  "rule": "R06",
+  "stratum": null
+ },
+ "R06|packages/core/bin/goiasscript.js|52|console.warn(` • ${warning.message}`)": {
+  "v": "TP-fraco",
+  "n": "saída de CLI voltada ao usuário",
+  "rule": "R06",
+  "stratum": null
+ },
+ "R06|packages/core/bin/goiasscript.js|150|console.error(` • ${error.message}`)": {
+  "v": "TP-fraco",
+  "n": "saída de CLI voltada ao usuário",
+  "rule": "R06",
+  "stratum": null
+ },
+ "R06|packages/core/src/cli/index.js|266|console.error(chalk.red('❌ Erro na valid": {
+  "v": "TP-fraco",
+  "n": "saída de CLI voltada ao usuário",
+  "rule": "R06",
+  "stratum": null
+ },
+ "R06|vscode-extension/src/extension.js|8|console.log('🇧🇷 GoiásScript Extension ": {
+  "v": "TP",
+  "n": "log de depuração deixado na extensão do VS Code",
+  "rule": "R06",
+  "stratum": null
+ },
+ "R06|vscode-extension/src/extension.js|54|console.log('🚀 GoiásScript LSP Client i": {
+  "v": "TP",
+  "n": "log de depuração deixado na extensão do VS Code",
+  "rule": "R06",
+  "stratum": null
+ },
+ "R07|apps/playground-e2e/tests/examples.spec.ts|13|annotation: : any": {
+  "v": "TP",
+  "n": "monaco?: any dentro de cast",
+  "rule": "R07",
+  "stratum": null
+ },
+ "R07|apps/playground-e2e/tests/security.spec.ts|26|cast: window as any": {
+  "v": "TP",
+  "n": "window as any",
+  "rule": "R07",
+  "stratum": null
+ },
+ "R07|apps/playground-e2e/tests/security.spec.ts|28|cast: window as any": {
+  "v": "TP",
+  "n": "window as any",
+  "rule": "R07",
+  "stratum": null
+ },
+ "R09|apps/playground/workers/runner.worker.ts|73|eslint-disable-next-line no-new-func": {
+  "v": "TP",
+  "n": "diretiva sem '-- motivo'; a justificativa existe só no bloco de 8 linhas acima",
+  "rule": "R09",
+  "stratum": null
+ },
+ "R09|packages/core/src/compiler.js|298|eslint-disable-next-line no-eval": {
+  "v": "TP",
+  "n": "diretiva sem '-- motivo'; a justificativa existe só no bloco de 5 linhas acima",
+  "rule": "R09",
+  "stratum": null
+ },
+ "R11|apps/playground/next.config.mjs|3|5 linhas: CSP é a fronteira de segurança": {
+  "v": "TP",
+  "n": "5 linhas; conteúdo é restrição de segurança válida (R1), mas excede o limite de 4",
+  "rule": "R11",
+  "stratum": null
+ },
+ "R11|apps/playground/workers/runner.worker.ts|44|8 linhas: Defesa em profundidade. O isol": {
+  "v": "TP",
+  "n": "8 linhas",
+  "rule": "R11",
+  "stratum": null
+ },
+ "R11|packages/core/src/compiler.js|293|5 linhas: Execute compiled JavaScript in": {
+  "v": "TP",
+  "n": "5 linhas, em inglês",
+  "rule": "R11",
+  "stratum": null
+ },
+ "R11|packages/core/src/compiler/lexer.js|119|5 linhas: Tokeniza uma única linha @priv": {
+  "v": "TP",
+  "n": "JSDoc de 5 linhas com @private e @param em método interno",
+  "rule": "R11",
+  "stratum": null
+ },
+ "R11|packages/core/src/compiler/simpleTranspiler.js|352|5 linhas: Check for incomplete variable ": {
+  "v": "TP",
+  "n": "5 linhas; também narra histórico e descreve outro trecho",
+  "rule": "R11",
+  "stratum": null
+ },
+ "R11|packages/core/src/errors/ErroGoiano.js|7|6 linhas: @param {string} tipo - Tipo do": {
+  "v": "TP",
+  "n": "JSDoc de 6 linhas com @param",
+  "rule": "R11",
+  "stratum": null
+ },
+ "R12|apps/engoianador-api/src/rate-limit.ts|8|janela diária (plano: 20 req/dia)": {
+  "v": "TP",
+  "n": "comentário ao lado do código",
+  "rule": "R12",
+  "stratum": null
+ },
+ "R12|apps/engoianador-api/src/rate-limit.ts|36|só dev": {
+  "v": "TP",
+  "n": "comentário ao lado do código",
+  "rule": "R12",
+  "stratum": null
+ },
+ "R12|apps/playground-e2e/tests/security.spec.ts|9|bloqueia exfiltração": {
+  "v": "TP",
+  "n": "comentário ao lado do código",
+  "rule": "R12",
+  "stratum": null
+ },
+ "R12|apps/playground/components/Toolbar.tsx|60|reseta pro placeholder (permite repicar ": {
+  "v": "TP",
+  "n": "comentário ao lado do código; também narra o que a linha faz",
+  "rule": "R12",
+  "stratum": null
+ },
+ "R12|packages/core/src/errors/ErroGoiano.js|69|Linha em branco para melhor legibilidade": {
+  "v": "TP",
+  "n": "comentário ao lado do código; narra o óbvio",
+  "rule": "R12",
+  "stratum": null
+ },
+ "R12|packages/core/tests/unit/compiler.test.js|235|Incomplete variable declaration": {
+  "v": "TP",
+  "n": "comentário ao lado do código, em inglês",
+  "rule": "R12",
+  "stratum": null
+ },
+ "R13|apps/playground/components/DonationLinks.tsx|4|[pendencia:antes do lançamento] Chave Pi": {
+  "v": "TP",
+  "n": "pendência de status (\"trocar pela chave real antes do lançamento\") no fonte",
+  "rule": "R13",
+  "stratum": null
+ },
+ "R13|packages/core/src/browser.js|1|[marcador-versao:v2] Browser-safe entry ": {
+  "v": "TP-fraco",
+  "n": "explica por que a entrada existe, mas amarra o texto a \"v2\"",
+  "rule": "R13",
+  "stratum": null
+ },
+ "R13|packages/core/src/compiler.js|4|[marcador-versao:v1.5] Optional feature ": {
+  "v": "TP",
+  "n": "narra história de versões (slim build v1.5, comportamento v2)",
+  "rule": "R13",
+  "stratum": null
+ },
+ "R13|packages/core/src/compiler.js|293|[marcador-fase:Fase 1] Execute compiled ": {
+  "v": "TP",
+  "n": "marcador de fase \"Fase 1\" dentro de justificativa de segurança válida",
+  "rule": "R13",
+  "stratum": null
+ },
+ "R13|packages/core/src/compiler/simpleTranspiler.js|352|[corrige:corrigido,marcador-versao:v2] C": {
+  "v": "TP",
+  "n": "\"corrigido aqui\" (histórico) e afirma que o lexer valida, o que é falso em produção",
+  "rule": "R13",
+  "stratum": null
+ },
+ "R15|apps/engoianador-api/src/engoiana.ts|45|1024 (property:max_tokens): max_tokens: ": {
+  "v": "TP",
+  "n": "max_tokens literal de LLM",
+  "rule": "R15",
+  "stratum": null
+ },
+ "R15|apps/engoianador-api/src/engoiana.ts|49|15000 (call-arg): AbortSignal.timeout(15": {
+  "v": "TP",
+  "n": "timeout em ms literal",
+  "rule": "R15",
+  "stratum": null
+ },
+ "R15|apps/engoianador-api/src/index.ts|82|503 (property:status): status: 503": {
+  "v": "TP",
+  "n": "status HTTP literal",
+  "rule": "R15",
+  "stratum": null
+ },
+ "R15|apps/engoianador-api/src/rate-limit.ts|52|60 (operand:+): WINDOW_SEC + 60": {
+  "v": "TP",
+  "n": "tolerância de TTL literal",
+  "rule": "R15",
+  "stratum": null
+ },
+ "R15|apps/playground/app/opengraph-image.tsx|39|28 (property:padding): padding: 28": {
+  "v": "TP-fraco",
+  "n": "padding em objeto de estilo",
+  "rule": "R15",
+  "stratum": null
+ },
+ "R15|apps/playground/app/opengraph-image.tsx|47|6 (property:marginTop): marginTop: 6": {
+  "v": "TP-fraco",
+  "n": "marginTop em objeto de estilo",
+  "rule": "R15",
+  "stratum": null
+ },
+ "R15|apps/playground/components/DonationLinks.tsx|18|1800 (call-arg): setTimeout(() => setCop": {
+  "v": "TP",
+  "n": "duração de feedback de UI literal",
+  "rule": "R15",
+  "stratum": null
+ },
+ "R15|apps/playground/components/Editor.tsx|29|14 (property:fontSize): fontSize: 14": {
+  "v": "TP-fraco",
+  "n": "fontSize em opções do Monaco",
+  "rule": "R15",
+  "stratum": null
+ },
+ "R15|packages/core/bin/goiasscript.js|90|50 (call-arg): '='.repeat(50)": {
+  "v": "TP-fraco",
+  "n": "largura de separador de CLI",
+  "rule": "R15",
+  "stratum": null
+ },
+ "R15|packages/core/bin/goiasscript.js|109|50 (call-arg): '='.repeat(50)": {
+  "v": "TP-fraco",
+  "n": "largura de separador de CLI",
+  "rule": "R15",
+  "stratum": null
+ },
+ "R15|packages/core/src/cli/index.js|120|50 (call-arg): '─'.repeat(50)": {
+  "v": "TP-fraco",
+  "n": "largura de separador de CLI",
+  "rule": "R15",
+  "stratum": null
+ },
+ "R15|packages/core/src/cli/index.js|134|30 (call-arg): '─'.repeat(30)": {
+  "v": "TP-fraco",
+  "n": "largura de separador de CLI",
+  "rule": "R15",
+  "stratum": null
+ },
+ "R15|packages/core/src/compiler.js|332|4294967295 (operand:&): ((hash << 5) - h": {
+  "v": "TP",
+  "n": "máscara de bits e deslocamento literais num hash",
+  "rule": "R15",
+  "stratum": null
+ },
+ "R15|vscode-extension/src/extension.js|105|100 (call-arg): vscode.window.createStat": {
+  "v": "TP",
+  "n": "prioridade da status bar literal",
+  "rule": "R15",
+  "stratum": null
+ },
+ "R16|apps/playground/app/opengraph-image.tsx|15|\"flex\" x4": {
+  "v": "FP",
+  "n": "valor CSS de display, tipado por CSSProperties",
+  "rule": "R16",
+  "stratum": null
+ },
+ "R16|apps/playground/app/opengraph-image.tsx|16|\"column\" x3": {
+  "v": "FP",
+  "n": "valor CSS de flexDirection, tipado por CSSProperties",
+  "rule": "R16",
+  "stratum": null
+ },
+ "R16|apps/playground/lib/monaco-goias.ts|98|\"comment\" x6": {
+  "v": "TP-fraco",
+  "n": "nome de token do Monarch repetido em tabela declarativa",
+  "rule": "R16",
+  "stratum": null
+ },
+ "R16|apps/playground/lib/monaco-goias.ts|100|\"string\" x3": {
+  "v": "TP-fraco",
+  "n": "nome de token do Monarch repetido em tabela declarativa",
+  "rule": "R16",
+  "stratum": null
+ },
+ "R16|apps/playground/workers/runner.worker.ts|37|\"log\" x3": {
+  "v": "FP",
+  "n": "nível de log passado a parâmetro tipado LogEntry['level']",
+  "rule": "R16",
+  "stratum": null
+ },
+ "R16|packages/core/bin/goiasscript.js|178|\"src\" x8": {
+  "v": "TP-fraco",
+  "n": "segmento de caminho repetido",
+  "rule": "R16",
+  "stratum": null
+ },
+ "R16|packages/core/bin/goiasscript.js|182|\"web\" x7": {
+  "v": "TP",
+  "n": "nome de template comparado em 6 lugares sem enum",
+  "rule": "R16",
+  "stratum": null
+ },
+ "R16|packages/core/bin/goiasscript.js|184|\"framework\" x6": {
+  "v": "TP",
+  "n": "nome de template comparado em 5 lugares sem enum",
+  "rule": "R16",
+  "stratum": null
+ },
+ "R16|packages/core/bin/goiasscript.js|296|\"Desenvolvedor Goiano\" x4": {
+  "v": "TP-fraco",
+  "n": "autor padrão repetido; erro de digitação só muda um texto padrão",
+  "rule": "R16",
+  "stratum": null
+ },
+ "R16|packages/core/bin/goiasscript.js|205|\"utf-8\" x4": {
+  "v": "TP-fraco",
+  "n": "encoding repetido",
+  "rule": "R16",
+  "stratum": null
+ },
+ "R16|packages/core/bin/goiasscript.js|75|\".gs\" x3": {
+  "v": "TP-fraco",
+  "n": "extensão de arquivo repetida",
+  "rule": "R16",
+  "stratum": null
+ },
+ "R16|packages/core/bin/goiasscript.js|163|\"basic\" x3": {
+  "v": "TP",
+  "n": "nome de template padrão do mesmo conjunto web/framework",
+  "rule": "R16",
+  "stratum": null
+ },
+ "R16|packages/core/bin/goiasscript.js|313|\"goiasscript\" x3": {
+  "v": "TP-fraco",
+  "n": "nome do pacote em template, três sentidos distintos",
+  "rule": "R16",
+  "stratum": null
+ },
+ "R16|packages/core/bin/goiasscript.js|297|\"package.json\" x3": {
+  "v": "TP-fraco",
+  "n": "nome de arquivo repetido",
+  "rule": "R16",
+  "stratum": null
+ },
+ "R16|packages/core/bin/goiasscript.js|183|\"public\" x3": {
+  "v": "TP-fraco",
+  "n": "segmento de caminho repetido",
+  "rule": "R16",
+  "stratum": null
+ },
+ "R16|packages/core/bin/goiasscript.js|188|\"scripts\" x3": {
+  "v": "TP-fraco",
+  "n": "segmento de caminho repetido",
+  "rule": "R16",
+  "stratum": null
+ },
+ "R16|packages/core/bin/goiasscript.js|201|\"templates\" x3": {
+  "v": "TP-fraco",
+  "n": "segmento de caminho repetido",
+  "rule": "R16",
+  "stratum": null
+ },
+ "R16|packages/core/bin/goiasscript.js|36|\"utf8\" x3": {
+  "v": "TP-fraco",
+  "n": "encoding repetido",
+  "rule": "R16",
+  "stratum": null
+ },
+ "R16|packages/core/src/cli/index.js|106|\"utf8\" x3": {
+  "v": "TP-fraco",
+  "n": "encoding repetido",
+  "rule": "R16",
+  "stratum": null
+ },
+ "R16|packages/core/src/compiler.js|89|\"script.gs\" x7": {
+  "v": "TP-fraco",
+  "n": "nome de arquivo padrão repetido 7 vezes em assinaturas",
+  "rule": "R16",
+  "stratum": null
+ },
+ "R16|vscode-extension/src/extension.js|29|\"goiasscript\" x4": {
+  "v": "TP",
+  "n": "id da linguagem repetido; inconsistência quebra o registro da extensão",
+  "rule": "R16",
+  "stratum": null
+ },
+ "R18|apps/playground/next.config.mjs|41|assign-prop: config.resolve.fallback = {": {
+  "v": "TP-fraco",
+  "n": "mutação do config do webpack, API documentada do Next.js",
+  "rule": "R18",
+  "stratum": null
+ },
+ "R18|apps/playground/workers/runner.worker.ts|33|mutator-push: logs.push(entry)": {
+  "v": "TP",
+  "n": "acumulador recebido por parâmetro e mutado",
+  "rule": "R18",
+  "stratum": null
+ },
+ "R18|vscode-extension/src/extension.js|96|mutator-push: context.subscriptions.push": {
+  "v": "TP-fraco",
+  "n": "context.subscriptions.push, idioma documentado da API do VS Code",
+  "rule": "R18",
+  "stratum": null
+ },
+ "R18|vscode-extension/src/extension.js|112|mutator-push: context.subscriptions.push": {
+  "v": "TP-fraco",
+  "n": "context.subscriptions.push, idioma documentado da API do VS Code",
+  "rule": "R18",
+  "stratum": null
+ },
+ "R20|apps/engoianador-api/src/engoiana.ts|20|log-only: { // Loga só a mensagem (sem b": {
+  "v": "TP-fraco",
+  "n": "log e segue para o fallback do Workers AI, deliberado",
+  "rule": "R20",
+  "stratum": null
+ },
+ "R20|apps/engoianador-api/src/rate-limit.ts|23|empty-with-comment: { /* corrompido — re": {
+  "v": "TP-fraco",
+  "n": "catch vazio com comentário; reseta estado corrompido",
+  "rule": "R20",
+  "stratum": null
+ },
+ "R20|apps/playground/app/engoianador/page.tsx|68|empty-with-comment: { /* clipboard indis": {
+  "v": "TP-fraco",
+  "n": "catch vazio com comentário; clipboard indisponível",
+  "rule": "R20",
+  "stratum": null
+ },
+ "R20|apps/playground/app/page.tsx|37|promise-catch-vazio: fetch('/examples/ol": {
+  "v": "TP-fraco",
+  "n": "catch vazio com comentário; mantém o STARTER",
+  "rule": "R20",
+  "stratum": null
+ },
+ "R20|apps/playground/components/DonationLinks.tsx|19|empty-with-comment: { /* clipboard indis": {
+  "v": "TP-fraco",
+  "n": "catch vazio com comentário; clipboard indisponível",
+  "rule": "R20",
+  "stratum": null
+ },
+ "R20|packages/core/bin/goias.js|89|log-only: { console.error('❌ Ô rapaz! De": {
+  "v": "FP",
+  "n": "REPL imprime o erro e reabre o prompt; é tratamento explícito na borda",
+  "rule": "R20",
+  "stratum": null
+ },
+ "R20|packages/core/bin/goias.js|166|log-only: { console.error('❌ Ô rapaz! De": {
+  "v": "FP",
+  "n": "REPL imprime o erro da execução e segue; é tratamento explícito na borda",
+  "rule": "R20",
+  "stratum": null
+ },
+ "R20|packages/core/bin/goiasscript.js|87|log-only: { console.error(`\\n❌ Ô rapaz! ": {
+  "v": "TP",
+  "n": "erro da execução do programa do usuário é impresso e o processo termina com código 0",
+  "rule": "R20",
+  "stratum": null
+ },
+ "R20|packages/core/src/cli/index.js|139|log-only: { console.error(chalk.red('❌ E": {
+  "v": "TP",
+  "n": "CLI imprime o erro e termina com código 0",
+  "rule": "R20",
+  "stratum": null
+ },
+ "R20|packages/core/src/cli/index.js|223|log-only: { console.error(chalk.red('❌ E": {
+  "v": "TP",
+  "n": "CLI imprime o erro e termina com código 0",
+  "rule": "R20",
+  "stratum": null
+ },
+ "R20|packages/core/src/cli/index.js|265|log-only: { console.error(chalk.red('❌ E": {
+  "v": "TP",
+  "n": "CLI imprime o erro e termina com código 0",
+  "rule": "R20",
+  "stratum": null
+ },
+ "R20|packages/core/src/cli/index.js|308|log-only: { console.error(chalk.red('❌ E": {
+  "v": "TP",
+  "n": "CLI imprime o erro e termina com código 0",
+  "rule": "R20",
+  "stratum": null
+ },
+ "R14|apps/engoianador-api/src/engoiana.ts|63|texto (param, strong, internal)": {
+  "v": "TP",
+  "n": "parâmetro texto",
+  "rule": "R14",
+  "stratum": "internal-strong"
+ },
+ "R14|apps/engoianador-api/src/index.ts|39|erro (object-key, strong, internal)": {
+  "v": "TP",
+  "n": "chave erro do corpo JSON da API; contrato público que exige mudança coordenada",
+  "rule": "R14",
+  "stratum": "internal-strong"
+ },
+ "R14|apps/engoianador-api/src/prompt.ts|53|texto (param, strong, internal)": {
+  "v": "TP",
+  "n": "parâmetro texto",
+  "rule": "R14",
+  "stratum": "internal-strong"
+ },
+ "R14|apps/playground-e2e/tests/engoianador.spec.ts|6|texto (property, strong, internal)": {
+  "v": "TP",
+  "n": "campo texto do contrato da API espelhado no teste",
+  "rule": "R14",
+  "stratum": "internal-strong"
+ },
+ "R14|apps/playground-e2e/tests/examples.spec.ts|5|marcador (param, strong, internal)": {
+  "v": "TP",
+  "n": "parâmetro marcador",
+  "rule": "R14",
+  "stratum": "internal-strong"
+ },
+ "R14|apps/playground-e2e/tests/security.spec.ts|16|chamou (variable, strong, internal)": {
+  "v": "TP",
+  "n": "variável chamou",
+  "rule": "R14",
+  "stratum": "internal-strong"
+ },
+ "R14|apps/playground/app/doacao/page.tsx|10|DoacaoPage (function, strong, internal)": {
+  "v": "TP",
+  "n": "componente DoacaoPage",
+  "rule": "R14",
+  "stratum": "internal-strong"
+ },
+ "R14|apps/playground/components/OutputPanel.tsx|8|saida (object-key, strong, internal)": {
+  "v": "TP",
+  "n": "chave saida da união Tab",
+  "rule": "R14",
+  "stratum": "internal-strong"
+ },
+ "R14|apps/playground/tailwind.config.ts|10|amarelo (object-key, strong, internal)": {
+  "v": "TP",
+  "n": "chave amarelo do tema",
+  "rule": "R14",
+  "stratum": "internal-strong"
+ },
+ "R14|packages/core/src/errors/ErroGoiano.js|83|linha (object-key, strong, internal)": {
+  "v": "TP",
+  "n": "chave linha do retorno de getDetalhes",
+  "rule": "R14",
+  "stratum": "internal-strong"
+ },
+ "R14|packages/core/src/errors/errorTranslator.js|1|ErroGoiano (variable, strong, internal)": {
+  "v": "TP",
+  "n": "classe ErroGoiano",
+  "rule": "R14",
+  "stratum": "internal-strong"
+ },
+ "R14|packages/core/tests/unit/compiler.test.js|100|codigo (variable, strong, internal)": {
+  "v": "TP",
+  "n": "variável codigo em teste",
+  "rule": "R14",
+  "stratum": "internal-strong"
+ },
+ "R14|vscode-extension/src/extension.js|59|traduzCommand (variable, strong, interna": {
+  "v": "TP",
+  "n": "variável traduzCommand",
+  "rule": "R14",
+  "stratum": "internal-strong"
+ },
+ "R14|vscode-extension/src/extension.js|78|botaPraMoerCommand (variable, strong, in": {
+  "v": "TP",
+  "n": "variável botaPraMoerCommand",
+  "rule": "R14",
+  "stratum": "internal-strong"
+ },
+ "R14|packages/core/src/goianoMethods/GoianoBuiltins.js|128|buscar (param, strong, internal, embutid": {
+  "v": "TP",
+  "n": "parâmetro do runtime embutido, não observável pelo código .gs",
+  "rule": "R14",
+  "stratum": "internal-embedded"
+ },
+ "R14|packages/core/src/goianoMethods/GoianoBuiltins.js|148|texto (param, strong, internal, embutido": {
+  "v": "TP",
+  "n": "parâmetro do runtime embutido",
+  "rule": "R14",
+  "stratum": "internal-embedded"
+ },
+ "R14|packages/core/src/goianoMethods/GoianoBuiltins.js|152|texto (param, strong, internal, embutido": {
+  "v": "TP",
+  "n": "parâmetro do runtime embutido",
+  "rule": "R14",
+  "stratum": "internal-embedded"
+ },
+ "R14|packages/core/src/goianoMethods/GoianoBuiltins.js|160|fim (param, strong, internal, embutido)": {
+  "v": "TP",
+  "n": "parâmetro do runtime embutido",
+  "rule": "R14",
+  "stratum": "internal-embedded"
+ },
+ "R14|packages/core/bin/goias.js|267|desenrola (method, strong, surface-mirro": {
+  "v": "TP",
+  "n": "método interno; o REPL despacha por switch, o nome não precisa espelhar o comando",
+  "rule": "R14",
+  "stratum": "surface-mirror"
+ },
+ "R14|packages/core/bin/goias.js|337|cabô_a_prosa (method, strong, surface-mi": {
+  "v": "TP",
+  "n": "método interno; despacho por switch",
+  "rule": "R14",
+  "stratum": "surface-mirror"
+ },
+ "R14|packages/core/bin/goias.js|343|mostra_as_tralha (method, strong, surfac": {
+  "v": "TP",
+  "n": "método interno; despacho por switch",
+  "rule": "R14",
+  "stratum": "surface-mirror"
+ },
+ "R14|packages/core/bin/goiasscript.js|99|bota_pra_moer (method, strong, surface-m": {
+  "v": "TP",
+  "n": "método interno; commander registra o comando por string",
+  "rule": "R14",
+  "stratum": "surface-mirror"
+ },
+ "R14|packages/core/bin/goiasscript.js|534|dedo_de_prosa (method, strong, surface-m": {
+  "v": "TP",
+  "n": "método interno; commander registra o comando por string",
+  "rule": "R14",
+  "stratum": "surface-mirror"
+ },
+ "R14|packages/core/src/compiler/lexer.js|13|ocê (object-key, strong, surface-exact)": {
+  "v": "TN",
+  "n": "keyword da linguagem",
+  "rule": "R14",
+  "stratum": "surface-exact (excluída)"
+ },
+ "R14|packages/core/src/compiler/lexer.js|46|no_máximo (object-key, strong, surface-e": {
+  "v": "TN",
+  "n": "keyword da linguagem",
+  "rule": "R14",
+  "stratum": "surface-exact (excluída)"
+ },
+ "R14|packages/core/src/compiler/lexer.js|61|vazio (object-key, strong, surface-exact": {
+  "v": "TN?",
+  "n": "keyword só da tabela do lexer, código morto; fora do transpilador real",
+  "rule": "R14",
+  "stratum": "surface-exact (excluída)"
+ },
+ "R14|packages/core/src/compiler/lexer.js|63|certeza (object-key, strong, surface-exa": {
+  "v": "TN",
+  "n": "keyword da linguagem",
+  "rule": "R14",
+  "stratum": "surface-exact (excluída)"
+ },
+ "R14|packages/core/src/compiler/lexer.js|64|de_jeito_nenhum (object-key, strong, sur": {
+  "v": "TN",
+  "n": "keyword da linguagem",
+  "rule": "R14",
+  "stratum": "surface-exact (excluída)"
+ },
+ "R14|packages/core/src/compiler/lexer.js|71|promessa (object-key, strong, surface-ex": {
+  "v": "TN",
+  "n": "keyword da linguagem",
+  "rule": "R14",
+  "stratum": "surface-exact (excluída)"
+ },
+ "R14|packages/core/src/goianoMethods/GoianoBuiltins.js|319|eh_nao_numero (function, strong, surface": {
+  "v": "TN",
+  "n": "função global exposta ao código .gs",
+  "rule": "R14",
+  "stratum": "surface-exact (excluída)"
+ },
+ "R14|packages/core/src/goianoMethods/GoianoBuiltins.js|348|prosa_aviso (function, strong, surface-e": {
+  "v": "TN",
+  "n": "função global exposta ao código .gs",
+  "rule": "R14",
+  "stratum": "surface-exact (excluída)"
+ },
+ "R14|apps/engoianador-api/src/index.ts|47|handleEngoiana (function, domain, intern": {
+  "v": "TN",
+  "n": "Engoiana é nome próprio da funcionalidade",
+  "rule": "R14",
+  "stratum": "domain (excluída)"
+ },
+ "R14|apps/playground-e2e/tests/engoianador.spec.ts|10|engoianado (object-key, domain, internal": {
+  "v": "TN?",
+  "n": "engoianado é particípio derivado do nome próprio; discutível",
+  "rule": "R14",
+  "stratum": "domain (excluída)"
+ },
+ "R14|apps/playground/components/ShareCard.tsx|4|engoianado (property, domain, internal)": {
+  "v": "TN?",
+  "n": "engoianado é particípio derivado do nome próprio; discutível",
+  "rule": "R14",
+  "stratum": "domain (excluída)"
+ },
+ "R14|packages/core/src/compiler.js|176|getGoianoMethods (method, domain, intern": {
+  "v": "TN",
+  "n": "Goiano é nome próprio do dialeto",
+  "rule": "R14",
+  "stratum": "domain (excluída)"
+ },
+ "R14|packages/core/src/compiler.js|184|getGoianoTypes (method, domain, internal": {
+  "v": "TN",
+  "n": "Goiano é nome próprio do dialeto",
+  "rule": "R14",
+  "stratum": "domain (excluída)"
+ },
+ "R13|packages/core/src/compiler/lexer.js|94|[roadmap:para futuro] Modificadores de a": {
+  "v": "TP",
+  "n": "nota de roadmap (\"para futuro\") no fonte",
+  "rule": "R13",
+  "stratum": null
+ },
+ "R21|packages/core/bin/goias.js|124|Verificar se chegou ao final do bloco": {
+  "v": "TP",
+  "n": "narra o if seguinte",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|apps/playground-e2e/tests/home.spec.ts|12|Monaco montou": {
+  "v": "TP",
+  "n": "narra o que a próxima asserção faz",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|vscode-extension/src/extension.js|37|Criar e iniciar cliente": {
+  "v": "TP",
+  "n": "narra a criação do cliente",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|packages/core/src/goianoMethods/GoianoBuiltins.js|38|Array/Lista methods": {
+  "v": "TP",
+  "n": "rótulo de seção em tabela de dados",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|apps/playground-e2e/tests/home.spec.ts|9|Abas com semântica acessível": {
+  "v": "TP-fraco",
+  "n": "explicita a intenção da asserção, mas o título do teste deveria dizê-lo",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|vscode-extension/src/extension.js|114|Atualizar status baseado no arquivo ativ": {
+  "v": "TP",
+  "n": "narra o handler seguinte",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|packages/core/bin/goiasscript.js|435|Função para copiar diretório de template": {
+  "v": "TP",
+  "n": "repete o nome do método copyTemplateDirectory",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|vscode-extension/src/extension.js|48|Registrar comandos": {
+  "v": "TP",
+  "n": "repete o nome da função registerCommands",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|packages/core/tests/unit/cli.test.js|155|Mock path operations": {
+  "v": "TP",
+  "n": "narra o mock seguinte",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|vscode-extension/src/extension.js|51|Status bar": {
+  "v": "TP",
+  "n": "rótulo curto",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|packages/core/src/compiler/lexer.js|31|Funções": {
+  "v": "TP",
+  "n": "rótulo de seção em tabela de dados",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|vscode-extension/src/extension.js|10|Configurar Language Server": {
+  "v": "TP",
+  "n": "narra a configuração seguinte",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|packages/core/bin/goiasscript.js|255|Arquivos específicos dos templates": {
+  "v": "TP",
+  "n": "rótulo do if seguinte",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|vscode-extension/src/extension.js|45|Iniciar cliente": {
+  "v": "TP",
+  "n": "repete client.start()",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|packages/core/src/goianoMethods/GoianoBuiltins.js|387|Lista todos os tipos goianos": {
+  "v": "TP",
+  "n": "repete o nome do método listarTiposGoianos",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|vscode-extension/src/extension.js|77|Comando para executar GoiásScript": {
+  "v": "TP",
+  "n": "rótulo; o nome do comando já diz",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|packages/core/bin/goias.js|419|Iniciar Roda de Prosa": {
+  "v": "TP",
+  "n": "narra o bloco require.main",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|vscode-extension/src/extension.js|58|Comando para traduzir GoiásScript": {
+  "v": "TP",
+  "n": "rótulo; o nome do comando já diz",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|packages/core/src/compiler/lexer.js|48|Operações aritméticas": {
+  "v": "TP",
+  "n": "rótulo de seção em tabela de dados",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|packages/core/src/goianoMethods/GoianoBuiltins.js|392|Obter equivalente goiano para método JS": {
+  "v": "TP",
+  "n": "repete o nome do método obterEquivalenteGoiano",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|packages/core/src/compiler/lexer.js|129|Remover comentários": {
+  "v": "TP",
+  "n": "narra as linhas seguintes",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|packages/core/src/compiler/simpleTranspiler.js|97|Classes and inheritance": {
+  "v": "TP",
+  "n": "rótulo de seção em tabela de dados",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|packages/core/bin/goias.js|68|Comandos especiais da Roda de Prosa": {
+  "v": "TP",
+  "n": "rótulo do if seguinte",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R21|packages/core/bin/goias.js|87|Executar código": {
+  "v": "TP",
+  "n": "narra a chamada seguinte",
+  "rule": "R21",
+  "stratum": null
+ },
+ "R05|packages/core/bin/goiasscript.js|162|arma_o_barraco: 5 níveis": {
+  "v": "TP",
+  "n": "5 níveis de bloco: try, if, callback do spawn, if, if (conferido por AST e leitura das linhas 378-402)",
+  "rule": "R05",
+  "stratum": null
+ }
+}

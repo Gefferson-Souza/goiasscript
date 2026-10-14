@@ -1,0 +1,10 @@
+DIVERGE  docs/METODOS_GOIANOS.md:106  numeros.reduzir((a, b) => a mais b)                     doc=15 (soma total) | obtido=null
+DIVERGE  docs/METODOS_GOIANOS.md:135  numeros.juntar_lista(mais_numeros)                      doc=[1,2,3,4,5,6,7,8] | obtido=[5,4,3,2,1,6,7,8]
+DEPENDENTE-DE-DATA docs/METODOS_GOIANOS.md:210  agora.pegar_ano()                                       doc=2024 
+DEPENDENTE-DE-DATA docs/METODOS_GOIANOS.md:211  agora.pegar_mes()                                       doc=8 (setembro = 8, começa do 0) 
+DEPENDENTE-DE-DATA docs/METODOS_GOIANOS.md:212  agora.pegar_dia()                                       doc=12 
+DEPENDENTE-DE-DATA docs/METODOS_GOIANOS.md:213  agora.pegar_horas()                                     doc=14 
+DEPENDENTE-DE-DATA docs/METODOS_GOIANOS.md:214  agora.pegar_minutos()                                   doc=30 
+DEPENDENTE-DE-DATA docs/METODOS_GOIANOS.md:215  agora.pegar_segundos()                                  doc=45 
+
+RESUMO: 46 valores documentados verificáveis | {"confere":38,"DIVERGE":2,"dependente-de-data":6}

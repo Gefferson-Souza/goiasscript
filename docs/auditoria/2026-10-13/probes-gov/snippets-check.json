@@ -1,0 +1,261 @@
+[
+  {
+    "name": "Variável Constante",
+    "prefix": "uai",
+    "status": "OK_SINTAXE(ref indef. esperado)",
+    "error": "ReferenceError: valor is not defined",
+    "userJs": "const nome = valor;"
+  },
+  {
+    "name": "Variável Mutável",
+    "prefix": "trem",
+    "status": "OK_SINTAXE(ref indef. esperado)",
+    "error": "ReferenceError: valor is not defined",
+    "userJs": "var nome = valor;"
+  },
+  {
+    "name": "Função",
+    "prefix": "faz_trem",
+    "status": "OK",
+    "error": null,
+    "userJs": "function nome(parametros) {\n  // corpo da função\n  return resultado;\n}"
+  },
+  {
+    "name": "Função Assíncrona",
+    "prefix": "vai_na_frente_faz_trem",
+    "status": "OK",
+    "error": null,
+    "userJs": "async function nome(parametros) {\n  try {\n    // código assíncrono\n    const resultado = await operacaoAssincrona();\n    return resultado;\n  } catch (erro) {\n    console.error(\"Erro:\", erro);\n  }\n}"
+  },
+  {
+    "name": "Condicional If",
+    "prefix": "se_ocê_quiser",
+    "status": "OK_SINTAXE(ref indef. esperado)",
+    "error": "ReferenceError: condicao is not defined",
+    "userJs": "if (condicao) {\n  // código\n}"
+  },
+  {
+    "name": "Condicional If-Else",
+    "prefix": "se_ocê_quiser_se_não",
+    "status": "OK_SINTAXE(ref indef. esperado)",
+    "error": "ReferenceError: condicao is not defined",
+    "userJs": "if (condicao) {\n  // código verdadeiro\n} else {\n  // código falso\n}"
+  },
+  {
+    "name": "Loop For",
+    "prefix": "vai_indo",
+    "status": "OK_SINTAXE(ref indef. esperado)",
+    "error": "ReferenceError: limite is not defined",
+    "userJs": "for (var i = 0; i < limite; i = i + 1) {\n  // código do loop\n}"
+  },
+  {
+    "name": "Loop For-Of",
+    "prefix": "vai_indo_de",
+    "status": "OK_SINTAXE(ref indef. esperado)",
+    "error": "ReferenceError: array is not defined",
+    "userJs": "for (var item of array) {\n  // processar item\n}"
+  },
+  {
+    "name": "Loop While",
+    "prefix": "enquanto_tiver",
+    "status": "OK_SINTAXE(ref indef. esperado)",
+    "error": "ReferenceError: condicao is not defined",
+    "userJs": "while (condicao) {\n  // código\n}"
+  },
+  {
+    "name": "Classe",
+    "prefix": "arruma_trem",
+    "status": "OK",
+    "error": null,
+    "userJs": "class NomeClasse {\n  constructor(parametros) {\n    // inicialização\n  }\n  \n  metodo() {\n    // código do método\n  }\n}"
+  },
+  {
+    "name": "Classe com Herança",
+    "prefix": "arruma_trem_inherda_de",
+    "status": "OK_SINTAXE(ref indef. esperado)",
+    "error": "ReferenceError: ClassePai is not defined",
+    "userJs": "class NomeClasse extends ClassePai {\n  constructor(parametros) {\n    super(parametrosPai);\n    // inicialização específica\n  }\n  \n  metodo() {\n    // código do método\n  }\n}"
+  },
+  {
+    "name": "Try-Catch",
+    "prefix": "tenta_aí",
+    "status": "OK",
+    "error": null,
+    "userJs": "try {\n  // código que pode falhar\n} catch (erro) {\n  console.error(\"Erro:\", erro);\n}"
+  },
+  {
+    "name": "Promise",
+    "prefix": "promessa",
+    "status": "OK",
+    "error": null,
+    "userJs": "new Promise((resolve, reject) => {\n  // código da promise\n  if (sucesso) {\n    resolve(resultado);\n  } else {\n    reject(erro);\n  }\n})"
+  },
+  {
+    "name": "Console Log",
+    "prefix": "prosa",
+    "status": "OK_SINTAXE(ref indef. esperado)",
+    "error": "ReferenceError: mensagem is not defined",
+    "userJs": "console.log(mensagem);"
+  },
+  {
+    "name": "Console Error",
+    "prefix": "reclama",
+    "status": "OK_SINTAXE(ref indef. esperado)",
+    "error": "ReferenceError: erro is not defined",
+    "userJs": "console.error(erro);"
+  },
+  {
+    "name": "Array",
+    "prefix": "array_goiano",
+    "status": "OK",
+    "error": null,
+    "userJs": "const nomeArray = [\n  \"item1\",\n  \"item2\",\n  \"item3\"\n];"
+  },
+  {
+    "name": "Objeto",
+    "prefix": "objeto_goiano",
+    "status": "OK_SINTAXE(ref indef. esperado)",
+    "error": "ReferenceError: valor1 is not defined",
+    "userJs": "const nomeObjeto = {\n  propriedade1: valor1,\n  propriedade2: valor2\n};"
+  },
+  {
+    "name": "Comentário de Cabeçalho",
+    "prefix": "cabecalho_goiano",
+    "status": "OK",
+    "error": null,
+    "userJs": "/**\n * Descrição do arquivo/função\n * @author Seu Nome\n * @date 2026-10-13\n */"
+  },
+  {
+    "name": "Variável com Tipo",
+    "prefix": "uai_tipo",
+    "status": "OK_SINTAXE(ref indef. esperado)",
+    "error": "ReferenceError: valor is not defined",
+    "userJs": "const nome = valor;"
+  },
+  {
+    "name": "Variável Mutável com Tipo",
+    "prefix": "trem_tipo",
+    "status": "OK_SINTAXE(ref indef. esperado)",
+    "error": "ReferenceError: valor is not defined",
+    "userJs": "var nome = valor;"
+  },
+  {
+    "name": "Função Tipada",
+    "prefix": "faz_trem_tipos",
+    "status": "SINTAXE_JS_INVALIDA",
+    "error": "SyntaxError: Unexpected token ':'",
+    "userJs": "function nome(param: texto): texto {\n  // corpo da função\n  return resultado;\n}"
+  },
+  {
+    "name": "Import Padrão",
+    "prefix": "pega",
+    "status": "SINTAXE_JS_INVALIDA",
+    "error": "SyntaxError: Unexpected identifier 'modulo'",
+    "userJs": "pega modulo of \"./caminho\";"
+  },
+  {
+    "name": "Import Named",
+    "prefix": "pega_named",
+    "status": "SINTAXE_JS_INVALIDA",
+    "error": "SyntaxError: Unexpected token '{'",
+    "userJs": "pega { funcao1, funcao2 } of \"./modulo\";"
+  },
+  {
+    "name": "Import Mixed",
+    "prefix": "pega_mixed",
+    "status": "SINTAXE_JS_INVALIDA",
+    "error": "SyntaxError: Unexpected identifier 'modulo'",
+    "userJs": "pega modulo, { funcao1, funcao2 } of \"./modulo\";"
+  },
+  {
+    "name": "Import Namespace",
+    "prefix": "pega_tudo_de",
+    "status": "SINTAXE_JS_INVALIDA",
+    "error": "SyntaxError: Unexpected identifier 'tudo_de'",
+    "userJs": "pega tudo_de Namespace of \"./modulo\";"
+  },
+  {
+    "name": "Export Default",
+    "prefix": "troca_ideia_principal",
+    "status": "SINTAXE_JS_INVALIDA",
+    "error": "SyntaxError: Unexpected identifier 'funcaoOuVariavel'",
+    "userJs": "troca_ideia_principal funcaoOuVariavel;"
+  },
+  {
+    "name": "Export Named",
+    "prefix": "troca_ideia",
+    "status": "SINTAXE_JS_INVALIDA",
+    "error": "SyntaxError: Unexpected token '{'",
+    "userJs": "troca_ideia { funcao1, funcao2 };"
+  },
+  {
+    "name": "Export Single",
+    "prefix": "troca_ideia_single",
+    "status": "SINTAXE_JS_INVALIDA",
+    "error": "SyntaxError: Unexpected identifier 'funcao'",
+    "userJs": "troca_ideia funcao;"
+  },
+  {
+    "name": "Módulo Completo",
+    "prefix": "modulo_completo",
+    "status": "SINTAXE_JS_INVALIDA",
+    "error": "SyntaxError: Unexpected token '{'",
+    "userJs": "// Imports\npega { funcao1 } of \"./utils\";\n\n// Código do módulo\nfunction minhaFuncao(param: tipo): tipo {\n  // implementação\n  return resultado;\n}\n\n// Exports\ntroca_ideia { minhaFuncao };"
+  },
+  {
+    "name": "Função Async com Tipos",
+    "prefix": "async_tipos",
+    "status": "SINTAXE_JS_INVALIDA",
+    "error": "SyntaxError: Unexpected token ':'",
+    "userJs": "async function nome(param: texto): objeto {\n  try {\n    const resultado = await operacao(param);\n    return resultado;\n  } catch (erro) {\n    console.error(\"Erro em nome:\", erro);\n    throw new Error(erro);\n  }\n}"
+  },
+  {
+    "name": "Interface de Dados",
+    "prefix": "interface_dados",
+    "status": "OK",
+    "error": null,
+    "userJs": "const dadosExemplo = {\n  id: 1,\n  nome: \"valor\",\n  ativo: true,\n  lista: [\"item1\", \"item2\"]\n};"
+  },
+  {
+    "name": "Componente GoiásScript",
+    "prefix": "@Componente",
+    "status": "SINTAXE_JS_INVALIDA",
+    "error": "SyntaxError: Invalid or unexpected token",
+    "userJs": "@Componente({\n  seletor: \"meu-componente\",\n  template: `\n    <div class=\"container\">\n      <h1>Título do Componente</h1>\n      <p>Conteúdo</p>\n    </div>\n  `,\n  estilos: `\n    .container {\n      padding: 1rem;\n    }\n  `\n})\nclass MeuComponente {\n  constructor() {\n    // inicialização\n  }\n}"
+  },
+  {
+    "name": "Controlador GoiásScript",
+    "prefix": "@Controlador",
+    "status": "SINTAXE_JS_INVALIDA",
+    "error": "SyntaxError: Invalid or unexpected token",
+    "userJs": "@Controlador(\"api/rota\")\nclass MeuControlador {\n\n  @Pegar(\"/\")\n  listar() {\n    return {\n      mensagem: \"Dados listados com sucesso!\",\n      dados: []\n    };\n  }\n\n  @Postar(\"/\")\n  criar(@Corpo() dados: coisa) {\n    // lógica of criação\n    return {\n      mensagem: \"Criado com sucesso!\",\n      dados: dados\n    };\n  }\n}"
+  },
+  {
+    "name": "Serviço GoiásScript",
+    "prefix": "@Injectable",
+    "status": "SINTAXE_JS_INVALIDA",
+    "error": "SyntaxError: Invalid or unexpected token",
+    "userJs": "@Injectable()\nclass MeuServico {\n  constructor() {\n    // inicialização\n  }\n\n  metodo() {\n    // lógica do serviço\n    return resultado;\n  }\n}"
+  },
+  {
+    "name": "Rota GET",
+    "prefix": "@Pegar",
+    "status": "SINTAXE_JS_INVALIDA",
+    "error": "SyntaxError: Invalid or unexpected token",
+    "userJs": "@Pegar(\"/rota\")\nmetodo(@Query(\"param\") param?: texto) {\n  // lógica da rota\n  return resultado;\n}"
+  },
+  {
+    "name": "Rota POST",
+    "prefix": "@Postar",
+    "status": "SINTAXE_JS_INVALIDA",
+    "error": "SyntaxError: Invalid or unexpected token",
+    "userJs": "@Postar(\"/rota\")\nmetodo(@Corpo() dados: coisa) {\n  // lógica da rota\n  return resultado;\n}"
+  },
+  {
+    "name": "Módulo GoiásScript",
+    "prefix": "modulo_framework",
+    "status": "SINTAXE_JS_INVALIDA",
+    "error": "SyntaxError: Unexpected string",
+    "userJs": "pega \"@goiano/core\" in { criarModulo }\npega \"./controller\" in { MeuControlador }\npega \"./service\" in { MeuServico }\n\ntroca_ideia_principal criarModulo({\n  controladores: [MeuControlador],\n  servicos: [MeuServico],\n  imports: [// outros módulos],\n  exports: [MeuServico]\n});"
+  }
+]

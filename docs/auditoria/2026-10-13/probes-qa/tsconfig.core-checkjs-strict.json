@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "allowJs": true, "checkJs": true, "noEmit": true, "target": "ES2022", "module": "commonjs",
+    "moduleResolution": "node", "skipLibCheck": true, "strict": true,
+    "types": ["node"], "typeRoots": ["<repo>/apps/playground/node_modules/@types"]
+  },
+  "include": ["<repo>/packages/core/src/**/*.js", "<repo>/packages/core/bin/**/*.js"]
+}

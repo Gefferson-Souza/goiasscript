@@ -1,0 +1,55 @@
+TOTAL snippets: 37 {"OK_SINTAXE(ref indef. esperado)":13,"OK":8,"SINTAXE_JS_INVALIDA":16}
+OK_SINTAXE(ref indef. esperado)    [uai] (Variável Constante)  -> ReferenceError: valor is not defined
+OK_SINTAXE(ref indef. esperado)    [trem] (Variável Mutável)  -> ReferenceError: valor is not defined
+OK                                 [faz_trem] (Função)
+OK                                 [vai_na_frente_faz_trem] (Função Assíncrona)
+OK_SINTAXE(ref indef. esperado)    [se_ocê_quiser] (Condicional If)  -> ReferenceError: condicao is not defined
+OK_SINTAXE(ref indef. esperado)    [se_ocê_quiser_se_não] (Condicional If-Else)  -> ReferenceError: condicao is not defined
+OK_SINTAXE(ref indef. esperado)    [vai_indo] (Loop For)  -> ReferenceError: limite is not defined
+OK_SINTAXE(ref indef. esperado)    [vai_indo_de] (Loop For-Of)  -> ReferenceError: array is not defined
+OK_SINTAXE(ref indef. esperado)    [enquanto_tiver] (Loop While)  -> ReferenceError: condicao is not defined
+OK                                 [arruma_trem] (Classe)
+OK_SINTAXE(ref indef. esperado)    [arruma_trem_inherda_de] (Classe com Herança)  -> ReferenceError: ClassePai is not defined
+OK                                 [tenta_aí] (Try-Catch)
+OK                                 [promessa] (Promise)
+OK_SINTAXE(ref indef. esperado)    [prosa] (Console Log)  -> ReferenceError: mensagem is not defined
+OK_SINTAXE(ref indef. esperado)    [reclama] (Console Error)  -> ReferenceError: erro is not defined
+OK                                 [array_goiano] (Array)
+OK_SINTAXE(ref indef. esperado)    [objeto_goiano] (Objeto)  -> ReferenceError: valor1 is not defined
+OK                                 [cabecalho_goiano] (Comentário de Cabeçalho)
+OK_SINTAXE(ref indef. esperado)    [uai_tipo] (Variável com Tipo)  -> ReferenceError: valor is not defined
+OK_SINTAXE(ref indef. esperado)    [trem_tipo] (Variável Mutável com Tipo)  -> ReferenceError: valor is not defined
+SINTAXE_JS_INVALIDA                [faz_trem_tipos] (Função Tipada)  -> SyntaxError: Unexpected token ':'
+SINTAXE_JS_INVALIDA                [pega] (Import Padrão)  -> SyntaxError: Unexpected identifier 'modulo'
+SINTAXE_JS_INVALIDA                [pega_named] (Import Named)  -> SyntaxError: Unexpected token '{'
+SINTAXE_JS_INVALIDA                [pega_mixed] (Import Mixed)  -> SyntaxError: Unexpected identifier 'modulo'
+SINTAXE_JS_INVALIDA                [pega_tudo_de] (Import Namespace)  -> SyntaxError: Unexpected identifier 'tudo_de'
+SINTAXE_JS_INVALIDA                [troca_ideia_principal] (Export Default)  -> SyntaxError: Unexpected identifier 'funcaoOuVariavel'
+SINTAXE_JS_INVALIDA                [troca_ideia] (Export Named)  -> SyntaxError: Unexpected token '{'
+SINTAXE_JS_INVALIDA                [troca_ideia_single] (Export Single)  -> SyntaxError: Unexpected identifier 'funcao'
+SINTAXE_JS_INVALIDA                [modulo_completo] (Módulo Completo)  -> SyntaxError: Unexpected token '{'
+SINTAXE_JS_INVALIDA                [async_tipos] (Função Async com Tipos)  -> SyntaxError: Unexpected token ':'
+OK                                 [interface_dados] (Interface de Dados)
+SINTAXE_JS_INVALIDA                [@Componente] (Componente GoiásScript)  -> SyntaxError: Invalid or unexpected token
+SINTAXE_JS_INVALIDA                [@Controlador] (Controlador GoiásScript)  -> SyntaxError: Invalid or unexpected token
+SINTAXE_JS_INVALIDA                [@Injectable] (Serviço GoiásScript)  -> SyntaxError: Invalid or unexpected token
+SINTAXE_JS_INVALIDA                [@Pegar] (Rota GET)  -> SyntaxError: Invalid or unexpected token
+SINTAXE_JS_INVALIDA                [@Postar] (Rota POST)  -> SyntaxError: Invalid or unexpected token
+SINTAXE_JS_INVALIDA                [modulo_framework] (Módulo GoiásScript)  -> SyntaxError: Unexpected string
+evalmachine.<anonymous>:250
+  if (sucesso) {
+  ^
+
+ReferenceError: sucesso is not defined
+    at evalmachine.<anonymous>:250:3
+    at new Promise (<anonymous>)
+    at evalmachine.<anonymous>:248:1
+    at Script.runInContext (node:vm:149:12)
+    at Script.runInNewContext (node:vm:154:17)
+    at Object.runInNewContext (node:vm:310:38)
+    at probe (<scratchpad>/audit/probes-gov/lib-probe.js:48:8)
+    at Object.<anonymous> (<scratchpad>/audit/probes-gov/snippets-check.js:35:13)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+
+Node.js v24.21.0

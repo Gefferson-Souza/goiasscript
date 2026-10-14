@@ -1,0 +1,160 @@
+
+> goiasscript-monorepo@0.0.0 test:coverage <repo>
+> pnpm --filter goiasscript test:coverage
+
+
+> goiasscript@1.5.0 test:coverage <repo>/packages/core
+> jest --coverage
+
+PASS tests/unit/lexer.test.js
+  GoiasScriptLexer
+    tokenize
+      ✓ deve tokenizar código simples (5 ms)
+      ✓ deve tokenizar múltiplas linhas (1 ms)
+      ✓ deve ignorar comentários
+      ✓ deve ignorar linhas vazias (1 ms)
+      ✓ deve tokenizar strings corretamente
+      ✓ deve tokenizar números corretamente (1 ms)
+      ✓ deve tokenizar operadores
+      ✓ deve tokenizar símbolos especiais (1 ms)
+      ✓ deve lidar com código vazio
+      ✓ deve lidar com apenas espaços (1 ms)
+      ✓ deve lidar com apenas comentários
+    _getTokenType
+      ✓ deve identificar palavras-chave
+      ✓ deve identificar operadores
+      ✓ deve identificar números (1 ms)
+      ✓ deve identificar strings (1 ms)
+      ✓ deve identificar identificadores
+      ✓ deve identificar delimitadores
+    _tokenizeLine
+      ✓ deve processar linha com posição correta (1 ms)
+      ✓ deve ignorar comentários em linha
+      ✓ deve retornar array vazio para linha vazia
+      ✓ deve retornar array vazio para apenas comentário (1 ms)
+    tokensToJS
+      ✓ deve converter tokens para JavaScript
+      ✓ deve lidar com array vazio (1 ms)
+
+PASS tests/unit/cli.test.js
+  CLI Functions
+    File Operations
+      ✓ deve verificar se arquivo existe (5 ms)
+      ✓ deve ler arquivo corretamente (1 ms)
+      ✓ deve lidar com erro ao ler arquivo (7 ms)
+    Path Operations
+      ✓ deve resolver caminho de arquivo (1 ms)
+      ✓ deve obter extensão de arquivo (1 ms)
+    Command Line Arguments
+      ✓ deve processar argumentos básicos - comandos goianos (1 ms)
+      ✓ deve processar comando traduz (1 ms)
+      ✓ deve processar comando vê_se_tá_certo
+      ✓ deve identificar comando help
+      ✓ deve identificar comando version
+    Error Handling
+      ✓ deve lidar com arquivo inexistente (1 ms)
+      ✓ deve validar extensão de arquivo
+      ✓ deve validar extensão GoiasScript
+    Console Output
+      ✓ deve capturar saída do console
+      ✓ deve capturar erros do console (1 ms)
+    Integration Mock Test
+      ✓ deve simular fluxo completo de execução
+
+PASS tests/unit/goianoBuiltins.test.js
+  GoianoBuiltins
+    Forbidden Methods Detection
+      ✓ deve identificar métodos proibidos (4 ms)
+      ✓ deve permitir métodos goianos
+    Method Conversion
+      ✓ deve obter equivalente goiano para método JS (1 ms)
+      ✓ deve retornar null para método sem equivalente
+    Goiano Runtime Generation
+      ✓ deve gerar implementação goiana completa (1 ms)
+      ✓ deve incluir todos os métodos de string
+      ✓ deve incluir todos os métodos de array (1 ms)
+      ✓ deve incluir GoianoMath
+    Method Listing
+      ✓ deve listar métodos goianos disponíveis
+      ✓ deve listar tipos goianos disponíveis (1 ms)
+    Code Validation
+      ✓ deve detectar uso de métodos proibidos em código
+      ✓ deve não detectar métodos goianos válidos (1 ms)
+    Method Documentation
+      ✓ deve obter documentação de método goiano
+      ✓ deve obter exemplo de uso de método
+    Type Conversion
+      ✓ deve converter tipo JavaScript para goiano (1 ms)
+      ✓ deve retornar tipo original se não houver conversão
+    Performance Helpers
+      ✓ deve verificar se método é otimizado
+      ✓ deve obter versão otimizada de método
+
+PASS tests/unit/errors.test.js
+  ErroGoiano
+    ✓ deve criar erro com informações básicas (7 ms)
+    ✓ deve retornar detalhes estruturados (1 ms)
+    ✓ deve mapear tipos de erro corretamente (1 ms)
+  ErrorTranslator
+    ✓ deve manter erros goianos como estão (1 ms)
+    ✓ deve traduzir SyntaxError (8 ms)
+    ✓ deve traduzir ReferenceError (1 ms)
+    ✓ deve traduzir TypeError (1 ms)
+    ✓ deve traduzir RangeError
+    ✓ deve traduzir URIError
+    ✓ deve lidar com erros genéricos
+
+PASS tests/unit/compiler.test.js
+  GoiasScriptCompiler
+    Compilação Básica
+      ✓ deve compilar código simples com sucesso (8 ms)
+      ✓ deve compilar função simples (1 ms)
+      ✓ deve compilar estruturas condicionais (1 ms)
+    Classes e Objetos
+      ✓ deve compilar classe simples (1 ms)
+      ✓ deve compilar herança de classes
+    Programação Assíncrona
+      ✓ deve compilar função async/await (1 ms)
+      ✓ deve compilar promises (1 ms)
+    Tratamento de Erros
+      ✓ deve compilar try/catch
+    Validação
+      ✓ deve validar sintaxe correta (1 ms)
+      ✓ deve detectar erros de sintaxe
+    Transpilação
+      ✓ deve transpilar apenas sem executar (1 ms)
+    Estatísticas
+      ✓ deve gerar estatísticas de compilação (1 ms)
+    Execute
+      ✓ deve executar código simples (2 ms)
+      ✓ deve lidar com erros de execução (1 ms)
+      ✓ deve lidar com erro de compilação na execução
+    Casos Edge e Validação Avançada
+      ✓ deve detectar erro de JavaScript gerado (1 ms)
+      ✓ deve lidar com erro durante validação
+      ✓ deve lidar com erro durante tokenização
+
+----------------------|---------|----------|---------|---------|------------------------------------------------------------
+File                  | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                                          
+----------------------|---------|----------|---------|---------|------------------------------------------------------------
+All files             |    63.3 |    49.78 |   57.54 |   62.79 |                                                            
+ src                  |   57.69 |    38.57 |   31.57 |   57.69 |                                                            
+  browser.js          |       0 |        0 |       0 |       0 | 5-32                                                       
+  compiler.js         |   63.82 |     39.7 |   36.36 |   63.82 | 15,31-37,46-55,130-131,142-144,154-214,251-263,286,342-372 
+ src/cli              |       0 |        0 |       0 |       0 |                                                            
+  index.js            |       0 |        0 |       0 |       0 | 3-358                                                      
+ src/compiler         |   98.27 |    94.91 |     100 |    98.2 |                                                            
+  lexer.js            |   97.36 |    94.44 |     100 |   97.22 | 192                                                        
+  simpleTranspiler.js |   98.52 |    95.12 |     100 |   98.47 | 55-56                                                      
+ src/errors           |   82.35 |    51.16 |   84.61 |   82.35 |                                                            
+  ErroGoiano.js       |   81.81 |       70 |   66.66 |   81.81 | 63-69                                                      
+  errorTranslator.js  |   82.53 |    45.45 |      90 |   82.53 | 80-86,123-125,168                                          
+ src/goianoMethods    |   96.15 |    71.42 |     100 |   96.15 |                                                            
+  GoianoBuiltins.js   |   96.15 |    71.42 |     100 |   96.15 | 443                                                        
+----------------------|---------|----------|---------|---------|------------------------------------------------------------
+Test Suites: 5 passed, 5 total
+Tests:       85 passed, 85 total
+Snapshots:   0 total
+Time:        1.329 s, estimated 3 s
+Ran all test suites.
+corepack pnpm test:coverage  7,20s user 1,38s system 351% cpu 2,442 total

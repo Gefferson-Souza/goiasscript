@@ -1,0 +1,3119 @@
+{
+ "meta": {
+  "scannerVersion": "1.0.0",
+  "repo": "<repo>",
+  "git": {
+   "head": "cacbbcd25bbc48bb9d2d88c00bba35cecc2765da",
+   "branch": "feat/v1.5-launch-playground-engoianador"
+  },
+  "node": "v24.21.0",
+  "parsers": {
+   "babelParser": "7.29.3",
+   "babelTraverse": "7.29.0",
+   "babelTypes": "7.29.0"
+  },
+  "dictionaries": {
+   "mode": "dicionarios",
+   "dictionariesAvailable": true,
+   "hashes": {
+    "brazilian": "b3a4d4387490e563",
+    "portuguese": "0ae13d0be0b580a4",
+    "american-english": "9f513f1ceadb6a01",
+    "british-english": "7424d6682301dc86"
+   },
+   "ptSize": 431003,
+   "enSize": 65387,
+   "denylistWords": 0
+  },
+  "thresholds": {
+   "fileTarget": 400,
+   "fileMax": 800,
+   "functionLines": 50,
+   "depth": 4,
+   "blockNesting": 4,
+   "commentBlockLines": 4,
+   "repeatedStringMin": 3
+  },
+  "packages": [
+   "core",
+   "vscode-extension",
+   "playground",
+   "engoianador-api",
+   "playground-e2e"
+  ],
+  "filesScanned": 52,
+  "filesExcluded": [
+   {
+    "rel": "apps/playground/.next/types/app/doacao/page.ts",
+    "reason": "diretório/arquivo fora do escopo"
+   },
+   {
+    "rel": "apps/playground/.next/types/app/engoianador/layout.ts",
+    "reason": "diretório/arquivo fora do escopo"
+   },
+   {
+    "rel": "apps/playground/.next/types/app/engoianador/page.ts",
+    "reason": "diretório/arquivo fora do escopo"
+   },
+   {
+    "rel": "apps/playground/.next/types/app/page.ts",
+    "reason": "diretório/arquivo fora do escopo"
+   },
+   {
+    "rel": "apps/playground/.next/types/cache-life.d.ts",
+    "reason": "diretório/arquivo fora do escopo"
+   },
+   {
+    "rel": "apps/playground/.next/types/routes.d.ts",
+    "reason": "diretório/arquivo fora do escopo"
+   },
+   {
+    "rel": "apps/playground/.next/types/validator.ts",
+    "reason": "diretório/arquivo fora do escopo"
+   },
+   {
+    "rel": "apps/playground/next-env.d.ts",
+    "reason": "arquivo gerado pelo Next.js"
+   }
+  ],
+  "generatedAt": "2026-10-13T20:14:42.829Z",
+  "surfaceLexicon": {
+   "verbatim": 296,
+   "normalized": 287
+  }
+ },
+ "rules": [
+  {
+   "id": "R01",
+   "title": "Arquivo acima de 400 linhas (alvo)",
+   "owner": "coding-style: 200-400 típico",
+   "weight": 2
+  },
+  {
+   "id": "R02",
+   "title": "Arquivo acima de 800 linhas (máximo)",
+   "owner": "coding-style: 800 máx",
+   "weight": 2
+  },
+  {
+   "id": "R03",
+   "title": "Função/método acima de 50 linhas",
+   "owner": "coding-style: funções < 50",
+   "weight": 2
+  },
+  {
+   "id": "R04",
+   "title": "Profundidade de controle > 4 (max-depth)",
+   "owner": "coding-style: nesting <= 4",
+   "weight": 2
+  },
+  {
+   "id": "R05",
+   "title": "Chaves aninhadas > 4 (inclui closures)",
+   "owner": "coding-style: nesting <= 4",
+   "weight": 2
+  },
+  {
+   "id": "R06",
+   "title": "console.* fora de testes",
+   "owner": "code-generation-quality 8",
+   "weight": 3
+  },
+  {
+   "id": "R07",
+   "title": "any explícito (TypeScript)",
+   "owner": "code-generation-quality 1",
+   "weight": 3
+  },
+  {
+   "id": "R08",
+   "title": "@ts-ignore/@ts-expect-error sem justificativa",
+   "owner": "code-generation-quality 8",
+   "weight": 3
+  },
+  {
+   "id": "R09",
+   "title": "eslint-disable sem justificativa (-- motivo)",
+   "owner": "code-generation-quality 8",
+   "weight": 3
+  },
+  {
+   "id": "R10",
+   "title": "TODO/FIXME sem ticket",
+   "owner": "comments R3",
+   "weight": 3
+  },
+  {
+   "id": "R11",
+   "title": "Comentário em bloco > 4 linhas",
+   "owner": "comments R2/R3",
+   "weight": 1
+  },
+  {
+   "id": "R12",
+   "title": "Comentário ao lado do código",
+   "owner": "comments R3",
+   "weight": 1
+  },
+  {
+   "id": "R13",
+   "title": "Comentário de histórico/meta-processo",
+   "owner": "comments R2",
+   "weight": 1
+  },
+  {
+   "id": "R14",
+   "title": "Identificador em português (interno)",
+   "owner": "code-generation-quality 9",
+   "weight": 3
+  },
+  {
+   "id": "R15",
+   "title": "Número mágico",
+   "owner": "code-generation-quality 2",
+   "weight": 1
+  },
+  {
+   "id": "R16",
+   "title": "String repetida >= 3x (valor nominal)",
+   "owner": "code-generation-quality 2",
+   "weight": 1
+  },
+  {
+   "id": "R17",
+   "title": "Reatribuição de parâmetro",
+   "owner": "coding-style: imutabilidade",
+   "weight": 1
+  },
+  {
+   "id": "R18",
+   "title": "Mutação de objeto recebido por parâmetro",
+   "owner": "coding-style: imutabilidade",
+   "weight": 1
+  },
+  {
+   "id": "R19",
+   "title": "`let` nunca reatribuído / `var`",
+   "owner": "code-generation-quality 3",
+   "weight": 1
+  },
+  {
+   "id": "R20",
+   "title": "catch que engole o erro",
+   "owner": "code-generation-quality 7",
+   "weight": 3
+  },
+  {
+   "id": "R21",
+   "title": "Comentário que só rotula/narra (<= 7 palavras, sem porquê)",
+   "owner": "comments R2: narrar o quê",
+   "weight": 1
+  }
+ ],
+ "packages": {
+  "core": {
+   "files": 16,
+   "lines": 4213,
+   "codeLines": 3088,
+   "rules": {
+    "R01": {
+     "occurrences": 4,
+     "filesAffected": 4,
+     "filesApplicable": 16
+    },
+    "R02": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 16
+    },
+    "R03": {
+     "occurrences": 12,
+     "filesAffected": 6,
+     "filesApplicable": 16
+    },
+    "R04": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 16
+    },
+    "R05": {
+     "occurrences": 1,
+     "filesAffected": 1,
+     "filesApplicable": 16
+    },
+    "R06": {
+     "occurrences": 170,
+     "filesAffected": 4,
+     "filesApplicable": 10
+    },
+    "R07": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 0
+    },
+    "R08": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 16
+    },
+    "R09": {
+     "occurrences": 1,
+     "filesAffected": 1,
+     "filesApplicable": 16
+    },
+    "R10": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 16
+    },
+    "R11": {
+     "occurrences": 4,
+     "filesAffected": 4,
+     "filesApplicable": 16
+    },
+    "R12": {
+     "occurrences": 2,
+     "filesAffected": 2,
+     "filesApplicable": 16
+    },
+    "R13": {
+     "occurrences": 5,
+     "filesAffected": 4,
+     "filesApplicable": 16
+    },
+    "R14": {
+     "occurrences": 202,
+     "filesAffected": 12,
+     "filesApplicable": 16
+    },
+    "R15": {
+     "occurrences": 10,
+     "filesAffected": 4,
+     "filesApplicable": 10
+    },
+    "R16": {
+     "occurrences": 15,
+     "filesAffected": 3,
+     "filesApplicable": 10
+    },
+    "R17": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 16
+    },
+    "R18": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 16
+    },
+    "R19": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 16
+    },
+    "R20": {
+     "occurrences": 7,
+     "filesAffected": 3,
+     "filesApplicable": 16
+    },
+    "R21": {
+     "occurrences": 170,
+     "filesAffected": 13,
+     "filesApplicable": 16
+    }
+   },
+   "identifiers": {
+    "declaredTotal": 1167,
+    "ptInternalStrong": 191,
+    "ptInternalWeak": 0,
+    "ptMirror": 11,
+    "ptSurfaceExact": 131,
+    "domainTier": 17,
+    "distinctPtNames": 93,
+    "embeddedDeclared": 131,
+    "ptInEmbedded": 18
+   },
+   "comments": {
+    "total": 280,
+    "prose": 261,
+    "directives": 1,
+    "jsdoc": 57,
+    "jsdocPrivate": 19,
+    "inBodyCandidates": 155,
+    "weakHistoryCandidates": 1,
+    "languages": {
+     "pt": 126,
+     "en": 47,
+     "unk": 88
+    },
+    "commentLines": 473,
+    "codeLines": 3088,
+    "commentToCodePct": 15.3
+   },
+   "console": {
+    "byRole": {
+     "bin": 128,
+     "src": 3,
+     "cli": 39
+    },
+    "byMethod": {
+     "log": 131,
+     "error": 30,
+     "warn": 8,
+     "clear": 1
+    }
+   },
+   "misc": {
+    "nonNullAssertions": 0,
+    "typeCasts": 0,
+    "doubleCasts": 0,
+    "reassignedLet": 26,
+    "reduceAccumulatorIdioms": 0,
+    "catchDiscardingError": 0,
+    "jsdocAnyInJs": 0,
+    "tsDirectivesTotal": 0,
+    "eslintDisablesTotal": 1,
+    "nominalStringSites": 40,
+    "describeContainersOver50": 6,
+    "describeContainerLines": 988,
+    "functionsTotal": 298,
+    "functionsOver50Raw": 18,
+    "functionsOver50AfterEmbedded": 9
+   }
+  },
+  "vscode-extension": {
+   "files": 1,
+   "lines": 133,
+   "codeLines": 102,
+   "rules": {
+    "R01": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 1
+    },
+    "R02": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 1
+    },
+    "R03": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 1
+    },
+    "R04": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 1
+    },
+    "R05": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 1
+    },
+    "R06": {
+     "occurrences": 2,
+     "filesAffected": 1,
+     "filesApplicable": 1
+    },
+    "R07": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 0
+    },
+    "R08": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 1
+    },
+    "R09": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 1
+    },
+    "R10": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 1
+    },
+    "R11": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 1
+    },
+    "R12": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 1
+    },
+    "R13": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 1
+    },
+    "R14": {
+     "occurrences": 2,
+     "filesAffected": 1,
+     "filesApplicable": 1
+    },
+    "R15": {
+     "occurrences": 1,
+     "filesAffected": 1,
+     "filesApplicable": 1
+    },
+    "R16": {
+     "occurrences": 1,
+     "filesAffected": 1,
+     "filesApplicable": 1
+    },
+    "R17": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 1
+    },
+    "R18": {
+     "occurrences": 2,
+     "filesAffected": 1,
+     "filesApplicable": 1
+    },
+    "R19": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 1
+    },
+    "R20": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 1
+    },
+    "R21": {
+     "occurrences": 8,
+     "filesAffected": 1,
+     "filesApplicable": 1
+    }
+   },
+   "identifiers": {
+    "declaredTotal": 39,
+    "ptInternalStrong": 2,
+    "ptInternalWeak": 0,
+    "ptMirror": 0,
+    "ptSurfaceExact": 0,
+    "domainTier": 0,
+    "distinctPtNames": 2,
+    "embeddedDeclared": 0,
+    "ptInEmbedded": 0
+   },
+   "comments": {
+    "total": 8,
+    "prose": 8,
+    "directives": 0,
+    "jsdoc": 0,
+    "jsdocPrivate": 0,
+    "inBodyCandidates": 8,
+    "weakHistoryCandidates": 0,
+    "languages": {
+     "pt": 3,
+     "en": 0,
+     "unk": 5
+    },
+    "commentLines": 8,
+    "codeLines": 102,
+    "commentToCodePct": 7.8
+   },
+   "console": {
+    "byRole": {
+     "src": 2
+    },
+    "byMethod": {
+     "log": 2
+    }
+   },
+   "misc": {
+    "nonNullAssertions": 0,
+    "typeCasts": 0,
+    "doubleCasts": 0,
+    "reassignedLet": 1,
+    "reduceAccumulatorIdioms": 0,
+    "catchDiscardingError": 0,
+    "jsdocAnyInJs": 0,
+    "tsDirectivesTotal": 0,
+    "eslintDisablesTotal": 0,
+    "nominalStringSites": 3,
+    "describeContainersOver50": 0,
+    "describeContainerLines": 0,
+    "functionsTotal": 7,
+    "functionsOver50Raw": 0,
+    "functionsOver50AfterEmbedded": 0
+   }
+  },
+  "playground": {
+   "files": 21,
+   "lines": 1476,
+   "codeLines": 1284,
+   "rules": {
+    "R01": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 21
+    },
+    "R02": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 21
+    },
+    "R03": {
+     "occurrences": 6,
+     "filesAffected": 6,
+     "filesApplicable": 21
+    },
+    "R04": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 21
+    },
+    "R05": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 21
+    },
+    "R06": {
+     "occurrences": 6,
+     "filesAffected": 2,
+     "filesApplicable": 21
+    },
+    "R07": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 18
+    },
+    "R08": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 21
+    },
+    "R09": {
+     "occurrences": 1,
+     "filesAffected": 1,
+     "filesApplicable": 21
+    },
+    "R10": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 21
+    },
+    "R11": {
+     "occurrences": 2,
+     "filesAffected": 2,
+     "filesApplicable": 21
+    },
+    "R12": {
+     "occurrences": 1,
+     "filesAffected": 1,
+     "filesApplicable": 21
+    },
+    "R13": {
+     "occurrences": 1,
+     "filesAffected": 1,
+     "filesApplicable": 21
+    },
+    "R14": {
+     "occurrences": 55,
+     "filesAffected": 11,
+     "filesApplicable": 21
+    },
+    "R15": {
+     "occurrences": 16,
+     "filesAffected": 5,
+     "filesApplicable": 21
+    },
+    "R16": {
+     "occurrences": 5,
+     "filesAffected": 3,
+     "filesApplicable": 21
+    },
+    "R17": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 21
+    },
+    "R18": {
+     "occurrences": 2,
+     "filesAffected": 2,
+     "filesApplicable": 21
+    },
+    "R19": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 21
+    },
+    "R20": {
+     "occurrences": 3,
+     "filesAffected": 3,
+     "filesApplicable": 21
+    },
+    "R21": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 21
+    }
+   },
+   "identifiers": {
+    "declaredTotal": 515,
+    "ptInternalStrong": 55,
+    "ptInternalWeak": 0,
+    "ptMirror": 0,
+    "ptSurfaceExact": 0,
+    "domainTier": 4,
+    "distinctPtNames": 32,
+    "embeddedDeclared": 0,
+    "ptInEmbedded": 0
+   },
+   "comments": {
+    "total": 55,
+    "prose": 28,
+    "directives": 2,
+    "jsdoc": 5,
+    "jsdocPrivate": 0,
+    "inBodyCandidates": 10,
+    "weakHistoryCandidates": 2,
+    "languages": {
+     "pt": 25,
+     "en": 0,
+     "unk": 3
+    },
+    "commentLines": 56,
+    "codeLines": 1284,
+    "commentToCodePct": 4.4
+   },
+   "console": {
+    "byRole": {
+     "src": 1,
+     "config": 0,
+     "script": 5,
+     "declaration": 0
+    },
+    "byMethod": {
+     "error": 2,
+     "warn": 2,
+     "log": 2
+    }
+   },
+   "misc": {
+    "nonNullAssertions": 0,
+    "typeCasts": 5,
+    "doubleCasts": 0,
+    "reassignedLet": 3,
+    "reduceAccumulatorIdioms": 0,
+    "catchDiscardingError": 2,
+    "jsdocAnyInJs": 0,
+    "tsDirectivesTotal": 0,
+    "eslintDisablesTotal": 1,
+    "nominalStringSites": 42,
+    "describeContainersOver50": 0,
+    "describeContainerLines": 0,
+    "functionsTotal": 80,
+    "functionsOver50Raw": 6,
+    "functionsOver50AfterEmbedded": 2
+   }
+  },
+  "engoianador-api": {
+   "files": 9,
+   "lines": 504,
+   "codeLines": 418,
+   "rules": {
+    "R01": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 9
+    },
+    "R02": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 9
+    },
+    "R03": {
+     "occurrences": 1,
+     "filesAffected": 1,
+     "filesApplicable": 9
+    },
+    "R04": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 9
+    },
+    "R05": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 9
+    },
+    "R06": {
+     "occurrences": 2,
+     "filesAffected": 2,
+     "filesApplicable": 5
+    },
+    "R07": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 9
+    },
+    "R08": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 9
+    },
+    "R09": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 9
+    },
+    "R10": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 9
+    },
+    "R11": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 9
+    },
+    "R12": {
+     "occurrences": 2,
+     "filesAffected": 1,
+     "filesApplicable": 9
+    },
+    "R13": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 9
+    },
+    "R14": {
+     "occurrences": 20,
+     "filesAffected": 5,
+     "filesApplicable": 9
+    },
+    "R15": {
+     "occurrences": 15,
+     "filesAffected": 4,
+     "filesApplicable": 5
+    },
+    "R16": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 5
+    },
+    "R17": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 9
+    },
+    "R18": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 9
+    },
+    "R19": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 9
+    },
+    "R20": {
+     "occurrences": 2,
+     "filesAffected": 2,
+     "filesApplicable": 9
+    },
+    "R21": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 9
+    }
+   },
+   "identifiers": {
+    "declaredTotal": 218,
+    "ptInternalStrong": 20,
+    "ptInternalWeak": 0,
+    "ptMirror": 0,
+    "ptSurfaceExact": 0,
+    "domainTier": 2,
+    "distinctPtNames": 8,
+    "embeddedDeclared": 0,
+    "ptInEmbedded": 0
+   },
+   "comments": {
+    "total": 19,
+    "prose": 16,
+    "directives": 0,
+    "jsdoc": 4,
+    "jsdocPrivate": 0,
+    "inBodyCandidates": 9,
+    "weakHistoryCandidates": 0,
+    "languages": {
+     "pt": 14,
+     "en": 0,
+     "unk": 2
+    },
+    "commentLines": 29,
+    "codeLines": 418,
+    "commentToCodePct": 6.9
+   },
+   "console": {
+    "byRole": {
+     "src": 2
+    },
+    "byMethod": {
+     "warn": 1,
+     "error": 1
+    }
+   },
+   "misc": {
+    "nonNullAssertions": 0,
+    "typeCasts": 7,
+    "doubleCasts": 0,
+    "reassignedLet": 1,
+    "reduceAccumulatorIdioms": 0,
+    "catchDiscardingError": 1,
+    "jsdocAnyInJs": 0,
+    "tsDirectivesTotal": 0,
+    "eslintDisablesTotal": 0,
+    "nominalStringSites": 15,
+    "describeContainersOver50": 0,
+    "describeContainerLines": 0,
+    "functionsTotal": 40,
+    "functionsOver50Raw": 1,
+    "functionsOver50AfterEmbedded": 1
+   }
+  },
+  "playground-e2e": {
+   "files": 5,
+   "lines": 171,
+   "codeLines": 145,
+   "rules": {
+    "R01": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 5
+    },
+    "R02": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 5
+    },
+    "R03": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 5
+    },
+    "R04": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 5
+    },
+    "R05": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 5
+    },
+    "R06": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 0
+    },
+    "R07": {
+     "occurrences": 3,
+     "filesAffected": 2,
+     "filesApplicable": 5
+    },
+    "R08": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 5
+    },
+    "R09": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 5
+    },
+    "R10": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 5
+    },
+    "R11": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 5
+    },
+    "R12": {
+     "occurrences": 1,
+     "filesAffected": 1,
+     "filesApplicable": 5
+    },
+    "R13": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 5
+    },
+    "R14": {
+     "occurrences": 4,
+     "filesAffected": 3,
+     "filesApplicable": 5
+    },
+    "R15": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 0
+    },
+    "R16": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 0
+    },
+    "R17": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 5
+    },
+    "R18": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 5
+    },
+    "R19": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 5
+    },
+    "R20": {
+     "occurrences": 0,
+     "filesAffected": 0,
+     "filesApplicable": 5
+    },
+    "R21": {
+     "occurrences": 2,
+     "filesAffected": 1,
+     "filesApplicable": 5
+    }
+   },
+   "identifiers": {
+    "declaredTotal": 67,
+    "ptInternalStrong": 4,
+    "ptInternalWeak": 0,
+    "ptMirror": 0,
+    "ptSurfaceExact": 0,
+    "domainTier": 1,
+    "distinctPtNames": 4,
+    "embeddedDeclared": 0,
+    "ptInEmbedded": 0
+   },
+   "comments": {
+    "total": 10,
+    "prose": 9,
+    "directives": 0,
+    "jsdoc": 0,
+    "jsdocPrivate": 0,
+    "inBodyCandidates": 6,
+    "weakHistoryCandidates": 1,
+    "languages": {
+     "pt": 7,
+     "en": 0,
+     "unk": 2
+    },
+    "commentLines": 9,
+    "codeLines": 145,
+    "commentToCodePct": 6.2
+   },
+   "console": {
+    "byRole": {},
+    "byMethod": {}
+   },
+   "misc": {
+    "nonNullAssertions": 1,
+    "typeCasts": 4,
+    "doubleCasts": 1,
+    "reassignedLet": 1,
+    "reduceAccumulatorIdioms": 0,
+    "catchDiscardingError": 0,
+    "jsdocAnyInJs": 0,
+    "tsDirectivesTotal": 0,
+    "eslintDisablesTotal": 0,
+    "nominalStringSites": 0,
+    "describeContainersOver50": 0,
+    "describeContainerLines": 0,
+    "functionsTotal": 27,
+    "functionsOver50Raw": 0,
+    "functionsOver50AfterEmbedded": 0
+   }
+  }
+ },
+ "total": {
+  "files": 52,
+  "lines": 6497,
+  "codeLines": 5037,
+  "rules": {
+   "R01": {
+    "occurrences": 4,
+    "filesAffected": 4,
+    "filesApplicable": 52
+   },
+   "R02": {
+    "occurrences": 0,
+    "filesAffected": 0,
+    "filesApplicable": 52
+   },
+   "R03": {
+    "occurrences": 19,
+    "filesAffected": 13,
+    "filesApplicable": 52
+   },
+   "R04": {
+    "occurrences": 0,
+    "filesAffected": 0,
+    "filesApplicable": 52
+   },
+   "R05": {
+    "occurrences": 1,
+    "filesAffected": 1,
+    "filesApplicable": 52
+   },
+   "R06": {
+    "occurrences": 180,
+    "filesAffected": 9,
+    "filesApplicable": 37
+   },
+   "R07": {
+    "occurrences": 3,
+    "filesAffected": 2,
+    "filesApplicable": 32
+   },
+   "R08": {
+    "occurrences": 0,
+    "filesAffected": 0,
+    "filesApplicable": 52
+   },
+   "R09": {
+    "occurrences": 2,
+    "filesAffected": 2,
+    "filesApplicable": 52
+   },
+   "R10": {
+    "occurrences": 0,
+    "filesAffected": 0,
+    "filesApplicable": 52
+   },
+   "R11": {
+    "occurrences": 6,
+    "filesAffected": 6,
+    "filesApplicable": 52
+   },
+   "R12": {
+    "occurrences": 6,
+    "filesAffected": 5,
+    "filesApplicable": 52
+   },
+   "R13": {
+    "occurrences": 6,
+    "filesAffected": 5,
+    "filesApplicable": 52
+   },
+   "R14": {
+    "occurrences": 283,
+    "filesAffected": 32,
+    "filesApplicable": 52
+   },
+   "R15": {
+    "occurrences": 42,
+    "filesAffected": 14,
+    "filesApplicable": 37
+   },
+   "R16": {
+    "occurrences": 21,
+    "filesAffected": 7,
+    "filesApplicable": 37
+   },
+   "R17": {
+    "occurrences": 0,
+    "filesAffected": 0,
+    "filesApplicable": 52
+   },
+   "R18": {
+    "occurrences": 4,
+    "filesAffected": 3,
+    "filesApplicable": 52
+   },
+   "R19": {
+    "occurrences": 0,
+    "filesAffected": 0,
+    "filesApplicable": 52
+   },
+   "R20": {
+    "occurrences": 12,
+    "filesAffected": 8,
+    "filesApplicable": 52
+   },
+   "R21": {
+    "occurrences": 180,
+    "filesAffected": 15,
+    "filesApplicable": 52
+   }
+  },
+  "identifiers": {
+   "declaredTotal": 2006,
+   "ptInternalStrong": 272,
+   "ptInternalWeak": 0,
+   "ptMirror": 11,
+   "ptSurfaceExact": 131,
+   "domainTier": 24,
+   "distinctPtNames": 128,
+   "embeddedDeclared": 131,
+   "ptInEmbedded": 18
+  },
+  "comments": {
+   "total": 372,
+   "prose": 322,
+   "directives": 3,
+   "jsdoc": 66,
+   "jsdocPrivate": 19,
+   "inBodyCandidates": 188,
+   "weakHistoryCandidates": 4,
+   "languages": {
+    "pt": 175,
+    "en": 47,
+    "unk": 100
+   },
+   "commentLines": 575,
+   "codeLines": 5037,
+   "commentToCodePct": 11.4
+  },
+  "console": {
+   "byRole": {
+    "src": 8,
+    "config": 0,
+    "script": 5,
+    "declaration": 0,
+    "bin": 128,
+    "cli": 39
+   },
+   "byMethod": {
+    "warn": 11,
+    "error": 33,
+    "log": 135,
+    "clear": 1
+   }
+  },
+  "misc": {
+   "nonNullAssertions": 1,
+   "typeCasts": 16,
+   "doubleCasts": 1,
+   "reassignedLet": 32,
+   "reduceAccumulatorIdioms": 0,
+   "catchDiscardingError": 3,
+   "jsdocAnyInJs": 0,
+   "tsDirectivesTotal": 0,
+   "eslintDisablesTotal": 2,
+   "nominalStringSites": 100,
+   "describeContainersOver50": 6,
+   "describeContainerLines": 988,
+   "functionsTotal": 452,
+   "functionsOver50Raw": 25,
+   "functionsOver50AfterEmbedded": 12
+  }
+ },
+ "conformance": {
+  "R01": {
+   "applicable": 52,
+   "conformant": 48,
+   "pct": 92.3
+  },
+  "R02": {
+   "applicable": 52,
+   "conformant": 52,
+   "pct": 100
+  },
+  "R03": {
+   "applicable": 52,
+   "conformant": 39,
+   "pct": 75
+  },
+  "R04": {
+   "applicable": 52,
+   "conformant": 52,
+   "pct": 100
+  },
+  "R05": {
+   "applicable": 52,
+   "conformant": 51,
+   "pct": 98.1
+  },
+  "R06": {
+   "applicable": 37,
+   "conformant": 28,
+   "pct": 75.7
+  },
+  "R07": {
+   "applicable": 32,
+   "conformant": 30,
+   "pct": 93.8
+  },
+  "R08": {
+   "applicable": 52,
+   "conformant": 52,
+   "pct": 100
+  },
+  "R09": {
+   "applicable": 52,
+   "conformant": 50,
+   "pct": 96.2
+  },
+  "R10": {
+   "applicable": 52,
+   "conformant": 52,
+   "pct": 100
+  },
+  "R11": {
+   "applicable": 52,
+   "conformant": 46,
+   "pct": 88.5
+  },
+  "R12": {
+   "applicable": 52,
+   "conformant": 47,
+   "pct": 90.4
+  },
+  "R13": {
+   "applicable": 52,
+   "conformant": 47,
+   "pct": 90.4
+  },
+  "R14": {
+   "applicable": 52,
+   "conformant": 20,
+   "pct": 38.5
+  },
+  "R15": {
+   "applicable": 37,
+   "conformant": 23,
+   "pct": 62.2
+  },
+  "R16": {
+   "applicable": 37,
+   "conformant": 30,
+   "pct": 81.1
+  },
+  "R17": {
+   "applicable": 52,
+   "conformant": 52,
+   "pct": 100
+  },
+  "R18": {
+   "applicable": 52,
+   "conformant": 49,
+   "pct": 94.2
+  },
+  "R19": {
+   "applicable": 52,
+   "conformant": 52,
+   "pct": 100
+  },
+  "R20": {
+   "applicable": 52,
+   "conformant": 44,
+   "pct": 84.6
+  },
+  "R21": {
+   "applicable": 52,
+   "conformant": 37,
+   "pct": 71.2
+  }
+ },
+ "overall": {
+  "files": 52,
+  "filesFullyConformant": 6,
+  "filesConformantHookRules": 19,
+  "filesConformantSizeRules": 38,
+  "cellConformancePct": 87.7,
+  "totalOccurrences": 769
+ },
+ "topFiles": [
+  {
+   "file": "packages/core/bin/goiasscript.js",
+   "pkg": "core",
+   "role": "bin",
+   "lines": 654,
+   "score": 31.1,
+   "counts": {
+    "R01": 1,
+    "R03": 3,
+    "R05": 1,
+    "R06": 78,
+    "R14": 12,
+    "R15": 4,
+    "R16": 13,
+    "R20": 1,
+    "R21": 45
+   },
+   "total": 158
+  },
+  {
+   "file": "packages/core/bin/goias.js",
+   "pkg": "core",
+   "role": "bin",
+   "lines": 424,
+   "score": 26.2,
+   "counts": {
+    "R01": 1,
+    "R06": 50,
+    "R14": 11,
+    "R15": 1,
+    "R20": 2,
+    "R21": 16
+   },
+   "total": 81
+  },
+  {
+   "file": "packages/core/src/cli/index.js",
+   "pkg": "core",
+   "role": "cli",
+   "lines": 358,
+   "score": 24.9,
+   "counts": {
+    "R03": 3,
+    "R06": 39,
+    "R14": 19,
+    "R15": 3,
+    "R16": 1,
+    "R20": 4,
+    "R21": 13
+   },
+   "total": 82
+  },
+  {
+   "file": "packages/core/src/goianoMethods/GoianoBuiltins.js",
+   "pkg": "core",
+   "role": "src",
+   "lines": 449,
+   "score": 17.3,
+   "counts": {
+    "R01": 1,
+    "R03": 2,
+    "R14": 46,
+    "R21": 20
+   },
+   "total": 69
+  },
+  {
+   "file": "packages/core/src/errors/ErroGoiano.js",
+   "pkg": "core",
+   "role": "src",
+   "lines": 91,
+   "score": 11.4,
+   "counts": {
+    "R06": 3,
+    "R11": 1,
+    "R12": 1,
+    "R14": 36,
+    "R21": 1
+   },
+   "total": 42
+  },
+  {
+   "file": "packages/core/tests/unit/compiler.test.js",
+   "pkg": "core",
+   "role": "test",
+   "lines": 243,
+   "score": 11.3,
+   "counts": {
+    "R12": 1,
+    "R14": 33,
+    "R21": 5
+   },
+   "total": 39
+  },
+  {
+   "file": "apps/engoianador-api/src/index.ts",
+   "pkg": "engoianador-api",
+   "role": "src",
+   "lines": 112,
+   "score": 11,
+   "counts": {
+    "R03": 1,
+    "R06": 1,
+    "R14": 10,
+    "R15": 9
+   },
+   "total": 21
+  },
+  {
+   "file": "apps/playground/scripts/copy-examples.mjs",
+   "pkg": "playground",
+   "role": "script",
+   "lines": 58,
+   "score": 10.5,
+   "counts": {
+    "R06": 5,
+    "R14": 8
+   },
+   "total": 13
+  },
+  {
+   "file": "packages/core/src/compiler/simpleTranspiler.js",
+   "pkg": "core",
+   "role": "src",
+   "lines": 434,
+   "score": 9.7,
+   "counts": {
+    "R01": 1,
+    "R03": 2,
+    "R11": 1,
+    "R13": 1,
+    "R21": 31
+   },
+   "total": 36
+  },
+  {
+   "file": "packages/core/tests/unit/errors.test.js",
+   "pkg": "core",
+   "role": "test",
+   "lines": 123,
+   "score": 9.4,
+   "counts": {
+    "R14": 22
+   },
+   "total": 22
+  },
+  {
+   "file": "apps/playground/app/engoianador/page.tsx",
+   "pkg": "playground",
+   "role": "src",
+   "lines": 186,
+   "score": 9,
+   "counts": {
+    "R03": 1,
+    "R14": 18,
+    "R15": 1,
+    "R20": 1
+   },
+   "total": 21
+  },
+  {
+   "file": "packages/core/tests/unit/lexer.test.js",
+   "pkg": "core",
+   "role": "test",
+   "lines": 219,
+   "score": 8.1,
+   "counts": {
+    "R14": 8,
+    "R21": 2
+   },
+   "total": 10
+  },
+  {
+   "file": "packages/core/tests/unit/goianoBuiltins.test.js",
+   "pkg": "core",
+   "role": "test",
+   "lines": 173,
+   "score": 7.5,
+   "counts": {
+    "R14": 8
+   },
+   "total": 8
+  },
+  {
+   "file": "vscode-extension/src/extension.js",
+   "pkg": "vscode-extension",
+   "role": "src",
+   "lines": 133,
+   "score": 6.5,
+   "counts": {
+    "R06": 2,
+    "R14": 2,
+    "R15": 1,
+    "R16": 1,
+    "R18": 2,
+    "R21": 8
+   },
+   "total": 16
+  },
+  {
+   "file": "apps/playground/components/Toolbar.tsx",
+   "pkg": "playground",
+   "role": "src",
+   "lines": 81,
+   "score": 6,
+   "counts": {
+    "R03": 1,
+    "R06": 1,
+    "R12": 1,
+    "R14": 6
+   },
+   "total": 9
+  },
+  {
+   "file": "apps/engoianador-api/src/engoiana.ts",
+   "pkg": "engoianador-api",
+   "role": "src",
+   "lines": 83,
+   "score": 5.3,
+   "counts": {
+    "R06": 1,
+    "R14": 4,
+    "R15": 3,
+    "R20": 1
+   },
+   "total": 9
+  },
+  {
+   "file": "apps/playground/tailwind.config.ts",
+   "pkg": "playground",
+   "role": "config",
+   "lines": 26,
+   "score": 5.3,
+   "counts": {
+    "R14": 7
+   },
+   "total": 7
+  },
+  {
+   "file": "packages/core/src/compiler/lexer.js",
+   "pkg": "core",
+   "role": "src",
+   "lines": 205,
+   "score": 4.6,
+   "counts": {
+    "R03": 1,
+    "R11": 1,
+    "R13": 1,
+    "R14": 1,
+    "R21": 19
+   },
+   "total": 23
+  },
+  {
+   "file": "packages/core/src/compiler.js",
+   "pkg": "core",
+   "role": "src",
+   "lines": 397,
+   "score": 4.3,
+   "counts": {
+    "R03": 1,
+    "R09": 1,
+    "R11": 1,
+    "R13": 2,
+    "R15": 2,
+    "R16": 1,
+    "R21": 5
+   },
+   "total": 13
+  },
+  {
+   "file": "packages/core/src/browser.js",
+   "pkg": "core",
+   "role": "src",
+   "lines": 32,
+   "score": 4.3,
+   "counts": {
+    "R13": 1,
+    "R14": 5
+   },
+   "total": 6
+  }
+ ],
+ "topFunctions": [
+  {
+   "file": "packages/core/bin/goiasscript.js",
+   "pkg": "core",
+   "line": 162,
+   "name": "arma_o_barraco",
+   "kind": "method",
+   "lines": 272,
+   "codeLines": 210,
+   "templateLines": 84,
+   "jsxLines": 0,
+   "adjustedLines": 188,
+   "maxDepth": 3,
+   "blockNesting": 5,
+   "testContainer": false
+  },
+  {
+   "file": "packages/core/src/goianoMethods/GoianoBuiltins.js",
+   "pkg": "core",
+   "line": 118,
+   "name": "gerarImplementacaoGoiana",
+   "kind": "method",
+   "lines": 248,
+   "codeLines": 194,
+   "templateLines": 245,
+   "jsxLines": 0,
+   "adjustedLines": 3,
+   "maxDepth": 0,
+   "blockNesting": 0,
+   "testContainer": false
+  },
+  {
+   "file": "packages/core/tests/unit/compiler.test.js",
+   "pkg": "core",
+   "line": 3,
+   "name": "callback(describe)",
+   "kind": "arrow",
+   "lines": 241,
+   "codeLines": 192,
+   "templateLines": 38,
+   "jsxLines": 0,
+   "adjustedLines": 203,
+   "maxDepth": 0,
+   "blockNesting": 3,
+   "testContainer": true
+  },
+  {
+   "file": "packages/core/tests/unit/lexer.test.js",
+   "pkg": "core",
+   "line": 3,
+   "name": "callback(describe)",
+   "kind": "arrow",
+   "lines": 217,
+   "codeLines": 177,
+   "templateLines": 5,
+   "jsxLines": 0,
+   "adjustedLines": 212,
+   "maxDepth": 0,
+   "blockNesting": 2,
+   "testContainer": true
+  },
+  {
+   "file": "packages/core/tests/unit/goianoBuiltins.test.js",
+   "pkg": "core",
+   "line": 3,
+   "name": "callback(describe)",
+   "kind": "arrow",
+   "lines": 171,
+   "codeLines": 139,
+   "templateLines": 8,
+   "jsxLines": 0,
+   "adjustedLines": 163,
+   "maxDepth": 0,
+   "blockNesting": 2,
+   "testContainer": true
+  },
+  {
+   "file": "packages/core/tests/unit/cli.test.js",
+   "pkg": "core",
+   "line": 9,
+   "name": "callback(describe)",
+   "kind": "arrow",
+   "lines": 162,
+   "codeLines": 121,
+   "templateLines": 0,
+   "jsxLines": 0,
+   "adjustedLines": 162,
+   "maxDepth": 0,
+   "blockNesting": 3,
+   "testContainer": true
+  },
+  {
+   "file": "apps/playground/app/engoianador/page.tsx",
+   "pkg": "playground",
+   "line": 34,
+   "name": "EngoianadorPage",
+   "kind": "function",
+   "lines": 153,
+   "codeLines": 140,
+   "templateLines": 0,
+   "jsxLines": 97,
+   "adjustedLines": 56,
+   "maxDepth": 0,
+   "blockNesting": 2,
+   "testContainer": false
+  },
+  {
+   "file": "packages/core/src/compiler/simpleTranspiler.js",
+   "pkg": "core",
+   "line": 68,
+   "name": "_applySubstitutions",
+   "kind": "method",
+   "lines": 137,
+   "codeLines": 89,
+   "templateLines": 0,
+   "jsxLines": 0,
+   "adjustedLines": 137,
+   "maxDepth": 0,
+   "blockNesting": 2,
+   "testContainer": false
+  },
+  {
+   "file": "packages/core/tests/unit/lexer.test.js",
+   "pkg": "core",
+   "line": 10,
+   "name": "callback(describe)",
+   "kind": "arrow",
+   "lines": 125,
+   "codeLines": 102,
+   "templateLines": 5,
+   "jsxLines": 0,
+   "adjustedLines": 120,
+   "maxDepth": 0,
+   "blockNesting": 1,
+   "testContainer": true
+  },
+  {
+   "file": "packages/core/src/goianoMethods/GoianoBuiltins.js",
+   "pkg": "core",
+   "line": 5,
+   "name": "constructor",
+   "kind": "constructor",
+   "lines": 111,
+   "codeLines": 93,
+   "templateLines": 0,
+   "jsxLines": 0,
+   "adjustedLines": 111,
+   "maxDepth": 0,
+   "blockNesting": 0,
+   "testContainer": false
+  },
+  {
+   "file": "packages/core/src/compiler/lexer.js",
+   "pkg": "core",
+   "line": 6,
+   "name": "constructor",
+   "kind": "constructor",
+   "lines": 94,
+   "codeLines": 63,
+   "templateLines": 0,
+   "jsxLines": 0,
+   "adjustedLines": 94,
+   "maxDepth": 0,
+   "blockNesting": 0,
+   "testContainer": false
+  },
+  {
+   "file": "apps/playground/components/DonationLinks.tsx",
+   "pkg": "playground",
+   "line": 11,
+   "name": "DonationLinks",
+   "kind": "function",
+   "lines": 92,
+   "codeLines": 87,
+   "templateLines": 0,
+   "jsxLines": 71,
+   "adjustedLines": 21,
+   "maxDepth": 1,
+   "blockNesting": 2,
+   "testContainer": false
+  },
+  {
+   "file": "packages/core/src/compiler.js",
+   "pkg": "core",
+   "line": 89,
+   "name": "compile",
+   "kind": "method",
+   "lines": 82,
+   "codeLines": 70,
+   "templateLines": 0,
+   "jsxLines": 0,
+   "adjustedLines": 82,
+   "maxDepth": 3,
+   "blockNesting": 3,
+   "testContainer": false
+  },
+  {
+   "file": "packages/core/src/cli/index.js",
+   "pkg": "core",
+   "line": 148,
+   "name": "initProject",
+   "kind": "method",
+   "lines": 79,
+   "codeLines": 56,
+   "templateLines": 31,
+   "jsxLines": 0,
+   "adjustedLines": 48,
+   "maxDepth": 1,
+   "blockNesting": 1,
+   "testContainer": false
+  },
+  {
+   "file": "apps/playground/lib/use-runner.ts",
+   "pkg": "playground",
+   "line": 16,
+   "name": "useRunner",
+   "kind": "function",
+   "lines": 74,
+   "codeLines": 64,
+   "templateLines": 0,
+   "jsxLines": 0,
+   "adjustedLines": 74,
+   "maxDepth": 0,
+   "blockNesting": 3,
+   "testContainer": false
+  },
+  {
+   "file": "packages/core/tests/unit/errors.test.js",
+   "pkg": "core",
+   "line": 52,
+   "name": "callback(describe)",
+   "kind": "arrow",
+   "lines": 72,
+   "codeLines": 57,
+   "templateLines": 0,
+   "jsxLines": 0,
+   "adjustedLines": 72,
+   "maxDepth": 0,
+   "blockNesting": 1,
+   "testContainer": true
+  },
+  {
+   "file": "packages/core/bin/goiasscript.js",
+   "pkg": "core",
+   "line": 27,
+   "name": "traduz",
+   "kind": "method",
+   "lines": 70,
+   "codeLines": 58,
+   "templateLines": 0,
+   "jsxLines": 0,
+   "adjustedLines": 70,
+   "maxDepth": 3,
+   "blockNesting": 4,
+   "testContainer": false
+  },
+  {
+   "file": "packages/core/src/compiler/simpleTranspiler.js",
+   "pkg": "core",
+   "line": 220,
+   "name": "_convertJSMethodsToGoiano",
+   "kind": "method",
+   "lines": 70,
+   "codeLines": 57,
+   "templateLines": 0,
+   "jsxLines": 0,
+   "adjustedLines": 70,
+   "maxDepth": 0,
+   "blockNesting": 0,
+   "testContainer": false
+  },
+  {
+   "file": "apps/playground/components/Toolbar.tsx",
+   "pkg": "playground",
+   "line": 13,
+   "name": "Toolbar",
+   "kind": "function",
+   "lines": 69,
+   "codeLines": 63,
+   "templateLines": 0,
+   "jsxLines": 44,
+   "adjustedLines": 25,
+   "maxDepth": 0,
+   "blockNesting": 2,
+   "testContainer": false
+  },
+  {
+   "file": "apps/engoianador-api/src/index.ts",
+   "pkg": "engoianador-api",
+   "line": 47,
+   "name": "handleEngoiana",
+   "kind": "function",
+   "lines": 66,
+   "codeLines": 60,
+   "templateLines": 0,
+   "jsxLines": 0,
+   "adjustedLines": 66,
+   "maxDepth": 1,
+   "blockNesting": 1,
+   "testContainer": false
+  }
+ ],
+ "evaluations": {
+  "apps/engoianador-api/src/cors.ts": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 0,
+   "R15": 1,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/engoianador-api/src/engoiana.ts": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 1,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 4,
+   "R15": 3,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 1,
+   "R21": 0
+  },
+  "apps/engoianador-api/src/index.ts": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 1,
+   "R04": 0,
+   "R05": 0,
+   "R06": 1,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 10,
+   "R15": 9,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/engoianador-api/src/prompt.ts": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 2,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/engoianador-api/src/rate-limit.ts": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 2,
+   "R13": 0,
+   "R14": 0,
+   "R15": 2,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 1,
+   "R21": 0
+  },
+  "apps/engoianador-api/test/cors.test.ts": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 0,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/engoianador-api/test/helpers.ts": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 0,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/engoianador-api/test/prompt.test.ts": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 3,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/engoianador-api/test/rate-limit.test.ts": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 1,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground-e2e/tests/doacao.spec.ts": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 0,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground-e2e/tests/engoianador.spec.ts": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 1,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground-e2e/tests/examples.spec.ts": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 1,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 2,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground-e2e/tests/home.spec.ts": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 0,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 2
+  },
+  "apps/playground-e2e/tests/security.spec.ts": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 2,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 1,
+   "R13": 0,
+   "R14": 1,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground/app/doacao/page.tsx": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 1,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground/app/engoianador/layout.tsx": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 0,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground/app/engoianador/page.tsx": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 1,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 18,
+   "R15": 1,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 1,
+   "R21": 0
+  },
+  "apps/playground/app/layout.tsx": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 0,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground/app/opengraph-image.tsx": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 1,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 0,
+   "R15": 12,
+   "R16": 2,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground/app/page.tsx": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 0,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 1,
+   "R21": 0
+  },
+  "apps/playground/components/DonationLinks.tsx": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 1,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 1,
+   "R14": 3,
+   "R15": 1,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 1,
+   "R21": 0
+  },
+  "apps/playground/components/Editor.tsx": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 0,
+   "R15": 1,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground/components/OutputPanel.tsx": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 1,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 4,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground/components/ShareCard.tsx": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 0,
+   "R15": 1,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground/components/Toolbar.tsx": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 1,
+   "R04": 0,
+   "R05": 0,
+   "R06": 1,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 1,
+   "R13": 0,
+   "R14": 6,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground/lib/engoianador-client.ts": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 2,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground/lib/monaco-goias.ts": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 0,
+   "R15": 0,
+   "R16": 2,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground/lib/share.ts": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 1,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground/lib/use-runner.ts": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 1,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 0,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground/next.config.mjs": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 1,
+   "R12": 0,
+   "R13": 0,
+   "R14": 0,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 1,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground/postcss.config.mjs": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 0,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground/scripts/copy-examples.mjs": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 5,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 8,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground/tailwind.config.ts": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 7,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground/types/goiasscript.d.ts": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 4,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "apps/playground/workers/runner.worker.ts": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 1,
+   "R10": 0,
+   "R11": 1,
+   "R12": 0,
+   "R13": 0,
+   "R14": 1,
+   "R15": 0,
+   "R16": 1,
+   "R17": 0,
+   "R18": 1,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "packages/core/bin/goias.js": {
+   "R01": 1,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 50,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 11,
+   "R15": 1,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 2,
+   "R21": 16
+  },
+  "packages/core/bin/goiasscript.js": {
+   "R01": 1,
+   "R02": 0,
+   "R03": 3,
+   "R04": 0,
+   "R05": 1,
+   "R06": 78,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 12,
+   "R15": 4,
+   "R16": 13,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 1,
+   "R21": 45
+  },
+  "packages/core/src/browser.js": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 1,
+   "R14": 5,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "packages/core/src/cli/index.js": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 3,
+   "R04": 0,
+   "R05": 0,
+   "R06": 39,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 19,
+   "R15": 3,
+   "R16": 1,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 4,
+   "R21": 13
+  },
+  "packages/core/src/compiler.js": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 1,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 1,
+   "R10": 0,
+   "R11": 1,
+   "R12": 0,
+   "R13": 2,
+   "R14": 0,
+   "R15": 2,
+   "R16": 1,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 5
+  },
+  "packages/core/src/compiler/lexer.js": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 1,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 1,
+   "R12": 0,
+   "R13": 1,
+   "R14": 1,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 19
+  },
+  "packages/core/src/compiler/simpleTranspiler.js": {
+   "R01": 1,
+   "R02": 0,
+   "R03": 2,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 1,
+   "R12": 0,
+   "R13": 1,
+   "R14": 0,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 31
+  },
+  "packages/core/src/errors/ErroGoiano.js": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 3,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 1,
+   "R12": 1,
+   "R13": 0,
+   "R14": 36,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 1
+  },
+  "packages/core/src/errors/errorTranslator.js": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 1,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 3
+  },
+  "packages/core/src/goianoMethods/GoianoBuiltins.js": {
+   "R01": 1,
+   "R02": 0,
+   "R03": 2,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 46,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 20
+  },
+  "packages/core/tests/setup.js": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 0,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 4
+  },
+  "packages/core/tests/unit/cli.test.js": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 0,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 6
+  },
+  "packages/core/tests/unit/compiler.test.js": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 1,
+   "R13": 0,
+   "R14": 33,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 5
+  },
+  "packages/core/tests/unit/errors.test.js": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 22,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "packages/core/tests/unit/goianoBuiltins.test.js": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 8,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 0
+  },
+  "packages/core/tests/unit/lexer.test.js": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 0,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 8,
+   "R15": 0,
+   "R16": 0,
+   "R17": 0,
+   "R18": 0,
+   "R19": 0,
+   "R20": 0,
+   "R21": 2
+  },
+  "vscode-extension/src/extension.js": {
+   "R01": 0,
+   "R02": 0,
+   "R03": 0,
+   "R04": 0,
+   "R05": 0,
+   "R06": 2,
+   "R07": 0,
+   "R08": 0,
+   "R09": 0,
+   "R10": 0,
+   "R11": 0,
+   "R12": 0,
+   "R13": 0,
+   "R14": 2,
+   "R15": 1,
+   "R16": 1,
+   "R17": 0,
+   "R18": 2,
+   "R19": 0,
+   "R20": 0,
+   "R21": 8
+  }
+ }
+}

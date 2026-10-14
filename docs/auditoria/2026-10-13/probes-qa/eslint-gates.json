@@ -1,0 +1,16 @@
+{
+  "root": true,
+  "env": { "node": true, "es2021": true, "jest": true },
+  "parserOptions": { "ecmaVersion": "latest", "sourceType": "script" },
+  "rules": {
+    "max-lines": ["warn", { "max": 400, "skipBlankLines": true, "skipComments": true }],
+    "max-lines-per-function": ["warn", { "max": 50, "skipBlankLines": true, "skipComments": true }],
+    "max-depth": ["warn", 4],
+    "max-params": ["warn", 4],
+    "complexity": ["warn", 10],
+    "no-param-reassign": "warn",
+    "no-magic-numbers": ["warn", { "ignore": [0, 1, -1, 2], "ignoreArrayIndexes": true }],
+    "no-eval": "error",
+    "no-new-func": "error"
+  }
+}

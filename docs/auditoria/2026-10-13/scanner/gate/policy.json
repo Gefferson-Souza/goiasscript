@@ -1,0 +1,33 @@
+{
+  "descricao": "Severidade por regra, derivada do ruído medido na validação manual. error bloqueia regressão; warn só anota.",
+  "severity": {
+    "R01": "warn",
+    "R02": "error",
+    "R03": "warn",
+    "R04": "error",
+    "R05": "error",
+    "R06": "error",
+    "R07": "error",
+    "R08": "error",
+    "R09": "error",
+    "R10": "error",
+    "R11": "error",
+    "R12": "error",
+    "R13": "error",
+    "R14": "error",
+    "R15": "warn",
+    "R16": "warn",
+    "R17": "error",
+    "R18": "warn",
+    "R19": "error",
+    "R20": "warn",
+    "R21": "warn"
+  },
+  "overrides": [
+    {
+      "motivo": "saída de CLI, REPL e scripts de build é a interface com o usuário; console é o canal legítimo",
+      "pathPrefixes": ["packages/core/bin/", "packages/core/src/cli/", "apps/playground/scripts/"],
+      "severity": { "R06": "warn" }
+    }
+  ]
+}

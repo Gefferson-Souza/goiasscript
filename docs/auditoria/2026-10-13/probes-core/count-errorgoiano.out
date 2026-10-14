@@ -1,0 +1,17 @@
+entradas reais testadas = 197
+transpile ok = 190
+transpile falhou com objeto simples (_validateSyntax, não é ErroGoiano) = 7
+transpile falhou com ErroGoiano (exceção interna capturada + ErrorTranslator) = 0
+ErroGoiano construídos no total = 0
+   bateria:E04 -> objeto simples: Erro de sintaxe na linha 1: Declaração de variável incompleta
+   bateria:E05 -> objeto simples: Erro de sintaxe na linha 1: Declaração de variável incompleta
+   bateria:U01 -> objeto simples: Erro de sintaxe na linha 1: Declaração de variável incompleta
+   bateria:V01 -> objeto simples: Erro de sintaxe na linha 1: Chaves desbalanceadas
+   bateria:V02 -> objeto simples: Erro de sintaxe na linha 1: Chaves desbalanceadas
+   bateria:V03 -> objeto simples: Erro de sintaxe na linha 1: Chaves desbalanceadas
+   bateria:V08 -> objeto simples: Erro de sintaxe na linha 1: Declaração de variável incompleta
+transpile(undefined) -> success=false ErroGoiano criado=true
+transpile(null) -> success=false ErroGoiano criado=true
+transpile(123) -> success=false ErroGoiano criado=true
+transpile({}) -> success=false ErroGoiano criado=true
+transpile([]) -> success=false ErroGoiano criado=true

@@ -1,0 +1,21 @@
+transpiler: 53 chaves canônicas
+
+== TextMate (extensão): 104 termos
+  fora do transpiler (55): se senao diferente_de num pra Componente Controlador Injectable Servico Entrada Saida Pegar Postar Colocar Apagar Corpo Params Query Module Controller Service Component vazio sei_lá ninguem_fuça só_da_famia todo_mundo_vê fixo tem depois_de filtrar mapear fatiar tamanho empurrar contem pra_minusculo pra_maiusculo gritando cochichando tem_no_meio trocar dividir bota_no_final arranca_o_rabo troca_ideia troca_ideia_principal tudo_de texto numero booleano lista objeto funcao coisa
+  chaves do transpiler ausentes (4): vai_na_frente_faz_trem faz_trem indefinido ocê
+
+== Monarch (playground): 78 termos
+  fora do transpiler (31): se senao pega troca_ideia troca_ideia_principal pra tudo_de vazio sei_lá ninguem_fuça só_da_famia todo_mundo_vê fixo texto numero booleano lista objeto funcao coisa tem num prosa_erro prosa_aviso GoianoMath vira_numero vira_decimal depois_de repetir_a_cada cancelar_depois cancelar_repeticao
+  chaves do transpiler ausentes (6): vai_na_frente_faz_trem promessa quando_resolver se_der_pobrema resolve_aí rejeita_isso
+
+== CLAUDE.md: 33 termos
+  fora do transpiler (3): fazer se senao
+  chaves do transpiler ausentes (23): vai_na_frente_faz_trem é_tipo_de arruma_trem inherda_de aprepara_trem num_muda para_com_isso continua_aí vai_na_frente espera_um_cadim sobrou reclama promessa quando_resolver se_der_pobrema resolve_aí rejeita_isso tenta_aí se_der_ruim por_fim vixe em de
+
+== README (tabelas): 22 termos
+  fora do transpiler (5): goiasscript traduz <arquivo.gs> goiasscript bota_pra_moer <arquivo.gs> goiasscript vê_se_tá_certo <arquivo.gs> goiasscript arma_o_barraco <nome> goiasscript dedo_de_prosa
+  chaves do transpiler ausentes (36): vai_na_frente_faz_trem é_tipo_de arruma_trem inherda_de aprepara_trem num_muda se_ocê_quiser se_num_for se_não vai_indo enquanto_tiver para_com_isso continua_aí faz_trem faz_favor vai_na_frente espera_um_cadim pelo_menos no_máximo sobrou prosa reclama promessa quando_resolver se_der_pobrema resolve_aí rejeita_isso tenta_aí se_der_ruim por_fim faz_um vixe em de trem uai
+
+== lexer.js: 87 termos
+  fora do transpiler (38): const var this class constructor extends instanceof static if else for while break continue presta_serviço function return async await log error Error vazio null sei_lá undefined true false in of Promise then catch resolve reject try finally new
+  chaves do transpiler ausentes (4): vai_na_frente_faz_trem faz_trem nada indefinido

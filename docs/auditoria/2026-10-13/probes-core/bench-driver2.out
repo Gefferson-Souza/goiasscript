@@ -1,0 +1,6 @@
+cenário               nativo     goiano sloppy (CLI/REPL)     goiano strict (playground)
+includes_vary           57.3                 238.3 (4.2x)                    45.1 (0.8x)
+upper_trim              76.4                   393 (5.1x)                   119.5 (1.6x)
+replace                 76.1                 107.8 (1.4x)                    84.8 (1.1x)
+forin                    8.7                140.4 (16.1x)                  156.1 (17.9x)
+map                     57.8                  76.3 (1.3x)                    58.8 (1.0x)
