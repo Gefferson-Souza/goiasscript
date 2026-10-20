@@ -65,3 +65,17 @@ export const JS_GLOBALS: ReadonlyMap<string, string> = new Map([
   ['console', 'prosa'], ['setTimeout', 'daqui_a_pouco'], ['setInterval', 'toda_hora'], ['Math', 'Conta'], ['Promise', 'promessa'],
   ['Error', 'Erro'], ['Date', 'Data'], ['Object', 'Coisa'],
 ]);
+
+export const LIBRARY_GLOBALS: ReadonlyMap<string, string> = new Map([
+  ['prosa', 'console.log'], ['reclama', 'console.error'], ['avisa', 'console.warn'], ['daqui_a_pouco', 'setTimeout'],
+  ['toda_hora', 'setInterval'], ['promessa', 'Promise'], ['Erro', 'Error'], ['Data', 'Date'],
+]);
+
+export const LIBRARY_MEMBERS: ReadonlyMap<string, string> = new Map([
+  ['mapear', 'map'], ['filtrar', 'filter'], ['pra_cada', 'forEach'], ['juntar', 'join'], ['tamanho', 'length'],
+  ['bota_no_final', 'push'], ['arranca_o_rabo', 'pop'], ['gritando', 'toUpperCase'], ['cochichando', 'toLowerCase'],
+]);
+
+export const THROW_WRAPPED = 'throw new Error';
+export const THROW_PLAIN = 'throw ';
+export const BYTE_ORDER_MARK = '﻿';

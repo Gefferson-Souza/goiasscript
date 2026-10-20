@@ -154,18 +154,18 @@ class Parser extends ParserBase {
   private parseVariableCore(inFor: boolean): Ast.VariableDeclaration {
     const declarationToken = this.advance();
     const id = this.parseBindingName();
-    const init = this.parseInitializer();
+    const { init, assignToken } = this.parseInitializer();
     if (init === null && !inFor && isKeyword(declarationToken, 'uai')) this.report(CODE.constWithoutValue, declarationToken.start, id.end);
-    return { type: 'VariableDeclaration', start: declarationToken.start, end: this.previousEnd, declarationToken, id, init, needsTerminator: false };
+    return { type: 'VariableDeclaration', start: declarationToken.start, end: this.previousEnd, declarationToken, id, init, needsTerminator: false, ...(assignToken ? { assignToken } : {}) };
   }
 
-  private parseInitializer(): Ast.Expression | null {
+  private parseInitializer(): { readonly init: Ast.Expression | null; readonly assignToken?: Token } {
     const token = this.cur();
-    if (!isKeyword(token, 'é') && !isPunct(token, '=')) return null;
+    if (!isKeyword(token, 'é') && !isPunct(token, '=')) return { init: null };
     this.advance();
     this.reportJsOperator(token);
     this.skipNewlines();
-    return this.parseExpression(PRECEDENCE_ASSIGNMENT);
+    return { init: this.parseExpression(PRECEDENCE_ASSIGNMENT), assignToken: token };
   }
 
   private parseVariableStatement(): Ast.VariableDeclaration {
