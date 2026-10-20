@@ -1,0 +1,20 @@
+{
+  "pipelineFactor": 1.3,
+  "items": [
+    { "id": "U2-01", "lines": 900, "reason": "keywords, jsReserved, stdlib (60 entradas), retiredWords, limits, lookup" },
+    { "id": "U2-02", "lines": 220, "reason": "fonte, posições, conversões de base, alfabeto P5" },
+    { "id": "U2-03", "lines": 1000, "reason": "cerca de 70 códigos em dois tons, com ajuda e exemplo, e explainDiagnostic" },
+    { "id": "U2-04", "basis": ["lexer.ts"], "factor": 4, "reason": "alfabeto, NFC, template e regex, trivia, números à brasileira" },
+    { "id": "U2-05", "basis": ["parser.ts", "ast.types.ts"], "factor": 2, "reason": "subconjunto inteiro, §4.6 completo, incomplete, profundidade" },
+    { "id": "U2-06", "basis": ["parser.ts"], "factor": 0.6, "reason": "diagnósticos de subconjunto e de JavaScript, regex, P6, P7, P12" },
+    { "id": "U2-07", "lines": 1500, "reason": "sem base no PoC: escopos, censo de membros, reservas, avisos, sessão do REPL" },
+    { "id": "U2-08", "basis": ["emit.ts", "compile.ts"], "factor": 12, "reason": "macros, ajudantes, alvos, trava de laço, NFC, await automático" },
+    { "id": "U2-09", "lines": 300, "reason": "VLQ, source map por token, helperRange, ignoreList" },
+    { "id": "U2-10", "lines": 250, "reason": "API da §5.9 e GS0901" },
+    { "id": "U2-11", "lines": 450, "reason": "tradução de erros de execução e frases de .mensagem" },
+    { "id": "U2-12", "lines": 700, "reason": "doze geradores da tabela" },
+    { "id": "U2-13", "lines": 120, "reason": "Terser com mapa composto" },
+    { "id": "U2-14", "lines": 400, "reason": "executor do corpus e propriedades fast-check" },
+    { "id": "U2-15", "lines": 250, "reason": "orçamentos, Stryker, relatório" }
+  ]
+}

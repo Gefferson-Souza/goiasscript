@@ -32,3 +32,18 @@ Gravados antes de qualquer medição e nunca renegociados depois dela. Node 24; 
 
 Depois da medição, o ADR ganha a seção "Resultado da Fase 0"; se o gate falhar, o relatório leva ao dono o critério e as
 opções do spec §10.1 (estender o prazo, reduzir o subconjunto ou acionar o plano B, que reabre D4).
+
+## Resultado da Fase 0
+
+Medição em Node v24.22.0 (mediana de 20 execuções depois de 2 de aquecimento), sem alterar os limites acima:
+
+| Critério | Limite | Medido | Folga |
+|---|---|---|---|
+| Linhas | 1.500 | 1.101 | 399 |
+| Tamanho | 29.696 bytes | 7.585 bytes | 22.111 bytes |
+| Tempo | 150 ms | 72,73 ms | 77,27 ms |
+| Projeção | 28 dias | 0,87 dia | 27,13 dias |
+
+A projeção aplica o fator `1,3` a 9.376 linhas estimadas para a Fase 2 (`docs/fase-0/projecao.json`) sobre `P` = 14.016
+linhas por dia. As horas de `horas.md` são as da execução automatizada (0,5 h); com as horas reais do dono, `P` e a
+projeção mudam e o valor acima deve ser refeito. Veredito e pendências em `docs/fase-0/relatorio-gate.md`.
