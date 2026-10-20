@@ -5,4 +5,4 @@
 | U0-04 | 0,1 h |
 | U0-05 | 0,1 h |
 
-As horas acima são o tempo da execução automatizada de cada unidade. As horas reais do dono: pendente (GATE 0).
+As horas acima são o tempo da execução automatizada de cada unidade. O dono decidiu mantê-las na projeção (2026-10-20), sem valor de previsão para trabalho humano.
