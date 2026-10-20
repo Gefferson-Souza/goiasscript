@@ -1,0 +1,11 @@
+{
+  "name": "poc-compiler", "version": "0.0.0", "private": true, "type": "module",
+  "scripts": {
+    "verify": "tsc --noEmit && eslint --no-error-on-unmatched-pattern src bench tests && vitest run",
+    "test": "vitest run", "lint": "eslint --no-error-on-unmatched-pattern src bench tests", "measure": "node bench/measure.ts"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1", "@types/node": "24.19.2", "acorn": "8.19.0", "esbuild": "0.28.2", "eslint": "10.13.0",
+    "eslint-plugin-functional": "10.0.1", "typescript": "6.0.3", "typescript-eslint": "8.71.2", "vitest": "5.0.5"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "target": "ES2023", "lib": ["ES2023"], "module": "nodenext", "moduleResolution": "nodenext", "types": ["node"],
+    "strict": true, "noUncheckedIndexedAccess": true, "exactOptionalPropertyTypes": true, "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true, "allowImportingTsExtensions": true, "noEmit": true, "skipLibCheck": true
+  },
+  "include": ["src", "tests", "bench", "vitest.config.ts", "eslint.config.mjs"]
+}
