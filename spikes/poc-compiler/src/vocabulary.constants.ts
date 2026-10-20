@@ -30,3 +30,38 @@ export const PUNCTUATORS: readonly string[] = [
   '===', '!==', '==', '!=', '<=', '>=', '&&', '||', '++', '--', '+=', '-=', '*=', '/=', '%=', '**', '=>', '?.', '??',
   '+', '-', '*', '/', '%', '<', '>', '=', '!', '(', ')', '[', ']', '{', '}', ',', '.', ';', ':', '?',
 ];
+
+export const BINARY_PRECEDENCE: ReadonlyMap<string, number> = new Map([
+  ['ou_então', 3], ['||', 3], ['e_mais', 4], ['&&', 4],
+  ['é_igualim', 8], ['diferente', 8], ['==', 8], ['===', 8], ['!=', 8], ['!==', 8],
+  ['<', 9], ['>', 9], ['<=', 9], ['>=', 9], ['maior_que', 9], ['menor_que', 9], ['pelo_menos', 9], ['no_máximo', 9], ['é_tipo_de', 9],
+  ['+', 11], ['-', 11], ['mais', 11], ['menos', 11],
+  ['*', 12], ['/', 12], ['%', 12], ['vezes', 12], ['dividido', 12], ['sobrou', 12],
+]);
+
+export const PRECEDENCE_ASSIGNMENT = 1;
+export const PRECEDENCE_UNARY = 14;
+// Espelha LIMITS.maxNestingDepth do pacote language, que ainda não existe no spike.
+export const MAX_NESTING_DEPTH = 200;
+
+export const JS_OPERATOR_FORMS: ReadonlyMap<string, string> = new Map([
+  ['=', 'é'], ['==', 'é_igualim'], ['===', 'é_igualim'], ['!=', 'diferente'], ['!==', 'diferente'], ['&&', 'e_mais'],
+  ['||', 'ou_então'], ['!', 'num_é'], ['++', 'i é i mais 1'], ['--', 'i é i menos 1'], ['+=', 'i é i mais 1'],
+  ['-=', 'i é i menos 1'], ['*=', 'i é i vezes 2'], ['/=', 'i é i dividido 2'], ['%=', 'i é i sobrou 2'],
+]);
+
+export const ASSIGNMENT_PUNCTUATORS: ReadonlySet<string> = new Set(['=', '+=', '-=', '*=', '/=', '%=']);
+export const BINARY_ONLY_PUNCTUATORS: ReadonlySet<string> = new Set(['*', '/', '%', '<', '>', '<=', '>=', '&&', '||', '==', '===', '!=', '!==']);
+
+export const JS_KEYWORD_EQUIVALENT: ReadonlyMap<string, string> = new Map([
+  ['const', 'uai'], ['let', 'trem'], ['var', 'trem'], ['function', 'faz_trem'], ['return', 'faz_favor'], ['if', 'se_ocê_quiser'],
+  ['else', 'se_não'], ['for', 'vai_indo'], ['while', 'enquanto_tiver'], ['break', 'para_com_isso'], ['continue', 'continua_aí'],
+  ['class', 'arruma_trem'], ['extends', 'inherda_de'], ['new', 'faz_um'], ['this', 'ocê'], ['try', 'tenta_aí'],
+  ['catch', 'se_der_ruim'], ['finally', 'por_fim'], ['throw', 'vixe'], ['async', 'vai_na_frente'], ['await', 'espera_um_cadim'],
+  ['true', 'certeza'], ['false', 'de_jeito_nenhum'], ['null', 'nada'], ['undefined', 'indefinido'], ['instanceof', 'é_tipo_de'],
+]);
+
+export const JS_GLOBALS: ReadonlyMap<string, string> = new Map([
+  ['console', 'prosa'], ['setTimeout', 'daqui_a_pouco'], ['setInterval', 'toda_hora'], ['Math', 'Conta'], ['Promise', 'promessa'],
+  ['Error', 'Erro'], ['Date', 'Data'], ['Object', 'Coisa'],
+]);

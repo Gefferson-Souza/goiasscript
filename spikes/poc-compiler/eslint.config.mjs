@@ -12,5 +12,5 @@ export default tseslint.config(
       'functional/immutable-data': 'warn',
     },
   },
-  { files: ['src/lexer.ts', 'src/parser.ts'], rules: { 'functional/immutable-data': ['warn', { ignoreAccessorPattern: ['this.**'] }] } },
+  { files: ['src/lexer.ts', 'src/parser.ts', 'src/parser-base.ts'], rules: { 'functional/immutable-data': ['warn', { ignoreAccessorPattern: ['this.**'] }] } },
 );
