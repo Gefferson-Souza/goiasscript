@@ -88,11 +88,6 @@ export abstract class ParserBase {
     }
   }
 
-  protected append<T>(items: T[], item: T): void {
-    // eslint-disable-next-line functional/immutable-data -- acumula a lista local de um laço do parser
-    items.push(item);
-  }
-
   protected withContext<T>(context: Context, parse: () => T): T {
     this.contexts.push(context);
     const result = parse();

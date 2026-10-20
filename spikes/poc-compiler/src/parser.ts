@@ -23,7 +23,7 @@ class Parser extends ParserBase {
       this.muted = false;
       this.skipSeparators();
       if (this.cur().kind === 'end-of-file') break;
-      this.append(body, this.parseStatementWithProgress());
+      body.push(this.parseStatementWithProgress());
     }
     return { type: 'Program', start: 0, end: this.textLength, body };
   }
@@ -114,7 +114,7 @@ class Parser extends ParserBase {
         this.reportUnexpected(token);
         return body;
       }
-      this.append(body, this.parseStatementWithProgress());
+      body.push(this.parseStatementWithProgress());
     }
   }
 
@@ -145,7 +145,7 @@ class Parser extends ParserBase {
     for (;;) {
       const token = this.cur();
       if (isPunct(token, close) || token.kind === 'end-of-file') return items;
-      this.append(items, item());
+      items.push(item());
       if (!isPunct(this.cur(), ',')) return items;
       this.advance();
     }
@@ -246,7 +246,7 @@ class Parser extends ParserBase {
     const handler = this.continuesWith('se_der_ruim') ? this.parseCatch() : null;
     const finalizerToken = this.continuesWith('por_fim') ? this.advance() : undefined;
     const finalizer = finalizerToken ? this.parseBlock() : null;
-    if (handler === null && finalizer === null) this.reportUnexpected(this.cur());
+    if (handler === null && finalizer === null) this.report(CODE.unexpectedToken, keywordToken.start, keywordToken.end, { token: keywordToken.text });
     return {
       type: 'TryStatement', start: keywordToken.start, end: this.previousEnd, keywordToken, block, handler, finalizer,
       ...(finalizerToken ? { finalizerToken } : {}),
@@ -293,7 +293,7 @@ class Parser extends ParserBase {
         return members;
       }
       const before = this.consumed;
-      this.append(members, this.parseMethod());
+      members.push(this.parseMethod());
       if (this.consumed === before) this.advance();
     }
   }

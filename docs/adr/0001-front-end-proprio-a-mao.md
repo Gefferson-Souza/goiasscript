@@ -39,11 +39,11 @@ Medição em Node v24.22.0 (mediana de 20 execuções depois de 2 de aquecimento
 
 | Critério | Limite | Medido | Folga |
 |---|---|---|---|
-| Linhas | 1.500 | 1.101 | 399 |
-| Tamanho | 29.696 bytes | 7.585 bytes | 22.111 bytes |
-| Tempo | 150 ms | 72,73 ms | 77,27 ms |
+| Linhas | 1.500 | 1.097 | 403 |
+| Tamanho | 29.696 bytes | 7.560 bytes | 22.136 bytes |
+| Tempo | 150 ms | 81,61 ms | 68,39 ms |
 | Projeção | 28 dias | 0,87 dia | 27,13 dias |
 
-A projeção aplica o fator `1,3` a 9.376 linhas estimadas para a Fase 2 (`docs/fase-0/projecao.json`) sobre `P` = 14.016
+A projeção aplica o fator `1,3` a 9.376 linhas estimadas para a Fase 2 (`docs/fase-0/projecao.json`) sobre `P` = 13.968
 linhas por dia. As horas de `horas.md` são as da execução automatizada (0,5 h); com as horas reais do dono, `P` e a
 projeção mudam e o valor acima deve ser refeito. Veredito e pendências em `docs/fase-0/relatorio-gate.md`.
