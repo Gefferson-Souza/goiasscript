@@ -37,7 +37,7 @@ export type Expression =
 export interface BlockStatement extends Span { readonly type: 'BlockStatement'; readonly body: readonly Statement[] }
 export interface VariableDeclaration extends Span {
   readonly type: 'VariableDeclaration'; readonly declarationToken: Token; readonly id: Identifier; readonly init: Expression | null;
-  readonly needsTerminator: boolean;
+  readonly needsTerminator: boolean; readonly assignToken?: Token;
 }
 export interface FunctionDeclaration extends Span {
   readonly type: 'FunctionDeclaration'; readonly keywordToken: Token; readonly asyncToken?: Token; readonly id: Identifier;
