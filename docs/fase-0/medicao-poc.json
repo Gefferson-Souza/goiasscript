@@ -1,0 +1,60 @@
+{
+  "node": "v24.22.0",
+  "machine": {
+    "cpu": "12th Gen Intel(R) Core(TM) i5-12450H",
+    "cores": 12,
+    "platform": "linux"
+  },
+  "limits": {
+    "maxSourceLines": 1500,
+    "maxBrotliBytes": 29696,
+    "maxMillisecondsFor10kLines": 150,
+    "maxProjectedDays": 28
+  },
+  "sourceLines": 1101,
+  "tableLines": 67,
+  "files": {
+    "ast.types.ts": 86,
+    "compile.ts": 20,
+    "diagnostics.ts": 28,
+    "emit.ts": 70,
+    "lexer.ts": 129,
+    "parser-base.ts": 173,
+    "parser.ts": 584,
+    "token.types.ts": 11,
+    "vocabulary.constants.ts": 67
+  },
+  "minifiedBytes": 28641,
+  "brotliBytes": 7585,
+  "medianMs": 72.73126699999989,
+  "runsMs": [
+    86.516573,
+    97.29963800000002,
+    97.01518800000008,
+    75.19995400000005,
+    68.51117799999997,
+    69.02334800000006,
+    61.48732200000006,
+    68.96303,
+    64.56264800000008,
+    72.73126699999989,
+    70.79271799999992,
+    71.08762699999988,
+    67.18549800000005,
+    77.15734900000007,
+    106.37290600000006,
+    168.8787679999998,
+    106.05562600000007,
+    73.31408600000009,
+    66.88347500000009,
+    67.89029700000015
+  ],
+  "lintViolations": {
+    "functional/immutable-data": 1
+  },
+  "verdict": {
+    "sourceLines": true,
+    "brotliBytes": true,
+    "compileMilliseconds": true
+  }
+}
