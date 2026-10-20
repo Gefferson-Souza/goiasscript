@@ -112,6 +112,7 @@ describe('diagnósticos e recuperação', () => {
     ['uai f é (a, b)\n=> a', ['GS0204@1']],
     ['uai t é `oi ${x}`', ['GS0500@1']],
     ['uai x', ['GS0307@1']],
+    ['tenta_aí {\n}', ['GS0202@1']],
   ])('%j', (text, expected) => {
     expect(clean(text)).toEqual(expected);
   });
@@ -124,7 +125,7 @@ describe('diagnósticos e recuperação', () => {
   });
 
   it('incomplete só quando todo erro é fim inesperado da entrada', () => {
-    expect([parseText('se_ocê_quiser (a) {'), parseText('uai x = 5'), parseText('uai ok é 1')].map((parsed) => parsed.result.incomplete)).toEqual([true, false, false]);
+    expect([parseText('se_ocê_quiser (a) {'), parseText('uai x = 5'), parseText('uai ok é 1'), parseText('tenta_aí {\n}')].map((parsed) => parsed.result.incomplete)).toEqual([true, false, false, false]);
   });
 
   it('nunca lança nem estoura a pilha com entrada muito aninhada, e limita com GS0500', () => {
