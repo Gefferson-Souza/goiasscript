@@ -1,0 +1,1 @@
+{ "name": "sandbox-spike", "version": "0.0.0", "private": true, "type": "module", "scripts": { "test": "playwright test" }, "devDependencies": { "@playwright/test": "1.64.1" } }
