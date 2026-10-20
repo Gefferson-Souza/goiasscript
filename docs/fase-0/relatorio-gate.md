@@ -1,6 +1,6 @@
 # Relatório do gate da Fase 0
 
-**Veredito:** para-e-leva-ao-dono
+**Veredito:** segue (aprovado pelo dono em 2026-10-20)
 
 A RFC-0001 tem as decisões do dono registradas, mas ainda espera o parecer dos falantes de Goiás (critério e), e esse
 bloqueio é independente dos critérios técnicos. Todos os critérios
@@ -17,7 +17,7 @@ registradas pela execução automatizada; as horas reais do dono estão pendente
 | c-demos | 6 demos compilam, passam no `acorn.parse` e reproduzem o stdout | 6 de 6 | passou |
 | c-erros-tipicos | cada um dos 10 erros típicos dá o `GSnnnn` na linha certa, sem lançar | 10 de 10 | passou |
 | d-diagnosticos | ≥ 3 códigos distintos num arquivo com vários erros | 4 códigos (GS0208, GS0401, GS0403, GS0404) | passou |
-| e-rfc | RFC-0001 aprovada pelo dono | decisões do dono registradas em 2026-10-20; falta o parecer do anexo F | bloqueia |
+| e-rfc | RFC-0001 aprovada pelo dono | aprovada em 2026-10-20; anexo F a recolher antes da U2-01 | passou |
 | f-projecao | ≤ 28 dias | 0,87 dia (9.376 linhas ÷ 13.968 linhas por dia × 1,3) | passou |
 
 Medição: CPU 12th Gen Intel(R) Core(TM) i5-12450H, 12 núcleos, Linux; `medicao-poc.json` registra Node v24.22.0.
@@ -43,5 +43,5 @@ Falhou critério técnico (a, b, c, d ou f): o trabalho para e o fato vai ao don
 reduzir o subconjunto ou acionar o plano B (reabre D4). A RFC (e) é bloqueio independente e não aciona o plano B.
 Não há plano B automático.
 
-**Decisão do dono** (GATE 0): parcial em 2026-10-20. Critérios técnicos aceitos; horas da execução automatizada
-mantidas; RFC-0001 decidida nome a nome pelo critério "o que o goiano fala"; o gate fecha com o parecer do anexo F.
+**Decisão do dono** (GATE 0): aprovado em 2026-10-20. Critérios técnicos aceitos; horas da execução automatizada
+mantidas; RFC-0001 decidida nome a nome pelo critério "o que o goiano fala"; o parecer do anexo F chega antes da U2-01 e pode trocar nomes.

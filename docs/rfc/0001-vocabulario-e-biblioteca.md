@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Status | decisões do dono registradas em 2026-10-20; aguarda o parecer dos falantes (anexo F) |
+| Status | aprovada em 2026-10-20; o parecer dos falantes (anexo F) é recolhido antes da U2-01 e pode trocar nomes |
 | Spec | §3.1, §4 e §9.3 de `docs/superpowers/specs/2026-10-14-goiasscript-3-design.md` |
 | Decide | P8, P9, P10, P11, P12, P13, P15 e P16 |
 
@@ -10,7 +10,8 @@
 
 Esta RFC congela as keywords, os operadores, o alfabeto de identificadores, a gramática e a biblioteca padrão da v3.
 Mudar um nome depois da aprovação é MAJOR (spec §9.5). Os falantes de Goiás dão parecer consultivo (anexo F); a decisão
-é do dono (D8). As decisões do dono foram registradas em 2026-10-20; falta o parecer do anexo F.
+é do dono (D8). Aprovada pelo dono em 2026-10-20. O parecer do anexo F chega antes da U2-01; troca de nome pedida por ele entra antes
+das tabelas da linguagem.
 
 ## 2. Vocabulário (keywords, operadores e literais)
 
@@ -402,5 +403,5 @@ Nada nesta RFC vale antes da aprovação. O que o dono decide no GATE 0:
 | Propostas P8–P13, P15 e P16 | decididas em 2026-10-20 |
 | Biblioteca padrão, nome a nome | decidida em 2026-10-20 |
 | Lacunas (anexo D) e alternativas (anexo E) | decididas em 2026-10-20 |
-| Parecer dos falantes de Goiás (anexo F) | pendente |
-| Status da RFC | pendente |
+| Parecer dos falantes de Goiás (anexo F) | a recolher antes da U2-01 |
+| Status da RFC | aprovada em 2026-10-20 |
