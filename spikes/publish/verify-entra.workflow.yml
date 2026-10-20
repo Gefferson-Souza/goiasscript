@@ -1,0 +1,23 @@
+# Modelo: copiar para .github/workflows/verify-entra.yml numa branch descartável,
+# resolvendo os SHAs com `gh api repos/<dono>/<repo>/commits/<tag> --jq .sha`.
+name: verify-entra
+on: workflow_dispatch
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    environment: marketplace
+    steps:
+      - uses: azure/login@${LOGIN_SHA}
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          allow-no-subscriptions: true
+      - uses: actions/setup-node@${SETUP_NODE_SHA}
+        with:
+          node-version: 22
+      - run: npx --yes @vscode/vsce@4.0.0 verify-pat "$PUBLISHER" --azure-credential
+        env:
+          PUBLISHER: ${{ vars.MARKETPLACE_PUBLISHER }}
