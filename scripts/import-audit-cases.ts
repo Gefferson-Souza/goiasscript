@@ -38,7 +38,7 @@ const OUTSIDE: readonly (readonly [string, RegExp])[] = [
   ['GS0523', /\*\*|\?\.|\?\?|\s\?\s/g],
   ['GS0504', /\.\.\./g],
   ['GS0518', /faz_trem\s*\(/g],
-  ['GS0502', /(?<=[(,=:[!&|?{};]|^|return)\s*\/(?![/*])(?:\\.|\[[^\]\n]*\]|[^/\n\\])+\/[a-z]*/gmu],
+  ['GS0502', /(?<=[(,=:[!&|?{};]|^|return)\s*\/(?![/*])(?:\\.|\[[^\]\n]*\]|[^/\n\\[])+\/[a-z]*/gmu],
   ['GS0516', /\b(?:uai|trem)\s+[\p{L}\w]+\s*:|faz_trem\s+\w+\s*\([^)]*:/gu],
   ['GS0405', member('map|filter|reduce|forEach|push|pop|shift|unshift|length|toUpperCase|toLowerCase|includes|indexOf|split|join|trim|slice|replace|replaceAll|startsWith|endsWith|find|sort|reverse|concat|then|catch|message|keys|values|entries')],
   ['GS0406', member('some|every|flat|at|padStart|toString|valueOf|hasOwnProperty|call|apply|bind|charAt|substring|toFixed|splice|constructor|prototype')],
