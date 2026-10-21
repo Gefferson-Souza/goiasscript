@@ -21,14 +21,24 @@
     "prepare": "husky install",
     "typecheck": "tsc -p tsconfig.json",
     "test": "vitest run --coverage",
-    "verify": "tsc -p tsconfig.json && vitest run --coverage"
+    "verify": "tsc -p tsconfig.json && eslint . --max-warnings 0 && vitest run --coverage && depcruise packages tools --config .dependency-cruiser.cjs && knip",
+    "lint": "eslint . --max-warnings 0",
+    "depcruise": "depcruise packages tools --config .dependency-cruiser.cjs",
+    "knip": "knip"
   },
   "devDependencies": {
+    "@eslint-community/eslint-plugin-eslint-comments": "4.8.1",
+    "@eslint/js": "10.0.1",
     "@types/node": "22.20.5",
     "@vitest/coverage-v8": "5.0.5",
+    "dependency-cruiser": "18.7.0",
+    "eslint": "10.13.0",
+    "eslint-plugin-functional": "10.0.1",
     "husky": "^8.0.3",
+    "knip": "6.42.1",
     "lint-staged": "^13.2.0",
     "typescript": "6.0.3",
+    "typescript-eslint": "8.72.0",
     "vitest": "5.0.5"
   },
   "lint-staged": {
