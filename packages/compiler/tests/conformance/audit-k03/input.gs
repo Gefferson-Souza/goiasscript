@@ -1,0 +1,1 @@
+vai_indo (uai i em "ab") { prosa(i); }

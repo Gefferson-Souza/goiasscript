@@ -1,0 +1,1 @@
+prosa("f(x)".replace("(", "["));

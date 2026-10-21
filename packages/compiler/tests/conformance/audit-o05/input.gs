@@ -1,0 +1,1 @@
+prosa(3 maior_que 2 e_mais 1 menor_que 2, 1 diferente 1 ou_então certeza, 2 pelo_menos 2, 2 no_máximo 1);

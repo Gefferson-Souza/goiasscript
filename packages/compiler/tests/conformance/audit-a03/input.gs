@@ -1,0 +1,1 @@
+uai uaizinho é 3; prosa(uaizinho);

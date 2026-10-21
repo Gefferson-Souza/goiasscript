@@ -1,0 +1,1 @@
+uai x é 5; prosa(x mais(1) vezes(2));

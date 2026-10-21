@@ -22,6 +22,7 @@
     "typecheck": "tsc -p tsconfig.json",
     "rules-scan": "node tools/rules-scan/src/cli.mjs check",
     "test": "vitest run --coverage",
+    "bless": "node scripts/bless.ts",
     "agent-docs": "node scripts/check-agent-docs.ts",
     "verify": "tsc -p tsconfig.json && eslint . --max-warnings 0 && node tools/rules-scan/src/cli.mjs check && vitest run --coverage && depcruise packages tools --config .dependency-cruiser.cjs && knip && node scripts/check-agent-docs.ts",
     "lint": "eslint . --max-warnings 0",

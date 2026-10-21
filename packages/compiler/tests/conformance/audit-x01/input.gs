@@ -1,0 +1,1 @@
+uai rota é { de: "SP", em: "RJ" }; prosa(Object.keys(rota).join(","), JSON.stringify(rota));

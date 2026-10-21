@@ -1,0 +1,1 @@
+uai prosaico é 1; prosa(prosaico);

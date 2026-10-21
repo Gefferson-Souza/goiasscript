@@ -1,0 +1,1 @@
+uai vezes é 3; prosa(vezes);

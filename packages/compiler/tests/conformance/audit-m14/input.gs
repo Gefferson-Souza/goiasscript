@@ -1,0 +1,1 @@
+prosa(Number.isNaN(NaN), isNaN("x"));

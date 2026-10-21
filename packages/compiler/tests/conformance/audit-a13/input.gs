@@ -1,0 +1,1 @@
+uai o é JSON.parse('{"de":"SP","em":"RJ","nada":"x"}'); prosa(o.de, o.em, o.nada);

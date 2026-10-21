@@ -1,0 +1,1 @@
+prosa(`isso é mais de um em muitos`);

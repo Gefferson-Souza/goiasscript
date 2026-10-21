@@ -1,0 +1,1 @@
+uai o é { prosa() { faz_favor 1; } }; prosa(o.prosa());

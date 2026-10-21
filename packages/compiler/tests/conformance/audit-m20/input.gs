@@ -1,0 +1,1 @@
+prosa([1, 2, 3, 4, 5].reduzir((a, b) => a mais b));

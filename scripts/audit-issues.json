@@ -1,0 +1,13 @@
+{
+  "aviso": 1,
+  "comentario": 2,
+  "estrutura": 3,
+  "formato": 4,
+  "identificador": 5,
+  "operador-é": 6,
+  "runtime": 7,
+  "string": 8,
+  "trocar": 9,
+  "unicode": 10,
+  "validacao": 11
+}

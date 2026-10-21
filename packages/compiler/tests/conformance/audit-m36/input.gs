@@ -1,0 +1,1 @@
+prosa("a1b2".replace(/\d/g, d => "<" + d + ">"));

@@ -1,0 +1,1 @@
+prosa(0.1 mais 0.2, 3.14 vezes 2, 10 dividido 4, 7 sobrou 3);

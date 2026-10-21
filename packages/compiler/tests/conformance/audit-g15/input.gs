@@ -1,0 +1,1 @@
+faz_trem f() { faz_favor"ok"; } prosa(f());

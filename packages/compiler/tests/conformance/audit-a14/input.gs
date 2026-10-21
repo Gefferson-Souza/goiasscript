@@ -1,0 +1,1 @@
+uai o é { nadação: 1 }; prosa(Object.keys(o)[0]);

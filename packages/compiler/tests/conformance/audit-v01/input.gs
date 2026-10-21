@@ -1,0 +1,1 @@
+uai o é {a:{b:{c:1}}}; prosa(o.a.b.c);

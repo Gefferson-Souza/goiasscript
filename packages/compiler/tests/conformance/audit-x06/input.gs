@@ -1,0 +1,1 @@
+uai x é 1; se (x é_igualim 1) { prosa("um"); }

@@ -1,0 +1,1 @@
+uai mais_um é 7; prosa(mais_um);

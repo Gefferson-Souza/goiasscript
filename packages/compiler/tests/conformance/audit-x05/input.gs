@@ -1,0 +1,1 @@
+prosa(GoianoMath.PI > 3.14, GoianoMath.E > 2.71);

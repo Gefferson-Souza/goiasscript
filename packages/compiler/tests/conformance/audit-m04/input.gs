@@ -1,0 +1,1 @@
+prosa((faz_um Uint8Array(4)).length);

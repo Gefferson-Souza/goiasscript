@@ -1,0 +1,1 @@
+faz_trem f(em) { faz_favor em mais 1; } prosa(f(1));

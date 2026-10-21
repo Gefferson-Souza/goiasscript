@@ -1,0 +1,2 @@
+Bem-vindo ao Goiás
+Dobrados: [ 2, 4, 6 ]

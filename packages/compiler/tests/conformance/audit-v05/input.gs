@@ -1,0 +1,1 @@
+uai nome: texto é "Ana"; prosa(nome);

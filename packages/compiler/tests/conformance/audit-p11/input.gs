@@ -1,0 +1,1 @@
+console.log(JSON.stringify({ a: [1, 2] }), typeof null, typeof undefined, new Date(0).toISOString());

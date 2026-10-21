@@ -1,0 +1,1 @@
+uai trem2 é 4; prosa(trem2);

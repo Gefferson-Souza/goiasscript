@@ -1,0 +1,1 @@
+faz_trem f() { faz_favor arguments.length; } prosa(f(1, 2, 3));

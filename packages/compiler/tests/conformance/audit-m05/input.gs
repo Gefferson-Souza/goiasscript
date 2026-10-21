@@ -1,0 +1,1 @@
+prosa((faz_trem(a, b) {}).length);
