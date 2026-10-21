@@ -1,0 +1,9 @@
+[[IgnoredVulns]]
+id = "GHSA-vfj7-8cjw-p6xm"
+ignoreUntil = 2027-03-01
+reason = "braces 3.0.3, puxado por micromatch (jest 29 em packages/core e tailwindcss 3 no playground, apenas dev/build). Sem versão corrigida publicada; reavaliar quando houver patch."
+
+[[IgnoredVulns]]
+id = "GHSA-hp3w-g68c-fv3c"
+ignoreUntil = 2027-03-01
+reason = "sprintf-js 1.0.3, puxado por argparse 1 e js-yaml 3 (istanbul no jest 29 de packages/core, apenas teste). Sem versão corrigida publicada; reavaliar quando houver patch."
