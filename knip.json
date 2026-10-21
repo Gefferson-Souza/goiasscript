@@ -1,0 +1,75 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "ignoreWorkspaces": [
+    "packages/core",
+    "apps/*"
+  ],
+  "ignoreExportsUsedInFile": true,
+  "workspaces": {
+    ".": {
+      "entry": [
+        "scripts/*.ts"
+      ],
+      "project": [
+        "*.{ts,mts,mjs}",
+        "scripts/**"
+      ],
+      "ignoreDependencies": [
+        "lint-staged"
+      ]
+    },
+    "packages/language": {
+      "entry": [
+        "generators/run.ts",
+        "tests/**/*.test.ts"
+      ],
+      "project": [
+        "src/**/*.ts",
+        "generators/**/*.ts",
+        "tests/**/*.ts"
+      ]
+    },
+    "packages/compiler": {
+      "entry": [
+        "tests/**/*.test.ts",
+        "tests/support/deterministic-preload.mjs"
+      ],
+      "project": [
+        "src/**/*.ts",
+        "tests/**/*.{ts,mjs}"
+      ]
+    },
+    "packages/optimizer": {
+      "entry": [
+        "tests/**/*.test.ts"
+      ],
+      "project": [
+        "src/**/*.ts",
+        "tests/**/*.ts"
+      ]
+    },
+    "tools/rules-scan": {
+      "entry": [
+        "tests/**/*.test.mjs"
+      ],
+      "project": [
+        "src/**/*.mjs",
+        "tests/**/*.mjs"
+      ]
+    },
+    "tools/config-tests": {
+      "entry": [
+        "tests/**/*.test.mjs"
+      ],
+      "project": [
+        "tests/**/*.mjs"
+      ]
+    }
+  },
+  "ignore": [
+    "spikes/**"
+  ],
+  "ignoreBinaries": [
+    "prettier"
+  ]
+}
