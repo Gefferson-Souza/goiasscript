@@ -5,7 +5,7 @@
   "type": "module",
   "exports": { ".": "./src/index.ts" },
   "engines": { "node": ">=22.12" },
-  "devDependencies": {
+  "dependencies": {
     "@goiasscript/language": "workspace:*"
   }
 }
