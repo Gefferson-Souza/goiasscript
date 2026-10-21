@@ -70,6 +70,10 @@ describe('demais arquivos de .github', () => {
   it('codeql analisa javascript-typescript', () => {
     expect(readText('.github/workflows/codeql.yml')).toContain('languages: javascript-typescript');
   });
+  it('codeql ignora legado, evidência e spikes pelo arquivo de configuração', () => {
+    expect(readText('.github/workflows/codeql.yml')).toContain('config-file: ./.github/codeql/codeql-config.yml');
+    expect(readYaml('.github/codeql/codeql-config.yml')['paths-ignore']).toEqual(['docs/auditoria', 'docs/pesquisa', 'spikes', 'packages/core', 'apps/playground/workers']);
+  });
   it('osv lê o lockfile do pnpm', () => {
     expect(readText('.github/workflows/osv.yml')).toContain('--lockfile=pnpm-lock.yaml');
   });
