@@ -21,6 +21,11 @@
       "category": "literal"
     },
     {
+      "term": "continua_ai",
+      "js": "continue",
+      "category": "control"
+    },
+    {
       "term": "continua_aí",
       "js": "continue",
       "category": "control"
@@ -46,9 +51,19 @@
       "category": "operator"
     },
     {
+      "term": "e_igualim",
+      "js": "===",
+      "category": "operator"
+    },
+    {
       "term": "e_mais",
       "js": "&&",
       "category": "operator"
+    },
+    {
+      "term": "e_tipo_de",
+      "js": "instanceof",
+      "category": "class"
     },
     {
       "term": "em",
@@ -116,8 +131,18 @@
       "category": "literal"
     },
     {
+      "term": "no_maximo",
+      "js": "<=",
+      "category": "operator"
+    },
+    {
       "term": "no_máximo",
       "js": "<=",
+      "category": "operator"
+    },
+    {
+      "term": "num_e",
+      "js": "!",
       "category": "operator"
     },
     {
@@ -131,9 +156,19 @@
       "category": "operator"
     },
     {
+      "term": "oce",
+      "js": "this",
+      "category": "class"
+    },
+    {
       "term": "ocê",
       "js": "this",
       "category": "class"
+    },
+    {
+      "term": "ou_entao",
+      "js": "||",
+      "category": "operator"
     },
     {
       "term": "ou_então",
@@ -161,6 +196,11 @@
       "category": "error"
     },
     {
+      "term": "se_nao",
+      "js": "else",
+      "category": "control"
+    },
+    {
       "term": "se_num_for",
       "js": "else if",
       "category": "control"
@@ -168,6 +208,11 @@
     {
       "term": "se_não",
       "js": "else",
+      "category": "control"
+    },
+    {
+      "term": "se_oce_quiser",
+      "js": "if",
       "category": "control"
     },
     {
@@ -179,6 +224,11 @@
       "term": "sobrou",
       "js": "%",
       "category": "operator"
+    },
+    {
+      "term": "tenta_ai",
+      "js": "try",
+      "category": "error"
     },
     {
       "term": "tenta_aí",
@@ -388,6 +438,11 @@
       "semantics": "native"
     },
     {
+      "term": "bota_no_comeco",
+      "js": "unshift",
+      "semantics": "native"
+    },
+    {
       "term": "bota_no_começo",
       "js": "unshift",
       "semantics": "native"
@@ -418,6 +473,11 @@
       "semantics": "native"
     },
     {
+      "term": "comeca_com",
+      "js": "startsWith",
+      "semantics": "native"
+    },
+    {
       "term": "começa_com",
       "js": "startsWith",
       "semantics": "native"
@@ -425,6 +485,11 @@
     {
       "term": "daqui_um_cadim",
       "js": "setTimeout",
+      "semantics": "native"
+    },
+    {
+      "term": "de_tras_pra_frente",
+      "js": "toReversed",
       "semantics": "native"
     },
     {
@@ -441,6 +506,11 @@
       "term": "dividir",
       "js": "split",
       "semantics": "native"
+    },
+    {
+      "term": "e_numero",
+      "js": "$gs_e_numero",
+      "semantics": "didactic"
     },
     {
       "term": "emenda",
@@ -463,6 +533,11 @@
       "semantics": "native"
     },
     {
+      "term": "larga_mao",
+      "js": "clearTimeout",
+      "semantics": "native"
+    },
+    {
       "term": "larga_mão",
       "js": "clearTimeout",
       "semantics": "native"
@@ -475,6 +550,11 @@
     {
       "term": "mensagem",
       "js": "message",
+      "semantics": "didactic"
+    },
+    {
+      "term": "mes",
+      "js": "getMonth",
       "semantics": "didactic"
     },
     {
@@ -495,6 +575,16 @@
     {
       "term": "o_tanto",
       "js": "length",
+      "semantics": "native"
+    },
+    {
+      "term": "onde_ta",
+      "js": "indexOf",
+      "semantics": "native"
+    },
+    {
+      "term": "onde_ta_o",
+      "js": "findIndex",
       "semantics": "native"
     },
     {
@@ -523,8 +613,18 @@
       "semantics": "native"
     },
     {
+      "term": "quando_der_bao",
+      "js": "then",
+      "semantics": "native"
+    },
+    {
       "term": "quando_der_bão",
       "js": "then",
+      "semantics": "native"
+    },
+    {
+      "term": "ranca_a_cabeca",
+      "js": "shift",
       "semantics": "native"
     },
     {
@@ -540,6 +640,11 @@
     {
       "term": "ranca_o_rabo",
       "js": "pop",
+      "semantics": "native"
+    },
+    {
+      "term": "ranca_os_espaco",
+      "js": "trim",
       "semantics": "native"
     },
     {
@@ -595,6 +700,11 @@
     {
       "term": "trocar",
       "js": "replaceAll",
+      "semantics": "didactic"
+    },
+    {
+      "term": "vira_numero",
+      "js": "$gs_vira_numero",
       "semantics": "didactic"
     },
     {

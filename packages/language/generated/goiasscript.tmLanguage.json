@@ -72,7 +72,7 @@
     },
     {
       "name": "support.function.member.goiasscript",
-      "match": "(?<=\\.)(?<![\\p{L}\\p{N}_])(arredondar_pra_baixo|arredondar_pra_cima|de_trás_pra_frente|ranca_os_espaço|bota_no_começo|quando_der_bão|ranca_a_cabeça|bota_no_final|raiz_quadrada|ranca_do_meio|ranca_o_sinal|ranca_o_rabo|cochichando|se_der_ruim|tem_no_meio|termina_com|tudim_junto|arredondar|começa_com|sorteia_um|vira_coisa|vira_texto|com_casas|elevado_a|onde_tá_o|tem_algum|agorinha|amontoar|entradas|gritando|mensagem|pra_cada|dividir|filtrar|mistura|o_tanto|onde_tá|segundo|valores|ajunta|arruma|chaves|emenda|mapear|minuto|repete|trocar|maior|menor|todin|cata|hora|naco|ano|dia|mês|tem|PI|E)(?![\\p{L}\\p{N}_])"
+      "match": "(?<=\\.)(?<![\\p{L}\\p{N}_])(arredondar_pra_baixo|arredondar_pra_cima|de_tras_pra_frente|de_trás_pra_frente|ranca_os_espaco|ranca_os_espaço|bota_no_comeco|bota_no_começo|quando_der_bao|quando_der_bão|ranca_a_cabeca|ranca_a_cabeça|bota_no_final|raiz_quadrada|ranca_do_meio|ranca_o_sinal|ranca_o_rabo|cochichando|se_der_ruim|tem_no_meio|termina_com|tudim_junto|arredondar|comeca_com|começa_com|sorteia_um|vira_coisa|vira_texto|com_casas|elevado_a|onde_ta_o|onde_tá_o|tem_algum|agorinha|amontoar|entradas|gritando|mensagem|pra_cada|dividir|filtrar|mistura|o_tanto|onde_ta|onde_tá|segundo|valores|ajunta|arruma|chaves|emenda|mapear|minuto|repete|trocar|maior|menor|todin|cata|hora|naco|ano|dia|mes|mês|tem|PI|E)(?![\\p{L}\\p{N}_])"
     },
     {
       "name": "support.function.goiasscript",
