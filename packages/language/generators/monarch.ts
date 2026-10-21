@@ -1,6 +1,6 @@
 import { KEYWORDS, STDLIB } from '../src/index.ts';
 import type { GeneratedFile } from './generators.types.ts';
-import { keywordSpellings, memberName, toJson, uniqueSorted } from './shared.ts';
+import { keywordSpellings, memberNames, toJson, uniqueSorted } from './shared.ts';
 
 const IDENTIFIER = String.raw`[\p{L}_][\p{L}\p{N}_]*`;
 const NUMBER = String.raw`\d+(\.\d+)?([eE][+-]?\d+)?`;
@@ -17,7 +17,7 @@ export function renderMonarchFiles(): readonly GeneratedFile[] {
     tokenPostfix: '.gs',
     unicode: true,
     keywords: uniqueSorted(keywordSpellings(KEYWORDS)),
-    library: uniqueSorted(STDLIB.map(memberName)),
+    library: uniqueSorted(STDLIB.flatMap(memberNames)),
     tokenizer: {
       root: [
         [IDENTIFIER, { cases: { '@keywords': 'keyword', '@library': 'type.identifier', '@default': 'identifier' } }],

@@ -3,6 +3,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { renderAll } from '../generators/run.ts';
+import { KEYWORDS, STDLIB } from '../src/index.ts';
 
 const REPOSITORY_ROOT = resolve(import.meta.dirname, '../../..');
 const EXPECTED_PATHS = [
@@ -50,4 +51,30 @@ describe('generate:check (CI)', () => {
     const manifest = JSON.parse(readFileSync(resolve(REPOSITORY_ROOT, 'package.json'), 'utf8')) as { readonly scripts: Readonly<Record<string, string>> };
     expect(manifest.scripts['verify']).toContain('packages/language/generators/run.ts --check');
   });
+});
+
+describe('grafias ASCII nos geradores', () => {
+  const files = renderAll();
+  const contentOf = (path: string): string => files.find((file) => file.path === path)?.content ?? '';
+  const asciiMember = 'comeca_com';
+  const asciiKeyword = KEYWORDS.find((entry) => entry.asciiSpelling !== undefined)?.asciiSpelling ?? '';
+  const asciiStdlib = STDLIB.find((entry) => entry.asciiName?.endsWith(asciiMember) === true)?.asciiName ?? '';
+
+  it('o catálogo tem as grafias ASCII usadas nos testes', () => {
+    expect(asciiKeyword).not.toBe('');
+    expect(asciiStdlib).not.toBe('');
+  });
+  it('realça o membro ASCII no TextMate e no Monarch', () => {
+    expect(contentOf('packages/language/generated/goiasscript.tmLanguage.json')).toContain(asciiMember);
+    const monarch = JSON.parse(contentOf('packages/language/generated/goiasscript.monarch.json')) as { readonly library: readonly string[] };
+    expect(monarch.library).toContain(asciiMember);
+  });
+  it.each(['docs/spec/vocabulario.lock.json', 'packages/language/generated/completions.json', 'packages/language/generated/glossary.json'])(
+    'grava as grafias ASCII em %s',
+    (path) => {
+      const content = contentOf(path);
+      expect(content).toContain(`"${asciiKeyword}"`);
+      expect(content).toContain(`"${asciiStdlib}"`);
+    },
+  );
 });
