@@ -1,0 +1,1388 @@
+{
+  "reserved": [
+    {
+      "name": "Array",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Boolean",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Date",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Error",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Function",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Infinity",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Intl",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "JSON",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Map",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Math",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "NaN",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Number",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Object",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Promise",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Proxy",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Reflect",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "RegExp",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Set",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "String",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Symbol",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "arguments",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "async",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "await",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "break",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "case",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "catch",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "class",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "clearInterval",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "clearTimeout",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "console",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "const",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "constructor",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "continue",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "debugger",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "default",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "delete",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "do",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "document",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "else",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "enum",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "eval",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "export",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "extends",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "false",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "fetch",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "finally",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "for",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "function",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "globalThis",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "if",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "implements",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "import",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "in",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "instanceof",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "interface",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "isFinite",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "isNaN",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "let",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "module",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "new",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "null",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "of",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "package",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "parseFloat",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "parseInt",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "private",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "process",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "protected",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "public",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "require",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "return",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "setInterval",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "setTimeout",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "static",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "super",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "switch",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "this",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "throw",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "true",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "try",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "typeof",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "undefined",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "var",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "void",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "while",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "window",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "with",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "yield",
+      "source": "js",
+      "since": "3.0.0"
+    },
+    {
+      "name": "a_raiz",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "aprepara_trem",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "arruma_trem",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "certeza",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "continua_aí",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "de",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "de_jeito_nenhum",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "diferente",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "dividido",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "e_mais",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "em",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "enquanto_tiver",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "espera_um_cadim",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "faz_favor",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "faz_trem",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "faz_um",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "indefinido",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "inherda_de",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "maior_que",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "mais",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "menor_que",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "menos",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "nada",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "no_máximo",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "num_muda",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "num_é",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "ocê",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "ou_então",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "para_com_isso",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "pelo_menos",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "por_fim",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "se_der_ruim",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "se_num_for",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "se_não",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "se_ocê_quiser",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "sobrou",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "tenta_aí",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "trem",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "uai",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "vai_indo",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "vai_na_frente",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "vai_na_frente_faz_trem",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "vezes",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "vixe",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "é",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "é_igualim",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "é_tipo_de",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Coisa",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Coisa.chaves",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Coisa.entradas",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Coisa.mistura",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Coisa.tem",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Coisa.valores",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Coisa.vira_coisa",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Coisa.vira_texto",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Conta",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Conta.E",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Conta.PI",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Conta.arredondar",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Conta.arredondar_pra_baixo",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Conta.arredondar_pra_cima",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Conta.elevado_a",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Conta.maior",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Conta.menor",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Conta.raiz_quadrada",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Conta.ranca_o_sinal",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Conta.sorteia_um",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Data",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Data.agorinha",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Erro",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Promessa",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "Promessa.tudim_junto",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "ajunta",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "amontoar",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "ano",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "arruma",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "avisa",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "bota_no_começo",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "bota_no_final",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "cata",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "cochichando",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "cochila",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "com_casas",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "começa_com",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "daqui_um_cadim",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "de_trás_pra_frente",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "dia",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "dividir",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "emenda",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "filtrar",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "gritando",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "hora",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "larga_mão",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "mapear",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "mensagem",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "minuto",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "mês",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "naco",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "o_tanto",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "onde_tá",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "onde_tá_o",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "pergunta",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "pra_cada",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "prosa",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "quando_der_bão",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "ranca_a_cabeça",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "ranca_do_meio",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "ranca_o_rabo",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "ranca_os_espaço",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "reclama",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "repete",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "se_der_ruim",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "segundo",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "tem_algum",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "tem_no_meio",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "termina_com",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "toda_hora",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "todin",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "trocar",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "vira_número",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "vira_texto",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "é_número",
+      "source": "stdlib",
+      "since": "3.0.0"
+    }
+  ],
+  "diagnostics": [
+    {
+      "code": "GS0101",
+      "severity": "error"
+    },
+    {
+      "code": "GS0102",
+      "severity": "error"
+    },
+    {
+      "code": "GS0103",
+      "severity": "error"
+    },
+    {
+      "code": "GS0104",
+      "severity": "error"
+    },
+    {
+      "code": "GS0105",
+      "severity": "error"
+    },
+    {
+      "code": "GS0106",
+      "severity": "error"
+    },
+    {
+      "code": "GS0107",
+      "severity": "error"
+    },
+    {
+      "code": "GS0201",
+      "severity": "error"
+    },
+    {
+      "code": "GS0202",
+      "severity": "error"
+    },
+    {
+      "code": "GS0203",
+      "severity": "error"
+    },
+    {
+      "code": "GS0204",
+      "severity": "error"
+    },
+    {
+      "code": "GS0205",
+      "severity": "error"
+    },
+    {
+      "code": "GS0206",
+      "severity": "error"
+    },
+    {
+      "code": "GS0207",
+      "severity": "error"
+    },
+    {
+      "code": "GS0208",
+      "severity": "error"
+    },
+    {
+      "code": "GS0209",
+      "severity": "error"
+    },
+    {
+      "code": "GS0301",
+      "severity": "error"
+    },
+    {
+      "code": "GS0302",
+      "severity": "error"
+    },
+    {
+      "code": "GS0303",
+      "severity": "error"
+    },
+    {
+      "code": "GS0304",
+      "severity": "error"
+    },
+    {
+      "code": "GS0305",
+      "severity": "error"
+    },
+    {
+      "code": "GS0306",
+      "severity": "error"
+    },
+    {
+      "code": "GS0307",
+      "severity": "error"
+    },
+    {
+      "code": "GS0308",
+      "severity": "error"
+    },
+    {
+      "code": "GS0309",
+      "severity": "error"
+    },
+    {
+      "code": "GS0310",
+      "severity": "error"
+    },
+    {
+      "code": "GS0311",
+      "severity": "error"
+    },
+    {
+      "code": "GS0312",
+      "severity": "error"
+    },
+    {
+      "code": "GS0401",
+      "severity": "error"
+    },
+    {
+      "code": "GS0402",
+      "severity": "error"
+    },
+    {
+      "code": "GS0403",
+      "severity": "error"
+    },
+    {
+      "code": "GS0404",
+      "severity": "error"
+    },
+    {
+      "code": "GS0405",
+      "severity": "error"
+    },
+    {
+      "code": "GS0406",
+      "severity": "error"
+    },
+    {
+      "code": "GS0500",
+      "severity": "error"
+    },
+    {
+      "code": "GS0501",
+      "severity": "error"
+    },
+    {
+      "code": "GS0502",
+      "severity": "error"
+    },
+    {
+      "code": "GS0503",
+      "severity": "error"
+    },
+    {
+      "code": "GS0504",
+      "severity": "error"
+    },
+    {
+      "code": "GS0505",
+      "severity": "error"
+    },
+    {
+      "code": "GS0506",
+      "severity": "error"
+    },
+    {
+      "code": "GS0507",
+      "severity": "error"
+    },
+    {
+      "code": "GS0508",
+      "severity": "error"
+    },
+    {
+      "code": "GS0509",
+      "severity": "error"
+    },
+    {
+      "code": "GS0510",
+      "severity": "error"
+    },
+    {
+      "code": "GS0511",
+      "severity": "error"
+    },
+    {
+      "code": "GS0512",
+      "severity": "error"
+    },
+    {
+      "code": "GS0513",
+      "severity": "error"
+    },
+    {
+      "code": "GS0514",
+      "severity": "error"
+    },
+    {
+      "code": "GS0515",
+      "severity": "error"
+    },
+    {
+      "code": "GS0516",
+      "severity": "error"
+    },
+    {
+      "code": "GS0517",
+      "severity": "error"
+    },
+    {
+      "code": "GS0518",
+      "severity": "error"
+    },
+    {
+      "code": "GS0519",
+      "severity": "error"
+    },
+    {
+      "code": "GS0520",
+      "severity": "error"
+    },
+    {
+      "code": "GS0521",
+      "severity": "error"
+    },
+    {
+      "code": "GS0522",
+      "severity": "error"
+    },
+    {
+      "code": "GS0523",
+      "severity": "error"
+    },
+    {
+      "code": "GS0601",
+      "severity": "error"
+    },
+    {
+      "code": "GS0602",
+      "severity": "error"
+    },
+    {
+      "code": "GS0603",
+      "severity": "error"
+    },
+    {
+      "code": "GS0604",
+      "severity": "error"
+    },
+    {
+      "code": "GS0701",
+      "severity": "error"
+    },
+    {
+      "code": "GS0702",
+      "severity": "error"
+    },
+    {
+      "code": "GS0703",
+      "severity": "error"
+    },
+    {
+      "code": "GS0710",
+      "severity": "error"
+    },
+    {
+      "code": "GS0711",
+      "severity": "error"
+    },
+    {
+      "code": "GS0712",
+      "severity": "error"
+    },
+    {
+      "code": "GS0713",
+      "severity": "error"
+    },
+    {
+      "code": "GS0714",
+      "severity": "error"
+    },
+    {
+      "code": "GS0801",
+      "severity": "warning"
+    },
+    {
+      "code": "GS0802",
+      "severity": "warning"
+    },
+    {
+      "code": "GS0803",
+      "severity": "warning"
+    },
+    {
+      "code": "GS0804",
+      "severity": "warning"
+    },
+    {
+      "code": "GS0805",
+      "severity": "warning"
+    },
+    {
+      "code": "GS0806",
+      "severity": "warning"
+    },
+    {
+      "code": "GS0807",
+      "severity": "warning"
+    },
+    {
+      "code": "GS0809",
+      "severity": "warning"
+    },
+    {
+      "code": "GS0901",
+      "severity": "error"
+    },
+    {
+      "code": "GS0902",
+      "severity": "error"
+    },
+    {
+      "code": "GS0903",
+      "severity": "error"
+    },
+    {
+      "code": "GS0904",
+      "severity": "warning"
+    },
+    {
+      "code": "GS0905",
+      "severity": "error"
+    }
+  ]
+}

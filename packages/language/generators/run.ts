@@ -2,10 +2,24 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { GeneratedFile } from './generators.types.ts';
+import { renderCliHelpFiles } from './cli-help.ts';
+import { renderCompletionsFiles } from './completions.ts';
+import { renderErrorPhrasesFiles } from './error-phrases.ts';
+import { renderGlossaryFiles } from './glossary.ts';
 import { renderJsMembersFiles } from './js-members.ts';
+import { renderMonarchFiles } from './monarch.ts';
+import { renderReferenceFiles } from './reference.ts';
+import { renderRetiredPageFiles } from './retired-page.ts';
+import { renderSnippetsFiles } from './snippets.ts';
+import { renderTextmateFiles } from './textmate.ts';
+import { renderVocabularyLockFiles } from './vocabulary-lock.ts';
 
 const REPOSITORY_ROOT = resolve(import.meta.dirname, '../../..');
-export const GENERATORS: readonly (() => readonly GeneratedFile[])[] = [renderJsMembersFiles];
+export const GENERATORS: readonly (() => readonly GeneratedFile[])[] = [
+  renderJsMembersFiles, renderTextmateFiles, renderMonarchFiles, renderSnippetsFiles, renderReferenceFiles,
+  renderCliHelpFiles, renderGlossaryFiles, renderCompletionsFiles, renderRetiredPageFiles,
+  renderVocabularyLockFiles, renderErrorPhrasesFiles,
+];
 
 export function renderAll(): readonly GeneratedFile[] {
   return GENERATORS.flatMap((generate) => generate());
