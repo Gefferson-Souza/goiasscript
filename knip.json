@@ -15,7 +15,8 @@
         "scripts/**"
       ],
       "ignoreDependencies": [
-        "lint-staged"
+        "lint-staged",
+        "@commitlint/cli"
       ]
     },
     "packages/language": {
@@ -68,8 +69,5 @@
   },
   "ignore": [
     "spikes/**"
-  ],
-  "ignoreBinaries": [
-    "prettier"
   ]
 }
