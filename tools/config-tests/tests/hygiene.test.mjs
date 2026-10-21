@@ -1,4 +1,5 @@
 import { spawnSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import config from '../../../vitest.config.mts';
@@ -19,10 +20,12 @@ describe('higiene do repositório (GATE 1)', () => {
     expect(attributes).toContain('text: unset');
     expect(attributes).toContain('linguist-language: JavaScript');
   });
-  // Desligado até o .mailmap unificar as identidades (inclui o bot google-labs-jules[bot]); depois, remover o skipIf.
-  it.skipIf(process.env.GS_CHECK_AUTHORSHIP !== '1')('toda autoria do histórico vira uma só identidade', () => {
-    const identities = git('log', '--all', '--use-mailmap', '--format=%aN <%aE>').stdout.trim().split('\n');
+  // O .mailmap não repete e-mail pessoal; por isso só os commits a partir da tag de corte têm identidade única.
+  it('todo commit depois da legacy/1.5 sai com uma só identidade, sem e-mail pessoal no .mailmap', () => {
+    const identities = git('log', 'legacy/1.5..HEAD', '--use-mailmap', '--format=%aN <%aE>').stdout.trim().split('\n');
     expect(new Set(identities).size).toBe(1);
+    const mailmapEmails = [...readFileSync(path.join(ROOT_DIR, '.mailmap'), 'utf8').matchAll(/<([^>]+)>/g)].map((match) => match[1]);
+    for (const email of mailmapEmails) expect(email).toMatch(/@users\.noreply\.github\.com$/);
   });
   it('cobertura mínima de 80% em cada pacote', () => {
     const thresholds = config.test.coverage.thresholds;
