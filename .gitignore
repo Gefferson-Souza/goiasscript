@@ -147,3 +147,5 @@ gspack.json
 !lsp-server/server.js
 !lsp-server/package.json
 !lsp-server/README.md
+research_notes/
+reports/
