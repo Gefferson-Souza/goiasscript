@@ -144,15 +144,29 @@ const EXPECTED_CODES = CODE_RANGES.flatMap(([prefix, first, last]) =>
   Array.from({ length: last - first + 1 }, (_, index) => `${prefix}${String(first + index).padStart(2, '0')}`));
 const EXAMPLE_OPTIONAL = /^GS(07(1[1-4])|09)/u;
 const EXPECTED_WARNING_COUNT = 9;
+const TONES_WITH_DIFFERENT_MARKERS = ['GS0801'];
 const markers = (text: string) => [...text.matchAll(/\{(\w+)\}/gu)].map((match) => match[1]).sort();
 
 describe('catálogo de diagnósticos', () => {
   it('tem exatamente os códigos da §4.11 e da numeração fixada, sem o GS0808 recusado na RFC-0001', () => {
     expect(DIAGNOSTICS.map((entry) => entry.code).sort()).toEqual([...EXPECTED_CODES].sort());
   });
-  it('traz os dois tons (marcadores do neutro contidos nos do raiz) e exemplo (exceto genéricos de execução e ferramentas)', () => {
-    expect(DIAGNOSTICS.filter((entry) => entry.messages.raiz === '' || entry.messages.neutro === '')).toEqual([]);
-    expect(DIAGNOSTICS.filter((entry) => !markers(entry.messages.neutro).every((marker) => markers(entry.messages.raiz).includes(marker))).map((entry) => entry.code)).toEqual([]);
+  it('não repete código', () => {
+    const codes = DIAGNOSTICS.map((entry) => entry.code);
+    expect(codes.filter((code, index) => codes.indexOf(code) !== index)).toEqual([]);
+  });
+  it('traz os dois tons com mensagem não vazia', () => {
+    expect(DIAGNOSTICS.filter((entry) => entry.messages.raiz === '' || entry.messages.neutro === '').map((entry) => entry.code)).toEqual([]);
+  });
+  it('usa os mesmos marcadores nos dois tons, salvo exceção listada', () => {
+    const diverging = DIAGNOSTICS.filter((entry) => markers(entry.messages.neutro).join() !== markers(entry.messages.raiz).join()).map((entry) => entry.code);
+    expect(diverging).toEqual(TONES_WITH_DIFFERENT_MARKERS);
+  });
+  it('usa os mesmos marcadores de ajuda nos dois tons', () => {
+    const diverging = DIAGNOSTICS.filter((entry) => entry.help !== undefined && markers(entry.help.neutro).join() !== markers(entry.help.raiz).join());
+    expect(diverging.map((entry) => entry.code)).toEqual([]);
+  });
+  it('traz exemplo, exceto nos genéricos de execução e de ferramentas', () => {
     expect(DIAGNOSTICS.filter((entry) => entry.example === '' && !EXAMPLE_OPTIONAL.test(entry.code)).map((entry) => entry.code)).toEqual([]);
   });
   it('é aviso só na faixa GS08xx e no GS0904', () => {
