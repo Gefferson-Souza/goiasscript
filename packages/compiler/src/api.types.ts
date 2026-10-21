@@ -28,3 +28,11 @@ export interface ReplSession {
   readonly bindings: readonly SessionBinding[];
   readonly members: readonly string[];
 }
+
+export interface DiagnosticExplanation {
+  readonly code: string;
+  readonly title: string;
+  readonly explanation: string;
+  readonly example: string;
+  readonly lesson: string;
+}

@@ -145,7 +145,11 @@ importers:
         specifier: ^1.64.1
         version: 1.64.1
 
-  packages/compiler: {}
+  packages/compiler:
+    devDependencies:
+      '@goiasscript/language':
+        specifier: workspace:*
+        version: link:../language
 
   packages/core:
     dependencies:
