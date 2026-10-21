@@ -19,6 +19,7 @@ describe('higiene do repositório (GATE 1)', () => {
     expect(attributes).toContain('text: unset');
     expect(attributes).toContain('linguist-language: JavaScript');
   });
+  // Desligado até o .mailmap unificar as identidades (inclui o bot google-labs-jules[bot]); depois, remover o skipIf.
   it.skipIf(process.env.GS_CHECK_AUTHORSHIP !== '1')('toda autoria do histórico vira uma só identidade', () => {
     const identities = git('log', '--all', '--use-mailmap', '--format=%aN <%aE>').stdout.trim().split('\n');
     expect(new Set(identities).size).toBe(1);
