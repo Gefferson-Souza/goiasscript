@@ -17,7 +17,7 @@ GoiásScript 3 é uma linguagem educacional em goianês que compila para JavaScr
 ## Comandos
 
 - `corepack pnpm install` instala. Use sempre `corepack pnpm`: o `pnpm` pode não estar no PATH.
-- `corepack pnpm verify` roda typecheck, lint, scanner de regras, testes com cobertura, dependency-cruiser, knip e a conferência deste arquivo. Rode antes de cada commit.
+- `corepack pnpm verify` roda typecheck, lint, scanner de regras, conferência dos arquivos gerados, testes com cobertura, dependency-cruiser, knip e a conferência deste arquivo. Rode antes de cada commit.
 - Etapas isoladas: `corepack pnpm typecheck`, `corepack pnpm lint`, `corepack pnpm rules-scan`, `corepack pnpm test`, `corepack pnpm depcruise`, `corepack pnpm knip` e `corepack pnpm agent-docs`.
 
 ## Regras que valem aqui
