@@ -1,0 +1,616 @@
+{
+  "keywords": [
+    {
+      "term": "a_raiz",
+      "js": "super",
+      "category": "class"
+    },
+    {
+      "term": "aprepara_trem",
+      "js": "constructor",
+      "category": "class"
+    },
+    {
+      "term": "arruma_trem",
+      "js": "class",
+      "category": "class"
+    },
+    {
+      "term": "certeza",
+      "js": "true",
+      "category": "literal"
+    },
+    {
+      "term": "continua_aí",
+      "js": "continue",
+      "category": "control"
+    },
+    {
+      "term": "de",
+      "js": "of",
+      "category": "control"
+    },
+    {
+      "term": "de_jeito_nenhum",
+      "js": "false",
+      "category": "literal"
+    },
+    {
+      "term": "diferente",
+      "js": "!==",
+      "category": "operator"
+    },
+    {
+      "term": "dividido",
+      "js": "/",
+      "category": "operator"
+    },
+    {
+      "term": "e_mais",
+      "js": "&&",
+      "category": "operator"
+    },
+    {
+      "term": "em",
+      "js": "in",
+      "category": "control"
+    },
+    {
+      "term": "enquanto_tiver",
+      "js": "while",
+      "category": "control"
+    },
+    {
+      "term": "espera_um_cadim",
+      "js": "await",
+      "category": "function"
+    },
+    {
+      "term": "faz_favor",
+      "js": "return",
+      "category": "function"
+    },
+    {
+      "term": "faz_trem",
+      "js": "function",
+      "category": "function"
+    },
+    {
+      "term": "faz_um",
+      "js": "new",
+      "category": "class"
+    },
+    {
+      "term": "indefinido",
+      "js": "undefined",
+      "category": "literal"
+    },
+    {
+      "term": "inherda_de",
+      "js": "extends",
+      "category": "class"
+    },
+    {
+      "term": "maior_que",
+      "js": ">",
+      "category": "operator"
+    },
+    {
+      "term": "mais",
+      "js": "+",
+      "category": "operator"
+    },
+    {
+      "term": "menor_que",
+      "js": "<",
+      "category": "operator"
+    },
+    {
+      "term": "menos",
+      "js": "-",
+      "category": "operator"
+    },
+    {
+      "term": "nada",
+      "js": "null",
+      "category": "literal"
+    },
+    {
+      "term": "no_máximo",
+      "js": "<=",
+      "category": "operator"
+    },
+    {
+      "term": "num_muda",
+      "js": "static",
+      "category": "class"
+    },
+    {
+      "term": "num_é",
+      "js": "!",
+      "category": "operator"
+    },
+    {
+      "term": "ocê",
+      "js": "this",
+      "category": "class"
+    },
+    {
+      "term": "ou_então",
+      "js": "||",
+      "category": "operator"
+    },
+    {
+      "term": "para_com_isso",
+      "js": "break",
+      "category": "control"
+    },
+    {
+      "term": "pelo_menos",
+      "js": ">=",
+      "category": "operator"
+    },
+    {
+      "term": "por_fim",
+      "js": "finally",
+      "category": "error"
+    },
+    {
+      "term": "se_der_ruim",
+      "js": "catch",
+      "category": "error"
+    },
+    {
+      "term": "se_num_for",
+      "js": "else if",
+      "category": "control"
+    },
+    {
+      "term": "se_não",
+      "js": "else",
+      "category": "control"
+    },
+    {
+      "term": "se_ocê_quiser",
+      "js": "if",
+      "category": "control"
+    },
+    {
+      "term": "sobrou",
+      "js": "%",
+      "category": "operator"
+    },
+    {
+      "term": "tenta_aí",
+      "js": "try",
+      "category": "error"
+    },
+    {
+      "term": "trem",
+      "js": "let",
+      "category": "declaration"
+    },
+    {
+      "term": "uai",
+      "js": "const",
+      "category": "declaration"
+    },
+    {
+      "term": "vai_indo",
+      "js": "for",
+      "category": "control"
+    },
+    {
+      "term": "vai_na_frente",
+      "js": "async",
+      "category": "function"
+    },
+    {
+      "term": "vai_na_frente_faz_trem",
+      "js": "async function",
+      "category": "function"
+    },
+    {
+      "term": "vezes",
+      "js": "*",
+      "category": "operator"
+    },
+    {
+      "term": "vixe",
+      "js": "throw",
+      "category": "error"
+    },
+    {
+      "term": "é",
+      "js": "=",
+      "category": "assignment"
+    },
+    {
+      "term": "é_igualim",
+      "js": "===",
+      "category": "operator"
+    },
+    {
+      "term": "é_tipo_de",
+      "js": "instanceof",
+      "category": "class"
+    }
+  ],
+  "library": [
+    {
+      "term": "Coisa",
+      "js": "Object",
+      "semantics": "native"
+    },
+    {
+      "term": "Coisa.chaves",
+      "js": "Object.keys",
+      "semantics": "native"
+    },
+    {
+      "term": "Coisa.entradas",
+      "js": "Object.entries",
+      "semantics": "native"
+    },
+    {
+      "term": "Coisa.mistura",
+      "js": "Object.assign",
+      "semantics": "native"
+    },
+    {
+      "term": "Coisa.tem",
+      "js": "Object.hasOwn",
+      "semantics": "native"
+    },
+    {
+      "term": "Coisa.valores",
+      "js": "Object.values",
+      "semantics": "native"
+    },
+    {
+      "term": "Coisa.vira_coisa",
+      "js": "JSON.parse",
+      "semantics": "native"
+    },
+    {
+      "term": "Coisa.vira_texto",
+      "js": "JSON.stringify",
+      "semantics": "native"
+    },
+    {
+      "term": "Conta",
+      "js": "Math",
+      "semantics": "native"
+    },
+    {
+      "term": "Conta.E",
+      "js": "Math.E",
+      "semantics": "native"
+    },
+    {
+      "term": "Conta.PI",
+      "js": "Math.PI",
+      "semantics": "native"
+    },
+    {
+      "term": "Conta.arredondar",
+      "js": "Math.round",
+      "semantics": "native"
+    },
+    {
+      "term": "Conta.arredondar_pra_baixo",
+      "js": "Math.floor",
+      "semantics": "native"
+    },
+    {
+      "term": "Conta.arredondar_pra_cima",
+      "js": "Math.ceil",
+      "semantics": "native"
+    },
+    {
+      "term": "Conta.elevado_a",
+      "js": "Math.pow",
+      "semantics": "native"
+    },
+    {
+      "term": "Conta.maior",
+      "js": "Math.max",
+      "semantics": "native"
+    },
+    {
+      "term": "Conta.menor",
+      "js": "Math.min",
+      "semantics": "native"
+    },
+    {
+      "term": "Conta.raiz_quadrada",
+      "js": "Math.sqrt",
+      "semantics": "native"
+    },
+    {
+      "term": "Conta.ranca_o_sinal",
+      "js": "Math.abs",
+      "semantics": "native"
+    },
+    {
+      "term": "Conta.sorteia_um",
+      "js": "$gs_sorteia_um",
+      "semantics": "didactic"
+    },
+    {
+      "term": "Data",
+      "js": "Date",
+      "semantics": "native"
+    },
+    {
+      "term": "Data.agorinha",
+      "js": "Date.now",
+      "semantics": "native"
+    },
+    {
+      "term": "Erro",
+      "js": "Error",
+      "semantics": "native"
+    },
+    {
+      "term": "Promessa",
+      "js": "Promise",
+      "semantics": "native"
+    },
+    {
+      "term": "Promessa.tudim_junto",
+      "js": "Promise.all",
+      "semantics": "native"
+    },
+    {
+      "term": "ajunta",
+      "js": "join",
+      "semantics": "native"
+    },
+    {
+      "term": "amontoar",
+      "js": "reduce",
+      "semantics": "native"
+    },
+    {
+      "term": "ano",
+      "js": "getFullYear",
+      "semantics": "native"
+    },
+    {
+      "term": "arruma",
+      "js": "toSorted",
+      "semantics": "didactic"
+    },
+    {
+      "term": "avisa",
+      "js": "console.warn",
+      "semantics": "native"
+    },
+    {
+      "term": "bota_no_começo",
+      "js": "unshift",
+      "semantics": "native"
+    },
+    {
+      "term": "bota_no_final",
+      "js": "push",
+      "semantics": "native"
+    },
+    {
+      "term": "cata",
+      "js": "find",
+      "semantics": "native"
+    },
+    {
+      "term": "cochichando",
+      "js": "toLowerCase",
+      "semantics": "native"
+    },
+    {
+      "term": "cochila",
+      "js": "$gs_cochila",
+      "semantics": "didactic"
+    },
+    {
+      "term": "com_casas",
+      "js": "toFixed",
+      "semantics": "native"
+    },
+    {
+      "term": "começa_com",
+      "js": "startsWith",
+      "semantics": "native"
+    },
+    {
+      "term": "daqui_um_cadim",
+      "js": "setTimeout",
+      "semantics": "native"
+    },
+    {
+      "term": "de_trás_pra_frente",
+      "js": "toReversed",
+      "semantics": "native"
+    },
+    {
+      "term": "dia",
+      "js": "getDate",
+      "semantics": "native"
+    },
+    {
+      "term": "dividir",
+      "js": "split",
+      "semantics": "native"
+    },
+    {
+      "term": "emenda",
+      "js": "concat",
+      "semantics": "native"
+    },
+    {
+      "term": "filtrar",
+      "js": "filter",
+      "semantics": "native"
+    },
+    {
+      "term": "gritando",
+      "js": "toUpperCase",
+      "semantics": "native"
+    },
+    {
+      "term": "hora",
+      "js": "getHours",
+      "semantics": "native"
+    },
+    {
+      "term": "larga_mão",
+      "js": "clearTimeout",
+      "semantics": "native"
+    },
+    {
+      "term": "mapear",
+      "js": "map",
+      "semantics": "native"
+    },
+    {
+      "term": "mensagem",
+      "js": "message",
+      "semantics": "didactic"
+    },
+    {
+      "term": "minuto",
+      "js": "getMinutes",
+      "semantics": "native"
+    },
+    {
+      "term": "mês",
+      "js": "getMonth",
+      "semantics": "didactic"
+    },
+    {
+      "term": "naco",
+      "js": "slice",
+      "semantics": "native"
+    },
+    {
+      "term": "o_tanto",
+      "js": "length",
+      "semantics": "native"
+    },
+    {
+      "term": "onde_tá",
+      "js": "indexOf",
+      "semantics": "native"
+    },
+    {
+      "term": "onde_tá_o",
+      "js": "findIndex",
+      "semantics": "native"
+    },
+    {
+      "term": "pergunta",
+      "js": "$gs_pergunta",
+      "semantics": "didactic"
+    },
+    {
+      "term": "pra_cada",
+      "js": "forEach",
+      "semantics": "native"
+    },
+    {
+      "term": "prosa",
+      "js": "console.log",
+      "semantics": "native"
+    },
+    {
+      "term": "quando_der_bão",
+      "js": "then",
+      "semantics": "native"
+    },
+    {
+      "term": "ranca_a_cabeça",
+      "js": "shift",
+      "semantics": "native"
+    },
+    {
+      "term": "ranca_do_meio",
+      "js": "splice",
+      "semantics": "native"
+    },
+    {
+      "term": "ranca_o_rabo",
+      "js": "pop",
+      "semantics": "native"
+    },
+    {
+      "term": "ranca_os_espaço",
+      "js": "trim",
+      "semantics": "native"
+    },
+    {
+      "term": "reclama",
+      "js": "console.error",
+      "semantics": "native"
+    },
+    {
+      "term": "repete",
+      "js": "repeat",
+      "semantics": "native"
+    },
+    {
+      "term": "se_der_ruim",
+      "js": "catch",
+      "semantics": "native"
+    },
+    {
+      "term": "segundo",
+      "js": "getSeconds",
+      "semantics": "native"
+    },
+    {
+      "term": "tem_algum",
+      "js": "some",
+      "semantics": "native"
+    },
+    {
+      "term": "tem_no_meio",
+      "js": "includes",
+      "semantics": "native"
+    },
+    {
+      "term": "termina_com",
+      "js": "endsWith",
+      "semantics": "native"
+    },
+    {
+      "term": "toda_hora",
+      "js": "setInterval",
+      "semantics": "native"
+    },
+    {
+      "term": "todin",
+      "js": "every",
+      "semantics": "native"
+    },
+    {
+      "term": "trocar",
+      "js": "replaceAll",
+      "semantics": "didactic"
+    },
+    {
+      "term": "vira_número",
+      "js": "$gs_vira_numero",
+      "semantics": "didactic"
+    },
+    {
+      "term": "vira_texto",
+      "js": "$gs_vira_texto",
+      "semantics": "didactic"
+    },
+    {
+      "term": "é_número",
+      "js": "$gs_e_numero",
+      "semantics": "didactic"
+    }
+  ]
+}

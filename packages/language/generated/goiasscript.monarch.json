@@ -1,0 +1,234 @@
+{
+  "defaultToken": "",
+  "tokenPostfix": ".gs",
+  "unicode": true,
+  "keywords": [
+    "a_raiz",
+    "aprepara_trem",
+    "arruma_trem",
+    "certeza",
+    "continua_ai",
+    "continua_aí",
+    "de",
+    "de_jeito_nenhum",
+    "diferente",
+    "dividido",
+    "e_igualim",
+    "e_mais",
+    "e_tipo_de",
+    "em",
+    "enquanto_tiver",
+    "espera_um_cadim",
+    "faz_favor",
+    "faz_trem",
+    "faz_um",
+    "indefinido",
+    "inherda_de",
+    "maior_que",
+    "mais",
+    "menor_que",
+    "menos",
+    "nada",
+    "no_maximo",
+    "no_máximo",
+    "num_e",
+    "num_muda",
+    "num_é",
+    "oce",
+    "ocê",
+    "ou_entao",
+    "ou_então",
+    "para_com_isso",
+    "pelo_menos",
+    "por_fim",
+    "se_der_ruim",
+    "se_nao",
+    "se_num_for",
+    "se_não",
+    "se_oce_quiser",
+    "se_ocê_quiser",
+    "sobrou",
+    "tenta_ai",
+    "tenta_aí",
+    "trem",
+    "uai",
+    "vai_indo",
+    "vai_na_frente",
+    "vai_na_frente_faz_trem",
+    "vezes",
+    "vixe",
+    "é",
+    "é_igualim",
+    "é_tipo_de"
+  ],
+  "library": [
+    "Coisa",
+    "Conta",
+    "Data",
+    "E",
+    "Erro",
+    "PI",
+    "Promessa",
+    "agorinha",
+    "ajunta",
+    "amontoar",
+    "ano",
+    "arredondar",
+    "arredondar_pra_baixo",
+    "arredondar_pra_cima",
+    "arruma",
+    "avisa",
+    "bota_no_começo",
+    "bota_no_final",
+    "cata",
+    "chaves",
+    "cochichando",
+    "cochila",
+    "com_casas",
+    "começa_com",
+    "daqui_um_cadim",
+    "de_trás_pra_frente",
+    "dia",
+    "dividir",
+    "elevado_a",
+    "emenda",
+    "entradas",
+    "filtrar",
+    "gritando",
+    "hora",
+    "larga_mão",
+    "maior",
+    "mapear",
+    "menor",
+    "mensagem",
+    "minuto",
+    "mistura",
+    "mês",
+    "naco",
+    "o_tanto",
+    "onde_tá",
+    "onde_tá_o",
+    "pergunta",
+    "pra_cada",
+    "prosa",
+    "quando_der_bão",
+    "raiz_quadrada",
+    "ranca_a_cabeça",
+    "ranca_do_meio",
+    "ranca_o_rabo",
+    "ranca_o_sinal",
+    "ranca_os_espaço",
+    "reclama",
+    "repete",
+    "se_der_ruim",
+    "segundo",
+    "sorteia_um",
+    "tem",
+    "tem_algum",
+    "tem_no_meio",
+    "termina_com",
+    "toda_hora",
+    "todin",
+    "trocar",
+    "tudim_junto",
+    "valores",
+    "vira_coisa",
+    "vira_número",
+    "vira_texto",
+    "é_número"
+  ],
+  "tokenizer": {
+    "root": [
+      [
+        "[\\p{L}_][\\p{L}\\p{N}_]*",
+        {
+          "cases": {
+            "@keywords": "keyword",
+            "@library": "type.identifier",
+            "@default": "identifier"
+          }
+        }
+      ],
+      [
+        "\\d+(\\.\\d+)?([eE][+-]?\\d+)?",
+        "number"
+      ],
+      [
+        "\"",
+        {
+          "token": "string",
+          "next": "@dq"
+        }
+      ],
+      [
+        "'",
+        {
+          "token": "string",
+          "next": "@sq"
+        }
+      ],
+      [
+        "//.*$",
+        "comment"
+      ],
+      [
+        "/\\*",
+        {
+          "token": "comment",
+          "next": "@comment"
+        }
+      ]
+    ],
+    "dq": [
+      [
+        "[^\\\\\"]+",
+        "string"
+      ],
+      [
+        "\\\\.",
+        "string.escape"
+      ],
+      [
+        "\"",
+        {
+          "token": "string",
+          "next": "@pop"
+        }
+      ]
+    ],
+    "sq": [
+      [
+        "[^\\\\']+",
+        "string"
+      ],
+      [
+        "\\\\.",
+        "string.escape"
+      ],
+      [
+        "'",
+        {
+          "token": "string",
+          "next": "@pop"
+        }
+      ]
+    ],
+    "comment": [
+      [
+        "[^/*]+",
+        "comment"
+      ],
+      [
+        "\\*/",
+        {
+          "token": "comment",
+          "next": "@pop"
+        }
+      ],
+      [
+        "[/*]",
+        "comment"
+      ]
+    ]
+  }
+}
