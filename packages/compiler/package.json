@@ -3,9 +3,16 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "exports": { ".": "./src/index.ts" },
-  "engines": { "node": ">=22.12" },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "engines": {
+    "node": ">=22.12"
+  },
   "dependencies": {
     "@goiasscript/language": "workspace:*"
+  },
+  "devDependencies": {
+    "fast-check": "4.10.2"
   }
 }
