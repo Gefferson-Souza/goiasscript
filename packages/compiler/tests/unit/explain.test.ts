@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { DIAGNOSTICS } from '@goiasscript/language';
 import { explainDiagnostic } from '../../src/explain.ts';
 
 describe('explainDiagnostic', () => {
@@ -11,8 +12,14 @@ describe('explainDiagnostic', () => {
     expect(rootTone?.explanation).toContain('Ô sô');
     expect(explainDiagnostic('GS0307', 'neutro')?.explanation).not.toContain('Ô sô');
   });
-  it('troca marcadores sem valor por «nome» e usa lesson vazia quando não há', () => {
-    expect(explainDiagnostic('GS0301')?.explanation).toContain('«name»');
+  it('troca marcadores por exemplos legíveis e usa lesson vazia quando não há', () => {
+    expect(explainDiagnostic('GS0301')?.explanation).toContain('<nome>');
+    expect(explainDiagnostic('GS0301')?.explanation).not.toContain('«');
     expect(explainDiagnostic('GS0301')?.lesson).toBe('');
+  });
+  it('nenhuma explicação do catálogo sai com marcador cru', () => {
+    const leaked = DIAGNOSTICS.flatMap((entry) => (['raiz', 'neutro'] as const).map((tone) => explainDiagnostic(entry.code, tone)))
+      .filter((explanation) => /«|\{\w+\}/u.test(explanation?.explanation ?? ''));
+    expect(leaked).toEqual([]);
   });
 });
