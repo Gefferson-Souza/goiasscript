@@ -1,5 +1,6 @@
 export type {
   BindingKind,
+  DiagnosticExplanation,
   CompileTarget,
   LineRange,
   ReplSession,
@@ -9,3 +10,4 @@ export type {
   SourceRange,
   Tone,
 } from './api.types.ts';
+export { explainDiagnostic } from './explain.ts';
