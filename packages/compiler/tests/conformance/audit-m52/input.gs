@@ -1,0 +1,1 @@
+const o = { a: 1, b: 2 }; console.log(Object.keys(o), Object.values(o), Object.entries(o), Object.assign({}, o, { c: 3 }), o.hasOwnProperty("a"));

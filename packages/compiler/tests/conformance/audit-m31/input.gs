@@ -1,0 +1,1 @@
+prosa("a.b.c".trocar(".", "-"));

@@ -1,0 +1,1 @@
+uai d é faz_um Date(2020, 0, 15, 10, 20, 30); prosa(d.getFullYear(), d.pegar_ano(), d.pegar_mes(), d.pegar_dia());

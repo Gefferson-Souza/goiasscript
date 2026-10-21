@@ -1,0 +1,1 @@
+uai total é { mais: 1, menos: 2 }; prosa(total.mais, total.menos);

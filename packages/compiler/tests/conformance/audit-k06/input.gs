@@ -1,0 +1,1 @@
+uai certeza2 é certeza; prosa(certeza2);

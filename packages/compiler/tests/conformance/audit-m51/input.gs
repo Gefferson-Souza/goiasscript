@@ -1,0 +1,1 @@
+const a = [4, 1, 3]; a.push(9); a.unshift(0); console.log(a.pop(), a.shift(), a.filter(x => x > 1).map(x => x * 10).reduce((s, x) => s + x, 0), [3, 1, 2].sort(), [1, 2, 3].reverse(), [1, 2, 3].find(x => x > 1), [1].concat([2], [3]));

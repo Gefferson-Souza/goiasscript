@@ -1,0 +1,1 @@
+prosa(`soma: ${1 mais 2}`);

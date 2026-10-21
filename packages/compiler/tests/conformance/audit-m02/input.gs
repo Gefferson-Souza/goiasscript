@@ -1,0 +1,1 @@
+uai o é { length: 3 }; prosa(o.length);

@@ -1,0 +1,1 @@
+uai r é { nada: 1, certeza: 2 }; prosa(Object.keys(r).join(","));

@@ -1,0 +1,1 @@
+uai n é "abc"; prosa(n.replace("a", "b"));

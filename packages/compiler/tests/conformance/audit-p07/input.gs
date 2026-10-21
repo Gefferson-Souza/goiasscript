@@ -1,0 +1,1 @@
+console.log((1234.5).toFixed(2).replace(".", ","));

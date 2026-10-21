@@ -1,0 +1,1 @@
+prosa("abab".indexOf("a", 1), [1, 2, 1].indexOf(1, 1));

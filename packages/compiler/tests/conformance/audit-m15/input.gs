@@ -1,0 +1,1 @@
+prosa(Number.parseFloat("1.5"), Number.parseInt("7"));

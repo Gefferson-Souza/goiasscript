@@ -1,0 +1,1 @@
+faz_um Set([1, 2]).forEach(v => prosa(v));

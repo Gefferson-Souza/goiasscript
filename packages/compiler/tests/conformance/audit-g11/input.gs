@@ -1,0 +1,1 @@
+tenta_aí{ vixe("x"); }se_der_ruim(e){ prosa(e.message); }

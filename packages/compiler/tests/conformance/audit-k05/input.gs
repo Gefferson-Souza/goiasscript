@@ -1,0 +1,1 @@
+uai GoianoMath é 1; prosa(GoianoMath);

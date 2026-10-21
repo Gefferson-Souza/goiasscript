@@ -1,0 +1,1 @@
+uai número é 3; uai açúcar é 4; prosa(número mais açúcar);

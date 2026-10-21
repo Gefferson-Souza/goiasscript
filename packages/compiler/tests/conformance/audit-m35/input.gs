@@ -1,0 +1,1 @@
+prosa("aaa".replace(/a/, "b"));

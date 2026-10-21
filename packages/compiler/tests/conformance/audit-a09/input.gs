@@ -1,0 +1,1 @@
+uai de é 5; prosa(de);

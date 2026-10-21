@@ -1,0 +1,1 @@
+uai r é /de|em/g; prosa("de em".match(r).length);

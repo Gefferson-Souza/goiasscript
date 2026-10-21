@@ -1,0 +1,1 @@
+prosa(num_é num_é certeza);

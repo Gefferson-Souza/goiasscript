@@ -1,0 +1,1 @@
+prosa(parseInt("ff", 16), parseInt("101", 2));

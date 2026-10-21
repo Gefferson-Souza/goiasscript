@@ -181,6 +181,8 @@ importers:
         specifier: 7.29.8
         version: 7.29.8
 
+  tools/config-tests: {}
+
 packages:
 
   '@alloc/quick-lru@5.2.0':

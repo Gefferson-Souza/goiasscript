@@ -1,0 +1,1 @@
+prosa(`ele disse "oi" e 'tchau' mais uma vez`);

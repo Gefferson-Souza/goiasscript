@@ -1,0 +1,1 @@
+uai maisum é 2; prosa(maisum);

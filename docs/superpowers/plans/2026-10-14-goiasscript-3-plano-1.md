@@ -321,8 +321,11 @@ export function emitProgram(program: Program, analysis: AnalysisResult, source: 
 export function buildSourceMap(source: SourceText, generatedCode: string, segments: readonly MappingSegment[]): SourceMapV3; // ajudantes nascem sem segmento
 // SourceMapV3 em sourcemap/source-map.types.ts (U2-09); a U2-10 reexporta
 
-// packages/compiler/tests/support/conformance.types.ts (U1-10): CaseConfig, ExpectedDiagnostic, CompileFunction
-// (subconjunto estrutural de CompileResult) e ExecuteFunction, consumidos por U2-10 e U2-14.
+// packages/compiler/tests/support/conformance.types.ts (U1-10), consumidos por U2-10 e U2-14
+export interface CaseConfig { readonly status?: 'expected-fail'; readonly triage?: CaseTriage; readonly rfc?: string; readonly issue?: string; readonly source?: string; readonly differential?: boolean }
+export interface ExpectedDiagnostic { readonly code: string; readonly line: number; readonly column?: number; readonly severity?: 'error' | 'warning' }
+export type CompileFunction = (source: string) => CompileResultLike;   // CompileResultLike: subconjunto estrutural de CompileResult (§5.9)
+export type ExecuteFunction = (code: string, stdin: string | null) => Promise<string>;
 
 // packages/compiler/src/diagnostics/report.ts
 export function toDiagnostic(raw: RawDiagnostic, source: SourceText, tone: Tone): Diagnostic;   // ordena por posição quem chama

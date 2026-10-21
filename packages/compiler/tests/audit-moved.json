@@ -1,0 +1,22 @@
+[
+  {
+    "id": "K07",
+    "target": "teste do REPL por PTY (Fase 3)"
+  },
+  {
+    "id": "D04",
+    "target": "API pública de compile() (U2-10)"
+  },
+  {
+    "id": "D05",
+    "target": "API pública de compile() (U2-10)"
+  },
+  {
+    "id": "D06",
+    "target": "API pública de compile() (U2-10)"
+  },
+  {
+    "id": "D07",
+    "target": "diagnóstico de sintaxe do parser (U2-05)"
+  }
+]

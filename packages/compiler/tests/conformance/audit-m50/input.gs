@@ -1,0 +1,1 @@
+console.log(" a b ".trim().toUpperCase().split(" ").join("-"), "abcdef".slice(2), "abcdef".substring(1, 3), "abc".charAt(1), "abc".startsWith("a"), "abc".endsWith("c"), "abc".includes("b"), "abc".indexOf("c"));

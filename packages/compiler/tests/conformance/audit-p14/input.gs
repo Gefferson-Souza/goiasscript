@@ -1,0 +1,1 @@
+console.log("5".padStart(3, "0"), "ab".repeat(2), "a-b-c".replaceAll("-", "+"), [1, 2, 3].at(-1));

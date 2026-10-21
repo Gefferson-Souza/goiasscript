@@ -1,0 +1,1 @@
+uai emprego é "dev"; prosa(emprego);

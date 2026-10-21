@@ -1,0 +1,1 @@
+console.log(Math.floor(2.7), Math.ceil(2.1), Math.round(2.5), Math.max(1, 5, 3), Math.min(4, 2), Math.abs(-3), Math.sqrt(16), Math.pow(2, 10), Math.PI.toFixed(2), Math.E.toFixed(2), typeof Math.random());

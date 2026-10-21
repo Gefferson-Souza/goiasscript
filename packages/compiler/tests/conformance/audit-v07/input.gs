@@ -1,0 +1,1 @@
+uai número: numero é 5; prosa(número);

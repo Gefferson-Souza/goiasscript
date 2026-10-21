@@ -1,0 +1,1 @@
+setTimeout((x) => prosa("arg:", x), 1, "ok");
