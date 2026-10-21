@@ -1,145 +1,116 @@
-name: CI/CD GoiásScript
+name: CI
 
 on:
   push:
-    branches: [main, staging, 'feat/**']
+    branches: [main, 'v3/**']
   pull_request:
-    branches: [main, staging]
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+env:
+  HUSKY: '0'
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  verify:
+    name: verify
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { fetch-depth: 0 }
+      - name: Dicionários do gate de idioma
+        run: sudo apt-get update && sudo apt-get install --yes wbrazilian wamerican wbritish
+      - run: corepack enable
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with: { node-version: 24, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run verify
+
+  tests:
+    name: tests (node ${{ matrix.node }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        node-version: ['18.x', '20.x', '22.x']
-
+        node: ['22', '24']
+        os: [ubuntu-24.04, windows-2025]
     steps:
-      - name: Checkout código
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        # Versão lida automaticamente de packageManager no package.json
-
-      - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { fetch-depth: 0 }
+      - run: corepack enable
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec vitest run --coverage --project @goiasscript/language --project @goiasscript/compiler --project @goiasscript/optimizer
 
-      - name: Instalar dependências
-        run: pnpm install --frozen-lockfile
-
-      - name: Executar linting
-        run: pnpm lint
-
-      - name: Verificar formatação
-        run: pnpm format:check
-        continue-on-error: true
-
-      - name: Executar testes com cobertura
-        run: pnpm test:coverage
-
-      - name: Upload coverage para Codecov
-        if: matrix.node-version == '20.x'
-        uses: codecov/codecov-action@v4
-        with:
-          files: ./packages/core/coverage/lcov.info
-          flags: unittests
-          name: codecov-umbrella
-        continue-on-error: true
-
-      - name: Smoke test CLI
-        run: |
-          cd packages/core
-          node bin/goiasscript.js --version
-          node bin/goiasscript.js dedo_de_prosa
-          node bin/goiasscript.js traduz examples/basic/exemplo.gs
-
-      - name: Smoke test browser entry
-        run: |
-          cd packages/core
-          node -e "const {GoiasScriptBrowserCompiler}=require('./src/browser'); const r=new GoiasScriptBrowserCompiler().transpile('uai x é 42; prosa(x)'); if(!r.success) {console.error(r.error); process.exit(1)}; console.log('browser entry OK')"
-
-  build-apps:
-    runs-on: ubuntu-latest
-    needs: test
+  test:
+    name: test
+    needs: tests
+    if: always()
+    runs-on: ubuntu-24.04
     steps:
-      - name: Checkout código
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Setup Node.js 20.x
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.x
-          cache: 'pnpm'
-
-      - name: Instalar dependências
-        run: pnpm install --frozen-lockfile
-
-      - name: Build do playground
-        run: pnpm playground:build
-
-      - name: Typecheck do engoianador
-        run: pnpm engoianador:typecheck
-
-  engoianador-test:
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - name: Checkout código
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Setup Node.js 20.x
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.x
-          cache: 'pnpm'
-
-      - name: Instalar dependências
-        run: pnpm install --frozen-lockfile
-
-      - name: Testes do Worker (rate-limit, CORS, prompt injection)
-        run: pnpm engoianador:test
-
-  e2e:
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - name: Checkout código
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Setup Node.js 20.x
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.x
-          cache: 'pnpm'
-
-      - name: Instalar dependências
-        run: pnpm install --frozen-lockfile
-
-      - name: Instalar navegador do Playwright (chromium)
-        run: pnpm --filter playground-e2e exec playwright install --with-deps chromium
-
-      - name: Rodar E2E (playground sobe via webServer)
-        run: pnpm e2e
+      - name: Resultado da matriz
         env:
-          CI: '1'
+          RESULT: ${{ needs.tests.result }}
+        run: test "$RESULT" = success
 
-      - name: Upload artefatos do Playwright
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-report
-          path: apps/playground-e2e/playwright-report/
-          retention-days: 7
+  commitlint:
+    name: commitlint
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { fetch-depth: 0 }
+      - run: corepack enable
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with: { node-version: 24, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - name: Commits do PR
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: pnpm exec commitlint --from "$BASE_SHA" --to "$HEAD_SHA" --verbose
+      - name: Título do PR
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: printf '%s\n' "$PR_TITLE" | pnpm exec commitlint --verbose
+
+  patch-coverage:
+    name: patch-coverage
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { fetch-depth: 0 }
+      - run: corepack enable
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with: { node-version: 24, cache: pnpm }
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with: { python-version: '3.13' }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec vitest run --coverage --project @goiasscript/language --project @goiasscript/compiler --project @goiasscript/optimizer
+      - run: pip install diff-cover==10.6.0
+      - name: Cobertura das linhas alteradas
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: diff-cover coverage/lcov.info --compare-branch="origin/$BASE_REF" --fail-under=80
+
+  pr-body:
+    name: pr-body
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with: { node-version: 24 }
+      - name: Seção Revisão e rodapé proibido
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: node scripts/check-pr-body.ts
