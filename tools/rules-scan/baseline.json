@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "files": {
+    "apps/engoianador-api/src/engoiana.ts": {
+      "R06": 1,
+      "R14": 4
+    },
+    "apps/engoianador-api/src/index.ts": {
+      "R06": 1,
+      "R14": 10
+    },
+    "apps/engoianador-api/src/prompt.ts": {
+      "R14": 2
+    },
+    "apps/engoianador-api/src/rate-limit.ts": {
+      "R12": 2
+    },
+    "apps/engoianador-api/test/prompt.test.ts": {
+      "R14": 3
+    },
+    "apps/engoianador-api/test/rate-limit.test.ts": {
+      "R14": 1
+    },
+    "apps/playground-e2e/tests/engoianador.spec.ts": {
+      "R14": 1
+    },
+    "apps/playground-e2e/tests/examples.spec.ts": {
+      "R07": 1,
+      "R14": 2
+    },
+    "apps/playground-e2e/tests/security.spec.ts": {
+      "R07": 2,
+      "R12": 1,
+      "R14": 1
+    },
+    "apps/playground/app/doacao/page.tsx": {
+      "R14": 1
+    },
+    "apps/playground/app/engoianador/page.tsx": {
+      "R14": 18
+    },
+    "apps/playground/components/DonationLinks.tsx": {
+      "R13": 1,
+      "R14": 3
+    },
+    "apps/playground/components/OutputPanel.tsx": {
+      "R14": 4
+    },
+    "apps/playground/components/Toolbar.tsx": {
+      "R06": 1,
+      "R12": 1,
+      "R14": 6
+    },
+    "apps/playground/lib/engoianador-client.ts": {
+      "R14": 2
+    },
+    "apps/playground/lib/share.ts": {
+      "R14": 1
+    },
+    "apps/playground/next.config.mjs": {
+      "R11": 1
+    },
+    "apps/playground/scripts/copy-examples.mjs": {
+      "R06": 5,
+      "R14": 8
+    },
+    "apps/playground/tailwind.config.ts": {
+      "R14": 7
+    },
+    "apps/playground/types/goiasscript.d.ts": {
+      "R14": 4
+    },
+    "apps/playground/workers/runner.worker.ts": {
+      "R09": 1,
+      "R11": 1,
+      "R14": 1
+    }
+  }
+}
