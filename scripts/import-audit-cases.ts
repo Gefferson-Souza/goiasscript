@@ -58,7 +58,7 @@ const OVERRIDES: Readonly<Record<string, Override>> = {
   V08: { intentional: false, diagnostics: [{ code: 'GS0307', line: 1 }] },
 };
 const STDOUTS: Readonly<Record<string, string>> = { S12: 'use .replace( pra trocar\n', C01: 'ok\n', E04b: '5\n', L05: '1 2\n', W01: 'oi\n', X03: '', D01: '', D02: '', D03: '' };
-const MOVED: Readonly<Record<string, string>> = { K07: 'teste do REPL por PTY (Fase 3)', D04: 'API pública de compile() (U2-10)', D05: 'API pública de compile() (U2-10)', D06: 'API pública de compile() (U2-10)', D07: 'diagnóstico de sintaxe do parser (U2-05)' };
+const MOVED: Readonly<Record<string, string>> = { K07: 'teste do REPL por PTY', D04: 'API pública de compile()', D05: 'API pública de compile()', D06: 'API pública de compile()', D07: 'diagnóstico de sintaxe do parser' };
 
 const text = (value: unknown): string | null => (typeof value === 'string' ? value : null);
 
