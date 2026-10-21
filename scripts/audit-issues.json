@@ -1,13 +1,13 @@
 {
-  "aviso": 1,
-  "comentario": 2,
-  "estrutura": 3,
-  "formato": 4,
-  "identificador": 5,
-  "operador-é": 6,
-  "runtime": 7,
-  "string": 8,
-  "trocar": 9,
-  "unicode": 10,
-  "validacao": 11
+  "aviso": 8,
+  "comentario": 9,
+  "estrutura": 10,
+  "formato": 11,
+  "identificador": 12,
+  "operador-é": 13,
+  "runtime": 14,
+  "string": 15,
+  "trocar": 16,
+  "unicode": 17,
+  "validacao": 18
 }
