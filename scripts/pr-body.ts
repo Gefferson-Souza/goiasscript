@@ -1,11 +1,21 @@
 const REVIEW_HEADING = /^##\s+Revisão\s*$/m;
 const NEXT_HEADING = /^##\s/m;
-const HTML_COMMENT = /<!--(?:-?>|[\s\S]*?-->)/g;
+const COMMENT_OPEN = '<!--';
+const COMMENT_CLOSE = '-->';
+const EMPTY_COMMENT_CLOSE_OFFSET = 2;
 const GENERATED_FOOTER = /generated with/i;
 
-// Uma única passada pode juntar as pontas de dois pedaços num comentário novo; repete até estabilizar.
+function removeFirstComment(text: string): string {
+  const start = text.indexOf(COMMENT_OPEN);
+  if (start === -1) return text;
+  // Busca o fechamento a partir de "<!" + 2 para aceitar "<!-->" e "<!--->", que o HTML trata como comentário vazio.
+  const end = text.indexOf(COMMENT_CLOSE, start + EMPTY_COMMENT_CLOSE_OFFSET);
+  return end === -1 ? text.slice(0, start) : text.slice(0, start) + text.slice(end + COMMENT_CLOSE.length);
+}
+
+// Tirar um comentário pode juntar as pontas de dois pedaços num comentário novo; repete até estabilizar.
 function stripHtmlComments(text: string): string {
-  const stripped = text.replace(HTML_COMMENT, '');
+  const stripped = removeFirstComment(text);
   return stripped === text ? text : stripHtmlComments(stripped);
 }
 
