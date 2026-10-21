@@ -36,6 +36,22 @@ describe('lexer: textos', () => {
     expect(codesOf('`a ${ {x} ')).toEqual(['GS0103']);
     expect(codesOf('`a ${"x} `')).toEqual(['GS0103']);
   });
+  it('chave dentro de comentário ou regex na expressão não fecha o ${}', () => {
+    expect(kindsOf('`a ${ /* } */ 1 } b`')).toEqual(['template', 'end-of-file']);
+    expect(kindsOf('`a ${ 1 // }\n } b`')).toEqual(['template', 'end-of-file']);
+    expect(kindsOf('`a ${ /}/.test(x) } b`')).toEqual(['template', 'end-of-file']);
+    expect(kindsOf('`a ${ x / 2 } b ${ y }`')).toEqual(['template', 'end-of-file']);
+    expect(lexAll('`a ${ /* } */ 1 } b` 2').tokens[0]?.text).toBe('`a ${ /* } */ 1 } b`');
+  });
+  it('template aceita aninhamento real próximo do limite', () => {
+    const depth = 150;
+    const nested = '`${'.repeat(depth) + '1' + '}`'.repeat(depth);
+    expect(kindsOf(nested)).toEqual(['template', 'end-of-file']);
+  });
+  it('U+2028 e U+2029 dentro de template dão GS0105 sem interromper o token', () => {
+    expect(codesOf('`a\u2028b`')).toEqual(['GS0105']);
+    expect(kindsOf('`a\u2029b`')).toEqual(['template', 'end-of-file']);
+  });
   it('template com aninhamento patológico vira GS0103 sem estourar a pilha', () => {
     const nested = '`${'.repeat(100_000);
     expect(codesOf(nested)).toEqual(['GS0103']);
