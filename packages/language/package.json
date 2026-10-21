@@ -1,0 +1,8 @@
+{
+  "name": "@goiasscript/language",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "engines": { "node": ">=22.12" }
+}

@@ -111,7 +111,7 @@ packages/optimizer/
 tools/rules-scan/
   package.json  src/**  scope.json  policy.json  baseline.json  dictionaries.lock.json  fixtures/**  tests/**  (spikes/poc-compiler fica em `excluded` até o gate da Fase 2)
 tsconfig.base.json  tsconfig.json  vitest.config.mts  .npmrc  eslint.config.mjs  .dependency-cruiser.cjs  knip.json  commitlint.config.mjs  .lintstagedrc.mjs
-.husky/{commit-msg,pre-commit,pre-push}  .github/{rulesets/*.json,workflows/*.yml,pull_request_template.md,dependabot.yml,ISSUE_TEMPLATE/*,copilot-instructions.md}
+.husky/{commit-msg,pre-commit,pre-push}  .github/{rulesets/*.json,workflows/{ci,legacy-ci,codeql,osv,scheduled,promises-gate}.yml,pull_request_template.md,dependabot.yml,ISSUE_TEMPLATE/*,copilot-instructions.md}
 CLAUDE.md  .gitignore  .gitattributes  .mailmap  .changeset/config.json
 scripts/**  (bless, import-audit-cases, pr-body, check-pr-body, agent-docs, check-agent-docs)   tools/config-tests/**
 ```

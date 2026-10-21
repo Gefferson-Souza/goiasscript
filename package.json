@@ -4,12 +4,12 @@
   "private": true,
   "description": "🇧🇷 Monorepo do GoiásScript — linguagem de programação goiana, playground web e ENGOIANADOR API",
   "scripts": {
-    "test": "pnpm --filter goiasscript test",
-    "test:coverage": "pnpm --filter goiasscript test:coverage",
-    "lint": "pnpm --filter goiasscript lint",
-    "lint:fix": "pnpm --filter goiasscript lint:fix",
-    "format": "pnpm --filter goiasscript format",
-    "format:check": "pnpm --filter goiasscript format:check",
+    "legacy:test": "pnpm --filter goiasscript test",
+    "legacy:test:coverage": "pnpm --filter goiasscript test:coverage",
+    "legacy:lint": "ESLINT_USE_FLAT_CONFIG=false pnpm --filter goiasscript lint",
+    "legacy:lint:fix": "ESLINT_USE_FLAT_CONFIG=false pnpm --filter goiasscript lint:fix",
+    "legacy:format": "pnpm --filter goiasscript format",
+    "legacy:format:check": "pnpm --filter goiasscript format:check",
     "playground:dev": "pnpm --filter playground dev",
     "playground:build": "pnpm --filter playground build",
     "playground:start": "pnpm --filter playground start",
@@ -18,11 +18,18 @@
     "engoianador:typecheck": "pnpm --filter engoianador-api typecheck",
     "engoianador:test": "pnpm --filter engoianador-api test",
     "e2e": "pnpm --filter playground-e2e test:e2e",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run --coverage",
+    "verify": "tsc -p tsconfig.json && vitest run --coverage"
   },
   "devDependencies": {
+    "@types/node": "22.20.5",
+    "@vitest/coverage-v8": "5.0.5",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.0"
+    "lint-staged": "^13.2.0",
+    "typescript": "6.0.3",
+    "vitest": "5.0.5"
   },
   "lint-staged": {
     "packages/**/*.js": [
@@ -33,8 +40,8 @@
     ]
   },
   "engines": {
-    "node": ">=18.0.0",
-    "pnpm": ">=8.0.0"
+    "node": ">=22.22.1",
+    "pnpm": ">=10.31.0"
   },
   "packageManager": "pnpm@10.31.0",
   "repository": {
