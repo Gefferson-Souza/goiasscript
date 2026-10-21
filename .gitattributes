@@ -1,0 +1,5 @@
+* text=auto
+*.gs linguist-language=JavaScript
+.husky/* text eol=lf
+*.vsix binary
+packages/compiler/tests/conformance/** -text
