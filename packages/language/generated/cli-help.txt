@@ -1,0 +1,96 @@
+Palavras-chave
+
+assignment: é
+class: arruma_trem, inherda_de, aprepara_trem, num_muda, a_raiz, ocê, oce, faz_um, é_tipo_de, e_tipo_de
+control: se_ocê_quiser, se_oce_quiser, se_num_for, se_não, se_nao, vai_indo, enquanto_tiver, para_com_isso, continua_aí, continua_ai, de, em
+declaration: uai, trem
+error: tenta_aí, tenta_ai, se_der_ruim, por_fim, vixe
+function: faz_trem, faz_favor, vai_na_frente, vai_na_frente_faz_trem, espera_um_cadim
+literal: certeza, de_jeito_nenhum, nada, indefinido
+operator: é_igualim, e_igualim, diferente, maior_que, menor_que, pelo_menos, no_máximo, no_maximo, e_mais, ou_então, ou_entao, num_é, num_e, mais, menos, vezes, dividido, sobrou
+
+Diagnósticos
+
+GS0101  Número malformado
+GS0102  Escape inválido em texto
+GS0103  Texto sem fechar
+GS0104  Caractere inválido em nome
+GS0105  Caractere invisível proibido
+GS0106  Comentário sem fechar
+GS0107  Caractere desconhecido
+GS0201  Fim da entrada inesperado
+GS0202  Trecho inesperado
+GS0203  Linha começa com operador
+GS0204  Quebra antes da seta
+GS0205  Continuação sem início
+GS0206  vixe fora de lugar
+GS0207  Corpo sem chaves
+GS0208  Vírgula decimal
+GS0209  Alvo de atribuição inválido
+GS0301  Nome não declarado
+GS0302  Reatribuição de uai
+GS0303  Palavra da linguagem usada como nome
+GS0304  Nome declarado duas vezes
+GS0305  Membro não declarado
+GS0306  Palavra de versão anterior
+GS0307  uai sem valor inicial
+GS0308  Fora de laço
+GS0309  faz_favor fora de função
+GS0310  Dois construtores
+GS0311  Uso inválido de a_raiz
+GS0312  espera_um_cadim fora de função assíncrona
+GS0401  Keyword do JavaScript
+GS0402  Palavra do JavaScript sem equivalente
+GS0403  Global do JavaScript
+GS0404  Operador do JavaScript
+GS0405  Membro do JavaScript com nome goiano
+GS0406  Membro do JavaScript sem nome goiano
+GS0500  Construção do JavaScript fora da v3
+GS0501  Template literal
+GS0502  Expressão regular
+GS0503  Desestruturação
+GS0504  Spread e rest
+GS0505  switch
+GS0506  do…while
+GS0507  Rótulo
+GS0508  Getter e setter
+GS0509  Campo no corpo da classe
+GS0510  Campo privado
+GS0511  Generator
+GS0512  typeof
+GS0513  delete
+GS0514  void
+GS0515  Módulos
+GS0516  Tipo na declaração
+GS0517  Formato numérico fora da v3
+GS0518  Função como valor sem seta
+GS0519  Chave abreviada em coisa
+GS0520  Método abreviado em coisa
+GS0521  Chave computada
+GS0522  Trem muito aninhado
+GS0523  Operador fora da v3
+GS0601  Membro com nome da biblioteca
+GS0602  pergunta fora de contexto assíncrono
+GS0603  Forma errada de membro da biblioteca
+GS0604  Número de argumentos
+GS0701  Laço passou do limite
+GS0702  Acabou a entrada
+GS0703  Programa esperando para sempre
+GS0710  Erro de tipo
+GS0711  Erro de referência
+GS0712  Erro de faixa
+GS0713  Erro de sintaxe em execução
+GS0714  Erro desconhecido
+GS0801  é como condição
+GS0802  Laço sem saída aparente
+GS0803  Código depois de faz_favor
+GS0804  Declaração esconde nome da biblioteca
+GS0805  Vírgula decimal em argumentos
+GS0806  Expressão sem efeito
+GS0807  Erro passado direto
+GS0809  Acesso por texto a nome da biblioteca
+GS0901  Erro interno do compilador
+GS0902  Arquivo sem .gs
+GS0903  Saída igual à entrada ou destino existente
+GS0904  Node abaixo do mínimo
+GS0905  Uso incorreto do CLI

@@ -1,0 +1,612 @@
+[
+  {
+    "label": "Coisa",
+    "detail": "Object",
+    "kind": "function"
+  },
+  {
+    "label": "Coisa.chaves",
+    "detail": "Object.keys",
+    "kind": "function"
+  },
+  {
+    "label": "Coisa.entradas",
+    "detail": "Object.entries",
+    "kind": "function"
+  },
+  {
+    "label": "Coisa.mistura",
+    "detail": "Object.assign",
+    "kind": "function"
+  },
+  {
+    "label": "Coisa.tem",
+    "detail": "Object.hasOwn",
+    "kind": "function"
+  },
+  {
+    "label": "Coisa.valores",
+    "detail": "Object.values",
+    "kind": "function"
+  },
+  {
+    "label": "Coisa.vira_coisa",
+    "detail": "JSON.parse",
+    "kind": "function"
+  },
+  {
+    "label": "Coisa.vira_texto",
+    "detail": "JSON.stringify",
+    "kind": "function"
+  },
+  {
+    "label": "Conta",
+    "detail": "Math",
+    "kind": "function"
+  },
+  {
+    "label": "Conta.E",
+    "detail": "Math.E",
+    "kind": "property"
+  },
+  {
+    "label": "Conta.PI",
+    "detail": "Math.PI",
+    "kind": "property"
+  },
+  {
+    "label": "Conta.arredondar",
+    "detail": "Math.round",
+    "kind": "function"
+  },
+  {
+    "label": "Conta.arredondar_pra_baixo",
+    "detail": "Math.floor",
+    "kind": "function"
+  },
+  {
+    "label": "Conta.arredondar_pra_cima",
+    "detail": "Math.ceil",
+    "kind": "function"
+  },
+  {
+    "label": "Conta.elevado_a",
+    "detail": "Math.pow",
+    "kind": "function"
+  },
+  {
+    "label": "Conta.maior",
+    "detail": "Math.max",
+    "kind": "function"
+  },
+  {
+    "label": "Conta.menor",
+    "detail": "Math.min",
+    "kind": "function"
+  },
+  {
+    "label": "Conta.raiz_quadrada",
+    "detail": "Math.sqrt",
+    "kind": "function"
+  },
+  {
+    "label": "Conta.ranca_o_sinal",
+    "detail": "Math.abs",
+    "kind": "function"
+  },
+  {
+    "label": "Conta.sorteia_um",
+    "detail": "$gs_sorteia_um",
+    "kind": "function"
+  },
+  {
+    "label": "Data",
+    "detail": "Date",
+    "kind": "function"
+  },
+  {
+    "label": "Data.agorinha",
+    "detail": "Date.now",
+    "kind": "function"
+  },
+  {
+    "label": "Erro",
+    "detail": "Error",
+    "kind": "function"
+  },
+  {
+    "label": "Promessa",
+    "detail": "Promise",
+    "kind": "function"
+  },
+  {
+    "label": "Promessa.tudim_junto",
+    "detail": "Promise.all",
+    "kind": "function"
+  },
+  {
+    "label": "a_raiz",
+    "detail": "super",
+    "kind": "keyword"
+  },
+  {
+    "label": "ajunta",
+    "detail": "join",
+    "kind": "function"
+  },
+  {
+    "label": "amontoar",
+    "detail": "reduce",
+    "kind": "function"
+  },
+  {
+    "label": "ano",
+    "detail": "getFullYear",
+    "kind": "function"
+  },
+  {
+    "label": "aprepara_trem",
+    "detail": "constructor",
+    "kind": "keyword"
+  },
+  {
+    "label": "arruma",
+    "detail": "toSorted",
+    "kind": "function"
+  },
+  {
+    "label": "arruma_trem",
+    "detail": "class",
+    "kind": "keyword"
+  },
+  {
+    "label": "avisa",
+    "detail": "console.warn",
+    "kind": "function"
+  },
+  {
+    "label": "bota_no_começo",
+    "detail": "unshift",
+    "kind": "function"
+  },
+  {
+    "label": "bota_no_final",
+    "detail": "push",
+    "kind": "function"
+  },
+  {
+    "label": "cata",
+    "detail": "find",
+    "kind": "function"
+  },
+  {
+    "label": "certeza",
+    "detail": "true",
+    "kind": "keyword"
+  },
+  {
+    "label": "cochichando",
+    "detail": "toLowerCase",
+    "kind": "function"
+  },
+  {
+    "label": "cochila",
+    "detail": "$gs_cochila",
+    "kind": "function"
+  },
+  {
+    "label": "com_casas",
+    "detail": "toFixed",
+    "kind": "function"
+  },
+  {
+    "label": "começa_com",
+    "detail": "startsWith",
+    "kind": "function"
+  },
+  {
+    "label": "continua_aí",
+    "detail": "continue",
+    "kind": "keyword"
+  },
+  {
+    "label": "daqui_um_cadim",
+    "detail": "setTimeout",
+    "kind": "function"
+  },
+  {
+    "label": "de",
+    "detail": "of",
+    "kind": "keyword"
+  },
+  {
+    "label": "de_jeito_nenhum",
+    "detail": "false",
+    "kind": "keyword"
+  },
+  {
+    "label": "de_trás_pra_frente",
+    "detail": "toReversed",
+    "kind": "function"
+  },
+  {
+    "label": "dia",
+    "detail": "getDate",
+    "kind": "function"
+  },
+  {
+    "label": "diferente",
+    "detail": "!==",
+    "kind": "keyword"
+  },
+  {
+    "label": "dividido",
+    "detail": "/",
+    "kind": "keyword"
+  },
+  {
+    "label": "dividir",
+    "detail": "split",
+    "kind": "function"
+  },
+  {
+    "label": "e_mais",
+    "detail": "&&",
+    "kind": "keyword"
+  },
+  {
+    "label": "em",
+    "detail": "in",
+    "kind": "keyword"
+  },
+  {
+    "label": "emenda",
+    "detail": "concat",
+    "kind": "function"
+  },
+  {
+    "label": "enquanto_tiver",
+    "detail": "while",
+    "kind": "keyword"
+  },
+  {
+    "label": "espera_um_cadim",
+    "detail": "await",
+    "kind": "keyword"
+  },
+  {
+    "label": "faz_favor",
+    "detail": "return",
+    "kind": "keyword"
+  },
+  {
+    "label": "faz_trem",
+    "detail": "function",
+    "kind": "keyword"
+  },
+  {
+    "label": "faz_um",
+    "detail": "new",
+    "kind": "keyword"
+  },
+  {
+    "label": "filtrar",
+    "detail": "filter",
+    "kind": "function"
+  },
+  {
+    "label": "gritando",
+    "detail": "toUpperCase",
+    "kind": "function"
+  },
+  {
+    "label": "hora",
+    "detail": "getHours",
+    "kind": "function"
+  },
+  {
+    "label": "indefinido",
+    "detail": "undefined",
+    "kind": "keyword"
+  },
+  {
+    "label": "inherda_de",
+    "detail": "extends",
+    "kind": "keyword"
+  },
+  {
+    "label": "larga_mão",
+    "detail": "clearTimeout",
+    "kind": "function"
+  },
+  {
+    "label": "maior_que",
+    "detail": ">",
+    "kind": "keyword"
+  },
+  {
+    "label": "mais",
+    "detail": "+",
+    "kind": "keyword"
+  },
+  {
+    "label": "mapear",
+    "detail": "map",
+    "kind": "function"
+  },
+  {
+    "label": "menor_que",
+    "detail": "<",
+    "kind": "keyword"
+  },
+  {
+    "label": "menos",
+    "detail": "-",
+    "kind": "keyword"
+  },
+  {
+    "label": "mensagem",
+    "detail": "message",
+    "kind": "property"
+  },
+  {
+    "label": "minuto",
+    "detail": "getMinutes",
+    "kind": "function"
+  },
+  {
+    "label": "mês",
+    "detail": "getMonth",
+    "kind": "function"
+  },
+  {
+    "label": "naco",
+    "detail": "slice",
+    "kind": "function"
+  },
+  {
+    "label": "nada",
+    "detail": "null",
+    "kind": "keyword"
+  },
+  {
+    "label": "no_máximo",
+    "detail": "<=",
+    "kind": "keyword"
+  },
+  {
+    "label": "num_muda",
+    "detail": "static",
+    "kind": "keyword"
+  },
+  {
+    "label": "num_é",
+    "detail": "!",
+    "kind": "keyword"
+  },
+  {
+    "label": "o_tanto",
+    "detail": "length",
+    "kind": "property"
+  },
+  {
+    "label": "ocê",
+    "detail": "this",
+    "kind": "keyword"
+  },
+  {
+    "label": "onde_tá",
+    "detail": "indexOf",
+    "kind": "function"
+  },
+  {
+    "label": "onde_tá_o",
+    "detail": "findIndex",
+    "kind": "function"
+  },
+  {
+    "label": "ou_então",
+    "detail": "||",
+    "kind": "keyword"
+  },
+  {
+    "label": "para_com_isso",
+    "detail": "break",
+    "kind": "keyword"
+  },
+  {
+    "label": "pelo_menos",
+    "detail": ">=",
+    "kind": "keyword"
+  },
+  {
+    "label": "pergunta",
+    "detail": "$gs_pergunta",
+    "kind": "function"
+  },
+  {
+    "label": "por_fim",
+    "detail": "finally",
+    "kind": "keyword"
+  },
+  {
+    "label": "pra_cada",
+    "detail": "forEach",
+    "kind": "function"
+  },
+  {
+    "label": "prosa",
+    "detail": "console.log",
+    "kind": "function"
+  },
+  {
+    "label": "quando_der_bão",
+    "detail": "then",
+    "kind": "function"
+  },
+  {
+    "label": "ranca_a_cabeça",
+    "detail": "shift",
+    "kind": "function"
+  },
+  {
+    "label": "ranca_do_meio",
+    "detail": "splice",
+    "kind": "function"
+  },
+  {
+    "label": "ranca_o_rabo",
+    "detail": "pop",
+    "kind": "function"
+  },
+  {
+    "label": "ranca_os_espaço",
+    "detail": "trim",
+    "kind": "function"
+  },
+  {
+    "label": "reclama",
+    "detail": "console.error",
+    "kind": "function"
+  },
+  {
+    "label": "repete",
+    "detail": "repeat",
+    "kind": "function"
+  },
+  {
+    "label": "se_der_ruim",
+    "detail": "catch",
+    "kind": "function"
+  },
+  {
+    "label": "se_der_ruim",
+    "detail": "catch",
+    "kind": "keyword"
+  },
+  {
+    "label": "se_num_for",
+    "detail": "else if",
+    "kind": "keyword"
+  },
+  {
+    "label": "se_não",
+    "detail": "else",
+    "kind": "keyword"
+  },
+  {
+    "label": "se_ocê_quiser",
+    "detail": "if",
+    "kind": "keyword"
+  },
+  {
+    "label": "segundo",
+    "detail": "getSeconds",
+    "kind": "function"
+  },
+  {
+    "label": "sobrou",
+    "detail": "%",
+    "kind": "keyword"
+  },
+  {
+    "label": "tem_algum",
+    "detail": "some",
+    "kind": "function"
+  },
+  {
+    "label": "tem_no_meio",
+    "detail": "includes",
+    "kind": "function"
+  },
+  {
+    "label": "tenta_aí",
+    "detail": "try",
+    "kind": "keyword"
+  },
+  {
+    "label": "termina_com",
+    "detail": "endsWith",
+    "kind": "function"
+  },
+  {
+    "label": "toda_hora",
+    "detail": "setInterval",
+    "kind": "function"
+  },
+  {
+    "label": "todin",
+    "detail": "every",
+    "kind": "function"
+  },
+  {
+    "label": "trem",
+    "detail": "let",
+    "kind": "keyword"
+  },
+  {
+    "label": "trocar",
+    "detail": "replaceAll",
+    "kind": "function"
+  },
+  {
+    "label": "uai",
+    "detail": "const",
+    "kind": "keyword"
+  },
+  {
+    "label": "vai_indo",
+    "detail": "for",
+    "kind": "keyword"
+  },
+  {
+    "label": "vai_na_frente",
+    "detail": "async",
+    "kind": "keyword"
+  },
+  {
+    "label": "vai_na_frente_faz_trem",
+    "detail": "async function",
+    "kind": "keyword"
+  },
+  {
+    "label": "vezes",
+    "detail": "*",
+    "kind": "keyword"
+  },
+  {
+    "label": "vira_número",
+    "detail": "$gs_vira_numero",
+    "kind": "function"
+  },
+  {
+    "label": "vira_texto",
+    "detail": "$gs_vira_texto",
+    "kind": "function"
+  },
+  {
+    "label": "vixe",
+    "detail": "throw",
+    "kind": "keyword"
+  },
+  {
+    "label": "é",
+    "detail": "=",
+    "kind": "keyword"
+  },
+  {
+    "label": "é_igualim",
+    "detail": "===",
+    "kind": "keyword"
+  },
+  {
+    "label": "é_número",
+    "detail": "$gs_e_numero",
+    "kind": "function"
+  },
+  {
+    "label": "é_tipo_de",
+    "detail": "instanceof",
+    "kind": "keyword"
+  }
+]
