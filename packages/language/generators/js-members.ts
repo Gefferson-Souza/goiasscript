@@ -3,9 +3,8 @@ import ts from 'typescript';
 import type { GeneratedFile } from './generators.types.ts';
 
 const BUILTIN_INTERFACES: ReadonlySet<string> = new Set([
-  'Object', 'ObjectConstructor', 'Function', 'FunctionConstructor', 'Array', 'ArrayConstructor', 'ReadonlyArray', 'String',
-  'StringConstructor', 'Number', 'NumberConstructor', 'Boolean', 'Math', 'JSON', 'Date', 'DateConstructor', 'RegExp', 'Error',
-  'ErrorConstructor', 'Promise', 'PromiseConstructor', 'Map', 'Set', 'Symbol',
+  'Object', 'ObjectConstructor', 'Array', 'ArrayConstructor', 'String', 'StringConstructor', 'Number', 'NumberConstructor',
+  'Math', 'JSON', 'Date', 'DateConstructor', 'Error', 'ErrorConstructor', 'Promise', 'PromiseConstructor',
 ]);
 const ALWAYS_NATIVE = ['__proto__'] as const;
 export const JS_MEMBERS_PATH = 'packages/language/src/js/js-members.generated.ts';
