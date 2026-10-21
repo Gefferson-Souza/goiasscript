@@ -1,3 +1,4 @@
+import { performance } from 'node:perf_hooks';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -18,6 +19,17 @@ let temporary = [];
 afterEach(() => {
   for (const dir of temporary) fs.rmSync(dir, { recursive: true, force: true });
   temporary = [];
+});
+
+describe('findOutsideV3', () => {
+  it('termina rápido com pares de colchetes repetidos depois de uma barra', () => {
+    const started = performance.now();
+    findOutsideV3(`uai a é (/${'[]'.repeat(40)}`);
+    expect(performance.now() - started).toBeLessThan(1000);
+  });
+  it('continua achando regex literal com classe de caracteres', () => {
+    expect(findOutsideV3('uai a é (/[a/]b/);').map((hit) => hit.code)).toContain('GS0502');
+  });
 });
 
 describe('blankLiterals', () => {

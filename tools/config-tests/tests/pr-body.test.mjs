@@ -8,5 +8,12 @@ describe('corpo do PR', () => {
     expect(checkPullRequestBody('## Revisão\n\n## Teste')).toEqual(['a seção "## Revisão" está vazia']);
     expect(checkPullRequestBody('## Revisão\n<!-- cole aqui -->\n')).toEqual(['a seção "## Revisão" está vazia']);
   });
+  it('não deixa sobrar comentário quando a remoção reconstrói outro', () => {
+    expect(checkPullRequestBody('## Revisão\n<!-<!-- x -->- escondido -->\n')).toEqual(['a seção "## Revisão" está vazia']);
+    expect(checkPullRequestBody('## Revisão\n<!-<!-- x -->->\n')).toEqual(['a seção "## Revisão" está vazia']);
+  });
+  it('mantém o texto que sobra fora do comentário', () => {
+    expect(checkPullRequestBody('## Revisão\n<!--<!-- x --> texto -->\n')).toEqual([]);
+  });
   it('barra o rodapé Generated with', () => { expect(checkPullRequestBody('## Revisão\nok\n\nGenerated with algo')).toEqual(['o corpo do PR não pode ter o rodapé "Generated with"']); });
 });
