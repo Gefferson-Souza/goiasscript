@@ -4,6 +4,7 @@ import { JS_MEMBER_NAMES } from '../src/js/js-members.generated.ts';
 import { KEYWORDS } from '../src/keywords/keywords.data.ts';
 import { LIMITS } from '../src/limits.constants.ts';
 import { RETIRED_WORDS } from '../src/retired/retired-words.data.ts';
+import { DIAGNOSTICS } from '../src/diagnostics/index.ts';
 import { STDLIB } from '../src/stdlib/index.ts';
 
 const EXPECTED_KEYWORD_COUNT = 47;
@@ -132,5 +133,31 @@ describe('integridade entre tabelas (§8.2)', () => {
   });
   it('fixa o limite de aninhamento em 200', () => {
     expect(LIMITS.maxNestingDepth).toBe(200);
+  });
+});
+
+const CODE_RANGES: readonly (readonly [string, number, number])[] = [
+  ['GS01', 1, 7], ['GS02', 1, 9], ['GS03', 1, 12], ['GS04', 1, 6], ['GS05', 0, 23], ['GS06', 1, 4],
+  ['GS07', 1, 3], ['GS07', 10, 14], ['GS08', 1, 7], ['GS08', 9, 9], ['GS09', 1, 5],
+];
+const EXPECTED_CODES = CODE_RANGES.flatMap(([prefix, first, last]) =>
+  Array.from({ length: last - first + 1 }, (_, index) => `${prefix}${String(first + index).padStart(2, '0')}`));
+const EXAMPLE_OPTIONAL = /^GS(07(1[1-4])|09)/u;
+const EXPECTED_WARNING_COUNT = 9;
+const markers = (text: string) => [...text.matchAll(/\{(\w+)\}/gu)].map((match) => match[1]).sort();
+
+describe('catálogo de diagnósticos', () => {
+  it('tem exatamente os códigos da §4.11 e da numeração fixada, sem o GS0808 recusado na RFC-0001', () => {
+    expect(DIAGNOSTICS.map((entry) => entry.code).sort()).toEqual([...EXPECTED_CODES].sort());
+  });
+  it('traz os dois tons (marcadores do neutro contidos nos do raiz) e exemplo (exceto genéricos de execução e ferramentas)', () => {
+    expect(DIAGNOSTICS.filter((entry) => entry.messages.raiz === '' || entry.messages.neutro === '')).toEqual([]);
+    expect(DIAGNOSTICS.filter((entry) => !markers(entry.messages.neutro).every((marker) => markers(entry.messages.raiz).includes(marker))).map((entry) => entry.code)).toEqual([]);
+    expect(DIAGNOSTICS.filter((entry) => entry.example === '' && !EXAMPLE_OPTIONAL.test(entry.code)).map((entry) => entry.code)).toEqual([]);
+  });
+  it('é aviso só na faixa GS08xx e no GS0904', () => {
+    const warnings = DIAGNOSTICS.filter((entry) => entry.severity === 'warning').map((entry) => entry.code);
+    expect(warnings.every((code) => code.startsWith('GS08') || code === 'GS0904')).toBe(true);
+    expect(warnings).toHaveLength(EXPECTED_WARNING_COUNT);
   });
 });
