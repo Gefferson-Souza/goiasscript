@@ -35,7 +35,6 @@ temp/
 *.seed
 
 # === ARQUIVOS DE DESENVOLVIMENTO ===
-CLAUDE.md
 debug-report.json
 *.js.map
 ./docs
