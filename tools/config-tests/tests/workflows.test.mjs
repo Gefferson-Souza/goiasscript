@@ -57,6 +57,15 @@ describe('ci.yml', () => {
   });
 });
 
+describe('nomes de job dos checks obrigatórios', () => {
+  it('não se repetem em workflows diferentes do ci.yml', () => {
+    const otherJobNames = workflowFiles
+      .filter((file) => file !== 'ci.yml')
+      .flatMap((file) => Object.entries(readYaml(`.github/workflows/${file}`).jobs).map(([id, job]) => job.name ?? id));
+    expect(otherJobNames.filter((name) => REQUIRED_JOBS.includes(name))).toEqual([]);
+  });
+});
+
 describe('demais arquivos de .github', () => {
   it('codeql analisa javascript-typescript', () => {
     expect(readText('.github/workflows/codeql.yml')).toContain('languages: javascript-typescript');
