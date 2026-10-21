@@ -165,6 +165,11 @@
     "kind": "function"
   },
   {
+    "label": "bota_no_comeco",
+    "detail": "unshift",
+    "kind": "function"
+  },
+  {
     "label": "bota_no_começo",
     "detail": "unshift",
     "kind": "function"
@@ -200,9 +205,19 @@
     "kind": "function"
   },
   {
+    "label": "comeca_com",
+    "detail": "startsWith",
+    "kind": "function"
+  },
+  {
     "label": "começa_com",
     "detail": "startsWith",
     "kind": "function"
+  },
+  {
+    "label": "continua_ai",
+    "detail": "continue",
+    "kind": "keyword"
   },
   {
     "label": "continua_aí",
@@ -223,6 +238,11 @@
     "label": "de_jeito_nenhum",
     "detail": "false",
     "kind": "keyword"
+  },
+  {
+    "label": "de_tras_pra_frente",
+    "detail": "toReversed",
+    "kind": "function"
   },
   {
     "label": "de_trás_pra_frente",
@@ -250,8 +270,23 @@
     "kind": "function"
   },
   {
+    "label": "e_igualim",
+    "detail": "===",
+    "kind": "keyword"
+  },
+  {
     "label": "e_mais",
     "detail": "&&",
+    "kind": "keyword"
+  },
+  {
+    "label": "e_numero",
+    "detail": "$gs_e_numero",
+    "kind": "function"
+  },
+  {
+    "label": "e_tipo_de",
+    "detail": "instanceof",
     "kind": "keyword"
   },
   {
@@ -315,6 +350,11 @@
     "kind": "keyword"
   },
   {
+    "label": "larga_mao",
+    "detail": "clearTimeout",
+    "kind": "function"
+  },
+  {
     "label": "larga_mão",
     "detail": "clearTimeout",
     "kind": "function"
@@ -350,6 +390,11 @@
     "kind": "property"
   },
   {
+    "label": "mes",
+    "detail": "getMonth",
+    "kind": "function"
+  },
+  {
     "label": "minuto",
     "detail": "getMinutes",
     "kind": "function"
@@ -370,8 +415,18 @@
     "kind": "keyword"
   },
   {
+    "label": "no_maximo",
+    "detail": "<=",
+    "kind": "keyword"
+  },
+  {
     "label": "no_máximo",
     "detail": "<=",
+    "kind": "keyword"
+  },
+  {
+    "label": "num_e",
+    "detail": "!",
     "kind": "keyword"
   },
   {
@@ -390,9 +445,24 @@
     "kind": "property"
   },
   {
+    "label": "oce",
+    "detail": "this",
+    "kind": "keyword"
+  },
+  {
     "label": "ocê",
     "detail": "this",
     "kind": "keyword"
+  },
+  {
+    "label": "onde_ta",
+    "detail": "indexOf",
+    "kind": "function"
+  },
+  {
+    "label": "onde_ta_o",
+    "detail": "findIndex",
+    "kind": "function"
   },
   {
     "label": "onde_tá",
@@ -403,6 +473,11 @@
     "label": "onde_tá_o",
     "detail": "findIndex",
     "kind": "function"
+  },
+  {
+    "label": "ou_entao",
+    "detail": "||",
+    "kind": "keyword"
   },
   {
     "label": "ou_então",
@@ -440,8 +515,18 @@
     "kind": "function"
   },
   {
+    "label": "quando_der_bao",
+    "detail": "then",
+    "kind": "function"
+  },
+  {
     "label": "quando_der_bão",
     "detail": "then",
+    "kind": "function"
+  },
+  {
+    "label": "ranca_a_cabeca",
+    "detail": "shift",
     "kind": "function"
   },
   {
@@ -457,6 +542,11 @@
   {
     "label": "ranca_o_rabo",
     "detail": "pop",
+    "kind": "function"
+  },
+  {
+    "label": "ranca_os_espaco",
+    "detail": "trim",
     "kind": "function"
   },
   {
@@ -485,6 +575,11 @@
     "kind": "keyword"
   },
   {
+    "label": "se_nao",
+    "detail": "else",
+    "kind": "keyword"
+  },
+  {
     "label": "se_num_for",
     "detail": "else if",
     "kind": "keyword"
@@ -492,6 +587,11 @@
   {
     "label": "se_não",
     "detail": "else",
+    "kind": "keyword"
+  },
+  {
+    "label": "se_oce_quiser",
+    "detail": "if",
     "kind": "keyword"
   },
   {
@@ -518,6 +618,11 @@
     "label": "tem_no_meio",
     "detail": "includes",
     "kind": "function"
+  },
+  {
+    "label": "tenta_ai",
+    "detail": "try",
+    "kind": "keyword"
   },
   {
     "label": "tenta_aí",
@@ -573,6 +678,11 @@
     "label": "vezes",
     "detail": "*",
     "kind": "keyword"
+  },
+  {
+    "label": "vira_numero",
+    "detail": "$gs_vira_numero",
+    "kind": "function"
   },
   {
     "label": "vira_número",

@@ -1,7 +1,7 @@
 import { KEYWORDS, STDLIB } from '../src/index.ts';
 import type { KeywordCategory } from '../src/index.ts';
 import type { GeneratedFile } from './generators.types.ts';
-import { compareText, keywordSpellings, memberName, toJson, uniqueSorted } from './shared.ts';
+import { compareText, keywordSpellings, memberNames, stdlibSpellings, toJson, uniqueSorted } from './shared.ts';
 
 const SCOPE_BY_CATEGORY: Readonly<Record<KeywordCategory, string>> = {
   declaration: 'storage.type', assignment: 'keyword.operator.assignment', function: 'storage.type.function',
@@ -26,8 +26,8 @@ export function renderTextmateFiles(): readonly GeneratedFile[] {
     name: `${SCOPE_BY_CATEGORY[category]}.goiasscript`,
     match: alternation(keywordSpellings(KEYWORDS.filter((entry) => entry.category === category))),
   }));
-  const globals = STDLIB.filter((entry) => entry.receiver === 'global').flatMap((entry) => [entry.name, entry.asciiName ?? entry.name]);
-  const members = STDLIB.filter((entry) => entry.receiver !== 'global').map(memberName);
+  const globals = STDLIB.filter((entry) => entry.receiver === 'global').flatMap(stdlibSpellings);
+  const members = STDLIB.filter((entry) => entry.receiver !== 'global').flatMap(memberNames);
   const grammar = {
     $schema: 'https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json',
     name: 'GoiásScript',

@@ -461,6 +461,11 @@
       "since": "3.0.0"
     },
     {
+      "name": "continua_ai",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
       "name": "continua_aí",
       "source": "keyword",
       "since": "3.0.0"
@@ -486,7 +491,17 @@
       "since": "3.0.0"
     },
     {
+      "name": "e_igualim",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
       "name": "e_mais",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "e_tipo_de",
       "source": "keyword",
       "since": "3.0.0"
     },
@@ -556,7 +571,17 @@
       "since": "3.0.0"
     },
     {
+      "name": "no_maximo",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
       "name": "no_máximo",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "num_e",
       "source": "keyword",
       "since": "3.0.0"
     },
@@ -571,7 +596,17 @@
       "since": "3.0.0"
     },
     {
+      "name": "oce",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
       "name": "ocê",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "ou_entao",
       "source": "keyword",
       "since": "3.0.0"
     },
@@ -601,6 +636,11 @@
       "since": "3.0.0"
     },
     {
+      "name": "se_nao",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
       "name": "se_num_for",
       "source": "keyword",
       "since": "3.0.0"
@@ -611,12 +651,22 @@
       "since": "3.0.0"
     },
     {
+      "name": "se_oce_quiser",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
       "name": "se_ocê_quiser",
       "source": "keyword",
       "since": "3.0.0"
     },
     {
       "name": "sobrou",
+      "source": "keyword",
+      "since": "3.0.0"
+    },
+    {
+      "name": "tenta_ai",
       "source": "keyword",
       "since": "3.0.0"
     },
@@ -826,6 +876,11 @@
       "since": "3.0.0"
     },
     {
+      "name": "bota_no_comeco",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
       "name": "bota_no_começo",
       "source": "stdlib",
       "since": "3.0.0"
@@ -856,12 +911,22 @@
       "since": "3.0.0"
     },
     {
+      "name": "comeca_com",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
       "name": "começa_com",
       "source": "stdlib",
       "since": "3.0.0"
     },
     {
       "name": "daqui_um_cadim",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "de_tras_pra_frente",
       "source": "stdlib",
       "since": "3.0.0"
     },
@@ -877,6 +942,11 @@
     },
     {
       "name": "dividir",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "e_numero",
       "source": "stdlib",
       "since": "3.0.0"
     },
@@ -901,6 +971,11 @@
       "since": "3.0.0"
     },
     {
+      "name": "larga_mao",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
       "name": "larga_mão",
       "source": "stdlib",
       "since": "3.0.0"
@@ -912,6 +987,11 @@
     },
     {
       "name": "mensagem",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "mes",
       "source": "stdlib",
       "since": "3.0.0"
     },
@@ -932,6 +1012,16 @@
     },
     {
       "name": "o_tanto",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "onde_ta",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "onde_ta_o",
       "source": "stdlib",
       "since": "3.0.0"
     },
@@ -961,7 +1051,17 @@
       "since": "3.0.0"
     },
     {
+      "name": "quando_der_bao",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
       "name": "quando_der_bão",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "ranca_a_cabeca",
       "source": "stdlib",
       "since": "3.0.0"
     },
@@ -977,6 +1077,11 @@
     },
     {
       "name": "ranca_o_rabo",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "ranca_os_espaco",
       "source": "stdlib",
       "since": "3.0.0"
     },
@@ -1032,6 +1137,11 @@
     },
     {
       "name": "trocar",
+      "source": "stdlib",
+      "since": "3.0.0"
+    },
+    {
+      "name": "vira_numero",
       "source": "stdlib",
       "since": "3.0.0"
     },

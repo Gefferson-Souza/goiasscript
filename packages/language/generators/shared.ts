@@ -10,6 +10,10 @@ export const compareText = (left: string, right: string): number => {
 export const keywordSpellings = (entries: readonly KeywordEntry[]): readonly string[] =>
   entries.flatMap((entry) => [entry.spelling, ...(entry.asciiSpelling === undefined ? [] : [entry.asciiSpelling])]);
 
-export const memberName = (entry: StdlibEntry): string => entry.name.split('.').at(-1) ?? entry.name;
+const lastSegment = (name: string): string => name.split('.').at(-1) ?? name;
+
+export const memberNames = (entry: StdlibEntry): readonly string[] => uniqueSorted([entry.name, entry.asciiName ?? entry.name].map(lastSegment));
+
+export const stdlibSpellings = (entry: StdlibEntry): readonly string[] => (entry.asciiName === undefined ? [entry.name] : [entry.name, entry.asciiName]);
 
 export const uniqueSorted = (names: readonly string[]): readonly string[] => [...new Set(names)].toSorted(compareText);
