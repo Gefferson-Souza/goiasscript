@@ -2272,6 +2272,7 @@ git log --all --format='%aN <%aE>%n%cN <%cE>' | sort -u | grep -vxF "$CANONICAL"
 ```
 Fim de `.gitignore`: `research_notes/` e `reports/`.
 - [ ] **3. Verificar.** `git log --all --use-mailmap --format='%aN <%aE>' | sort -u` mostra uma única identidade; `git check-attr text linguist-language -- packages/compiler/tests/conformance/a/input.gs` dá `text: unset` e `JavaScript`; `git check-ignore research_notes/x reports/y` lista os dois; `git status --short` mostra só os 3 arquivos.
+- [ ] **3b. Pendência do dono: religar o GATE 1 de autoria.** O teste de autoria em `tools/config-tests/tests/hygiene.test.mjs` está sob `it.skipIf(GS_CHECK_AUTHORSHIP !== '1')` e fica desligado em silêncio no `verify`. Depois do `.mailmap` (o comando acima já inclui o bot `google-labs-jules[bot]`), conferir com `GS_CHECK_AUTHORSHIP=1 corepack pnpm vitest run tools/config-tests` e remover o `skipIf`, para o gate rodar sempre.
 - [ ] **4. Commit.** `git add .gitignore .gitattributes .mailmap && git commit -m "chore(release): unifica autoria e define atributos e ignores do repositório"`
 
 ### U1-02: Fundação do workspace
