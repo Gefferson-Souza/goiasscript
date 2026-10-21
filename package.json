@@ -20,8 +20,9 @@
     "e2e": "pnpm --filter playground-e2e test:e2e",
     "prepare": "husky install",
     "typecheck": "tsc -p tsconfig.json",
+    "rules-scan": "node tools/rules-scan/src/cli.mjs check",
     "test": "vitest run --coverage",
-    "verify": "tsc -p tsconfig.json && eslint . --max-warnings 0 && vitest run --coverage && depcruise packages tools --config .dependency-cruiser.cjs && knip",
+    "verify": "tsc -p tsconfig.json && eslint . --max-warnings 0 && node tools/rules-scan/src/cli.mjs check && vitest run --coverage && depcruise packages tools --config .dependency-cruiser.cjs && knip",
     "lint": "eslint . --max-warnings 0",
     "depcruise": "depcruise packages tools --config .dependency-cruiser.cjs",
     "knip": "knip"

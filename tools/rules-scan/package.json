@@ -1,0 +1,2 @@
+{ "name": "@goiasscript/rules-scan", "private": true, "version": "0.0.0", "type": "module", "bin": { "rules-scan": "./src/cli.mjs" },
+  "dependencies": { "@babel/parser": "7.29.9", "@babel/traverse": "7.29.10", "@babel/types": "7.29.8" } }
