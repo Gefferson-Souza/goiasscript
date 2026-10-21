@@ -4,5 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "exports": { ".": "./src/index.ts" },
-  "engines": { "node": ">=22.12" }
+  "engines": { "node": ">=22.12" },
+  "scripts": {
+    "generate": "node generators/run.ts",
+    "generate:check": "node generators/run.ts --check"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3"
+  }
 }
