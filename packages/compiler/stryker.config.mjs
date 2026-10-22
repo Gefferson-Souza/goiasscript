@@ -8,6 +8,8 @@ export default {
   thresholds: { high: 90, low: 80, break: 90 },
   coverageAnalysis: 'perTest',
   disableTypeChecks: false,
+  // O patch em patches/ roda só os arquivos afetados; `related` filtraria pelo grafo de importação e perderia testes.
   vitest: { related: false },
+  // Mutantes de regex do lexer são equivalentes em massa e inflam a nota sem exercitar lógica.
   mutator: { excludedMutations: ['Regex'] },
 };

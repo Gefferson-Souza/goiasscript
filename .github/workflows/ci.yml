@@ -30,6 +30,8 @@ jobs:
         with: { node-version: 24, cache: pnpm }
       - run: pnpm install --frozen-lockfile
       - run: pnpm run verify
+      - name: Catracas de tempo e tamanho
+        run: pnpm --filter @goiasscript/compiler bench:check
 
   tests:
     name: tests (node ${{ matrix.node }}, ${{ matrix.os }})
