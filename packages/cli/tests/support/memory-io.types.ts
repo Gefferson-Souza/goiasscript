@@ -8,6 +8,7 @@ export interface MemoryIoOptions {
   readonly nodeVersion?: string;
   readonly cwd?: string;
   readonly failingWrites?: readonly string[];
+  readonly hardLinks?: readonly (readonly [string, string])[];
 }
 
 export interface MemoryIo extends CliIo {
