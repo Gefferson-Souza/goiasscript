@@ -57,8 +57,10 @@ Os mutantes de `Regex` ficam excluídos (`excludedMutations`).
 | brotli do bundle de `src/index.ts` | 32.680 bytes | n/a | 40.850 bytes |
 
 A catraca de tempo é aplicada só pelo `bench:check`, que roda isolado na CI. Dentro do verify a suíte disputa CPU e a
-medida chegou a 133,06 ms, então lá valem só os tetos absolutos. O primeiro run da CI pode pedir recalibração da catraca
-para a máquina do GitHub.
+medida chegou a 133,06 ms, então lá valem só os tetos absolutos. Os tempos são normalizados pela velocidade da máquina: a calibração
+fixa de `bench/budgets.ts` mede 18 ms na máquina de referência (`referenceCalibrationMs`), e numa máquina mais lenta
+os tempos são divididos pelo fator. No runner do GitHub, sem isso, o `compile()` de 10 mil linhas mediu 234 ms.
+O spec fixa 150 ms com a CPU no relatório; ler o teto como relativo à máquina de referência é decisão do dono.
 
 ## 5. Corpus
 
