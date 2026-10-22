@@ -7,6 +7,7 @@ import { CODES } from './parser.constants.ts';
 import { ASSIGNMENT_OPERATOR, PRECEDENCE } from './precedence.constants.ts';
 import type { Parser } from './parser.types.ts';
 import { reportJsOperator } from './subset-checks.ts';
+import { SPREAD_OPERATOR } from './subset.constants.ts';
 import { isKeyword, isPunctuator, isWord } from './token-tests.ts';
 
 const TYPE_MARK = ':';
@@ -41,8 +42,34 @@ export function parseBindingName(parser: Parser): Identifier {
   return reserved ? { ...name, reservedKeyword: token.keyword } : name;
 }
 
+function skipDefaultValue(parser: Parser): void {
+  const state = parser.state;
+  const assign = state.current();
+  if (!isKeyword(assign, ASSIGNMENT_OPERATOR) && !isPunctuator(assign, ASSIGNMENT_OPERATOR)) return;
+  reportJsOperator(parser, state.advance());
+  state.skipNewlines();
+  parser.parseExpression(PRECEDENCE.assignment);
+  state.report(CODES.unsupported, assign.start, state.lastEnd);
+}
+
+function skipRestMark(parser: Parser): void {
+  const state = parser.state;
+  if (!isPunctuator(state.current(), SPREAD_OPERATOR)) return;
+  const mark = state.advance();
+  state.report(CODES.spread, mark.start, mark.end);
+}
+
+function parseParameter(parser: Parser): Identifier {
+  skipRestMark(parser);
+  const name = parseBindingName(parser);
+  skipDefaultValue(parser);
+  return name;
+}
+
 export function parseParameters(parser: Parser): readonly Identifier[] {
-  return parseParenList(parser, () => parseBindingName(parser));
+  const params = parseParenList(parser, () => parseParameter(parser));
+  skipTypeAnnotation(parser);
+  return params;
 }
 
 export function parseVariableDeclaration(parser: Parser): VariableDeclaration {
