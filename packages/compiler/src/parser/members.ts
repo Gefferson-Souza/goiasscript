@@ -6,6 +6,8 @@ import { CODES } from './parser.constants.ts';
 import type { Parser } from './parser.types.ts';
 import { PRECEDENCE } from './precedence.constants.ts';
 import { errorNode } from './recovery.ts';
+import { reportJsOperator } from './subset-checks.ts';
+import { OPTIONAL_CHAIN } from './subset.constants.ts';
 import { isPunctuator, isWord } from './token-tests.ts';
 
 export const identifierOf = (token: Token): Identifier => ({ type: 'Identifier', name: token.value, start: token.start, end: token.end });
@@ -42,12 +44,22 @@ function parseIndex(parser: Parser, object: Expression): Expression {
   return parser.build({ type: 'MemberExpression', object, property: group.value, computed: true, start: object.start, end: group.end });
 }
 
+function parseOptionalStep(parser: Parser, node: Expression): Expression {
+  const state = parser.state;
+  reportJsOperator(parser, state.current());
+  const following = state.visibleAt(1);
+  if (!isPunctuator(following, '(') && !isPunctuator(following, '[')) return parseMember(parser, node);
+  state.advance();
+  return isPunctuator(following, '(') ? parseCall(parser, node) : parseIndex(parser, node);
+}
+
 function stepOf(parser: Parser, node: Expression): Expression | undefined {
   const state = parser.state;
   continueAcrossNewline(state);
   const token = state.current();
   if (isPunctuator(token, '.')) return parseMember(parser, node);
   if (isPunctuator(token, '(')) return parseCall(parser, node);
+  if (isPunctuator(token, OPTIONAL_CHAIN)) return parseOptionalStep(parser, node);
   return isPunctuator(token, '[') ? parseIndex(parser, node) : undefined;
 }
 

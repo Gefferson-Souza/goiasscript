@@ -3,4 +3,7 @@ export interface OperatorInfo {
   readonly js: string;
   readonly logical: boolean;
   readonly assignment: boolean;
+  readonly foreign: boolean;
 }
+
+export type ForeignOperator = Omit<OperatorInfo, 'foreign'>;

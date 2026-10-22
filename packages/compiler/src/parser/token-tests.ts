@@ -7,3 +7,6 @@ export const isKeyword = (token: Token, js: string): boolean => token.kind === '
 export const keywordJs = (token: Token): string | undefined => (token.kind === 'keyword' ? token.keyword?.js : undefined);
 
 export const isWord = (token: Token): boolean => token.kind === 'identifier' || token.kind === 'keyword';
+
+export const isStatementEnd = (token: Token): boolean =>
+  token.kind === 'newline' || token.kind === 'end-of-file' || isPunctuator(token, ';') || isPunctuator(token, '}');
