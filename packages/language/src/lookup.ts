@@ -39,6 +39,6 @@ export const lookupStdlibStatic = (namespace: string, member: string): StdlibEnt
 export function lookupJsMember(name: string): JsMemberEntry | undefined {
   if (!JS_MEMBER_SET.has(name)) return undefined;
   const equivalent = EQUIVALENT_BY_JS_NAME.get(name);
-  const alternative = JS_MEMBER_ALTERNATIVES[name];
+  const alternative = Object.hasOwn(JS_MEMBER_ALTERNATIVES, name) ? JS_MEMBER_ALTERNATIVES[name] : undefined;
   return { name, ...(equivalent === undefined ? {} : { equivalent }), ...(alternative === undefined ? {} : { alternative }) };
 }
