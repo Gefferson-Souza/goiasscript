@@ -23,6 +23,12 @@ jobs:
   tarball:
     name: tarball (node ${{ matrix.node }}, ${{ matrix.os }})
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    concurrency:
+      group: tarball-${{ github.workflow }}-${{ github.ref }}-${{ matrix.node }}-${{ matrix.os }}
+      cancel-in-progress: true
     strategy:
       fail-fast: false
       matrix:

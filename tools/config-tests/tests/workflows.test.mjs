@@ -64,6 +64,11 @@ describe('promises-gate.yml', () => {
     expect(gate.jobs.tarball.strategy['fail-fast']).toBe(false);
     expect(commandsOf(gate.jobs.tarball)).toContain('test:e2e');
   });
+  it('limita o job do tarball com permissões mínimas, timeout e concorrência', () => {
+    expect(gate.jobs.tarball.permissions).toEqual({ contents: 'read' });
+    expect(gate.jobs.tarball['timeout-minutes']).toBeGreaterThan(0);
+    expect(gate.jobs.tarball.concurrency['cancel-in-progress']).toBe(true);
+  });
 });
 
 describe('nomes de job dos checks obrigatórios', () => {
