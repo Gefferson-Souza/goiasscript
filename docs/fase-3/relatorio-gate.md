@@ -1,12 +1,14 @@
 # Relatório do gate da Fase 3
 
-**Veredito proposto:** pronto para o GATE 3. Nenhum achado CRITICAL ou HIGH ficou aberto, os dois MEDIUM foram corrigidos
-com teste de regressão e os demais têm disposição escrita (seção 6). O gate depende do dono para as três coisas que
-a máquina local não prova: o E2E do tarball em Windows e macOS (roda na CI), a conferência do Ctrl+C num terminal
-gráfico de verdade e o primeiro publish (checklist da seção 11).
+**Veredito proposto:** pendente da revisão independente. Nenhum achado CRITICAL ou HIGH foi encontrado pela revisão do
+próprio executor e os dois MEDIUM foram corrigidos com teste de regressão (seção 6), mas o aceite da U3-15 exige o
+`security-reviewer` em contexto fresco e somente leitura, que ainda não rodou. O E2E do tarball em três plataformas
+(seis combinações) também segue pendente da CI. Só depois dessas duas coisas o relatório passa a "pronto para o GATE 3".
+Pendências do dono: a conferência do Ctrl+C num terminal gráfico, os números de ticket dos achados 3 e 4 e o primeiro
+publish (checklist da seção 11).
 
 Medição: Node v26.11.1, Linux, CPU 12th Gen Intel(R) Core(TM) i5-12450H (12 núcleos). Os números de tempo são de uma
-execução; os de cobertura e de testes vêm de `vitest run --coverage` e de `corepack pnpm verify`.
+execução; os de cobertura e de testes vêm de `corepack pnpm verify` (medido em 22/10/2026, depois do último commit de código).
 
 ## 1. Unidades e commits
 
@@ -28,7 +30,7 @@ Os commits do plano 2 não carregam o número da unidade no título; o agrupamen
 | U3-12 build, API e tarball | fbd9fda, ba26f32 |
 | U3-13 E2E do tarball | 653ea4c, 07f6241, e3ef801 |
 | U3-14 `release.yml` do alpha | 5c16c63, 27a231a |
-| U3-15 revisão de segurança | 2046e36, 39d78c6 e o commit deste relatório |
+| U3-15 revisão de segurança | 2046e36, 39d78c6, 2a6c660 e o commit deste relatório |
 
 ## 2. Cobertura por pacote (`vitest run --coverage`)
 
@@ -39,8 +41,8 @@ Os commits do plano 2 não carregam o número da unidade no título; o agrupamen
 | language | 100% | 100% | 100% |
 | optimizer | 100% | 80,00% | 100% |
 
-Total: 1.558 testes passando, 3 ignorados, 122 arquivos. Instruções 98,67%, ramos 94,24%, funções 99,07%, linhas
-99,22%. O piso por pacote é 80% e o `verify` sai 0. O diretório `packages/cli/src/entry` fica fora da cobertura
+Total: 1.559 testes passando, 3 ignorados, 122 arquivos. Instruções 98,67%, ramos 94,29%, funções 99,07%, linhas
+99,25% (3309/3334). O piso por pacote é 80% e o `verify` sai 0. O diretório `packages/cli/src/entry` fica fora da cobertura
 (bins finos) e é exercido pelo E2E do tarball.
 
 ## 3. E2E do tarball instalado
@@ -48,7 +50,7 @@ Total: 1.558 testes passando, 3 ignorados, 122 arquivos. Instruções 98,67%, ra
 | Sistema | Node | Resultado |
 | --- | --- | --- |
 | Linux (Ubuntu, esta máquina) | 26.11.1 | 9 arquivos, 52 testes passando |
-| Ubuntu, Windows e macOS | 22 e 24 | roda na CI (`promises-gate.yml`, job `tarball`, seis combinações) e de novo no `release.yml` com Node 24 |
+| Ubuntu, Windows e macOS | 22 e 24 | **pendente**: sem resultado da CI anexado; roda na CI (`promises-gate.yml`, job `tarball`, seis combinações) e de novo no `release.yml` com Node 24 |
 
 Só o Linux foi executado aqui; as outras cinco combinações dependem da CI e **não foram medidas por este relatório**.
 
@@ -98,7 +100,7 @@ tabela como ponto de partida. Perímetro ignorado: `packages/core`, `node_module
 
 | # | Severidade | Onde | Descrição | Disposição |
 | --- | --- | --- | --- | --- |
-| 1 | MEDIUM | `run/program-runner.ts` | Pasta temporária ausente ou sem permissão (`TMPDIR` inválido) lançava `CliFileError` sem tratamento: pilha do motor e caminho do sistema na tela, exit 1. | **Corrigido** em 2046e36, teste `temp-workspace-failure.test.ts` visto RED antes. Agora GS0903 de preparo, exit 3. |
+| 1 | MEDIUM | `run/program-runner.ts` | Pasta temporária ausente ou sem permissão (`TMPDIR` inválido) lançava `CliFileError` sem tratamento: pilha do motor e caminho do sistema na tela, exit 1. | **Corrigido** em 2046e36, teste `temp-workspace-failure.test.ts` visto RED antes. Agora GS0903 de preparo, exit 3 (`EXIT_CODE.usage`); a varredura de órfãos engole falhas de listagem e o teste cobre `TMPDIR` inexistente. |
 | 2 | MEDIUM | `diagnostics/source-window.ts` | `lineOf` refazia o `split` do arquivo inteiro a cada diagnóstico: renderização quadrática (arquivo de 4.000 linhas com 244 mil diagnósticos levou 24 s; 20.000 linhas passou de 120 s). Negação de serviço contra o próprio usuário. | **Corrigido** em 39d78c6, teste `render-diagnostic-scale.test.ts` visto RED (6,1 s contra teto de 2,5 s). A quebra da última fonte fica em cache. |
 | 3 | LOW | `compiler` (fora do perímetro do CLI) | O compilador também cresce acima do linear com muitos diagnósticos (`--json`: 1.000, 2.000 e 4.000 linhas levam 0,3 s, 0,9 s e 3,1 s). | Aceito neste gate; abrir ticket `GS-<n>` para o compilador (o número sai do dono). |
 | 4 | LOW | REPL, compilador | Uma linha de 3 MB de um identificador só leva cerca de 18 s no REPL; 40 mil linhas por pipe levam 10,7 s (20 mil levam 3,2 s), com crescimento acima do linear (fila de linhas, histórico e sessão copiados a cada linha). | Aceito para o alpha: só afeta quem alimenta o REPL com entrada gigante. Ticket `GS-<n>` a abrir. |
@@ -139,9 +141,9 @@ Nenhum achado CRITICAL ou HIGH.
   **mesmo** tarball dos testes com `--tag next --provenance`. `GITHUB_REF_NAME` só é lido por `release-target.ts` (nunca interpolado em shell).
   `promises-gate.yml` usa `pull_request` (não `pull_request_target`), sem segredos.
 
-## 7. Ctrl+C em laço no REPL
+## 7. Ctrl+C em laço no REPL (parcial: pty, não terminal gráfico)
 
-Verificado num **pseudo-terminal do kernel** (módulo `pty` do Python, `goias.mjs` do `dist` como processo filho), com o
+Verificado só num **pseudo-terminal do kernel** (módulo `pty` do Python, `goias.mjs` do `dist` como processo filho), com o
 programa abaixo repetido 5 vezes: enviar `enquanto_tiver (certeza) { }`, esperar 0,8 s, enviar Ctrl+C (`\x03`), depois
 `prosa(N)`. Resultado nas 5 rodadas: `Entrada interrompida, sô. A sessão continua de pé.` e o `prosa(N)` seguinte respondeu
 `N`. Dois Ctrl+C seguidos no prompt vazio avisam e depois saem com código 0. Isto prova o caminho de TTY real, mas **não é um emulador de terminal gráfico**: a conferência manual do dono num terminal
