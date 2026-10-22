@@ -1,4 +1,5 @@
 import type { Diagnostic, Tone } from '@goiasscript/compiler';
+import { toPrintableMultiline } from '../args/printable-text.ts';
 import { renderDiagnostic } from '../diagnostics/render-diagnostic.ts';
 import type { CliIo } from '../io.types.ts';
 import { REPL_FILE_NAME } from './repl.constants.ts';
@@ -19,7 +20,7 @@ export function reportEvaluation(io: ReplIo, tone: Tone, result: ReplEvaluation,
   else if (result.kind === 'interrupted') io.err.write(interruptedText(tone));
   else if (result.kind === 'done') {
     reportDiagnostics(io, result.diagnostics, source);
-    if (result.echo !== undefined) io.out.write(`${result.echo}\n`);
+    if (result.echo !== undefined) io.out.write(`${toPrintableMultiline(result.echo)}\n`);
   }
 }
 

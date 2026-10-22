@@ -45,6 +45,12 @@ describe('goias', () => {
     expect(io.stdoutText()).toBe('um? dois? AnaBia\n');
     expect(io.stderrText()).toBe('');
   });
+  it('em pipe, o eco do resultado e o histórico escapam caracteres de controle', async () => {
+    const io = pipedIo('"x\u001b[2Jy"\n.lembra_aí\n');
+    expect(await runGoias(['--tom=neutro'], io)).toBe(0);
+    expect(io.stdoutText()).not.toContain('\u001b');
+    expect(io.stdoutText()).toContain('x\\u001b[2Jy');
+  });
   it('avisa Node antigo com GS0904 e segue', async () => {
     const io = { ...pipedIo(''), env: { ...createMemoryIo({ nodeVersion: '20.0.0' }).env } };
     expect(await runGoias([], io)).toBe(0);
