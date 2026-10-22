@@ -1,6 +1,8 @@
 export interface InstalledRunOptions {
   readonly cwd?: string;
   readonly env?: Readonly<Record<string, string>>;
+  readonly input?: string;
+  readonly trackModules?: boolean;
 }
 
 export interface InstalledRun {
@@ -13,4 +15,9 @@ export interface InstalledRun {
 export interface PackedTarball {
   readonly tarball: string;
   readonly sha256: string;
+}
+
+export interface InstalledProcess {
+  readonly stdin: NodeJS.WritableStream;
+  readonly result: Promise<InstalledRun>;
 }

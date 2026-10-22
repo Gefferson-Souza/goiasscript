@@ -25,14 +25,14 @@ describe('tarball do goiasscript', () => {
   });
 
   it('a partida não carrega o Terser, que só entra sob demanda', async () => {
-    const run = await runInstalled(['dedo_de_prosa']);
+    const run = await runInstalled(['dedo_de_prosa'], { trackModules: true });
     expect(run.exitCode).toBe(0);
     expect(run.loadedModules.some((url) => /terser|optimizer/u.test(url))).toBe(false);
   });
 
   it('o otimizador carrega ao pedir --otimiza', async () => {
     const directory = fixture({ 'oi.gs': 'prosa("oi")\n' });
-    const run = await runInstalled(['traduz', 'oi.gs', '--otimiza', '-s', '-'], { cwd: directory });
+    const run = await runInstalled(['traduz', 'oi.gs', '--otimiza', '-s', '-'], { cwd: directory, trackModules: true });
     expect(run.exitCode).toBe(0);
     expect(run.loadedModules.some((url) => /terser|optimizer/u.test(url))).toBe(true);
   });
