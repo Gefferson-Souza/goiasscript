@@ -1,0 +1,1 @@
+const mais_um = 7; console.log(mais_um);

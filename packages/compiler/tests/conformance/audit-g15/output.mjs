@@ -1,0 +1,1 @@
+function f() { return"ok"; } console.log(f());

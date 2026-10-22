@@ -1,0 +1,1 @@
+const trem2 = 4; console.log(trem2);

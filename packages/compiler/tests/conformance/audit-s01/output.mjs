@@ -1,0 +1,1 @@
+console.log("ele disse \"mais\" e saiu");

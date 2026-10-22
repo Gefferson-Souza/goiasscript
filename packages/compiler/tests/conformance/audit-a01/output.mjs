@@ -1,0 +1,1 @@
+const prosaico = 1; console.log(prosaico);
