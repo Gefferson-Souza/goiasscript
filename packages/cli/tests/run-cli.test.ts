@@ -43,7 +43,7 @@ describe('runCli', () => {
     expect(io.stderrText()).toContain('GS0905');
   });
   it('despacha o comando acertado, inclusive sem acento', async () => {
-    const { io, code } = await run(['ve_se_ta_certo', 'x.gs']);
+    const { io, code } = await run(['bota_pra_moer', 'x.gs']);
     expect(code).toBe(EXIT_CODE.usage);
     expect(io.stderrText()).toContain('armado');
     expect(io.stderrText()).not.toContain('GS0905');
