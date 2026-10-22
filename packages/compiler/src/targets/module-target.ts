@@ -12,7 +12,7 @@ import type { EmitResult } from './target.types.ts';
 
 function helperSource(name: string, options: LowerOptions): string {
   if (name === TICK_HELPER) return tickSource(options.loopLimit ?? DEFAULT_LOOP_LIMIT);
-  const found = helperSourceOf(name);
+  const found = helperSourceOf(name, options.target);
   if (found === undefined) throw new Error(`ajudante sem fonte: ${name}`);
   return found;
 }

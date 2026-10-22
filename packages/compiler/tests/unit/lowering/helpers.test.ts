@@ -56,6 +56,39 @@ describe('ajudantes', () => {
     expect(code.split('\n')[0]).toBe('try { throw new Error("x"); } catch (e) { console.log($gs_mensagem(e)); }');
     expect(helpers).toEqual(['mensagem']);
   });
+  it('$gs_mensagem aceita valor lançado que não é Error', () => {
+    const helper = helperSourceOf('mensagem') ?? '';
+    const messageOf = runInNewContext(`${helper}; $gs_mensagem`) as (value: unknown) => string;
+    expect([messageOf(new Error('oi')), messageOf('texto'), messageOf(7), messageOf(null), messageOf(undefined)]).toEqual([
+      'oi',
+      'texto',
+      '7',
+      'null',
+      'undefined',
+    ]);
+  });
+  it('playground: pergunta vai por mensagem ao hospedeiro, sem node:readline', () => {
+    const { code } = emit('vai_na_frente faz_trem f() { faz_favor pergunta("Nome?") }', 'playground');
+    expect(code).toContain('postMessage');
+    expect(code).not.toContain('node:readline');
+    expect(code).not.toContain('process.');
+  });
+  it('playground: $gs_pergunta resolve com a resposta do hospedeiro', async () => {
+    const helper = helperSourceOf('pergunta', 'playground') ?? '';
+    const posted: unknown[] = [];
+    const listeners: ((event: { data: unknown }) => void)[] = [];
+    const host = {
+      postMessage: (message: unknown) => posted.push(message),
+      addEventListener: (_type: string, listener: (event: { data: unknown }) => void) => listeners.push(listener),
+      removeEventListener: (_type: string, listener: unknown) => listeners.splice(listeners.indexOf(listener as never), 1),
+    };
+    const ask = runInNewContext(`${helper}; $gs_pergunta`, { globalThis: host }) as (prompt: string) => Promise<string>;
+    const answer = ask('Nome?');
+    expect(posted).toEqual([{ type: 'gs:pergunta', prompt: 'Nome?' }]);
+    listeners[0]?.({ data: { type: 'gs:resposta', value: 'Zé' } });
+    await expect(answer).resolves.toBe('Zé');
+    expect(listeners).toHaveLength(0);
+  });
   it('ajudante repetido é emitido uma vez só', () => {
     const { helpers } = emit('prosa(vira_número("1"))\nprosa(vira_número("2"))');
     expect(helpers).toEqual(['vira_numero']);
