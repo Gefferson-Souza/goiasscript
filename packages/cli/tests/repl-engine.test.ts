@@ -114,4 +114,64 @@ describe('motor do REPL', () => {
     await new Promise((resolve) => setTimeout(resolve, 60));
     expect(io.stdoutText()).toBe('');
   });
+  it('perguntas simultâneas entram na fila e cada uma recebe a sua resposta', async () => {
+    const { io, engine } = setup();
+    const first = engine.evaluate('uai a é pergunta("um?")');
+    const second = engine.evaluate('uai b é pergunta("dois?")');
+    expect(io.stdoutText()).toBe('um? ');
+    engine.answer('x');
+    await first;
+    expect(io.stdoutText()).toBe('um? dois? ');
+    expect(engine.hasPendingQuestion()).toBe(true);
+    engine.answer('y');
+    await second;
+    expect(await echoOf(engine, 'a')).toBe('x');
+    expect(await echoOf(engine, 'b')).toBe('y');
+  });
+  it('fim da entrada rejeita todas as perguntas da fila', async () => {
+    const { engine } = setup();
+    const first = engine.evaluate('prosa(pergunta("a"))');
+    const second = engine.evaluate('prosa(pergunta("b"))');
+    engine.endOfInput();
+    expect(await first).toMatchObject({ kind: 'threw', diagnostic: { code: 'GS0702' } });
+    expect(await second).toMatchObject({ kind: 'threw', diagnostic: { code: 'GS0702' } });
+  });
+  it('temporizador que lança é reportado no err sem derrubar o processo', async () => {
+    const { io, engine } = setup();
+    await engine.evaluate('daqui_um_cadim(() => { vixe("boom") }, 5)');
+    await new Promise((resolve) => setTimeout(resolve, 40));
+    expect(io.stderrText()).not.toBe('');
+    expect(await echoOf(engine, '1 mais 1')).toBe('2');
+  });
+  it('temporizador assíncrono que rejeita também é reportado', async () => {
+    const { io, engine } = setup();
+    await engine.evaluate('daqui_um_cadim(vai_na_frente () => { vixe("boom") }, 5)');
+    await new Promise((resolve) => setTimeout(resolve, 40));
+    expect(io.stderrText()).not.toBe('');
+  });
+  it('temporizador devolve id numérico opaco e repassa os argumentos extras', async () => {
+    const { io, engine } = setup();
+    expect(await echoOf(engine, 'daqui_um_cadim(() => 1, 5)')).toMatch(/^\d+$/u);
+    await engine.evaluate('daqui_um_cadim((a, b) => { prosa(a mais b) }, 5, 1, 2)');
+    await new Promise((resolve) => setTimeout(resolve, 40));
+    expect(io.stdoutText()).toBe('3\n');
+  });
+  it('temporizador recusa o que não é função e larga_mão cancela pelo id', async () => {
+    const { io, engine } = setup();
+    expect(await engine.evaluate('daqui_um_cadim("x", 5)')).toMatchObject({ kind: 'threw' });
+    await engine.evaluate('uai t é daqui_um_cadim(() => { prosa("nunca") }, 20)');
+    await engine.evaluate('larga_mão(t)');
+    await new Promise((resolve) => setTimeout(resolve, 60));
+    expect(io.stdoutText()).toBe('');
+  });
+  it('toda_hora repete até ser largado', async () => {
+    const { io, engine } = setup();
+    await engine.evaluate('uai h é toda_hora(() => { prosa("tic") }, 10)');
+    await new Promise((resolve) => setTimeout(resolve, 55));
+    await engine.evaluate('larga_mão(h)');
+    const count = io.stdoutText().split('tic').length - 1;
+    expect(count).toBeGreaterThanOrEqual(2);
+    await new Promise((resolve) => setTimeout(resolve, 40));
+    expect(io.stdoutText().split('tic').length - 1).toBe(count);
+  });
 });

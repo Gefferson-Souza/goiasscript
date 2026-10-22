@@ -6,7 +6,7 @@ import { CANCELLED, EMPTY_SESSION, REPL_FILE_NAME } from './repl.constants.ts';
 import type { ReplEngine, ReplEngineOptions } from './repl.types.ts';
 
 export function createReplEngine(options: ReplEngineOptions): ReplEngine {
-  let host = createHostContext(options.io);
+  let host = createHostContext(options.io, options.tone);
   let session: ReplSession = EMPTY_SESSION;
   let cancelEntry: (() => void) | null = null;
 
@@ -40,7 +40,7 @@ export function createReplEngine(options: ReplEngineOptions): ReplEngine {
     },
     reset() {
       host.dispose();
-      host = createHostContext(options.io);
+      host = createHostContext(options.io, options.tone);
       session = EMPTY_SESSION;
     },
     get session() {
