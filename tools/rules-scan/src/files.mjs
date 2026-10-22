@@ -6,6 +6,7 @@ const TEST_DIR = /(^|\/)(tests?|__tests__)\//;
 const TEST_FILE = /\.(test|spec)\.[cm]?[jt]sx?$/;
 const CHECKED_ROOTS = ['packages', 'tools', 'scripts'];
 const EXAMPLE_EXTENSION = '.gs';
+export const DECLARATION_FILE = /\.d\.[cm]?ts$/;
 
 export const loadScope = (root) => JSON.parse(fs.readFileSync(path.join(root, 'tools/rules-scan/scope.json'), 'utf8'));
 export const listTrackedFiles = (root) => execFileSync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard'], { cwd: root, encoding: 'utf8' }).split('\0').filter(Boolean);
@@ -13,7 +14,7 @@ export const isInside = (rel, prefix) => rel === prefix || rel.startsWith(prefix
 
 function classifyRole(rel) {
   if (TEST_DIR.test(rel) || TEST_FILE.test(rel)) return 'test';
-  if (rel.endsWith('.d.ts')) return 'declaration';
+  if (DECLARATION_FILE.test(rel)) return 'declaration';
   return rel.startsWith('scripts/') ? 'script' : 'src';
 }
 
