@@ -80,16 +80,12 @@ class LexerImpl implements Lexer {
 
   private build(step: TriviaStep, scanned: ScannedToken, precededByNewline: boolean): Token {
     const text = this.source.text.slice(step.end, scanned.end);
+    const base = { kind: scanned.kind, start: step.end, end: scanned.end, text, value: scanned.value, precededByNewline, leadingTrivia: step.trivia };
+    if (scanned.keyword === undefined && scanned.numberForm === undefined) return base;
     return {
-      kind: scanned.kind,
-      start: step.end,
-      end: scanned.end,
-      text,
-      value: scanned.value,
+      ...base,
       ...(scanned.keyword === undefined ? {} : { keyword: scanned.keyword }),
       ...(scanned.numberForm === undefined ? {} : { numberForm: scanned.numberForm }),
-      precededByNewline,
-      leadingTrivia: step.trivia,
     };
   }
 }

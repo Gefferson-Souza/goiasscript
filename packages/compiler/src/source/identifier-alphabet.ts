@@ -11,6 +11,7 @@ const ACCENTED_LETTERS = 'áàâãéêíóôõúüçÁÀÂÃÉÊÍÓÔÕÚÜÇ';
 const ACCENTED_CODE_POINTS: ReadonlySet<number> = new Set(
   Array.from(ACCENTED_LETTERS, (letter) => letter.codePointAt(0) ?? 0),
 );
+const BMP_MAX = 0xffff;
 const ASCII_ONLY = /^\p{ASCII}*$/u;
 
 const inRange = (codePoint: number, low: number, high: number): boolean => codePoint >= low && codePoint <= high;
@@ -37,6 +38,12 @@ export function canonicalName(text: string): string {
 }
 
 export function isValidName(nfcName: string): boolean {
-  const [first, ...rest] = Array.from(nfcName, (character) => character.codePointAt(0) ?? 0);
-  return first !== undefined && isIdentifierStart(first) && rest.every(isIdentifierPart);
+  let index = 0;
+  while (index < nfcName.length) {
+    const codePoint = nfcName.codePointAt(index) ?? 0;
+    const accepted = index === 0 ? isIdentifierStart(codePoint) : isIdentifierPart(codePoint);
+    if (!accepted) return false;
+    index += codePoint > BMP_MAX ? 2 : 1;
+  }
+  return nfcName.length > 0;
 }

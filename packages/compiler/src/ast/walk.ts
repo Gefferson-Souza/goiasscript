@@ -43,13 +43,17 @@ function isAstNode(value: unknown): value is AstNode {
   return typeof value === 'object' && value !== null && 'type' in value && typeof value.type === 'string';
 }
 
-export function forEachChild(node: AstNode, visit: (child: AstNode) => void): void {
+export function childrenOf(node: AstNode): readonly AstNode[] {
   const fields = node as unknown as Readonly<Record<string, unknown>>;
-  for (const key of CHILD_KEYS[node.type]) {
+  return CHILD_KEYS[node.type].flatMap((key): readonly AstNode[] => {
     const value = fields[key];
-    const candidates: readonly unknown[] = Array.isArray(value) ? (value as readonly unknown[]) : [value];
-    for (const child of candidates) if (isAstNode(child)) visit(child);
-  }
+    if (Array.isArray(value)) return (value as readonly unknown[]).filter(isAstNode);
+    return isAstNode(value) ? [value] : [];
+  });
+}
+
+export function forEachChild(node: AstNode, visit: (child: AstNode) => void): void {
+  for (const child of childrenOf(node)) visit(child);
 }
 
 export function walk(node: AstNode, visit: (node: AstNode) => void): void {
