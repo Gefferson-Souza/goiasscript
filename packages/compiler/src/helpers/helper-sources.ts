@@ -1,4 +1,5 @@
 import type { CompileTarget } from '../api.types.ts';
+import { buildMessageSource, phrasesFromCatalog } from './message-source.ts';
 
 const HELPER_SOURCE_TEXTS: readonly string[] = [
   `function $gs_ordem(a, b) {
@@ -23,9 +24,7 @@ const HELPER_SOURCE_TEXTS: readonly string[] = [
   `function $gs_trocar(text, search, replacement) {
   return String(text).replaceAll(String(search), () => String(replacement));
 }`,
-  `function $gs_mensagem(error) {
-  return typeof error === 'object' && error !== null && typeof error.message === 'string' ? error.message : String(error);
-}`,
+  buildMessageSource(phrasesFromCatalog()),
   `function $gs_sorteia_um(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }`,
