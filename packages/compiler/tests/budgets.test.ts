@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { ABSOLUTE_BUDGETS, helperBytes, measureBudgets, readRatchets } from '../bench/budgets.ts';
 import { compile } from '../src/compile.ts';
+import { timingEnforced } from './support/timing.ts';
 
 // A instrumentação de cobertura dobra o tempo: os tetos de tempo rodam no passo `budgets` do verify, sem cobertura.
 const TIMING_TIMEOUT_MS = 60_000;
-const timed = process.env['GS_TIMING_BUDGETS'] === 'skip' ? it.skip : it;
+const timed = timingEnforced ? it : it.skip;
 
 describe('orçamentos absolutos', () => {
   it('programa só nativo tem 0 bytes de runtime no alvo module', () => {

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { codes, parseText } from '../../support/parse.ts';
+import { expectWithinBudget } from '../../support/timing.ts';
 
 const HUGE = 100_000;
 const MAX_MILLISECONDS = 3_000;
@@ -18,7 +19,7 @@ describe('parser: limites de profundidade (Review Focus 4)', () => {
     const started = performance.now();
     const result = parseText(text);
     expect(codes(result).filter((code) => code === 'GS0522')).toHaveLength(1);
-    expect(performance.now() - started).toBeLessThan(MAX_MILLISECONDS);
+    expectWithinBudget(performance.now() - started, MAX_MILLISECONDS);
   });
   it('aceita aninhamento até o limite e recusa acima dele', () => {
     expect(codes(parseText('uai x é ' + '('.repeat(150) + '1' + ')'.repeat(150)))).toEqual([]);

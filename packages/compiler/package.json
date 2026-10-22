@@ -10,7 +10,7 @@
     "node": ">=22.12"
   },
   "scripts": {
-    "mutate": "stryker run",
+    "mutate": "GS_TIMING_BUDGETS=skip stryker run",
     "bench": "node bench/measure.ts",
     "bench:check": "node bench/measure.ts --check"
   },

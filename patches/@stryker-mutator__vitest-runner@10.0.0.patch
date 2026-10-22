@@ -1,0 +1,20 @@
+diff --git a/dist/src/vitest-test-runner.js b/dist/src/vitest-test-runner.js
+index 84f1ca026503b8e92b7adc952ec6c6a401943656..3122be5e94990b3d9206430c28b5a9f7ddb34f08 100644
+--- a/dist/src/vitest-test-runner.js
++++ b/dist/src/vitest-test-runner.js
+@@ -143,13 +143,9 @@ export class VitestTestRunner {
+         let testFilesToRun = explicitTestFiles;
+         if (testIds.length > 0) {
+             const parsedTests = testIds.map(fromTestId);
+-            const regexTestNameFilter = parsedTests
+-                .map(({ test: name }) => escapeRegExp(name))
+-                .join('|');
+-            const regex = new RegExp(regexTestNameFilter);
+-            testFilesToRun = parsedTests.map(({ file }) => file);
++            testFilesToRun = [...new Set(parsedTests.map(({ file }) => file))];
+             this.ctx.projects.forEach((project) => {
+-                project.config.testNamePattern = regex;
++                project.config.testNamePattern = undefined;
+             });
+         }
+         else {
