@@ -1,13 +1,3 @@
-export type {
-  BindingKind,
-  DiagnosticExplanation,
-  CompileTarget,
-  LineRange,
-  ReplSession,
-  SessionBinding,
-  Severity,
-  SourcePosition,
-  SourceRange,
-  Tone,
-} from './api.types.ts';
+export type * from './api.types.ts';
+export { compile } from './compile.ts';
 export { explainDiagnostic } from './explain.ts';
