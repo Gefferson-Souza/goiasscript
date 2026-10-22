@@ -39,4 +39,6 @@ export const JS_RESERVED: readonly JsReservedEntry[] = [
   ...entries(NON_BINDABLE, 'non-bindable', false),
 ];
 
+export const JS_MEMBER_ALTERNATIVES: Readonly<Record<string, string>> = { hasOwnProperty: 'Coisa.tem', toString: 'vira_texto' };
+
 export const JS_MEMBER_EXTRA_EQUIVALENTS: Readonly<Record<string, string>> = { sort: 'arruma', reverse: 'de_trás_pra_frente', replace: 'trocar' };
