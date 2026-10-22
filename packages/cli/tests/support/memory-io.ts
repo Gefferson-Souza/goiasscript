@@ -17,6 +17,8 @@ function createMemoryFileSystem(options: MemoryIoOptions): CliFileSystem & { pat
   let clock = 0;
   const tick = (): number => (clock += 1);
   const failing = new Set((options.failingWrites ?? []).map(keyOf));
+  const symlinks = new Set((options.symlinks ?? []).map(keyOf));
+  const foreignOwned = new Set((options.foreignOwned ?? []).map(keyOf));
   const put = (path: string, bytes: Uint8Array): void => {
     const previous = files.get(keyOf(path));
     files.set(keyOf(path), { displayPath: normalize(path), id: previous?.id ?? tick(), bytes, modifiedAt: tick() });
@@ -72,6 +74,13 @@ function createMemoryFileSystem(options: MemoryIoOptions): CliFileSystem & { pat
     modifiedAt(path) {
       const entry = files.get(keyOf(path));
       return Promise.resolve(entry?.modifiedAt ?? directories.get(keyOf(path)) ?? 0);
+    },
+    inspectEntry(path) {
+      const key = keyOf(path);
+      if (kindOf(path) === 'missing') return Promise.reject(new CliFileError('ENOENT', path));
+      const modifiedAt = files.get(key)?.modifiedAt ?? directories.get(key) ?? 0;
+      const kind = symlinks.has(key) ? 'symlink' : kindOf(path) === 'file' ? 'file' : 'directory';
+      return Promise.resolve({ kind, modifiedAt, ownedByCurrentUser: !foreignOwned.has(key) });
     },
     remove(path) {
       this.removeSync(path);

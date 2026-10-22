@@ -6,7 +6,8 @@ type WorkspaceIo = Pick<CliIo, 'fs' | 'env'>;
 
 async function isStale(io: WorkspaceIo, path: string, nowMs: number): Promise<boolean> {
   try {
-    return (await io.fs.modifiedAt(path)) < nowMs - STALE_WORKSPACE_MS;
+    const entry = await io.fs.inspectEntry(path);
+    return entry.kind === 'directory' && entry.ownedByCurrentUser && entry.modifiedAt < nowMs - STALE_WORKSPACE_MS;
   } catch {
     return false;
   }
@@ -29,6 +30,7 @@ async function listNames(io: WorkspaceIo): Promise<readonly string[]> {
 }
 
 // Programa morto por sinal não passa pelo evento de saída; a varredura limpa o que ficou para trás.
+// O mtime da pasta não muda enquanto o programa roda: um programa vivo há mais de 24 h pode perder o temporário.
 export async function sweepStaleWorkspaces(io: WorkspaceIo, nowMs: number): Promise<void> {
   const { tmpDir, path } = io.env;
   const names = await listNames(io);

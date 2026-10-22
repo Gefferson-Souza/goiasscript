@@ -76,6 +76,36 @@ describe('bota_pra_moer: ciclo de vida do programa', () => {
     expect(io.stderrText().match(/GS0710/gu)).toHaveLength(1);
   });
 
+  it('falha ao gravar o programa remove o temporário e sai com 3 sem importar', async () => {
+    const imported: string[] = [];
+    const host = createFakeProcessHost({ importModule: (fileUrl) => (imported.push(fileUrl), Promise.resolve({})) });
+    const memory = createMemoryIo({ files: { 'ok.gs': 'prosa(1)\n' } });
+    const io = { ...memory, fs: { ...memory.fs, writeText: (path: string, content: string, mode: 'create-new' | 'replace') => (path.endsWith('program.mjs') ? Promise.reject(new Error('disco cheio')) : memory.fs.writeText(path, content, mode)) } };
+    expect(await runCli(['bota_pra_moer', 'ok.gs'], io, { processHost: host })).toBe(3);
+    expect(imported).toEqual([]);
+    expect(workspaces(memory)).toEqual([]);
+    expect(memory.stderrText()).toContain('GS0903');
+    expect(memory.stderrText()).not.toContain('disco cheio');
+  });
+
+  it('mensagem de erro do próprio programa aparece junto do GS0714', async () => {
+    const host = createFakeProcessHost({ importModule: neverSettles });
+    const io = createMemoryIo({ files: { 'e.gs': 'prosa(1)\n' } });
+    await runCli(['bota_pra_moer', 'e.gs'], io, { processHost: host });
+    host.fireUncaughtException(new Error('Deu ruim, sô!'));
+    expect(io.stderrText()).toContain('GS0714');
+    expect(io.stderrText()).toContain('o programa disse: Deu ruim, sô!');
+  });
+
+  it('mensagem do motor e de erro do Node nunca aparece', async () => {
+    const io = createMemoryIo({ files: { 'e.gs': 'prosa(1)\n' } });
+    const host = createFakeProcessHost({ importModule: neverSettles });
+    await runCli(['bota_pra_moer', 'e.gs'], io, { processHost: host });
+    host.fireUncaughtException(Object.assign(new Error('Cannot find module x'), { code: 'ERR_MODULE_NOT_FOUND' }));
+    expect(io.stderrText()).not.toContain('Cannot find');
+    expect(io.stderrText()).not.toContain('o programa disse');
+  });
+
   it('erro na importação do módulo é traduzido e encerra com 2', async () => {
     const host = createFakeProcessHost({ importModule: () => Promise.reject(new ReferenceError('x is not defined')) });
     const io = createMemoryIo({ files: { 'e.gs': 'prosa(1)\n' } });

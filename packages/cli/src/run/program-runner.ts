@@ -1,8 +1,13 @@
 import { pathToFileURL } from 'node:url';
-import type { RuntimeErrorContext } from '@goiasscript/compiler';
+import type { RuntimeErrorContext, Tone } from '@goiasscript/compiler';
 import { EXIT_CODE } from '../exit-codes.constants.ts';
 import type { ExitCode } from '../exit-codes.types.ts';
 import type { CliIo } from '../io.types.ts';
+import { renderDiagnostic } from '../diagnostics/render-diagnostic.ts';
+import { toolDiagnostic } from '../diagnostics/tool-diagnostic.ts';
+import { PATH_CODE } from '../paths/paths.constants.ts';
+import { chooseByTone } from '../tone-choice.ts';
+import { PREPARE_FAILURE_TEXT } from './program-runner.constants.ts';
 import type { RunRequest } from './program-runner.types.ts';
 import type { ProcessHost } from './process-host.types.ts';
 import { reportPendingProgram, reportRuntimeError } from './runtime-report.ts';
@@ -35,10 +40,28 @@ function watchProcess(request: RunRequest, context: { readonly io: CliIo; readon
   host.importModule(pathToFileURL(workspace.programPath).href).then(settle, fail);
 }
 
+async function writeProgram(io: CliIo, workspace: TempWorkspace, request: RunRequest): Promise<boolean> {
+  try {
+    await io.fs.writeText(workspace.programPath, request.result.code, 'create-new');
+    return true;
+  } catch {
+    workspace.dispose();
+    return false;
+  }
+}
+
+function reportPrepareFailure(io: CliIo, tone: Tone, fileName: string): ExitCode {
+  const detail = chooseByTone(tone, PREPARE_FAILURE_TEXT.root, PREPARE_FAILURE_TEXT.neutral);
+  const diagnostic = toolDiagnostic(PATH_CODE.outputRefused, tone, { reason: detail });
+  io.err.write(`${renderDiagnostic({ diagnostic, fileName, source: null })}\n`);
+  return EXIT_CODE.usage;
+}
+
 export async function runProgram(request: RunRequest, io: CliIo, host: ProcessHost): Promise<ExitCode> {
   await sweepStaleWorkspaces(io, Date.now());
   const workspace = await createTempWorkspace(io);
-  await io.fs.writeText(workspace.programPath, request.result.code, 'create-new');
+  const prepared = await writeProgram(io, workspace, request);
+  if (!prepared) return reportPrepareFailure(io, request.tone, request.displayName);
   watchProcess(request, { io, host, workspace, events: new Set<RunEvent>() });
   return EXIT_CODE.ok;
 }
