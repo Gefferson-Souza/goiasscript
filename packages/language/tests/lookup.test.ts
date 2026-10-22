@@ -27,4 +27,7 @@ describe('lookup', () => {
     expect(lookupJsMember('hasOwnProperty')).toEqual({ name: 'hasOwnProperty', alternative: 'Coisa.tem' });
     expect(lookupJsMember('gato')).toBeUndefined();
   });
+  it.each(['constructor', 'valueOf', '__proto__'])('não herda alternativa do protótipo de Object para %s', (name) => {
+    expect(lookupJsMember(name)).toEqual({ name });
+  });
 });
