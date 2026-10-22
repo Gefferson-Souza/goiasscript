@@ -1,9 +1,10 @@
 import { execFile, spawn } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { promisify } from 'node:util';
-import type { InstalledRun, InstalledRunOptions, PackedTarball } from './tarball.types.ts';
+import type { InstalledProcess, InstalledRun, InstalledRunOptions, PackedTarball } from './tarball.types.ts';
 
 const execFileAsync = promisify(execFile);
 const TARBALL_ENV = 'GS_TARBALL';
@@ -19,7 +20,11 @@ const PRELOAD_SOURCE = `import { register } from 'node:module';
 register('data:text/javascript;base64,${Buffer.from(HOOKS_SOURCE).toString('base64')}');`;
 
 const workspaces: string[] = [];
-const state: { tarball: Promise<PackedTarball> | undefined; extracted: Promise<string> | undefined } = { tarball: undefined, extracted: undefined };
+const state: { tarball: Promise<PackedTarball> | undefined; extracted: Promise<string> | undefined; installed: Promise<string> | undefined } = {
+  tarball: undefined,
+  extracted: undefined,
+  installed: undefined,
+};
 
 const makeWorkspace = (prefix: string): string => {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), prefix));
@@ -33,6 +38,7 @@ export function cleanupWorkspaces(): void {
   });
   state.tarball = undefined;
   state.extracted = undefined;
+  state.installed = undefined;
 }
 
 async function packFresh(): Promise<PackedTarball> {
@@ -50,7 +56,9 @@ export function getTarball(): Promise<PackedTarball> {
 export function fixture(files: Readonly<Record<string, string>>): string {
   const directory = makeWorkspace('gs-fixture-');
   Object.entries(files).forEach(([name, content]) => {
-    fs.writeFileSync(path.join(directory, name), content);
+    const target = path.join(directory, name);
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.writeFileSync(target, content);
   });
   return directory;
 }
@@ -85,30 +93,92 @@ export function allDistText(root: string): string {
     .join('\n');
 }
 
-export async function runInstalled(args: readonly string[], options: InstalledRunOptions = {}): Promise<InstalledRun> {
-  const root = await extractTarball(await getTarball());
+const PACKAGE_NAME = 'goiasscript';
+const BIN_RELATIVE = ['node_modules', PACKAGE_NAME, 'dist', 'goiasscript.mjs'] as const;
+const NPM_CLI_SEGMENTS = ['node_modules', 'npm', 'bin', 'npm-cli.js'] as const;
+
+function npmCliPath(): string {
+  const nodeDir = path.dirname(process.execPath);
+  const candidates = [path.join(nodeDir, ...NPM_CLI_SEGMENTS), path.join(nodeDir, '..', 'lib', ...NPM_CLI_SEGMENTS)];
+  const found = candidates.find((candidate) => fs.existsSync(candidate));
+  if (found === undefined) throw new Error('npm-cli.js não encontrado ao lado do Node em uso');
+  return found;
+}
+
+async function installFresh(): Promise<string> {
+  const { tarball } = await getTarball();
+  const directory = makeWorkspace('gs-install-');
+  fs.writeFileSync(path.join(directory, 'package.json'), JSON.stringify({ private: true, type: 'module' }));
+  await execFileAsync(process.execPath, [npmCliPath(), 'install', tarball, '--no-audit', '--no-fund'], { cwd: directory });
+  return directory;
+}
+
+export function getInstallDir(): Promise<string> {
+  state.installed ??= installFresh();
+  return state.installed;
+}
+
+export function sha256(file: string): string {
+  return createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+}
+
+export function snapshotTree(directory: string): ReadonlyMap<string, string> {
+  const entries = fs
+    .readdirSync(directory, { recursive: true, encoding: 'utf8' })
+    .map((name) => name.split(path.sep).join('/'))
+    .sort()
+    .map((name): readonly [string, string] => [name, fs.statSync(path.join(directory, name)).isFile() ? sha256(path.join(directory, name)) : 'directory']);
+  return new Map(entries);
+}
+
+function collect(child: ReturnType<typeof spawn>, loadLog: string): Promise<InstalledRun> {
+  const out: Buffer[] = [];
+  const err: Buffer[] = [];
+  child.stdout?.on('data', (chunk: Buffer) => void out.push(chunk));
+  child.stderr?.on('data', (chunk: Buffer) => void err.push(chunk));
+  return new Promise((resolve) => {
+    child.on('close', (exitCode) => {
+      resolve({
+        exitCode,
+        stdout: Buffer.concat(out).toString('utf8'),
+        stderr: Buffer.concat(err).toString('utf8'),
+        loadedModules: fs.existsSync(loadLog) ? fs.readFileSync(loadLog, 'utf8').split('\n').filter((line) => line !== '') : [],
+      });
+    });
+  });
+}
+
+export async function startInstalled(args: readonly string[], options: InstalledRunOptions = {}): Promise<InstalledProcess> {
+  const installDir = await getInstallDir();
   const scratch = makeWorkspace('gs-run-');
   const preload = path.join(scratch, 'preload.mjs');
   const loadLog = path.join(scratch, 'loaded.log');
   fs.writeFileSync(preload, PRELOAD_SOURCE);
   fs.writeFileSync(loadLog, '');
-  const child = spawn(process.execPath, ['--import', preload, path.join(root, 'dist/goiasscript.mjs'), ...args], {
+  const preloadArgs = options.trackModules === true ? ['--import', preload] : [];
+  const child = spawn(process.execPath, [...preloadArgs, path.join(installDir, ...BIN_RELATIVE), ...args], {
     cwd: options.cwd ?? scratch,
     shell: false,
-    stdio: ['ignore', 'pipe', 'pipe'],
+    stdio: ['pipe', 'pipe', 'pipe'],
     env: { ...process.env, ...options.env, [LOAD_LOG_ENV]: loadLog },
   });
-  const out: Buffer[] = [];
-  const err: Buffer[] = [];
-  child.stdout.on('data', (chunk: Buffer) => void out.push(chunk));
-  child.stderr.on('data', (chunk: Buffer) => void err.push(chunk));
-  const exitCode = await new Promise<number | null>((resolve) => {
-    child.on('close', resolve);
-  });
-  return {
-    exitCode,
-    stdout: Buffer.concat(out).toString('utf8'),
-    stderr: Buffer.concat(err).toString('utf8'),
-    loadedModules: fs.readFileSync(loadLog, 'utf8').split('\n').filter((line) => line !== ''),
-  };
+  child.stdin.on('error', () => undefined);
+  return { stdin: child.stdin, result: collect(child, loadLog) };
+}
+
+export async function runInstalled(args: readonly string[], options: InstalledRunOptions = {}): Promise<InstalledRun> {
+  const running = await startInstalled(args, options);
+  running.stdin.end(options.input ?? '');
+  return running.result;
+}
+
+export async function runShim(shim: 'goiasscript' | 'goias', args: readonly string[], options: InstalledRunOptions = {}): Promise<InstalledRun> {
+  const installDir = await getInstallDir();
+  const bin = path.join(installDir, 'node_modules', '.bin');
+  const windows = process.platform === 'win32';
+  const command = windows ? (process.env['ComSpec'] ?? 'cmd.exe') : path.join(bin, shim);
+  const commandArgs = windows ? ['/d', '/c', path.join(bin, `${shim}.cmd`), ...args] : [...args];
+  const child = spawn(command, commandArgs, { cwd: options.cwd ?? installDir, shell: false, stdio: ['pipe', 'pipe', 'pipe'], env: { ...process.env, ...options.env } });
+  child.stdin.end(options.input ?? '');
+  return collect(child, '');
 }

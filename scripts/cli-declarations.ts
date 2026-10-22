@@ -4,6 +4,8 @@ import path from 'node:path';
 const COMPILER_SRC = path.join(import.meta.dirname, '../packages/compiler/src');
 // Cruza linhas: imports multilinha não podem deixar resíduo no .d.ts.
 const IMPORT_STATEMENT = /^(?:import|export type (?:\{|\*))[^;]*?\bfrom\s+'[^']*';?[ \t]*$/gmu;
+// Re-export local: o tipo já está declarado no mesmo arquivo concatenado e duplicaria a exportação (TS2484).
+const LOCAL_REEXPORT = /^export type \{[^}]*\};?[ \t]*$/gmu;
 
 const API_SIGNATURES = `
 export declare function compile(source: string, options?: CompileOptions): CompileResult;
@@ -20,7 +22,7 @@ function sourceMapVersion(): string {
   return match[1];
 }
 
-export const stripImports = (text: string): string => text.replace(IMPORT_STATEMENT, '');
+export const stripImports = (text: string): string => text.replace(IMPORT_STATEMENT, '').replace(LOCAL_REEXPORT, '');
 
 export function buildDeclarations(): string {
   const sourceMap = stripImports(read('sourcemap/source-map.types.ts')).replaceAll('typeof SOURCE_MAP_VERSION', sourceMapVersion());

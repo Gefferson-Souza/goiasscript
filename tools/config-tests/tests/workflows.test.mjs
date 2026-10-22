@@ -57,6 +57,15 @@ describe('ci.yml', () => {
   });
 });
 
+describe('promises-gate.yml', () => {
+  const gate = readYaml('.github/workflows/promises-gate.yml');
+  it('roda o E2E do tarball em Ubuntu, Windows e macOS com Node 22 e 24', () => {
+    expect(gate.jobs.tarball.strategy.matrix).toEqual({ node: ['22', '24'], os: ['ubuntu-24.04', 'windows-2025', 'macos-15'] });
+    expect(gate.jobs.tarball.strategy['fail-fast']).toBe(false);
+    expect(commandsOf(gate.jobs.tarball)).toContain('test:e2e');
+  });
+});
+
 describe('nomes de job dos checks obrigatórios', () => {
   it('não se repetem em workflows diferentes do ci.yml', () => {
     const otherJobNames = workflowFiles
