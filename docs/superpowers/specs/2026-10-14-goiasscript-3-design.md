@@ -1062,8 +1062,9 @@ do JS gerado.
 - **Classificação:** pelo construtor do erro (`TypeError`, `ReferenceError`, `RangeError`, `SyntaxError`) e pelo trecho do
   `.gs` no intervalo mapeado (token de chamada, acesso ou identificador), nunca por regex sobre `error.message`; a
   mensagem do motor nunca é exibida. Construtor desconhecido cai no `GS07xx` genérico em goianês (GS0710–GS0799).
-- **Arquivo e mapa:** o nome exibido é sempre o `fileName` do contexto, nunca o caminho temporário. O mapa leva
-  `ignoreList` com a fonte dos ajudantes e segmentos sem origem para o código gerado.
+- **Arquivo e mapa:** o nome exibido é sempre o `fileName` do contexto, nunca o caminho temporário. As linhas
+  dos ajudantes nascem sem segmento de mapeamento e o mapa tem uma só fonte, então não emite `ignoreList`; o frame de
+  ajudante é identificado só por `helperRange`.
 - **Trava de laço (GS0701):** o erro carrega, como literal inserido pelo compilador na linha do laço, a linha do `.gs`;
   não depende da pilha nem de frame de ajudante.
 - **`.mensagem` (P10):** o mesmo catálogo alimenta `.mensagem` (§4.9), então o erro do motor capturado por `tenta_aí`
