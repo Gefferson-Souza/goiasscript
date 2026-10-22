@@ -1,4 +1,6 @@
-import type { BlockStatement, ExpressionStatement, JumpStatement, ReturnStatement, Statement, ThrowStatement } from '../ast/ast.types.ts';
+import { lookupRetiredWord } from '@goiasscript/language';
+import type { BlockStatement, Expression, ExpressionStatement, JumpStatement, ReturnStatement, Statement, ThrowStatement } from '../ast/ast.types.ts';
+import { skipBalanced } from './balanced.ts';
 import { parseClass } from './classes.ts';
 import { parseFor, parseIf, parseTry, parseWhile } from './control.ts';
 import { parseFunction, parseVariableDeclaration } from './declarations.ts';
@@ -6,6 +8,9 @@ import { expectPunctuator } from './expect.ts';
 import { groupedBody, parseParenList } from './groups.ts';
 import type { Token } from '../lexer/token.types.ts';
 import { skipBlockBreak } from './layout.ts';
+import { parseSubsetStatement } from './subset-statements.ts';
+import { adoptJsWord, reportJsOperator } from './subset-checks.ts';
+import { COMMA, GONE_PHRASE } from './subset.constants.ts';
 import { binaryOperatorAt } from './operators.ts';
 import { ListBuilder } from './list-builder.ts';
 import { CODES } from './parser.constants.ts';
@@ -13,22 +18,39 @@ import type { ParserState } from './parser-state.ts';
 import type { Parser } from './parser.types.ts';
 import { PRECEDENCE } from './precedence.constants.ts';
 import { ensureProgress, errorNode, foundOf, reportUnexpected, synchronize } from './recovery.ts';
-import { isKeyword, isPunctuator, keywordJs } from './token-tests.ts';
+import { isKeyword, isPunctuator, isStatementEnd, keywordJs } from './token-tests.ts';
 
 type StatementParser = (parser: Parser) => Statement;
 
 const UNARY_OR_BINARY_MINUS = '-';
+const isBoundary = (token: Token): boolean => token.kind === 'end-of-file' || token.kind === 'newline' || isPunctuator(token, '}');
 const RETURN_TERMINATORS: ReadonlySet<string> = new Set([';', '}']);
+
+function consumeDecimalComma(parser: Parser): boolean {
+  const state = parser.state;
+  const comma = state.current();
+  const previous = state.lastToken;
+  const following = state.visibleAt(1);
+  const glued = previous?.kind === 'number' && previous.end === comma.start && following.kind === 'number' && following.start === comma.end;
+  if (!glued) return false;
+  state.report(CODES.decimalComma, previous.start, following.end, { suggestion: `${previous.text}.${following.text}` });
+  state.advance();
+  state.advance();
+  return true;
+}
 
 function endSimpleStatement(parser: Parser): void {
   const state = parser.state;
+  let decimal = isPunctuator(state.current(), COMMA);
+  while (decimal) decimal = isPunctuator(state.current(), COMMA) && consumeDecimalComma(parser);
   const token = state.current();
   if (isPunctuator(token, ';')) {
     state.advance();
     return;
   }
-  if (token.kind === 'newline' || token.kind === 'end-of-file' || isPunctuator(token, '}')) return;
-  reportUnexpected(parser);
+  if (isStatementEnd(token)) return;
+  if (isPunctuator(token, COMMA)) reportJsOperator(parser, token);
+  else reportUnexpected(parser);
   synchronize(parser);
 }
 
@@ -55,11 +77,23 @@ function parseReturn(parser: Parser): ReturnStatement {
   return { type: 'ReturnStatement', argument, keywordToken, start: keywordToken.start, end: state.lastEnd };
 }
 
+function checkThrowShape(parser: Parser, statement: ThrowStatement): void {
+  const state = parser.state;
+  if (statement.arguments.length !== 1) state.report(CODES.misplacedThrow, statement.start, statement.end);
+  const next = state.current();
+  if (isStatementEnd(next)) return;
+  state.report(CODES.misplacedThrow, next.start, next.end);
+  synchronize(parser);
+}
+
 function parseThrow(parser: Parser): ThrowStatement {
   const state = parser.state;
   const keywordToken = state.advance();
+  const parenthesized = isPunctuator(state.current(), '(');
   const args = parseParenList(parser, () => parser.parseExpression(PRECEDENCE.assignment));
-  return { type: 'ThrowStatement', arguments: args, keywordToken, start: keywordToken.start, end: state.lastEnd };
+  const statement: ThrowStatement = { type: 'ThrowStatement', arguments: args, keywordToken, start: keywordToken.start, end: state.lastEnd };
+  if (parenthesized) checkThrowShape(parser, statement);
+  return statement;
 }
 
 function parseExpressionStatement(parser: Parser): ExpressionStatement {
@@ -88,7 +122,27 @@ const STATEMENT_PARSERS: ReadonlyMap<string, StatementParser> = new Map<string, 
   ['throw', simple(parseThrow)],
 ]);
 
-const parseSimpleExpression = simple(parseExpressionStatement);
+function skipRetiredConstruct(parser: Parser): void {
+  const state = parser.state;
+  while (!isStatementEnd(state.current()) && !isPunctuator(state.current(), '{')) state.advance();
+  if (isPunctuator(state.current(), '{')) skipBalanced(parser);
+}
+
+// Palavra de versão anterior sozinha no início da instrução: GS0306 no lugar do GS0202 que viria.
+function reportRetiredWord(parser: Parser, expression: Expression): void {
+  const retired = expression.type === 'Identifier' ? lookupRetiredWord(expression.name) : undefined;
+  if (retired === undefined || isStatementEnd(parser.state.current())) return;
+  const detail = retired.replacement === undefined ? { gone: GONE_PHRASE } : { replacement: retired.replacement };
+  parser.state.report(CODES.retiredWord, expression.start, expression.end, { word: retired.word, ...detail });
+  skipRetiredConstruct(parser);
+}
+
+function parseSimpleExpression(parser: Parser): Statement {
+  const statement = parseExpressionStatement(parser);
+  reportRetiredWord(parser, statement.expression);
+  endSimpleStatement(parser);
+  return statement;
+}
 
 function parseAsyncStatement(parser: Parser): Statement {
   const state = parser.state;
@@ -127,9 +181,12 @@ function startsWithBinaryOperator(token: Token): boolean {
 }
 
 export function parseStatement(parser: Parser): Statement {
-  const token = parser.state.current();
-  if (isPunctuator(token, '{')) return parser.parseBlock();
-  if (startsWithBinaryOperator(token)) return parseLeadingOperator(parser);
+  const first = parser.state.current();
+  if (isPunctuator(first, '{')) return parser.parseBlock();
+  if (startsWithBinaryOperator(first)) return parseLeadingOperator(parser);
+  const subset = parseSubsetStatement(parser);
+  if (subset !== undefined) return subset;
+  const token = adoptJsWord(parser);
   const handler = STATEMENT_PARSERS.get(keywordJs(token) ?? '');
   return (handler ?? parseSimpleExpression)(parser);
 }
@@ -164,10 +221,24 @@ function parseBlockBody(parser: Parser): BlockStatement {
   return { type: 'BlockStatement', body, start: open.start, end: state.lastEnd };
 }
 
+function startsBlocklessBody(state: ParserState): boolean {
+  if (state.rawPeek(0).kind === 'newline' && state.top === 'statement' && !isBoundary(state.rawPeek(1))) state.skipNewlines();
+  return !isBoundary(state.current()) && !isPunctuator(state.current(), '{');
+}
+
+function parseBlocklessBody(parser: Parser): BlockStatement {
+  const state = parser.state;
+  const first = state.current();
+  state.report(CODES.bodyWithoutBraces, first.start, first.end);
+  const statement = parser.parseStatement();
+  return { type: 'BlockStatement', body: [statement], synthetic: true, start: first.start, end: state.lastEnd };
+}
+
 export function parseBlock(parser: Parser): BlockStatement {
   const state = parser.state;
   skipBlockBreak(state);
+  const blockless = startsBlocklessBody(state);
   const start = state.current().start;
   const fallback: BlockStatement = { type: 'BlockStatement', body: [], synthetic: true, start, end: start };
-  return parser.nested(start, () => parseBlockBody(parser), fallback);
+  return parser.nested(start, () => (blockless ? parseBlocklessBody(parser) : parseBlockBody(parser)), fallback);
 }

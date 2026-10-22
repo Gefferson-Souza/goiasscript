@@ -9,9 +9,11 @@ export class ParserState {
   private contexts: readonly NewlineContext[] = ['statement'];
   private readonly items: RawDiagnostic[] = [];
   private lastKey = '';
+  private readonly adopted = new WeakMap<Token, Token>();
   cursor = 0;
   depth = 0;
   lastEnd = 0;
+  lastToken: Token | undefined = undefined;
   aborted = false;
   depthReported = false;
   readonly lexer: Lexer;
@@ -66,7 +68,12 @@ export class ParserState {
   }
 
   visibleAt(count: number): Token {
-    return this.lexer.peek(this.offsetOfVisible(count));
+    const token = this.lexer.peek(this.offsetOfVisible(count));
+    return this.adopted.get(token) ?? token;
+  }
+
+  adopt(token: Token, replacement: Token): void {
+    this.adopted.set(token, replacement);
   }
 
   rawPeek(offset: number): Token {
@@ -78,11 +85,23 @@ export class ParserState {
   }
 
   advance(): Token {
-    const token = this.current();
-    this.consumeThrough(token);
+    const original = this.lexer.peek(this.offsetOfVisible(0));
+    const token = this.adopted.get(original) ?? original;
+    this.consumeThrough(original);
     this.cursor += 1;
     this.lastEnd = token.end;
+    this.lastToken = token;
     return token;
+  }
+
+  // O lexer recomeça depois da regex; a quebra visível antes dela só existe dentro de agrupamento.
+  advanceRegex(): Token {
+    if (this.top === 'grouping') this.skipNewlines();
+    const regex = this.lexer.rescanAsRegex(this.lexer.peek());
+    this.cursor += 1;
+    this.lastEnd = regex.end;
+    this.lastToken = regex;
+    return regex;
   }
 
   skipNewlines(): void {
