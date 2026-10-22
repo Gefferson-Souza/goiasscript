@@ -53,9 +53,33 @@ describe('release.yml', () => {
     expect(publishIndex).toBeGreaterThan(checkIndex);
   });
 
-  it('publica o arquivo baixado na dist-tag calculada', () => {
+  it('publica o arquivo baixado na dist-tag calculada com provenance', () => {
     const script = scriptsOf(workflow.jobs.publish);
     expect(script).toContain('release-target.ts');
-    expect(script).toMatch(/npm stage publish "\$TARBALL" --tag "\$DIST_TAG"/);
+    expect(script).toMatch(/npm stage publish "\$TARBALL" --tag "\$DIST_TAG" --provenance/);
+  });
+
+  it('só publica commit que está na main, com histórico completo', () => {
+    const publishSteps = stepsOf(workflow.jobs.publish);
+    expect(publishSteps[0].with['fetch-depth']).toBe(0);
+    const script = scriptsOf(workflow.jobs.publish);
+    expect(script).toContain('git merge-base --is-ancestor "$GITHUB_SHA" origin/main');
+  });
+
+  it('exige um único tarball cuja versão interna bate com a da tag', () => {
+    const script = scriptsOf(workflow.jobs.publish);
+    expect(script).toContain('-ne 1');
+    expect(script).toContain('package/package.json');
+    expect(script).toContain('$EXPECTED_VERSION');
+    expect(script).not.toContain('head -n 1');
+  });
+
+  it('confere o npm com stage antes de publicar', () => {
+    const publishSteps = stepsOf(workflow.jobs.publish);
+    const helpIndex = publishSteps.findIndex((step) => (step.run ?? '').includes('npm stage publish --help'));
+    const publishIndex = publishSteps.findIndex((step) => (step.run ?? '').startsWith('npm stage publish "'));
+    expect(helpIndex).toBeGreaterThanOrEqual(0);
+    expect(publishIndex).toBeGreaterThan(helpIndex);
+    expect(scriptsOf(workflow.jobs.publish)).toContain("grep --quiet -- '--provenance'");
   });
 });
