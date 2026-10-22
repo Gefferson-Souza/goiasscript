@@ -109,7 +109,8 @@ describe('createNodeFileSystem', () => {
     expect(await nodeFs.stat('/dev/null')).toBe('other');
   });
 
-  it('falhas que não são ausência continuam sendo erro', async () => {
+  // No Windows o caminho longo demais volta como ENOENT, que é ausência legítima.
+  it.skipIf(os.platform() === 'win32')('falhas que não são ausência continuam sendo erro', async () => {
     const tooLong = path.join(scratch, 'x'.repeat(5000));
     await expect(nodeFs.stat(tooLong)).rejects.toMatchObject({ code: 'OTHER' });
     await expect(nodeFs.identity(tooLong)).rejects.toMatchObject({ code: 'OTHER' });
