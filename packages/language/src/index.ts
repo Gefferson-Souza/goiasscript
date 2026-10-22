@@ -14,3 +14,5 @@ export {
   lookupDiagnostic, lookupJsMember, lookupJsReserved, lookupKeyword, lookupRetiredWord, lookupStdlibGlobal, lookupStdlibMember, lookupStdlibStatic,
 } from './lookup.ts';
 export { formatMessage } from './format-message.ts';
+export type { CompletionKind, CompletionLabel } from './completions.types.ts';
+export { COMPLETION_LABELS } from './completions.ts';
