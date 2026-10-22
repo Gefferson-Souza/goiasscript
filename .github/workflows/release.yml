@@ -86,6 +86,14 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { fetch-depth: 0 }
+      - name: Confere que o commit da tag está na main
+        run: |
+          git fetch origin main
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "Ô rapaz! O commit da tag não tá na main, não publico." >&2
+            exit 1
+          fi
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with: { node-version: 24, registry-url: 'https://registry.npmjs.org' }
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
@@ -98,11 +106,31 @@ jobs:
       - name: Calcula versão e dist-tag
         id: target
         run: node scripts/release-target.ts >> "$GITHUB_OUTPUT"
+      - name: Escolhe o tarball e confere a versão de dentro dele
+        id: tarball
+        env:
+          EXPECTED_VERSION: ${{ steps.target.outputs.version }}
+        run: |
+          mapfile -t TARBALLS < <(find "$PWD/tarball" -name '*.tgz')
+          if [ "${#TARBALLS[@]}" -ne 1 ]; then
+            echo "Eita! Esperava exatamente um tarball e achei ${#TARBALLS[@]}." >&2
+            exit 1
+          fi
+          PACKED_VERSION="$(tar -xOzf "${TARBALLS[0]}" package/package.json | node -p "JSON.parse(require('node:fs').readFileSync(0, 'utf8')).version")"
+          if [ "$PACKED_VERSION" != "$EXPECTED_VERSION" ]; then
+            echo "Eita! O tarball tem a versão $PACKED_VERSION e a tag pede $EXPECTED_VERSION." >&2
+            exit 1
+          fi
+          echo "path=${TARBALLS[0]}" >> "$GITHUB_OUTPUT"
       - name: Instala o npm com stage
         run: npm install --global npm@12.2.1
+      - name: Confere o npm com stage e a flag de provenance
+        run: |
+          npm --version
+          npm stage publish --help | grep --quiet -- '--tag'
+          npm stage publish --help | grep --quiet -- '--provenance'
       - name: Prepara o stage do tarball em next
         env:
           DIST_TAG: ${{ steps.target.outputs.dist_tag }}
-        run: |
-          TARBALL="$(find "$PWD/tarball" -name '*.tgz' | head -n 1)"
-          npm stage publish "$TARBALL" --tag "$DIST_TAG"
+          TARBALL: ${{ steps.tarball.outputs.path }}
+        run: npm stage publish "$TARBALL" --tag "$DIST_TAG" --provenance
