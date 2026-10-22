@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { lookupDiagnostic } from '@goiasscript/language';
-import { formatMessage } from '../../src/diagnostics/format-message.ts';
+import { lookupDiagnostic } from '../src/lookup.ts';
+import { formatMessage } from '../src/format-message.ts';
 
 type Tone = 'raiz' | 'neutro';
 const say = (code: string, tone: Tone, args: Record<string, string>) => formatMessage(lookupDiagnostic(code)?.messages[tone] ?? '', args);

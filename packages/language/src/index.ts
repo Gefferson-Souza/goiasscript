@@ -13,3 +13,4 @@ export { LIMITS } from './limits.constants.ts';
 export {
   lookupDiagnostic, lookupJsMember, lookupJsReserved, lookupKeyword, lookupRetiredWord, lookupStdlibGlobal, lookupStdlibMember, lookupStdlibStatic,
 } from './lookup.ts';
+export { formatMessage } from './format-message.ts';
