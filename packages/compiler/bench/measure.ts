@@ -4,7 +4,7 @@ import { brotliCompressSync } from 'node:zlib';
 import { build } from 'esbuild';
 import { acceptanceRates } from '../tests/support/acceptance.ts';
 import { readCorpus } from '../tests/support/corpus.ts';
-import { measureBudgets, readRatchets } from './budgets.ts';
+import { calibrationMs, measureBudgets, readRatchets } from './budgets.ts';
 
 const SLACK = 1.25;
 const FLOOR_MARGIN = 0.02;
@@ -16,9 +16,9 @@ const floorOf = (rate: number): number => Math.max(0, Math.floor((rate - FLOOR_M
 
 const bundle = await build({ entryPoints: [ENTRY], bundle: true, minify: true, format: 'esm', platform: 'browser', write: false });
 const brotliBytes = brotliCompressSync(Buffer.from(bundle.outputFiles[0]?.text ?? '')).length;
-const { compile10kLinesMs } = measureBudgets();
+const { compile10kLinesMs, machineFactor } = measureBudgets();
 const rates = acceptanceRates(readCorpus());
-process.stdout.write(`${JSON.stringify({ compile10kLinesMs, brotliBytes, ...rates })}\n`);
+process.stdout.write(`${JSON.stringify({ compile10kLinesMs, machineFactor, brotliBytes, ...rates })}\n`);
 
 if (process.argv.includes('--write')) {
   const ratchets = {
@@ -26,6 +26,7 @@ if (process.argv.includes('--write')) {
     brotliBytes: Math.ceil(brotliBytes * SLACK),
     acceptanceMutation: floorOf(rates.mutation),
     acceptanceProgram: floorOf(rates.programs),
+    referenceCalibrationMs: calibrationMs(),
   };
   writeFileSync(BUDGETS_FILE, `${JSON.stringify(ratchets, null, 2)}\n`);
 }
