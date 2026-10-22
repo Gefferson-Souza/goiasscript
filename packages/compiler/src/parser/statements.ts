@@ -24,6 +24,7 @@ type StatementParser = (parser: Parser) => Statement;
 
 const UNARY_OR_BINARY_MINUS = '-';
 const isBoundary = (token: Token): boolean => token.kind === 'end-of-file' || token.kind === 'newline' || isPunctuator(token, '}');
+const JS_FUNCTION_WORD = 'function';
 const RETURN_TERMINATORS: ReadonlySet<string> = new Set([';', '}']);
 
 function consumeDecimalComma(parser: Parser): boolean {
@@ -152,8 +153,12 @@ function parseAsyncStatement(parser: Parser): Statement {
     state.report(CODES.unexpected, raw.start, raw.end, { found: foundOf(raw) });
     return errorNode(CODES.unexpected, token.start, token.end);
   }
-  if (!isKeyword(state.visibleAt(1), 'function')) return parseSimpleExpression(parser);
-  return parseFunction(parser, state.advance());
+  const next = state.visibleAt(1);
+  const isJsFunction = next.kind === 'identifier' && next.value === JS_FUNCTION_WORD;
+  if (!isJsFunction && !isKeyword(next, 'function')) return parseSimpleExpression(parser);
+  const asyncToken = state.advance();
+  adoptJsWord(parser);
+  return parseFunction(parser, asyncToken);
 }
 
 function parseStrayContinuation(parser: Parser): Statement {
