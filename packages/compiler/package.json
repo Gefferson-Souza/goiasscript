@@ -9,12 +9,20 @@
   "engines": {
     "node": ">=22.12"
   },
+  "scripts": {
+    "mutate": "stryker run",
+    "bench": "node bench/measure.ts",
+    "bench:check": "node bench/measure.ts --check"
+  },
   "dependencies": {
     "@goiasscript/language": "workspace:*"
   },
   "devDependencies": {
     "@jridgewell/trace-mapping": "0.3.31",
+    "@stryker-mutator/core": "10.0.0",
+    "@stryker-mutator/vitest-runner": "10.0.0",
     "acorn": "8.19.0",
+    "esbuild": "0.28.2",
     "fast-check": "4.10.2"
   }
 }
