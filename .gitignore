@@ -148,3 +148,7 @@ gspack.json
 !lsp-server/README.md
 research_notes/
 reports/
+
+# === MUTAÇÃO ===
+.stryker-tmp/
+packages/compiler/reports/
