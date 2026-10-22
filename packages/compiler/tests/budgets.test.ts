@@ -26,15 +26,11 @@ describe('orçamentos absolutos', () => {
   });
 });
 
+// A catraca relativa é medida pelo bench:check, que roda isolado; aqui a suíte disputa CPU e só valem os tetos absolutos.
 describe('catracas relativas', () => {
   it('budgets.json tem as catracas de tempo e de tamanho numéricas depois do gate', () => {
     const ratchets = readRatchets();
     expect(typeof ratchets.compile10kLinesMs).toBe('number');
     expect(typeof ratchets.brotliBytes).toBe('number');
   });
-  timed('a medida atual não passa da catraca', () => {
-    const { compile10kLinesMs } = readRatchets();
-    expect(compile10kLinesMs).not.toBeNull();
-    expect(measureBudgets().compile10kLinesMs).toBeLessThanOrEqual(compile10kLinesMs ?? 0);
-  }, TIMING_TIMEOUT_MS);
 });
