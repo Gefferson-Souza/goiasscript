@@ -1,0 +1,6 @@
+{
+  "compile10kLinesMs": 137,
+  "brotliBytes": 40850,
+  "acceptanceMutation": 0.06,
+  "acceptanceProgram": 0.21
+}

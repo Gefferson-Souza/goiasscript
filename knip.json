@@ -39,7 +39,9 @@
       "project": [
         "src/**/*.ts",
         "tests/**/*.ts",
-        "tests/support/*.mjs"
+        "tests/support/*.mjs",
+        "bench/**/*.ts",
+        "*.mjs"
       ]
     },
     "packages/optimizer": {
