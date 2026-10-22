@@ -85,6 +85,14 @@ describe('renderDiagnostic', () => {
     const text = renderDiagnostic({ diagnostic: diagnostic(at(1, 401, 4, 400)), fileName: 'a.gs', source: tail });
     expect(text).not.toMatch(/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/u);
   });
+  it('linha cheia de controles respeita a janela depois de escapar', () => {
+    const source = `${'\u001b'.repeat(5000)}nomi`;
+    const text = renderDiagnostic({ diagnostic: diagnostic(at(1, 5001, 4, 5000)), fileName: 'a.gs', source });
+    const [, code = '', marks = ''] = text.split('\n');
+    expect(Math.max(...text.split('\n').map((row) => row.length))).toBeLessThanOrEqual(140);
+    expect(code.length).toBeLessThanOrEqual('1 | '.length + 120 + 2);
+    expect(code.slice(marks.indexOf('^'), marks.indexOf('^') + 4)).toBe('nomi');
+  });
   it('trecho gigante é recortado e sublinhado dentro da janela', () => {
     const text = renderDiagnostic({ diagnostic: diagnostic(at(1, 1, 3000, 0)), fileName: 'a.gs', source: 'a'.repeat(3000) });
     expect(Math.max(...text.split('\n').map((row) => row.length))).toBeLessThanOrEqual(140);
