@@ -17,3 +17,13 @@ Atualizar é decisão explícita, em PR próprio.
 ## Confirmação
 
 `engines`, matriz de CI (spec §8.3) e a data de revisão.
+
+## Mutação (compilador)
+
+`@stryker-mutator/core` 10.0.0, `@stryker-mutator/vitest-runner` 10.0.0 e `esbuild` 0.28.2 (medida do bundle brotli). O
+`vitest-runner` leva um patch (`patches/@stryker-mutator__vitest-runner@10.0.0.patch`): roda os arquivos dos testes
+afetados em vez de filtrar por nome, porque os títulos em português quebram o filtro por regex.
+
+Desvios deliberados em `packages/compiler/stryker.config.mjs`: `mutator.excludedMutations: ['Regex']` (o limiar `break`
+de 90 foi fixado com essa exclusão; a nota de 92,91 não conta mutantes de regex), `vitest.related: false` e
+`disableTypeChecks: false`. O job `mutacao` de `.github/workflows/scheduled.yml` aplica o limiar semanalmente.

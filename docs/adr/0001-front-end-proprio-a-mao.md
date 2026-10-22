@@ -53,3 +53,8 @@ projeção mudam e o valor acima deve ser refeito. Veredito e pendências em `do
 As catracas relativas de `packages/compiler/bench/budgets.json` (tempo de 10 mil linhas e brotli do bundle) valem 1,25x
 a medida da U2-15; os pisos de aceitação das propriedades valem a taxa medida menos 2 pontos. Os tetos absolutos
 acima não se afrouxam.
+
+### Nota sobre o tamanho
+
+O limite de 29.696 bytes mediu só o PoC. O bundle real do compilador mede 32.680 bytes em brotli, acima do limite, e a
+catraca relativa (40.850) é mais frouxa que ele. A divergência fica aberta até decisão do dono.
