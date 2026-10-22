@@ -8,19 +8,9 @@ const LOW_SURROGATE = /^[\uDC00-\uDFFF]$/u;
 const HIGH_SURROGATE = /^[\uD800-\uDBFF]$/u;
 const visible = (text: string): string => sanitizeForTerminal(text.replaceAll('\t', ' '));
 
-// Um arquivo com milhares de diagnósticos pediria a quebra de linhas milhares de vezes.
-let lastSplit: { readonly source: string; readonly lines: readonly string[] } | null = null;
-
-function splitLines(source: string): readonly string[] {
-  if (lastSplit?.source === source) return lastSplit.lines;
+export function splitSourceLines(source: string): readonly string[] {
   const withoutMark = source.startsWith(BYTE_ORDER_MARK) ? source.slice(1) : source;
-  const lines = withoutMark.split(LINE_BREAK);
-  lastSplit = { source, lines };
-  return lines;
-}
-
-export function lineOf(source: string, line: number): string | undefined {
-  return splitLines(source)[line - 1];
+  return withoutMark.split(LINE_BREAK);
 }
 
 export function markLine(text: string, request: SourceMarkRequest): MarkedLine {

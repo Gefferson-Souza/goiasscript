@@ -1,5 +1,5 @@
 import type { Tone } from '@goiasscript/compiler';
-import { renderDiagnostic } from '../diagnostics/render-diagnostic.ts';
+import { renderDiagnostic, splitSourceLines } from '../diagnostics/render-diagnostic.ts';
 import { renderJsonReport } from '../diagnostics/json-report.ts';
 import { toolDiagnostic } from '../diagnostics/tool-diagnostic.ts';
 import { EXIT_CODE } from '../exit-codes.constants.ts';
@@ -12,8 +12,9 @@ export function reportDiagnostics(io: CliIo, request: ReportRequest): void {
     io.out.write(renderJsonReport({ file: request.file, diagnostics: request.diagnostics }));
     return;
   }
+  const lines = request.source === null ? undefined : splitSourceLines(request.source);
   request.diagnostics.forEach((diagnostic) => {
-    io.err.write(`${renderDiagnostic({ diagnostic, fileName: request.file, source: request.source })}\n`);
+    io.err.write(`${renderDiagnostic({ diagnostic, fileName: request.file, source: request.source, lines })}\n`);
   });
 }
 

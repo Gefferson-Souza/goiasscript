@@ -1,6 +1,6 @@
 import type { Diagnostic, Tone } from '@goiasscript/compiler';
 import { toPrintableMultiline } from '../args/printable-text.ts';
-import { renderDiagnostic } from '../diagnostics/render-diagnostic.ts';
+import { renderDiagnostic, splitSourceLines } from '../diagnostics/render-diagnostic.ts';
 import type { CliIo } from '../io.types.ts';
 import { REPL_FILE_NAME } from './repl.constants.ts';
 import type { ReplEvaluation } from './repl.types.ts';
@@ -9,8 +9,9 @@ import { interruptedText } from './repl-messages.ts';
 type ReplIo = Pick<CliIo, 'out' | 'err'>;
 
 function reportDiagnostics(io: ReplIo, diagnostics: readonly Diagnostic[], source: string): void {
+  const lines = splitSourceLines(source);
   diagnostics.forEach((diagnostic) => {
-    io.err.write(`${renderDiagnostic({ diagnostic, fileName: REPL_FILE_NAME, source })}\n`);
+    io.err.write(`${renderDiagnostic({ diagnostic, fileName: REPL_FILE_NAME, source, lines })}\n`);
   });
 }
 
