@@ -15,6 +15,7 @@ import { isPunctuator, keywordJs } from './token-tests.ts';
 type PrefixKind = 'unary' | 'await' | 'foreign';
 
 const BANG = '!';
+const INSTANCEOF_WORD = 'instanceof';
 
 function prefixKindOf(token: Token): PrefixKind | undefined {
   const js = keywordJs(token);
@@ -59,6 +60,7 @@ export function parseExpression(parser: Parser, minimum = 0): Expression {
       left = tail;
       continue;
     }
+    if (state.current().value === INSTANCEOF_WORD) adoptJsWord(parser);
     const operator = binaryOperatorAt(state.current());
     if (operator === undefined || operator.precedence < floor) return left;
     const token = state.advance();

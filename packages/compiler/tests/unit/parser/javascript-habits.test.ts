@@ -44,4 +44,18 @@ describe('parser: hábito de JavaScript', () => {
   ])('%j em classe reporta só a grafia de JavaScript: %j', (text, expected) => {
     expect(codes(parseText(text))).toEqual(expected);
   });
+  it.each([
+    ['throw new Erro("x")', ['GS0401', 'GS0401']],
+    ['throw erro', ['GS0401']],
+    ['vixe erro', ['GS0202']],
+  ])('%j sem parênteses: %j', (text, expected) => {
+    expect(codes(parseText(text))).toEqual(expected);
+  });
+  it.each([
+    ['prosa(erro instanceof Erro)', ['GS0401']],
+    ['prosa(erro é_tipo_de Erro)', []],
+    ['prosa(erro instanceof Erro e_mais certeza)', ['GS0401']],
+  ])('operador instanceof %j: %j', (text, expected) => {
+    expect(codes(parseText(text))).toEqual(expected);
+  });
 });
