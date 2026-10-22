@@ -1,4 +1,5 @@
 import type { PlatformPath } from 'node:path';
+import { printableName } from './display-text.ts';
 import { PATH_CODE, SOURCE_EXTENSION } from './paths.constants.ts';
 import type { InputNameResult } from './paths.types.ts';
 import { WINDOWS_RESERVED_NAMES } from './windows-names.constants.ts';
@@ -24,11 +25,12 @@ function refuse(code: (typeof PATH_CODE)[keyof typeof PATH_CODE], detail: string
 
 export function validateInputName(inputPath: string, pathApi: PlatformPath, platform: NodeJS.Platform): InputNameResult {
   const name = lastSegment(inputPath, pathApi, platform);
-  if (!name.toLowerCase().endsWith(SOURCE_EXTENSION)) return refuse(PATH_CODE.notGs, `o arquivo "${name}" não termina em ${SOURCE_EXTENSION}`);
+  const shown = printableName(name);
+  if (!name.toLowerCase().endsWith(SOURCE_EXTENSION)) return refuse(PATH_CODE.notGs, `o arquivo "${shown}" não termina em ${SOURCE_EXTENSION}`);
   const stem = name.slice(0, name.length - SOURCE_EXTENSION.length);
-  if (stem === '') return refuse(PATH_CODE.notGs, `o arquivo "${name}" não tem nome antes de ${SOURCE_EXTENSION}`);
+  if (stem === '') return refuse(PATH_CODE.notGs, `o arquivo "${shown}" não tem nome antes de ${SOURCE_EXTENSION}`);
   if (platform !== 'win32') return { ok: true, outputStem: stem };
-  if (name.includes(':')) return refuse(PATH_CODE.usage, `o nome "${name}" tem ":", que o Windows usa pra fluxo alternativo`);
-  if (isReservedWindowsName(stem)) return refuse(PATH_CODE.usage, `"${stem}" é nome reservado do Windows`);
+  if (name.includes(':')) return refuse(PATH_CODE.usage, `o nome "${shown}" tem ":", que o Windows usa pra fluxo alternativo`);
+  if (isReservedWindowsName(stem)) return refuse(PATH_CODE.usage, `"${printableName(stem)}" é nome reservado do Windows`);
   return { ok: true, outputStem: stem };
 }

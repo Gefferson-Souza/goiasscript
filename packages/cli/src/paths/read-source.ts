@@ -1,5 +1,6 @@
 import { CliFileError } from '../cli-file-error.ts';
 import type { CliIo } from '../io.types.ts';
+import { printableName } from './display-text.ts';
 import { PATH_CODE, STDIN_ARGUMENT, STDIN_DISPLAY_NAME } from './paths.constants.ts';
 import type { PathFailure, SourceRead } from './paths.types.ts';
 
@@ -7,9 +8,9 @@ const usageFailure = (detail: string): PathFailure => ({ ok: false, code: PATH_C
 
 function describeReadError(inputArg: string, error: unknown): PathFailure {
   const code = error instanceof CliFileError ? error.code : 'OTHER';
-  if (code === 'ENOENT' || code === 'ENOTDIR') return usageFailure(`não achei o arquivo "${inputArg}"`);
-  if (code === 'EACCES') return usageFailure(`sem permissão pra ler "${inputArg}"`);
-  return usageFailure(`não consegui ler "${inputArg}"`);
+  if (code === 'ENOENT' || code === 'ENOTDIR') return usageFailure(`não achei o arquivo "${printableName(inputArg)}"`);
+  if (code === 'EACCES') return usageFailure(`sem permissão pra ler "${printableName(inputArg)}"`);
+  return usageFailure(`não consegui ler "${printableName(inputArg)}"`);
 }
 
 export async function readSource(inputArg: string, io: CliIo): Promise<SourceRead> {
@@ -17,10 +18,10 @@ export async function readSource(inputArg: string, io: CliIo): Promise<SourceRea
     return { ok: true, input: { kind: 'stdin', displayName: STDIN_DISPLAY_NAME }, bytes: await io.stdin.readAll() };
   }
   const kind = await io.fs.stat(inputArg);
-  if (kind === 'missing') return usageFailure(`não achei o arquivo "${inputArg}"`);
-  if (kind !== 'file') return usageFailure(`"${inputArg}" não é um arquivo`);
+  if (kind === 'missing') return usageFailure(`não achei o arquivo "${printableName(inputArg)}"`);
+  if (kind !== 'file') return usageFailure(`"${printableName(inputArg)}" não é um arquivo`);
   try {
-    return { ok: true, input: { kind: 'file', path: inputArg, displayName: inputArg }, bytes: await io.fs.readBytes(inputArg) };
+    return { ok: true, input: { kind: 'file', path: inputArg, displayName: printableName(inputArg) }, bytes: await io.fs.readBytes(inputArg) };
   } catch (error) {
     return describeReadError(inputArg, error);
   }

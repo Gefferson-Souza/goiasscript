@@ -55,3 +55,21 @@ describe('planOutput', () => {
     expect(io.paths()).toEqual(['x.gs']);
   });
 });
+
+describe('planOutput com barra invertida', () => {
+  it('em POSIX a barra invertida é parte do nome e não separa diretório', async () => {
+    const io = createMemoryIo({ files: { 'd/a\\b.gs': 'a' } });
+    expect(await plan(io, { inputPath: 'd/a\\b.gs', outputStem: 'a\\b' })).toEqual({ ok: true, outputPath: 'd/a\\b.mjs', replacing: false });
+    expect(await plan(io, { inputPath: 'dir\\a.gs', outputStem: 'dir\\a' })).toMatchObject({ ok: true, outputPath: 'dir\\a.mjs' });
+  });
+
+  it('em POSIX a saída informada com barra invertida não inventa pasta pai', async () => {
+    const io = createMemoryIo({ files: { 'x.gs': 'a' } });
+    expect(await plan(io, { outputOption: 'dist\\x.js' })).toEqual({ ok: true, outputPath: 'dist\\x.js', replacing: false });
+  });
+
+  it('em win32 a barra invertida separa diretório', async () => {
+    const io = createMemoryIo({ files: { 'd\\a.gs': 'a' }, platform: 'win32' });
+    expect(await plan(io, { inputPath: 'd\\a.gs', outputStem: 'a' })).toMatchObject({ outputPath: 'd\\a.mjs' });
+  });
+});
