@@ -1,1 +1,1 @@
-export {};
+export { optimize } from './optimize.ts';
