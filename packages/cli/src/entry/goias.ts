@@ -1,4 +1,3 @@
-import { runGoias } from '../repl/run-goias.ts';
-import { createRealIo } from './real-io.ts';
+import { launchReal } from './real-launch.ts';
 
-process.exitCode = await runGoias(process.argv.slice(2), createRealIo());
+void launchReal(import.meta.url, (cli) => cli.runGoias(process.argv.slice(2)));

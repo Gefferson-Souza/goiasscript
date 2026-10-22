@@ -57,7 +57,8 @@
       "entry": [
         "src/entry/*.ts",
         "tests/**/*.test.ts",
-        "tests/e2e/**/*.e2e.ts"
+        "tests/e2e/**/*.e2e.ts",
+        "tests/support/source-main.ts"
       ],
       "project": [
         "src/**/*.ts",

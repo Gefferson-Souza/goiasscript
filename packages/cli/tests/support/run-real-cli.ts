@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import type { RealRunOptions, RealRunResult, RunningCli } from './run-real-cli.types.ts';
 
-const ENTRY = path.resolve(import.meta.dirname, '../../src/entry/goiasscript.ts');
+const ENTRY = path.resolve(import.meta.dirname, './source-main.ts');
 const ORPHAN_PREFIX = 'goiasscript-';
 const cleanups: string[] = [];
 

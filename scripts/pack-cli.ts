@@ -4,7 +4,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
-import { buildCli } from './build-cli.ts';
 import type { PackCliOptions, PackCliResult } from './pack-cli.types.ts';
 
 const execFileAsync = promisify(execFile);
@@ -13,18 +12,11 @@ const CLI_DIR = path.join(ROOT, 'packages/cli');
 
 export async function packCli(options: PackCliOptions): Promise<PackCliResult> {
   const outDir = path.resolve(options.outDir);
-  const license = path.join(CLI_DIR, 'LICENSE');
-  await buildCli({ outDir: path.join(CLI_DIR, 'dist') });
   fs.mkdirSync(outDir, { recursive: true });
-  fs.copyFileSync(path.join(ROOT, 'LICENSE'), license);
-  try {
-    const { stdout } = await execFileAsync('corepack', ['pnpm', 'pack', '--pack-destination', outDir, '--json'], { cwd: CLI_DIR });
-    const { filename } = JSON.parse(stdout) as { readonly filename: string };
-    const tarball = path.resolve(filename);
-    return { tarball, sha256: createHash('sha256').update(fs.readFileSync(tarball)).digest('hex') };
-  } finally {
-    fs.rmSync(license, { force: true });
-  }
+  const { stdout } = await execFileAsync('corepack', ['pnpm', 'pack', '--pack-destination', outDir, '--json'], { cwd: CLI_DIR });
+  const { filename } = JSON.parse(stdout.slice(stdout.indexOf('{'))) as { readonly filename: string };
+  const tarball = path.resolve(filename);
+  return { tarball, sha256: createHash('sha256').update(fs.readFileSync(tarball)).digest('hex') };
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
