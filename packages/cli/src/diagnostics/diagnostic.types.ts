@@ -14,6 +14,7 @@ export interface RenderRequest {
   readonly diagnostic: AnyDiagnostic;
   readonly fileName: string;
   readonly source: string | null;
+  readonly lines?: readonly string[] | undefined;
 }
 
 export interface JsonReportInput {

@@ -2,15 +2,16 @@ import type { Diagnostic } from '@goiasscript/compiler';
 import type { AnyDiagnostic, RenderRequest } from './diagnostic.types.ts';
 import { GUTTER_SEPARATOR, SEVERITY_LABEL } from './render-diagnostic.constants.ts';
 import { sanitizeForTerminal } from './sanitize-terminal.ts';
-import { lineOf, markLine } from './source-window.ts';
+import { markLine, splitSourceLines } from './source-window.ts';
 
 export { sanitizeForTerminal } from './sanitize-terminal.ts';
+export { splitSourceLines } from './source-window.ts';
 
 const hasRange = (diagnostic: AnyDiagnostic): diagnostic is Diagnostic => 'range' in diagnostic;
 
-function codeLines(diagnostic: Diagnostic, source: string | null): readonly string[] {
+function codeLines(diagnostic: Diagnostic, lines: readonly string[] | null): readonly string[] {
   const { start, end } = diagnostic.range;
-  const text = source === null ? undefined : lineOf(source, start.line);
+  const text = lines?.[start.line - 1];
   if (text === undefined) return [];
   const marked = markLine(text, { line: start.line, column: start.column, endLine: end.line, endColumn: end.column });
   const number = String(start.line);
@@ -27,11 +28,12 @@ function header(diagnostic: AnyDiagnostic, fileName: string): string {
 
 export function renderDiagnostic(request: RenderRequest): string {
   const { diagnostic } = request;
+  const lines = request.lines ?? (request.source === null ? null : splitSourceLines(request.source));
   const detail = !hasRange(diagnostic) && diagnostic.detail !== undefined ? [`  ${sanitizeForTerminal(diagnostic.detail)}`] : [];
   const lesson = hasRange(diagnostic) && diagnostic.lesson !== undefined ? [`  lição: ${sanitizeForTerminal(diagnostic.lesson)}`] : [];
   return [
     header(diagnostic, request.fileName),
-    ...(hasRange(diagnostic) ? codeLines(diagnostic, request.source) : []),
+    ...(hasRange(diagnostic) ? codeLines(diagnostic, lines) : []),
     ...detail,
     ...(diagnostic.help === undefined ? [] : [`  ajuda: ${sanitizeForTerminal(diagnostic.help)}`]),
     ...lesson,

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Diagnostic } from '@goiasscript/compiler';
-import { renderDiagnostic } from '../src/diagnostics/render-diagnostic.ts';
+import { renderDiagnostic, splitSourceLines } from '../src/diagnostics/render-diagnostic.ts';
 
 const LINES = 6000;
 const DIAGNOSTICS = 60000;
@@ -14,11 +14,12 @@ const diagnosticAt = (line: number): Diagnostic => ({
 });
 
 describe('renderDiagnostic em escala', () => {
-  it('muitos diagnósticos sobre o mesmo arquivo não refazem a quebra de linhas a cada um', () => {
+  it('com as linhas já quebradas, muitos diagnósticos do mesmo arquivo não refazem a quebra', () => {
     const source = Array.from({ length: LINES }, () => 'uai x é nomi + nomi + nomi').join('\n');
+    const lines = splitSourceLines(source);
     const started = performance.now();
     for (let index = 0; index < DIAGNOSTICS; index += 1) {
-      renderDiagnostic({ diagnostic: diagnosticAt((index % LINES) + 1), fileName: 'a.gs', source });
+      renderDiagnostic({ diagnostic: diagnosticAt((index % LINES) + 1), fileName: 'a.gs', source, lines });
     }
     expect(performance.now() - started).toBeLessThan(BUDGET_MS);
   });

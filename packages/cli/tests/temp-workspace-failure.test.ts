@@ -19,4 +19,17 @@ describe('bota_pra_moer: temporário indisponível', () => {
     expect(base.stderrText()).toContain('não consegui preparar o programa pra rodar');
     expect(base.stderrText()).not.toMatch(/EACCES|CliFileError|\/tmp/u);
   });
+
+  it('pasta temporária inexistente na varredura não lança e a falha sai como diagnóstico', async () => {
+    const base = createMemoryIo({ files: { 'ok.gs': 'prosa(1)\n' } });
+    const rejection = () => Promise.reject(new CliFileError('ENOENT', '/nao/existe'));
+    const io = {
+      ...base,
+      fs: { ...base.fs, listDirectory: rejection, makeTempDirectory: rejection },
+    };
+    const host = createFakeProcessHost({ importModule: () => Promise.resolve({}) });
+    const exit = await runCli(['bota_pra_moer', 'ok.gs'], io, { processHost: host });
+    expect(exit).toBe(EXIT_CODE.usage);
+    expect(base.stderrText()).toContain('GS0903');
+  });
 });
