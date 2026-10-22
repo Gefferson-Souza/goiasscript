@@ -9,6 +9,8 @@ export interface MemoryIoOptions {
   readonly cwd?: string;
   readonly failingWrites?: readonly string[];
   readonly hardLinks?: readonly (readonly [string, string])[];
+  readonly symlinks?: readonly string[];
+  readonly foreignOwned?: readonly string[];
   readonly directories?: Readonly<Record<string, number>>;
 }
 

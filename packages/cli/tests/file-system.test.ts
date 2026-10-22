@@ -88,6 +88,17 @@ describe('createNodeFileSystem', () => {
     expect(await nodeFs.modifiedAt(path.join(dir, 'f.txt'))).toBeGreaterThan(0);
   });
 
+  it('inspectEntry não segue symlink e informa o dono', async () => {
+    const dir = path.join(scratch, 'inspecionada');
+    await nodeFs.makeDirectory(dir);
+    const link = path.join(scratch, 'atalho');
+    fs.symlinkSync(dir, link);
+    expect((await nodeFs.inspectEntry(dir)).kind).toBe('directory');
+    expect((await nodeFs.inspectEntry(dir)).ownedByCurrentUser).toBe(true);
+    expect((await nodeFs.inspectEntry(link)).kind).toBe('symlink');
+    expect((await createNodeFileSystem(-2).inspectEntry(dir)).ownedByCurrentUser).toBe(false);
+  });
+
   it('erros do sistema viram CliFileError com código mapeado', async () => {
     await expect(nodeFs.readBytes(path.join(scratch, 'nada'))).rejects.toMatchObject({ code: 'ENOENT' });
     await expect(nodeFs.readBytes(scratch)).rejects.toMatchObject({ code: 'EISDIR' });

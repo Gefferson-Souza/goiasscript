@@ -12,6 +12,14 @@ export type PathKind = 'file' | 'directory' | 'other' | 'missing';
 
 export type FileErrorCode = 'EEXIST' | 'ENOENT' | 'EACCES' | 'EISDIR' | 'ENOTDIR' | 'OTHER';
 
+export type EntryKind = 'file' | 'directory' | 'symlink' | 'other';
+
+export interface EntryInfo {
+  readonly kind: EntryKind;
+  readonly modifiedAt: number;
+  readonly ownedByCurrentUser: boolean;
+}
+
 export type WriteMode = 'create-new' | 'replace';
 
 export interface CliFileSystem {
@@ -23,6 +31,7 @@ export interface CliFileSystem {
   makeTempDirectory(prefix: string): Promise<string>;
   listDirectory(path: string): Promise<readonly string[]>;
   modifiedAt(path: string): Promise<number>;
+  inspectEntry(path: string): Promise<EntryInfo>;
   remove(path: string): Promise<void>;
   removeSync(path: string): void;
 }

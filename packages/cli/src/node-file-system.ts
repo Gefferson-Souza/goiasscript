@@ -1,8 +1,9 @@
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import nodePath from 'node:path';
+import os from 'node:os';
 import { CliFileError } from './cli-file-error.ts';
-import type { CliFileSystem, FileErrorCode, PathKind, WriteMode } from './io.types.ts';
+import type { CliFileSystem, EntryInfo, EntryKind, FileErrorCode, PathKind, WriteMode } from './io.types.ts';
 
 const KNOWN_CODES: readonly FileErrorCode[] = ['EEXIST', 'ENOENT', 'EACCES', 'EISDIR', 'ENOTDIR'];
 
@@ -36,6 +37,21 @@ const kindOf = (stats: fs.Stats): PathKind => {
   return 'other';
 };
 
+const entryKindOf = (stats: fs.Stats): EntryKind => {
+  if (stats.isSymbolicLink()) return 'symlink';
+  if (stats.isDirectory()) return 'directory';
+  return stats.isFile() ? 'file' : 'other';
+};
+
+// No Windows o uid do SO é -1: não há dono a conferir.
+const NO_OWNER_CONCEPT = -1;
+
+async function inspectWithoutFollowing(path: string, currentUserId: number): Promise<EntryInfo> {
+  const stats = await fs.promises.lstat(path);
+  const owned = currentUserId === NO_OWNER_CONCEPT || stats.uid === currentUserId;
+  return { kind: entryKindOf(stats), modifiedAt: stats.mtimeMs, ownedByCurrentUser: owned };
+}
+
 // Temporário no mesmo diretório garante rename atômico; o rename troca o link em vez de seguir até o alvo.
 async function replaceAtomically(path: string, content: string): Promise<void> {
   const temporary = nodePath.join(nodePath.dirname(path), `.${nodePath.basename(path)}.${crypto.randomUUID()}.tmp`);
@@ -51,7 +67,7 @@ async function replaceAtomically(path: string, content: string): Promise<void> {
 const writeContent = (path: string, content: string, mode: WriteMode): Promise<void> =>
   mode === 'replace' ? replaceAtomically(path, content) : fs.promises.writeFile(path, content, { encoding: 'utf8', flag: 'wx' });
 
-export function createNodeFileSystem(): CliFileSystem {
+export function createNodeFileSystem(currentUserId: number = os.userInfo().uid): CliFileSystem {
   return {
     readBytes: (path) => guard(path, () => fs.promises.readFile(path)),
     stat: (path) => absentAs<PathKind>(path, 'missing', async () => kindOf(await fs.promises.stat(path))),
@@ -65,6 +81,7 @@ export function createNodeFileSystem(): CliFileSystem {
     makeTempDirectory: (prefix) => guard(prefix, () => fs.promises.mkdtemp(prefix)),
     listDirectory: (path) => guard(path, () => fs.promises.readdir(path)),
     modifiedAt: (path) => guard(path, async () => (await fs.promises.stat(path)).mtimeMs),
+    inspectEntry: (path) => guard(path, () => inspectWithoutFollowing(path, currentUserId)),
     remove: (path) => guard(path, () => fs.promises.rm(path, { recursive: true, force: true })),
     removeSync(path) {
       fs.rmSync(path, { recursive: true, force: true });

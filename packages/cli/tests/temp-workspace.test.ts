@@ -19,6 +19,17 @@ describe('sweepStaleWorkspaces', () => {
     expect([...io.paths()].sort()).toEqual(['/tmp/goiasscript-novo/program.mjs', '/tmp/outra-pasta/program.mjs']);
   });
 
+  it('preserva symlink, arquivo solto e pasta de outro dono mesmo velhos', async () => {
+    const io = createMemoryIo({
+      files: { '/tmp/goiasscript-link/x': 'a', '/tmp/goiasscript-solto': 'b', '/tmp/goiasscript-alheio/x': 'c' },
+      directories: { '/tmp/goiasscript-link': 0, '/tmp/goiasscript-alheio': 0 },
+      symlinks: ['/tmp/goiasscript-link'],
+      foreignOwned: ['/tmp/goiasscript-alheio'],
+    });
+    await sweepStaleWorkspaces(io, NOW);
+    expect([...io.paths()].sort()).toEqual(['/tmp/goiasscript-alheio/x', '/tmp/goiasscript-link/x', '/tmp/goiasscript-solto']);
+  });
+
   it('não lança quando a pasta temporária não pode ser listada', async () => {
     const io = createMemoryIo();
     const broken = { ...io, fs: { ...io.fs, listDirectory: () => Promise.reject(new Error('negado')) } };
