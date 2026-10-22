@@ -26,6 +26,10 @@ const cases: ReadonlyArray<readonly [string, string]> = [
   ['prosa(vazio)', 'GS0306'],
   ['console.log(1)', 'GS0403'],
   ['prosa(public)', 'GS0402'],
+  ['prosa(NaN)', 'GS0402'],
+  ['prosa(Infinity)', 'GS0402'],
+  ['prosa(eval)', 'GS0402'],
+  ['faz_trem f() { faz_favor arguments }', 'GS0402'],
   ['tenta_aí { prosa(1) } se_der_ruim (mais) { prosa(1) }', 'GS0303'],
 ];
 
