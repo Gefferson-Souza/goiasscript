@@ -57,9 +57,18 @@ function reportPrepareFailure(io: CliIo, tone: Tone, fileName: string): ExitCode
   return EXIT_CODE.usage;
 }
 
+async function tryCreateWorkspace(io: CliIo): Promise<TempWorkspace | null> {
+  try {
+    return await createTempWorkspace(io);
+  } catch {
+    return null;
+  }
+}
+
 export async function runProgram(request: RunRequest, io: CliIo, host: ProcessHost): Promise<ExitCode> {
   await sweepStaleWorkspaces(io, Date.now());
-  const workspace = await createTempWorkspace(io);
+  const workspace = await tryCreateWorkspace(io);
+  if (workspace === null) return reportPrepareFailure(io, request.tone, request.displayName);
   const prepared = await writeProgram(io, workspace, request);
   if (!prepared) return reportPrepareFailure(io, request.tone, request.displayName);
   watchProcess(request, { io, host, workspace, events: new Set<RunEvent>() });
