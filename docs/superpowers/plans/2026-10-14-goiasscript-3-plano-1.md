@@ -9125,6 +9125,8 @@ describe('diferencial', () => {
 
 **Aceite:** `corepack pnpm --filter @goiasscript/compiler test` verde; `list-expected-fail` não lista nenhum caso dentro da v3; propriedades (a)–(c) passam; paridade de reservadas com acorn.
 
+**Estado de partida:** 124 dos 168 casos `audit-*` já saíram de `expected-fail` na U2-10, quando `compile()` passou a acertar os diagnósticos; o `case.json` deles foi removido (junto com o vínculo `rfc`/`source`/`triage`, recuperável em `git show 287221e`). Esses casos não têm `output.mjs` e hoje só têm os diagnósticos comparados. O ciclo 2 parte de 44 `expected-fail` e deve rodar `corepack pnpm bless <id>` nos 124 para o JS gerado passar a ser comparado.
+
 **Ciclo 1 — grupos da §8.2 (diagnósticos e saídas em tabela executável)**
 
 - [ ] **Teste (RED)** `tests/conformance-groups.test.ts` (cada linha é assertiva literal; o passo seguinte congela os goldens em disco com `bless`):
