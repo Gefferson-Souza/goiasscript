@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
 import { EXIT_CODE } from '../src/exit-codes.constants.ts';
-import { runRepl } from '../src/repl/run-repl.ts';
 import { runCli } from '../src/run-cli.ts';
 import { createFakeProcessHost } from './support/fake-process-host.ts';
 import { createMemoryIo } from './support/memory-io.ts';
@@ -94,13 +93,5 @@ describe('runCli: robustez do uso incorreto', () => {
   });
   it('o GS0905 raiz aponta para goiasscript sem argumentos', async () => {
     expect((await run(['traduza'])).io.stderrText()).not.toContain('dedo_de_prosa');
-  });
-});
-
-describe('runRepl', () => {
-  it('devolve uso incorreto até a roda de prosa existir', async () => {
-    const io = createMemoryIo();
-    expect(await runRepl(io)).toBe(EXIT_CODE.usage);
-    expect(io.stderrText()).toContain('roda de prosa');
   });
 });

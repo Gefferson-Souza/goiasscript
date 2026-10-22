@@ -35,3 +35,8 @@ export interface EntryRequest {
   readonly timeoutMs?: number;
   readonly cancellation: Promise<typeof CANCELLED>;
 }
+
+export interface ReplOptions {
+  readonly tone: Tone;
+  readonly entryTimeoutMs?: number;
+}
