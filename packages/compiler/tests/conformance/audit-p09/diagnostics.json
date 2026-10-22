@@ -1,30 +1,50 @@
 [
   {
     "code": "GS0401",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 1
   },
   {
     "code": "GS0404",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 9
   },
   {
     "code": "GS0401",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 11
   },
   {
     "code": "GS0403",
-    "line": 2
+    "severity": "error",
+    "line": 2,
+    "column": 1
   },
   {
     "code": "GS0523",
-    "line": 2
+    "severity": "error",
+    "line": 2,
+    "column": 14
+  },
+  {
+    "code": "GS0305",
+    "severity": "error",
+    "line": 2,
+    "column": 16
   },
   {
     "code": "GS0523",
-    "line": 2
+    "severity": "error",
+    "line": 2,
+    "column": 18
   },
   {
     "code": "GS0523",
-    "line": 2
+    "severity": "error",
+    "line": 2,
+    "column": 37
   }
 ]
