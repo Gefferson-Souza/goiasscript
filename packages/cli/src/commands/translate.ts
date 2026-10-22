@@ -32,7 +32,7 @@ async function writeOutput(io: CliIo, plan: Extract<OutputPlan, { ok: true }>, c
     return null;
   } catch (error) {
     if (error instanceof CliFileError && error.code === 'EEXIST') return { code: PATH_CODE.outputRefused, detail: WRITE_EXISTS_REASON };
-    return { code: PATH_CODE.usage, detail: '' };
+    return { code: PATH_CODE.outputRefused, detail: '' };
   }
 }
 
@@ -54,7 +54,7 @@ export const translateCommand: CommandHandler = async (context) => {
   const failure = await writeOutput(io, plan, code);
   if (failure !== null) {
     const detail = failure.detail === '' ? chooseByTone(tone, TRANSLATE_TEXT.writeFailed.root, TRANSLATE_TEXT.writeFailed.neutral) : failure.detail;
-    return reportToolFailure(io, { code: failure.code, detail, args: { reason: detail, override: OVERWRITE_FLAG } }, { tone, json, file });
+    return reportToolFailure(io, { code: failure.code, detail, args: { reason: detail, ...(failure.detail === '' ? {} : { override: OVERWRITE_FLAG }) } }, { tone, json, file });
   }
   return finish(context, compiled, file, plan.outputPath);
 };

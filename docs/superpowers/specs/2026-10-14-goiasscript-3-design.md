@@ -670,7 +670,7 @@ continuam válidos.
 | GS0809 | Acesso dinâmico a nome da biblioteca (`coisa["mapear"]`), não rebaixado (aviso) |
 | GS0901 | Erro interno do compilador (capturado dentro de `compile()`, com pedido de relato) |
 | GS0902 | Arquivo de entrada não termina em `.gs` |
-| GS0903 | Saída igual à entrada, ou destino existente sem `--sobrescreve` |
+| GS0903 | Saída recusada: igual à entrada, destino existente sem `--sobrescreve` ou falha de gravação (E/S) |
 | GS0904 | Node abaixo do mínimo (aviso) |
 | GS0905 | Uso incorreto do CLI (comando ou opção desconhecidos) |
 

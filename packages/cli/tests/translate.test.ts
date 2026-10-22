@@ -93,10 +93,11 @@ describe('traduz', () => {
     expect(io.stderrText()).toContain('UTF-8');
     expect(io.paths()).toEqual(['a.gs']);
   });
-  it('falha de gravação vira GS0905 sem derrubar a CLI', async () => {
+  it('falha de gravação vira saída recusada (GS0903) sem derrubar a CLI', async () => {
     const { io, code } = await run(['traduz', 'a.gs'], { files: { 'a.gs': 'prosa(1)\n' }, failingWrites: ['a.mjs'] });
     expect(code).toBe(3);
-    expect(io.stderrText()).toContain('GS0905');
+    expect(io.stderrText()).toContain('GS0903');
+    expect(io.stderrText()).not.toContain('GS0905');
   });
   it('--minifica grava a saída apertada', async () => {
     const { io, code } = await run(['traduz', 'a.gs', '--minifica'], { files: { 'a.gs': 'uai nomeLongo é 1\nprosa(nomeLongo)\n' } });
