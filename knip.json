@@ -33,7 +33,8 @@
     "packages/compiler": {
       "entry": [
         "tests/**/*.test.ts",
-        "tests/support/deterministic-preload.mjs"
+        "tests/support/deterministic-preload.mjs",
+        "tests/support/list-expected-fail.ts"
       ],
       "project": [
         "src/**/*.ts",
