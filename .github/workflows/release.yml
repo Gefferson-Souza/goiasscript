@@ -1,0 +1,108 @@
+# O trusted publisher é criado só imediatamente antes do primeiro publish e expira em 2 dias sem publish validado.
+name: Release do alpha
+
+on:
+  push:
+    tags: ['v3.*-alpha.*']
+
+permissions:
+  contents: read
+
+env:
+  HUSKY: '0'
+
+jobs:
+  verify:
+    name: release-verify
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { fetch-depth: 0 }
+      - name: Dicionários do gate de idioma
+        run: sudo apt-get update && sudo apt-get install --yes wbrazilian wamerican wbritish
+      - run: corepack enable
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with: { node-version: 24, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run verify
+
+  pack:
+    name: pack
+    needs: verify
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - run: corepack enable
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with: { node-version: 24, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - name: Empacota o CLI
+        run: pnpm run pack:cli
+      - name: Guarda o sha256 do tarball
+        run: |
+          cd packages/cli/pack
+          sha256sum -- *.tgz > tarball.sha256
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: cli-tarball
+          path: |
+            packages/cli/pack/*.tgz
+            packages/cli/pack/tarball.sha256
+          if-no-files-found: error
+
+  tarball-gate:
+    name: tarball-gate (${{ matrix.os }})
+    needs: pack
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-24.04, windows-2025, macos-15]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - run: corepack enable
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with: { node-version: 24, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: cli-tarball
+          path: tarball
+      - name: Testa o tarball instalado
+        shell: bash
+        run: |
+          GS_TARBALL="$(find "$PWD/tarball" -name '*.tgz' | head -n 1)"
+          if command -v cygpath > /dev/null; then GS_TARBALL="$(cygpath -m "$GS_TARBALL")"; fi
+          export GS_TARBALL
+          pnpm --filter goiasscript run test:e2e
+
+  publish:
+    name: publish
+    needs: tarball-gate
+    runs-on: ubuntu-24.04
+    environment: npm-release
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with: { node-version: 24, registry-url: 'https://registry.npmjs.org' }
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: cli-tarball
+          path: tarball
+      - name: Confere o sha256 do tarball baixado
+        working-directory: tarball
+        run: sha256sum --check --strict tarball.sha256
+      - name: Calcula versão e dist-tag
+        id: target
+        run: node scripts/release-target.ts >> "$GITHUB_OUTPUT"
+      - name: Instala o npm com stage
+        run: npm install --global npm@12.2.1
+      - name: Prepara o stage do tarball em next
+        env:
+          DIST_TAG: ${{ steps.target.outputs.dist_tag }}
+        run: |
+          TARBALL="$(find "$PWD/tarball" -name '*.tgz' | head -n 1)"
+          npm stage publish "$TARBALL" --tag "$DIST_TAG"
