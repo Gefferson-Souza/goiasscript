@@ -2,22 +2,16 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { createNodeFileSystem } from '../node-file-system.ts';
+import { writeFully } from '../write-fully.ts';
 import type { CliIo, OutputSink } from '../io.types.ts';
 
 const STDOUT_FD = 1;
 const STDERR_FD = 2;
-const MAX_WRITE_ATTEMPTS = 1000;
+// Em pipe ou arquivo o Node deixa isTTY indefinido, apesar do tipo dizer boolean.
+const isTerminal = (flag: unknown): boolean => flag === true;
 
-const writeFully = (fileDescriptor: number, text: string): void => {
-  const bytes = Buffer.from(text, 'utf8');
-  let offset = 0;
-  for (let attempt = 0; attempt < MAX_WRITE_ATTEMPTS && offset < bytes.length; attempt += 1) {
-    try {
-      offset += fs.writeSync(fileDescriptor, bytes, offset);
-    } catch (error) {
-      if ((error as NodeJS.ErrnoException).code !== 'EAGAIN') throw error;
-    }
-  }
+const writeToDescriptor = (fileDescriptor: number, text: string): void => {
+  writeFully((bytes, offset) => fs.writeSync(fileDescriptor, bytes, offset), text);
 };
 
 const sinkFor = (stream: NodeJS.WriteStream, fileDescriptor: number): OutputSink => ({
@@ -25,7 +19,7 @@ const sinkFor = (stream: NodeJS.WriteStream, fileDescriptor: number): OutputSink
     stream.write(text);
   },
   writeSync(text) {
-    writeFully(fileDescriptor, text);
+    writeToDescriptor(fileDescriptor, text);
   },
 });
 
@@ -39,8 +33,8 @@ export function createRealIo(): CliIo {
   return {
     out: sinkFor(process.stdout, STDOUT_FD),
     err: sinkFor(process.stderr, STDERR_FD),
-    stdin: { readAll: () => readAllFrom(process.stdin), isTty: process.stdin.isTTY },
-    streams: { input: process.stdin, output: process.stdout, isTty: process.stdin.isTTY && process.stdout.isTTY },
+    stdin: { readAll: () => readAllFrom(process.stdin), isTty: isTerminal(process.stdin.isTTY) },
+    streams: { input: process.stdin, output: process.stdout, isTty: isTerminal(process.stdin.isTTY) && isTerminal(process.stdout.isTTY) },
     fs: createNodeFileSystem(),
     env: {
       cwd: process.cwd(),
