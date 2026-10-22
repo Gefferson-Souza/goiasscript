@@ -292,7 +292,7 @@ export function walk(node: Node, visit: (node: Node) => void): void;   // ast/wa
 export interface ParseResult { readonly program: Program; readonly diagnostics: readonly RawDiagnostic[]; readonly incomplete: boolean }
 export function parse(source: SourceText, lexer: Lexer, options: { readonly target: CompileTarget }): ParseResult;
 
-// packages/compiler/src/analyzer/analyzer.ts
+// packages/compiler/src/analyzer/analyzer.types.ts (a função `analyze` vive em analyzer.ts)
 export interface Resolution { readonly kind: 'library' | 'program' | 'session' | 'unresolved'; readonly entry?: StdlibEntry }
 export interface AnalysisResult {
   readonly diagnostics: readonly RawDiagnostic[];
