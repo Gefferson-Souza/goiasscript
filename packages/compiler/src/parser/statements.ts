@@ -25,6 +25,7 @@ type StatementParser = (parser: Parser) => Statement;
 const UNARY_OR_BINARY_MINUS = '-';
 const isBoundary = (token: Token): boolean => token.kind === 'end-of-file' || token.kind === 'newline' || isPunctuator(token, '}');
 const JS_FUNCTION_WORD = 'function';
+const JS_THROW_WORD = 'throw';
 const RETURN_TERMINATORS: ReadonlySet<string> = new Set([';', '}']);
 
 function consumeDecimalComma(parser: Parser): boolean {
@@ -91,7 +92,8 @@ function parseThrow(parser: Parser): ThrowStatement {
   const state = parser.state;
   const keywordToken = state.advance();
   const parenthesized = isPunctuator(state.current(), '(');
-  const args = parseParenList(parser, () => parser.parseExpression(PRECEDENCE.assignment));
+  const lenient = !parenthesized && keywordToken.text === JS_THROW_WORD;
+  const args = lenient ? [parser.parseExpression(PRECEDENCE.assignment)] : parseParenList(parser, () => parser.parseExpression(PRECEDENCE.assignment));
   const statement: ThrowStatement = { type: 'ThrowStatement', arguments: args, keywordToken, start: keywordToken.start, end: state.lastEnd };
   if (parenthesized) checkThrowShape(parser, statement);
   return statement;
