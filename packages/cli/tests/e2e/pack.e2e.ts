@@ -8,7 +8,7 @@ describe('tarball do goiasscript', () => {
     const { tarball } = await getTarball();
     const entries = await listTarball(tarball);
     expect(entries).toEqual(
-      expect.arrayContaining(['package/README.md', 'package/LICENSE', 'package/package.json', 'package/dist/goiasscript.mjs', 'package/dist/goias.mjs', 'package/dist/index.mjs', 'package/dist/index.d.ts']),
+      expect.arrayContaining(['package/README.md', 'package/LICENSE', 'package/package.json', 'package/dist/goiasscript.mjs', 'package/dist/goias.mjs', 'package/dist/cli.mjs', 'package/dist/index.mjs', 'package/dist/index.d.ts']),
     );
     expect(entries.filter((entry) => /\.(ts|map)$/u.test(entry) && !entry.endsWith('.d.ts'))).toEqual([]);
     expect(entries.some((entry) => entry.startsWith('package/src/'))).toBe(false);

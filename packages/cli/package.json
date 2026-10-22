@@ -38,6 +38,8 @@
   "main": "./dist/index.mjs",
   "scripts": {
     "build": "node ../../scripts/build-cli.ts",
+    "prepack": "node ../../scripts/prepack-cli.ts",
+    "postpack": "node ../../scripts/prepack-cli.ts clean",
     "test:e2e": "vitest run --config vitest.e2e.config.ts"
   }
 }

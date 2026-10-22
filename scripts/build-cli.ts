@@ -28,6 +28,7 @@ const slimManifestPlugin: Plugin = {
 const ENTRY_POINTS: Readonly<Record<string, string>> = {
   goiasscript: 'packages/cli/src/entry/goiasscript.ts',
   goias: 'packages/cli/src/entry/goias.ts',
+  cli: 'packages/cli/src/entry/cli.ts',
   index: 'packages/cli/src/entry/api.ts',
   optimizer: 'packages/optimizer/src/index.ts',
 };

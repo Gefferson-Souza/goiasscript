@@ -1,5 +1,3 @@
-import { runCli } from '../run-cli.ts';
-import { createRealIo } from './real-io.ts';
-import { createRealProcessHost } from './real-process-host.ts';
+import { launchReal } from './real-launch.ts';
 
-process.exitCode = await runCli(process.argv.slice(2), createRealIo(), { processHost: createRealProcessHost() });
+void launchReal(import.meta.url, (cli) => cli.runGoiasScript(process.argv.slice(2)));
