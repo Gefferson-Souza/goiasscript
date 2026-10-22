@@ -23,6 +23,10 @@ describe('descoberta de arquivos do scanner', () => {
   it('falha quando nenhum arquivo é analisado', () => {
     expect(scopeProblems(discoverFiles(FAKE_ROOT, scope, ['README.md']))).toEqual(['o scanner analisou 0 arquivos']);
   });
+  it('classifica declaração .d.mts como declaração, não como código-fonte', () => {
+    const discovery = discoverFiles(FAKE_ROOT, scope, ['packages/compiler/stryker.config.d.mts']);
+    expect(discovery.included.map((entry) => entry.role)).toEqual(['declaration']);
+  });
   it('ignora a saída dourada do corpus de conformidade', () => {
     const discovery = discoverFiles(FAKE_ROOT, scope, ['packages/compiler/src/a.ts', 'packages/compiler/tests/conformance/a/output.mjs']);
     expect(relativePaths(discovery.included)).toEqual(['packages/compiler/src/a.ts']);

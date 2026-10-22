@@ -1,7 +1,9 @@
+import { DECLARATION_FILE } from './files.mjs';
+
 const ESM_EXTENSIONS = new Set(['.mjs', '.ts', '.tsx']);
 
 function pluginsFor(file) {
-  if (file.rel.endsWith('.d.ts')) return [['typescript', { dts: true }]];
+  if (DECLARATION_FILE.test(file.rel)) return [['typescript', { dts: true }]];
   if (file.ext === '.tsx') return ['typescript', 'jsx'];
   if (file.ext === '.ts') return ['typescript'];
   return [];
