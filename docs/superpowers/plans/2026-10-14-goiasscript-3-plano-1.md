@@ -99,7 +99,7 @@ packages/compiler/
   src/lowering/{edit.types.ts,lower.ts,keyword-edits.ts,library-edits.ts,macro-edits.ts,await-edits.ts,terminator-edits.ts,nfc-edits.ts,token-separation.ts,apply-edits.ts}
   src/helpers/{helper-sources.ts,emit-helpers.ts}
   src/targets/{module-target.ts,repl-target.ts,playground-target.ts,loop-guard.ts}
-  src/sourcemap/{vlq.ts,source-map.ts}
+  src/sourcemap/{vlq.ts,source-map.ts,source-map.types.ts}
   src/diagnostics/{report.ts,format-message.ts}
   src/runtime-errors/{translate.ts,stack-frames.ts,classify.ts}
   tests/unit/**  tests/conformance/<id>/{input.gs,output.mjs,stdout.txt,diagnostics.json,case.json?,stdin.txt?}

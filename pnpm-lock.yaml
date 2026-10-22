@@ -151,6 +151,9 @@ importers:
         specifier: workspace:*
         version: link:../language
     devDependencies:
+      '@jridgewell/trace-mapping':
+        specifier: 0.3.31
+        version: 0.3.31
       acorn:
         specifier: 8.19.0
         version: 8.19.0
