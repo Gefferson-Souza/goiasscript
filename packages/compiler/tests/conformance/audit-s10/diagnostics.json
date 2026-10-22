@@ -1,6 +1,38 @@
 [
   {
     "code": "GS0103",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 9
+  },
+  {
+    "code": "GS0102",
+    "severity": "error",
+    "line": 1,
+    "column": 13
+  },
+  {
+    "code": "GS0301",
+    "severity": "error",
+    "line": 2,
+    "column": 1
+  },
+  {
+    "code": "GS0806",
+    "severity": "warning",
+    "line": 2,
+    "column": 1
+  },
+  {
+    "code": "GS0202",
+    "severity": "error",
+    "line": 2,
+    "column": 4
+  },
+  {
+    "code": "GS0103",
+    "severity": "error",
+    "line": 2,
+    "column": 20
   }
 ]
