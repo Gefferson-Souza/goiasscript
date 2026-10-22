@@ -16,8 +16,7 @@
   "excluded": [
     { "path": "packages/core", "reason": "legado removido na Fase 8" },
     { "path": "vscode-extension", "reason": "legado removido na Fase 8" },
-    { "path": "lsp-server", "reason": "legado removido na Fase 8" },
-    { "path": "spikes/poc-compiler", "reason": "prova de conceito removida no gate da Fase 2" }
+    { "path": "lsp-server", "reason": "legado removido na Fase 8" }
   ],
   "pathSegmentsExemptPrefixes": ["docs"]
 }

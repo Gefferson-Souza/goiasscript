@@ -10,10 +10,10 @@ const scope = loadScope(REPOSITORY_ROOT);
 const relativePaths = (entries) => entries.map((entry) => entry.rel);
 
 describe('descoberta de arquivos do scanner', () => {
-  it('inclui o código novo e separa o legado e o spike em excluded', () => {
-    const discovery = discoverFiles(FAKE_ROOT, scope, ['packages/compiler/src/a.ts', 'packages/core/src/a.mjs', 'packages/core/tests/a.ts', 'spikes/poc-compiler/src/a.ts']);
+  it('inclui o código novo e separa o legado em excluded', () => {
+    const discovery = discoverFiles(FAKE_ROOT, scope, ['packages/compiler/src/a.ts', 'packages/core/src/a.mjs', 'packages/core/tests/a.ts']);
     expect(relativePaths(discovery.included)).toEqual(['packages/compiler/src/a.ts']);
-    expect(discovery.excluded).toEqual(['packages/core/src/a.mjs', 'packages/core/tests/a.ts', 'spikes/poc-compiler/src/a.ts']);
+    expect(discovery.excluded).toEqual(['packages/core/src/a.mjs', 'packages/core/tests/a.ts']);
     expect(discovery.unscoped).toEqual([]);
   });
   it('acusa arquivo ts fora do escopo e da lista excluded', () => {

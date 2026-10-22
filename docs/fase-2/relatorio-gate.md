@@ -1,7 +1,9 @@
 # Relatório do gate da Fase 2
 
-**Veredito:** pendente do dono (GATE 2). Todos os critérios técnicos abaixo foram medidos e passaram; o spike
-`spikes/poc-compiler` só sai depois da aprovação.
+**Veredito:** aprovado pelo dono em 2026-10-22 (GATE 2), com a ordem de seguir para a Fase 3 e revisar depois o
+que for preciso. Todos os critérios técnicos abaixo foram medidos e passaram, e o spike `spikes/poc-compiler` saiu do
+repositório. Até a revisão do dono, valem as leituras padrão das decisões abertas: o teto de 150 ms é relativo à
+máquina de referência, o brotli fica na catraca de 40.850 B e o caso audit-m01 segue o §5.6.
 
 Medição: Node v26.11.1, Linux, CPU 12th Gen Intel(R) Core(TM) i5-12450H (12 núcleos). Mediana de 20 execuções depois
 de 2 de aquecimento.
