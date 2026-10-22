@@ -1,3 +1,5 @@
+import type { CompileTarget } from '../api.types.ts';
+
 const HELPER_SOURCE_TEXTS: readonly string[] = [
   `function $gs_ordem(a, b) {
   const rank = (v) => (typeof v === 'number' ? (Number.isNaN(v) ? 1 : 0) : typeof v === 'string' ? 2 : 3);
@@ -22,7 +24,7 @@ const HELPER_SOURCE_TEXTS: readonly string[] = [
   return String(text).replaceAll(String(search), () => String(replacement));
 }`,
   `function $gs_mensagem(error) {
-  return error.message;
+  return typeof error === 'object' && error !== null && typeof error.message === 'string' ? error.message : String(error);
 }`,
   `function $gs_sorteia_um(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -47,6 +49,20 @@ async function $gs_pergunta(prompt) {
 }`,
 ];
 
+// Worker sem Node: a pergunta sai por mensagem ao hospedeiro, que responde com gs:resposta.
+const PLAYGROUND_ASK_SOURCE = `function $gs_pergunta(prompt) {
+  return new Promise((resolve) => {
+    const onMessage = (event) => {
+      if (event.data && event.data.type === 'gs:resposta') {
+        globalThis.removeEventListener('message', onMessage);
+        resolve(String(event.data.value));
+      }
+    };
+    globalThis.addEventListener('message', onMessage);
+    globalThis.postMessage({ type: 'gs:pergunta', prompt });
+  });
+}`;
+
 const DECLARED_HELPER = /function \$gs_(\w+)/u;
 
 const HELPER_SOURCES: ReadonlyMap<string, string> = new Map(
@@ -56,4 +72,5 @@ const HELPER_SOURCES: ReadonlyMap<string, string> = new Map(
   }),
 );
 
-export const helperSourceOf = (helperName: string): string | undefined => HELPER_SOURCES.get(helperName);
+export const helperSourceOf = (helperName: string, target?: CompileTarget): string | undefined =>
+  helperName === 'pergunta' && target === 'playground' ? PLAYGROUND_ASK_SOURCE : HELPER_SOURCES.get(helperName);
