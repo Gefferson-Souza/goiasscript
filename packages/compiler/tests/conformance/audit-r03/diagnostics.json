@@ -1,22 +1,38 @@
 [
   {
     "code": "GS0405",
-    "line": 2
+    "severity": "error",
+    "line": 2,
+    "column": 15
   },
   {
     "code": "GS0502",
-    "line": 2
+    "severity": "error",
+    "line": 2,
+    "column": 23
   },
   {
     "code": "GS0405",
-    "line": 2
+    "severity": "error",
+    "line": 2,
+    "column": 38
   },
   {
     "code": "GS0502",
-    "line": 2
+    "severity": "error",
+    "line": 2,
+    "column": 46
   },
   {
     "code": "GS0405",
-    "line": 2
+    "severity": "error",
+    "line": 2,
+    "column": 61
+  },
+  {
+    "code": "GS0502",
+    "severity": "error",
+    "line": 2,
+    "column": 69
   }
 ]
