@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ABSOLUTE_BUDGETS, helperBytes, measureBudgets, readRatchets } from '../bench/budgets.ts';
+import { ABSOLUTE_BUDGETS, helperBytes, machineFactor, measureBudgets, readRatchets } from '../bench/budgets.ts';
 import { compile } from '../src/compile.ts';
 import { timingEnforced } from './support/timing.ts';
 
@@ -21,6 +21,9 @@ describe('orçamentos absolutos', () => {
   timed('compile() de 10 mil linhas cumpre o teto', () => {
     expect(measureBudgets().compile10kLinesMs).toBeLessThanOrEqual(ABSOLUTE_BUDGETS.compile10kLinesMs);
   }, TIMING_TIMEOUT_MS);
+  timed('o fator de máquina nunca deixa o teto mais apertado que o da máquina de referência', () => {
+    expect(machineFactor()).toBeGreaterThanOrEqual(1);
+  }, TIMING_TIMEOUT_MS);
   it('100 mil parênteses não lançam nem estouram a pilha', () => {
     expect(() => compile('('.repeat(100_000))).not.toThrow();
   });
@@ -32,5 +35,6 @@ describe('catracas relativas', () => {
     const ratchets = readRatchets();
     expect(typeof ratchets.compile10kLinesMs).toBe('number');
     expect(typeof ratchets.brotliBytes).toBe('number');
+    expect(typeof ratchets.referenceCalibrationMs).toBe('number');
   });
 });

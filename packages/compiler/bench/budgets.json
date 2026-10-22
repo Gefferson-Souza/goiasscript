@@ -2,5 +2,6 @@
   "compile10kLinesMs": 133,
   "brotliBytes": 40850,
   "acceptanceMutation": 0.06,
-  "acceptanceProgram": 0.21
+  "acceptanceProgram": 0.21,
+  "referenceCalibrationMs": 18
 }
