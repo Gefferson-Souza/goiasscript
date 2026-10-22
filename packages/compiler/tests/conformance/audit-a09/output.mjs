@@ -1,0 +1,1 @@
+const de = 5; console.log(de);

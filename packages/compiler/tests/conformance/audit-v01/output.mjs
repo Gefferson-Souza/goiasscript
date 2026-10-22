@@ -1,0 +1,1 @@
+const o = {a:{b:{c:1}}}; console.log(o.a.b.c);

@@ -1,0 +1,1 @@
+const número = 3; const açúcar = 4; console.log(número + açúcar);

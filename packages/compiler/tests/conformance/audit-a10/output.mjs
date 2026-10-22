@@ -1,0 +1,1 @@
+function f(em) { return em + 1; } console.log(f(1));

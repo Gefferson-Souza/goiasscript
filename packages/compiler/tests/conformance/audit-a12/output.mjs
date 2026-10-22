@@ -1,0 +1,1 @@
+const total = { mais: 1, menos: 2 }; console.log(total.mais, total.menos);

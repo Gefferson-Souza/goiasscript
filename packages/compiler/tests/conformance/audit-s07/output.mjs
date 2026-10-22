@@ -1,0 +1,1 @@
+console.log("custa $1 e $<x>");
