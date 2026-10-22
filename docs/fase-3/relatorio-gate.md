@@ -1,9 +1,7 @@
 # Relatório do gate da Fase 3
 
-**Veredito proposto:** pendente da revisão independente. Nenhum achado CRITICAL ou HIGH foi encontrado pela revisão do
-próprio executor e os dois MEDIUM foram corrigidos com teste de regressão (seção 6), mas o aceite da U3-15 exige o
-`security-reviewer` em contexto fresco e somente leitura, que ainda não rodou. O E2E do tarball em três plataformas
-(seis combinações) também segue pendente da CI. Só depois dessas duas coisas o relatório passa a "pronto para o GATE 3".
+**Veredito proposto:** pronto para o GATE 3 assim que o E2E do tarball em três plataformas (seis combinações) passar na
+CI. A revisão de segurança independente, em contexto fresco e somente leitura, não achou CRITICAL nem HIGH (seção 6.3).
 Pendências do dono: a conferência do Ctrl+C num terminal gráfico, os números de ticket dos achados 3 e 4 e o primeiro
 publish (checklist da seção 11).
 
@@ -92,9 +90,8 @@ Mais as recusas de saída: saída igual à entrada, hard link para o fonte e des
 
 **Como foi feita.** A ferramenta de subagente não estava disponível na execução deste relatório; a revisão foi feita
 direto pelo executor da unidade, com o checklist do plano, lendo o código de `packages/cli/src`, `scripts/{build-cli,pack-cli,release-target}.ts`
-e os dois workflows, e **atacando o `dist` real** com entradas hostis (comandos na seção 6.2). Não é a revisão em contexto
-fresco que o aceite pede: **o dono deve rodar o `security-reviewer` independente antes de fechar o GATE 3**, usando esta
-tabela como ponto de partida. Perímetro ignorado: `packages/core`, `node_modules`, `dist`.
+e os dois workflows, e **atacando o `dist` real** com entradas hostis (comandos na seção 6.2). A revisão em contexto fresco que o
+aceite pede veio depois e está na seção 6.3. Perímetro ignorado: `packages/core`, `node_modules`, `dist`.
 
 ### 6.1 Achados
 
@@ -141,6 +138,20 @@ Nenhum achado CRITICAL ou HIGH.
   **mesmo** tarball dos testes com `--tag next --provenance`. `GITHUB_REF_NAME` só é lido por `release-target.ts` (nunca interpolado em shell).
   `promises-gate.yml` usa `pull_request` (não `pull_request_target`), sem segredos.
 
+### 6.3 Revisão independente
+
+O `security-reviewer` rodou em contexto fresco, somente leitura, atacando um build do `dist` com entradas hostis.
+Confirmou travessia, links, TOCTOU, workflows e tarball; o programa do `bota_pra_moer` roda no mesmo processo do CLI,
+via `import()`, com os poderes do usuário. Nenhum CRITICAL ou HIGH. Disposição dos LOW:
+
+| Achado | Disposição |
+| --- | --- |
+| Bidi (`\p{Cf}`) e U+2028/2029 crus em nomes de arquivo, argv e eco do REPL | corrigido: os três escapes usam a mesma classe de `sanitizeForTerminal`, com teste |
+| Erro assíncrono do REPL escrito sem `sanitizeForTerminal` | corrigido |
+| Laço infinito dentro de callback de timer no REPL não é interrompível | aceito: autoinfligido, sem fronteira de confiança; a seção 7 vale só para laço de topo |
+| `readAll` e `readBytes` sem limite de tamanho | aceito, como no achado da seção 6.1 |
+| Ambiente `npm-release` com revisores e proteção de tag não verificáveis pelo repositório | item 2 da seção 11 |
+
 ## 7. Ctrl+C em laço no REPL (parcial: pty, não terminal gráfico)
 
 Verificado só num **pseudo-terminal do kernel** (módulo `pty` do Python, `goias.mjs` do `dist` como processo filho), com o
@@ -169,7 +180,6 @@ Bundle legível, sem minificar (decisão 8 do plano); o custo é o tamanho acima
 - **Nome npm** (decisão 1): `goiasscript` é o CLI novo e o legado vira `goiasscript-legacy`, privado.
 - **GS0903 e erros de leitura** (decisões 2 e 3): o texto cobre pasta e `.gs`; leitura que falha usa GS0905 com detalhe.
 - **`--json` só em `traduz` e `vê_se_tá_certo`** (decisão 4).
-- **Revisão de segurança sem subagente em contexto fresco**: ver seção 6; pendente para o dono.
 
 ## 10. Riscos abertos
 
@@ -192,7 +202,7 @@ Só depois do GATE 3 e com o `release.yml` na `main`:
 6. Conferir `npm view goiasscript dist-tags` (`next` aponta o alpha, `latest` intacto) e a página com provenance.
 7. Registrar aqui que `--tag next` funcionou com publisher só de stage (§8.6), ou o que falhou.
 
-Antes do item 1: rodar o `security-reviewer` independente (seção 6) e conferir o Ctrl+C num terminal gráfico (seção 7).
+Antes do item 1: conferir o Ctrl+C num terminal gráfico (seção 7).
 
 ## 12. Mapa de rastreabilidade (§11 do spec) da Fase 3
 
