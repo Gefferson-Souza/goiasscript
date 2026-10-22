@@ -12,8 +12,6 @@ import { memberName, propertyKeyName } from './member-census.ts';
 import { unresolvedNameDiagnostic } from './name-checks.ts';
 import type { MemberRole } from './reference-analysis.types.ts';
 
-const ASYNC_INPUT_HELPER = 'pergunta';
-
 // Referências a nomes e membros: resolve contra o programa, a sessão e a biblioteca, e aplica as checagens de nome.
 export abstract class ReferenceAnalysis extends AnalysisBase {
   private readonly failedMembers = new WeakSet<MemberExpression>();
@@ -33,7 +31,7 @@ export abstract class ReferenceAnalysis extends AnalysisBase {
       return;
     }
     this.resolve(identifier, { kind: 'library', entry });
-    if (entry.helperName === ASYNC_INPUT_HELPER && !this.control.awaitAllowed) this.report(CODES.inputOutsideAsync, identifier.start, identifier.end);
+    if (entry.requiresAsync === true && !this.control.awaitAllowed) this.report(CODES.inputOutsideAsync, identifier.start, identifier.end);
   }
 
   private candidateNames(): readonly string[] {
