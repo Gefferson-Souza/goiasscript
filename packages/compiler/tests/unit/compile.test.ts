@@ -30,6 +30,13 @@ describe('compile', () => {
     expect(result.ok).toBe(true);
     expect(result.diagnostics.map((d) => d.code)).toEqual(['GS0804']);
   });
+  it.each([
+    ['uai vezes é 3; prosa(vezes)', ['GS0303']],
+    ['faz_trem f(mais) { faz_favor mais }', ['GS0303']],
+    ['prosa(vezes)', ['GS0202']],
+  ])('nome reservado declarado e usado de novo: %j dá %j', (source, expected) => {
+    expect(compile(source).diagnostics.map((d) => d.code)).toEqual(expected);
+  });
   it('ok: true implica JS aceito pelo acorn', () => {
     const result = compile('uai l é [3, 1]\nprosa(l.arruma())\nuai n é pergunta("x")');
     if (!result.ok) throw new Error('esperava ok');

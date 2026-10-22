@@ -87,7 +87,14 @@ function parseThrowValue(parser: Parser): Expression {
   return errorNode(CODES.misplacedThrow, keywordToken.start, state.lastEnd);
 }
 
+// Palavra reservada que o programa já declarou como nome (e o GS0303 já saiu): o uso segue como nome, sem GS0202.
+function parseReservedReference(parser: Parser, token: Token): Expression {
+  const name = identifierOf(parser.state.advance());
+  return token.keyword === undefined ? name : { ...name, reservedKeyword: token.keyword };
+}
+
 function parseKeywordOperand(parser: Parser, token: Token): Expression {
+  if (parser.state.isReservedBinding(token.value)) return parseReservedReference(parser, token);
   const js = keywordJs(token) ?? '';
   if (LITERAL_KEYWORDS.has(js)) return literalWithKeyword(parser, js);
   if (js === 'this') return { type: 'ThisExpression', keywordToken: parser.state.advance(), start: token.start, end: token.end };
