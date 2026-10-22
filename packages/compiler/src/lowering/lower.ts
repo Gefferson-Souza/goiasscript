@@ -2,7 +2,7 @@ import type { Program } from '../ast/ast.types.ts';
 import type { AnalysisResult } from '../analyzer/analyzer.types.ts';
 import { TICK_HELPER } from '../helpers/helper.constants.ts';
 import { loopGuardEdits, strictDirectiveEdit } from '../targets/playground-target.ts';
-import { replClosingEdits, replOpeningEdits } from '../targets/repl-target.ts';
+import { needsAsyncWrapper, replClosingEdits, replOpeningEdits } from '../targets/repl-target.ts';
 import type { SourceText } from '../source/source.types.ts';
 import { askAwaitEdits } from './await-edits.ts';
 import type { Edit, EditContext, LowerOptions, LoweringResult } from './edit.types.ts';
@@ -56,5 +56,6 @@ export function lower(program: Program, analysis: AnalysisResult, source: Source
   return {
     edits: [...opening, ...guard, ...body, ...closing],
     helpers: [...collectHelpers(program, context), ...(guard.length > 0 ? [TICK_HELPER] : [])],
+    awaitable: options.target === 'repl' && needsAsyncWrapper(program, context),
   };
 }

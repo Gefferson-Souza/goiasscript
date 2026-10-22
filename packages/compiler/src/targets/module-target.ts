@@ -21,5 +21,5 @@ export function emitProgram(program: Program, analysis: AnalysisResult, source: 
   const lowered = lower(program, analysis, source, options);
   const applied = applyEdits(source, lowered.edits);
   const emitted = emitHelpers(applied.code, lowered.helpers.map((name) => helperSource(name, options)));
-  return { code: emitted.code, segments: applied.segments, helperRange: emitted.helperRange, helpers: lowered.helpers };
+  return { code: emitted.code, segments: applied.segments, helperRange: emitted.helperRange, helpers: lowered.helpers, awaitable: lowered.awaitable };
 }

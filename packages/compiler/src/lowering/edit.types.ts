@@ -19,6 +19,7 @@ export interface MappingSegment {
 export interface LoweringResult {
   readonly edits: readonly Edit[];
   readonly helpers: readonly string[];
+  readonly awaitable: boolean;
 }
 
 export interface EditContext {

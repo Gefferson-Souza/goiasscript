@@ -59,6 +59,16 @@ describe('compile: REPL e determinismo', () => {
     expect(result).toMatchObject({ ok: true, echo: true });
     expect(result.ok && result.session?.bindings.map((b) => b.name)).toEqual(['x', 'y']);
   });
+  it('repl: awaitable marca só a entrada embrulhada em função assíncrona', () => {
+    const flag = (text: string) => {
+      const result = compile(text, { target: 'repl' });
+      return result.ok && result.awaitable;
+    };
+    expect(flag('espera_um_cadim 1')).toBe(true);
+    expect(flag('pergunta("a")')).toBe(true);
+    expect(flag('1 mais 2')).toBe(false);
+    expect(compile('espera_um_cadim 1', { target: 'module' })).toMatchObject({ ok: true, awaitable: false });
+  });
   it('repl: entrada que não compila não devolve sessão', () => {
     const result = compile('uai z é nomi', { target: 'repl' });
     expect(result.ok).toBe(false);
