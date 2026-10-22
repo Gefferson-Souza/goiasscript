@@ -75,7 +75,7 @@ export function createConfig(projectService = true) {
         'functional/immutable-data': ['error', { ignoreAccessorPattern: 'process.**' }],
       },
     },
-    { files: ['packages/cli/src/repl/timer-registry.ts'], rules: { 'functional/immutable-data': 'off' } },
+    { files: ['packages/cli/src/repl/timer-registry.ts', 'packages/cli/src/run/program-runner.ts'], rules: { 'functional/immutable-data': 'off' } },
     { files: ['**/*.types.ts'], rules: { 'no-restricted-syntax': ['error', swallowedCatchSelector] } },
     { files: TEST_FILES, rules: { 'max-lines-per-function': 'off', 'no-magic-numbers': 'off', '@typescript-eslint/no-magic-numbers': 'off', 'functional/immutable-data': 'off' } },
     {

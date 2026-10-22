@@ -1,0 +1,8 @@
+const HOURS_PER_DAY = 24;
+const MINUTES_PER_HOUR = 60;
+const SECONDS_PER_MINUTE = 60;
+const MS_PER_SECOND = 1000;
+
+export const STALE_WORKSPACE_MS = HOURS_PER_DAY * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MS_PER_SECOND;
+export const WORKSPACE_PREFIX = 'goiasscript-';
+export const PROGRAM_FILE_NAME = 'program.mjs';

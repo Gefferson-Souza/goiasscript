@@ -44,8 +44,8 @@ describe('runCli', () => {
   it('despacha o comando acertado, inclusive sem acento', async () => {
     const { io, code } = await run(['bota_pra_moer', 'x.gs']);
     expect(code).toBe(EXIT_CODE.usage);
-    expect(io.stderrText()).toContain('armado');
-    expect(io.stderrText()).not.toContain('GS0905');
+    expect(io.stderrText()).toContain('GS0905');
+    expect(io.stderrText()).not.toContain('armado');
   });
   it('avisa GS0904 em Node abaixo do mínimo e segue', async () => {
     const { io } = await run([], { nodeVersion: '20.11.0' });
@@ -81,11 +81,6 @@ describe('runCli: robustez do uso incorreto', () => {
   });
   it('--tom=neutro é reconhecido no erro de uso', async () => {
     expect((await run(['traduza', '--tom=neutro'])).io.stderrText()).toContain('Comando ou opção desconhecidos');
-  });
-  it('o comando ainda não pronto respeita --tom neutro', async () => {
-    const { io, code } = await run(['bota_pra_moer', 'x.gs', '--tom', 'neutro']);
-    expect(code).toBe(EXIT_CODE.usage);
-    expect(io.stderrText()).toContain('ainda não está disponível');
   });
   it('a recusa de "-" cita só a entrada padrão no bota_pra_moer', async () => {
     expect((await run(['explica', '-'])).io.stderrText()).not.toContain('respostas');

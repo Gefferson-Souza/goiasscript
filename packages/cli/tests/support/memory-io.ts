@@ -13,7 +13,7 @@ const normalize = (path: string): string => path.replaceAll('\\', '/').replace(/
 function createMemoryFileSystem(options: MemoryIoOptions): CliFileSystem & { paths(): readonly string[]; entry(path: string): MemoryEntry | undefined } {
   const keyOf = (path: string): string => (options.caseSensitive === false ? normalize(path).toLowerCase() : normalize(path));
   const files = new Map<string, MemoryEntry>();
-  const directories = new Map<string, number>();
+  const directories = new Map<string, number>(Object.entries(options.directories ?? {}).map(([path, time]) => [keyOf(path), time]));
   let clock = 0;
   const tick = (): number => (clock += 1);
   const failing = new Set((options.failingWrites ?? []).map(keyOf));
@@ -65,7 +65,8 @@ function createMemoryFileSystem(options: MemoryIoOptions): CliFileSystem & { pat
     },
     listDirectory(path) {
       const key = `${keyOf(path)}/`;
-      const names = [...files.values()].filter((entry) => keyOf(entry.displayPath).startsWith(key)).map((entry) => entry.displayPath.slice(key.length).split('/')[0] ?? '');
+      const paths = [...files.values()].map((entry) => keyOf(entry.displayPath));
+      const names = [...paths, ...directories.keys()].filter((candidate) => candidate.startsWith(key)).map((candidate) => candidate.slice(key.length).split('/')[0] ?? '');
       return Promise.resolve([...new Set(names)]);
     },
     modifiedAt(path) {
@@ -87,16 +88,20 @@ function createMemoryFileSystem(options: MemoryIoOptions): CliFileSystem & { pat
 export function createMemoryIo(options: MemoryIoOptions = {}): MemoryIo {
   const stdout: string[] = [];
   const stderr: string[] = [];
+  const stderrSync: string[] = [];
   const memoryFs = createMemoryFileSystem(options);
   const platform = options.platform ?? 'linux';
-  const sinkInto = (target: string[]): MemoryIo['out'] => ({
+  const sinkInto = (target: string[], syncTarget?: string[]): MemoryIo['out'] => ({
     write: (text) => void target.push(text),
-    writeSync: (text) => void target.push(text),
+    writeSync(text) {
+      target.push(text);
+      syncTarget?.push(text);
+    },
   });
   const stdinBytes = toBytes(options.stdin ?? '');
   return {
     out: sinkInto(stdout),
-    err: sinkInto(stderr),
+    err: sinkInto(stderr, stderrSync),
     stdin: { readAll: () => Promise.resolve(stdinBytes), isTty: false },
     streams: { input: process.stdin, output: process.stdout, isTty: false },
     fs: memoryFs,
@@ -110,6 +115,7 @@ export function createMemoryIo(options: MemoryIoOptions = {}): MemoryIo {
     },
     stdoutText: () => stdout.join(''),
     stderrText: () => stderr.join(''),
+    stderrSyncText: () => stderrSync.join(''),
     fileText: (path) => decoder.decode(memoryFs.entry(path)?.bytes),
     fileBytes: (path) => memoryFs.entry(path)?.bytes ?? new Uint8Array(),
     paths: () => memoryFs.paths(),

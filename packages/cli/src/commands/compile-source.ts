@@ -21,7 +21,7 @@ export async function compileSource(request: CompileRequest, io: CliIo): Promise
   const { displayName } = read.input;
   const decoded = decodeSource(read.bytes);
   if (!decoded.ok) return failed(reportToolFailure(io, { code: PATH_CODE.usage, detail: decoded.detail }, { tone, json, file: displayName }));
-  const result = compile(decoded.text, { fileName: displayName, target: 'module', tone, sourceMap: false });
+  const result = compile(decoded.text, { fileName: displayName, target: 'module', tone, sourceMap: request.sourceMap ?? false });
   if (!result.ok) {
     reportDiagnostics(io, { file: displayName, source: decoded.text, diagnostics: result.diagnostics, json });
     return failed(EXIT_CODE.compilation);
