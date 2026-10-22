@@ -1,22 +1,14 @@
 [
   {
     "code": "GS0405",
-    "line": 3
+    "severity": "error",
+    "line": 3,
+    "column": 3
   },
   {
     "code": "GS0405",
-    "line": 4
-  },
-  {
-    "code": "GS0405",
-    "line": 7
-  },
-  {
-    "code": "GS0405",
-    "line": 8
-  },
-  {
-    "code": "GS0405",
-    "line": 9
+    "severity": "error",
+    "line": 4,
+    "column": 3
   }
 ]
