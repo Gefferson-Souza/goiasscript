@@ -23,7 +23,8 @@ const CASES: readonly NameCase[] = [
   { name: '`touch PWNED`.gs', outcome: 'works', skipOn: ['win32'] },
   { name: 'a";touch PWNED;".gs', outcome: 'works', skipOn: ['win32'] },
   { name: '-x.gs', outcome: 'works', afterDoubleDash: true },
-  { name: 'café.gs', outcome: 'works' },
+  { name: 'caf\u00e9.gs', outcome: 'works' },
+  { name: 'cafe\u0301.gs', outcome: 'works' },
 ];
 
 const applicable = CASES.filter((testCase) => testCase.outcome === 'refused' || !testCase.skipOn?.includes(process.platform));
