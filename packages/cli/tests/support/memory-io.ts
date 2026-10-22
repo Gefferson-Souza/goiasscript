@@ -24,6 +24,10 @@ function createMemoryFileSystem(options: MemoryIoOptions): CliFileSystem & { pat
   Object.entries(options.files ?? {}).forEach(([path, content]) => {
     put(path, toBytes(content));
   });
+  (options.hardLinks ?? []).forEach(([original, link]) => {
+    const target = files.get(keyOf(original));
+    if (target) files.set(keyOf(link), { ...target, displayPath: normalize(link) });
+  });
   const isDirectory = (path: string): boolean => {
     const key = keyOf(path);
     return directories.has(key) || [...files.keys()].some((file) => file.startsWith(`${key}/`));
