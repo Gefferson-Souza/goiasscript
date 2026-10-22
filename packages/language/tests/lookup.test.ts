@@ -24,6 +24,7 @@ describe('lookup', () => {
     const equivalents = ['map', 'length', 'sort', 'keys', 'catch', 'message', 'replaceAll', 'some', 'every', 'splice'].map((name) => lookupJsMember(name)?.equivalent);
     expect(equivalents).toEqual(['mapear', 'o_tanto', 'arruma', 'Coisa.chaves', 'se_der_ruim', 'mensagem', 'trocar', 'tem_algum', 'todin', 'ranca_do_meio']);
     expect(lookupJsMember('flatMap')).toEqual({ name: 'flatMap' });
+    expect(lookupJsMember('hasOwnProperty')).toEqual({ name: 'hasOwnProperty', alternative: 'Coisa.tem' });
     expect(lookupJsMember('gato')).toBeUndefined();
   });
 });

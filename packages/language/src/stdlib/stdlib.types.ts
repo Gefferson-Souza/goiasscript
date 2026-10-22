@@ -18,6 +18,7 @@ export interface StdlibEntry {
   readonly origin: StdlibOrigin;
   readonly arity: Arity;
   readonly helperName?: string;
+  readonly requiresAsync?: boolean;
   readonly alternatives?: readonly string[];
   readonly since: string;
   readonly deprecatedIn?: string;
