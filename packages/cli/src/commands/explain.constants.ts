@@ -9,6 +9,8 @@ export const EXPLAIN_HEADINGS = {
   lesson: 'Lição:',
 } as const;
 
+export const NO_LESSON_FALLBACK = 'sem lição específica, dá uma olhada na cartilha geral.';
+
 export const EXPLAIN_LISTING_HINT = {
   root: 'Pra ver um por um, roda "goiasscript explica GS0301", por exemplo.',
   neutral: 'Para ver um deles, use "goiasscript explica GS0301", por exemplo.',

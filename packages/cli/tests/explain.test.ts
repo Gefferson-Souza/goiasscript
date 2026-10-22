@@ -41,9 +41,9 @@ describe('explica com um código', () => {
     const { io } = await run(['explica', 'GS0302']);
     expect(io.stdoutText()).toContain('  uai x é 1\n  x é 2');
   });
-  it('omite a seção de lição quando o catálogo não tem lição', async () => {
+  it('mostra texto neutro de lição quando o catálogo não tem lição', async () => {
     const { io } = await run(['explica', 'GS0301']);
-    expect(io.stdoutText()).not.toContain('Lição');
+    expect(io.stdoutText()).toContain('Lição: sem lição específica, dá uma olhada na cartilha geral.');
   });
 });
 
