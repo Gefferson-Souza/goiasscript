@@ -18,6 +18,11 @@ export function createLineDrain(hooks: LineDrainHooks): LineDrain {
       queue = [...queue, line];
       running ??= run();
     },
+    take() {
+      const [first, ...rest] = queue;
+      queue = rest;
+      return first;
+    },
     current: () => running,
   };
 }

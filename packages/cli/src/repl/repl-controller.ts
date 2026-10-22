@@ -26,6 +26,13 @@ export function createReplController(deps: ReplControllerDeps): ReplController {
       if (!exiting) showPrompt();
     },
   });
+  engine.onQuestion(() => {
+    while (engine.hasPendingQuestion()) {
+      const next = lines.take();
+      if (next === undefined) return;
+      engine.answer(next);
+    }
+  });
   return {
     handleLine(line) {
       if (engine.hasPendingQuestion()) engine.answer(line);

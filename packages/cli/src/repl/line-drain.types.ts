@@ -1,5 +1,6 @@
 export interface LineDrain {
   push(line: string): void;
+  take(): string | undefined;
   current(): Promise<void> | null;
 }
 

@@ -13,6 +13,7 @@ export type ReplEvaluation =
 
 export interface ReplEngine {
   evaluate(source: string): Promise<ReplEvaluation>;
+  onQuestion(listener: () => void): void;
   hasPendingQuestion(): boolean;
   answer(line: string): void;
   cancelPendingQuestion(): void;
