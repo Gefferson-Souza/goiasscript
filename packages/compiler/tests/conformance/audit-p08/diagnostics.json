@@ -1,50 +1,86 @@
 [
   {
     "code": "GS0401",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 1
+  },
+  {
+    "code": "GS0207",
+    "severity": "error",
+    "line": 1,
+    "column": 15
   },
   {
     "code": "GS0401",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 15
+  },
+  {
+    "code": "GS0202",
+    "severity": "error",
+    "line": 1,
+    "column": 15
+  },
+  {
+    "code": "GS0202",
+    "severity": "error",
+    "line": 1,
+    "column": 23
+  },
+  {
+    "code": "GS0202",
+    "severity": "error",
+    "line": 1,
+    "column": 30
+  },
+  {
+    "code": "GS0401",
+    "severity": "error",
+    "line": 2,
+    "column": 1
+  },
+  {
+    "code": "GS0401",
+    "severity": "error",
+    "line": 2,
+    "column": 7
+  },
+  {
+    "code": "GS0202",
+    "severity": "error",
+    "line": 2,
+    "column": 13
+  },
+  {
+    "code": "GS0401",
+    "severity": "error",
+    "line": 2,
+    "column": 33
   },
   {
     "code": "GS0403",
-    "line": 1
+    "severity": "error",
+    "line": 2,
+    "column": 45
+  },
+  {
+    "code": "GS0202",
+    "severity": "error",
+    "line": 2,
+    "column": 59
   },
   {
     "code": "GS0401",
-    "line": 2
-  },
-  {
-    "code": "GS0401",
-    "line": 2
-  },
-  {
-    "code": "GS0401",
-    "line": 2
-  },
-  {
-    "code": "GS0401",
-    "line": 2
+    "severity": "error",
+    "line": 2,
+    "column": 93
   },
   {
     "code": "GS0403",
-    "line": 2
-  },
-  {
-    "code": "GS0401",
-    "line": 2
-  },
-  {
-    "code": "GS0405",
-    "line": 2
-  },
-  {
-    "code": "GS0401",
-    "line": 2
-  },
-  {
-    "code": "GS0403",
-    "line": 2
+    "severity": "error",
+    "line": 2,
+    "column": 103
   }
 ]
