@@ -59,3 +59,12 @@ describe('isReservedWindowsName', () => {
     expect(isReservedWindowsName(name)).toBe(false);
   });
 });
+
+describe('nomes hostis nas mensagens', () => {
+  it('escapa ESC e quebra de linha sem alterar o stem', () => {
+    const refused = validateInputName('a\u001b]0;x\nb.txt', path.posix, 'linux');
+    expect(refused.ok).toBe(false);
+    if (!refused.ok) expect(refused.detail).not.toMatch(/\p{Cc}/u);
+    expect(validateInputName('a\u001bb.gs', path.posix, 'linux')).toEqual({ ok: true, outputStem: 'a\u001bb' });
+  });
+});

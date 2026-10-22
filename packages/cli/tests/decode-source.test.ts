@@ -54,3 +54,12 @@ describe('readSource', () => {
     expect(await readSource('pasta.gs', io)).toMatchObject({ ok: false, code: 'GS0905' });
   });
 });
+
+describe('readSource com nome hostil', () => {
+  it('escapa caracteres de controle na mensagem e no displayName', async () => {
+    const missing = await readSource('a\u001b[2Jb.gs', createMemoryIo({}));
+    expect(missing).toMatchObject({ ok: false, detail: 'não achei o arquivo "a\\x1b[2Jb.gs"' });
+    const found = await readSource('a\u001bb.gs', createMemoryIo({ files: { 'a\u001bb.gs': 'x' } }));
+    expect(found).toMatchObject({ ok: true, input: { displayName: 'a\\x1bb.gs' } });
+  });
+});
