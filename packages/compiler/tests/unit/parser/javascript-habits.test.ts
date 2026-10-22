@@ -38,4 +38,10 @@ describe('parser: hábito de JavaScript', () => {
   ])('%j reporta só a grafia de JavaScript, sem cascata: %j', (text, expected) => {
     expect(codes(parseText(text))).toEqual(expected);
   });
+  it.each([
+    ['class Cachorro extends Animal { falar() { } }', ['GS0401', 'GS0401']],
+    ['arruma_trem Cachorro inherda_de Animal { aprepara_trem() { } }', []],
+  ])('%j em classe reporta só a grafia de JavaScript: %j', (text, expected) => {
+    expect(codes(parseText(text))).toEqual(expected);
+  });
 });
