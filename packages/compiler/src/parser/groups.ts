@@ -21,7 +21,9 @@ export function groupedBody<T>(parser: Parser, close: string, parseBody: (open: 
   const open = state.advance();
   state.push('grouping');
   const value = parser.nested(open.start, () => parseBody(open), fallback);
-  const closer = expectPunctuator(parser, close);
+  // Texto sem fechar leva o resto da linha, inclusive o fecho; o erro já saiu no lexer.
+  const cutByInvalidText = state.lastToken?.kind === 'invalid' && state.rawPeek(0).kind === 'newline';
+  const closer = cutByInvalidText ? acceptPunctuator(parser, close) : expectPunctuator(parser, close);
   state.pop();
   if (closer === undefined) synchronize(parser);
   return { value, start: open.start, end: closer?.end ?? state.lastEnd };
