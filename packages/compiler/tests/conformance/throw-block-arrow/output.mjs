@@ -1,0 +1,1 @@
+const f = x => { throw new Error("a"); };

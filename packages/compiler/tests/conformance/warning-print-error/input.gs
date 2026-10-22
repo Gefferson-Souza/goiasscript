@@ -1,0 +1,1 @@
+tenta_aí { vixe("a") } se_der_ruim (erro) { prosa(erro) }

@@ -1,0 +1,1 @@
+se_ocê_quiser (certeza) { prosa(1) }
