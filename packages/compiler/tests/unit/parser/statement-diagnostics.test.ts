@@ -48,6 +48,10 @@ describe('parser: diagnósticos de instrução', () => {
     expect(codes(parseText('uai lista é [1]'))).toEqual([]);
     expect(parseText('um_tanto_de x').diagnostics[0]).toMatchObject({ code: 'GS0306', args: { gone: 'saiu da linguagem, sem substituto na v3' } });
   });
+  it('troca a instrução com palavra aposentada por nó de erro, para a análise não repetir o GS0306', () => {
+    const { program } = parseText('presta_serviço soma(a, b) { faz_favor a mais b }');
+    expect(program.body).toMatchObject([{ type: 'ErrorNode', code: 'GS0306' }]);
+  });
   it('mantém a seta async e dá GS0518 para faz_trem sem nome como valor (P6)', () => {
     expect(codes(parseText('uai f é vai_na_frente x => x'))).toEqual([]);
     expect(codes(parseText('uai f é faz_trem() { }'))).toEqual(['GS0518']);
