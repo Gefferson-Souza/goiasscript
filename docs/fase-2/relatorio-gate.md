@@ -51,10 +51,14 @@ Os mutantes de `Regex` ficam excluídos (`excludedMutations`).
 
 | Medida | Atual | Teto absoluto | Catraca (1,25x) |
 | --- | --- | --- | --- |
-| `compile()` de 10 mil linhas | 112 a 137 ms conforme a carga da máquina | 150 ms | 137 ms |
+| `compile()` de 10 mil linhas | 105 a 109 ms isolado; até 133 ms dentro do verify | 150 ms | 133 ms |
 | 100 mil espaços | abaixo de 100 ms | 100 ms | n/a |
 | runtime em programa só nativo | 0 bytes | 0 bytes | n/a |
 | brotli do bundle de `src/index.ts` | 32.680 bytes | n/a | 40.850 bytes |
+
+A catraca de tempo é aplicada só pelo `bench:check`, que roda isolado na CI. Dentro do verify a suíte disputa CPU e a
+medida chegou a 133,06 ms, então lá valem só os tetos absolutos. O primeiro run da CI pode pedir recalibração da catraca
+para a máquina do GitHub.
 
 ## 5. Corpus
 
