@@ -8,4 +8,5 @@ export interface JsReservedEntry {
 export interface JsMemberEntry {
   readonly name: string;
   readonly equivalent?: string;
+  readonly alternative?: string;
 }

@@ -7,7 +7,7 @@ export const HINTS_DIAGNOSTICS: readonly DiagnosticDefinition[] = [
   d('GS0803', 'warning', 'Código depois de faz_favor', t('Esse código nunca roda: vem depois do "faz_favor".', 'Código inalcançável depois de "faz_favor".'), 'faz_trem f() {\n  faz_favor 1\n  prosa(2)\n}'),
   d('GS0804', 'warning', 'Declaração esconde nome da biblioteca', t('Cuidado, sô: "{name}" já é nome da biblioteca. O seu esconde o dela aqui.', '"{name}" esconde um nome da biblioteca padrão neste escopo.'), 'uai Data é 1'),
   d('GS0805', 'warning', 'Vírgula decimal em argumentos', t('Ô sô, "{text}" vira dois valores (a vírgula separa). Decimal é com ponto.', '"{text}" é lido como dois valores. Use ponto decimal.'), 'prosa(1.000,50)'),
-  d('GS0806', 'warning', 'Expressão sem efeito', t('Esse trem não faz nada, sô.[[ Pra somar, é "{suggestion}".]]', 'A expressão não tem efeito.[[ Para somar, use "{suggestion}".]]'), 'trem i é 0\ni mais 1'),
+  d('GS0806', 'warning', 'Expressão sem efeito', t('Esse trem não faz nada, sô.[[ Pra recalcular, é "{suggestion}".]]', 'A expressão não tem efeito.[[ Para recalcular, use "{suggestion}".]]'), 'trem i é 0\ni mais 1'),
   d('GS0807', 'warning', 'Erro passado direto', t('Passou o erro direto pro "{name}", sô. Usa "erro.mensagem".', 'O erro foi passado direto para "{name}". Use "erro.mensagem".'), 'tenta_aí {\n  vixe("a")\n} se_der_ruim (erro) {\n  prosa(erro)\n}'),
   d('GS0809', 'warning', 'Acesso por texto a nome da biblioteca', t('Acessar por texto não troca o nome da biblioteca, sô. Usa o ponto.', 'O acesso por texto não é traduzido para a biblioteca. Use ".".'), 'uai l é []\nprosa(l["mapear"])'),
 ];

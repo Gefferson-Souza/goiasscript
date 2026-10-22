@@ -1,6 +1,6 @@
 import { DIAGNOSTICS } from './diagnostics/index.ts';
 import type { DiagnosticDefinition } from './diagnostics/diagnostics.types.ts';
-import { JS_MEMBER_EXTRA_EQUIVALENTS, JS_RESERVED } from './js/js-reserved.data.ts';
+import { JS_MEMBER_ALTERNATIVES, JS_MEMBER_EXTRA_EQUIVALENTS, JS_RESERVED } from './js/js-reserved.data.ts';
 import { JS_MEMBER_NAMES } from './js/js-members.generated.ts';
 import type { JsMemberEntry, JsReservedEntry } from './js/js-reserved.types.ts';
 import { KEYWORDS } from './keywords/keywords.data.ts';
@@ -39,5 +39,6 @@ export const lookupStdlibStatic = (namespace: string, member: string): StdlibEnt
 export function lookupJsMember(name: string): JsMemberEntry | undefined {
   if (!JS_MEMBER_SET.has(name)) return undefined;
   const equivalent = EQUIVALENT_BY_JS_NAME.get(name);
-  return equivalent === undefined ? { name } : { name, equivalent };
+  const alternative = JS_MEMBER_ALTERNATIVES[name];
+  return { name, ...(equivalent === undefined ? {} : { equivalent }), ...(alternative === undefined ? {} : { alternative }) };
 }
