@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitest/config';
 
 const COVERAGE_MINIMUM = 80;
+const COVERAGE_RUN = process.argv.includes('--coverage');
 const perPackage = { lines: COVERAGE_MINIMUM, functions: COVERAGE_MINIMUM, branches: COVERAGE_MINIMUM, statements: COVERAGE_MINIMUM };
 
 export default defineConfig({
@@ -8,7 +9,7 @@ export default defineConfig({
     projects: [
       'packages/language',
       // Os testes de tempo medem relógio: arquivos em paralelo sob cobertura geram falso positivo.
-      { test: { name: 'compiler', root: 'packages/compiler', fileParallelism: false } },
+      { test: { name: 'compiler', root: 'packages/compiler', fileParallelism: false, env: { GS_TIMING_BUDGETS: COVERAGE_RUN ? 'skip' : 'enforce' } } },
       'packages/optimizer',
       'tools/*',
     ],
