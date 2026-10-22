@@ -20,7 +20,7 @@ export const COMMANDS: readonly CommandSpec[] = [
   },
   {
     id: 'explain', name: 'explica', summary: 'explica um erro com exemplo e lição', neutralSummary: 'explica um diagnóstico com exemplo e lição',
-    usage: 'explica GS0301', options: ['tone'], positionalNoun: 'código', positionals: { min: 1, max: 1 }, acceptsStdin: false,
+    usage: 'explica [GS0301]', options: ['tone'], positionalNoun: 'código', positionals: { min: 0, max: 1 }, acceptsStdin: false,
   },
   {
     id: 'info', name: 'dedo_de_prosa', summary: 'mostra a versão e umas informações', neutralSummary: 'mostra a versão e informações',
