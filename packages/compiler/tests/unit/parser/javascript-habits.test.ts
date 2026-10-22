@@ -28,4 +28,14 @@ describe('parser: hábito de JavaScript', () => {
   it('não dá GS04xx para palavra goiana nem para nome comum', () => {
     expect(codes(parseText('uai lista é [1]\nuai e é 2\nuai fazer é 3'))).toEqual([]);
   });
+  it.each([
+    ['se_ocê_quiser (a) { } else { }', ['GS0401']],
+    ['se_ocê_quiser (a) { }\nelse { }', ['GS0401']],
+    ['se_ocê_quiser (a) { } else if (b) { }', ['GS0401', 'GS0401']],
+    ['tenta_aí { } catch (e) { }', ['GS0401']],
+    ['tenta_aí { } se_der_ruim (e) { } finally { }', ['GS0401']],
+    ['async function f() { }', ['GS0401', 'GS0401']],
+  ])('%j reporta só a grafia de JavaScript, sem cascata: %j', (text, expected) => {
+    expect(codes(parseText(text))).toEqual(expected);
+  });
 });

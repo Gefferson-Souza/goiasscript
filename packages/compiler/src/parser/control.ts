@@ -6,6 +6,7 @@ import { parseBindingName, parseVariableDeclaration } from './declarations.ts';
 import { expectPunctuator } from './expect.ts';
 import { groupedBody } from './groups.ts';
 import { continuesWith } from './layout.ts';
+import { adoptJsWord } from './subset-checks.ts';
 import { CODES } from './parser.constants.ts';
 import type { Parser } from './parser.types.ts';
 import { errorNode, foundOf, reportUnexpected } from './recovery.ts';
@@ -37,7 +38,9 @@ function parseAlternate(parser: Parser): IfStatement | BlockStatement | null {
   const fallback: BlockStatement = { type: 'BlockStatement', body: [], synthetic: true, start: token.start, end: token.start };
   if (!isKeyword(token, 'else if')) {
     state.advance();
-    return parser.parseBlock();
+    if (state.current().kind !== 'identifier' || state.current().value !== 'if') return parser.parseBlock();
+    adoptJsWord(parser);
+    return parser.nested<IfStatement | BlockStatement>(token.start, () => parseIf(parser), fallback);
   }
   return parser.nested<IfStatement | BlockStatement>(token.start, () => parseIf(parser), fallback);
 }
