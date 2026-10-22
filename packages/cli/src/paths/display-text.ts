@@ -1,9 +1,14 @@
-const CONTROL_CHARACTERS = /\p{Cc}/gu;
+const UNSAFE_CHARACTERS = /[\p{Cc}\p{Cf}\p{Zl}\p{Zp}]/gu;
 const HEX_RADIX = 16;
-const ESCAPE_WIDTH = 2;
+const SHORT_ESCAPE_WIDTH = 2;
+const LONG_ESCAPE_WIDTH = 4;
+const SHORT_ESCAPE_LIMIT = 0xff;
 
-const escapeControl = (character: string): string =>
-  `\\x${(character.codePointAt(0) ?? 0).toString(HEX_RADIX).padStart(ESCAPE_WIDTH, '0')}`;
+const escapeUnsafe = (character: string): string => {
+  const code = character.codePointAt(0) ?? 0;
+  const hex = code.toString(HEX_RADIX);
+  return code <= SHORT_ESCAPE_LIMIT ? `\\x${hex.padStart(SHORT_ESCAPE_WIDTH, '0')}` : `\\u${hex.padStart(LONG_ESCAPE_WIDTH, '0')}`;
+};
 
-// Nome de arquivo é entrada hostil: ESC, OSC, C1 e quebra de linha não podem chegar crus ao terminal.
-export const printableName = (name: string): string => name.replace(CONTROL_CHARACTERS, escapeControl);
+// Nome de arquivo é entrada hostil: ESC, OSC, C1, bidi e quebra de linha não podem chegar crus ao terminal.
+export const printableName = (name: string): string => name.replace(UNSAFE_CHARACTERS, escapeUnsafe);
