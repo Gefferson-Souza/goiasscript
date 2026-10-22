@@ -1,7 +1,7 @@
 import vm from 'node:vm';
 import { translateRuntimeError } from '@goiasscript/compiler';
 import { formatEcho } from './echo.ts';
-import { ASYNC_WRAPPER_PATTERN, CANCELLED, INTERRUPTION_CODES, REPL_FILE_NAME } from './repl.constants.ts';
+import { CANCELLED, INTERRUPTION_CODES, REPL_FILE_NAME } from './repl.constants.ts';
 import type { EntryRequest, ReplEvaluation } from './repl.types.ts';
 
 const isThenable = (value: unknown): value is PromiseLike<unknown> =>
@@ -14,7 +14,7 @@ function evaluateScript(request: EntryRequest): unknown {
   const { compiled, context, timeoutMs, cancellation } = request;
   const script = new vm.Script(compiled.code, { filename: REPL_FILE_NAME });
   const returned: unknown = script.runInContext(context, { breakOnSigint: true, ...(timeoutMs === undefined ? {} : { timeout: timeoutMs }) });
-  return ASYNC_WRAPPER_PATTERN.test(compiled.code) && isThenable(returned) ? Promise.race([returned, cancellation]) : returned;
+  return compiled.awaitable && isThenable(returned) ? Promise.race([returned, cancellation]) : returned;
 }
 
 export async function runEntry(request: EntryRequest): Promise<ReplEvaluation> {
