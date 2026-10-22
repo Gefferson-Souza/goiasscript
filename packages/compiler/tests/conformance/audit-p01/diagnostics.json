@@ -1,46 +1,74 @@
 [
   {
     "code": "GS0401",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 1
+  },
+  {
+    "code": "GS0406",
+    "severity": "error",
+    "line": 1,
+    "column": 16
   },
   {
     "code": "GS0401",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 36
   },
   {
     "code": "GS0404",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 46
   },
   {
     "code": "GS0401",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 66
   },
   {
     "code": "GS0501",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 73
   },
   {
     "code": "GS0401",
-    "line": 2
+    "severity": "error",
+    "line": 2,
+    "column": 1
   },
   {
     "code": "GS0401",
-    "line": 2
+    "severity": "error",
+    "line": 2,
+    "column": 16
   },
   {
     "code": "GS0401",
-    "line": 2
+    "severity": "error",
+    "line": 2,
+    "column": 43
   },
   {
     "code": "GS0501",
-    "line": 2
+    "severity": "error",
+    "line": 2,
+    "column": 50
   },
   {
     "code": "GS0403",
-    "line": 3
+    "severity": "error",
+    "line": 3,
+    "column": 1
   },
   {
     "code": "GS0401",
-    "line": 3
+    "severity": "error",
+    "line": 3,
+    "column": 13
   }
 ]
