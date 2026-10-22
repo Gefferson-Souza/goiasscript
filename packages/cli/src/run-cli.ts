@@ -1,5 +1,6 @@
 import type { Tone } from '@goiasscript/compiler';
 import { parseCommandLine } from './args/parse-args.ts';
+import { toneOf } from './args/tone-argument.ts';
 import { resolveCommandName, suggestCommandName } from './args/resolve-command.ts';
 import { COMMAND_HANDLERS } from './commands/registry.ts';
 import type { CliDependencies } from './commands/command.types.ts';
@@ -11,17 +12,9 @@ import { isSupportedNode, MINIMUM_NODE_LABEL } from './node-version.ts';
 import { chooseByTone } from './tone-choice.ts';
 import { renderToolNotice } from './tool-notice.ts';
 
-const TONE_FLAG = '--tom';
-const NEUTRAL_TONE: Tone = 'neutro';
 const DEFAULT_TONE: Tone = 'raiz';
 const suggestionLine = (tone: Tone, name: string): string => chooseByTone(tone, `Cê quis dizer "${name}"?`, `Você quis dizer "${name}"?`);
 const HELP_LIKE = new Set(['--help', '-h', '--version', '-v', '-V']);
-
-function toneOf(argv: readonly string[]): Tone {
-  const flagIndex = argv.indexOf(TONE_FLAG);
-  const inline = argv.includes(`${TONE_FLAG}=${NEUTRAL_TONE}`);
-  return inline || (flagIndex >= 0 && argv[flagIndex + 1] === NEUTRAL_TONE) ? NEUTRAL_TONE : DEFAULT_TONE;
-}
 
 function warnOldNode(io: CliIo, tone: Tone): void {
   if (isSupportedNode(io.env.nodeVersion)) return;
