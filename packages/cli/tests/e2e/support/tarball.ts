@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { promisify } from 'node:util';
-import type { InstalledProcess, InstalledRun, InstalledRunOptions, PackedTarball } from './tarball.types.ts';
+import type { InstalledProcess, InstalledRun, InstalledRunOptions, PackedTarball, ShimArgument, ShimName } from './tarball.types.ts';
 
 const execFileAsync = promisify(execFile);
 const TARBALL_ENV = 'GS_TARBALL';
@@ -57,6 +57,8 @@ export function fixture(files: Readonly<Record<string, string>>): string {
   const directory = makeWorkspace('gs-fixture-');
   Object.entries(files).forEach(([name, content]) => {
     const target = path.join(directory, name);
+    const relative = path.relative(directory, target);
+    if (relative.startsWith('..') || path.isAbsolute(relative)) throw new Error(`nome de fixture fora do diretório: ${name}`);
     fs.mkdirSync(path.dirname(target), { recursive: true });
     fs.writeFileSync(target, content);
   });
@@ -97,11 +99,24 @@ const PACKAGE_NAME = 'goiasscript';
 const BIN_RELATIVE = ['node_modules', PACKAGE_NAME, 'dist', 'goiasscript.mjs'] as const;
 const NPM_CLI_SEGMENTS = ['node_modules', 'npm', 'bin', 'npm-cli.js'] as const;
 
-function npmCliPath(): string {
+const NPM_CLI_FILE = 'npm-cli.js';
+
+// Sob "pnpm run" o npm_execpath aponta para o pnpm; só vale se for o npm-cli.js.
+function npmCliCandidates(): readonly string[] {
   const nodeDir = path.dirname(process.execPath);
-  const candidates = [path.join(nodeDir, ...NPM_CLI_SEGMENTS), path.join(nodeDir, '..', 'lib', ...NPM_CLI_SEGMENTS)];
-  const found = candidates.find((candidate) => fs.existsSync(candidate));
-  if (found === undefined) throw new Error('npm-cli.js não encontrado ao lado do Node em uso');
+  const execPath = process.env['npm_execpath'];
+  const fromEnv = execPath !== undefined && path.basename(execPath) === NPM_CLI_FILE ? [execPath] : [];
+  const besideNode = [path.join(nodeDir, ...NPM_CLI_SEGMENTS), path.join(nodeDir, '..', 'lib', ...NPM_CLI_SEGMENTS)];
+  const onPath = (process.env['PATH'] ?? '')
+    .split(path.delimiter)
+    .filter((entry) => entry !== '')
+    .flatMap((entry) => [path.join(entry, ...NPM_CLI_SEGMENTS), path.join(entry, '..', 'lib', ...NPM_CLI_SEGMENTS)]);
+  return [...fromEnv, ...besideNode, ...onPath];
+}
+
+function npmCliPath(): string {
+  const found = npmCliCandidates().find((candidate) => fs.existsSync(candidate));
+  if (found === undefined) throw new Error('npm-cli.js não encontrado (npm_execpath, ao lado do Node ou no PATH)');
   return found;
 }
 
@@ -172,7 +187,8 @@ export async function runInstalled(args: readonly string[], options: InstalledRu
   return running.result;
 }
 
-export async function runShim(shim: 'goiasscript' | 'goias', args: readonly string[], options: InstalledRunOptions = {}): Promise<InstalledRun> {
+// Os argumentos são um conjunto literal fixo: no Windows o cmd.exe interpreta metacaracteres.
+export async function runShim(shim: ShimName, args: readonly ShimArgument[], options: InstalledRunOptions = {}): Promise<InstalledRun> {
   const installDir = await getInstallDir();
   const bin = path.join(installDir, 'node_modules', '.bin');
   const windows = process.platform === 'win32';

@@ -21,3 +21,7 @@ export interface InstalledProcess {
   readonly stdin: NodeJS.WritableStream;
   readonly result: Promise<InstalledRun>;
 }
+
+export type ShimName = 'goiasscript' | 'goias';
+
+export type ShimArgument = 'dedo_de_prosa';
