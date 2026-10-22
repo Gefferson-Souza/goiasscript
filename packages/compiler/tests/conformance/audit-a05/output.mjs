@@ -1,0 +1,1 @@
+const emprego = "dev"; console.log(emprego);

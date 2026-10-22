@@ -1,0 +1,1 @@
+const uaizinho = 3; console.log(uaizinho);

@@ -1,0 +1,1 @@
+const maisum = 2; console.log(maisum);

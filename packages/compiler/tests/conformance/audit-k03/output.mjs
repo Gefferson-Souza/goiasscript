@@ -1,0 +1,1 @@
+for (const i in "ab") { console.log(i); }

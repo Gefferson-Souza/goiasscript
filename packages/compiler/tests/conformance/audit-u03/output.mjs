@@ -1,0 +1,1 @@
+const café = 1; const cafemais = 2; console.log(café + cafemais);

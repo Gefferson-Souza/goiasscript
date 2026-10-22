@@ -1,58 +1,86 @@
 [
   {
     "code": "GS0401",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 1
   },
   {
     "code": "GS0404",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 9
   },
   {
     "code": "GS0405",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 24
   },
   {
     "code": "GS0405",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 35
   },
   {
     "code": "GS0403",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 47
   },
   {
     "code": "GS0405",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 61
   },
   {
     "code": "GS0405",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 70
   },
   {
     "code": "GS0405",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 81
   },
   {
     "code": "GS0405",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 100
   },
   {
     "code": "GS0405",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 117
   },
   {
     "code": "GS0405",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 155
   },
   {
     "code": "GS0405",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 173
   },
   {
     "code": "GS0405",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 194
   },
   {
     "code": "GS0405",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 216
   }
 ]

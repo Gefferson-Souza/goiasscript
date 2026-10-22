@@ -1,0 +1,1 @@
+const certeza2 = true; console.log(certeza2);

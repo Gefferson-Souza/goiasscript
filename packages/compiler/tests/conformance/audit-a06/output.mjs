@@ -1,0 +1,1 @@
+const desde = 2020; console.log(desde);

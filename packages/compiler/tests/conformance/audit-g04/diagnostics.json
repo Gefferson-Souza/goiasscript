@@ -1,10 +1,14 @@
 [
   {
     "code": "GS0401",
-    "line": 7
+    "severity": "error",
+    "line": 7,
+    "column": 25
   },
   {
     "code": "GS0401",
-    "line": 8
+    "severity": "error",
+    "line": 8,
+    "column": 23
   }
 ]
