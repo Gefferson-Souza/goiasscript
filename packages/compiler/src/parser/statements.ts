@@ -130,19 +130,20 @@ function skipRetiredConstruct(parser: Parser): void {
 }
 
 // Palavra de versão anterior sozinha no início da instrução: GS0306 no lugar do GS0202 que viria.
-function reportRetiredWord(parser: Parser, expression: Expression): void {
+function reportRetiredWord(parser: Parser, expression: Expression): boolean {
   const retired = expression.type === 'Identifier' ? lookupRetiredWord(expression.name) : undefined;
-  if (retired === undefined || isStatementEnd(parser.state.current())) return;
+  if (retired === undefined || isStatementEnd(parser.state.current())) return false;
   const detail = retired.replacement === undefined ? { gone: GONE_PHRASE } : { replacement: retired.replacement };
   parser.state.report(CODES.retiredWord, expression.start, expression.end, { word: retired.word, ...detail });
   skipRetiredConstruct(parser);
+  return true;
 }
 
 function parseSimpleExpression(parser: Parser): Statement {
   const statement = parseExpressionStatement(parser);
-  reportRetiredWord(parser, statement.expression);
+  const reported = reportRetiredWord(parser, statement.expression);
   endSimpleStatement(parser);
-  return statement;
+  return reported ? errorNode(CODES.retiredWord, statement.start, parser.state.lastEnd) : statement;
 }
 
 function parseAsyncStatement(parser: Parser): Statement {
