@@ -1,6 +1,7 @@
 import fc from 'fast-check';
 import { describe, expect, it } from 'vitest';
 import { lexAll } from '../../support/lex.ts';
+import { expectWithinBudget } from '../../support/timing.ts';
 
 const MAX_MILLISECONDS = 1500;
 const REPETITIONS = 100_000;
@@ -43,7 +44,7 @@ describe('lexer: robustez', () => {
     ['textos sem fechar', '"\n'],
     ['textos', '"a" '],
   ])('lê 100 mil repetições de %s em tempo linear', (_name, unit) => {
-    expect(elapsedFor(unit.repeat(REPETITIONS))).toBeLessThan(MAX_MILLISECONDS);
+    expectWithinBudget(elapsedFor(unit.repeat(REPETITIONS)), MAX_MILLISECONDS);
   });
   it('junta 100 mil espaços em uma trivia só', () => {
     const { tokens } = lexAll(' '.repeat(REPETITIONS));
@@ -51,6 +52,6 @@ describe('lexer: robustez', () => {
     expect(tokens[0]?.leadingTrivia).toHaveLength(1);
   });
   it('lê um texto enorme com muitos templates e aspas desencontradas', () => {
-    expect(elapsedFor('`${"'.repeat(REPETITIONS))).toBeLessThan(MAX_MILLISECONDS);
+    expectWithinBudget(elapsedFor('`${"'.repeat(REPETITIONS)), MAX_MILLISECONDS);
   });
 });

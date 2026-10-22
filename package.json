@@ -70,6 +70,9 @@
       "sharp@0.33.5": "^0.35.5",
       "semver@7.0.0": "^7.5.2",
       "postcss-selector-parser@6.1.5": "^7.1.6"
+    },
+    "patchedDependencies": {
+      "@stryker-mutator/vitest-runner@10.0.0": "patches/@stryker-mutator__vitest-runner@10.0.0.patch"
     }
   }
 }
