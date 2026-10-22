@@ -27,6 +27,34 @@ describe('createNodeFileSystem', () => {
     expect(fs.readFileSync(target, 'utf8')).toBe('dois');
   });
 
+  it('replace troca o arquivo por rename atômico e não deixa temporário', async () => {
+    const dir = path.join(scratch, 'atomic');
+    fs.mkdirSync(dir);
+    const target = path.join(dir, 'c.mjs');
+    await nodeFs.writeText(target, 'um', 'create-new');
+    await nodeFs.writeText(target, 'dois', 'replace');
+    expect(fs.readdirSync(dir)).toEqual(['c.mjs']);
+  });
+
+  it('replace sobre symlink troca o link e preserva o alvo', async () => {
+    const outside = path.join(scratch, 'alvo.txt');
+    fs.writeFileSync(outside, 'intacto');
+    const link = path.join(scratch, 'link.mjs');
+    fs.symlinkSync(outside, link);
+    await nodeFs.writeText(link, 'novo', 'replace');
+    expect(fs.readFileSync(outside, 'utf8')).toBe('intacto');
+    expect(fs.lstatSync(link).isSymbolicLink()).toBe(false);
+    expect(fs.readFileSync(link, 'utf8')).toBe('novo');
+  });
+
+  it('replace com falha não deixa temporário para trás', async () => {
+    const dir = path.join(scratch, 'broken');
+    fs.mkdirSync(dir);
+    fs.mkdirSync(path.join(dir, 'd.mjs'));
+    await expect(nodeFs.writeText(path.join(dir, 'd.mjs'), 'x', 'replace')).rejects.toBeInstanceOf(CliFileError);
+    expect(fs.readdirSync(dir)).toEqual(['d.mjs']);
+  });
+
   it('identity iguala link físico ao original e distingue arquivos diferentes', async () => {
     const original = path.join(scratch, 'x.gs');
     fs.writeFileSync(original, 'prosa(1)');
