@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { promisify } from 'node:util';
 import type { InstalledProcess, InstalledRun, InstalledRunOptions, PackedTarball, ShimArgument, ShimName } from './tarball.types.ts';
 
@@ -170,7 +171,8 @@ export async function startInstalled(args: readonly string[], options: Installed
   const loadLog = path.join(scratch, 'loaded.log');
   fs.writeFileSync(preload, PRELOAD_SOURCE);
   fs.writeFileSync(loadLog, '');
-  const preloadArgs = options.trackModules === true ? ['--import', preload] : [];
+  // No Windows o caminho com letra de unidade em --import vira URL de esquema "d:" e o Node recusa.
+  const preloadArgs = options.trackModules === true ? ['--import', pathToFileURL(preload).href] : [];
   const child = spawn(process.execPath, [...preloadArgs, path.join(installDir, ...BIN_RELATIVE), ...args], {
     cwd: options.cwd ?? scratch,
     shell: false,
