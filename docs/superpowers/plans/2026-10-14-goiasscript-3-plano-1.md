@@ -287,6 +287,7 @@ export function createLexer(source: SourceText): Lexer;
 // Identifier.reservedKeyword?: KeywordEntry (keyword em posição de nome; a análise dá GS0303);
 // ThrowStatement.arguments: readonly Expression[] (GS0206 se o total não for 1). ParseResult.diagnostics já traz
 // os do lexer, ordenados por start.
+// FunctionDeclaration.asyncToken?: Token (o vai_na_frente separado de faz_trem); forEachChild(node, visit) em ast/walk.ts.
 export function walk(node: Node, visit: (node: Node) => void): void;   // ast/walk.ts, pré-ordem, sem mutar
 export interface ParseResult { readonly program: Program; readonly diagnostics: readonly RawDiagnostic[]; readonly incomplete: boolean }
 export function parse(source: SourceText, lexer: Lexer, options: { readonly target: CompileTarget }): ParseResult;
