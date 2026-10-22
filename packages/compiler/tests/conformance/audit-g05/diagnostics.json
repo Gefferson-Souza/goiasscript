@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "code": "GS0301",
+    "severity": "error",
+    "line": 2,
+    "column": 34
+  },
+  {
+    "code": "GS0305",
+    "severity": "error",
+    "line": 5,
+    "column": 8
+  },
+  {
+    "code": "GS0305",
+    "severity": "error",
+    "line": 5,
+    "column": 49
+  }
+]
