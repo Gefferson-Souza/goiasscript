@@ -5,7 +5,13 @@ const perPackage = { lines: COVERAGE_MINIMUM, functions: COVERAGE_MINIMUM, branc
 
 export default defineConfig({
   test: {
-    projects: ['packages/language', 'packages/compiler', 'packages/optimizer', 'tools/*'],
+    projects: [
+      'packages/language',
+      // Os testes de tempo medem relógio: arquivos em paralelo sob cobertura geram falso positivo.
+      { test: { name: 'compiler', root: 'packages/compiler', fileParallelism: false } },
+      'packages/optimizer',
+      'tools/*',
+    ],
     passWithNoTests: true,
     coverage: {
       provider: 'v8',

@@ -106,7 +106,7 @@ function parseStrayContinuation(parser: Parser): Statement {
   const state = parser.state;
   const token = state.advance();
   state.report(CODES.orphanContinuation, token.start, token.end, { found: token.text });
-  const fallback = errorNode(CODES.tooDeep, token.end, token.end);
+  const fallback = errorNode(CODES.orphanContinuation, token.end, token.end);
   if (isPunctuator(state.current(), '(')) groupedBody(parser, ')', () => parser.parseExpression(), fallback);
   skipBlockBreak(state);
   if (isPunctuator(state.current(), '{')) parser.parseBlock();

@@ -2,7 +2,7 @@ import fc from 'fast-check';
 import { describe, expect, it } from 'vitest';
 import { lexAll } from '../../support/lex.ts';
 
-const MAX_MILLISECONDS = 3000;
+const MAX_MILLISECONDS = 1500;
 const REPETITIONS = 100_000;
 const FUZZ_RUNS = 300;
 
