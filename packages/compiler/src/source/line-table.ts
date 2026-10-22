@@ -4,7 +4,7 @@ const LINE_BREAK = /\r\n|\r|\n/gu;
 // O BOM não conta como coluna: o editor não o mostra.
 export function computeLineStarts(text: string): readonly number[] {
   const firstLineStart = text.codePointAt(0) === BYTE_ORDER_MARK ? 1 : 0;
-  return [firstLineStart, ...[...text.matchAll(LINE_BREAK)].map((match) => match.index + match[0].length)];
+  return [firstLineStart, ...Array.from(text.matchAll(LINE_BREAK), (match) => match.index + match[0].length)];
 }
 
 export function lineIndexOf(lineStarts: readonly number[], offset: number): number {
