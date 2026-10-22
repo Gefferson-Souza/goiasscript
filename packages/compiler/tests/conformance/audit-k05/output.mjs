@@ -1,0 +1,1 @@
+const GoianoMath = 1; console.log(GoianoMath);
