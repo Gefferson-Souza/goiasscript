@@ -3,7 +3,7 @@ import type { AstNode, ClassDeclaration, FunctionDeclaration, Program, Statement
 import { isAskCall } from '../lowering/await-edits.ts';
 import type { Edit, EditContext } from '../lowering/edit.types.ts';
 import { lineBreaksOf } from '../lowering/line-breaks.ts';
-import { childrenOf } from '../lowering/traversal.ts';
+import { childrenOf } from '../ast/walk.ts';
 import { STRICT_DIRECTIVE } from './playground-target.ts';
 
 const ASYNC_OPENING = '(async () => { ';
