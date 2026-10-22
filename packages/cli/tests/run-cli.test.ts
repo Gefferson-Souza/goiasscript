@@ -84,7 +84,7 @@ describe('runCli: robustez do uso incorreto', () => {
     expect((await run(['traduza', '--tom=neutro'])).io.stderrText()).toContain('Comando ou opção desconhecidos');
   });
   it('o comando ainda não pronto respeita --tom neutro', async () => {
-    const { io, code } = await run(['arma_o_barraco', 'x', '--tom', 'neutro']);
+    const { io, code } = await run(['bota_pra_moer', 'x.gs', '--tom', 'neutro']);
     expect(code).toBe(EXIT_CODE.usage);
     expect(io.stderrText()).toContain('ainda não está disponível');
   });
