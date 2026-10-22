@@ -4,5 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "exports": { ".": "./src/index.ts" },
-  "engines": { "node": ">=22.12" }
+  "engines": { "node": ">=22.12" },
+  "dependencies": {
+    "@goiasscript/compiler": "workspace:*",
+    "terser": "5.51.2"
+  },
+  "devDependencies": {
+    "@jridgewell/trace-mapping": "0.3.31"
+  }
 }
