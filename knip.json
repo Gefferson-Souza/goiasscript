@@ -56,14 +56,12 @@
     "packages/cli": {
       "entry": [
         "src/entry/*.ts",
-        "tests/**/*.test.ts"
+        "tests/**/*.test.ts",
+        "tests/e2e/**/*.e2e.ts"
       ],
       "project": [
         "src/**/*.ts",
         "tests/**/*.ts"
-      ],
-      "ignoreDependencies": [
-        "esbuild"
       ]
     },
     "tools/rules-scan": {
