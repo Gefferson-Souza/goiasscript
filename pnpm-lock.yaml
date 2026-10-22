@@ -151,6 +151,9 @@ importers:
         specifier: workspace:*
         version: link:../language
     devDependencies:
+      acorn:
+        specifier: 8.19.0
+        version: 8.19.0
       fast-check:
         specifier: 4.10.2
         version: 4.10.2

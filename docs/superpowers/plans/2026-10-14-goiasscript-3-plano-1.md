@@ -308,7 +308,9 @@ export function analyze(program: Program, source: SourceText, options: { readonl
 // packages/compiler/src/lowering/edit.types.ts
 export interface Edit { readonly start: number; readonly end: number; readonly text: string; readonly order: number }
 export interface LoweringResult { readonly edits: readonly Edit[]; readonly helpers: readonly string[] /* helperName */ }
-export function lower(program: Program, analysis: AnalysisResult, source: SourceText, options: { readonly target: CompileTarget; readonly loopLimit?: number; readonly session?: ReplSession }): LoweringResult;
+export interface EditContext { readonly source: SourceText; readonly analysis: AnalysisResult; readonly target: CompileTarget; readonly nextOrder: () => number; readonly session?: ReplSession }
+export interface LowerOptions { readonly target: CompileTarget; readonly loopLimit?: number; readonly session?: ReplSession }
+export function lower(program: Program, analysis: AnalysisResult, source: SourceText, options: LowerOptions): LoweringResult;
 export function applyEdits(source: SourceText, edits: readonly Edit[]): { readonly code: string; readonly segments: readonly MappingSegment[] };
 export interface MappingSegment {
   readonly generatedOffset: number; readonly originalOffset: number | null;
@@ -316,7 +318,7 @@ export interface MappingSegment {
 }
 
 // packages/compiler/src/targets/module-target.ts — ponto único que encadeia lower, applyEdits e os ajudantes
-export function emitProgram(program: Program, analysis: AnalysisResult, source: SourceText, options: { readonly target: CompileTarget; readonly loopLimit?: number; readonly session?: ReplSession }): { readonly code: string; readonly segments: readonly MappingSegment[]; readonly helperRange: LineRange | null; readonly helpers: readonly string[] };
+export function emitProgram(program: Program, analysis: AnalysisResult, source: SourceText, options: LowerOptions): { readonly code: string; readonly segments: readonly MappingSegment[]; readonly helperRange: LineRange | null; readonly helpers: readonly string[] };
 
 // packages/compiler/src/sourcemap/source-map.ts
 export function buildSourceMap(source: SourceText, generatedCode: string, segments: readonly MappingSegment[]): SourceMapV3; // ajudantes nascem sem segmento
@@ -7394,7 +7396,7 @@ describe('sessão do REPL', () => {
 **Files:**
 - Create: `packages/compiler/src/lowering/{edit.types.ts,lower.ts,traversal.ts,keyword-edits.ts,library-edits.ts,macro-edits.ts,await-edits.ts,terminator-edits.ts,nfc-edits.ts,token-separation.ts,apply-edits.ts}`, `packages/compiler/src/helpers/{helper-sources.ts,emit-helpers.ts}`, `packages/compiler/src/targets/{module-target.ts,repl-target.ts,playground-target.ts,loop-guard.ts}`
 - Create: `packages/compiler/tests/support/lower.ts`
-- Test: `packages/compiler/tests/unit/lowering/{apply-edits,traversal,keywords,separation,nfc,await,vixe,terminators,macros,helpers,targets,lines}.test.ts`
+- Test: `packages/compiler/tests/unit/lowering/{apply-edits,traversal,keywords,separation,nfc,await,throw-macro,terminators,macros,helpers,targets,lines}.test.ts` (o `rules-scan` R14 recusa `vixe` em nome de arquivo e português como chave de objeto, então `helpers/helper-sources.ts` indexa os ajudantes pelo nome da função declarada)
 
 **Mutabilidade (ADR-0004):** `lowering/`, `helpers/`, `targets/` e `sourcemap/` ficam fora da exceção de `this.*`. Nenhum arquivo ali faz `push`, `add`, `set`, `splice`, `sort` ou `reverse` em coleção, nem atribui a índice ou propriedade, nem `++` em elemento. Cada família de edição é função pura `(node, parent, context) => readonly Edit[]`; as partes se juntam por `flatMap`, `map` e `join`; `.sort` vira `.toSorted`; `let` só guarda primitivo reatribuído (contador, posição, acumulador de deslocamento).
 
@@ -7839,7 +7841,7 @@ export function terminatorEdits(node: AstNode, context: EditContext): readonly E
   });
 }
 ```
-`collectEdits` chama `terminatorEdits` só para `Program.body` e `BlockStatement.body`; a declaração do cabeçalho do `vai_indo` fica fora porque não é elemento de `body`. O `end` de uma instrução não inclui o `newline` final e inclui o `;` do aluno, quando existe, o que evita duplicar.
+`collectEdits` chama `terminatorEdits` só para `Program.body` e `BlockStatement.body`; a declaração do cabeçalho do `vai_indo` fica fora porque não é elemento de `body`. O `end` de uma instrução não inclui o `newline` final nem o `;` do aluno: a checagem olha o texto logo depois do `end` (só espaço e tabulação) para não duplicar.
 - [ ] **Rodar** → passa.
 
 **Ciclo 6 — ajudantes `$gs_*` (function + var, depois da última linha)**
