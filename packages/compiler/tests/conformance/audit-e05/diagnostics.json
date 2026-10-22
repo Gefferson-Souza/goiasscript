@@ -1,14 +1,1 @@
-[
-  {
-    "code": "GS0307",
-    "severity": "error",
-    "line": 1,
-    "column": 5
-  },
-  {
-    "code": "GS0203",
-    "severity": "error",
-    "line": 2,
-    "column": 3
-  }
-]
+[]
