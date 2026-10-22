@@ -13,6 +13,7 @@
     "@goiasscript/language": "workspace:*"
   },
   "devDependencies": {
+    "@jridgewell/trace-mapping": "0.3.31",
     "acorn": "8.19.0",
     "fast-check": "4.10.2"
   }
