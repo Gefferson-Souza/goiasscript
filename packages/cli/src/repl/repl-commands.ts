@@ -1,4 +1,4 @@
-import { editDistance } from '../edit-distance.ts';
+import { editDistance } from '../args/edit-distance.ts';
 import { REPL_COMMANDS } from './repl-commands.data.ts';
 import type { ReplCommandParse } from './repl-commands.types.ts';
 

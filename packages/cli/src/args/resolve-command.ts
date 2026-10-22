@@ -1,4 +1,3 @@
-import { editDistance } from '../edit-distance.ts';
 import { COMMANDS } from './commands.data.ts';
 import type { CommandId } from './args.types.ts';
 import { editDistance } from './edit-distance.ts';
