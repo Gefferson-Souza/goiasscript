@@ -1,5 +1,6 @@
 import { compile } from '@goiasscript/compiler';
 import { describe, expect, it } from 'vitest';
+import { CliFileError } from '../src/cli-file-error.ts';
 import { runCli } from '../src/run-cli.ts';
 import { extractNextSteps } from '../src/scaffold/next-steps.ts';
 import { validateProjectName } from '../src/scaffold/project-name.ts';
@@ -58,6 +59,17 @@ describe('arma_o_barraco', () => {
     const io = createMemoryIo({ files: { 'outro.txt': 'fica' }, failingWrites: ['meu-projeto/README.md'] });
     expect(await runCli(['arma_o_barraco', 'meu-projeto'], io, deps)).toBe(3);
     expect(io.paths()).toEqual(['outro.txt']);
+  });
+  it('falha ao gravar mostra o código da causa', async () => {
+    const io = createMemoryIo({ failingWrites: ['meu-projeto/README.md'] });
+    await runCli(['arma_o_barraco', 'meu-projeto'], io, deps);
+    expect(io.stderrText()).toContain('OTHER');
+  });
+  it('falha ao criar a pasta mostra o código da causa', async () => {
+    const io = createMemoryIo();
+    const failing = { ...io, fs: { ...io.fs, makeDirectory: () => Promise.reject(new CliFileError('EACCES', 'meu-projeto')) } };
+    expect(await runCli(['arma_o_barraco', 'meu-projeto'], failing, deps)).toBe(3);
+    expect(io.stderrText()).toContain('EACCES');
   });
   it('em tom neutro imprime os mesmos passos', async () => {
     const io = createMemoryIo();
