@@ -53,6 +53,22 @@
         "tests/**/*.ts"
       ]
     },
+    "packages/cli": {
+      "entry": [
+        "src/entry/*.ts",
+        "tests/**/*.test.ts"
+      ],
+      "project": [
+        "src/**/*.ts",
+        "tests/**/*.ts"
+      ],
+      "ignoreDependencies": [
+        "@goiasscript/compiler",
+        "@goiasscript/language",
+        "@goiasscript/optimizer",
+        "esbuild"
+      ]
+    },
     "tools/rules-scan": {
       "entry": [
         "tests/**/*.test.mjs"

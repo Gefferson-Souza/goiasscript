@@ -12,6 +12,10 @@ const MUTABLE_STATE_GLOBS = ['packages/compiler/src/lexer/**/*.ts', 'packages/co
 const TS_FILES = ['packages/**/*.ts', 'tools/**/*.ts', 'scripts/**/*.ts', '*.config.mts'];
 const TEST_FILES = ['**/*.test.ts', '**/tests/**/*.ts'];
 
+const CLI_SRC_FILES = ['packages/cli/src/**/*.ts'];
+const CLI_ENTRY_FILES = ['packages/cli/src/entry/**/*.ts'];
+const PROCESS_MESSAGE = 'O processo só aparece em src/entry; o resto recebe E/S injetada.';
+
 const typeDeclarationSelectors = [
   { selector: 'ExportNamedDeclaration > TSInterfaceDeclaration', message: 'Interface exportada vive em arquivo *.types.ts.' },
   { selector: 'ExportNamedDeclaration > TSTypeAliasDeclaration', message: 'Tipo exportado vive em arquivo *.types.ts.' },
@@ -57,6 +61,20 @@ export function createConfig(projectService = true) {
       },
     },
     { files: MUTABLE_STATE_GLOBS, rules: { 'functional/immutable-data': ['error', { ignoreAccessorPattern: 'this.**' }] } },
+    {
+      files: CLI_SRC_FILES,
+      rules: {
+        'no-restricted-globals': ['error', { name: 'process', message: PROCESS_MESSAGE }],
+        'no-restricted-imports': ['error', { paths: [{ name: 'node:process', message: PROCESS_MESSAGE }, { name: 'process', message: PROCESS_MESSAGE }] }],
+      },
+    },
+    {
+      files: CLI_ENTRY_FILES,
+      rules: {
+        'no-restricted-globals': 'off',
+        'functional/immutable-data': ['error', { ignoreAccessorPattern: 'process.**' }],
+      },
+    },
     { files: ['**/*.types.ts'], rules: { 'no-restricted-syntax': ['error', swallowedCatchSelector] } },
     { files: TEST_FILES, rules: { 'max-lines-per-function': 'off', 'no-magic-numbers': 'off', '@typescript-eslint/no-magic-numbers': 'off', 'functional/immutable-data': 'off' } },
     {

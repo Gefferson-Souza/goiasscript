@@ -29,7 +29,7 @@ describe('higiene do repositório (GATE 1)', () => {
   });
   it('cobertura mínima de 80% em cada pacote', () => {
     const thresholds = config.test.coverage.thresholds;
-    expect(Object.keys(thresholds)).toHaveLength(3);
+    expect(Object.keys(thresholds)).toHaveLength(4);
     for (const limits of Object.values(thresholds)) expect(limits).toEqual({ lines: MINIMUM, functions: MINIMUM, branches: MINIMUM, statements: MINIMUM });
   });
 });

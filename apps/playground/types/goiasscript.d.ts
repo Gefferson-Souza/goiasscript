@@ -1,4 +1,4 @@
-declare module 'goiasscript/browser' {
+declare module 'goiasscript-legacy/browser' {
   export interface GoiasError {
     message: string;
     type?: string;

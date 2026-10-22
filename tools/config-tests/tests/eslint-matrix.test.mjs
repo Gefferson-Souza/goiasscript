@@ -34,6 +34,7 @@ const violations = [
   ['função acima de 50 linhas', SRC, `${NOOP}export function f(): void {\n${'  noop();\n'.repeat(49)}}\n`, 'max-lines-per-function'],
   ['aninhamento acima de 4', SRC, fn(`  ${nested}\n  f(a);\n${'}'.repeat(5)}`, 'a: boolean'), 'max-depth'],
   ['sem console', SRC, 'console.log(1);\n', 'no-console'],
+  ['sem process fora de entry', 'packages/cli/src/virtual.ts', 'export const sink = process.stdout;\n', 'no-restricted-globals'],
   ['função fora de camelCase', SRC, 'export function Foo_bar(): void {\n  return;\n}\n', '@typescript-eslint/naming-convention'],
 ];
 const accepted = [
@@ -42,6 +43,7 @@ const accepted = [
   ['this.scopes.set no analyzer', 'packages/compiler/src/analyzer/virtual.ts', holder("this.scopes.set('a', 1);"), 'functional/immutable-data'],
   ['interface em *.types.ts', 'packages/language/src/virtual.types.ts', 'export interface Entry {\n  readonly name: string;\n}\n', 'no-restricted-syntax'],
   ['catch que relança', SRC, tryCatch('\n    throw error;\n  '), 'no-restricted-syntax'],
+  ['process em entry', 'packages/cli/src/entry/virtual.ts', 'export const sink = process.stdout;\n', 'no-restricted-globals'],
 ];
 
 describe('matriz de regras do ESLint (§8.1)', () => {

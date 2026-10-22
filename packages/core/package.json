@@ -1,19 +1,13 @@
 {
-  "name": "goiasscript",
+  "name": "goiasscript-legacy",
   "version": "1.5.0",
   "description": "🇧🇷 Linguagem de programação goiana — transpila dialeto goianês para JavaScript",
-  "publishConfig": {
-    "access": "public"
-  },
+  "private": true,
   "main": "src/compiler.js",
   "exports": {
     ".": "./src/compiler.js",
     "./browser": "./src/browser.js",
     "./package.json": "./package.json"
-  },
-  "bin": {
-    "goiasscript": "./bin/goiasscript.js",
-    "goias": "./bin/goias.js"
   },
   "scripts": {
     "start": "node src/cli/index.js examples/basic/exemplo.gs",
