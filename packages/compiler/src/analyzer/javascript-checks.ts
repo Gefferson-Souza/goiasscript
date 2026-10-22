@@ -28,6 +28,11 @@ export function checkBindingName(identifier: Identifier): RawDiagnostic | undefi
   return reservedWordDiagnostic(name, start, end);
 }
 
+function withoutNameDiagnostic(name: string, start: number, end: number): RawDiagnostic {
+  const alternative = lookupJsMember(name)?.alternative;
+  return diagnostic(CODES.jsMemberWithoutName, start, end, alternative === undefined ? { name } : { name, alternative });
+}
+
 function jsMemberDiagnostic(name: string, start: number, end: number): RawDiagnostic | undefined {
   const member = lookupJsMember(name);
   if (member?.equivalent !== undefined) return diagnostic(CODES.jsMemberWithName, start, end, { name, suggestion: member.equivalent });
@@ -36,7 +41,7 @@ function jsMemberDiagnostic(name: string, start: number, end: number): RawDiagno
 
 // Chave de coisa, método de classe ou alvo `x.nome é …`: o nome nasce aqui, então só o JavaScript puro é barrado.
 export function checkDeclaredMember(name: string, start: number, end: number): RawDiagnostic | undefined {
-  if (PROTOTYPE_MEMBERS.has(name)) return diagnostic(CODES.jsMemberWithoutName, start, end, { name });
+  if (PROTOTYPE_MEMBERS.has(name)) return withoutNameDiagnostic(name, start, end);
   return jsMemberDiagnostic(name, start, end) ?? reservedWordDiagnostic(name, start, end);
 }
 
@@ -56,10 +61,10 @@ function unknownMemberDiagnostic(query: MemberAccessQuery): RawDiagnostic {
 // Acesso `x.nome` ou `x["nome"]`: só vale nome declarado no arquivo ou da biblioteca.
 export function checkMemberAccess(query: MemberAccessQuery): RawDiagnostic | undefined {
   const { name, start, end } = query;
-  if (PROTOTYPE_MEMBERS.has(name)) return diagnostic(CODES.jsMemberWithoutName, start, end, { name });
+  if (PROTOTYPE_MEMBERS.has(name)) return withoutNameDiagnostic(name, start, end);
   if (isKnownMember(query)) return undefined;
   const equivalent = jsMemberDiagnostic(name, start, end) ?? reservedWordDiagnostic(name, start, end);
   if (equivalent !== undefined) return equivalent;
-  if (lookupJsMember(name) !== undefined) return diagnostic(CODES.jsMemberWithoutName, start, end, { name });
+  if (lookupJsMember(name) !== undefined) return withoutNameDiagnostic(name, start, end);
   return unknownMemberDiagnostic(query);
 }

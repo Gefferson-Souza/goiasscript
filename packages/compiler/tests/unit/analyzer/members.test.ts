@@ -20,6 +20,10 @@ describe('censo de membros', () => {
   ])('%s', (src, expected) => {
     expect(analyzeSource(src).codes).toEqual(expected);
   });
+  it('GS0406 traz a alternativa goiana quando a tabela tem uma', () => {
+    expect(analyzeSource('uai p é { a: 1 }\nprosa(p.hasOwnProperty)').analysis.diagnostics[0]?.args).toEqual({ name: 'hasOwnProperty', alternative: 'Coisa.tem' });
+    expect(analyzeSource('uai l é [1]\nprosa(l.flat)').analysis.diagnostics[0]?.args).toEqual({ name: 'flat' });
+  });
   it('aceita membro declarado em qualquer ponto do arquivo (pré-passada)', () => {
     expect(analyzeSource('prosa(p.campo)\nuai p é { campo: 1 }').codes).toEqual([]);
     expect(analyzeSource('arruma_trem A { aprepara_trem() { ocê.x é 1 } }\nuai a é faz_um A()\nprosa(a.x)').codes).toEqual([]);

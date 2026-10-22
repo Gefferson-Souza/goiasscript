@@ -5,7 +5,7 @@ import type { RawDiagnostic } from '../lexer/token.types.ts';
 import type { SourceText } from '../source/source.types.ts';
 import { CODES } from './codes.constants.ts';
 import { diagnostic } from './diagnostic.ts';
-import { ADD_OPERATOR, ASSIGN_SPELLING, DECIMAL_COMMA_NUMBERS, FALLBACK_CONSTRUCT, FOR_CONSTRUCT, FUNCTION_TYPES, NO_EFFECT_TYPES, isConsoleOutput } from './hint-checks.constants.ts';
+import { ARITHMETIC_OPERATORS, ASSIGN_SPELLING, DECIMAL_COMMA_NUMBERS, FOR_CONSTRUCT, FUNCTION_TYPES, NO_EFFECT_TYPES, isConsoleOutput } from './hint-checks.constants.ts';
 import type { HintResult, ResolveNode } from './hint-checks.types.ts';
 import { hasLoopExit } from './loop-exit.ts';
 import { memberName } from './member-census.ts';
@@ -102,7 +102,7 @@ class HintVisitor {
   }
 
   private additionSuggestion(expression: Expression): string | undefined {
-    if (expression.type !== 'BinaryExpression' || expression.operator !== ADD_OPERATOR || expression.left.type !== 'Identifier') return undefined;
+    if (expression.type !== 'BinaryExpression' || !ARITHMETIC_OPERATORS.has(expression.operator) || expression.left.type !== 'Identifier') return undefined;
     const { name } = expression.left;
     const operand = this.source.text.slice(expression.right.start, expression.right.end);
     return `${name} ${ASSIGN_SPELLING} ${name} ${expression.operatorToken.text} ${operand}`;
@@ -126,11 +126,18 @@ class HintVisitor {
 
   private checkCall(call: CallExpression): void {
     this.checkDecimalCommas(call.arguments);
-    const calleeName = call.callee.type === 'MemberExpression' ? memberName(call.callee) : undefined;
+    const calleeName = this.calleeLabel(call);
     for (const argument of call.arguments) {
-      if (argument.type === 'ArrowFunctionExpression') this.checkArrowCondition(argument, calleeName ?? FALLBACK_CONSTRUCT);
+      if (argument.type === 'ArrowFunctionExpression') this.checkArrowCondition(argument, calleeName);
+      else this.checkAssignmentCondition(argument, calleeName);
     }
     this.checkErrorPassedWhole(call);
+  }
+
+  private calleeLabel(call: CallExpression): string {
+    const { callee } = call;
+    if (callee.type === 'MemberExpression') return memberName(callee) ?? this.source.text.slice(callee.start, callee.end);
+    return this.source.text.slice(callee.start, callee.end);
   }
 
   private checkArrowCondition(arrow: ArrowFunctionExpression, construct: string): void {

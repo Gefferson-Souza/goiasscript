@@ -41,7 +41,15 @@ describe('avisos pedagógicos', () => {
   });
   it('GS0806 sugere a atribuição só para soma de nome', () => {
     expect(analyzeSource('trem i é 0\ni mais 1').analysis.diagnostics[0]?.args).toEqual({ suggestion: 'i é i mais 1' });
-    expect(analyzeSource('trem i é 0\ni vezes 2').analysis.diagnostics[0]?.args).toEqual({});
+    expect(analyzeSource('trem i é 0\ni vezes 2').analysis.diagnostics[0]?.args).toEqual({ suggestion: 'i é i vezes 2' });
+    expect(analyzeSource('trem i é 0\ni menos 1').analysis.diagnostics[0]?.args).toEqual({ suggestion: 'i é i menos 1' });
+    expect(analyzeSource('trem i é 0\ni dividido 2').analysis.diagnostics[0]?.args).toEqual({ suggestion: 'i é i dividido 2' });
+    expect(analyzeSource('trem i é 0\ni maior_que 2').analysis.diagnostics[0]?.args).toEqual({});
+  });
+  it('GS0801 cobre é como argumento direto de chamada', () => {
+    expect(analyzeSource('trem a é 1\nprosa(a é 2)').analysis.diagnostics[0]).toMatchObject({ code: 'GS0801', args: { construct: 'prosa' } });
+    expect(analyzeSource('uai l é [1]\nl.some(a é 2)').analysis.diagnostics.map((item) => item.code)).toContain('GS0801');
+    expect(analyzeSource('trem a é 1\nprosa(a é_igualim 2)').codes).toEqual([]);
   });
   it('GS0805 traz o texto dos dois números', () => {
     expect(analyzeSource('prosa(1.000,50)').analysis.diagnostics[0]?.args).toEqual({ text: '1.000,50' });

@@ -5,6 +5,8 @@ import type { RawDiagnostic } from '../lexer/token.types.ts';
 
 export type ResolutionKind = 'library' | 'program' | 'session' | 'unresolved';
 
+// Membro com nome que existe na biblioteca e no programa: chamada `x.nome(...)` resolve para a biblioteca;
+// leitura sem chamada (`x.nome`) resolve para o programa. Propriedade reservada da biblioteca vence sempre.
 export interface Resolution {
   readonly kind: ResolutionKind;
   readonly entry?: StdlibEntry;
