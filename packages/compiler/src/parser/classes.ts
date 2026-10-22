@@ -9,6 +9,7 @@ import { CODES } from './parser.constants.ts';
 import type { Parser } from './parser.types.ts';
 import { PRECEDENCE } from './precedence.constants.ts';
 import { ensureProgress, reportUnexpected } from './recovery.ts';
+import { adoptJsWord } from './subset-checks.ts';
 import { PRIVATE_MARK } from './subset.constants.ts';
 import { isKeyword, isPunctuator, isWord, keywordJs } from './token-tests.ts';
 
@@ -132,7 +133,7 @@ export function parseClass(parser: Parser): ClassDeclaration {
   const state = parser.state;
   const keywordToken = state.advance();
   const id = parseBindingName(parser);
-  const hasParent = isKeyword(state.current(), 'extends');
+  const hasParent = isKeyword(adoptJsWord(parser), 'extends');
   if (hasParent) state.advance();
   const superClass = hasParent ? parser.parseExpression(PRECEDENCE.postfix) : null;
   const fallback: readonly MethodDefinition[] = [];
