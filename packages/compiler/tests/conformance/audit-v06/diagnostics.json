@@ -1,6 +1,20 @@
 [
   {
     "code": "GS0516",
-    "line": 1
+    "severity": "error",
+    "line": 1,
+    "column": 16
+  },
+  {
+    "code": "GS0516",
+    "severity": "error",
+    "line": 1,
+    "column": 27
+  },
+  {
+    "code": "GS0516",
+    "severity": "error",
+    "line": 1,
+    "column": 36
   }
 ]
