@@ -38,8 +38,9 @@ export function parseBindingName(parser: Parser): Identifier {
   }
   const name = identifierOf(state.advance());
   skipTypeAnnotation(parser);
-  const reserved = token.kind === 'keyword' && token.keyword?.keywordClass === 'reserved';
-  return reserved ? { ...name, reservedKeyword: token.keyword } : name;
+  if (token.kind !== 'keyword' || token.keyword?.keywordClass !== 'reserved') return name;
+  state.rememberReservedBinding(token.value);
+  return { ...name, reservedKeyword: token.keyword };
 }
 
 function skipDefaultValue(parser: Parser): void {

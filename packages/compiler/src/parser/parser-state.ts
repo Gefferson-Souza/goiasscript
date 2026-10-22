@@ -10,6 +10,7 @@ export class ParserState {
   private readonly items: RawDiagnostic[] = [];
   private lastKey = '';
   private readonly adopted = new WeakMap<Token, Token>();
+  private readonly reservedBindings = new Set<string>();
   cursor = 0;
   depth = 0;
   lastEnd = 0;
@@ -70,6 +71,14 @@ export class ParserState {
   visibleAt(count: number): Token {
     const token = this.lexer.peek(this.offsetOfVisible(count));
     return this.adopted.get(token) ?? token;
+  }
+
+  rememberReservedBinding(name: string): void {
+    this.reservedBindings.add(name);
+  }
+
+  isReservedBinding(name: string): boolean {
+    return this.reservedBindings.has(name);
   }
 
   adopt(token: Token, replacement: Token): void {
