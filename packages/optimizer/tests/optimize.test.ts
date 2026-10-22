@@ -22,15 +22,21 @@ describe('optimize', () => {
     expect(minified.code.length).toBeLessThan(plain.code.length);
   });
 
-  it('mapa composto aponta o .gs e preserva sourcesContent', async () => {
+  it.each([true, false])('mapa composto (minify: %s) aponta linha e coluna originais e preserva sourcesContent', async (minify) => {
     const text = 'uai a é 1\nprosa(a mais 1)';
-    const out = await optimize(compiled(text), { minify: true });
+    const out = await optimize(compiled(text), { minify });
     if (out.map === null) throw new Error('esperava mapa');
     const map = new TraceMap(JSON.stringify(out.map));
     expect(map.sources).toEqual(['programa.gs']);
     expect(map.sourcesContent).toEqual([text]);
-    const generatedColumn = out.code.indexOf('log');
-    expect(originalPositionFor(map, { line: 1, column: generatedColumn }).source).toBe('programa.gs');
+    const lines = out.code.split('\n');
+    const generatedLine = lines.findIndex((line) => line.includes('console'));
+    const generatedColumn = lines[generatedLine]?.indexOf('console') ?? -1;
+    expect(originalPositionFor(map, { line: generatedLine + 1, column: generatedColumn })).toMatchObject({
+      source: 'programa.gs',
+      line: 2,
+      column: 0,
+    });
   });
 
   it('sem mapa de entrada, mapa nulo', async () => {
