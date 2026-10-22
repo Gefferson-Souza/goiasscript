@@ -1,7 +1,6 @@
-import { lookupDiagnostic } from '@goiasscript/language';
+import { formatMessage, lookupDiagnostic } from '@goiasscript/language';
 import type { DiagnosticExplanation, Tone } from './api.types.ts';
 import { EXPLAIN_PLACEHOLDERS, EXPLAIN_PLACEHOLDER_FALLBACK } from './diagnostics/explain-placeholders.constants.ts';
-import { formatMessage } from './diagnostics/format-message.ts';
 
 const MARKER_NAME = /\{(\w+)\}/gu;
 
