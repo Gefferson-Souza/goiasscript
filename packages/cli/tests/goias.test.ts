@@ -33,6 +33,18 @@ describe('goias', () => {
     expect(await runGoias([], io)).toBe(0);
     expect(io.stderrText()).toContain('GS0702');
   });
+  it('em pipe, a pergunta recebe a linha seguinte mesmo com linhas já enfileiradas', async () => {
+    const io = pipedIo('1 mais 1\nuai n é pergunta("Nome?")\nAna\nn\n');
+    expect(await runGoias(['--tom=neutro'], io)).toBe(0);
+    expect(io.stdoutText()).toBe('2\nNome? Ana\n');
+    expect(io.stderrText()).toBe('');
+  });
+  it('em pipe, duas perguntas em sequência recebem uma linha cada', async () => {
+    const io = pipedIo('uai a é pergunta("um?")\nAna\nuai b é pergunta("dois?")\nBia\na mais b\n');
+    expect(await runGoias(['--tom=neutro'], io)).toBe(0);
+    expect(io.stdoutText()).toBe('um? dois? AnaBia\n');
+    expect(io.stderrText()).toBe('');
+  });
   it('avisa Node antigo com GS0904 e segue', async () => {
     const io = { ...pipedIo(''), env: { ...createMemoryIo({ nodeVersion: '20.0.0' }).env } };
     expect(await runGoias([], io)).toBe(0);

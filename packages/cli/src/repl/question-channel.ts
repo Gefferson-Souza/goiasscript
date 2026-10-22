@@ -2,7 +2,7 @@ import type { CliIo } from '../io.types.ts';
 import type { AskingChannel, PendingQuestion } from './host-context.types.ts';
 import { QUESTION_SEPARATOR } from './repl.constants.ts';
 
-export function createQuestionChannel(io: Pick<CliIo, 'out'>, createEndError: () => Error): AskingChannel {
+export function createQuestionChannel(io: Pick<CliIo, 'out'>, createEndError: () => Error, onAsked: () => void = () => undefined): AskingChannel {
   let queue: readonly PendingQuestion[] = [];
   let ended = false;
   const announceHead = (): void => {
@@ -15,6 +15,7 @@ export function createQuestionChannel(io: Pick<CliIo, 'out'>, createEndError: ()
       return new Promise<string>((resolve, reject) => {
         queue = [...queue, { prompt, resolve, reject }];
         if (queue.length === 1) announceHead();
+        onAsked();
       });
     },
     hasPending: () => queue.length > 0,

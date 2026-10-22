@@ -14,14 +14,15 @@ type ReplIo = Pick<CliIo, 'out' | 'err'>;
 // O erro nasce dentro do contexto para que `e é_tipo_de Erro` valha para ele.
 const END_ERROR_FACTORY = '(code) => Object.assign(new Error(code), { gsCode: code, stack: "Error: " + code })';
 
+// A saída de prosa() é do programa do usuário e segue sem filtro; só o eco e as listagens da sessão são escapados.
 const lineWriter = (sink: ReplIo['out']) => (args: readonly unknown[]): void => {
   sink.write(`${format(...args)}\n`);
 };
 
-export function createHostContext(io: ReplIo, tone: Tone): HostContext {
+export function createHostContext(io: ReplIo, tone: Tone, onAsked: () => void): HostContext {
   const context = vm.createContext({});
   const endErrorFactory = new vm.Script(END_ERROR_FACTORY);
-  const questions = createQuestionChannel(io, () => (endErrorFactory.runInContext(context) as (code: string) => Error)(END_OF_INPUT_CODE));
+  const questions = createQuestionChannel(io, () => (endErrorFactory.runInContext(context) as (code: string) => Error)(END_OF_INPUT_CODE), onAsked);
   const timers = createTimerRegistry(createAsyncErrorReporter(io, tone));
   installHostGlobals(context, {
     out: lineWriter(io.out),

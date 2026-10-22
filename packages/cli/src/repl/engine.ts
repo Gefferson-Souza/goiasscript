@@ -6,7 +6,11 @@ import { CANCELLED, EMPTY_SESSION, REPL_FILE_NAME } from './repl.constants.ts';
 import type { ReplEngine, ReplEngineOptions } from './repl.types.ts';
 
 export function createReplEngine(options: ReplEngineOptions): ReplEngine {
-  let host = createHostContext(options.io, options.tone);
+  let questionListener: (() => void) | null = null;
+  const notifyAsked = (): void => {
+    questionListener?.();
+  };
+  let host = createHostContext(options.io, options.tone, notifyAsked);
   let session: ReplSession = EMPTY_SESSION;
   let cancelEntry: (() => void) | null = null;
 
@@ -27,6 +31,9 @@ export function createReplEngine(options: ReplEngineOptions): ReplEngine {
         cancelEntry = null;
       }
     },
+    onQuestion(listener) {
+      questionListener = listener;
+    },
     hasPendingQuestion: () => host.questions.hasPending(),
     answer: (line) => {
       host.questions.answer(line);
@@ -40,7 +47,7 @@ export function createReplEngine(options: ReplEngineOptions): ReplEngine {
     },
     reset() {
       host.dispose();
-      host = createHostContext(options.io, options.tone);
+      host = createHostContext(options.io, options.tone, notifyAsked);
       session = EMPTY_SESSION;
     },
     get session() {
