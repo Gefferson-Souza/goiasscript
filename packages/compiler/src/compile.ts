@@ -75,6 +75,7 @@ function buildSuccess(
     map: options.sourceMap === false ? null : buildSourceMap(source, emitted.code, emitted.segments),
     session: target === 'repl' ? mergeSession(options.session, analysis) : null,
     echo: target === 'repl' && analysis.lastTopLevelExpression !== undefined,
+    awaitable: emitted.awaitable,
   };
 }
 

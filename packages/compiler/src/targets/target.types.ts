@@ -6,4 +6,5 @@ export interface EmitResult {
   readonly segments: readonly MappingSegment[];
   readonly helperRange: LineRange | null;
   readonly helpers: readonly string[];
+  readonly awaitable: boolean;
 }

@@ -20,7 +20,7 @@ function containsTopLevelAsk(node: AstNode, context: EditContext): boolean {
   return childrenOf(node).some((child) => containsTopLevelAsk(child, context));
 }
 
-const needsAsyncWrapper = (program: Program, context: EditContext): boolean =>
+export const needsAsyncWrapper = (program: Program, context: EditContext): boolean =>
   context.analysis.hasTopLevelAwait || containsTopLevelAsk(program, context);
 
 function newBindingNames(context: EditContext): readonly string[] {

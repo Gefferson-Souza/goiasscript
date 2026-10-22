@@ -66,6 +66,7 @@ export interface CompileSuccess {
   readonly helperRange: LineRange | null;
   readonly session: ReplSession | null;
   readonly echo: boolean;
+  readonly awaitable: boolean;
 }
 
 export interface CompileFailure {
