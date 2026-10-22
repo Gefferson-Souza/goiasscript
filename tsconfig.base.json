@@ -3,6 +3,6 @@
     "target": "ES2023", "lib": ["ES2023"], "module": "NodeNext", "moduleResolution": "NodeNext", "types": ["node"],
     "strict": true, "noUncheckedIndexedAccess": true, "exactOptionalPropertyTypes": true, "erasableSyntaxOnly": true,
     "verbatimModuleSyntax": true, "isolatedModules": true, "noImplicitOverride": true, "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": true, "noUnusedParameters": true, "allowImportingTsExtensions": true, "noEmit": true, "skipLibCheck": true
+    "noUnusedLocals": true, "noUnusedParameters": true, "allowImportingTsExtensions": true, "noEmit": true, "skipLibCheck": true, "resolveJsonModule": true
   }
 }

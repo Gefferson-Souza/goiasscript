@@ -31,7 +31,7 @@ const securityHeaders = [
 
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['goiasscript'],
+  transpilePackages: ['goiasscript-legacy'],
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }];
   },

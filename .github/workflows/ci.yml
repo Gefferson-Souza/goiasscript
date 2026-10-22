@@ -50,7 +50,7 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec vitest run --coverage --project @goiasscript/language --project @goiasscript/compiler --project @goiasscript/optimizer
+      - run: pnpm exec vitest run --coverage --project @goiasscript/language --project @goiasscript/compiler --project @goiasscript/optimizer --project goiasscript
 
   test:
     name: test
@@ -97,7 +97,7 @@ jobs:
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with: { python-version: '3.13' }
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec vitest run --coverage --project @goiasscript/language --project @goiasscript/compiler --project @goiasscript/optimizer
+      - run: pnpm exec vitest run --coverage --project @goiasscript/language --project @goiasscript/compiler --project @goiasscript/optimizer --project goiasscript
       - run: pip install diff-cover==10.6.0
       - name: Cobertura das linhas alteradas
         env:

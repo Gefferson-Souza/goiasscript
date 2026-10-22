@@ -3,7 +3,7 @@
 // Não toca DOM, não toca window. Hard timeout fica do lado do main thread
 // (chama worker.terminate() se passar do limite).
 
-import { GoiasScriptBrowserCompiler } from 'goiasscript/browser';
+import { GoiasScriptBrowserCompiler } from 'goiasscript-legacy/browser';
 
 type RunMessage = { type: 'run'; code: string };
 type InMessage = RunMessage;

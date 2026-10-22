@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
-    "goiasscript": "workspace:*",
+    "goiasscript-legacy": "workspace:*",
     "html-to-image": "^1.11.13",
     "monaco-editor": "^0.55.1",
     "next": "^15.5.28",

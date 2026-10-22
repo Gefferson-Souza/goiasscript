@@ -33,7 +33,7 @@ pnpm test
 ```
 goiasscript/
 ├── packages/
-│   └── core/                       # Pacote npm "goiasscript"
+│   └── core/                       # Legado (npm "goiasscript-legacy")
 │       ├── src/                    # Transpiler, lexer, runtime goiano
 │       ├── bin/                    # CLIs: goiasscript, goias (REPL)
 │       ├── tests/unit/             # Suites Jest
