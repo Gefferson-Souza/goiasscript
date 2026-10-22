@@ -29,7 +29,7 @@ describe('bota_pra_moer: ciclo de vida do programa', () => {
     const io = createMemoryIo({ files: { 'ok.gs': 'prosa(1)\n' } });
     await runCli(['bota_pra_moer', 'ok.gs'], io, { processHost: host });
     expect(imported).toHaveLength(1);
-    expect(imported[0]).toMatch(/^file:\/\/\/tmp\/goiasscript-[^/]+\/program\.mjs$/u);
+    expect(imported[0]).toMatch(/^file:\/\/\/(?:[A-Z]:\/)?tmp\/goiasscript-[^/]+\/program\.mjs$/u);
     expect(workspaces(io)).toHaveLength(1);
   });
 
