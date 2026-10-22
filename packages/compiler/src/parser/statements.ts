@@ -1,4 +1,4 @@
-import { lookupRetiredWord } from '@goiasscript/language';
+import { lookupKeyword, lookupRetiredWord } from '@goiasscript/language';
 import type { BlockStatement, Expression, ExpressionStatement, JumpStatement, ReturnStatement, Statement, ThrowStatement } from '../ast/ast.types.ts';
 import { skipBalanced } from './balanced.ts';
 import { parseClass } from './classes.ts';
@@ -18,7 +18,7 @@ import type { ParserState } from './parser-state.ts';
 import type { Parser } from './parser.types.ts';
 import { PRECEDENCE } from './precedence.constants.ts';
 import { ensureProgress, errorNode, foundOf, reportUnexpected, synchronize } from './recovery.ts';
-import { isKeyword, isPunctuator, isStatementEnd, keywordJs } from './token-tests.ts';
+import { isKeyword, isPunctuator, isStatementEnd, isWord, keywordJs } from './token-tests.ts';
 
 type StatementParser = (parser: Parser) => Statement;
 
@@ -26,6 +26,7 @@ const UNARY_OR_BINARY_MINUS = '-';
 const isBoundary = (token: Token): boolean => token.kind === 'end-of-file' || token.kind === 'newline' || isPunctuator(token, '}');
 const JS_FUNCTION_WORD = 'function';
 const JS_THROW_WORD = 'throw';
+const FUNCTION_KEYWORDS: ReadonlySet<string> = new Set(['function', 'async function']);
 const RETURN_TERMINATORS: ReadonlySet<string> = new Set([';', '}']);
 
 function consumeDecimalComma(parser: Parser): boolean {
@@ -133,12 +134,25 @@ function skipRetiredConstruct(parser: Parser): void {
 
 // Palavra de versão anterior sozinha no início da instrução: GS0306 no lugar do GS0202 que viria.
 function reportRetiredWord(parser: Parser, expression: Expression): boolean {
-  const retired = expression.type === 'Identifier' ? lookupRetiredWord(expression.name) : undefined;
-  if (retired === undefined || isStatementEnd(parser.state.current())) return false;
+  const head = expression.type === 'CallExpression' ? expression.callee : expression;
+  const retired = head.type === 'Identifier' ? lookupRetiredWord(head.name) : undefined;
+  if (head.type !== 'Identifier' || retired === undefined || isStatementEnd(parser.state.current())) return false;
   const detail = retired.replacement === undefined ? { gone: GONE_PHRASE } : { replacement: retired.replacement };
-  parser.state.report(CODES.retiredWord, expression.start, expression.end, { word: retired.word, ...detail });
+  parser.state.report(CODES.retiredWord, head.start, head.end, { word: retired.word, ...detail });
   skipRetiredConstruct(parser);
   return true;
+}
+
+// `presta_serviço soma(a, b) {…}`: lê como a declaração que a palavra antiga fazia, para o nome seguir declarado.
+function adoptRetiredDeclaration(parser: Parser): void {
+  const state = parser.state;
+  const token = state.current();
+  const retired = token.kind === 'identifier' ? lookupRetiredWord(token.value) : undefined;
+  const entry = retired?.replacement === undefined ? undefined : lookupKeyword(retired.replacement);
+  if (retired === undefined || entry === undefined || !FUNCTION_KEYWORDS.has(entry.js)) return;
+  if (!isWord(state.visibleAt(1)) || !isPunctuator(state.visibleAt(2), '(')) return;
+  state.report(CODES.retiredWord, token.start, token.end, { word: retired.word, replacement: entry.spelling });
+  state.adopt(token, { ...token, kind: 'keyword', keyword: entry });
 }
 
 function parseSimpleExpression(parser: Parser): Statement {
@@ -194,6 +208,7 @@ export function parseStatement(parser: Parser): Statement {
   if (startsWithBinaryOperator(first)) return parseLeadingOperator(parser);
   const subset = parseSubsetStatement(parser);
   if (subset !== undefined) return subset;
+  adoptRetiredDeclaration(parser);
   const token = adoptJsWord(parser);
   const handler = STATEMENT_PARSERS.get(keywordJs(token) ?? '');
   return (handler ?? parseSimpleExpression)(parser);

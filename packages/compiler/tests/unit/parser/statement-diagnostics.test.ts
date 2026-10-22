@@ -48,9 +48,19 @@ describe('parser: diagnósticos de instrução', () => {
     expect(codes(parseText('uai lista é [1]'))).toEqual([]);
     expect(parseText('um_tanto_de x').diagnostics[0]).toMatchObject({ code: 'GS0306', args: { gone: 'saiu da linguagem, sem substituto na v3' } });
   });
-  it('troca a instrução com palavra aposentada por nó de erro, para a análise não repetir o GS0306', () => {
-    const { program } = parseText('presta_serviço soma(a, b) { faz_favor a mais b }');
+  it('troca a instrução com palavra aposentada sem substituto por nó de erro, para a análise não repetir o GS0306', () => {
+    const { program } = parseText('um_tanto_de x');
     expect(program.body).toMatchObject([{ type: 'ErrorNode', code: 'GS0306' }]);
+  });
+  it('lê a declaração com presta_serviço como função, para o nome continuar declarado', () => {
+    const { program, diagnostics } = parseText('presta_serviço soma(a, b) { faz_favor a mais b }');
+    expect(diagnostics.map((item) => item.code)).toEqual(['GS0306']);
+    expect(program.body).toMatchObject([{ type: 'FunctionDeclaration', id: { name: 'soma' } }]);
+    expect(codes(parseText('vai_na_frente_presta_serviço f() { }'))).toEqual(['GS0306']);
+  });
+  it('dá um GS0306 só para se (cond) { } e pula o bloco', () => {
+    expect(codes(parseText('se (x é_igualim 1) { prosa("um") }'))).toEqual(['GS0306']);
+    expect(codes(parseText('uai se é x => x\nse(1)'))).toEqual([]);
   });
   it('mantém a seta async e dá GS0518 para faz_trem sem nome como valor (P6)', () => {
     expect(codes(parseText('uai f é vai_na_frente x => x'))).toEqual([]);
