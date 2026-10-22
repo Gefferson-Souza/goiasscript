@@ -30,4 +30,11 @@ describe('parser: recuperação', () => {
     expect(codes(parseText('se_ocê_quiser (a) {'))).toEqual(['GS0201']);
     expect(codes(parseText('prosa(1,'))).toEqual(['GS0201']);
   });
+  it('texto sem fechar leva o resto da linha e não gera GS0202 na linha seguinte', () => {
+    expect(codes(parseText('prosa("abc);\nprosa(a);'))).toEqual(['GS0103']);
+    expect(codes(parseText('uai l é [1, "abc\nprosa(l)'))).toEqual(['GS0103']);
+  });
+  it('continua reportando o agrupamento sem fechar quando o último token é válido', () => {
+    expect(codes(parseText('prosa(1\nprosa(2))'))).toEqual(['GS0202', 'GS0202']);
+  });
 });
