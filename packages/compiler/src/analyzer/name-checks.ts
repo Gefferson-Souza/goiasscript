@@ -43,6 +43,7 @@ export function unresolvedNameDiagnostic(identifier: Identifier, candidates: Ite
     return diagnostic(CODES.retiredWord, start, end, { word: retired.word, ...detail });
   }
   const reserved = lookupJsReserved(name);
+  if (reserved?.kind === 'non-bindable') return diagnostic(CODES.jsWordWithoutEquivalent, start, end, { name, suggestion: reserved.suggestion });
   if (reserved?.kind === 'global') return diagnostic(CODES.jsGlobal, start, end, { name, suggestion: reserved.suggestion });
   if (reserved?.kind === 'keyword' || reserved?.kind === 'strict-reserved') {
     const code = reserved.hasEquivalent ? CODES.jsKeyword : CODES.jsWordWithoutEquivalent;
