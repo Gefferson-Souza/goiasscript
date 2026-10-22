@@ -59,6 +59,44 @@ describe('runCli', () => {
   });
 });
 
+describe('runCli: robustez do uso incorreto', () => {
+  const ESC = String.fromCharCode(27);
+  const BEL = String.fromCharCode(7);
+  it.each([
+    [[`${ESC}]0;pwn${BEL}x`]],
+    [['traduz', 'a.gs', `--${ESC}[2Jx`]],
+    [['traduz', 'a.gs', '--tom', `${ESC}[2J`]],
+  ])('não deixa bytes de controle chegarem ao stderr: %j', async (argv) => {
+    const { io, code } = await run(argv);
+    expect(code).toBe(EXIT_CODE.usage);
+    expect(io.stderrText()).not.toContain(ESC);
+    expect(io.stderrText()).not.toContain(BEL);
+    expect(io.stderrText()).toContain('\\u001b');
+  });
+  it('o tom do erro segue a última ocorrência de --tom', async () => {
+    expect((await run(['traduza', '--tom', 'raiz', '--tom', 'neutro'])).io.stderrText()).toContain('Comando ou opção desconhecidos');
+    expect((await run(['traduza', '--tom', 'neutro', '--tom', 'raiz'])).io.stderrText()).toContain('Ô sô');
+  });
+  it('--tom depois de -- não muda o tom', async () => {
+    expect((await run(['traduza', '--', '--tom', 'neutro'])).io.stderrText()).toContain('Ô sô');
+  });
+  it('--tom=neutro é reconhecido no erro de uso', async () => {
+    expect((await run(['traduza', '--tom=neutro'])).io.stderrText()).toContain('Comando ou opção desconhecidos');
+  });
+  it('o comando ainda não pronto respeita --tom neutro', async () => {
+    const { io, code } = await run(['explica', 'GS0301', '--tom', 'neutro']);
+    expect(code).toBe(EXIT_CODE.usage);
+    expect(io.stderrText()).toContain('ainda não está disponível');
+  });
+  it('a recusa de "-" cita só a entrada padrão no bota_pra_moer', async () => {
+    expect((await run(['explica', '-'])).io.stderrText()).not.toContain('respostas');
+    expect((await run(['bota_pra_moer', '-'])).io.stderrText()).toContain('respostas');
+  });
+  it('o GS0905 raiz aponta para goiasscript sem argumentos', async () => {
+    expect((await run(['traduza'])).io.stderrText()).not.toContain('dedo_de_prosa');
+  });
+});
+
 describe('runRepl', () => {
   it('devolve uso incorreto até a roda de prosa existir', async () => {
     const io = createMemoryIo();

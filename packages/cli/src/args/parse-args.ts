@@ -2,7 +2,9 @@ import { parseArgs } from 'node:util';
 import type { Tone } from '@goiasscript/compiler';
 import { COMMANDS } from './commands.data.ts';
 import { OPTIONS } from './options.data.ts';
+import { toPrintable } from './printable-text.ts';
 import { resolveCommandName } from './resolve-command.ts';
+import { lastToneValue } from './tone-argument.ts';
 import type { CommandOptions, CommandSpec, OptionName, OptionToken, ParseResult } from './args.types.ts';
 
 type Fail = { readonly ok: false; readonly detail: string };
@@ -25,15 +27,15 @@ const isTone = (value: string): value is Tone => TONES.includes(value);
 const unknownOptionDetail = (rawName: string): string =>
   HELP_LIKE.has(rawName)
     ? `"${rawName}" não existe aqui. Pra ver o que dá pra fazer, roda "goiasscript" sem nada.`
-    : `A opção "${rawName}" não existe nesse comando.`;
+    : `A opção "${toPrintable(rawName)}" não existe nesse comando.`;
 
 
 function validateOption(spec: CommandSpec, token: OptionToken): Fail | null {
   const name = NAME_BY_FLAG.get(token.name);
   if (name === undefined || !spec.options.includes(name)) return fail(unknownOptionDetail(token.rawName));
   const { type } = OPTIONS[name];
-  if (type === 'string' && token.value === undefined) return fail(`A opção "${token.rawName}" precisa de um valor.`);
-  if (type === 'boolean' && token.value !== undefined) return fail(`A opção "${token.rawName}" não recebe valor.`);
+  if (type === 'string' && token.value === undefined) return fail(`A opção "${toPrintable(token.rawName)}" precisa de um valor.`);
+  if (type === 'boolean' && token.value !== undefined) return fail(`A opção "${toPrintable(token.rawName)}" não recebe valor.`);
   return null;
 }
 
@@ -51,6 +53,12 @@ function collectOptions(spec: CommandSpec, argv: readonly string[]): { readonly 
   };
 }
 
+const STDIN_MARKER = '-';
+const stdinRefusal = (spec: CommandSpec): string =>
+  spec.id === 'run'
+    ? `"${spec.name}" não lê o programa da entrada padrão ("-"): ela fica pras respostas do programa.`
+    : `"${spec.name}" não aceita "-" aqui.`;
+
 function checkPositionals(spec: CommandSpec, positionals: readonly string[]): Fail | null {
   const { min, max } = spec.positionals;
   if (positionals.length < min) return fail(`Faltou o ${spec.positionalNoun} depois de "${spec.name}".`);
@@ -58,13 +66,13 @@ function checkPositionals(spec: CommandSpec, positionals: readonly string[]): Fa
     const noun = max === 0 ? `"${spec.name}" não recebe ${spec.positionalNoun}` : `"${spec.name}" aceita só um ${spec.positionalNoun} por vez`;
     return fail(`${noun}.`);
   }
-  if (!spec.acceptsStdin && positionals.includes('-')) return fail(`"${spec.name}" não lê o programa da entrada padrão ("-"): ela fica pras respostas do programa.`);
+  if (!spec.acceptsStdin && positionals.includes(STDIN_MARKER)) return fail(stdinRefusal(spec));
   return null;
 }
 
-function buildOptions(values: OptionValues): CommandOptions | Fail {
-  const tone = typeof values.tone === 'string' ? values.tone : 'raiz';
-  if (!isTone(tone)) return fail(`O tom "${tone}" não existe; use "raiz" ou "neutro".`);
+function buildOptions(values: OptionValues, argv: readonly string[]): CommandOptions | Fail {
+  const tone = lastToneValue(argv) ?? 'raiz';
+  if (!isTone(tone)) return fail(`O tom "${toPrintable(tone)}" não existe; use "raiz" ou "neutro".`);
   if (values.optimize !== undefined && values.minify !== undefined) return fail('"--otimiza" e "--minifica" não andam juntas; escolhe uma.');
   return {
     ...(typeof values.output === 'string' ? { output: values.output } : {}),
@@ -78,7 +86,7 @@ function buildOptions(values: OptionValues): CommandOptions | Fail {
 
 const unknownCommandDetail = (typed: string): string => {
   if (HELP_LIKE.has(typed)) return unknownOptionDetail(typed);
-  return typed.startsWith('-') ? `O comando vem primeiro; "${typed}" ficou antes dele.` : `O comando "${typed}" não existe.`;
+  return typed.startsWith('-') ? `O comando vem primeiro; "${toPrintable(typed)}" ficou antes dele.` : `O comando "${toPrintable(typed)}" não existe.`;
 };
 
 const isFail = (value: object): value is Fail => 'ok' in value;
@@ -93,7 +101,7 @@ export function parseCommandLine(argv: readonly string[]): ParseResult {
   if (isFail(collected)) return collected;
   const positionalError = checkPositionals(spec, collected.positionals);
   if (positionalError !== null) return positionalError;
-  const options = buildOptions(collected.values);
+  const options = buildOptions(collected.values, rest);
   if (isFail(options)) return options;
   return { ok: true, parsed: { command: spec.id, positionals: collected.positionals, options } };
 }
