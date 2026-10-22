@@ -9,11 +9,13 @@ export interface MemoryIoOptions {
   readonly cwd?: string;
   readonly failingWrites?: readonly string[];
   readonly hardLinks?: readonly (readonly [string, string])[];
+  readonly directories?: Readonly<Record<string, number>>;
 }
 
 export interface MemoryIo extends CliIo {
   stdoutText(): string;
   stderrText(): string;
+  stderrSyncText(): string;
   fileText(path: string): string;
   fileBytes(path: string): Uint8Array;
   paths(): readonly string[];

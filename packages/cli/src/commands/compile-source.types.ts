@@ -7,6 +7,7 @@ export interface CompileRequest {
   readonly inputArg: string;
   readonly tone: Tone;
   readonly json: boolean;
+  readonly sourceMap?: boolean;
 }
 
 export type CompiledSource =
