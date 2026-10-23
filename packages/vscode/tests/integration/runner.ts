@@ -1,6 +1,5 @@
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { downloadAndUnzipVSCode } from '@vscode/test-electron';
@@ -8,6 +7,7 @@ import { bundleSuite } from './bundle-suite.ts';
 import { SCENARIO_ENV } from './integration.constants.ts';
 import type { IntegrationOptions, IntegrationScenario } from './integration.types.ts';
 import { buildLaunchArgs, buildUserSettings } from './launch-config.ts';
+import { assertSocketPathFits, createWorkDir } from './work-dir.ts';
 
 const EXTENSION_DIR = path.join(import.meta.dirname, '../..');
 const CACHE_DIR_NAME = '.vscode-test';
@@ -36,9 +36,10 @@ function launch(executable: string, args: readonly string[], scenario: Integrati
 }
 
 async function runScenario(executable: string, suiteEntry: string, extensionDir: string, scenario: IntegrationScenario): Promise<void> {
-  const workDir = fs.mkdtempSync(path.join(os.tmpdir(), `gs-vscode-${scenario}-`));
+  const workDir = createWorkDir(scenario);
   try {
     const userDataDir = path.join(workDir, 'user-data');
+    assertSocketPathFits(userDataDir);
     const workspaceDir = path.join(workDir, 'workspace');
     fs.mkdirSync(path.join(userDataDir, 'User'), { recursive: true });
     fs.mkdirSync(workspaceDir);
