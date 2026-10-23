@@ -89,6 +89,15 @@
         "tests/**/*.mjs"
       ]
     },
+    "tools/script-tests": {
+      "entry": [
+        "tests/**/*.test.ts"
+      ],
+      "project": [
+        "tests/**/*.ts",
+        "*.ts"
+      ]
+    },
     "tools/config-tests": {
       "entry": [
         "tests/**/*.test.mjs"

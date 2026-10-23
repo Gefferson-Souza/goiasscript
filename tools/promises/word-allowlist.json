@@ -1,0 +1,90 @@
+[
+  {
+    "word": "compile",
+    "reason": "nome do comando equivalente na tabela de comandos do README"
+  },
+  {
+    "word": "run",
+    "reason": "nome do comando equivalente na tabela de comandos do README"
+  },
+  {
+    "word": "new",
+    "reason": "nome do comando equivalente na tabela de comandos do README"
+  },
+  {
+    "word": "info",
+    "reason": "nome do comando equivalente na tabela de comandos do README"
+  },
+  {
+    "word": "true",
+    "reason": "palavra do JavaScript citada como o que a palavra goiana vira"
+  },
+  {
+    "word": "false",
+    "reason": "palavra do JavaScript citada como o que a palavra goiana vira"
+  },
+  {
+    "word": "null",
+    "reason": "palavra do JavaScript citada como o que a palavra goiana vira"
+  },
+  {
+    "word": "undefined",
+    "reason": "palavra do JavaScript citada como o que a palavra goiana vira"
+  },
+  {
+    "word": "this",
+    "reason": "palavra do JavaScript citada como o que a palavra goiana vira"
+  },
+  {
+    "word": "MAX_INPUT_CHARS",
+    "reason": "variável de configuração do Worker do Engoianador"
+  },
+  {
+    "word": "RATE_LIMIT_PER_DAY",
+    "reason": "variável de configuração do Worker do Engoianador"
+  },
+  {
+    "word": "GROQ_API_KEY",
+    "reason": "segredo do Worker do Engoianador, citado só pelo nome"
+  },
+  {
+    "word": "main",
+    "reason": "nome da branch principal do repositório"
+  },
+  {
+    "word": "language",
+    "reason": "nome de pacote do workspace, sem o escopo"
+  },
+  {
+    "word": "compiler",
+    "reason": "nome de pacote do workspace, sem o escopo"
+  },
+  {
+    "word": "pnpm",
+    "reason": "gerenciador de pacotes do repositório"
+  },
+  {
+    "word": "any",
+    "reason": "tipo do TypeScript que o repositório proíbe"
+  },
+  {
+    "word": "console",
+    "reason": "objeto do JavaScript que o repositório proíbe em produção"
+  },
+  {
+    "word": "describe",
+    "reason": "função do Vitest citada na regra de nomes de teste"
+  },
+  {
+    "word": "it",
+    "reason": "função do Vitest citada na regra de nomes de teste"
+  },
+  {
+    "word": "exports",
+    "reason": "campo do package.json citado em item de checklist"
+  },
+  {
+    "word": "question",
+    "reason": "nome da label de issue do GitHub"
+  }
+]
