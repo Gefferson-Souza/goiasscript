@@ -46,6 +46,32 @@ describe('docs/rfc e docs/spec', () => {
   });
 });
 
+describe('docs/spec final', () => {
+  const SPEC_FILES = ['gramatica.md', 'migracao.md', 'o-que-mudou.md', 'referencia.md', 'vocabulario.lock.json'];
+  const GRAMMAR_ID = /^(?:## )?(G\d{2})\b/gmu;
+  const RETIRED_WORD = /word: '([^']+)'/gu;
+  const tableRows = (text) => text.split('\n').filter((line) => line.startsWith('| ') && line.includes('`'));
+  it('docs/spec tem os cinco arquivos esperados', () => {
+    expect(fs.readdirSync(path.join(ROOT_DIR, 'docs/spec')).sort()).toEqual(SPEC_FILES);
+  });
+  it('ids Gnn da gramática são únicos', () => {
+    const ids = [...readDoc('docs/spec/gramatica.md').matchAll(GRAMMAR_ID)].map((match) => match[1]);
+    expect(ids.length).toBeGreaterThan(0);
+    expect(ids.filter((id, index) => ids.indexOf(id) !== index)).toEqual([]);
+  });
+  it('toda palavra aposentada aparece em migracao.md ou em o-que-mudou.md', () => {
+    const retired = [...readDoc('packages/language/src/retired/retired-words.data.ts').matchAll(RETIRED_WORD)].map((match) => match[1]);
+    const rows = [...tableRows(readDoc('docs/spec/migracao.md')), ...tableRows(readDoc('docs/spec/o-que-mudou.md'))].join('\n');
+    expect(retired.length).toBeGreaterThan(0);
+    expect(retired.filter((word) => !rows.includes(`\`${word}\``))).toEqual([]);
+  });
+  it('migracao.md registra a troca de trem e de .tamanho()', () => {
+    const rows = tableRows(readDoc('docs/spec/migracao.md')).join('\n');
+    expect(rows).toContain('`trem`');
+    expect(rows).toContain('`.tamanho()`');
+  });
+});
+
 describe('docs/piloto', () => {
   const PILOT_DIR = path.join(ROOT_DIR, 'docs/piloto');
   const EMAIL = /[\w.+-]+@[\w-]+\.[\w.-]+/u;

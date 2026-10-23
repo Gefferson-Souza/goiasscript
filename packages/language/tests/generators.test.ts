@@ -8,11 +8,11 @@ import { KEYWORDS, STDLIB } from '../src/index.ts';
 const REPOSITORY_ROOT = resolve(import.meta.dirname, '../../..');
 const PROCESS_TEST_TIMEOUT_MS = 30_000;
 const EXPECTED_PATHS = [
-  'docs/spec/o-que-mudou.md', 'docs/spec/vocabulario.lock.json',
+  'docs/spec/o-que-mudou.md', 'docs/spec/referencia.md', 'docs/spec/vocabulario.lock.json',
   'packages/language/generated/cli-help.txt', 'packages/language/generated/completions.json',
   'packages/language/generated/error-phrases.generated.ts', 'packages/language/generated/glossary.json',
   'packages/language/generated/goiasscript.monarch.json', 'packages/language/generated/goiasscript.tmLanguage.json',
-  'packages/language/generated/reference.md', 'packages/language/generated/snippets.json',
+  'packages/language/generated/snippets.json',
   'packages/language/src/js/js-members.generated.ts',
 ];
 
@@ -28,8 +28,24 @@ describe('geradores', () => {
     const content = files.find((file) => file.path === path)?.content;
     expect(readFileSync(resolve(REPOSITORY_ROOT, path), 'utf8')).toBe(content);
   });
+  it('a referência vai para docs/spec/referencia.md', () => {
+    const paths = files.map((file) => file.path);
+    expect(paths).toContain('docs/spec/referencia.md');
+    expect(paths).not.toContain('packages/language/generated/reference.md');
+  });
   it('não gera data nem caminho absoluto', () => {
     expect(files.filter((file) => /\/home\/|\d{4}-\d{2}-\d{2}T/u.test(file.content))).toEqual([]);
+  });
+});
+
+describe('gramática em docs/spec', () => {
+  it('toda palavra entre aspas da EBNF é palavra-chave da linguagem', () => {
+    const grammar = readFileSync(resolve(REPOSITORY_ROOT, 'docs/spec/gramatica.md'), 'utf8');
+    const ebnf = grammar.split('```ebnf')[1]?.split('```')[0] ?? '';
+    const quoted = [...ebnf.replaceAll(/\(\*.*?\*\)/gu, '').matchAll(/"(\p{L}[^"]*)"/gu)].map((match) => match[1]);
+    const spellings = new Set(KEYWORDS.map((entry) => entry.spelling));
+    expect(quoted.length).toBeGreaterThan(0);
+    expect(quoted.filter((word) => !spellings.has(word ?? ''))).toEqual([]);
   });
 });
 
