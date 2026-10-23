@@ -34,10 +34,10 @@ describe('rulesets versionados', () => {
     expect(archive.conditions.ref_name.include).toEqual(['refs/heads/archive/**']);
     expect(ruleTypes(archive)).toEqual(['deletion', 'non_fast_forward']);
   });
-  it('as tags legacy/* e v2.0-pre-archive não podem ser apagadas, movidas nem atualizadas', () => {
+  it('as tags legacy/*, v2.0-pre-archive e vscode-v* não podem ser apagadas, movidas nem atualizadas', () => {
     const tags = readRuleset('tags');
     expect(tags.target).toBe('tag');
-    expect(tags.conditions.ref_name.include).toEqual(['refs/tags/legacy/*', 'refs/tags/v2.0-pre-archive']);
+    expect(tags.conditions.ref_name.include).toEqual(['refs/tags/legacy/*', 'refs/tags/v2.0-pre-archive', 'refs/tags/vscode-v*']);
     expect(ruleTypes(tags)).toEqual(['deletion', 'non_fast_forward', 'update']);
   });
 });

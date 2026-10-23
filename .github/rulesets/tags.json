@@ -6,7 +6,8 @@
     "ref_name": {
       "include": [
         "refs/tags/legacy/*",
-        "refs/tags/v2.0-pre-archive"
+        "refs/tags/v2.0-pre-archive",
+        "refs/tags/vscode-v*"
       ],
       "exclude": []
     }
