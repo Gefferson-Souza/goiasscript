@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { createCache } from '../src/cache';
 import { createHandler } from '../src/handler';
 import type { HandlerDeps } from '../src/handler.types';
+import { LOOKUP_MAX_PER_WINDOW } from '../src/lookup-guard.constants';
 import index from '../src/index';
 import type { HealthReport, ProviderChain, QuotaLimiter } from '../src/ports.types';
 import { ALLOWED_ORIGIN, jsonRequest, makeConfig, makeEnv } from './helpers';
@@ -118,6 +119,18 @@ describe('createHandler', () => {
     expect(await response.json()).toEqual({ text: 'do cache, sô' });
     expect(limiter.reserve).not.toHaveBeenCalled();
     expect(providers.complete).not.toHaveBeenCalled();
+  });
+
+  it('rajada de acertos de cache da mesma rede leva 429 antes de ler o KV', async () => {
+    const { deps, cache } = makeDoubles();
+    cache.get.mockResolvedValue('do cache, sô');
+    const handler = createHandler(deps);
+    const send = (): Promise<Response> => handler(jsonRequest('{"text":"oi"}'), makeEnv());
+    for (let index = 0; index < LOOKUP_MAX_PER_WINDOW; index += 1) expect((await send()).status).toBe(200);
+    const blocked = await send();
+    expect(blocked.status).toBe(429);
+    expect(blocked.headers.get('Retry-After')).not.toBeNull();
+    expect(cache.get).toHaveBeenCalledTimes(LOOKUP_MAX_PER_WINDOW);
   });
 
   it('erro do cache vira acerto perdido e a requisição segue', async () => {

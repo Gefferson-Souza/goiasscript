@@ -1,0 +1,3 @@
+export const LOOKUP_WINDOW_MS = 60_000;
+export const LOOKUP_MAX_PER_WINDOW = 30;
+export const LOOKUP_MAX_TRACKED_NETWORKS = 5_000;

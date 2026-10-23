@@ -41,6 +41,12 @@ normalizado usa NFC, apara as pontas e junta espaços repetidos. Trocar o prompt
 muda a chave, então nunca se serve resposta de outro prompt ou modelo. Acerto de cache não chama
 provedor nem consome cota; erro de leitura ou escrita no KV vira acerto perdido e a requisição segue.
 
+Como o acerto não consome cota, a leitura do cache tem um freio próprio: no máximo 30 requisições
+por minuto por rede (`cf-connecting-ip`), contadas na memória do isolate, antes de ler o KV;
+passou disso, 429 com `Retry-After`. O freio é por isolate, então é uma barreira barata contra
+rajada, não um teto global. Contra abuso distribuído, o dono deve ativar uma regra de rate limiting
+do Cloudflare (WAF) na frente do Worker; a decisão fica registrada no relatório do gate.
+
 Para aquecer o cache com as cinco frases prontas do playground (ação do dono, fora do CI):
 
 ```bash
