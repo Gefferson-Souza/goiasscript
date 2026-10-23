@@ -16,6 +16,7 @@ export const EXERCISE_KEYS: readonly string[] = ['prompt', 'starter', 'solution'
 export const LESSON_RUN_TIMEOUT_MS = 10_000;
 export const LESSON_RUN_MAX_BUFFER_BYTES = 1_048_576;
 export const LESSON_RUN_DIR_PREFIX = 'gs-licao-';
+export const LESSON_RUN_ALLOW_FS_READ_FLAG = '--allow-fs-read=';
 export const LESSON_RUN_FILE_NAME = 'programa.mjs';
 export const LESSON_RUN_ENV_KEYS: readonly string[] = ['SystemRoot'];
 

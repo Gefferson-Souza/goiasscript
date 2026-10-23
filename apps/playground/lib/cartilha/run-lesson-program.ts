@@ -2,7 +2,7 @@ import { execFile, type ExecFileException } from 'node:child_process';
 import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { LESSON_RUN_DIR_PREFIX, LESSON_RUN_ENV_KEYS, LESSON_RUN_FILE_NAME, LESSON_RUN_MAX_BUFFER_BYTES, LESSON_RUN_TIMEOUT_MS } from './lesson.constants.ts';
+import { LESSON_RUN_ALLOW_FS_READ_FLAG, LESSON_RUN_DIR_PREFIX, LESSON_RUN_ENV_KEYS, LESSON_RUN_FILE_NAME, LESSON_RUN_MAX_BUFFER_BYTES, LESSON_RUN_TIMEOUT_MS } from './lesson.constants.ts';
 import type { RunLessonProgramOptions, RunLessonProgramResult } from './run-lesson-program.types.ts';
 
 function minimalEnv(): NodeJS.ProcessEnv {
@@ -20,11 +20,12 @@ function toResult(error: ExecFileException | null, stdout: string, stderr: strin
   return { stdout, stderr: exitCode === null && !timedOut && stderr === '' ? error.message : stderr, exitCode, timedOut };
 }
 
+// O modelo de permissão do Node nega rede, filho e escrita por padrão; leitura só na pasta do programa.
 function execute(file: string, dir: string, stdin: string, timeoutMs: number): Promise<RunLessonProgramResult> {
   return new Promise((resolve) => {
     const child = execFile(
       process.execPath,
-      [file],
+      ['--permission', `${LESSON_RUN_ALLOW_FS_READ_FLAG}${dir}`, file],
       { cwd: dir, env: minimalEnv(), timeout: timeoutMs, killSignal: 'SIGKILL', maxBuffer: LESSON_RUN_MAX_BUFFER_BYTES, encoding: 'utf8' },
       (error, stdout, stderr) => {
         resolve(toResult(error, stdout, stderr));
