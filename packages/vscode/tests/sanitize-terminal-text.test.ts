@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { sanitizeTerminalText } from '../src/host/terminal-text.ts';
+import { sanitizeTerminalText } from '../src/commands/sanitize-terminal-text.ts';
 
 const ESC = String.fromCharCode(0x1b);
 const BEL = String.fromCharCode(0x07);

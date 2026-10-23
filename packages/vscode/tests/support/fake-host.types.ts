@@ -6,6 +6,7 @@ export interface FakeHostOptions {
   readonly trusted?: boolean;
   readonly confirmation?: boolean;
   readonly activeDocument?: HostDocument;
+  readonly documents?: readonly HostDocument[];
 }
 
 export interface FakeTerminal extends ProgramTerminal {
@@ -13,11 +14,14 @@ export interface FakeTerminal extends ProgramTerminal {
   readonly written: string[];
   readonly exitCodes: number[];
   type(text: string): void;
+  closeByUser(): void;
 }
 
 export interface FakeHost extends ExtensionHost {
   readonly diagnostics: Map<string, readonly HostDiagnostic[]>;
   readonly errors: string[];
+  readonly infos: string[];
+  readonly confirmations: { readonly message: string; readonly confirmLabel: string }[];
   readonly output: string[];
   readonly terminals: FakeTerminal[];
   readonly commands: Map<string, CommandHandler>;
