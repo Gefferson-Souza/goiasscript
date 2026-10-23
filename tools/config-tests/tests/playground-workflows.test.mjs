@@ -50,7 +50,7 @@ const smokeCommands = smokeSteps.map((step) => step.run ?? '').join('\n');
 
 describe('playground-smoke.yml', () => {
   it('só dispara manualmente, com a entrada base_url obrigatória', () => {
-    expect(Object.keys(smoke.on)).toEqual(['workflow_dispatch']);
+    expect(Object.keys(smoke.on)).toEqual(['workflow_dispatch', 'workflow_call']);
     expect(smoke.on.workflow_dispatch.inputs.base_url.required).toBe(true);
   });
   it('declara permissão mínima de leitura no topo', () => {

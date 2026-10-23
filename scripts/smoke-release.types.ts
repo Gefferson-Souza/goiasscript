@@ -1,6 +1,6 @@
 export type SmokeDist = 'latest' | 'next';
 
-export type SmokeStep = 'registry' | 'install' | 'version' | 'license' | 'info';
+export type SmokeStep = 'registry' | 'install' | 'version' | 'license';
 
 export interface ExecResult {
   readonly exitCode: number;

@@ -8,6 +8,7 @@ const WORKFLOWS_DIR = path.join(ROOT_DIR, '.github/workflows');
 const PINNED_ACTION = /^[\w.-]+\/[\w./-]+@[0-9a-f]{40}$/;
 const VERSION_COMMENT = /#\s*v\d+\.\d+\.\d+\s*$/;
 const USES_LINE = /^\s*(?:-\s+)?uses:\s*(\S+)/;
+const LOCAL_WORKFLOW = /^\.\/\.github\/workflows\/[\w.-]+\.yml$/;
 const PULL_REQUEST_TEXT = /github\.event\.pull_request\.(?:title|body)/;
 const MINIMUM_PATCH_COVERAGE = '--fail-under=80';
 const REQUIRED_JOBS = ['verify', 'test', 'commitlint', 'patch-coverage', 'pr-body'];
@@ -23,7 +24,7 @@ const commandsOf = (job) => stepsOf(job).map((step) => step.run ?? '').join('\n'
 describe.each(workflowFiles)('workflow %s', (file) => {
   const rel = `.github/workflows/${file}`;
   it('pina cada action por SHA de 40 caracteres com a versão em comentário', () => {
-    const usesLines = readText(rel).split('\n').filter((line) => USES_LINE.test(line));
+    const usesLines = readText(rel).split('\n').filter((line) => USES_LINE.test(line) && !LOCAL_WORKFLOW.test(USES_LINE.exec(line)?.[1] ?? ''));
     const offenders = usesLines.filter((line) => !PINNED_ACTION.test(USES_LINE.exec(line)?.[1] ?? '') || !VERSION_COMMENT.test(line));
     expect(offenders).toEqual([]);
   });

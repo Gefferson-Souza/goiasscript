@@ -8,12 +8,15 @@ import {
   EXEC_MAX_BUFFER_BYTES,
   INFO_COMMAND,
   LICENSE_FILE,
+  NODE_MODULES_DIR,
+  NOT_VERSION_CHAR,
   NPM_COMMAND,
   PACKAGE_NAME,
+  PREFIX_BIN_DIR,
+  PREFIX_LIB_DIR,
   SMOKE_DISTS,
   SUCCESS_MESSAGE,
   TMP_DIR_PREFIX,
-  VERSION_FLAG,
 } from './smoke-release.constants.ts';
 import type { ExecPort, ExecResult, ReleaseSmokeOptions, SmokeDist, SmokeResult, SmokeStep } from './smoke-release.types.ts';
 
@@ -27,7 +30,6 @@ class SmokeStepError extends Error {
 }
 
 const execFileAsync = promisify(execFile);
-const NOT_VERSION_CHAR = '[^\\w.-]';
 
 const fail = (step: SmokeStep, message: string): SmokeResult => ({ ok: false, step, message });
 const detail = (result: ExecResult): string => (result.stderr.trim() || result.stdout.trim() || 'sem saída');
@@ -59,26 +61,21 @@ const stepInstall: StepRunner = async ({ options }) => {
 };
 
 const stepVersion: StepRunner = async ({ options, bin, version }) => {
-  const reported = await options.exec.run(bin, [VERSION_FLAG]);
+  const reported = await options.exec.run(bin, [INFO_COMMAND]);
   if (reported.exitCode === 0 && containsVersion(reported.stdout, version)) return null;
-  return fail('version', `Eita! O binário instalado não diz ${version}: ${detail(reported)}`);
+  return fail('version', `Eita! O ${INFO_COMMAND} do binário instalado não diz ${version}: ${detail(reported)}`);
 };
 
 const stepLicense: StepRunner = async ({ options }) => {
-  const license = path.join(options.tmpDir, 'lib', 'node_modules', PACKAGE_NAME, LICENSE_FILE);
+  const license = path.join(options.tmpDir, PREFIX_LIB_DIR, NODE_MODULES_DIR, PACKAGE_NAME, LICENSE_FILE);
   return (await options.exec.exists(license)) ? null : fail('license', `Ô rapaz! O pacote instalado veio sem ${LICENSE_FILE}.`);
 };
 
-const stepInfo: StepRunner = async ({ options, bin }) => {
-  const info = await options.exec.run(bin, [INFO_COMMAND]);
-  return info.exitCode === 0 ? null : fail('info', `Ô sô! O ${INFO_COMMAND} saiu com ${String(info.exitCode)}: ${detail(info)}`);
-};
-
+// Só Linux: no Windows o npm é um .cmd (execFile sem shell não roda) e o prefixo muda de layout.
 const STEPS: ReadonlyArray<readonly [SmokeStep, StepRunner]> = [
   ['install', stepInstall],
   ['version', stepVersion],
   ['license', stepLicense],
-  ['info', stepInfo],
 ];
 
 async function guarded<T>(step: SmokeStep, task: () => Promise<T>): Promise<T | SmokeResult> {
@@ -96,7 +93,7 @@ const isFailure = (value: unknown): value is Extract<SmokeResult, { ok: false }>
 export async function runReleaseSmoke(options: ReleaseSmokeOptions): Promise<SmokeResult> {
   const version = await guarded('registry', () => readRegistryVersion(options));
   if (typeof version !== 'string') return version;
-  const context: SmokeContext = { options, bin: path.join(options.tmpDir, 'bin', PACKAGE_NAME), version };
+  const context: SmokeContext = { options, bin: path.join(options.tmpDir, PREFIX_BIN_DIR, PACKAGE_NAME), version };
   for (const [step, runner] of STEPS) {
     const failure = await guarded(step, () => runner(context));
     if (isFailure(failure)) return failure;
@@ -121,16 +118,16 @@ export const realExecPort: ExecPort = {
   exists: (file) => fs.promises.access(file).then(() => true, () => false),
 };
 
-function parseDist(value: string | undefined): SmokeDist {
+export function parseDist(value: string | undefined): SmokeDist {
   const dist = SMOKE_DISTS.find((candidate) => candidate === value);
   if (dist === undefined) throw new Error(`Ô sô! A dist-tag tem que ser ${SMOKE_DISTS.join(' ou ')}.`);
   return dist;
 }
 
-async function main(): Promise<number> {
+export async function main(argv: readonly string[], exec: ExecPort = realExecPort): Promise<number> {
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), TMP_DIR_PREFIX));
   try {
-    const result = await runReleaseSmoke({ dist: parseDist(process.argv[2]), exec: realExecPort, tmpDir });
+    const result = await runReleaseSmoke({ dist: parseDist(argv[2]), exec, tmpDir });
     if (result.ok) {
       process.stdout.write(`${SUCCESS_MESSAGE} (${result.version})\n`);
       return 0;
@@ -146,5 +143,5 @@ async function main(): Promise<number> {
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  process.exit(await main());
+  process.exit(await main(process.argv));
 }
