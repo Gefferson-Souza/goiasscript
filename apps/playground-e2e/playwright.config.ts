@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 import {
   BUILD_AND_START,
+  CHROMIUM_ONLY_SPECS,
   CI_RETRIES,
   MONOREPO_ROOT,
   SERVER_START_TIMEOUT_MS,
@@ -25,8 +26,8 @@ export default defineConfig({
   use: { baseURL, trace: 'on-first-retry', screenshot: 'only-on-failure' },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
-    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] }, testIgnore: [...CHROMIUM_ONLY_SPECS] },
+    { name: 'webkit', use: { ...devices['Desktop Safari'] }, testIgnore: [...CHROMIUM_ONLY_SPECS] },
   ],
   webServer: {
     command: BUILD_AND_START,
