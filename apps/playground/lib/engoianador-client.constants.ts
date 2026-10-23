@@ -1,0 +1,21 @@
+// Igual ao MAX_INPUT_CHARS padrão da API do Engoianador.
+export const MAX_INPUT_CHARS = 2_000;
+export const REQUEST_TIMEOUT_MS = 15_000;
+export const REQUEST_TEXT_FIELD = 'texto';
+export const ENGOIANAR_PATH = '/engoiana';
+export const JSON_HEADERS = { 'Content-Type': 'application/json' } as const;
+
+const STATUS_NOT_FOUND = 404;
+const STATUS_TOO_MANY_REQUESTS = 429;
+const STATUS_CLIENT_ERROR_MIN = 400;
+const STATUS_CLIENT_ERROR_MAX = 499;
+
+export const HTTP_STATUS = {
+  notFound: STATUS_NOT_FOUND,
+  tooManyRequests: STATUS_TOO_MANY_REQUESTS,
+  clientErrorMin: STATUS_CLIENT_ERROR_MIN,
+  clientErrorMax: STATUS_CLIENT_ERROR_MAX,
+} as const;
+
+// Contrato atual da API: `engoianado`; `texto` fica aceito para o contrato futuro.
+export const RESPONSE_TEXT_FIELDS = ['engoianado', 'texto'] as const;

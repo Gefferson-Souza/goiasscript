@@ -16,13 +16,13 @@ const APP_REACT_FILES = ['apps/playground/**/*.tsx'];
 const TS_FILES = ['packages/**/*.ts', 'tools/**/*.ts', 'scripts/**/*.ts', '*.config.mts', ...APP_FILES];
 // Arquivos ainda fora do ESLint estrito: cada um sai desta lista quando é reescrito.
 const LEGACY_APP_FILES = [
-  'apps/playground/app/**',
+  'apps/playground/app/*.{ts,tsx}',
+  'apps/playground/app/doacao/**',
   'apps/playground/components/**',
   'apps/playground/workers/**',
   'apps/playground/types/**',
   'apps/playground/tailwind.config.ts',
   'apps/playground/scripts/copy-examples.mjs',
-  'apps/playground/lib/engoianador-client.ts',
   'apps/playground/lib/monaco-goias.ts',
   'apps/playground/lib/share.ts',
   'apps/playground/lib/use-runner.ts',

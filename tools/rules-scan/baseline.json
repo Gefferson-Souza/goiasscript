@@ -33,9 +33,6 @@
       "R12": 1,
       "R14": 1
     },
-    "apps/playground/app/engoianador/page.tsx": {
-      "R14": 18
-    },
     "apps/playground/components/OutputPanel.tsx": {
       "R14": 4
     },
@@ -43,9 +40,6 @@
       "R06": 1,
       "R12": 1,
       "R14": 6
-    },
-    "apps/playground/lib/engoianador-client.ts": {
-      "R14": 2
     },
     "apps/playground/lib/share.ts": {
       "R14": 1
