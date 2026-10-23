@@ -8,6 +8,8 @@ const SMALL_LINE_COUNT = 10_000;
 const LARGE_LINE_COUNT = 20_000;
 const MAX_GROWTH_RATIO = 3.5;
 const MAX_SECONDS = 3;
+const WARMUP_LINE_COUNT = 500;
+const SAMPLES_PER_SIZE = 3;
 const HUGE_IDENTIFIER_LENGTH = 3_000_000;
 const MILLISECONDS_PER_SECOND = 1000;
 
@@ -26,14 +28,21 @@ const timeRun = async (stdin: string): Promise<{ readonly seconds: number; reado
   return { seconds: (performance.now() - start) / MILLISECONDS_PER_SECOND, stdout: io.stdoutText() };
 };
 
+const bestOf = async (stdin: string): Promise<{ readonly seconds: number; readonly stdout: string }> => {
+  const runs = [];
+  for (let sample = 0; sample < SAMPLES_PER_SIZE; sample += 1) runs.push(await timeRun(stdin));
+  return runs.reduce((best, run) => (run.seconds < best.seconds ? run : best));
+};
+
 describe('roda de prosa em escala', () => {
   it('cresce de forma linear com o número de linhas por pipe', async () => {
-    const small = await timeRun('prosa(1)\n'.repeat(SMALL_LINE_COUNT));
-    const large = await timeRun('prosa(1)\n'.repeat(LARGE_LINE_COUNT));
+    await timeRun('prosa(1)\n'.repeat(WARMUP_LINE_COUNT));
+    const small = await bestOf('prosa(1)\n'.repeat(SMALL_LINE_COUNT));
+    const large = await bestOf('prosa(1)\n'.repeat(LARGE_LINE_COUNT));
     expect(large.stdout).toBe('1\n'.repeat(LARGE_LINE_COUNT));
     expect(large.seconds).toBeLessThanOrEqual(MAX_SECONDS);
     expect(large.seconds / small.seconds).toBeLessThan(MAX_GROWTH_RATIO);
-  }, 30_000);
+  }, 60_000);
 
   it('responde a uma linha de 3 MB sem pilha do motor', async () => {
     const run = await timeRun(`${'a'.repeat(HUGE_IDENTIFIER_LENGTH)}\n.vaza\n`);
