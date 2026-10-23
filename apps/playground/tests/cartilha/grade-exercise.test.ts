@@ -68,9 +68,15 @@ describe('correção do exercício', () => {
       [{ kind: 'ask', prompt: 'idade?' }],
       [{ kind: 'out', text: 'Zé 30' }, { kind: 'finished' }],
     ]);
-    const result = await gradeExercise(request({ expectedStdout: 'Zé 30', stdin: ['Zé', '30'] }), { compile: () => Promise.resolve(compiledView), runner: fake.runner });
+    const result = await gradeExercise(request({ expectedStdout: 'nome? idade? Zé 30', stdin: ['Zé', '30'] }), { compile: () => Promise.resolve(compiledView), runner: fake.runner });
     expect(fake.answers).toEqual(['Zé', '30']);
     expect(result.verdict).toBe('correct');
+  });
+
+  it('mostra a pergunta na saída, antes do próximo texto', async () => {
+    const fake = fakeRunner([[{ kind: 'ask', prompt: 'Quanto custa?' }], [{ kind: 'out', text: 'Preço: 10.5' }, { kind: 'finished' }]]);
+    const result = await gradeExercise(request({ expectedStdout: 'Quanto custa? Preço: 10.5', stdin: ['10,50'] }), { compile: () => Promise.resolve(compiledView), runner: fake.runner });
+    expect(result).toMatchObject({ verdict: 'correct', actualStdout: 'Quanto custa? Preço: 10.5' });
   });
 
   it('run-failed quando o programa pergunta mais do que o stdin tem', async () => {

@@ -3,6 +3,7 @@ import type { Verdict } from './grade-exercise.types.ts';
 export interface CollectorState {
   readonly lines: readonly string[];
   readonly answers: readonly string[];
+  readonly promptPrefix: string;
   readonly truncated: boolean;
 }
 
