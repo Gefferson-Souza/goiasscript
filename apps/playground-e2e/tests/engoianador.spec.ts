@@ -1,5 +1,10 @@
 import { expect, test, type Request } from '@playwright/test';
-import { REQUEST_TEXT_FIELD, RESPONSE_TEXT_FIELDS } from '../../playground/lib/engoianador-client.constants.ts';
+import {
+  ENGOIANAR_PATH,
+  HEALTH_OK_FIELD,
+  REQUEST_TEXT_FIELD,
+  RESPONSE_TEXT_FIELDS,
+} from '../../playground/lib/engoianador-client.constants.ts';
 import { CONFIGURED_PUBLIC_ENV } from '../playwright.constants.ts';
 import { configuredServerOrigin, defaultServerOrigin } from './support/servers.ts';
 
@@ -40,6 +45,15 @@ test.describe('Engoianador — com URL configurada', () => {
       const corsHeaders = { 'access-control-allow-origin': '*', 'access-control-allow-headers': '*' };
       if (route.request().method() === 'OPTIONS') {
         await route.fulfill({ status: NO_CONTENT, headers: corsHeaders });
+        return;
+      }
+      if (!route.request().url().endsWith(ENGOIANAR_PATH)) {
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          headers: corsHeaders,
+          body: JSON.stringify({ [HEALTH_OK_FIELD]: true }),
+        });
         return;
       }
       const body = route.request().postDataJSON() as Readonly<Record<string, string>>;
