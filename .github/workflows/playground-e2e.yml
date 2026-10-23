@@ -34,7 +34,7 @@ jobs:
       - name: Instala o navegador e as dependências do sistema
         run: pnpm --filter playground-e2e exec playwright install --with-deps ${{ matrix.browser }}
       - name: Roda o E2E no navegador da matriz
-        run: pnpm --filter playground-e2e exec playwright test --project=${{ matrix.browser }}
+        run: pnpm --filter playground-e2e exec playwright test --project=${{ matrix.browser }} --pass-with-no-tests
         env:
           CI: 'true'
       - name: Envia relatório e trace

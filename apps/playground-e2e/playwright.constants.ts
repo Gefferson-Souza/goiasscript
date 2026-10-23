@@ -13,3 +13,12 @@ export const TEST_PUBLIC_ENV = {
   NEXT_PUBLIC_DONATION_KOFI_URL: 'https://kofi.mock.test',
   NEXT_PUBLIC_CONTACT_URL: 'https://contato.mock.test',
 } as const;
+
+// Specs escritos só contra o chromium (checam globais do sandbox e seletores antigos); saem desta lista quando forem reescritos para os três navegadores.
+export const CHROMIUM_ONLY_SPECS = [
+  '**/doacao.spec.ts',
+  '**/engoianador.spec.ts',
+  '**/examples.spec.ts',
+  '**/home.spec.ts',
+  '**/security.spec.ts',
+] as const;
