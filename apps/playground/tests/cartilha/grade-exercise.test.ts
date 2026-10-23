@@ -120,3 +120,36 @@ describe('correção do exercício', () => {
     expect(result.verdict).toBe('wrong');
   });
 });
+
+describe('teto de segurança da correção', () => {
+  const silentRunner = (): FakeRunner => fakeRunner([[{ kind: 'out', text: 'a' }]]);
+
+  it('resolve como timeout e para o runner quando ele nunca emite evento final', async () => {
+    vi.useFakeTimers();
+    try {
+      const fake = silentRunner();
+      const pending = gradeExercise(request(), { compile: () => Promise.resolve(compiledView), runner: fake.runner, ceilingMs: 1_000 });
+      await vi.advanceTimersByTimeAsync(1_000);
+      const result = await pending;
+      expect(result).toMatchObject({ verdict: 'timeout', actualStdout: 'a' });
+      expect(fake.stop).toHaveBeenCalledTimes(1);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('cancela o teto quando o runner termina a tempo e ignora eventos tardios', async () => {
+    vi.useFakeTimers();
+    try {
+      const fake = fakeRunner([[{ kind: 'finished' }]]);
+      const result = await gradeExercise(request({ expectedStdout: '' }), { compile: () => Promise.resolve(compiledView), runner: fake.runner, ceilingMs: 1_000 });
+      await vi.advanceTimersByTimeAsync(5_000);
+      expect(result.verdict).toBe('correct');
+      expect(fake.stop).not.toHaveBeenCalled();
+      expect(vi.getTimerCount()).toBe(0);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+});
+

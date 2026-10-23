@@ -1,9 +1,9 @@
 import type { CompileSuccess, Diagnostic } from '@goiasscript/compiler';
 import type { CompileView } from '../compile-service.types.ts';
-import type { RunEvent } from '../run/runner-client.types.ts';
-import { CRLF, GRADE_FILE_NAME, GRADE_REASONS, OUTPUT_LINE_JOINER, TRAILING_BLANKS, TRAILING_NEWLINES } from './grade-exercise.constants.ts';
+import type { RunEvent, TimerHandle, TimerPort } from '../run/runner-client.types.ts';
+import { CRLF, GRADE_CEILING_MS, GRADE_FILE_NAME, GRADE_REASONS, OUTPUT_LINE_JOINER, TRAILING_BLANKS, TRAILING_NEWLINES } from './grade-exercise.constants.ts';
 import type { CollectorState, CollectorStep } from './grade-exercise.internal.types.ts';
-import type { GradeDeps, GradeRequest, GradeResult } from './grade-exercise.types.ts';
+import type { GradeDeps, GradeRequest, GradeResult, Verdict } from './grade-exercise.types.ts';
 
 // Fim de linha, espaço no fim da linha e linhas vazias finais não contam na comparação.
 export function normalizeStdout(text: string): string {
@@ -51,19 +51,42 @@ export function stepCollector(state: CollectorState, event: RunEvent, expected: 
   }
 }
 
+const defaultTimers: TimerPort = {
+  setTimeout: (handler, delayMs) => globalThis.setTimeout(handler, delayMs),
+  clearTimeout: (handle) => {
+    globalThis.clearTimeout(handle as Parameters<typeof globalThis.clearTimeout>[0]);
+  },
+};
+
 function drive(compiled: CompileSuccess, request: GradeRequest, deps: GradeDeps): Promise<GradeResult> {
   const expectedStdout = normalizeStdout(request.exercise.expectedStdout);
+  const timers = deps.timers ?? defaultTimers;
   return new Promise<GradeResult>((resolve) => {
     let state: CollectorState = { lines: [], answers: request.exercise.stdin ?? [], truncated: false };
+    let settled = false;
+    let ceiling: TimerHandle | null = null;
+    const settle = (verdict: Verdict, reason?: string): void => {
+      if (settled) return;
+      settled = true;
+      if (ceiling !== null) timers.clearTimeout(ceiling);
+      resolve({ verdict, actualStdout: joinLines(state.lines), expectedStdout, ...(reason === undefined ? {} : { reason }) });
+    };
     const onEvent = (event: RunEvent): void => {
+      if (settled) return;
       const step = stepCollector(state, event, expectedStdout);
       state = step.state;
       const { effect } = step;
       if (effect.kind === 'answer') deps.runner.answer(effect.value);
       if (effect.kind !== 'finish') return;
       if (effect.stopRunner === true) deps.runner.stop();
-      resolve({ verdict: effect.verdict, actualStdout: joinLines(state.lines), expectedStdout, ...(effect.reason === undefined ? {} : { reason: effect.reason }) });
+      settle(effect.verdict, effect.reason);
     };
+    // Teto de segurança: se o runner sumir sem evento final, a correção ainda termina.
+    ceiling = timers.setTimeout(() => {
+      if (settled) return;
+      deps.runner.stop();
+      settle('timeout');
+    }, deps.ceilingMs ?? GRADE_CEILING_MS);
     deps.runner.run({ compiled, source: request.source, fileName: GRADE_FILE_NAME }, onEvent);
   });
 }
