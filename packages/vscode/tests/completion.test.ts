@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { completionItemsFor } from '../src/language/completion-items.ts';
+import { MEMBER_TRIGGER_CHARACTER } from '../src/language/completion-items.constants.ts';
 import type { LessonLookup } from '../src/language/lesson-link.types.ts';
 import { completionFeature } from '../src/features/completion.feature.ts';
 import { createFakeHost } from './support/fake-host.ts';
@@ -54,8 +55,15 @@ describe('autocomplete: depois do ponto', () => {
     expect(some.length).toBeLessThanOrEqual(all.length);
   });
 
-  it.each(['1.', 'x = 12.', 'total = 3.5.', 'a...', '..', '.'])('não oferece nada depois de %s', (linePrefix) => {
+  it.each(['1.', 'x = 12.', 'total = 3.5.', '..', 'a..', '.'])('não oferece nada depois de %s', (linePrefix) => {
     expect(labelsOf(linePrefix)).toEqual([]);
+  });
+
+  it.each(['[...', 'f(...', 'a...'])('trata o espalhamento %s como expressão comum, sem itens de membro', (linePrefix) => {
+    const items = completionItemsFor({ linePrefix, lessonBaseUrl: null });
+    expect(items.length).toBeGreaterThan(0);
+    expect(labelsOf(`${linePrefix}uai`)).toContain('uai');
+    expect(labelsOf(`${linePrefix}bota_no_f`)).toEqual([]);
   });
 
   it('trata identificador terminado em dígito como receptor válido', () => {
@@ -73,6 +81,12 @@ describe('autocomplete: link da lição', () => {
     const items = completionItemsFor({ linePrefix: 'ua', lessonBaseUrl: `${BASE_URL}/` }, LESSONS);
     expect(items.find((item) => item.label === 'uai')?.lessonUrl).toBe(`${BASE_URL}/licao-01`);
     expect(items.filter((item) => item.lessonUrl !== undefined)).toHaveLength(1);
+  });
+});
+
+describe('gatilho do autocomplete', () => {
+  it('abre a lista ao digitar o ponto', () => {
+    expect(MEMBER_TRIGGER_CHARACTER).toBe('.');
   });
 });
 

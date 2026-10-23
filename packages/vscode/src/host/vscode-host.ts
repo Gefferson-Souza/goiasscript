@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { SETTINGS_SECTION } from '../settings/settings.constants.ts';
 import { readSettings } from '../settings/settings.ts';
+import { MEMBER_TRIGGER_CHARACTER } from '../language/completion-items.constants.ts';
 import { LESSON_LINK_LABEL } from '../language/lesson-link.constants.ts';
 import { resourceUriOf } from './command-target.ts';
 import { sanitizeTerminalText } from './terminal-text.ts';
@@ -128,10 +129,14 @@ function createLanguageApi(): Pick<ExtensionHost, 'registerCompletionProvider' |
   const selector: vscode.DocumentSelector = { language: LANGUAGE_ID };
   return {
     registerCompletionProvider: (provider) =>
-      vscode.languages.registerCompletionItemProvider(selector, {
+      vscode.languages.registerCompletionItemProvider(
+        selector,
+        {
         provideCompletionItems: (document, position) =>
           provider.provide({ linePrefix: document.lineAt(position.line).text.slice(0, position.character) }).map(toCompletionItem),
-      }),
+        },
+        MEMBER_TRIGGER_CHARACTER,
+      ),
     registerHoverProvider: (provider) =>
       vscode.languages.registerHoverProvider(selector, {
         provideHover: (document, position) => {

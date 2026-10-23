@@ -1,7 +1,7 @@
 import { COMPLETION_LABELS } from '@goiasscript/language';
 import snippets from '@goiasscript/language/generated/snippets.json' with { type: 'json' };
 import type { CompletionItemData } from '../host/extension-host.types.ts';
-import { ACCENT_MARKS, DIGIT_START, SORT_SEPARATOR, SPREAD_OPERATOR_SUFFIX } from './completion-items.constants.ts';
+import { ACCENT_MARKS, DIGIT_START, DOUBLE_DOT_SUFFIX, SORT_SEPARATOR, SPREAD_OPERATOR_SUFFIX } from './completion-items.constants.ts';
 import type { CompletionContext, SnippetDefinition } from './completion-items.types.ts';
 import { DEFAULT_LESSONS, lessonUrlFor } from './lesson-link.ts';
 import type { LessonLookup } from './lesson-link.types.ts';
@@ -41,9 +41,9 @@ function snippetCandidates(): readonly Candidate[] {
   }));
 }
 
-// Depois de ponto de número (1.) ou de espalhamento (...) não há membro a sugerir.
+// Depois de ponto de número (1.) ou de ponto duplo (..) não há membro a sugerir.
 function memberAccessAllowed(beforePrefix: string): boolean {
-  if (beforePrefix.endsWith(SPREAD_OPERATOR_SUFFIX)) return false;
+  if (beforePrefix.endsWith(DOUBLE_DOT_SUFFIX)) return false;
   const receiver = trailingIdentifier(beforePrefix.slice(0, -1));
   return !DIGIT_START.test(receiver) && beforePrefix.length > 1;
 }
@@ -51,7 +51,7 @@ function memberAccessAllowed(beforePrefix: string): boolean {
 export function completionItemsFor(context: CompletionContext, lessons: LessonLookup = DEFAULT_LESSONS): readonly CompletionItemData[] {
   const prefix = trailingIdentifier(context.linePrefix);
   const beforePrefix = context.linePrefix.slice(0, context.linePrefix.length - prefix.length);
-  const afterDot = beforePrefix.endsWith('.');
+  const afterDot = beforePrefix.endsWith('.') && !beforePrefix.endsWith(SPREAD_OPERATOR_SUFFIX);
   if (afterDot && !memberAccessAllowed(beforePrefix)) return [];
   const labels = labelCandidates(context.lessonBaseUrl, lessons);
   const candidates = afterDot ? labels.filter((candidate) => candidate.member) : [...labels, ...snippetCandidates()].filter((candidate) => !candidate.member);

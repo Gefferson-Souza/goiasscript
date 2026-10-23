@@ -683,6 +683,11 @@ export interface ExtensionHost {
   readonly registerCommand: (commandId: string, handler: () => Promise<void>) => Disposable;
 }
 export interface CompletionProviderPort { provide(context: { readonly linePrefix: string }): readonly CompletionItemData[] }
+export type CompletionItemData = Pick<CompletionLabel, 'label' | 'detail'> & {
+  readonly kind: CompletionLabel['kind'] | 'snippet';   // 'snippet' vem do snippets.json (U5-03)
+  readonly insertText?: string;                          // corpo do trecho, com tabstops
+  readonly lessonUrl?: string;                           // link da lição, só quando há base configurada
+};
 export interface HoverProviderPort { provide(context: { readonly line: string; readonly character: number }): HoverContent | null }
 export type DocumentEvent = { readonly kind: 'opened' | 'changed' | 'closed'; readonly document: HostDocument };
 export interface Feature { activate(host: ExtensionHost): Disposable }   // um stub por feature em src/features/*.feature.ts
