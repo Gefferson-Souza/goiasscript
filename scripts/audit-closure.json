@@ -1,0 +1,622 @@
+[
+  {
+    "id": "A F01",
+    "kind": "adr",
+    "ref": "docs/adr/0001-front-end-proprio-a-mao.md"
+  },
+  {
+    "id": "A F01",
+    "kind": "test",
+    "ref": "packages/compiler/tests/unit/lexer/words.test.ts",
+    "testName": "separa keyword de identificador pela tabela, sem decidir a posição"
+  },
+  {
+    "id": "A F02",
+    "kind": "test",
+    "ref": "packages/compiler/tests/unit/lexer/strings.test.ts",
+    "testName": "chave dentro de comentário ou regex na expressão não fecha o"
+  },
+  {
+    "id": "A F02",
+    "kind": "test",
+    "ref": "packages/compiler/tests/unit/lexer/trivia.test.ts",
+    "testName": "comentário de bloco com quebra conta como quebra; sem quebra, não"
+  },
+  {
+    "id": "A F03",
+    "kind": "test",
+    "ref": "packages/compiler/tests/unit/lowering/helpers.test.ts",
+    "testName": ".trocar é ajudante e troca texto literal, sem $ especial"
+  },
+  {
+    "id": "A F03",
+    "kind": "test",
+    "ref": "packages/compiler/tests/unit/lexer/strings.test.ts",
+    "testName": "decodifica os escapes do JS estrito"
+  },
+  {
+    "id": "A F04",
+    "kind": "test",
+    "ref": "packages/compiler/tests/unit/parser/expressions.test.ts",
+    "testName": "aceita palavra goiana como nome de propriedade e de chave, preservando a grafia"
+  },
+  {
+    "id": "A F04",
+    "kind": "test",
+    "ref": "packages/compiler/tests/unit/parser/declarations.test.ts",
+    "testName": "guarda a keyword reservada em posição de nome para a análise dar GS0303"
+  },
+  {
+    "id": "A F05",
+    "kind": "test",
+    "ref": "packages/compiler/tests/unit/lowering/terminators.test.ts",
+    "testName": "declaração com seta recebe ; e a linha seguinte começada por ( não vira chamada"
+  },
+  {
+    "id": "A F05",
+    "kind": "test",
+    "ref": "packages/compiler/tests/unit/parser/statement-end.test.ts",
+    "testName": "a quebra termina a instrução simples e o \";\" separa instruções na mesma linha"
+  },
+  {
+    "id": "A F06",
+    "kind": "test",
+    "ref": "packages/compiler/tests/unit/lowering/macros.test.ts",
+    "testName": "nome do aluno que esconde a biblioteca não é reescrito"
+  },
+  {
+    "id": "A F06",
+    "kind": "test",
+    "ref": "packages/compiler/tests/unit/analyzer/members.test.ts",
+    "testName": "receptor não resolvido não gera diagnóstico de membro"
+  },
+  {
+    "id": "A F07",
+    "kind": "test",
+    "ref": "packages/compiler/tests/unit/lowering/helpers.test.ts",
+    "testName": "$gs_ordem é ordem total: números, textos pt-BR, resto estável"
+  },
+  {
+    "id": "A F07",
+    "kind": "test",
+    "ref": "packages/compiler/tests/unit/lowering/helpers.test.ts",
+    "testName": ".trocar é ajudante e troca texto literal, sem $ especial"
+  },
+  {
+    "id": "A F08",
+    "kind": "test",
+    "ref": "packages/language/tests/integrity.test.ts",
+    "testName": "cobre as palavras e globais da §4.4"
+  },
+  {
+    "id": "A F08",
+    "kind": "test",
+    "ref": "packages/language/tests/integrity.test.ts",
+    "testName": "aponta os nomes goianos aprovados na RFC-0001 para as globais do JS"
+  },
+  {
+    "id": "A F09",
+    "kind": "adr",
+    "ref": "docs/adr/0003-zero-runtime.md"
+  },
+  {
+    "id": "A F09",
+    "kind": "test",
+    "ref": "packages/compiler/tests/budgets.test.ts",
+    "testName": "programa só nativo tem 0 bytes de runtime no alvo module"
+  },
+  {
+    "id": "A F09",
+    "kind": "test",
+    "ref": "packages/compiler/tests/unit/lowering/helpers.test.ts",
+    "testName": "estado global dos ajudantes usa var, nunca let/const no topo"
+  },
+  {
+    "id": "A F10",
+    "kind": "test",
+    "ref": "packages/compiler/tests/unit/runtime-errors/translate.test.ts",
+    "testName": "TypeError vira GS0710 na linha do .gs, sem texto do motor"
+  },
+  {
+    "id": "A F10",
+    "kind": "test",
+    "ref": "packages/cli/tests/run-real.test.ts",
+    "testName": "erro de execução aponta a linha do .gs e sai com 2"
+  },
+  {
+    "id": "A F11",
+    "kind": "test",
+    "ref": "packages/compiler/tests/unit/compile.test.ts",
+    "testName": "ok: true implica JS aceito pelo acorn"
+  },
+  {
+    "id": "A F11",
+    "kind": "test",
+    "ref": "packages/cli/tests/check.test.ts",
+    "testName": "erro: exit 1"
+  },
+  {
+    "id": "A F12",
+    "kind": "intentional",
+    "ref": "packages/compiler/tests/conformance/retired-function-word"
+  },
+  {
+    "id": "A F12",
+    "kind": "intentional",
+    "ref": "packages/compiler/tests/conformance/audit-x06"
+  },
+  {
+    "id": "A F12",
+    "kind": "test",
+    "ref": "tools/script-tests/tests/docs-blocks.test.ts",
+    "testName": "palavra aposentada passa com GS0306 e falha com outro código"
+  },
+  {
+    "id": "A F12",
+    "kind": "test",
+    "ref": "tools/config-tests/tests/docs.test.mjs",
+    "testName": "toda palavra aposentada aparece em migracao.md ou em o-que-mudou.md"
+  },
+  {
+    "id": "B F01",
+    "kind": "test",
+    "ref": "packages/cli/tests/e2e/name-matrix.e2e.ts",
+    "testName": "saída igual à entrada e destino existente são recusados sem tocar no fonte"
+  },
+  {
+    "id": "B F01",
+    "kind": "test",
+    "ref": "packages/cli/tests/output-plan.test.ts",
+    "testName": "troca só a extensão final, preservando um .gs no meio do caminho"
+  },
+  {
+    "id": "B F01",
+    "kind": "test",
+    "ref": "packages/cli/tests/run-lifecycle.test.ts",
+    "testName": "nome sem .gs é recusado com exit 3 e sem importar"
+  },
+  {
+    "id": "B F02",
+    "kind": "test",
+    "ref": "packages/cli/tests/run-lifecycle.test.ts",
+    "testName": "exceção não capturada é traduzida e encerra com 2, uma vez só"
+  },
+  {
+    "id": "B F02",
+    "kind": "test",
+    "ref": "packages/cli/tests/run-real.test.ts",
+    "testName": "erro de execução aponta a linha do .gs e sai com 2"
+  },
+  {
+    "id": "B F03",
+    "kind": "test",
+    "ref": "packages/cli/tests/check.test.ts",
+    "testName": "erro: exit 1"
+  },
+  {
+    "id": "B F03",
+    "kind": "test",
+    "ref": "packages/cli/tests/run-real.test.ts",
+    "testName": "erro de compilação sai com 1 e não executa nada"
+  },
+  {
+    "id": "B F04",
+    "kind": "test",
+    "ref": "packages/cli/tests/repl-engine.test.ts",
+    "testName": "persiste declarações entre entradas e mostra o eco"
+  },
+  {
+    "id": "B F04",
+    "kind": "test",
+    "ref": "packages/cli/tests/repl-loop.test.ts",
+    "testName": "multilinha por incomplete, com continuação e resultado"
+  },
+  {
+    "id": "B F04",
+    "kind": "test",
+    "ref": "packages/cli/tests/repl-loop.test.ts",
+    "testName": "TAB completa no terminal"
+  },
+  {
+    "id": "B F04",
+    "kind": "test",
+    "ref": "packages/cli/tests/e2e/repl-pipe.e2e.ts",
+    "testName": "avalia as linhas, imprime 6 e sai com 0 (pelo atalho instalado)"
+  },
+  {
+    "id": "B F05",
+    "kind": "test",
+    "ref": "packages/cli/tests/scaffold.test.ts",
+    "testName": "o main.gs do template compila sem nenhum diagnóstico"
+  },
+  {
+    "id": "B F05",
+    "kind": "test",
+    "ref": "packages/cli/tests/e2e/scaffold-steps.e2e.ts",
+    "testName": "seguidos à risca, rodam o projeto gerado"
+  },
+  {
+    "id": "B F06",
+    "kind": "test",
+    "ref": "packages/cli/tests/e2e/english-scan.e2e.ts",
+    "testName": "o dedo_de_prosa não muda sem querer"
+  },
+  {
+    "id": "B F06",
+    "kind": "test",
+    "ref": "tools/script-tests/tests/english-ui.test.ts",
+    "testName": "nenhuma string visível ao usuário casa o inglês proibido"
+  },
+  {
+    "id": "B F06",
+    "kind": "test",
+    "ref": "packages/cli/tests/run-lifecycle.test.ts",
+    "testName": "mensagem do motor e de erro do Node nunca aparece"
+  },
+  {
+    "id": "B F06",
+    "kind": "test",
+    "ref": "packages/cli/tests/run-cli.test.ts",
+    "testName": "comando desconhecido é GS0905 com sugestão e exit 3"
+  },
+  {
+    "id": "B F07",
+    "kind": "test",
+    "ref": "apps/playground/tests/examples.test.ts",
+    "testName": "cada exemplo compila no alvo playground e imprime o esperado"
+  },
+  {
+    "id": "B F07",
+    "kind": "test",
+    "ref": "tools/script-tests/tests/docs-blocks.test.ts",
+    "testName": "passa para bloco que compila e executa"
+  },
+  {
+    "id": "B F08",
+    "kind": "test",
+    "ref": "packages/compiler/tests/unit/compile.test.ts",
+    "testName": "sucesso: code, map, helperRange nulo e diagnósticos vazios"
+  },
+  {
+    "id": "B F09",
+    "kind": "test",
+    "ref": "tools/script-tests/tests/docs-blocks.test.ts",
+    "testName": "bloco que não compila falha com arquivo e linha"
+  },
+  {
+    "id": "B F09",
+    "kind": "test",
+    "ref": "packages/cli/tests/run-real.test.ts",
+    "testName": "laço infinito não termina sozinho: GS0802 antes, kill encerra, órfão é varrido"
+  },
+  {
+    "id": "C QA-01",
+    "kind": "test",
+    "ref": "packages/compiler/tests/conformance.test.ts",
+    "testName": "corpus de conformidade"
+  },
+  {
+    "id": "C QA-01",
+    "kind": "test",
+    "ref": "packages/cli/tests/e2e/repl-pipe.e2e.ts",
+    "testName": "avalia as linhas, imprime 6 e sai com 0 (pelo atalho instalado)"
+  },
+  {
+    "id": "C QA-02",
+    "kind": "test",
+    "ref": "packages/compiler/tests/unit/compile.test.ts",
+    "testName": "ok: true implica JS aceito pelo acorn"
+  },
+  {
+    "id": "C QA-02",
+    "kind": "test",
+    "ref": "packages/compiler/tests/properties/ok-implies-valid.test.ts",
+    "testName": "AST arbitrária impressa em .gs"
+  },
+  {
+    "id": "C QA-03",
+    "kind": "test",
+    "ref": "tools/config-tests/tests/hygiene.test.mjs",
+    "testName": "cobertura mínima de 80% em cada pacote, na extensão, no playground e no Worker"
+  },
+  {
+    "id": "C QA-03",
+    "kind": "test",
+    "ref": "tools/config-tests/tests/workflows.test.mjs",
+    "testName": "exige 80% de cobertura nas linhas alteradas"
+  },
+  {
+    "id": "C QA-04",
+    "kind": "test",
+    "ref": "tools/config-tests/tests/rulesets.test.mjs",
+    "testName": "a main exige PR, histórico linear, sem force-push nem exclusão, e só squash ou rebase"
+  },
+  {
+    "id": "C QA-04",
+    "kind": "test",
+    "ref": "tools/config-tests/tests/workflows.test.mjs",
+    "testName": "define os jobs que o ruleset exige"
+  },
+  {
+    "id": "C QA-05",
+    "kind": "test",
+    "ref": "packages/cli/tests/e2e/pack.e2e.ts",
+    "testName": "o tarball traz só o que deve, com README e LICENSE"
+  },
+  {
+    "id": "C QA-05",
+    "kind": "test",
+    "ref": "tools/config-tests/tests/release-workflow.test.mjs",
+    "testName": "publica o arquivo baixado na dist-tag calculada com provenance"
+  },
+  {
+    "id": "C QA-06",
+    "kind": "test",
+    "ref": "tools/config-tests/tests/workflows.test.mjs",
+    "testName": "roda os testes na matriz Node 22 e 24 em Ubuntu e Windows"
+  },
+  {
+    "id": "C QA-06",
+    "kind": "test",
+    "ref": "tools/config-tests/tests/workflows.test.mjs",
+    "testName": "a rotina semanal tem exatamente um agendamento"
+  },
+  {
+    "id": "C QA-07",
+    "kind": "test",
+    "ref": "apps/playground-e2e/tests/sandbox-attacks.spec.ts",
+    "testName": "o canário registra um acesso real, então canário vazio significa ataque contido"
+  },
+  {
+    "id": "C QA-07",
+    "kind": "test",
+    "ref": "apps/playground-e2e/tests/sandbox-attacks.spec.ts",
+    "testName": "não alcança nada fora do Worker"
+  },
+  {
+    "id": "C QA-08",
+    "kind": "test",
+    "ref": "apps/engoianador-api/test/index.test.ts",
+    "testName": "POST válido percorre validação, cota, provedor e cache"
+  },
+  {
+    "id": "C QA-08",
+    "kind": "test",
+    "ref": "apps/engoianador-api/test/engoiana.test.ts",
+    "testName": "usa o segundo provedor quando o primeiro falha"
+  },
+  {
+    "id": "D APP-01",
+    "kind": "test",
+    "ref": "apps/playground-e2e/tests/security-headers.spec.ts",
+    "testName": "o runner serve só a CSP restrita e não herda a da página"
+  },
+  {
+    "id": "D APP-01",
+    "kind": "test",
+    "ref": "apps/playground/tests/security-headers.test.ts",
+    "testName": "não libera"
+  },
+  {
+    "id": "D APP-02",
+    "kind": "test",
+    "ref": "apps/engoianador-api/test/index.test.ts",
+    "testName": "provedores em erro devolvem 502 em goianês e devolvem a cota"
+  },
+  {
+    "id": "D APP-02",
+    "kind": "test",
+    "ref": "apps/engoianador-api/test/health.test.ts",
+    "testName": "responde 503 quando não há nenhum provedor configurado"
+  },
+  {
+    "id": "D APP-03",
+    "kind": "test",
+    "ref": "apps/engoianador-api/test/limiter.test.ts",
+    "testName": "dois IPv6 do mesmo /64 dividem a cota, de /64 diferentes não"
+  },
+  {
+    "id": "D APP-03",
+    "kind": "test",
+    "ref": "apps/engoianador-api/test/limiter.test.ts",
+    "testName": "teto global nega com reason global"
+  },
+  {
+    "id": "D APP-04",
+    "kind": "test",
+    "ref": "apps/playground-e2e/tests/run-output.spec.ts",
+    "testName": "saída de função assíncrona aparece completa antes de terminar"
+  },
+  {
+    "id": "D APP-04",
+    "kind": "test",
+    "ref": "apps/playground/tests/runner-client.test.ts",
+    "testName": "termina a execução depois do tempo ocioso que segue o fim do módulo"
+  },
+  {
+    "id": "D APP-05",
+    "kind": "test",
+    "ref": "apps/playground/tests/register-language.test.ts",
+    "testName": "registra a linguagem, o tokenizador, o autocomplete e o hover uma vez só"
+  },
+  {
+    "id": "D APP-05",
+    "kind": "test",
+    "ref": "packages/language/tests/generators.test.ts",
+    "testName": "realça o membro ASCII no TextMate e no Monarch"
+  },
+  {
+    "id": "D APP-06",
+    "kind": "test",
+    "ref": "apps/playground/tests/error-pages.test.ts",
+    "testName": "a 404 fala goianês e oferece o caminho de volta"
+  },
+  {
+    "id": "D APP-06",
+    "kind": "test",
+    "ref": "apps/playground-e2e/tests/run-output.spec.ts",
+    "testName": "erro de execução capturado mostra a mensagem em português, sem frase do motor"
+  },
+  {
+    "id": "D APP-07",
+    "kind": "test",
+    "ref": "apps/playground/tests/output-buffer.test.ts",
+    "testName": "avisa uma vez ao passar do teto de linhas e descarta o resto"
+  },
+  {
+    "id": "D APP-07",
+    "kind": "test",
+    "ref": "apps/playground/tests/saved-code.test.ts",
+    "testName": "faz ida e volta de texto com acento NFD e emoji"
+  },
+  {
+    "id": "D APP-07",
+    "kind": "test",
+    "ref": "apps/playground-e2e/tests/sandbox-limits.spec.ts",
+    "testName": "saída gigante é truncada com aviso e a página continua responsiva"
+  },
+  {
+    "id": "E F01",
+    "kind": "test",
+    "ref": "packages/vscode/tests/integration/hostile-names.test.ts",
+    "testName": "não vira comando"
+  },
+  {
+    "id": "E F01",
+    "kind": "test",
+    "ref": "packages/vscode/tests/commands-feature.test.ts",
+    "testName": "executa o processo de verdade, por lista de argumentos e sem shell"
+  },
+  {
+    "id": "E F01",
+    "kind": "test",
+    "ref": "packages/vscode/tests/program-terminal.test.ts",
+    "testName": "executa o bota_pra_moer com o arquivo depois de -- e sem shell"
+  },
+  {
+    "id": "E F02",
+    "kind": "intentional",
+    "ref": "packages/compiler/tests/conformance/retired-function-word"
+  },
+  {
+    "id": "E F02",
+    "kind": "adr",
+    "ref": "docs/adr/0006-versionamento-e-compatibilidade.md"
+  },
+  {
+    "id": "E F02",
+    "kind": "test",
+    "ref": "tools/config-tests/tests/docs.test.mjs",
+    "testName": "toda palavra aposentada aparece em migracao.md ou em o-que-mudou.md"
+  },
+  {
+    "id": "E F03",
+    "kind": "test",
+    "ref": "packages/language/tests/integrity.test.ts",
+    "testName": "nenhuma grafia aparece em mais de uma entrada"
+  },
+  {
+    "id": "E F03",
+    "kind": "test",
+    "ref": "packages/language/tests/generators.test.ts",
+    "testName": "falha listando o arquivo quando um gerado fica desatualizado e passa depois de regerar"
+  },
+  {
+    "id": "E F04",
+    "kind": "test",
+    "ref": "tools/config-tests/tests/agent-docs.test.mjs",
+    "testName": "exige CLAUDE.md com menos de 200 linhas"
+  },
+  {
+    "id": "E F04",
+    "kind": "test",
+    "ref": "tools/config-tests/tests/agent-docs.test.mjs",
+    "testName": "passa na conferência de caminhos, scripts e pacotes"
+  },
+  {
+    "id": "E F05",
+    "kind": "adr",
+    "ref": "docs/adr/0009-publicacao.md"
+  },
+  {
+    "id": "E F05",
+    "kind": "test",
+    "ref": "tools/config-tests/tests/release-workflow.test.mjs",
+    "testName": "confere o sha256 do tarball baixado antes de publicar"
+  },
+  {
+    "id": "E F05",
+    "kind": "test",
+    "ref": "packages/cli/tests/e2e/pack.e2e.ts",
+    "testName": "os binários têm shebang e o bundle não aponta para o workspace"
+  },
+  {
+    "id": "E F06",
+    "kind": "test",
+    "ref": "tools/config-tests/tests/docs.test.mjs",
+    "testName": "SECURITY e CODE_OF_CONDUCT não têm e-mail e apontam o reporte privado do GitHub"
+  },
+  {
+    "id": "E F06",
+    "kind": "test",
+    "ref": "tools/config-tests/tests/workflows.test.mjs",
+    "testName": "dependabot cobre npm e github-actions"
+  },
+  {
+    "id": "E F07",
+    "kind": "test",
+    "ref": "packages/vscode/tests/manifest.test.ts",
+    "testName": "não herda nada da extensão anterior"
+  },
+  {
+    "id": "E F07",
+    "kind": "test",
+    "ref": "packages/vscode/tests/manifest-assets.test.ts",
+    "testName": "cita ícone, configuração, gramática, snippets e ícones de arquivo"
+  },
+  {
+    "id": "E F07",
+    "kind": "test",
+    "ref": "packages/vscode/tests/smoke-extension.test.ts"
+  },
+  {
+    "id": "E F08",
+    "kind": "test",
+    "ref": "apps/playground/tests/check-public-config.test.ts",
+    "testName": "em produção, o valor do .env.example derruba"
+  },
+  {
+    "id": "E F08",
+    "kind": "test",
+    "ref": "apps/playground/tests/donation-links.test.ts",
+    "testName": "a chave Pix aparece como texto e nunca como href"
+  },
+  {
+    "id": "E F09",
+    "kind": "test",
+    "ref": "tools/script-tests/tests/docs-blocks.test.ts",
+    "testName": "bloco que não compila falha com arquivo e linha"
+  },
+  {
+    "id": "E F09",
+    "kind": "test",
+    "ref": "apps/playground/tests/examples.test.ts",
+    "testName": "cada exemplo compila no alvo playground e imprime o esperado"
+  },
+  {
+    "id": "E F10",
+    "kind": "adr",
+    "ref": "docs/adr/0009-publicacao.md"
+  },
+  {
+    "id": "E F10",
+    "kind": "adr",
+    "ref": "docs/adr/0010-fora-da-v3.md"
+  },
+  {
+    "id": "E F10",
+    "kind": "test",
+    "ref": "apps/playground/tests/check-public-config.test.ts",
+    "testName": "com todas as variáveis válidas e diferentes do exemplo, passa"
+  }
+]
