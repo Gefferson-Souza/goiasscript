@@ -45,6 +45,28 @@ describe('createProviderChain', () => {
     expect(await chain.complete('oi', NEVER_ABORTED)).toEqual({ ok: false, failure: 'empty', provider: 'workers-ai' });
   });
 
+  it('não tenta o próximo provedor depois que o pedido foi cancelado', async () => {
+    const controller = new AbortController();
+    let secondCalls = 0;
+    const second: ProviderPort = {
+      name: 'workers-ai',
+      complete: () => {
+        secondCalls += 1;
+        return Promise.resolve({ ok: true, text: 'tarde demais', provider: 'workers-ai' });
+      },
+    };
+    const first: ProviderPort = {
+      name: 'groq',
+      complete: () => {
+        controller.abort();
+        return Promise.resolve({ ok: false, failure: 'timeout', provider: 'groq' });
+      },
+    };
+    const result = await createProviderChain([first, second]).complete('oi', controller.signal);
+    expect(result).toEqual({ ok: false, failure: 'timeout', provider: 'groq' });
+    expect(secondCalls).toBe(0);
+  });
+
   it('sem provedores devolve model-disabled', async () => {
     const chain = createProviderChain([]);
     const result = await chain.complete('oi', NEVER_ABORTED);

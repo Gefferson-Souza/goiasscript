@@ -5,7 +5,7 @@ compatibility_date = "2025-01-15"
 # Vars públicas. O secret GROQ_API_KEY entra por `wrangler secret put GROQ_API_KEY`.
 [vars]
 ALLOWED_ORIGINS = "http://localhost:3000,https://playground.goiasscript.com.br"
-GROQ_MODEL = "llama-3.3-70b-versatile"
+GROQ_MODEL = "openai/gpt-oss-120b"
 WORKERS_AI_MODEL = "@cf/meta/llama-3.1-8b-instruct"
 RATE_LIMIT_PER_DAY = "20"
 GLOBAL_DAILY_CAP = "2000"

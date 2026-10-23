@@ -5,7 +5,7 @@ type EnvOverrides = { readonly [Key in keyof Env]?: Env[Key] | undefined };
 
 export function makeEnv(overrides: EnvOverrides = {}): Env {
   return {
-    GROQ_MODEL: 'llama-3.3-70b-versatile',
+    GROQ_MODEL: 'openai/gpt-oss-120b',
     WORKERS_AI_MODEL: '@cf/meta/llama-3.1-8b-instruct',
     ALLOWED_ORIGINS: 'https://playground.goiasscript.com.br',
     RATE_LIMIT_PER_DAY: '20',
