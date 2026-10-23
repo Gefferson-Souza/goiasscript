@@ -130,7 +130,7 @@ jobs:
         run: pnpm --filter playground-e2e exec playwright install --with-deps chromium
 
       - name: Rodar E2E (playground sobe via webServer)
-        run: pnpm e2e
+        run: pnpm --filter playground-e2e exec playwright test --project=chromium
         env:
           CI: '1'
 
