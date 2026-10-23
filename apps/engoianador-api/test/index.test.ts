@@ -56,6 +56,19 @@ describe('fluxo completo do Worker', () => {
     expect(run).toHaveBeenCalledTimes(2);
   });
 
+  it('provedores recusando o pedido (4xx) não devolvem a cota', async () => {
+    const ledger = createFakeNamespace();
+    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(new Response('{}', { status: 400 }))));
+    const run = vi.fn(() => Promise.resolve({ response: '   ' }));
+    const env = makeEnv({ GROQ_API_KEY: 'chave-de-teste', AI: { run }, QUOTA_LEDGER: ledger.namespace, RATE_LIMIT_PER_DAY: '1' });
+
+    const first = await index.fetch(requestFrom('203.0.113.20'), env);
+    const second = await index.fetch(requestFrom('203.0.113.20'), env);
+
+    expect(first.status).toBe(502);
+    expect(second.status).toBe(429);
+  });
+
   it('cota negada devolve 429 com Retry-After', async () => {
     const ledger = createFakeNamespace();
     vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(groqAnswer('uai'))));

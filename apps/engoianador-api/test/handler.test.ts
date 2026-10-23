@@ -155,14 +155,33 @@ describe('createHandler', () => {
     expect(providers.complete).toHaveBeenCalledTimes(1);
   });
 
-  it('falha do provedor devolve a cota e responde 502 com CORS', async () => {
+  it.each([['server-error'], ['timeout']] as const)('falha %s do provedor devolve a cota e responde 502 com CORS', async (failure) => {
     const { deps, limiter, providers, cache } = makeDoubles();
-    providers.complete.mockResolvedValueOnce({ ok: false, failure: 'server-error', provider: 'fake' });
+    providers.complete.mockResolvedValueOnce({ ok: false, failure, provider: 'fake' });
     const response = await call(deps, jsonRequest('{"text":"oi"}'));
     expect(response.status).toBe(502);
     expect(response.headers.get('Access-Control-Allow-Origin')).toBe(ALLOWED_ORIGIN);
     expect(limiter.refund).toHaveBeenCalledWith('r1');
     expect(cache.put).not.toHaveBeenCalled();
+  });
+
+  it.each([['client-error'], ['empty'], ['model-disabled']] as const)('falha %s do provedor não devolve a cota', async (failure) => {
+    const { deps, limiter, providers } = makeDoubles();
+    providers.complete.mockResolvedValueOnce({ ok: false, failure, provider: 'fake' });
+    const response = await call(deps, jsonRequest('{"text":"oi"}'));
+    expect(response.status).toBe(502);
+    expect(limiter.refund).not.toHaveBeenCalled();
+  });
+
+  it('pedido abortado não devolve a cota mesmo com falha do lado do servidor', async () => {
+    const { deps, limiter, providers } = makeDoubles();
+    const controller = new AbortController();
+    controller.abort();
+    providers.complete.mockResolvedValueOnce({ ok: false, failure: 'timeout', provider: 'fake' });
+    const base = jsonRequest('{"text":"oi"}');
+    const request = new Request(base.url, { method: 'POST', headers: base.headers, body: '{"text":"oi"}', signal: controller.signal });
+    await call(deps, request);
+    expect(limiter.refund).not.toHaveBeenCalled();
   });
 
   it('limite por rede devolve 429 com Retry-After', async () => {
