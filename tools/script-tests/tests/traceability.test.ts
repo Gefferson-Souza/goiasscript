@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import type { TraceabilityEntry, TraceabilityFs } from '../../../scripts/gate.types.ts';
-import { checkTraceability, loadTraceability } from '../../../scripts/traceability.ts';
+import { checkTraceability, loadTraceability, testRunsIn } from '../../../scripts/traceability.ts';
 
 const ROOT_DIR = path.resolve(import.meta.dirname, '../../..');
 const SPEC_PATH = 'docs/superpowers/specs/2026-10-14-goiasscript-3-design.md';
@@ -11,11 +11,13 @@ const EXPECTED_PROMISES = 15;
 
 const files: Readonly<Record<string, string>> = {
   'a.test.ts': "it('faz a coisa', () => {})",
+  'commented.test.ts': "// faz a coisa\nit('outro teste', () => {})",
+  'apps/playground-e2e/tests/b.spec.ts': "test('abre a tela', async () => {})",
   '.github/workflows/w.yml': 'name: w',
   'scripts/s.ts': 'export {}',
 };
 const memory: TraceabilityFs = { exists: (file) => file in files, read: (file) => files[file] ?? '' };
-const entry = (overrides: Partial<TraceabilityEntry>): TraceabilityEntry => ({ promise: 'p', proofs: [{ kind: 'test', path: 'a.test.ts', name: 'faz a coisa' }], state: 'green', ...overrides });
+const entry = (overrides: Partial<TraceabilityEntry>): TraceabilityEntry => ({ promise: 'p', proofs: [{ kind: 'test', path: 'a.test.ts', name: 'faz a coisa', runsIn: 'verify' }], state: 'green', ...overrides });
 
 function specPromises(): readonly string[] {
   const section = fs.readFileSync(path.join(ROOT_DIR, SPEC_PATH), 'utf8').split('## 11. Rastreabilidade das promessas públicas')[1]?.split('\n## 12.')[0] ?? '';
@@ -37,6 +39,22 @@ describe('checkTraceability', () => {
     const problems = checkTraceability([entry({ proofs: [{ kind: 'test', path: 'a.test.ts', name: 'outro nome' }] })], memory);
     expect(problems).toHaveLength(1);
     expect(problems[0]?.message).toContain('outro nome');
+  });
+
+  it('nome só em comentário não vale como teste', () => {
+    const problems = checkTraceability([entry({ proofs: [{ kind: 'test', path: 'commented.test.ts', name: 'faz a coisa', runsIn: 'verify' }] })], memory);
+    expect(problems).toHaveLength(1);
+    expect(problems[0]?.message).toContain('não é título');
+  });
+
+  it('registra onde o teste roda e recusa registro errado', () => {
+    const ci = { kind: 'test', path: 'apps/playground-e2e/tests/b.spec.ts', name: 'abre a tela' } as const;
+    expect(checkTraceability([entry({ proofs: [{ ...ci, runsIn: 'ci' }] })], memory)).toEqual([]);
+    expect(checkTraceability([entry({ proofs: [{ ...ci, runsIn: 'verify' }] })], memory)).toHaveLength(1);
+    expect(checkTraceability([entry({ proofs: [ci] })], memory)).toHaveLength(1);
+    expect(testRunsIn('packages/vscode/tests/integration/x.test.ts')).toBe('ci');
+    expect(testRunsIn('packages/cli/tests/e2e/x.e2e.ts')).toBe('ci');
+    expect(testRunsIn('packages/cli/tests/repl-loop.test.ts')).toBe('verify');
   });
 
   it('estado missing sempre falha', () => {
