@@ -1,9 +1,10 @@
 import { readFileSync } from 'node:fs';
 import { brotliCompressSync, constants } from 'node:zlib';
+import { fileURLToPath } from 'node:url';
 import { build } from 'esbuild';
 import { describe, expect, it } from 'vitest';
 
-const ENTRY = new URL('../lib/compile-service.ts', import.meta.url).pathname;
+const ENTRY = fileURLToPath(new URL('../lib/compile-service.ts', import.meta.url));
 const BUDGETS_FILE = new URL('../budgets.json', import.meta.url);
 const BUNDLE_TIMEOUT_MS = 60_000;
 // O codificador do brotli varia um pouco entre versões do Node; melhoria menor que isto não exige atualizar o arquivo.

@@ -3,6 +3,7 @@ import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { basename, join } from 'node:path';
 import { promisify } from 'node:util';
+import { fileURLToPath } from 'node:url';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { PUBLIC_ENV_PLACEHOLDERS } from '../config/site-config.constants.ts';
 import { ConfigError } from '../config/site-config.ts';
@@ -11,7 +12,7 @@ import { loadEnvFiles, runPublicConfigCheck } from '../config/public-config-cli.
 import { assertPublicConfig, checkDonationLinksOnline } from '../config/public-config.ts';
 
 const run = promisify(execFile);
-const SCRIPT = new URL('../scripts/check-public-config.ts', import.meta.url).pathname;
+const SCRIPT = fileURLToPath(new URL('../scripts/check-public-config.ts', import.meta.url));
 const PIX = 'NEXT_PUBLIC_DONATION_PIX_KEY';
 const SPONSORS = 'NEXT_PUBLIC_DONATION_SPONSORS_URL';
 const KOFI = 'NEXT_PUBLIC_DONATION_KOFI_URL';
