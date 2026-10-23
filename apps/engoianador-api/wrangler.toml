@@ -4,7 +4,7 @@ compatibility_date = "2025-01-15"
 
 # Vars públicas. O secret GROQ_API_KEY entra por `wrangler secret put GROQ_API_KEY`.
 [vars]
-ALLOWED_ORIGINS = "http://localhost:3000,https://playground.goiasscript.com.br"
+ALLOWED_ORIGINS = "https://playground.goiasscript.com.br"
 GROQ_MODEL = "openai/gpt-oss-120b"
 WORKERS_AI_MODEL = "@cf/meta/llama-3.1-8b-instruct"
 RATE_LIMIT_PER_DAY = "20"
@@ -30,4 +30,27 @@ id = "COLE_O_ID_DE_ENGOIANADOR_CACHE"
 
 # Fallback quando a Groq falha.
 [ai]
+binding = "AI"
+
+# Desenvolvimento local (`wrangler dev --env dev`): o wrangler não herda vars nem
+# bindings entre ambientes, então tudo é declarado de novo. Só aqui entra a origem local.
+[env.dev.vars]
+ALLOWED_ORIGINS = "http://localhost:3000"
+GROQ_MODEL = "openai/gpt-oss-120b"
+WORKERS_AI_MODEL = "@cf/meta/llama-3.1-8b-instruct"
+RATE_LIMIT_PER_DAY = "20"
+GLOBAL_DAILY_CAP = "2000"
+MAX_INPUT_CHARS = "2000"
+MAX_BODY_BYTES = "8192"
+CACHE_TTL_SEC = "21600"
+
+[[env.dev.durable_objects.bindings]]
+name = "QUOTA_LEDGER"
+class_name = "QuotaLedgerObject"
+
+[[env.dev.kv_namespaces]]
+binding = "ENGOIANADOR_CACHE"
+id = "COLE_O_ID_DE_ENGOIANADOR_CACHE_DEV"
+
+[env.dev.ai]
 binding = "AI"

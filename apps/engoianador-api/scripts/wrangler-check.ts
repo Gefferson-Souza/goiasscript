@@ -5,6 +5,7 @@ import {
   DURABLE_OBJECT_BINDING,
   DURABLE_OBJECT_CLASS,
   INTEGER_VARIABLES,
+  LOCAL_ORIGIN_PATTERN,
   PLACEHOLDER_MARKER,
   POSITIVE_INTEGER_PATTERN,
 } from './wrangler-check.constants.ts';
@@ -24,6 +25,13 @@ function checkVariables(vars: Table): readonly string[] {
     const raw = vars[name];
     return !(typeof raw === 'string' && POSITIVE_INTEGER_PATTERN.test(raw.trim()));
   }).map((name) => `${name} tem que ser um número inteiro maior que zero, sô.`);
+}
+
+function checkProductionOrigins(vars: Table): readonly string[] {
+  const origins = vars['ALLOWED_ORIGINS'];
+  return typeof origins === 'string' && LOCAL_ORIGIN_PATTERN.test(origins)
+    ? ['ALLOWED_ORIGINS de produção não pode ter origem local; mova a origem local para [env.dev], sô.']
+    : [];
 }
 
 function checkDurableObject(config: Table): readonly string[] {
@@ -62,6 +70,7 @@ export function checkWranglerConfig(tomlText: string): readonly string[] {
   }
   return [
     ...checkVariables(asTable(config['vars'])),
+    ...checkProductionOrigins(asTable(config['vars'])),
     ...checkDurableObject(config),
     ...checkCacheNamespace(config),
     ...checkAiBinding(config),
