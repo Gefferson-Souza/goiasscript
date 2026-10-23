@@ -17,5 +17,8 @@
     "typescript": "6.0.3",
     "vitest": "5.0.5",
     "wrangler": "^3.114.17"
+  },
+  "dependencies": {
+    "zod": "4.6.7"
   }
 }

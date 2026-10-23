@@ -26,13 +26,20 @@ describe('engoianar', () => {
   });
 
   it('200 com o texto engoianado vira ok', async () => {
-    const fetchFn = fakeFetch(respond(200, { engoianado: 'uai, sô' }));
+    const fetchFn = fakeFetch(respond(200, { text: 'uai, sô' }));
     expect(await engoianar('oi', { baseUrl: BASE_URL, fetchFn })).toEqual({ ok: true, text: 'uai, sô' });
   });
 
-  it('aceita o campo texto na resposta', async () => {
-    const fetchFn = fakeFetch(respond(200, { [RESPONSE_TEXT_FIELDS[1]]: 'uai, sô' }));
+  it('fala o contrato { text } na ida e na volta', async () => {
+    expect(REQUEST_TEXT_FIELD).toBe('text');
+    expect(RESPONSE_TEXT_FIELDS).toEqual(['text']);
+    const fetchFn = fakeFetch(respond(200, { [RESPONSE_TEXT_FIELDS[0]]: 'uai, sô' }));
     expect(await engoianar('oi', { baseUrl: BASE_URL, fetchFn })).toEqual({ ok: true, text: 'uai, sô' });
+  });
+
+  it('não aceita mais o campo engoianado na resposta', async () => {
+    const fetchFn = fakeFetch(respond(200, { engoianado: 'uai, sô' }));
+    expect(await engoianar('oi', { baseUrl: BASE_URL, fetchFn })).toEqual({ ok: false, reason: 'unavailable' });
   });
 
   it.each([
@@ -58,7 +65,7 @@ describe('engoianar', () => {
     expect(await engoianar('oi', { baseUrl: BASE_URL, fetchFn })).toEqual({ ok: false, reason: 'unavailable' });
   });
 
-  it.each([[{}], [{ engoianado: 42 }], [{ engoianado: '' }], [null], ['texto solto']])(
+  it.each([[{}], [{ text: 42 }], [{ text: '' }], [null], ['texto solto']])(
     '200 com corpo fora do contrato (%j) vira unavailable',
     async (body) => {
       const fetchFn = fakeFetch(respond(200, body));
@@ -67,7 +74,7 @@ describe('engoianar', () => {
   );
 
   it('envia POST JSON com credentials omit, sinal com teto e sem redirecionar', async () => {
-    const fetchFn = fakeFetch(respond(200, { engoianado: 'ok' }));
+    const fetchFn = fakeFetch(respond(200, { text: 'ok' }));
     const signal = new AbortController().signal;
     const createTimeoutSignal = vi.fn(() => signal);
     await engoianar('Olá, mundo', { baseUrl: `${BASE_URL}/`, fetchFn, createTimeoutSignal });
@@ -84,27 +91,27 @@ describe('engoianar', () => {
   });
 
   it('recusa texto acima do limite antes de enviar', async () => {
-    const fetchFn = fakeFetch(respond(200, { engoianado: 'ok' }));
+    const fetchFn = fakeFetch(respond(200, { text: 'ok' }));
     const result = await engoianar('a'.repeat(MAX_INPUT_CHARS + 1), { baseUrl: BASE_URL, fetchFn });
     expect(result).toEqual({ ok: false, reason: 'invalid' });
     expect(fetchFn).not.toHaveBeenCalled();
   });
 
   it('aceita texto exatamente no limite', async () => {
-    const fetchFn = fakeFetch(respond(200, { engoianado: 'ok' }));
+    const fetchFn = fakeFetch(respond(200, { text: 'ok' }));
     const result = await engoianar('a'.repeat(MAX_INPUT_CHARS), { baseUrl: BASE_URL, fetchFn });
     expect(result.ok).toBe(true);
   });
 
   it('recusa texto vazio ou só espaço sem enviar', async () => {
-    const fetchFn = fakeFetch(respond(200, { engoianado: 'ok' }));
+    const fetchFn = fakeFetch(respond(200, { text: 'ok' }));
     expect(await engoianar('   ', { baseUrl: BASE_URL, fetchFn })).toEqual({ ok: false, reason: 'invalid' });
     expect(fetchFn).not.toHaveBeenCalled();
   });
 
   it('devolve o texto cru, sem interpretar como HTML', async () => {
     const hostile = '<img src=x onerror=alert(1)>';
-    const fetchFn = fakeFetch(respond(200, { engoianado: hostile }));
+    const fetchFn = fakeFetch(respond(200, { text: hostile }));
     expect(await engoianar('oi', { baseUrl: BASE_URL, fetchFn })).toEqual({ ok: true, text: hostile });
   });
 });

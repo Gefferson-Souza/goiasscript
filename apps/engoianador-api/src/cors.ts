@@ -4,7 +4,7 @@ import type { Env } from './env.types';
 
 const BASE_HEADERS: Readonly<Record<string, string>> = {
   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, x-user-api-key',
+  'Access-Control-Allow-Headers': 'Content-Type',
   'Access-Control-Max-Age': '86400',
   Vary: 'Origin',
 };
@@ -24,6 +24,11 @@ export function corsHeaders(request: Request, env: Env): Readonly<Record<string,
   return { ...BASE_HEADERS };
 }
 
+export function isOriginAllowed(request: Request, env: Env): boolean {
+  return corsHeaders(request, env)['Access-Control-Allow-Origin'] !== undefined;
+}
+
 export function handlePreflight(request: Request, env: Env): Response {
-  return new Response(null, { status: HTTP_STATUS.noContent, headers: corsHeaders(request, env) });
+  const status = isOriginAllowed(request, env) ? HTTP_STATUS.noContent : HTTP_STATUS.forbidden;
+  return new Response(null, { status, headers: corsHeaders(request, env) });
 }
