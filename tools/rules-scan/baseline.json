@@ -57,9 +57,6 @@
     "apps/playground/lib/share.ts": {
       "R14": 1
     },
-    "apps/playground/next.config.mjs": {
-      "R11": 1
-    },
     "apps/playground/scripts/copy-examples.mjs": {
       "R06": 5,
       "R14": 8

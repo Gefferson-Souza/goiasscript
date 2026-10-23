@@ -12,12 +12,24 @@ pnpm playground:dev
 # Abre http://localhost:3000
 ```
 
-Pra apontar pra um Engoianador local:
+## Configuração pública
+
+Tudo que o navegador vê vem de variáveis `NEXT_PUBLIC_*`, validadas em `config/site-config.ts`
+(só `https:` em produção, sem usuário e senha na URL). Variável ausente desliga o recurso;
+valor igual ao do `.env.example` derruba o build de produção. Nunca ponha segredo aqui.
 
 ```bash
 cp apps/playground/.env.example apps/playground/.env.local
-# Edita NEXT_PUBLIC_ENGOIANADOR_URL se necessário
+# Troca os placeholders pelos valores reais
 ```
+
+Variáveis: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_ENGOIANADOR_URL`, `NEXT_PUBLIC_DONATION_PIX_KEY`,
+`NEXT_PUBLIC_DONATION_SPONSORS_URL`, `NEXT_PUBLIC_DONATION_KOFI_URL`, `NEXT_PUBLIC_CONTACT_URL`.
+
+## Cabeçalhos de segurança
+
+`config/security-headers.ts` monta a CSP da página e a do runner (`/sandbox/*`), e o
+`next.config.ts` aplica as duas. O compilador novo entra pelos pacotes `@goiasscript/*` do workspace.
 
 ## Build
 
@@ -29,7 +41,7 @@ pnpm playground:build
 
 1. Importa o repositório no Vercel.
 2. Root directory: `apps/playground`.
-3. Variável de ambiente: `NEXT_PUBLIC_ENGOIANADOR_URL` (URL do worker em produção).
+3. Variáveis de ambiente: as `NEXT_PUBLIC_*` do `.env.example`, com valores reais.
 4. Build command e output ficam no padrão Next.
 
 ## Arquitetura
