@@ -1,11 +1,9 @@
 # Relatório do gate da Fase 4
 
-**Veredito proposto:** **bloqueado**. O GATE 4 só fecha quando três condições forem cumpridas: (1) a revisão de
-segurança independente (agente `everything-claude-code:security-reviewer` em contexto fresco, somente leitura, sem
-CRITICAL/HIGH), que **não foi feita**: a tabela da seção 5 é autorrevisão do executor e não vale como evidência
-independente; (2) a CI do `playground-e2e.yml` verde em **Firefox e WebKit** (nunca rodaram localmente); (3) a decisão
-do dono sobre o teto de 29 KB do ADR-0001, hoje excedido (33.195 B, seção 6). O checklist da seção 9 também precisa ser
-cumprido. Esta unidade (U4-13) fica **não aceita** até a revisão independente e a CI.
+**Veredito proposto:** pronto para o GATE 4 assim que a CI do `playground-e2e.yml` passar em Firefox e WebKit, que
+nunca rodaram localmente. A revisão de segurança independente, em contexto fresco e somente leitura, não achou CRITICAL
+nem HIGH (seção 5.3). Fica com o dono a decisão sobre o teto de 29 KB do ADR-0001, hoje excedido (33.195 B, seção 6),
+e o checklist da seção 9.
 
 Medição: Node v26, Linux, CPU 12th Gen Intel(R) Core(TM) i5-12450H (12 núcleos), Google Chrome 155 do sistema para o
 Chromium do E2E e para a medição de `compile()`. Cobertura e contagens de testes vêm de `corepack pnpm verify` e de
@@ -141,6 +139,21 @@ Nenhum CRITICAL/HIGH na autorrevisão do executor; isso **não** substitui a rev
 - **`NEXT_PUBLIC_*`:** apenas URLs públicas e a chave Pix; nenhum segredo no repositório.
 - **Cache e cabeçalhos do runner:** `nosniff` e `Cross-Origin-Resource-Policy: same-origin`; o arquivo é de `public/`
   (sem cache imutável).
+
+### 5.3 Revisão independente
+
+O `security-reviewer` rodou em contexto fresco, somente leitura. Confirmou o isolamento do Worker (CSP própria sem
+rede), a reconstrução campo a campo das mensagens, os limites de saída, a ausência de HTML vindo do visitante, a
+validação do `#codigo=` e da config pública, o cliente do Engoianador e os workflows. Nenhum CRITICAL ou HIGH.
+
+| Achado | Disposição |
+| --- | --- |
+| MEDIUM: runner na mesma origem do site, isolado só pela CSP; IndexedDB, Cache API e BroadcastChannel da origem ficariam ao alcance se o app passasse a usá-los | aceito por ora: o app só usa `localStorage`, que o Worker não alcança; origem dedicada para o sandbox depende do domínio (dono) |
+| MEDIUM: `script-src 'unsafe-inline'` na página | aceito por ora: o Next injeta scripts inline sem nonce; nonce por middleware fica para a fase de docs e relançamento |
+| LOW: pergunta forjada pausa o relógio de 10 s até o teto de parede | aceito: afeta só a aba do visitante e o Worker é encerrado no teto |
+| LOW: log forjado enorme é clonado antes do corte | aceito: o clone acontece no `postMessage`, antes de qualquer código do host; a primeira mensagem acima do limite encerra a execução |
+| LOW: `prompt` forjado parece pergunta legítima | aceito: controles e bidi já são neutralizados |
+| Cabeçalhos na Vercel não verificados | o smoke pós-deploy confere a CSP do runner (checklist da seção 9) |
 
 ## 6. Orçamentos e desempenho medidos
 
