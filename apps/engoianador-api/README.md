@@ -6,10 +6,25 @@ Cloudflare Worker que recebe texto e devolve em goianês raiz via LLM.
 
 ```
 GET  /            → status JSON
-POST /engoiana    → { "texto": "olá" } → { "engoianado": "ô sô, e aí" }
+GET  /health      → { ok, model, bindings } (sem chamar provedor nem gastar cota)
+POST /engoiana    → { "text": "olá" } → { "text": "ô sô, e aí" }
 ```
 
-Limites: 2000 chars por requisição, 10 req/min por IP.
+Erros voltam como `{ "error": "mensagem em goianês" }`, sempre em JSON e com os
+cabeçalhos de CORS da origem permitida.
+
+Validação de borda do `POST /engoiana`:
+
+| Caso | Status |
+|---|---|
+| `Content-Type` diferente de `application/json` | 415 |
+| `Content-Length` ausente | 411 |
+| `Content-Length` inválido | 400 |
+| `Content-Length` ou corpo acima de `MAX_BODY_BYTES` | 413 |
+| JSON inválido, `null`, array, `text` que não é string, vazio ou só espaços, campo extra | 400 |
+| `text` acima de `MAX_INPUT_CHARS` | 413 |
+
+Limites: `MAX_INPUT_CHARS` caracteres por requisição e `RATE_LIMIT_PER_DAY` por rede.
 
 ## Rodando local
 
@@ -28,7 +43,7 @@ Teste:
 ```bash
 curl -X POST http://127.0.0.1:8787/engoiana \
   -H "Content-Type: application/json" \
-  -d '{"texto":"Olá, tudo bem com você?"}'
+  -d '{"text":"Olá, tudo bem com você?"}'
 ```
 
 ## Deploy (Cloudflare)
@@ -56,7 +71,10 @@ descomente a seção `[ai]` em `wrangler.toml`.
 
 ## Estrutura
 
-- `src/index.ts` — fetch handler e roteamento.
+- `src/index.ts` — lê a configuração (503 se inválida) e monta as portas.
+- `src/handler.ts` — roteamento e pipeline: preflight, rota, kill switch, validação, cache, cota, provedores.
+- `src/validation.ts` — validação de borda do corpo.
+- `src/ports.types.ts` — contratos de cota, provedores, cache e saúde.
 - `src/engoiana.ts` — chama Groq, fallback Workers AI.
 - `src/prompt.ts` — system prompt + few-shot.
 - `src/rate-limit.ts` — KV-based, 10 req/min/IP.
