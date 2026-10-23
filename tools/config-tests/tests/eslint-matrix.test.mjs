@@ -2,7 +2,7 @@ import { ESLint } from 'eslint';
 import { describe, expect, it } from 'vitest';
 import { createConfig } from '../../../eslint.config.mjs';
 
-const projectService = { allowDefaultProject: ['packages/*/src/*.ts', 'packages/*/src/*/*.ts'], maximumDefaultProjectFileMatchCount_THIS_WILL_SLOW_DOWN_LINTING: 200 };
+const projectService = { allowDefaultProject: ['packages/*/src/*.ts', 'packages/*/src/*/*.ts', 'apps/playground/lib/*.ts', 'apps/playground/sandbox/*.ts', 'apps/playground/lib/*.tsx'], maximumDefaultProjectFileMatchCount_THIS_WILL_SLOW_DOWN_LINTING: 200 };
 const eslint = new ESLint({ overrideConfigFile: true, overrideConfig: createConfig(projectService) });
 const messagesFor = async (code, filePath) => (await eslint.lintText(code, { filePath }))[0].messages.map((m) => m.ruleId ?? m.message);
 
@@ -35,6 +35,9 @@ const violations = [
   ['aninhamento acima de 4', SRC, fn(`  ${nested}\n  f(a);\n${'}'.repeat(5)}`, 'a: boolean'), 'max-depth'],
   ['sem console', SRC, 'console.log(1);\n', 'no-console'],
   ['sem process fora de entry', 'packages/cli/src/virtual.ts', 'export const sink = process.stdout;\n', 'no-restricted-globals'],
+  ['console fora do runner', 'apps/playground/lib/virtual.ts', 'console.warn("x");\n', 'no-console'],
+  ['any em app', 'apps/playground/lib/virtual.ts', 'export const value: any = 1;\n', '@typescript-eslint/no-explicit-any'],
+  ['hook condicional em componente', 'apps/playground/lib/virtual.tsx', "import { useState } from 'react';\nexport function Box({ on }: { readonly on: boolean }): null {\n  if (on) {\n    useState(0);\n  }\n  return null;\n}\n", 'react-hooks/rules-of-hooks'],
   ['função fora de camelCase', SRC, 'export function Foo_bar(): void {\n  return;\n}\n', '@typescript-eslint/naming-convention'],
 ];
 const accepted = [
@@ -43,6 +46,7 @@ const accepted = [
   ['this.scopes.set no analyzer', 'packages/compiler/src/analyzer/virtual.ts', holder("this.scopes.set('a', 1);"), 'functional/immutable-data'],
   ['interface em *.types.ts', 'packages/language/src/virtual.types.ts', 'export interface Entry {\n  readonly name: string;\n}\n', 'no-restricted-syntax'],
   ['catch que relança', SRC, tryCatch('\n    throw error;\n  '), 'no-restricted-syntax'],
+  ['console no runner', 'apps/playground/sandbox/runner.ts', 'const original = console.log;\nexport { original };\n', 'no-console'],
   ['process em entry', 'packages/cli/src/entry/virtual.ts', 'export const sink = process.stdout;\n', 'no-restricted-globals'],
 ];
 

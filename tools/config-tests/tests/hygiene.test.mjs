@@ -27,9 +27,9 @@ describe('higiene do repositório (GATE 1)', () => {
     const mailmapEmails = [...readFileSync(path.join(ROOT_DIR, '.mailmap'), 'utf8').matchAll(/<([^>]+)>/g)].map((match) => match[1]);
     for (const email of mailmapEmails) expect(email).toMatch(/@users\.noreply\.github\.com$/);
   });
-  it('cobertura mínima de 80% em cada pacote', () => {
+  it('cobertura mínima de 80% em cada pacote e no código do playground', () => {
     const thresholds = config.test.coverage.thresholds;
-    expect(Object.keys(thresholds)).toHaveLength(4);
+    expect(Object.keys(thresholds)).toHaveLength(5);
     for (const limits of Object.values(thresholds)) expect(limits).toEqual({ lines: MINIMUM, functions: MINIMUM, branches: MINIMUM, statements: MINIMUM });
   });
 });
