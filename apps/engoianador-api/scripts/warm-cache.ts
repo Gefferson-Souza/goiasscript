@@ -1,7 +1,7 @@
 import { pathToFileURL } from 'node:url';
-import { PRESETS } from '../../playground/app/engoianador/engoianador.constants';
-import { ENGOIANA_PATH, HTTPS_PROTOCOL, LOCAL_HOSTNAMES, WARM_MESSAGES, WARM_TIMEOUT_MS } from './warm-cache.constants';
-import type { WarmCacheOptions, WarmCacheReport, WarmFailure } from './warm-cache.types';
+import { PRESETS } from '../../playground/app/engoianador/engoianador.constants.ts';
+import { ENGOIANA_PATH, HTTPS_PROTOCOL, LOCAL_HOSTNAMES, WARM_MESSAGES, WARM_TIMEOUT_MS } from './warm-cache.constants.ts';
+import type { WarmCacheOptions, WarmCacheReport, WarmFailure } from './warm-cache.types.ts';
 
 function assertSafeBaseUrl(baseUrl: string): URL {
   try {
