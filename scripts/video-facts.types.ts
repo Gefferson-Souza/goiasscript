@@ -43,7 +43,13 @@ export interface VideoFactsIo {
   readonly err: (text: string) => void;
 }
 
+export interface Redaction {
+  readonly value: string;
+  readonly replacement: string;
+}
+
 export interface VideoFactsRuntime {
   readonly deps: VideoFactsDeps;
+  readonly redactions: readonly Redaction[];
   readonly dispose: () => void;
 }

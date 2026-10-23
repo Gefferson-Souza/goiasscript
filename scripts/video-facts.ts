@@ -19,7 +19,8 @@ import {
   VAR_KEYWORD_SOURCE,
   ENGOIANADOR_SAMPLE_TEXT,
 } from './video-facts.constants.ts';
-import type { CliRun, EngoianadorFact, VideoFacts, VideoFactsArgs, VideoFactsDeps, VideoFactsIo } from './video-facts.types.ts';
+import { redactVideoFacts } from './video-facts-redact.ts';
+import type { CliRun, Redaction, EngoianadorFact, VideoFacts, VideoFactsArgs, VideoFactsDeps, VideoFactsIo } from './video-facts.types.ts';
 
 interface RunOptions {
   readonly argv: readonly string[];
@@ -27,6 +28,7 @@ interface RunOptions {
   readonly env: Readonly<Record<string, string | undefined>>;
   readonly deps: VideoFactsDeps;
   readonly io: VideoFactsIo;
+  readonly redactions?: readonly Redaction[];
   readonly writeFile: (file: string, text: string) => void;
 }
 
@@ -34,7 +36,10 @@ async function collectDemoRuns(deps: VideoFactsDeps): Promise<readonly CliRun[]>
   const scaffold = await deps.runCli([SCAFFOLD_COMMAND, DEMO_DIR]);
   const run = await deps.runCli([RUN_COMMAND, DEMO_ENTRY_FILE], { cwd: DEMO_DIR });
   const check = await deps.runCli([CHECK_COMMAND, DEMO_ENTRY_FILE], { cwd: DEMO_DIR });
-  return [scaffold, run, check];
+  const runs = [scaffold, run, check];
+  const broken = runs.find((entry) => entry.exitCode !== 0);
+  if (broken !== undefined) throw new Error(`${MESSAGES.demoCommandFailed} (${broken.command}): ${broken.stderr.trim()}`);
+  return runs;
 }
 
 async function collectVarKeywordToLet(deps: VideoFactsDeps): Promise<VideoFacts['varKeywordToLet']> {
@@ -90,7 +95,7 @@ export async function runVideoFacts(options: RunOptions): Promise<number> {
     const args = parseVideoFactsArgs(options.argv);
     assertOutsideRepository(args.out, options.root);
     const facts = await collectVideoFacts(options.deps);
-    options.writeFile(path.resolve(args.out), serializeVideoFacts(facts, options.env));
+    options.writeFile(path.resolve(args.out), serializeVideoFacts(redactVideoFacts(facts, options.redactions ?? []), options.env));
     options.io.out(`${SUCCESS_MESSAGE}\n`);
     return 0;
   } catch (error) {
@@ -109,6 +114,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     root,
     env: process.env,
     deps: runtime.deps,
+    redactions: runtime.redactions,
     io: { out: (text) => process.stdout.write(text), err: (text) => process.stderr.write(text) },
     writeFile: (file, text) => {
       fs.mkdirSync(path.dirname(file), { recursive: true });

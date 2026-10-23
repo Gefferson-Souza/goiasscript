@@ -13,11 +13,14 @@ import {
   MESSAGES,
   VITEST_BIN_PATH,
   VITEST_MAX_BUFFER_BYTES,
+  HOME_PLACEHOLDER,
+  TMP_PLACEHOLDER,
+  URL_PLACEHOLDER,
   VITEST_TIMEOUT_MS,
   WORK_PREFIX,
 } from './video-facts.constants.ts';
-import { countTestsFromReport } from './video-facts-report.ts';
-import type { CliRun, CliRunOptions, VideoFactsDeps, VideoFactsRuntime } from './video-facts.types.ts';
+import { assertVitestExitedClean, countTestsFromReport } from './video-facts-report.ts';
+import type { CliRun, CliRunOptions, Redaction, VideoFactsDeps, VideoFactsRuntime } from './video-facts.types.ts';
 
 type Env = Readonly<Record<string, string | undefined>>;
 
@@ -53,11 +56,12 @@ function createCliRunner(workDir: string, builtCli: Promise<string>): VideoFacts
 
 async function countWithLocalVitest(root: string, workDir: string): Promise<number> {
   const report = path.join(workDir, REPORT_FILE);
-  await execNode([path.join(root, VITEST_BIN_PATH), 'run', '--reporter=json', `--outputFile=${report}`], {
+  const run = await execNode([path.join(root, VITEST_BIN_PATH), 'run', '--reporter=json', `--outputFile=${report}`], {
     cwd: root,
     maxBuffer: VITEST_MAX_BUFFER_BYTES,
     timeout: VITEST_TIMEOUT_MS,
   });
+  assertVitestExitedClean(run.exitCode);
   return countTestsFromReport(fs.readFileSync(report, 'utf8'));
 }
 
@@ -95,8 +99,16 @@ export function createRealVideoFactsRuntime(root: string, env: Env, testsFrom: (
     fetchEngoianador: baseUrl === undefined || baseUrl === '' ? null : createEngoianadorFetcher(baseUrl),
     now: () => new Date(),
   };
+  const redactions: Redaction[] = [
+    { value: workDir, replacement: TMP_PLACEHOLDER },
+    { value: fs.realpathSync(workDir), replacement: TMP_PLACEHOLDER },
+    { value: os.tmpdir(), replacement: TMP_PLACEHOLDER },
+    { value: os.homedir(), replacement: HOME_PLACEHOLDER },
+    ...(baseUrl === undefined || baseUrl === '' ? [] : [{ value: baseUrl, replacement: URL_PLACEHOLDER }]),
+  ];
   return {
     deps,
+    redactions,
     dispose: () => {
       fs.rmSync(workDir, { recursive: true, force: true });
     },

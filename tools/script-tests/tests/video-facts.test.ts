@@ -7,7 +7,8 @@ import {
   runVideoFacts,
   serializeVideoFacts,
 } from '../../../scripts/video-facts.ts';
-import { countTestsFromReport } from '../../../scripts/video-facts-report.ts';
+import { assertVitestExitedClean, countTestsFromReport } from '../../../scripts/video-facts-report.ts';
+import { redactVideoFacts } from '../../../scripts/video-facts-redact.ts';
 import type { CliRun, CliRunOptions, VideoFactsDeps } from '../../../scripts/video-facts.types.ts';
 
 const ROOT = path.resolve('repo-root');
@@ -94,6 +95,47 @@ describe('countTestsFromReport', () => {
   it('recusa relatório sem a contagem', () => {
     expect(() => countTestsFromReport('{}')).toThrow(/numTotalTests/u);
     expect(() => countTestsFromReport('não é json')).toThrow();
+  });
+});
+
+describe('contagem de testes sem execução quebrada', () => {
+  it('recusa relatório com teste falhando', () => {
+    expect(() => countTestsFromReport(JSON.stringify({ numTotalTests: 10, numFailedTests: 2 }))).toThrow(/suíte/u);
+  });
+
+  it('recusa saída do vitest diferente de zero', () => {
+    expect(() => { assertVitestExitedClean(1); }).toThrow(/suíte/u);
+    expect(() => { assertVitestExitedClean(0); }).not.toThrow();
+  });
+});
+
+describe('comandos do demo', () => {
+  it.each(['arma_o_barraco', 'bota_pra_moer', 'vê_se_tá_certo'])('recusa %s com saída diferente de zero', async (name) => {
+    const failing = deps({
+      runCli: (args, options) => Promise.resolve(args[0] === name ? { ...fakeRun(args, options), exitCode: 2 } : fakeRun(args, options)),
+    });
+    await expect(collectVideoFacts(failing)).rejects.toThrow(/demo falhou/u);
+  });
+});
+
+describe('redactVideoFacts', () => {
+  it('troca caminhos da máquina e a URL do Engoianador', async () => {
+    const facts = await collectVideoFacts(
+      deps({
+        runCli: (args) => Promise.resolve({ command: 'goiasscript x', stdout: '/area/work-1/demo ok\n', stderr: '/casa/fulano/x', exitCode: 0 }).then((run) => (args[0] === 'traduz' ? { ...run, stdout: 'let a = 1;\n' } : run)),
+        fetchEngoianador: () => Promise.resolve('eco https://eng.example/api'),
+      }),
+    );
+    const redacted = redactVideoFacts(facts, [
+      { value: '/area/work-1', replacement: '<tmp>' },
+      { value: '/casa/fulano', replacement: '<home>' },
+      { value: 'https://eng.example/api', replacement: '<engoianador-url>' },
+    ]);
+    const text = JSON.stringify(redacted);
+    expect(text).not.toContain('/area/work-1');
+    expect(text).not.toContain('/casa/fulano');
+    expect(text).not.toContain('eng.example');
+    expect(text).toContain('<tmp>/demo ok');
   });
 });
 
