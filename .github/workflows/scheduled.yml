@@ -33,3 +33,17 @@ jobs:
       - name: Teste de mutação do cli (somente relatório)
         timeout-minutes: 40
         run: pnpm --filter goiasscript mutate
+
+  links-doacao:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - run: corepack enable
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with: { node-version: 24, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - name: Conferência dos links de doação
+        env:
+          NEXT_PUBLIC_DONATION_SPONSORS_URL: ${{ vars.NEXT_PUBLIC_DONATION_SPONSORS_URL }}
+          NEXT_PUBLIC_DONATION_KOFI_URL: ${{ vars.NEXT_PUBLIC_DONATION_KOFI_URL }}
+        run: pnpm --filter playground exec node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-public-config.ts --online

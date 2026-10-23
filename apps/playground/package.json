@@ -5,7 +5,7 @@
   "description": "🇧🇷 Playground web do GoiásScript — escreva goianês no navegador",
   "scripts": {
     "predev": "node scripts/copy-monaco.ts && node scripts/copy-examples.mjs && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-runner.ts",
-    "prebuild": "node scripts/copy-monaco.ts && node scripts/copy-examples.mjs && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-runner.ts",
+    "prebuild": "node scripts/copy-monaco.ts && node scripts/copy-examples.mjs && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-runner.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-public-config.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start"

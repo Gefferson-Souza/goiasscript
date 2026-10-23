@@ -2,11 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import './globals.css';
 import { DonationLinks } from '@/components/DonationLinks';
+import { currentSiteConfig } from '@/config/current-site-config';
+import { resolveDonationLinks } from '@/lib/donation-links';
 
-const SITE = 'https://playground.goiasscript.com.br';
+const siteConfig = currentSiteConfig();
+const { siteUrl } = siteConfig;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE),
+  ...(siteUrl === null ? {} : { metadataBase: new URL(siteUrl) }),
   title: {
     default: 'GoiásScript — Goianês na Web',
     template: '%s — GoiásScript',
@@ -16,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'GoiásScript — Goianês na Web',
     description: 'Escreva goianês no navegador e veja o JavaScript moído na hora.',
-    url: SITE,
+    ...(siteUrl === null ? {} : { url: siteUrl }),
     siteName: 'GoiásScript',
     locale: 'pt_BR',
     type: 'website',
@@ -52,7 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <a
                 href="https://github.com/Gefferson-Souza/goiasscript"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="hover:text-goias-amarelo"
               >
                 GitHub ↗
@@ -66,7 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="border-t border-goias-borda bg-goias-painel">
           <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-4 text-xs text-goias-texto/70 sm:flex-row sm:items-center sm:justify-between">
             <span>🇧🇷 Feito com carinho em Goiás — MIT · v1.5.0</span>
-            <DonationLinks variant="compact" />
+            <DonationLinks links={resolveDonationLinks(siteConfig)} variant="compact" />
           </div>
         </footer>
       </body>
