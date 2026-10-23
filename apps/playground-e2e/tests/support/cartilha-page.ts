@@ -1,6 +1,12 @@
-import type { Locator, Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
 import { TEST_IDS } from '../../../playground/lib/test-ids.constants.ts';
-import { BLOCKED_STORAGE_SCRIPT, PRIMER_DONE_TIMEOUT_MS, PRIMER_EDITOR_TIMEOUT_MS, PRIMER_PATH } from './cartilha-page.constants.ts';
+import {
+  BLOCKED_STORAGE_SCRIPT,
+  PRIMER_DONE_TIMEOUT_MS,
+  PRIMER_EDITOR_TIMEOUT_MS,
+  PRIMER_MARKER_ATTEMPT_TIMEOUT_MS,
+  PRIMER_PATH,
+} from './cartilha-page.constants.ts';
 
 export class PrimerPage {
   readonly #page: Page;
@@ -49,6 +55,15 @@ export class PrimerPage {
       const monaco = Reflect.get(window, 'monaco') as { editor: { getModels: () => Model[] } };
       monaco.editor.getModels()[0]?.setValue(text);
     }, source);
+  }
+
+  // No WebKit o React pode assinar o onChange depois dos dois quadros; refaz a edição até o compilador reagir.
+  async setProgramUntil(source: string, compiled: () => Promise<boolean>): Promise<void> {
+    await expect(async () => {
+      await this.setProgram('');
+      await this.setProgram(source);
+      await expect.poll(compiled, { timeout: PRIMER_MARKER_ATTEMPT_TIMEOUT_MS }).toBe(true);
+    }).toPass({ timeout: PRIMER_EDITOR_TIMEOUT_MS });
   }
 
   async runExample(): Promise<void> {

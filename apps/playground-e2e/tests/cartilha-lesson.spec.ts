@@ -32,7 +32,7 @@ test.describe('cartilha — lição', () => {
   test('a lição 2 mostra o erro GS0208 no editor para uai preço é 10,50', async ({ page }) => {
     const primer = new PrimerPage(page);
     await primer.openLesson(LESSON_TWO);
-    await primer.setProgram(COMMA_DECIMAL_PROGRAM);
+    await primer.setProgramUntil(COMMA_DECIMAL_PROGRAM, async () => (await readModelMarkers(page)).length > 0);
     await expect
       .poll(async () => (await readModelMarkers(page)).map(({ code }) => (typeof code === 'string' ? code : code?.value)))
       .toContain(COMMA_DECIMAL_CODE);
@@ -41,7 +41,7 @@ test.describe('cartilha — lição', () => {
   test('o erro GS0208 do exemplo ganha link para a lição 2', async ({ page }) => {
     const primer = new PrimerPage(page);
     await primer.openLesson(LESSON_TWO);
-    await primer.setProgram(COMMA_DECIMAL_PROGRAM);
+    await primer.setProgramUntil(COMMA_DECIMAL_PROGRAM, async () => (await readModelMarkers(page)).length > 0);
     await expect
       .poll(async () => {
         const marker = (await readModelMarkers(page)).find(({ code }) => typeof code === 'object' && code.value === COMMA_DECIMAL_CODE);
