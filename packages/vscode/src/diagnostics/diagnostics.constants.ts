@@ -5,6 +5,6 @@ export const INTERNAL_ERROR_FALLBACK_MESSAGE = 'Ô sô, deu erro dentro do compi
 export const FALLBACK_FILE_NAME = 'programa.gs';
 export const PATH_SEPARATOR = /[\\/]/u;
 export const TRAILING_SLASHES = /\/+$/u;
-export const MAX_DOCUMENT_LENGTH = 500_000;
+export const MAX_DOCUMENT_LENGTH = 100_000;
 export const OVERSIZE_DIAGNOSTIC_CODE = 'GS-GRANDE';
 export const UNKNOWN_ERROR_NAME = 'Error';

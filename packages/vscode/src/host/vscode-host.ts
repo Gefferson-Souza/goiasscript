@@ -4,6 +4,7 @@ import { SETTINGS_SECTION } from '../settings/settings.constants.ts';
 import { readSettings } from '../settings/settings.ts';
 import { MEMBER_TRIGGER_CHARACTER } from '../language/completion-items.constants.ts';
 import { LESSON_LINK_LABEL } from '../language/lesson-link.constants.ts';
+import { markdownUrl } from '../language/hover-content.ts';
 import { sanitizeTerminalText } from '../commands/sanitize-terminal-text.ts';
 import { resourceUriOf } from './command-target.ts';
 import { DIAGNOSTICS_SOURCE, LANGUAGE_ID, OUTPUT_CHANNEL_NAME, TERMINAL_NEWLINE } from './host.constants.ts';
@@ -40,7 +41,7 @@ function untrustedMarkdown(value: string): vscode.MarkdownString {
 
 function toCompletionItem(data: CompletionItemData): vscode.CompletionItem {
   const insertText = data.kind === 'snippet' ? new vscode.SnippetString(data.insertText ?? data.label) : (data.insertText ?? data.label);
-  const documentation = data.lessonUrl === undefined ? undefined : untrustedMarkdown(`[${LESSON_LINK_LABEL}](${data.lessonUrl})`);
+  const documentation = data.lessonUrl === undefined ? undefined : untrustedMarkdown(`[${LESSON_LINK_LABEL}](${markdownUrl(data.lessonUrl)})`);
   return Object.assign(new vscode.CompletionItem(data.label, COMPLETION_KINDS[data.kind]), { detail: data.detail, insertText, documentation });
 }
 
