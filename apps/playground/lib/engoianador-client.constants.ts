@@ -3,6 +3,10 @@ export const MAX_INPUT_CHARS = 2_000;
 export const REQUEST_TIMEOUT_MS = 15_000;
 export const REQUEST_TEXT_FIELD = 'text';
 export const ENGOIANAR_PATH = '/engoiana';
+export const HEALTH_PATH = '/health';
+export const HEALTH_TIMEOUT_MS = 5_000;
+export const HEALTH_OK_FIELD = 'ok';
+export const ACCEPT_JSON_HEADERS = { Accept: 'application/json' } as const;
 export const JSON_HEADERS = { 'Content-Type': 'application/json' } as const;
 
 const STATUS_NOT_FOUND = 404;

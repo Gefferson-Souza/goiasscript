@@ -1,11 +1,16 @@
 'use client';
 import { ShareCard } from '@/components/ShareCard';
 import { PRIVACY_NOTICE } from './engoianador.constants.ts';
+import { EngoianadorIdleNotice } from './engoianador-idle-notice.tsx';
 import { ActionBar, PresetBar, TextPanels } from './engoianador-form-parts.tsx';
+import { useEngoianadorHealth } from './use-engoianador-health.ts';
 import { useEngoianadorSession } from './use-engoianador-session.ts';
 
 export function EngoianadorForm({ engoianadorUrl }: { readonly engoianadorUrl: string }) {
   const session = useEngoianadorSession(engoianadorUrl);
+  const health = useEngoianadorHealth(engoianadorUrl);
+
+  if (health === 'down') return <EngoianadorIdleNotice />;
 
   return (
     <>

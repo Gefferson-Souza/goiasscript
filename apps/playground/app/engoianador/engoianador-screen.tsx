@@ -1,5 +1,5 @@
-import { IDLE_NOTICE } from './engoianador.constants.ts';
 import { EngoianadorForm } from './engoianador-form.tsx';
+import { EngoianadorIdleNotice } from './engoianador-idle-notice.tsx';
 
 interface EngoianadorScreenProps {
   readonly engoianadorUrl: string | null;
@@ -13,9 +13,7 @@ export function EngoianadorScreen({ engoianadorUrl }: EngoianadorScreenProps) {
         <p className="mt-2 text-goias-texto/80">Cola qualquer texto e o trem devolve em goianês raiz, sô.</p>
       </header>
       {engoianadorUrl === null ? (
-        <p role="status" className="rounded border border-goias-borda bg-goias-painel p-4 text-center">
-          {IDLE_NOTICE}. Volta mais tarde que ele já já tá de volta.
-        </p>
+        <EngoianadorIdleNotice />
       ) : (
         <EngoianadorForm engoianadorUrl={engoianadorUrl} />
       )}

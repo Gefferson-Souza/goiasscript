@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { engoianar } from '../lib/engoianador-client.ts';
-import { MAX_INPUT_CHARS, REQUEST_TEXT_FIELD, REQUEST_TIMEOUT_MS, RESPONSE_TEXT_FIELDS } from '../lib/engoianador-client.constants.ts';
+import { checkEngoianadorHealth, engoianar } from '../lib/engoianador-client.ts';
+import { HEALTH_TIMEOUT_MS, MAX_INPUT_CHARS, REQUEST_TEXT_FIELD, REQUEST_TIMEOUT_MS, RESPONSE_TEXT_FIELDS } from '../lib/engoianador-client.constants.ts';
 import type { FetchPort, FetchResponseLike } from '../lib/engoianador-client.types.ts';
 
 const BASE_URL = 'https://engoianador.example.org';
@@ -113,5 +113,52 @@ describe('engoianar', () => {
     const hostile = '<img src=x onerror=alert(1)>';
     const fetchFn = fakeFetch(respond(200, { text: hostile }));
     expect(await engoianar('oi', { baseUrl: BASE_URL, fetchFn })).toEqual({ ok: true, text: hostile });
+  });
+});
+
+describe('checkEngoianadorHealth', () => {
+  it('disabled quando não há URL e não faz requisição', async () => {
+    const fetchFn = fakeFetch(respond(200, { ok: true }));
+    expect(await checkEngoianadorHealth({ baseUrl: null, fetchFn })).toBe('disabled');
+    expect(fetchFn).not.toHaveBeenCalled();
+  });
+
+  it('up para 200 com ok true', async () => {
+    const fetchFn = fakeFetch(respond(200, { ok: true, model: 'm', bindings: {} }));
+    expect(await checkEngoianadorHealth({ baseUrl: BASE_URL, fetchFn })).toBe('up');
+  });
+
+  it.each([
+    ['503 com ok false', respond(503, { ok: false })],
+    ['200 com ok false', respond(200, { ok: false })],
+    ['200 sem o campo ok', respond(200, {})],
+    ['200 com ok em texto', respond(200, { ok: 'true' })],
+    ['JSON torto', respond(200, new SyntaxError('Unexpected token'))],
+    ['corpo nulo', respond(200, null)],
+    ['rede caída', new TypeError('Failed to fetch')],
+  ])('down para %s', async (_name, response) => {
+    const fetchFn = fakeFetch(response);
+    expect(await checkEngoianadorHealth({ baseUrl: BASE_URL, fetchFn })).toBe('down');
+  });
+
+  it('pede GET /health sem credenciais, sem seguir redirecionamento e com teto de tempo', async () => {
+    const fetchFn = fakeFetch(respond(200, { ok: true }));
+    const signal = new AbortController().signal;
+    const createTimeoutSignal = vi.fn(() => signal);
+    await checkEngoianadorHealth({ baseUrl: `${BASE_URL}/`, fetchFn, createTimeoutSignal });
+    expect(createTimeoutSignal).toHaveBeenCalledWith(HEALTH_TIMEOUT_MS);
+    expect(HEALTH_TIMEOUT_MS).toBeLessThan(REQUEST_TIMEOUT_MS);
+    const [url, init] = fetchFn.mock.calls[0] ?? [];
+    expect(url).toBe(`${BASE_URL}/health`);
+    expect(init?.method).toBe('GET');
+    expect(init?.body).toBeUndefined();
+    expect(init?.credentials).toBe('omit');
+    expect(init?.redirect).toBe('error');
+    expect(init?.signal).toBe(signal);
+  });
+
+  it('não segue redirecionamento: o erro do fetch vira down', async () => {
+    const fetchFn = fakeFetch(new TypeError('redirect mode is set to error'));
+    expect(await checkEngoianadorHealth({ baseUrl: BASE_URL, fetchFn })).toBe('down');
   });
 });
