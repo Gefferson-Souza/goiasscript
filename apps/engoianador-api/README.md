@@ -13,6 +13,13 @@ POST /engoiana    → { "text": "olá" } → { "text": "ô sô, e aí" }
 Erros voltam como `{ "error": "mensagem em goianês" }`, sempre em JSON e com os
 cabeçalhos de CORS da origem permitida.
 
+Regra do `/health`: `ok` só é `true` (HTTP 200) quando existem o Durable Object
+da cota (`QUOTA_LEDGER`), o KV de cache (`ENGOIANADOR_CACHE`) e ao menos um
+provedor (binding `AI` ou segredo `GROQ_API_KEY`). Faltando qualquer um, responde
+503 com `ok: false`. Um deploy só com Workers AI conta como saudável; um deploy
+sem nenhum provedor não. A resposta traz apenas presença, nunca valores. Os casos
+estão em `test/health.test.ts`.
+
 Validação de borda do `POST /engoiana`:
 
 | Caso | Status |
