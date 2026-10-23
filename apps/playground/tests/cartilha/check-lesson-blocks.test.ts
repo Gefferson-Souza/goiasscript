@@ -1,4 +1,4 @@
-import { compile } from '@goiasscript/compiler';
+import { compile, type CompileResult } from '@goiasscript/compiler';
 import { describe, expect, it } from 'vitest';
 import { checkLessonBlocks } from '../../lib/cartilha/check-lesson-blocks.ts';
 import type { CheckLessonBlocksDeps, Lesson } from '../../lib/cartilha/lesson.types.ts';
@@ -80,7 +80,44 @@ describe('checkLessonBlocks', () => {
   it('mensagens saem em goianês e citam arquivo e linha', async () => {
     const problems = await checkLessonBlocks([lessonOf({ solution: 'prosa("Tchau")' })], deps);
     expect(problems).toHaveLength(1);
-    expect(problems[0]).toMatchObject({ file: 'licao-01.md', line: 11 });
+    expect(problems[0]).toMatchObject({ lessonId: 'licao-01', line: 11 });
     expect(problems[0]?.message).toMatch(/^Ô sô, licao-01\.md:11/u);
+  });
+
+  it('recusa bloco que o compilador reprova sem explicar o motivo', async () => {
+    const failed = { ok: false, diagnostics: [] } as unknown as CompileResult;
+    let run = false;
+    const problems = await checkLessonBlocks([lessonOf({})], {
+      compile: () => failed,
+      run: () => {
+        run = true;
+        return Promise.reject(new Error('não devia rodar'));
+      },
+    });
+    expect(problems.length).toBeGreaterThan(0);
+    expect(problems[0]?.message).toContain('não compilou');
+    expect(run).toBe(false);
+  });
+
+  it('recusa erro-esperado que traz diagnóstico além do esperado', async () => {
+    const blocks = [EXAMPLE_BLOCK, fenced('goiasscript erro-esperado GS0208', 'uai preço é 10,50\narruma_trem Conta {\n  aprepara_trem() {}\n}')];
+    const text = await check({ blocks });
+    expect(text).toContain('GS0804');
+  });
+
+  it('roda os blocos com entrada vazia, só a solução recebe o stdin', async () => {
+    const asking = fenced('goiasscript', 'uai nome é pergunta("Nome?")\nprosa(nome)');
+    const solution = 'uai nome é pergunta("Nome?")\nprosa("Oi, " mais nome)';
+    const options = { blocks: [EXAMPLE_BLOCK, asking], solution, expectedStdout: 'Nome? Oi, Pequi', stdinFile: 'stdin/licao-01.txt' };
+    const seen: string[] = [];
+    const spy: CheckLessonBlocksDeps = {
+      ...deps,
+      run: (code, stdin) => {
+        seen.push(stdin);
+        return runLessonProgram(code, stdin, {});
+      },
+    };
+    await checkLessonBlocks([lessonOf(options, 'Pequi\n')], spy);
+    expect(seen).toEqual(['', '', 'Pequi\n']);
   });
 });

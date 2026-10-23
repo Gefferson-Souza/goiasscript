@@ -1,4 +1,4 @@
-import { EXERCISE_KEYS, FRONTMATTER_KEYS, LESSON_ID_FORMAT, STDIN_FILE_PATTERN } from './lesson.constants.ts';
+import { EXERCISE_KEYS, LESSON_FILE_EXTENSION, LESSON_FILE_PATTERN, FRONTMATTER_KEYS, LESSON_ID_FORMAT, STDIN_FILE_PATTERN } from './lesson.constants.ts';
 import type { FrontmatterIssue, FrontmatterResult, LessonFrontmatter, LessonProblem } from './lesson.types.ts';
 
 type PlainRecord = Readonly<Record<string, unknown>>;
@@ -7,7 +7,8 @@ const isRecord = (value: unknown): value is PlainRecord => typeof value === 'obj
 const isFilled = (value: unknown): value is string => typeof value === 'string' && value.trim() !== '';
 
 export function lessonProblem(file: string, line: number, text: string): LessonProblem {
-  return { file, line, message: `Ô sô, ${file}:${String(line)} — ${text}` };
+  const lessonId = LESSON_FILE_PATTERN.test(file) ? file.slice(0, -LESSON_FILE_EXTENSION.length) : null;
+  return { lessonId, line, message: `Ô sô, ${file}:${String(line)} — ${text}` };
 }
 
 function unknownKeys(record: PlainRecord, allowed: readonly string[]): readonly FrontmatterIssue[] {

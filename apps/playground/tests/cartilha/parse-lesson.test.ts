@@ -9,8 +9,10 @@ describe('parseLesson', () => {
     const result = parseLesson('licao-01.md', lessonSource(), noStdin);
     if (!result.ok) throw new Error(result.problems.map((problem) => problem.message).join('\n'));
     expect(result.lesson).toMatchObject({ id: 'licao-01', order: 1, title: 'Primeiro programa', terms: ['prosa'] });
-    expect(result.lesson.exercise).toMatchObject({ expectedStdout: 'Olá, Goiás!', stdin: '' });
-    expect(result.lesson.blocks.map((block) => block.kind)).toEqual(['example', 'static']);
+    expect(result.lesson.exercise).toMatchObject({ expectedStdout: 'Olá, Goiás!' });
+    expect(result.lesson.example).toBe(result.lesson.blocks[0]);
+    expect(result.lesson.bodyMarkdown).toContain('# Primeiro programa');
+    expect(result.lesson.blocks.map((block) => block.mode)).toEqual(['editable', 'static']);
     expect(result.lesson.blocks[0]).toMatchObject({ code: 'prosa("Bão, sô!")', line: 20 });
   });
 
@@ -40,7 +42,7 @@ describe('parseLesson', () => {
     const blocks = [EXAMPLE_BLOCK, fenced('goiasscript erro-esperado GS0208', 'uai preço é 10,50')];
     const result = parseLesson('licao-01.md', lessonSource({ blocks }), noStdin);
     if (!result.ok) throw new Error('devia aceitar');
-    expect(result.lesson.blocks[1]).toMatchObject({ kind: 'expected-error', expectedCode: 'GS0208' });
+    expect(result.lesson.blocks[1]).toMatchObject({ mode: 'expected-error', expectedCode: 'GS0208' });
   });
 
   it('recusa chave desconhecida, cerca aberta e modificador torto', () => {
@@ -59,7 +61,7 @@ describe('parseLesson', () => {
     const source = lessonSource({ stdinFile: 'stdin/licao-01.txt' });
     const ok = parseLesson('licao-01.md', source, () => 'Pequi\n');
     if (!ok.ok) throw new Error('devia aceitar');
-    expect(ok.lesson.exercise.stdin).toBe('Pequi\n');
+    expect(ok.lesson.exercise.stdin).toEqual(['Pequi']);
     const broken = parseLesson('licao-01.md', source, () => {
       throw new Error('ENOENT');
     });

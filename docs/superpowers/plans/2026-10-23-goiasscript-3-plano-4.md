@@ -357,6 +357,8 @@ export interface LessonExercise {
   readonly stdin?: readonly string[];       // lido de stdinFile; uma resposta por pergunta
 }
 export interface Lesson {
+  readonly file: string;                    // nome do arquivo, para citar nas mensagens
+  readonly solutionLine: number;            // linha da solução no arquivo, para citar nas mensagens
   readonly id: string;                      // licao-NN
   readonly order: number;
   readonly title: string;

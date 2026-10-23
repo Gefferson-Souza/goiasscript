@@ -1,4 +1,5 @@
 export const LESSON_FILE_PATTERN = /^licao-\d{2}\.md$/u;
+export const LESSON_FILE_EXTENSION = '.md';
 export const LESSON_ID_FORMAT = /^licao-\d{2}$/u;
 export const STDIN_FILE_PATTERN = /^stdin\/[a-z0-9-]+\.txt$/u;
 export const DIAGNOSTIC_CODE_PATTERN = /^GS\d{4}$/u;
