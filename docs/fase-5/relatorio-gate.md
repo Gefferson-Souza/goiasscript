@@ -86,7 +86,7 @@ pendente** e deve ser disparada pelo dono ou pelo orquestrador antes do GATE 5.
 | 2 | LOW | `settings/settings.ts` | O endereço de lição aceitava `https://usuario:senha@host`. O playground já recusa; a extensão destoava. | **Corrigido** em 753ae55: usuário ou senha no endereço viram `null`; teste (RED observado antes). |
 | 3 | MEDIUM | `.github/rulesets/tags.json`, `release-vscode.yml` | O ruleset de tags só protege `legacy/*` e o arquivo do protótipo; quem tem escrita pode empurrar `vscode-v*` e disparar o workflow. Contenções que existem: ambientes `marketplace` e `open-vsx` (a aprovação é do dono) e a conferência de que o commit da tag está na `main`. | Corrigido no arquivo: `refs/tags/vscode-v*` entrou no ruleset versionado (deletion, update, non_fast_forward) com teste em `rulesets.test.mjs`. Aplicar o ruleset no GitHub continua com o dono (checklist da seção 11). |
 | 4 | LOW | `release-vscode.yml` | Os dois jobs de publicação são independentes: um pode publicar e o outro falhar, e as versões divergem entre Marketplace e Open VSX. | Aceito: a correção é republicar com a versão seguinte; o `smoke-extension.yml` confere os dois lados. |
-| 5 | LOW | `diagnostics/live-diagnostics.ts` | Documento de até 500.000 caracteres é compilado no processo de extensões: medido 257 a 362 ms (mediana de 5, 25 mil linhas). O `getText()` roda em todo evento mesmo para documento acima do teto. | Aceito: o teto existe, o atraso (padrão 300 ms) agrupa a digitação e o compilador é linear. |
+| 5 | LOW | `diagnostics/live-diagnostics.ts` | Documento de até 100.000 caracteres é compilado no processo de extensões: medido 257 a 362 ms (mediana de 5, 25 mil linhas). O `getText()` roda em todo evento mesmo para documento acima do teto. | Aceito: o teto existe, o atraso (padrão 300 ms) agrupa a digitação e o compilador é linear. |
 | 6 | LOW | `cli-invocation.ts` | O `cwd` do filho é a pasta do arquivo (controlada pelo usuário). | Aceito: é o que faz caminhos relativos do programa funcionarem; o Node resolve módulos pelo script (caminho absoluto dentro da extensão), e `NODE_OPTIONS`, `LD_PRELOAD` e afins não passam (lista fechada de variáveis, testada). |
 | 7 | LOW | `pack-vscode.ts`, `smoke-extension.ts` | `GS_EXTENSION_PUBLISHER` entra no manifesto empacotado e no caminho da consulta ao Open VSX sem escape. | Aceito: o valor é do dono, em ambiente que ele controla; o workflow do smoke nem o repassa. |
 | 8 | LOW | `release-vscode.yml` | Os jobs de publicação rodam `pnpm install`. | Aceito: o pnpm 10 não executa scripts de instalação de dependências por padrão e não há `onlyBuiltDependencies`; a lockfile é congelada. |
@@ -115,7 +115,7 @@ pendente** e deve ser disparada pelo dono ou pelo orquestrador antes do GATE 5.
   linha e parágrafo; vale para o terminal, o título do terminal, o canal de saída e a mensagem de sucesso;
   `stripEscapeSequences` limpa setas e colar na digitação antes do `stdin` do filho
   (`sanitize-terminal-text.test.ts`, `program-terminal.test.ts`).
-- **Regex e laço sobre documento grande:** o teto de 500.000 caracteres vale antes de compilar; hover e autocomplete
+- **Regex e laço sobre documento grande:** o teto de 100.000 caracteres vale antes de compilar; hover e autocomplete
   varrem só a linha, em tempo linear e sem regex com retrocesso (achado 5).
 - **`lessonBaseUrl`:** só `https:`, sem usuário e senha, restrito no Modo Restrito; o identificador da lição passa por
   `^[a-z0-9-]+$` (`settings.test.ts`, `manifest.test.ts`).
@@ -123,13 +123,27 @@ pendente** e deve ser disparada pelo dono ou pelo orquestrador antes do GATE 5.
 - **Workflow:** `contents: read` por padrão; `id-token: write` só no job `publish-marketplace`; token do Open VSX só no
   `env` do passo de publicação; todas as actions por SHA; um único `.vsix` (o job exige exatamente um e a versão no
   nome); SHA-256 calculado no empacotamento e conferido nos jobs de integração e de publicação; commit da tag
-  conferido como ancestral da `main`; `vsce` e `ovsx` em versão exata no `package.json`; `vscode.yml` roda só em push e
+  conferido como a ponta da `main`; `vsce` e `ovsx` em versão exata no `package.json`; `vscode.yml` roda só em push e
   `pull_request` (nunca `pull_request_target`).
 
 ### 5.3 Revisão independente
 
-Pendente (seção 5). Quando rodar, anexar aqui a tabela do `everything-claude-code:security-reviewer`; sem CRITICAL ou
-HIGH abertos o gate fecha.
+Feita pelo `everything-claude-code:security-reviewer` em contexto fresco, só leitura, sobre `git diff origin/main...HEAD`.
+**Sem CRITICAL nem HIGH.** Injeção de argumentos, Modo Restrito, esquema de URI, escapes de terminal e Markdown do hover
+foram conferidos sem falha.
+
+| # | Nível | Achado | Disposição |
+| --- | --- | --- | --- |
+| R1 | MEDIUM | Os jobs de publicação instalavam dependências com scripts de ciclo de vida no mesmo job das credenciais | Corrigido: `pnpm install --ignore-scripts` nos dois jobs; teste de configuração exige a flag |
+| R2 | MEDIUM | A conferência aceitava tag em qualquer commit ancestral da `main`, inclusive um com falha já corrigida | Corrigido: a tag precisa apontar para a ponta da `main`; teste de configuração cobre |
+| R3 | MEDIUM | Diagnóstico em tempo real compila no processo de extensões, sem tempo-limite | Mitigado: teto baixou para 100.000 caracteres; compilação em `worker_threads` fica como risco aberto |
+| R4 | LOW | Link da lição no autocomplete entrava no Markdown sem o escape do hover | Corrigido: reusa `markdownUrl`; a configuração já é restrita em pasta não confiável |
+| R5 | LOW | A pasta controla `files.associations`, então `traduz` aceitava arquivo que não é `.gs` | Corrigido: a guarda exige a extensão `.gs`; teste em `command-guards.test.ts` |
+| R6 | LOW | Caminho de rede (`\\host\pasta`) no Windows abriria SMB | Corrigido: a guarda recusa caminho que começa com duas barras; teste cobre as duas formas |
+| R7 | LOW | Download do VS Code nos testes sem conferência de integridade | Aceito: esses jobs não têm segredo nem `id-token` |
+| R8 | LOW | Saída do programa sem teto antes de o terminal abrir | Aceito: só roda em pasta confiável e o aluno fecha o terminal |
+
+Pendente do dono: proteção das tags `vscode-v*` e revisores obrigatórios nos ambientes `marketplace` e `open-vsx`.
 
 ## 6. Orçamentos medidos
 
