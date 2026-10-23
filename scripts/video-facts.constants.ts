@@ -14,6 +14,10 @@ export const ENGOIANADOR_TIMEOUT_MS = 30_000;
 export const OUT_FLAG = '--out';
 export const TESTS_FROM_FLAG = '--tests-from';
 export const TESTS_REPORT_FIELD = 'numTotalTests';
+export const TESTS_FAILED_FIELD = 'numFailedTests';
+export const HOME_PLACEHOLDER = '<home>';
+export const TMP_PLACEHOLDER = '<tmp>';
+export const URL_PLACEHOLDER = '<engoianador-url>';
 export const SECRET_ENV_NAME = /KEY|TOKEN|SECRET|PASSWORD/iu;
 export const MIN_SECRET_LENGTH = 8;
 export const JSON_INDENT = 2;
@@ -29,6 +33,8 @@ export const MESSAGES = {
   insideRepository: 'Ô rapaz! O --out não pode cair dentro do repositório. Escolhe uma pasta de fora.',
   secretLeak: 'Eita! Tem segredo no meio dos dados do vídeo. Não gravei nada.',
   invalidReport: `Eita! O relatório de testes não tem o campo ${TESTS_REPORT_FIELD} numérico.`,
+  demoCommandFailed: 'Ô sô! Um comando do demo falhou e eu não grampeio comando quebrado no vídeo',
+  testRunFailed: 'Eita! A suíte de testes não passou limpa, então não conto o número pro vídeo.',
   translateFailed: 'Ô sô! O traduz falhou e eu não invento saída.',
   engoianadorFailed: 'Eita! O Engoianador respondeu, mas sem texto aproveitável.',
 } as const;
