@@ -36,8 +36,30 @@ describe('closestInPools', () => {
     expect(closestInPools('xyz', [CandidatePool.of(['valor', 'nome'])])).toBeUndefined();
   });
 
-  it('descarta pela máscara de caracteres sem perder candidatos próximos', () => {
-    const pool = CandidatePool.of(['zzzzzz', 'idade']);
-    expect(closestInPools('idadee', [pool])).toBe('idade');
+  it('acha o vizinho certo em pool grande, com o mesmo desempate da varredura', () => {
+    const names = Array.from({ length: 300 }, (_, index) => `item${String(index)}`);
+    const pool = CandidatePool.of([...names, 'valor', 'valer']);
+    expect(closestInPools('valar', [pool])).toBe('valor');
+    expect(closestInPools('itemx42', [pool])).toBe('item42');
+    expect(closestInPools('zzzzzzzz', [pool])).toBeUndefined();
+  });
+
+  it('o índice de remoções concorda com a força bruta em nomes sorteados', () => {
+    let seed = 7;
+    const next = (): number => {
+      seed = (seed * 1_103_515_245 + 12_345) % 2_147_483_648;
+      return seed;
+    };
+    const word = (): string => Array.from({ length: 3 + (next() % 6) }, () => 'abc'[next() % 3]).join('');
+    const names = Array.from({ length: 400 }, word);
+    const pool = CandidatePool.of(names);
+    for (let round = 0; round < 300; round += 1) {
+      const query = word();
+      const brute = names.reduce<{ name: string; distance: number } | undefined>((found, candidate) => {
+        const distance = editDistanceWithin(query, candidate, 2);
+        return distance <= 2 && (found === undefined || distance < found.distance) ? { name: candidate, distance } : found;
+      }, undefined);
+      expect(closestInPools(query, [pool])).toBe(brute?.name);
+    }
   });
 });
