@@ -156,3 +156,6 @@ packages/compiler/reports/
 
 # Runner do sandbox gerado pelo build
 apps/playground/public/sandbox/
+
+# === EXTENSAO VS CODE ===
+packages/vscode/pack/
