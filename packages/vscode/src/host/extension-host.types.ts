@@ -31,6 +31,7 @@ export interface ProgramTerminal {
   write(text: string): void;
   writeNotice(text: string): void;
   onInput(handler: (text: string) => void): void;
+  onClose(handler: () => void): void;
   close(exitCode: number): void;
 }
 
@@ -63,11 +64,13 @@ export interface ExtensionHost {
   readonly settings: () => ExtensionSettings;
   readonly isWorkspaceTrusted: () => boolean;
   readonly activeDocument: () => HostDocument | undefined;
+  readonly resolveDocument: (resourceUri?: string) => Promise<HostDocument | undefined>;
   readonly onDocumentEvent: (handler: (event: DocumentEvent) => void) => Disposable;
   readonly onTrustGranted: (handler: () => void) => Disposable;
   readonly setDiagnostics: (documentUri: string, diagnostics: readonly HostDiagnostic[]) => void;
   readonly clearDiagnostics: (documentUri: string) => void;
   readonly showError: (message: string) => void;
+  readonly showInformation: (message: string) => void;
   readonly askConfirmation: (message: string, confirmLabel: string) => Promise<boolean>;
   readonly appendOutput: (text: string) => void;
   readonly openProgramTerminal: (title: string) => ProgramTerminal;

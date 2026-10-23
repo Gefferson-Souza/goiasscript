@@ -3,8 +3,8 @@ import { SETTINGS_SECTION } from '../settings/settings.constants.ts';
 import { readSettings } from '../settings/settings.ts';
 import { MEMBER_TRIGGER_CHARACTER } from '../language/completion-items.constants.ts';
 import { LESSON_LINK_LABEL } from '../language/lesson-link.constants.ts';
+import { sanitizeTerminalText } from '../commands/sanitize-terminal-text.ts';
 import { resourceUriOf } from './command-target.ts';
-import { sanitizeTerminalText } from './terminal-text.ts';
 import { DIAGNOSTICS_SOURCE, LANGUAGE_ID, OUTPUT_CHANNEL_NAME, TERMINAL_NEWLINE } from './host.constants.ts';
 import type { CompletionItemData, Disposable, DocumentEvent, ExtensionHost, HostDiagnostic, HostDocument, ProgramTerminal } from './extension-host.types.ts';
 
@@ -47,6 +47,7 @@ function createProgramTerminal(title: string): ProgramTerminal {
   const writeEmitter = new vscode.EventEmitter<string>();
   const closeEmitter = new vscode.EventEmitter<number>();
   const inputHandlers: ((text: string) => void)[] = [];
+  const closeHandlers: (() => void)[] = [];
   const pending: string[] = [];
   const state = { opened: false };
   const pty: vscode.Pseudoterminal = {
@@ -58,7 +59,11 @@ function createProgramTerminal(title: string): ProgramTerminal {
         writeEmitter.fire(text);
       });
     },
-    close: () => undefined,
+    close: () => {
+      closeHandlers.forEach((handler) => {
+        handler();
+      });
+    },
     handleInput: (data) => {
       inputHandlers.forEach((handler) => {
         handler(data);
@@ -77,10 +82,24 @@ function createProgramTerminal(title: string): ProgramTerminal {
       write(sanitizeTerminalText(text));
     },
     onInput: (handler) => inputHandlers.push(handler),
+    onClose: (handler) => closeHandlers.push(handler),
     close: (exitCode) => {
       closeEmitter.fire(exitCode);
     },
   };
+}
+
+async function resolveDocumentOf(resourceUri?: string): Promise<HostDocument | undefined> {
+  if (resourceUri === undefined) {
+    const active = vscode.window.activeTextEditor?.document;
+    return active === undefined ? undefined : toHostDocument(active);
+  }
+  try {
+    return toHostDocument(await vscode.workspace.openTextDocument(vscode.Uri.parse(resourceUri)));
+  } catch {
+    // Arquivo binário, inexistente ou de provedor que não abre como texto: o comando recusa em vez de executar.
+    return undefined;
+  }
 }
 
 function onDocumentEvent(handler: (event: DocumentEvent) => void): Disposable {
@@ -104,7 +123,7 @@ function onDocumentEvent(handler: (event: DocumentEvent) => void): Disposable {
   );
 }
 
-function createDiagnosticsApi(context: vscode.ExtensionContext): Pick<ExtensionHost, 'setDiagnostics' | 'clearDiagnostics' | 'showError' | 'askConfirmation' | 'appendOutput'> {
+function createDiagnosticsApi(context: vscode.ExtensionContext): Pick<ExtensionHost, 'setDiagnostics' | 'clearDiagnostics' | 'showError' | 'showInformation' | 'askConfirmation' | 'appendOutput'> {
   const collection = vscode.languages.createDiagnosticCollection(LANGUAGE_ID);
   const output = vscode.window.createOutputChannel(OUTPUT_CHANNEL_NAME);
   context.subscriptions.push(collection, output);
@@ -117,6 +136,9 @@ function createDiagnosticsApi(context: vscode.ExtensionContext): Pick<ExtensionH
     },
     showError: (message) => {
       void vscode.window.showErrorMessage(message);
+    },
+    showInformation: (message) => {
+      void vscode.window.showInformationMessage(message);
     },
     askConfirmation: async (message, confirmLabel) => (await vscode.window.showWarningMessage(message, { modal: true }, confirmLabel)) === confirmLabel,
     appendOutput: (text) => {
@@ -163,6 +185,7 @@ export function createVscodeHost(context: vscode.ExtensionContext): ExtensionHos
       const document = vscode.window.activeTextEditor?.document;
       return document === undefined ? undefined : toHostDocument(document);
     },
+    resolveDocument: resolveDocumentOf,
     onDocumentEvent,
     onTrustGranted: (handler) => vscode.workspace.onDidGrantWorkspaceTrust(handler),
     openProgramTerminal: createProgramTerminal,

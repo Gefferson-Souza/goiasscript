@@ -1,5 +1,5 @@
 import type { Disposable, DocumentEvent, HostDocument } from '../../src/host/extension-host.types.ts';
-import { sanitizeTerminalText } from '../../src/host/terminal-text.ts';
+import { sanitizeTerminalText } from '../../src/commands/sanitize-terminal-text.ts';
 import { FILE_SCHEME, LANGUAGE_ID } from '../../src/host/host.constants.ts';
 import { DEFAULT_DIAGNOSTICS_DELAY_MS, DEFAULT_TONE } from '../../src/settings/settings.constants.ts';
 import type { FakeHost, FakeHostOptions, FakeTerminal } from './fake-host.types.ts';
@@ -17,6 +17,7 @@ function subscribe<T>(handlers: T[], handler: T): Disposable {
 
 function createTerminal(title: string): FakeTerminal {
   const inputHandlers: ((text: string) => void)[] = [];
+  const closeHandlers: (() => void)[] = [];
   const terminal: FakeTerminal = {
     title,
     written: [],
@@ -30,9 +31,15 @@ function createTerminal(title: string): FakeTerminal {
     onInput: (handler) => {
       inputHandlers.push(handler);
     },
+    onClose: (handler) => {
+      closeHandlers.push(handler);
+    },
     close: (exitCode) => {
       terminal.exitCodes.push(exitCode);
     },
+    closeByUser: () => { closeHandlers.forEach((handler) => {
+      handler();
+    }); },
     type: (text) => { inputHandlers.forEach((handler) => {
       handler(text);
     }); },
@@ -47,6 +54,8 @@ export function createFakeHost(options: FakeHostOptions = {}): FakeHost {
   const host: FakeHost = {
     diagnostics: new Map(),
     errors: [],
+    infos: [],
+    confirmations: [],
     output: [],
     terminals: [],
     commands: new Map(),
@@ -55,12 +64,17 @@ export function createFakeHost(options: FakeHostOptions = {}): FakeHost {
     settings: () => ({ tone: DEFAULT_TONE, diagnosticsDelayMs: DEFAULT_DIAGNOSTICS_DELAY_MS, lessonBaseUrl: null, ...options.settings }),
     isWorkspaceTrusted: () => state.trusted,
     activeDocument: () => options.activeDocument,
+    resolveDocument: (resourceUri) => Promise.resolve(resourceUri === undefined ? options.activeDocument : [...(options.documents ?? []), ...(options.activeDocument === undefined ? [] : [options.activeDocument])].find((document) => document.uri === resourceUri)),
     onDocumentEvent: (handler) => subscribe(documentHandlers, handler),
     onTrustGranted: (handler) => subscribe(trustHandlers, handler),
     setDiagnostics: (documentUri, diagnostics) => host.diagnostics.set(documentUri, diagnostics),
     clearDiagnostics: (documentUri) => host.diagnostics.delete(documentUri),
     showError: (message) => host.errors.push(message),
-    askConfirmation: () => Promise.resolve(options.confirmation ?? false),
+    showInformation: (message) => host.infos.push(message),
+    askConfirmation: (message, confirmLabel) => {
+      host.confirmations.push({ message, confirmLabel });
+      return Promise.resolve(options.confirmation ?? false);
+    },
     appendOutput: (text) => host.output.push(sanitizeTerminalText(text)),
     openProgramTerminal: (title) => {
       const terminal = createTerminal(title);
