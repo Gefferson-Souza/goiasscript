@@ -39,10 +39,22 @@ pnpm playground:build
 
 ## Deploy (Vercel)
 
-1. Importa o repositório no Vercel.
-2. Root directory: `apps/playground`.
-3. Variáveis de ambiente: as `NEXT_PUBLIC_*` do `.env.example`, com valores reais.
-4. Build command e output ficam no padrão Next.
+O `vercel.json` só fixa framework, instalação (`corepack pnpm install --frozen-lockfile`),
+build e saída padrão. Ele não traz cabeçalhos: a fonte única é o `next.config.ts`.
+Nada é implantado por este repositório; o passo a passo abaixo é do dono do projeto.
+
+1. Importa o repositório no Vercel e cria o projeto.
+2. Root directory: `apps/playground`. Deixa o `vercel.json` valer (não sobrescreve os comandos).
+3. Variáveis de ambiente de produção: as `NEXT_PUBLIC_*` do `.env.example`, com valores reais.
+   Valor igual ao de exemplo derruba o build, de propósito.
+4. Faz o deploy e anota o endereço `https://` que o Vercel devolveu.
+5. No GitHub, abre a aba Actions, escolhe "Smoke do playground", clica em "Run workflow"
+   e informa o endereço do passo 4 em `base_url`.
+6. O smoke confere a home (CSP com `frame-ancestors 'none'`), o `/sandbox/runner.js`
+   (JavaScript com a CSP isolada exata), o 404 em goianês e a página `/doacao`.
+   Se algum item falhar, o job lista qual e o deploy não deve ser promovido.
+
+Para rodar o smoke da sua máquina: `node scripts/run-smoke-playground.ts https://endereço`.
 
 ## Arquitetura
 
