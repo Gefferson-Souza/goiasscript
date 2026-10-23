@@ -21,9 +21,6 @@
     "apps/engoianador-api/test/rate-limit.test.ts": {
       "R14": 1
     },
-    "apps/playground-e2e/tests/engoianador.spec.ts": {
-      "R14": 1
-    },
     "apps/playground/tailwind.config.ts": {
       "R14": 7
     }
