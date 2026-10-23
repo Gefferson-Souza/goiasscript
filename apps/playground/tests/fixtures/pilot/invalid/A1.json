@@ -1,0 +1,7 @@
+{
+  "learnerId": "A1",
+  "origin": "goias",
+  "lessonsCompleted": ["licao-01","licao-02","licao-03","licao-04","licao-05"],
+  "confusingMessages": [{"code":"GS0208","comment":"Me chama em fulano@exemplo.com para falar."}],
+  "confusingLessons": []
+}
