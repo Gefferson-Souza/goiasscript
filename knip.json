@@ -91,13 +91,13 @@
         "components/**/*.tsx",
         "workers/**/*.ts",
         "types/**/*.d.ts",
-        "lib/{engoianador-client,monaco-goias,share,use-runner}.ts",
+        "lib/{monaco-goias,share,use-runner}.ts",
         "sandbox/runner.ts"
       ],
       "project": [
         "config/**/*.ts",
         "lib/**/*.{ts,tsx}",
-        "!lib/{engoianador-client,monaco-goias,share,use-runner}.ts",
+        "!lib/{monaco-goias,share,use-runner}.ts",
         "sandbox/**/*.ts",
         "scripts/**/*.ts",
         "tests/**/*.ts",

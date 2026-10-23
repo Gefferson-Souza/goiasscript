@@ -1,50 +1,70 @@
-// URL da API do Engoianador. Em produção, NEXT_PUBLIC_ENGOIANADOR_URL é
-// obrigatória — sem ela, falha explícito em vez de cair em localhost silencioso.
-const DEV_URL = 'http://127.0.0.1:8787';
+import {
+  ENGOIANAR_PATH,
+  HTTP_STATUS,
+  JSON_HEADERS,
+  MAX_INPUT_CHARS,
+  REQUEST_TEXT_FIELD,
+  REQUEST_TIMEOUT_MS,
+  RESPONSE_TEXT_FIELDS,
+} from './engoianador-client.constants.ts';
+import type {
+  EngoianadorFailureReason,
+  EngoianadorResult,
+  EngoianarOptions,
+  FetchPort,
+  FetchResponseLike,
+} from './engoianador-client.types.ts';
 
-export function getEngoianadorUrl(): string {
-  const env =
-    typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_ENGOIANADOR_URL : undefined;
-  if (env) return env;
+const TRAILING_SLASHES = /\/+$/u;
 
-  const isProd =
-    typeof process !== 'undefined' && process.env.NODE_ENV === 'production';
-  if (isProd) {
-    throw new Error(
-      'NEXT_PUBLIC_ENGOIANADOR_URL não configurada. Defina a URL da API do Engoianador no ambiente de produção.'
-    );
-  }
-  return DEV_URL;
+function failure(reason: EngoianadorFailureReason): EngoianadorResult {
+  return { ok: false, reason };
 }
 
-export async function engoianar(texto: string): Promise<string> {
-  let res: Response;
-  try {
-    res = await fetch(`${getEngoianadorUrl()}/engoiana`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ texto }),
-    });
-  } catch (err) {
-    throw new Error(
-      err instanceof Error && err.message.includes('NEXT_PUBLIC')
-        ? err.message
-        : 'Não deu pra falar com o engoianador. Vê sua conexão, sô.'
-    );
-  }
+function failureForStatus(status: number): EngoianadorFailureReason {
+  if (status === HTTP_STATUS.tooManyRequests) return 'rate-limited';
+  const isClientError = status >= HTTP_STATUS.clientErrorMin && status <= HTTP_STATUS.clientErrorMax;
+  return isClientError && status !== HTTP_STATUS.notFound ? 'invalid' : 'unavailable';
+}
 
-  let data: { erro?: string; engoianado?: unknown } = {};
+function extractText(body: unknown): string | null {
+  if (typeof body !== 'object' || body === null) return null;
+  const record = body as Readonly<Record<string, unknown>>;
+  for (const field of RESPONSE_TEXT_FIELDS) {
+    const value = record[field];
+    if (typeof value === 'string' && value !== '') return value;
+  }
+  return null;
+}
+
+async function readText(response: FetchResponseLike): Promise<EngoianadorResult> {
   try {
-    data = await res.json();
+    const text = extractText(await response.json());
+    return text === null ? failure('unavailable') : { ok: true, text };
   } catch {
-    throw new Error(`Resposta inválida da API (HTTP ${res.status})`);
+    return failure('unavailable');
   }
+}
 
-  if (!res.ok) {
-    throw new Error(data?.erro || `HTTP ${res.status}`);
+const defaultFetch: FetchPort = (url, init) => fetch(url, init);
+
+export async function engoianar(text: string, options: EngoianarOptions): Promise<EngoianadorResult> {
+  if (options.baseUrl === null) return failure('disabled');
+  if (text.trim() === '' || text.length > MAX_INPUT_CHARS) return failure('invalid');
+  const fetchFn = options.fetchFn ?? defaultFetch;
+  const createTimeoutSignal = options.createTimeoutSignal ?? ((ms: number) => AbortSignal.timeout(ms));
+  let response: FetchResponseLike;
+  try {
+    response = await fetchFn(`${options.baseUrl.replace(TRAILING_SLASHES, '')}${ENGOIANAR_PATH}`, {
+      method: 'POST',
+      headers: JSON_HEADERS,
+      body: JSON.stringify({ [REQUEST_TEXT_FIELD]: text }),
+      credentials: 'omit',
+      redirect: 'error',
+      signal: createTimeoutSignal(REQUEST_TIMEOUT_MS),
+    });
+  } catch {
+    return failure('unavailable');
   }
-  if (typeof data.engoianado !== 'string') {
-    throw new Error('Resposta inesperada da API');
-  }
-  return data.engoianado;
+  return response.ok ? readText(response) : failure(failureForStatus(response.status));
 }
