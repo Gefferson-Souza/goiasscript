@@ -12,7 +12,7 @@ export interface HostDocument {
 
 export interface HostDiagnostic {
   readonly code: string;
-  readonly severity: 'error' | 'warning';
+  readonly severity: 'error' | 'warning' | 'info';
   readonly message: string;
   readonly startLine: number;
   readonly startCharacter: number;

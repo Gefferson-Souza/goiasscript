@@ -14,6 +14,7 @@ const COMPLETION_KINDS: Readonly<Record<CompletionItemData['kind'], vscode.Compl
 const SEVERITIES: Readonly<Record<HostDiagnostic['severity'], vscode.DiagnosticSeverity>> = {
   error: vscode.DiagnosticSeverity.Error,
   warning: vscode.DiagnosticSeverity.Warning,
+  info: vscode.DiagnosticSeverity.Information,
 };
 const NEWLINE_PATTERN = /\r?\n/gu;
 
