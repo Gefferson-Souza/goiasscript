@@ -1,0 +1,26 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "fixed": [
+    [
+      "goiasscript",
+      "goiasscript-vscode"
+    ]
+  ],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": [
+    "@goiasscript/compiler",
+    "@goiasscript/config-tests",
+    "@goiasscript/language",
+    "@goiasscript/optimizer",
+    "@goiasscript/rules-scan",
+    "@goiasscript/script-tests",
+    "engoianador-api",
+    "playground",
+    "playground-e2e"
+  ]
+}
