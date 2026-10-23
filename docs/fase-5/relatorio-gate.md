@@ -21,7 +21,7 @@ Os commits não carregam o número da unidade no título; o agrupamento é pelo 
 | U5-05 gramática, snippets, ícones e configuração | db42f6a |
 | U5-06 testes dentro do VS Code | 8ee003e, 2ff2884 (matriz de CI), 17e25b0 (suites de Modo Restrito e nomes hostis) |
 | U5-07 release preparado | a26b701, 4944618, 8882fdf |
-| U5-08 revisão de segurança e este relatório | 753ae55, e16e9c3 (relatório), 6f46c1c (correções do relatório) |
+| U5-08 revisão de segurança e este relatório | 753ae55, e16e9c3 (relatório), 9ee4153 (correções do relatório) |
 
 ## 2. Cobertura (`vitest run --coverage`)
 
