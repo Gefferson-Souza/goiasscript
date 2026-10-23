@@ -9,7 +9,10 @@ import { createLimiter } from './limiter';
 import { workerLog } from './log';
 import { MESSAGES } from './messages.constants';
 import { createProviderChain } from './providers';
+import { QuotaLedgerObject } from './rate-limiter.do';
 import { ERROR_FIELD } from './responses.constants';
+
+export { QuotaLedgerObject };
 
 type Handler = (request: Request, env: Env) => Promise<Response>;
 
@@ -37,7 +40,7 @@ function handlerFor(env: Env, config: Extract<ConfigResult, { readonly ok: true 
   const known = handlerByEnv.get(env);
   if (known !== undefined) return known;
   const handler = createHandler({
-    limiter: createLimiter(env),
+    limiter: createLimiter(env, config),
     providers: createProviderChain({ env, log: workerLog }),
     cache: createCache(),
     health: createHealth(env),

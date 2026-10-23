@@ -15,7 +15,6 @@ export interface Env {
   readonly CACHE_TTL_SEC: string;
   readonly KILL_SWITCH?: string | undefined;
   readonly ALLOW_UNLIMITED?: string | undefined;
-  readonly ENGOIANADOR_RL?: KVNamespace | undefined;
   readonly QUOTA_LEDGER: DurableObjectNamespace;
   readonly ENGOIANADOR_CACHE: KVNamespace;
 }

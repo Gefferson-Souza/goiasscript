@@ -52,9 +52,10 @@ curl -X POST http://127.0.0.1:8787/engoiana \
 # 1. Login (uma vez)
 npx wrangler login
 
-# 2. Criar KV namespace pro rate limit (uma vez)
-npx wrangler kv namespace create ENGOIANADOR_RL
+# 2. Criar o KV namespace do cache (uma vez)
+npx wrangler kv namespace create ENGOIANADOR_CACHE
 # Cole o ID retornado em wrangler.toml na seção [[kv_namespaces]]
+# (a cota mora no Durable Object QuotaLedgerObject: não precisa de KV)
 
 # 3. Setar a chave da Groq como secret
 npx wrangler secret put GROQ_API_KEY
@@ -77,5 +78,7 @@ descomente a seção `[ai]` em `wrangler.toml`.
 - `src/ports.types.ts` — contratos de cota, provedores, cache e saúde.
 - `src/engoiana.ts` — chama Groq, fallback Workers AI.
 - `src/prompt.ts` — system prompt + few-shot.
-- `src/rate-limit.ts` — KV-based, 10 req/min/IP.
+- `src/limiter.ts` — cota por rede e teto global, via Durable Object.
+- `src/rate-limiter.do.ts` — `QuotaLedgerObject`, o ledger em SQLite (um objeto por rede e um global por dia).
+- `src/quota/` — chave de rede (IPv4 inteiro, IPv6 pelo /64) e o ledger síncrono.
 - `src/cors.ts` — allowlist por origem.

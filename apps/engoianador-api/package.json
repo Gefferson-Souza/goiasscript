@@ -19,6 +19,7 @@
     "wrangler": "^3.114.17"
   },
   "dependencies": {
+    "smol-toml": "1.9.1",
     "zod": "4.6.7"
   }
 }
