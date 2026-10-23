@@ -1,4 +1,12 @@
-import { ALLOWED_PROTOCOLS, ENV_NAMES, MAX_PIX_KEY_LENGTH, MAX_URL_LENGTH, PUBLIC_ENV_PLACEHOLDERS } from './site-config.constants.ts';
+import {
+  ALLOWED_PROTOCOLS,
+  ENV_NAMES,
+  MAX_PIX_KEY_LENGTH,
+  MAX_URL_LENGTH,
+  PLACEHOLDER_HOST_SUFFIX,
+  PLACEHOLDER_VALUE_PREFIXES,
+  PUBLIC_ENV_PLACEHOLDERS,
+} from './site-config.constants.ts';
 import type { BuildMode, SiteConfig } from './site-config.types.ts';
 
 type Env = Readonly<Record<string, string | undefined>>;
@@ -17,15 +25,28 @@ function parseUrl(raw: string): URL | null {
 
 const WHITESPACE = /\s/u;
 const DUPLICATE_SLASHES = /\/{2,}/gu;
+const TRAILING_SLASHES = /\/+$/u;
 
 function configError(name: string, reason: string): ConfigError {
   return new ConfigError(`Ô sô! A variável ${name} tá errada: ${reason}`);
 }
 
+function canonicalize(value: string): string {
+  return value.toLowerCase().replace(TRAILING_SLASHES, '');
+}
+
+function isPlaceholder(name: string, value: string): boolean {
+  const canonical = canonicalize(value);
+  const known = PUBLIC_ENV_PLACEHOLDERS[name];
+  if (known !== undefined && canonical === canonicalize(known)) return true;
+  if (PLACEHOLDER_VALUE_PREFIXES.some((prefix) => canonical.startsWith(prefix))) return true;
+  return parseUrl(value)?.hostname.endsWith(PLACEHOLDER_HOST_SUFFIX) ?? false;
+}
+
 function readRaw(env: Env, name: string, mode: BuildMode): string | null {
   const value = env[name]?.trim() ?? '';
   if (value === '') return null;
-  if (mode === 'production' && value === PUBLIC_ENV_PLACEHOLDERS[name]) {
+  if (mode === 'production' && isPlaceholder(name, value)) {
     throw configError(name, 'ainda tá com o valor de exemplo do .env.example. Troca pelo valor de verdade.');
   }
   return value;

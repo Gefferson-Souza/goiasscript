@@ -26,6 +26,22 @@ describe('readSiteConfig', () => {
     expect(run).toThrow(PIX);
   });
 
+  it.each([
+    'https://site.invalid/',
+    'HTTPS://SITE.INVALID',
+    'https://outro-host.invalid/caminho',
+    'https://Sub.Exemplo.INVALID',
+  ])('em produção, a URL de exemplo %s derruba o build', (value) => {
+    expect(() => readSiteConfig({ [SPONSORS]: value }, 'production')).toThrow(SPONSORS);
+  });
+
+  it.each(['COLE_A_CHAVE_PIX_AQUI', 'cole_a_chave', 'SEU_PIX_AQUI', 'seu_pix'])(
+    'em produção, a chave Pix de exemplo %s derruba o build',
+    (value) => {
+      expect(() => readSiteConfig({ [PIX]: value }, 'production')).toThrow(PIX);
+    },
+  );
+
   it('em desenvolvimento, o valor de exemplo passa', () => {
     expect(readSiteConfig({ [PIX]: PUBLIC_ENV_PLACEHOLDERS[PIX] }, 'development').donation.pixKey).toBe(
       PUBLIC_ENV_PLACEHOLDERS[PIX],

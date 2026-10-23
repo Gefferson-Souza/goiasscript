@@ -23,3 +23,6 @@ export const ALLOWED_PROTOCOLS = {
   production: ['https:'],
   development: ['https:', 'http:'],
 } as const;
+
+export const PLACEHOLDER_HOST_SUFFIX = '.invalid';
+export const PLACEHOLDER_VALUE_PREFIXES = ['cole_', 'seu_'] as const;
