@@ -58,6 +58,7 @@ apps/*/.vercel/
 apps/*/.wrangler/
 apps/playground/public/examples/
 apps/playground/public/vs/
+apps/playground/content/
 
 # === PLAYWRIGHT E2E ===
 apps/playground-e2e/test-results/
