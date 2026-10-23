@@ -131,13 +131,15 @@ export async function runContractCheck(options: ContractOptions): Promise<Contra
   const groqProblems = hasKey ? await checkGroq(options, apiKey) : [];
   const apiProblems = hasUrl ? await checkApi(options.fetchFn, baseUrl) : [];
   const problems = [...groqProblems, ...apiProblems];
-  return problems.length === 0 ? { status: 'passed' } : { status: 'failed', problems };
+  if (problems.length > 0) return { status: 'failed', problems };
+  const pending = [...(hasKey ? [] : [CONTRACT_MESSAGES.groqPending]), ...(hasUrl ? [] : [CONTRACT_MESSAGES.apiPending])];
+  return { status: 'passed', pending };
 }
 
 export function renderSummary(result: ContractResult): string {
   switch (result.status) {
     case 'passed':
-      return SUMMARY_TEXT.passed;
+      return SUMMARY_TEXT.passed(result.pending);
     case 'skipped':
       return SUMMARY_TEXT.skipped(result.reason);
     case 'failed':

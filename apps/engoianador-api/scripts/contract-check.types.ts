@@ -8,6 +8,6 @@ export interface ContractOptions {
 }
 
 export type ContractResult =
-  | { readonly status: 'passed' }
+  | { readonly status: 'passed'; readonly pending: readonly string[] }
   | { readonly status: 'skipped'; readonly reason: string }
   | { readonly status: 'failed'; readonly problems: readonly string[] };

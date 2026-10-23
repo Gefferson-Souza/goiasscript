@@ -44,7 +44,7 @@ const options = (routes: FakeRoutes, overrides: Partial<Parameters<typeof runCon
 
 describe('runContractCheck', () => {
   it('passa quando modelo e API respondem', async () => {
-    expect(await runContractCheck(options({}))).toEqual({ status: 'passed' });
+    expect(await runContractCheck(options({}))).toEqual({ status: 'passed', pending: [] });
   });
 
   it('falha quando o modelo sumiu da lista', async () => {
@@ -79,8 +79,14 @@ describe('runContractCheck', () => {
   it('confere só a API quando não há chave', async () => {
     const seen: string[] = [];
     const result = await runContractCheck(options({}, { apiKey: undefined, fetchFn: fakeFetch({}, seen) }));
-    expect(result).toEqual({ status: 'passed' });
+    expect(result).toEqual({ status: 'passed', pending: [expect.stringContaining('Groq: pendente do dono')] });
     expect(seen.every((url) => new URL(url).hostname !== GROQ_HOST)).toBe(true);
+  });
+
+  it('confere só a Groq quando não há URL e marca a API como pendente', async () => {
+    const result = await runContractCheck(options({}, { baseUrl: null }));
+    expect(result).toEqual({ status: 'passed', pending: [expect.stringContaining('API: pendente do dono')] });
+    expect(renderSummary(result)).toContain('API: pendente do dono');
   });
 
   it('recusa URL sem https', async () => {
@@ -110,6 +116,10 @@ describe('runContractCheck', () => {
 });
 
 describe('renderSummary', () => {
+  it('não marca pendência quando as duas metades passaram', () => {
+    expect(renderSummary({ status: 'passed', pending: [] })).not.toContain('pendente do dono');
+  });
+
   it('mostra pendente do dono quando pulou', () => {
     expect(renderSummary({ status: 'skipped', reason: 'Sem config, sô.' })).toContain('pendente do dono');
   });
