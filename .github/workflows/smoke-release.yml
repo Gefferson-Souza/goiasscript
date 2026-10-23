@@ -34,24 +34,15 @@ jobs:
       - name: Instala o pacote publicado e confere versão, licença e comando
         run: node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/smoke-release.ts "$DIST_TAG"
 
-  dispatch:
-    name: dispatch
+  extension:
+    name: extension
     needs: package
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
-    permissions:
-      contents: read
-      actions: write
-    env:
-      GH_TOKEN: ${{ github.token }}
-      PLAYGROUND_URL: ${{ inputs.playground_url }}
-    steps:
-      - name: Dispara o smoke da extensão
-        run: gh workflow run smoke-extension.yml --repo "$GITHUB_REPOSITORY" --ref "$GITHUB_REF_NAME"
-      - name: Dispara o smoke do playground
-        run: |
-          if [ -z "$PLAYGROUND_URL" ]; then
-            echo "Sem endereço do playground: o smoke dele fica por conta do dono."
-            exit 0
-          fi
-          gh workflow run playground-smoke.yml --repo "$GITHUB_REPOSITORY" --ref "$GITHUB_REF_NAME" -f base_url="$PLAYGROUND_URL"
+    uses: ./.github/workflows/smoke-extension.yml
+
+  playground:
+    name: playground
+    needs: package
+    if: ${{ inputs.playground_url != '' }}
+    uses: ./.github/workflows/playground-smoke.yml
+    with:
+      base_url: ${{ inputs.playground_url }}

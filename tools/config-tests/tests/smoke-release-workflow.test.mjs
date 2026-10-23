@@ -30,15 +30,22 @@ describe('smoke-release.yml', () => {
     expect(scriptsOf(workflow.jobs.package)).toContain('scripts/smoke-release.ts');
   });
 
-  it('dispara o smoke do playground e o da extensão por workflow_dispatch', () => {
-    const commands = scriptsOf(workflow.jobs.dispatch);
-    expect(commands).toContain('gh workflow run playground-smoke.yml');
-    expect(commands).toContain('gh workflow run smoke-extension.yml');
+  it('chama o smoke do playground e o da extensão como workflows reutilizáveis, esperando o resultado', () => {
+    expect(workflow.jobs.extension.uses).toBe('./.github/workflows/smoke-extension.yml');
+    expect(workflow.jobs.playground.uses).toBe('./.github/workflows/playground-smoke.yml');
+    expect(workflow.jobs.extension.needs).toBe('package');
+    expect(workflow.jobs.playground.needs).toBe('package');
   });
 
-  it('só o job de disparo recebe permissão de actions', () => {
-    const withActions = Object.entries(workflow.jobs).filter(([, job]) => job.permissions?.actions === 'write');
-    expect(withActions.map(([id]) => id)).toEqual(['dispatch']);
+  it('os dois workflows chamados aceitam workflow_call', () => {
+    for (const file of ['smoke-extension.yml', 'playground-smoke.yml']) {
+      const called = parse(fs.readFileSync(path.join(ROOT_DIR, '.github/workflows', file), 'utf8'));
+      expect(Object.keys(called.on)).toContain('workflow_call');
+    }
+  });
+
+  it('não dispara nada sem esperar (sem gh workflow run)', () => {
+    expect(text).not.toContain('gh workflow run');
   });
 
   it('não interpola entradas direto no script', () => {

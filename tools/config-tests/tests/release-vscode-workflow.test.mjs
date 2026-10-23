@@ -155,7 +155,7 @@ describe('smoke-extension.yml', () => {
   const smoke = parse(read('smoke-extension.yml'));
 
   it('só dispara à mão e não usa segredo', () => {
-    expect(Object.keys(smoke.on)).toEqual(['workflow_dispatch']);
+    expect(Object.keys(smoke.on)).toEqual(['workflow_dispatch', 'workflow_call']);
     expect(read('smoke-extension.yml')).not.toContain('secrets.');
     expect(smoke.permissions).toEqual({ contents: 'read' });
   });
