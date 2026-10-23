@@ -12,6 +12,12 @@ const stepsOf = (job) => job.steps ?? [];
 const scriptsOf = (job) => stepsOf(job).map((step) => step.run ?? '').join('\n');
 const jobsWith = (predicate) => Object.entries(workflow.jobs).filter(([, job]) => predicate(job)).map(([id]) => id);
 const needsOf = (job) => [job.needs ?? []].flat();
+const INTEGRATION_DIR = path.join(ROOT_DIR, 'packages/vscode/tests/integration');
+const readTree = (dir) =>
+  fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const full = path.join(dir, entry.name);
+    return entry.isDirectory() ? readTree(full) : [fs.readFileSync(full, 'utf8')];
+  });
 
 describe('release-vscode.yml', () => {
   it('dispara só em push de tag vscode-v*', () => {
@@ -57,7 +63,8 @@ describe('release-vscode.yml', () => {
   it.each(['publish-marketplace', 'publish-openvsx'])('%s confere o sha256 do vsix baixado e o commit da tag na main', (id) => {
     const job = workflow.jobs[id];
     const script = scriptsOf(job);
-    expect(script).toContain('sha256sum --check --strict');
+    expect(script).toContain('scripts/sha256-file.ts');
+    expect(JSON.stringify(stepsOf(job))).toContain('needs.package.outputs.sha256');
     expect(script).toContain('git merge-base --is-ancestor "$GITHUB_SHA" origin/main');
     expect(stepsOf(job).find((step) => step.uses?.includes('checkout')).with['fetch-depth']).toBe(0);
     expect(stepsOf(job).some((step) => step.uses?.includes('download-artifact'))).toBe(true);
@@ -66,7 +73,7 @@ describe('release-vscode.yml', () => {
   it('confere o sha256 antes de publicar', () => {
     ['publish-marketplace', 'publish-openvsx'].forEach((id) => {
       const steps = stepsOf(workflow.jobs[id]);
-      const checkIndex = steps.findIndex((step) => (step.run ?? '').includes('sha256sum'));
+      const checkIndex = steps.findIndex((step) => (step.run ?? '').includes('sha256-file.ts'));
       const publishIndex = steps.findIndex((step) => (step.run ?? '').includes(' publish '));
       expect(checkIndex).toBeGreaterThanOrEqual(0);
       expect(publishIndex).toBeGreaterThan(checkIndex);
@@ -75,7 +82,8 @@ describe('release-vscode.yml', () => {
 
   it('publica no Marketplace o vsix do artefato por credencial do Azure, com pré-lançamento condicionado', () => {
     const script = scriptsOf(workflow.jobs['publish-marketplace']);
-    expect(script).toMatch(/@vscode\/vsce@\d+\.\d+\.\d+ publish/);
+    expect(script).toContain('exec vsce publish');
+    expect(script).not.toContain('npx');
     expect(script).toContain('--packagePath');
     expect(script).toContain('--azure-credential');
     expect(script).toContain('--pre-release');
@@ -83,11 +91,49 @@ describe('release-vscode.yml', () => {
     expect(stepsOf(workflow.jobs['publish-marketplace']).some((step) => step.uses?.startsWith('azure/login@'))).toBe(true);
   });
 
-  it('publica no Open VSX o mesmo vsix, com versão exata da ferramenta', () => {
+  it('publica no Open VSX o mesmo vsix, com a ferramenta do lockfile', () => {
     const script = scriptsOf(workflow.jobs['publish-openvsx']);
-    expect(script).toMatch(/ovsx@\d+\.\d+\.\d+ publish/);
+    expect(script).toContain('exec ovsx publish');
+    expect(script).not.toContain('npx');
     expect(script).toContain('--pre-release');
     expect(script).toContain('PRE_RELEASE');
+  });
+
+  it.each(['publish-marketplace', 'publish-openvsx'])('%s instala as ferramentas de publicação pelo lockfile, antes de qualquer segredo', (id) => {
+    const steps = stepsOf(workflow.jobs[id]);
+    const installIndex = steps.findIndex((step) => (step.run ?? '').includes('pnpm install --frozen-lockfile'));
+    const secretIndex = steps.findIndex((step) => JSON.stringify(step).includes('secrets.') || step.uses?.startsWith('azure/login@'));
+    expect(installIndex).toBeGreaterThanOrEqual(0);
+    expect(secretIndex).toBeGreaterThan(installIndex);
+  });
+
+  it('as ferramentas de publicação são devDependencies exatas do pacote da extensão', () => {
+    const manifest = JSON.parse(fs.readFileSync(path.join(ROOT_DIR, 'packages/vscode/package.json'), 'utf8'));
+    expect(manifest.devDependencies.ovsx).toMatch(/^\d+\.\d+\.\d+$/);
+    expect(manifest.devDependencies['@vscode/vsce']).toMatch(/^\d+\.\d+\.\d+$/);
+  });
+
+  it('o sha256 do job package é exportado e conferido na integração e nas duas publicações', () => {
+    expect(workflow.jobs.package.outputs.sha256).toContain('steps.');
+    ['integration', 'publish-marketplace', 'publish-openvsx'].forEach((id) => {
+      expect(needsOf(workflow.jobs[id])).toContain('package');
+      expect(JSON.stringify(stepsOf(workflow.jobs[id]))).toContain('needs.package.outputs.sha256');
+    });
+  });
+
+  it('a integração entrega ao runner GS_VSIX e GS_VSCODE_VERSION, sob xvfb no Linux', () => {
+    const job = workflow.jobs.integration;
+    const testStep = stepsOf(job).find((step) => (step.run ?? '').includes('test:integration'));
+    expect(testStep.env).toHaveProperty('GS_VSCODE_VERSION');
+    expect(testStep.run).toContain('export GS_VSIX');
+    expect(testStep.run).toContain('xvfb-run');
+    expect(job.strategy.matrix.os).toContain('ubuntu-24.04');
+  });
+
+  it.skipIf(!fs.existsSync(INTEGRATION_DIR))('o runner de integração lê as mesmas variáveis que o workflow entrega', () => {
+    const sources = readTree(INTEGRATION_DIR).join('\n');
+    expect(sources).toContain('GS_VSIX');
+    expect(sources).toContain('GS_VSCODE_VERSION');
   });
 
   it('o job package calcula o alvo e guarda vsix e sha256 num artefato', () => {

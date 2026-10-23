@@ -77,7 +77,8 @@
         "tests/**/*.ts"
       ],
       "ignoreDependencies": [
-        "@vscode/vsce"
+        "@vscode/vsce",
+        "ovsx"
       ]
     },
     "tools/rules-scan": {
