@@ -34,7 +34,11 @@ export interface ProgramTerminal {
   close(exitCode: number): void;
 }
 
-export type CompletionItemData = Pick<CompletionLabel, 'label' | 'detail' | 'kind'> & { readonly insertText?: string };
+export type CompletionItemData = Pick<CompletionLabel, 'label' | 'detail'> & {
+  readonly kind: CompletionLabel['kind'] | 'snippet';
+  readonly insertText?: string;
+  readonly lessonUrl?: string;
+};
 
 export interface HoverContent {
   readonly markdown: string;
