@@ -1,40 +1,71 @@
 'use client';
-import { Editor as MonacoEditor, loader, type OnMount } from '@monaco-editor/react';
-import { GOIAS_LANGUAGE_ID, registerGoiasScript } from '@/lib/monaco-goias';
+import { Editor as MonacoEditor, loader, type Monaco, type OnMount } from '@monaco-editor/react';
+import { useEffect, useRef } from 'react';
+import type { EditorMarker } from '@/lib/diagnostic-markers.types';
+import { TEST_IDS } from '@/lib/test-ids.constants';
+import { applyMarkers } from '@/lib/monaco/apply-markers';
+import { EDITOR_UNICODE_HIGHLIGHT, GOIASSCRIPT_LANGUAGE_ID, MONACO_BASE_PATH } from '@/lib/monaco/monaco-assets';
+import { registerGoiasScript } from '@/lib/monaco/register-language';
+import { EDITOR_LANGUAGE_CONFIGURATION, EDITOR_THEME, EDITOR_THEME_NAME } from '@/lib/monaco/editor-theme.constants';
+import { EDITOR_FONT_SIZE, EDITOR_TAB_SIZE } from './editor.constants';
 
-// Self-host: carrega o Monaco do próprio domínio (/vs), não de CDN externo.
-// Necessário porque a CSP do site é script-src 'self' (sem CDN).
-loader.config({ paths: { vs: '/vs' } });
+// O Monaco vem do próprio domínio: a CSP do site não aceita CDN.
+loader.config({ paths: { vs: MONACO_BASE_PATH } });
 
-type Props = {
-  value: string;
-  onChange: (value: string) => void;
-};
+interface Props {
+  readonly value: string;
+  readonly markers: readonly EditorMarker[];
+  readonly onChange: (value: string) => void;
+}
 
-export function Editor({ value, onChange }: Props) {
-  const handleMount: OnMount = (_editor, monaco) => {
+interface MountedEditor {
+  readonly monaco: Monaco;
+  readonly model: ReturnType<Monaco['editor']['getModels']>[number];
+}
+
+export function Editor({ value, markers, onChange }: Props) {
+  const mounted = useRef<MountedEditor | null>(null);
+
+  useEffect(() => {
+    const target = mounted.current;
+    if (target !== null) applyMarkers(target.monaco.editor, target.monaco.Uri, target.model, markers);
+  }, [markers]);
+
+  const handleMount: OnMount = (editor, monaco) => {
+    const model = editor.getModel();
+    if (model === null) return;
+    mounted.current = { monaco, model };
+    applyMarkers(monaco.editor, monaco.Uri, model, markers);
+  };
+
+  const handleBeforeMount = (monaco: Monaco): void => {
     registerGoiasScript(monaco);
+    monaco.languages.setLanguageConfiguration(GOIASSCRIPT_LANGUAGE_ID, EDITOR_LANGUAGE_CONFIGURATION);
+    monaco.editor.defineTheme(EDITOR_THEME_NAME, EDITOR_THEME);
   };
 
   return (
-    <MonacoEditor
-      height="100%"
-      language={GOIAS_LANGUAGE_ID}
-      theme="goias-dark"
-      value={value}
-      onChange={v => onChange(v ?? '')}
-      onMount={handleMount}
-      beforeMount={monaco => registerGoiasScript(monaco)}
-      options={{
-        fontSize: 14,
-        minimap: { enabled: false },
-        scrollBeyondLastLine: false,
-        wordWrap: 'on',
-        tabSize: 2,
-        automaticLayout: true,
-        lineNumbers: 'on',
-        renderLineHighlight: 'all',
-      }}
-    />
+    <div className="h-full" data-testid={TEST_IDS.editor}>
+      <MonacoEditor
+        height="100%"
+        language={GOIASSCRIPT_LANGUAGE_ID}
+        theme={EDITOR_THEME_NAME}
+        value={value}
+        onChange={(next) => onChange(next ?? '')}
+        onMount={handleMount}
+        beforeMount={handleBeforeMount}
+        options={{
+          fontSize: EDITOR_FONT_SIZE,
+          minimap: { enabled: false },
+          scrollBeyondLastLine: false,
+          wordWrap: 'on',
+          tabSize: EDITOR_TAB_SIZE,
+          automaticLayout: true,
+          lineNumbers: 'on',
+          renderLineHighlight: 'all',
+          unicodeHighlight: EDITOR_UNICODE_HIGHLIGHT,
+        }}
+      />
+    </div>
   );
 }

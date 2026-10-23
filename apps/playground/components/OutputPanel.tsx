@@ -1,140 +1,47 @@
-'use client';
-import { useState } from 'react';
-import type { RunOutcome } from '@/lib/use-runner';
+import type { RunViewLine, RunViewState } from '@/lib/run/run-state-view.types';
+import { TEST_IDS } from '@/lib/test-ids.constants';
+import { AskBox } from './AskBox';
+import { STATUS_LABELS, TEXTS } from './ui-texts.constants';
 
-type Tab = 'saida' | 'js' | 'erros';
+interface Props {
+  readonly view: RunViewState;
+  readonly onAnswer: (value: string) => void;
+}
 
-const TAB_LABELS: Record<Tab, string> = {
-  saida: 'Saída',
-  js: 'JS gerado',
-  erros: 'Erros',
+const LINE_CLASS: Readonly<Record<RunViewLine['stream'], string>> = {
+  out: 'text-goias-texto',
+  err: 'text-red-400',
 };
 
-export function OutputPanel({ outcome }: { outcome: RunOutcome }) {
-  const [tab, setTab] = useState<Tab>('saida');
-
-  const errorMessage =
-    outcome.kind === 'compile-error' || outcome.kind === 'runtime-error' ? outcome.message : null;
-  const logs =
-    outcome.kind === 'ok' || outcome.kind === 'runtime-error' || outcome.kind === 'timeout'
-      ? outcome.logs
-      : [];
-  const js = outcome.kind === 'ok' || outcome.kind === 'runtime-error' ? outcome.js : '';
-
-  return (
-    <div className="flex h-full flex-col overflow-hidden rounded-md border border-goias-borda bg-goias-painel">
-      <div className="flex border-b border-goias-borda" role="tablist" aria-label="Resultado">
-        {(Object.keys(TAB_LABELS) as Tab[]).map(t => (
-          <button
-            key={t}
-            id={`tab-${t}`}
-            role="tab"
-            aria-selected={tab === t}
-            aria-controls={`painel-${t}`}
-            onClick={() => setTab(t)}
-            className={`px-4 py-2 text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-goias-amarelo ${
-              tab === t
-                ? 'border-b-2 border-goias-amarelo bg-goias-fundo/40 text-goias-amarelo'
-                : 'text-goias-texto/70 hover:text-goias-amarelo'
-            }`}
-          >
-            {TAB_LABELS[t]}
-            {t === 'erros' && errorMessage ? (
-              <span className="ml-2 text-red-400" aria-label="tem erro">
-                ●
-              </span>
-            ) : null}
-          </button>
-        ))}
-        <div
-          className="ml-auto px-3 py-2 text-xs text-goias-texto/60"
-          role="status"
-          aria-live="polite"
-        >
-          {outcome.kind === 'running' && '⏳ Moendo esse trem...'}
-          {outcome.kind === 'idle' && 'Aguardando...'}
-          {outcome.kind === 'ok' && '✅ Rodou bonito'}
-          {outcome.kind === 'compile-error' && '❌ Deu ruim na tradução'}
-          {outcome.kind === 'runtime-error' && '❌ Deu ruim na execução'}
-          {outcome.kind === 'timeout' && '⏰ Esse trem travou, sô'}
-        </div>
-      </div>
-
-      <div
-        id={`painel-${tab}`}
-        role="tabpanel"
-        aria-labelledby={`tab-${tab}`}
-        className="flex-1 overflow-auto p-3 font-mono text-sm"
-      >
-        {tab === 'saida' && <SaidaView outcome={outcome} logs={logs} />}
-        {tab === 'js' && <JsView js={js} />}
-        {tab === 'erros' && <ErrosView message={errorMessage} />}
-      </div>
-    </div>
-  );
-}
-
-function SaidaView({
-  outcome,
-  logs,
-}: {
-  outcome: RunOutcome;
-  logs: Array<{ level: string; parts: string[] }>;
-}) {
-  if (outcome.kind === 'idle') {
-    return (
-      <p className="text-goias-texto/60">
-        Clica em &quot;Bota pra moer&quot; pra ver o resultado, sô.
-      </p>
-    );
-  }
-  if (outcome.kind === 'running') {
-    return <p className="text-goias-texto/60">Moendo... 🔥</p>;
-  }
-  if (logs.length === 0 && outcome.kind === 'ok') {
-    return <p className="text-goias-texto/60">Rodou, mas num falou nada.</p>;
-  }
+function Lines({ view }: { readonly view: RunViewState }) {
+  if (view.status === 'idle') return <p className="text-goias-texto/60">{TEXTS.idleOutput}</p>;
+  if (view.status === 'finished' && view.lines.length === 0) return <p className="text-goias-texto/60">{TEXTS.silentRun}</p>;
   return (
     <div className="space-y-1">
-      {logs.map((entry, i) => (
-        <div
-          key={i}
-          className={
-            entry.level === 'error'
-              ? 'text-red-400'
-              : entry.level === 'warn'
-                ? 'text-yellow-300'
-                : 'text-goias-texto'
-          }
-        >
-          <span className="text-goias-texto/40 mr-2">›</span>
-          <span className="whitespace-pre-wrap">{entry.parts.join(' ')}</span>
+      {view.lines.map((line, index) => (
+        <div key={index} className={LINE_CLASS[line.stream]}>
+          <span className="mr-2 text-goias-texto/40">{line.stream === 'err' ? '!' : '›'}</span>
+          <span className="whitespace-pre-wrap">{line.text}</span>
         </div>
       ))}
-      {outcome.kind === 'timeout' && (
-        <p className="mt-3 text-yellow-300">
-          ⏰ Passou de 3 segundos sem terminar. Travou esse trem!
-        </p>
-      )}
     </div>
   );
 }
 
-function JsView({ js }: { js: string }) {
-  if (!js) {
-    return <p className="text-goias-texto/60">Sem JavaScript pra mostrar ainda.</p>;
-  }
-  return <pre className="whitespace-pre-wrap text-goias-texto/90 text-xs">{js}</pre>;
-}
-
-function ErrosView({ message }: { message: string | null }) {
-  if (!message) {
-    return <p className="text-goias-texto/60">Nenhum erro até agora, sô!</p>;
-  }
+export function OutputPanel({ view, onAnswer }: Props) {
   return (
-    <div className="text-red-400 whitespace-pre-wrap">
-      <strong>❌ Ô rapaz! Deu ruim:</strong>
-      <p className="mt-2">{message}</p>
-    </div>
+    <section aria-label={TEXTS.outputTitle} className="flex h-full min-h-0 flex-col overflow-hidden rounded-md border border-goias-borda bg-goias-painel">
+      <div className="flex items-center justify-between border-b border-goias-borda px-3 py-2">
+        <h2 className="text-sm font-semibold text-goias-amarelo">{TEXTS.outputTitle}</h2>
+        <div className="text-xs text-goias-texto/60" role="status" aria-live="polite">
+          {STATUS_LABELS[view.status]}
+        </div>
+      </div>
+      <div data-testid={TEST_IDS.output} className="flex-1 overflow-auto p-3 font-mono text-sm">
+        <Lines view={view} />
+        {view.notice !== null && <p className="mt-3 whitespace-pre-wrap text-yellow-300">{view.notice}</p>}
+        {view.pendingPrompt !== null && <AskBox prompt={view.pendingPrompt} onAnswer={onAnswer} />}
+      </div>
+    </section>
   );
 }

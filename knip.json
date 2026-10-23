@@ -89,23 +89,15 @@
         "tests/**/*.test.ts",
         "app/**/*.{ts,tsx}",
         "components/**/*.tsx",
-        "workers/**/*.ts",
-        "types/**/*.d.ts",
-        "lib/{monaco-goias,share,use-runner}.ts",
         "sandbox/runner.ts"
       ],
       "project": [
         "config/**/*.ts",
         "lib/**/*.{ts,tsx}",
-        "!lib/{monaco-goias,share,use-runner}.ts",
         "sandbox/**/*.ts",
         "scripts/**/*.ts",
         "tests/**/*.ts",
         "*.ts"
-      ],
-      "ignoreDependencies": [
-        "@goiasscript/language",
-        "@goiasscript/optimizer"
       ]
     }
   },

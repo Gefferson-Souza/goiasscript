@@ -12,6 +12,6 @@
     "plugins": [{ "name": "next" }],
     "paths": { "@/*": ["./*"] }
   },
-  "include": ["next-env.d.ts", "next.config.ts", "vitest.config.ts", "types/**/*.d.ts", "config/**/*.ts", "lib/**/*.ts", "lib/**/*.tsx", "sandbox/**/*.ts", "scripts/**/*.ts", "tests/**/*.ts", "app/**/*.ts", "app/**/*.tsx", "components/**/*.tsx", "workers/**/*.ts", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "next.config.ts", "vitest.config.ts", "config/**/*.ts", "lib/**/*.ts", "lib/**/*.tsx", "sandbox/**/*.ts", "scripts/**/*.ts", "tests/**/*.ts", "app/**/*.ts", "app/**/*.tsx", "components/**/*.ts", "components/**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

@@ -1,0 +1,7 @@
+Dobrados, sô: 2, 4, 6, 8, 10
+Só os par: 2, 4
+Item 1
+Item 2
+Item 3
+Item 4
+Item 5

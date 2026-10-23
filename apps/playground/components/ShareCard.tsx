@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { SHARE_SITE } from '@/lib/share';
+import { SHARE_SITE } from '@/lib/share-image';
 
 type Props = { original: string; engoianado: string };
 
