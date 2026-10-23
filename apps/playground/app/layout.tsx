@@ -50,6 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </Link>
             <nav aria-label="Navegação principal" className="flex items-center gap-4 text-sm">
               <Link href="/" className="hover:text-goias-amarelo">Playground</Link>
+              <Link href="/cartilha" className="hover:text-goias-amarelo">Cartilha</Link>
               <Link href="/engoianador" className="hover:text-goias-amarelo">Engoianador</Link>
               <Link href="/doacao" className="hover:text-goias-amarelo">Apoia o trem</Link>
               <a

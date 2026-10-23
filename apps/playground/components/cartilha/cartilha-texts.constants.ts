@@ -1,0 +1,32 @@
+export const PRIMER_TEXTS = {
+  indexTitle: 'Cartilha do goianês',
+  indexIntro: 'Aprende a programar em goianês, uma lição de cada vez, sô. Cada lição tem um exemplo pra mexer e um exercício que se confere sozinho.',
+  indexProgress: (done: number, total: number): string => `Ocê já fez ${String(done)} de ${String(total)} lição(ões).`,
+  lessonLabel: (order: number): string => `Lição ${String(order)}`,
+  doneBadge: '✅ Concluída',
+  todoBadge: 'Falta fazer',
+  tabExample: 'Exemplo',
+  tabExercise: 'Exercício',
+  tabsLabel: 'Partes da lição',
+  runExample: '🔥 Bota pra moer',
+  checkExercise: '✔️ Confere o exercício',
+  checking: 'Conferindo...',
+  exerciseTitle: 'Agora é com ocê',
+  exerciseHint: 'Escreve o programa no editor e clica em conferir.',
+  backToIndex: '← Todas as lições',
+  previous: '← Lição anterior',
+  next: 'Próxima lição →',
+  expectedTitle: 'Era pra sair',
+  actualTitle: 'Saiu',
+  emptyOutput: '(nada)',
+  workspaceLabel: 'Área de prática',
+  loadingEditor: 'Carregando o editor, sô...',
+} as const;
+
+export const VERDICT_TEXTS = {
+  correct: 'Acertou, sô! Lição concluída.',
+  wrong: 'Quase lá, sô… A saída num bateu com a esperada.',
+  'compile-failed': 'Esse código num compila, sô. Dá uma olhada no erro:',
+  'run-failed': 'O programa deu ruim na hora de rodar, sô.',
+  timeout: 'Esse trem travou, sô. O programa passou do tempo.',
+} as const;

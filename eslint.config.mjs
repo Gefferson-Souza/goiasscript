@@ -18,7 +18,7 @@ const TS_FILES = ['packages/**/*.ts', 'tools/**/*.ts', 'scripts/**/*.ts', '*.con
 const LEGACY_APP_FILES = [
   'apps/playground/app/*.{ts,tsx}',
   'apps/playground/app/doacao/**',
-  'apps/playground/components/**',
+  'apps/playground/components/*.{ts,tsx}',
   'apps/playground/workers/**',
   'apps/playground/types/**',
   'apps/playground/tailwind.config.ts',

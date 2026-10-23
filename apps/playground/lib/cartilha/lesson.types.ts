@@ -84,3 +84,17 @@ export interface ProgramToCheck {
   readonly label: string;
   readonly stdin: string;
 }
+
+export interface LessonView {
+  readonly id: string;
+  readonly title: string;
+  readonly exampleCode: string;
+  readonly exercise: Pick<LessonExercise, 'prompt' | 'starter' | 'expectedStdout' | 'stdin'>;
+}
+
+export interface LessonSummary {
+  readonly id: string;
+  readonly order: number;
+  readonly title: string;
+  readonly summary: string;
+}
