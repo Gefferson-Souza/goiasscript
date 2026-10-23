@@ -2,7 +2,6 @@
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "ignoreWorkspaces": [
     "packages/core",
-    "apps/engoianador-api",
     "apps/playground-e2e"
   ],
   "ignoreExportsUsedInFile": true,
@@ -96,6 +95,18 @@
       ],
       "project": [
         "tests/**/*.mjs"
+      ]
+    },
+    "apps/engoianador-api": {
+      "entry": [
+        "scripts/*.ts",
+        "test/**/*.test.ts"
+      ],
+      "project": [
+        "src/**/*.ts",
+        "scripts/**/*.ts",
+        "test/**/*.ts",
+        "*.ts"
       ]
     },
     "apps/playground": {

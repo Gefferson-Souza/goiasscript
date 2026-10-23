@@ -1,83 +1,58 @@
+import { GROQ_ENDPOINT, GROQ_MAX_TOKENS, GROQ_MODEL, GROQ_TEMPERATURE, GROQ_TIMEOUT_MS, QUOTE_PAIRS, WORKERS_AI_MODEL } from './engoiana.constants';
+import type { Env } from './env.types';
+import type { GroqCompletion } from './groq.types';
+import type { LogPort } from './log.types';
 import { buildMessages } from './prompt';
 
-export type Env = {
-  GROQ_API_KEY?: string;
-  AI?: { run: (model: string, input: unknown) => Promise<unknown> };
-  ALLOWED_ORIGINS?: string;
-  RATE_LIMIT_PER_DAY?: string;
-  MAX_INPUT_CHARS?: string;
-  ALLOW_UNLIMITED?: string;
-  ENGOIANADOR_RL?: KVNamespace;
-};
-
-const GROQ_MODEL = 'llama-3.1-70b-versatile';
-const WORKERS_AI_MODEL = '@cf/meta/llama-3.1-8b-instruct';
-
-export async function engoianarTexto(texto: string, env: Env): Promise<string> {
-  if (env.GROQ_API_KEY) {
-    try {
-      return await callGroq(texto, env.GROQ_API_KEY);
-    } catch (err) {
-      // Loga só a mensagem (sem body cru da Groq) e segue pro fallback.
-      console.warn(
-        'Groq falhou, tentando Workers AI:',
-        err instanceof Error ? err.message : String(err)
-      );
-    }
-  }
-  if (env.AI) {
-    return await callWorkersAI(texto, env);
-  }
-  throw new Error('Nenhuma LLM configurada (GROQ_API_KEY ou Workers AI)');
+function stripWrappingQuotes(value: string): string {
+  const wrapped = QUOTE_PAIRS.some(([open, close]) => value.startsWith(open) && value.endsWith(close));
+  return wrapped ? value.slice(1, -1).trim() : value;
 }
 
-async function callGroq(texto: string, apiKey: string): Promise<string> {
-  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+async function callGroq(text: string, apiKey: string): Promise<string> {
+  const response = await fetch(GROQ_ENDPOINT, {
     method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
+    headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       model: GROQ_MODEL,
-      messages: buildMessages(texto),
-      temperature: 0.7,
-      max_tokens: 1024,
+      messages: buildMessages(text),
+      temperature: GROQ_TEMPERATURE,
+      max_tokens: GROQ_MAX_TOKENS,
       stream: false,
     }),
-    // Evita pendurar o Worker até o limite de CPU (30s) se a Groq travar.
-    signal: AbortSignal.timeout(15000),
+    // Sem o teto de tempo, uma Groq travada seguraria o Worker até o limite de CPU.
+    signal: AbortSignal.timeout(GROQ_TIMEOUT_MS),
   });
-  if (!res.ok) {
-    // Não propaga o body cru (pode conter detalhes internos da API).
-    throw new Error(`Groq respondeu ${res.status}`);
+  if (!response.ok) {
+    throw new Error(`Groq answered ${String(response.status)}`);
   }
-  const data = (await res.json()) as {
-    choices?: Array<{ message?: { content?: string } }>;
-  };
+  const data = await response.json<GroqCompletion>();
   const content = data.choices?.[0]?.message?.content?.trim();
-  if (!content) throw new Error('Resposta vazia da Groq');
+  if (!content) throw new Error('Empty answer from Groq');
   return stripWrappingQuotes(content);
 }
 
-async function callWorkersAI(texto: string, env: Env): Promise<string> {
-  if (!env.AI) throw new Error('Workers AI não disponível');
-  const out = (await env.AI.run(WORKERS_AI_MODEL, {
-    messages: buildMessages(texto),
-  })) as { response?: string };
-  const content = out?.response?.trim();
-  if (!content) throw new Error('Resposta vazia do Workers AI');
+async function callWorkersAi(text: string, env: Env): Promise<string> {
+  if (!env.AI) throw new Error('Workers AI is not available');
+  const output = (await env.AI.run(WORKERS_AI_MODEL, { messages: buildMessages(text) })) as { readonly response?: string };
+  const content = output.response?.trim();
+  if (!content) throw new Error('Empty answer from Workers AI');
   return stripWrappingQuotes(content);
 }
 
-function stripWrappingQuotes(s: string): string {
-  // A LLM às vezes envolve a resposta em aspas. Remove se for o caso.
-  if (
-    (s.startsWith('"') && s.endsWith('"')) ||
-    (s.startsWith('“') && s.endsWith('”')) ||
-    (s.startsWith("'") && s.endsWith("'"))
-  ) {
-    return s.slice(1, -1).trim();
+async function tryGroq(text: string, env: Env, log: LogPort): Promise<string | null> {
+  if (!env.GROQ_API_KEY) return null;
+  try {
+    return await callGroq(text, env.GROQ_API_KEY);
+  } catch (error) {
+    log.warn('groq failed, trying workers ai', error instanceof Error ? error.message : String(error));
+    return null;
   }
-  return s;
+}
+
+export async function rewriteText(text: string, env: Env, log: LogPort): Promise<string> {
+  const groqAnswer = await tryGroq(text, env, log);
+  if (groqAnswer !== null) return groqAnswer;
+  if (env.AI) return callWorkersAi(text, env);
+  throw new Error('No LLM configured (GROQ_API_KEY or Workers AI)');
 }

@@ -2,7 +2,7 @@ import { ESLint } from 'eslint';
 import { describe, expect, it } from 'vitest';
 import { createConfig } from '../../../eslint.config.mjs';
 
-const projectService = { allowDefaultProject: ['packages/*/src/*.ts', 'packages/*/src/*/*.ts', 'apps/playground/lib/*.ts', 'apps/playground/sandbox/*.ts', 'apps/playground/lib/*.tsx'], maximumDefaultProjectFileMatchCount_THIS_WILL_SLOW_DOWN_LINTING: 200 };
+const projectService = { allowDefaultProject: ['packages/*/src/*.ts', 'packages/*/src/*/*.ts', 'apps/playground/lib/*.ts', 'apps/playground/sandbox/*.ts', 'apps/playground/lib/*.tsx', 'apps/engoianador-api/src/*.ts'], maximumDefaultProjectFileMatchCount_THIS_WILL_SLOW_DOWN_LINTING: 200 };
 const eslint = new ESLint({ overrideConfigFile: true, overrideConfig: createConfig(projectService) });
 const messagesFor = async (code, filePath) => (await eslint.lintText(code, { filePath }))[0].messages.map((m) => m.ruleId ?? m.message);
 
@@ -37,6 +37,7 @@ const violations = [
   ['sem process fora de entry', 'packages/cli/src/virtual.ts', 'export const sink = process.stdout;\n', 'no-restricted-globals'],
   ['console fora do runner', 'apps/playground/lib/virtual.ts', 'console.warn("x");\n', 'no-console'],
   ['any em app', 'apps/playground/lib/virtual.ts', 'export const value: any = 1;\n', '@typescript-eslint/no-explicit-any'],
+  ['eslint cobre apps/engoianador-api', 'apps/engoianador-api/src/virtual.ts', 'export const value: any = 1;\n', '@typescript-eslint/no-explicit-any'],
   ['hook condicional em componente', 'apps/playground/lib/virtual.tsx', "import { useState } from 'react';\nexport function Box({ on }: { readonly on: boolean }): null {\n  if (on) {\n    useState(0);\n  }\n  return null;\n}\n", 'react-hooks/rules-of-hooks'],
   ['vscode fora do host', 'packages/vscode/src/features/virtual.ts', "import * as vscode from 'vscode';\nexport const api = vscode;\n", 'no-restricted-imports'],
   ['shell proibido', 'packages/vscode/src/commands/virtual.ts', "import { execFile } from 'node:child_process';\nexecFile('a', [], { shell: true });\n", 'no-restricted-syntax'],
