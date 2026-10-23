@@ -53,6 +53,7 @@ apps/*/.dev.vars
 
 # === APPS (Next.js + Cloudflare) ===
 apps/*/.next/
+apps/*/.next-configured/
 apps/*/.vercel/
 apps/*/.wrangler/
 apps/playground/public/examples/

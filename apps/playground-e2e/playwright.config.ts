@@ -1,17 +1,19 @@
 import { defineConfig, devices } from '@playwright/test';
 import {
+  BASE_PUBLIC_ENV,
   BUILD_AND_START,
   CHROMIUM_ONLY_SPECS,
   CI_RETRIES,
+  CONFIGURED_DIST_DIR,
+  CONFIGURED_PUBLIC_ENV,
   MONOREPO_ROOT,
   SERVER_START_TIMEOUT_MS,
-  TEST_PUBLIC_ENV,
   TEST_TIMEOUT_MS,
 } from './playwright.constants.ts';
-import { resolveEphemeralPort } from './tests/support/ephemeral-port.ts';
+import { configuredServerOrigin, defaultServerOrigin } from './tests/support/servers.ts';
 
-const port = resolveEphemeralPort();
-const baseURL = `http://127.0.0.1:${String(port)}`;
+const baseURL = defaultServerOrigin();
+const configuredOrigin = configuredServerOrigin();
 const isCi = process.env['CI'] !== undefined;
 
 // O playground sobe em produção (next build + next start) para o E2E ver os mesmos cabeçalhos de segurança do deploy.
@@ -29,12 +31,22 @@ export default defineConfig({
     { name: 'firefox', use: { ...devices['Desktop Firefox'] }, testIgnore: [...CHROMIUM_ONLY_SPECS] },
     { name: 'webkit', use: { ...devices['Desktop Safari'] }, testIgnore: [...CHROMIUM_ONLY_SPECS] },
   ],
-  webServer: {
-    command: BUILD_AND_START,
-    url: baseURL,
-    timeout: SERVER_START_TIMEOUT_MS,
-    reuseExistingServer: false,
-    cwd: MONOREPO_ROOT,
-    env: { ...TEST_PUBLIC_ENV, PORT: String(port) },
-  },
+  webServer: [
+    {
+      command: BUILD_AND_START,
+      url: baseURL,
+      timeout: SERVER_START_TIMEOUT_MS,
+      reuseExistingServer: false,
+      cwd: MONOREPO_ROOT,
+      env: { ...BASE_PUBLIC_ENV, PORT: new URL(baseURL).port },
+    },
+    {
+      command: BUILD_AND_START,
+      url: configuredOrigin,
+      timeout: SERVER_START_TIMEOUT_MS,
+      reuseExistingServer: false,
+      cwd: MONOREPO_ROOT,
+      env: { ...CONFIGURED_PUBLIC_ENV, NEXT_DIST_DIR: CONFIGURED_DIST_DIR, PORT: new URL(configuredOrigin).port },
+    },
+  ],
 });
