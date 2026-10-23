@@ -1,13 +1,7 @@
-export const FORBIDDEN_ENGLISH: readonly RegExp[] = [
-  /Cannot read properties/u,
-  /is not a function/u,
-  /is not a constructor/u,
-  /before initialization/u,
-  /Maximum call stack/u,
-  /Invalid count value/u,
-  /toFixed\(\)/u,
-  /unsettled/u,
-  /Warning/u,
-];
+import path from 'node:path';
+import { findEnglishHits, loadEnglishRules } from '../../../../../scripts/english-ui.ts';
 
-export const findForbiddenEnglish = (text: string): readonly string[] => FORBIDDEN_ENGLISH.filter((pattern) => pattern.test(text)).map(String);
+const ROOT_DIR = path.resolve(import.meta.dirname, '../../../../..');
+const FORBIDDEN = loadEnglishRules(ROOT_DIR).forbidden;
+
+export const findForbiddenEnglish = (text: string): readonly string[] => findEnglishHits(text, FORBIDDEN);

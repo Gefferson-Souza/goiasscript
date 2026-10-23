@@ -50,6 +50,64 @@ jobs:
       - name: Todo comando e palavra citados na documentação existem
         run: pnpm docs:commands
 
+  english-ui:
+    name: english-ui
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - run: corepack enable
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Nenhum texto da interface em inglês proibido
+        run: pnpm english-ui
+
+  compiler-dependencies:
+    name: compiler-dependencies
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - run: corepack enable
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: O compilador não tem dependência de runtime
+        run: pnpm compiler-dependencies
+
+  traceability:
+    name: traceability
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - run: corepack enable
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Toda promessa pública aponta para uma prova que existe
+        run: pnpm traceability
+
+  links:
+    name: links
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Links locais e âncoras da documentação
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          lycheeVersion: v0.24.2
+          fail: true
+          args: --config lychee.toml --offline README.md CONTRIBUTING.md 'docs/**/*.md' 'apps/playground/content/cartilha/**/*.md'
+
   tarball:
     name: tarball (node ${{ matrix.node }}, ${{ matrix.os }})
     runs-on: ${{ matrix.os }}

@@ -31,7 +31,10 @@
     "agent-docs": "node scripts/check-agent-docs.ts",
     "docs:blocks": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-docs-blocks.ts",
     "docs:commands": "node scripts/check-docs-commands.ts",
-    "verify": "tsc -p tsconfig.json && tsc -p apps/playground/tsconfig.json && tsc -p apps/engoianador-api/tsconfig.json && tsc -p apps/playground-e2e/tsconfig.json && eslint . --max-warnings 0 && node tools/rules-scan/src/cli.mjs check && node packages/language/generators/run.ts --check && node scripts/build-vscode.ts --check-assets && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON apps/playground/scripts/build-lesson-index.ts --check && vitest run --coverage && vitest run --project compiler && depcruise packages tools --config .dependency-cruiser.cjs && knip && node scripts/check-agent-docs.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-docs-blocks.ts && node scripts/check-docs-commands.ts",
+    "english-ui": "node scripts/check-english-ui.ts",
+    "traceability": "node scripts/check-traceability.ts",
+    "compiler-dependencies": "node scripts/check-compiler-dependencies.ts",
+    "verify": "tsc -p tsconfig.json && tsc -p apps/playground/tsconfig.json && tsc -p apps/engoianador-api/tsconfig.json && tsc -p apps/playground-e2e/tsconfig.json && eslint . --max-warnings 0 && node tools/rules-scan/src/cli.mjs check && node packages/language/generators/run.ts --check && node scripts/build-vscode.ts --check-assets && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON apps/playground/scripts/build-lesson-index.ts --check && vitest run --coverage && vitest run --project compiler && depcruise packages tools --config .dependency-cruiser.cjs && knip && node scripts/check-agent-docs.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-docs-blocks.ts && node scripts/check-docs-commands.ts && node scripts/check-english-ui.ts && node scripts/check-compiler-dependencies.ts && node scripts/check-traceability.ts",
     "lint": "eslint . --max-warnings 0",
     "depcruise": "depcruise packages tools --config .dependency-cruiser.cjs",
     "knip": "knip"

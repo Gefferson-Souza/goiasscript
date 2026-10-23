@@ -1,0 +1,13 @@
+export const FORBIDDEN_ENGLISH_PATH = 'tools/promises/forbidden-english.json';
+export const ENGLISH_ALLOWLIST_PATH = 'tools/promises/english-allowlist.json';
+export const TRACEABILITY_PATH = 'tools/promises/traceability.json';
+export const CLI_HELP_PATH = 'packages/language/generated/cli-help.txt';
+export const CLI_HELP_SOURCE = 'cli-help.txt';
+export const COMPILER_ALLOWED_DEPENDENCY = '@goiasscript/language';
+export const WORKSPACE_PROTOCOL = 'workspace:';
+export const COMPILER_PACKAGE_DIR = 'packages/compiler';
+export const LANGUAGE_PACKAGE_DIR = 'packages/language';
+export const SOURCE_FILE = /\.ts$/u;
+export const IMPORT_SPECIFIER = /(?:^|\s)(?:import|export)\b[^'";]*?\bfrom\s+['"]([^'"]+)['"]|(?:^|\s)import\s+['"]([^'"]+)['"]/gmu;
+export const QUOTED_TEXT = /"[^"]*"/gu;
+export const BLANK = /^\s*$/u;
