@@ -23,9 +23,9 @@ describe('buildCliInvocation', () => {
   });
 
   it('ELECTRON_RUN_AS_NODE vale só para o filho e não herda variável de loader', () => {
-    const hostEnv = { PATH: '/bin', HOME: '/home/aluno', LANG: 'pt_BR.UTF-8', TMPDIR: '/tmp', NODE_OPTIONS: '--require /x.js', LD_PRELOAD: '/x.so', DYLD_INSERT_LIBRARIES: '/x.dylib', SECRET_TOKEN: 'abc' };
+    const hostEnv = { PATH: '/bin', HOME: '/Users/aluno', LANG: 'pt_BR.UTF-8', TMPDIR: '/tmp', NODE_OPTIONS: '--require /x.js', LD_PRELOAD: '/x.so', DYLD_INSERT_LIBRARIES: '/x.dylib', SECRET_TOKEN: 'abc' };
     const { env } = buildCliInvocation({ ...baseInput, hostEnv }).options;
-    expect(env).toEqual({ PATH: '/bin', HOME: '/home/aluno', LANG: 'pt_BR.UTF-8', TMPDIR: '/tmp', ELECTRON_RUN_AS_NODE: '1' });
+    expect(env).toEqual({ PATH: '/bin', HOME: '/Users/aluno', LANG: 'pt_BR.UTF-8', TMPDIR: '/tmp', ELECTRON_RUN_AS_NODE: '1' });
   });
 
   it('leva as variáveis do Windows quando existem', () => {
