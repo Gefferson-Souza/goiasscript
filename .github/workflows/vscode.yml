@@ -45,9 +45,9 @@ jobs:
         if: runner.os == 'Linux'
         run: xvfb-run -a pnpm --filter goiasscript-vscode test:integration
         env:
-          VSCODE_VERSION: ${{ matrix.vscode }}
+          GS_VSCODE_VERSION: ${{ matrix.vscode }}
       - name: Roda os testes no Windows e no macOS
         if: runner.os != 'Linux'
         run: pnpm --filter goiasscript-vscode test:integration
         env:
-          VSCODE_VERSION: ${{ matrix.vscode }}
+          GS_VSCODE_VERSION: ${{ matrix.vscode }}
