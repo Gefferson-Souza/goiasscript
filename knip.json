@@ -2,7 +2,8 @@
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "ignoreWorkspaces": [
     "packages/core",
-    "apps/*"
+    "apps/engoianador-api",
+    "apps/playground-e2e"
   ],
   "ignoreExportsUsedInFile": true,
   "workspaces": {
@@ -80,6 +81,30 @@
       ],
       "project": [
         "tests/**/*.mjs"
+      ]
+    },
+    "apps/playground": {
+      "entry": [
+        "config/**/*.ts",
+        "tests/**/*.test.ts",
+        "app/**/*.{ts,tsx}",
+        "components/**/*.tsx",
+        "workers/**/*.ts",
+        "types/**/*.d.ts",
+        "lib/{engoianador-client,monaco-goias,share,use-runner}.ts"
+      ],
+      "project": [
+        "config/**/*.ts",
+        "lib/**/*.{ts,tsx}",
+        "!lib/{engoianador-client,monaco-goias,share,use-runner}.ts",
+        "sandbox/**/*.ts",
+        "tests/**/*.ts",
+        "*.ts"
+      ],
+      "ignoreDependencies": [
+        "@goiasscript/compiler",
+        "@goiasscript/language",
+        "@goiasscript/optimizer"
       ]
     }
   },
