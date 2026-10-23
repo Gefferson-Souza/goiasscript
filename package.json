@@ -14,7 +14,7 @@
     "playground:build": "pnpm --filter playground build",
     "playground:start": "pnpm --filter playground start",
     "engoianador:dev": "pnpm --filter engoianador-api dev",
-    "engoianador:deploy": "pnpm --filter engoianador-api deploy",
+    "engoianador:deploy": "pnpm --filter engoianador-api run deploy",
     "engoianador:typecheck": "pnpm --filter engoianador-api typecheck",
     "engoianador:test": "pnpm --filter engoianador-api test",
     "build:cli": "node scripts/build-cli.ts",

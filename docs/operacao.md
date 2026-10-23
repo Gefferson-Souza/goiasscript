@@ -53,13 +53,23 @@ da primeira tag. Para empacotar localmente: `corepack pnpm pack:vscode`.
 ## Deprecar versão e mexer nas dist-tags
 
 O CLI sai como `goiasscript` por tag `v3.*-alpha.*`, pelo workflow
-`.github/workflows/release.yml`, e o alpha entra na dist-tag `next`.
+`.github/workflows/release.yml`, e o alpha entra na dist-tag `next`. O workflow só
+coloca o tarball em stage: enquanto ninguém aprovar o stage, a versão não está
+publicada no npm e a dist-tag não vale.
+
+Ciclo de uma versão: o workflow prepara o stage de `next`; o dono aprova com
+`npm stage approve <stage-id>` (pede 2FA) e confere com `npm view goiasscript dist-tags`.
+Para a `latest`, uma nova publicação em stage com a tag `latest` passa pela mesma
+aprovação com 2FA, só depois de o `next` ter sido validado.
 
 - Deprecar uma versão ruim:
   `npm deprecate goiasscript@<versão> "mensagem curta dizendo o que fazer"`
 - Mover uma tag para outra versão: `npm dist-tag add goiasscript@<versão> <tag>`
 - Ver as tags: `npm dist-tag ls goiasscript`
 - Tirar uma tag: `npm dist-tag rm goiasscript <tag>`
+
+Esses comandos (`npm deprecate` e `npm dist-tag`) usam o login do dono, não a
+automação, e mexer na `latest` pode pedir a mesma credencial humana (2FA).
 
 Versão publicada no npm não se reutiliza: para corrigir, publique uma versão nova e
 deprece a ruim. Nada disso roda em automação.
@@ -72,7 +82,9 @@ Se expirou:
 1. No painel do pacote `goiasscript` no npm, abra Settings e Trusted Publisher.
 2. Recrie com o repositório do projeto, o workflow `release.yml` e o ambiente `npm-release`.
 3. Dispare o publish em até 2 dias, enviando a tag do alpha. O workflow
-   `.github/workflows/release.yml` publica por OIDC, com provenance.
+   `.github/workflows/release.yml` usa OIDC, com provenance, e deixa o tarball em stage.
+4. Aprove o stage com `npm stage approve <stage-id>` (pede 2FA), para `next` e depois
+   para `latest`. Antes disso a versão não está publicada.
 
 Só crie o trusted publisher imediatamente antes de publicar, com o `release.yml`
 definitivo já na `main`.
@@ -109,5 +121,5 @@ O script só aceita endereço `https` (ou local) e sai com código 1 se algum ex
 - Local, contra um endereço já no ar:
   `ENGOIANADOR_URL=https://<endereço-da-api> node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON apps/engoianador-api/scripts/contract-check.ts`
 
-Antes de qualquer deploy do Worker, `corepack pnpm engoianador:deploy` roda o `predeploy`,
+Antes de qualquer deploy do Worker, `corepack pnpm --filter engoianador-api run deploy` roda o `predeploy`,
 que recusa ids de KV de exemplo e modelo desativado.
