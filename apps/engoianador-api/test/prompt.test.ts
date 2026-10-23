@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { sanitizeUserText, buildMessages, SYSTEM_PROMPT } from '../src/prompt';
+import { sanitizeUserText, buildMessages, SYSTEM_PROMPT, FEW_SHOT, PROMPT_VERSION, computePromptVersion } from '../src/prompt';
 
 describe('sanitizeUserText — anti prompt injection', () => {
   it('remove tentativas de fechar o bloco de input', () => {
@@ -40,5 +40,21 @@ describe('buildMessages', () => {
     const closing = (last?.content.match(/<\/texto_do_usuario>/g) ?? []).length;
     expect(opening).toBe(1);
     expect(closing).toBe(1);
+  });
+});
+
+describe('PROMPT_VERSION', () => {
+  it('muda quando o texto do prompt muda', () => {
+    const base = computePromptVersion(SYSTEM_PROMPT, FEW_SHOT);
+    expect(computePromptVersion(`${SYSTEM_PROMPT} `, FEW_SHOT)).not.toBe(base);
+    expect(computePromptVersion(SYSTEM_PROMPT, FEW_SHOT.slice(1))).not.toBe(base);
+  });
+
+  it('é estável para o mesmo conteúdo e igual ao exportado', () => {
+    expect(computePromptVersion(SYSTEM_PROMPT, FEW_SHOT)).toBe(PROMPT_VERSION);
+  });
+
+  it('acompanha o prompt atual (snapshot)', () => {
+    expect(PROMPT_VERSION).toBe('p635d2661');
   });
 });

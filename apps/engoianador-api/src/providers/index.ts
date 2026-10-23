@@ -1,17 +1,20 @@
-import { rewriteText } from '../engoiana';
-import type { ProviderChain, ProviderResult } from '../ports.types';
-import type { ProviderChainDeps } from './provider.types';
+import { GROQ_TIMEOUT_MS, WORKERS_AI_TIMEOUT_MS } from '../engoiana.constants';
+import { createProviderChain } from '../engoiana';
+import type { ProviderChain } from '../ports.types';
+import { createGroqProvider } from './groq';
+import type { WorkerProviderChainDeps } from './provider.types';
+import { createWorkersAiProvider } from './workers-ai';
 
-const PROVIDER_NAME = 'engoiana';
-
-export function createProviderChain(deps: ProviderChainDeps): ProviderChain {
-  return {
-    async complete(text: string): Promise<ProviderResult> {
-      try {
-        return { ok: true, text: await rewriteText(text, deps.env, deps.log), provider: PROVIDER_NAME };
-      } catch {
-        return { ok: false, failure: 'server-error', provider: PROVIDER_NAME };
-      }
-    },
-  };
+export function createWorkerProviderChain(deps: WorkerProviderChainDeps): ProviderChain {
+  const { env, config, log } = deps;
+  const providers = [
+    createGroqProvider({
+      apiKey: env.GROQ_API_KEY,
+      model: config.groqModel,
+      fetchFn: deps.fetchFn ?? ((url, init) => fetch(url, init)),
+      timeoutMs: GROQ_TIMEOUT_MS,
+    }),
+    createWorkersAiProvider({ ai: env.AI, model: config.workersAiModel, timeoutMs: WORKERS_AI_TIMEOUT_MS }),
+  ];
+  return createProviderChain(providers, log);
 }
