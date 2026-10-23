@@ -92,7 +92,6 @@ export function parseConfig(env: EnvInput): ConfigResult {
       maxBodyBytes: maxBodyBytes.value,
       cacheTtlSec: cacheTtlSec.value,
       killSwitch: env.KILL_SWITCH === FLAG_ON,
-      allowUnlimited: env.ALLOW_UNLIMITED === FLAG_ON,
     },
   };
 }

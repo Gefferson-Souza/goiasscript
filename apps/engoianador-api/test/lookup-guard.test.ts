@@ -32,4 +32,14 @@ describe('createLookupGuard', () => {
       expect(guard.check(`rede-${String(index)}`, 0).allowed).toBe(true);
     }
   });
+
+  it('não solta a rajada de uma rede já barrada quando o mapa enche', () => {
+    const guard = createLookupGuard();
+    for (let index = 0; index < LOOKUP_MAX_PER_WINDOW; index += 1) guard.check('vitima', 0);
+    expect(guard.check('vitima', 1).allowed).toBe(false);
+    for (let index = 0; index < LOOKUP_MAX_TRACKED_NETWORKS; index += 1) {
+      guard.check(`rede-${String(index)}`, 2);
+    }
+    expect(guard.check('vitima', 3).allowed).toBe(false);
+  });
 });

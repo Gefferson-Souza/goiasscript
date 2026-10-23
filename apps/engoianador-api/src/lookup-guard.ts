@@ -17,7 +17,20 @@ export function createLookupGuard(): LookupGuard {
     for (const [key, window] of windows) {
       if (nowMs - window.startedAtMs >= LOOKUP_WINDOW_MS) windows.delete(key);
     }
-    if (windows.size >= LOOKUP_MAX_TRACKED_NETWORKS) windows.clear();
+    if (windows.size >= LOOKUP_MAX_TRACKED_NETWORKS) evictOne();
+  }
+
+  // Redes já barradas são as últimas a sair: encher o mapa não pode soltar a rajada de quem está no teto.
+  function evictOne(): void {
+    let fallbackKey: string | undefined;
+    for (const [key, window] of windows) {
+      fallbackKey ??= key;
+      if (window.count < LOOKUP_MAX_PER_WINDOW) {
+        windows.delete(key);
+        return;
+      }
+    }
+    if (fallbackKey !== undefined) windows.delete(fallbackKey);
   }
 
   return {

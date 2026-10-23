@@ -14,7 +14,6 @@ export interface Env {
   readonly MAX_BODY_BYTES: string;
   readonly CACHE_TTL_SEC: string;
   readonly KILL_SWITCH?: string | undefined;
-  readonly ALLOW_UNLIMITED?: string | undefined;
   readonly QUOTA_LEDGER: DurableObjectNamespace;
   readonly ENGOIANADOR_CACHE: KVNamespace;
 }
@@ -29,7 +28,6 @@ export interface WorkerConfig {
   readonly maxBodyBytes: number;
   readonly cacheTtlSec: number;
   readonly killSwitch: boolean;
-  readonly allowUnlimited: boolean;
 }
 
 export type ConfigResult =
