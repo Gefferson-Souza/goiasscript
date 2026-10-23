@@ -7,9 +7,11 @@ import {
   DIAGNOSTIC_CODE_FORMAT,
   DIR_FLAG,
   EMAIL_PATTERN,
+  KEEP_FILE,
   LEARNER_ID_FORMAT,
   LESSON_ID_FORMAT,
   LESSON_KEYS,
+  MAX_COMMENT_LENGTH,
   MESSAGE_KEYS,
   PHONE_PATTERN,
   PILOT_ORIGINS,
@@ -40,6 +42,7 @@ function unknownKey(record: Readonly<Record<string, unknown>>, allowed: readonly
 
 function commentProblem(value: unknown): string | null {
   if (typeof value !== 'string') return 'o comentário precisa ser texto';
+  if (value.length > MAX_COMMENT_LENGTH) return `o comentário passa de ${String(MAX_COMMENT_LENGTH)} caracteres`;
   if (EMAIL_PATTERN.test(value) || PHONE_PATTERN.test(value)) return 'o comentário traz e-mail ou telefone, e o retorno é anônimo';
   return null;
 }
@@ -139,11 +142,12 @@ function duplicateProblems(outcomes: readonly FileOutcome[]): readonly string[] 
 }
 
 function loadAnswers(dir: string): { readonly answers: readonly PilotAnswer[]; readonly problems: readonly string[] } {
-  const files = existsSync(dir) ? readdirSync(dir).filter((name) => ANSWER_FILE_PATTERN.test(name)).toSorted() : [];
-  const outcomes = files.map((file) => readAnswerFile(dir, file));
+  const names = existsSync(dir) ? readdirSync(dir).filter((name) => name !== KEEP_FILE).toSorted() : [];
+  const strays = names.filter((name) => !ANSWER_FILE_PATTERN.test(name)).map((name) => `${name}: nome fora do padrão AN.json (A1 a A9)`);
+  const outcomes = names.filter((name) => ANSWER_FILE_PATTERN.test(name)).map((file) => readAnswerFile(dir, file));
   return {
     answers: outcomes.flatMap((outcome) => (outcome.answer === undefined ? [] : [outcome.answer])),
-    problems: [...outcomes.flatMap((outcome) => (outcome.problem === undefined ? [] : [outcome.problem])), ...duplicateProblems(outcomes)],
+    problems: [...strays, ...outcomes.flatMap((outcome) => (outcome.problem === undefined ? [] : [outcome.problem])), ...duplicateProblems(outcomes)],
   };
 }
 

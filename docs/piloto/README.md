@@ -19,7 +19,8 @@ De 3 a 5 pessoas que nunca viram o GoiásScript. Convida pelo menos uma pessoa *
 
 - O aprendiz vira `A1`, `A2`, `A3`... pela ordem em que fez a sessão.
 - Nada de nome, e-mail, telefone, cidade, empresa ou foto nos arquivos do repositório.
-- Os comentários livres do formulário passam por conferência automática: se tiver e-mail ou telefone, o resumo recusa a resposta.
+- Os comentários livres do formulário passam por conferência automática, mas ela só barra e-mail, telefone e comentário com mais de 280 caracteres. Nome, cidade e empresa a máquina não pega: confere na mão antes de commitar.
+- Em `respostas/` só entra `A1.json` a `A9.json` (e o `.gitkeep`). Qualquer outro arquivo faz o resumo recusar tudo até você arrumar.
 
 ## Formato de cada resposta
 
