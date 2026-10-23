@@ -34,7 +34,9 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Empacota a extensão
         run: pnpm build:vscode
-      - name: Guarda o VS Code baixado
+      # A estável nunca vem do cache: baixar sempre é o que faz uma versão nova do VS Code aparecer na matriz.
+      - name: Guarda o VS Code fixo baixado
+        if: matrix.vscode != 'stable'
         uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
           path: packages/vscode/.vscode-test
