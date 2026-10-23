@@ -1,5 +1,5 @@
 import { expect, test, type Request } from '@playwright/test';
-import { REQUEST_TEXT_FIELD } from '../../playground/lib/engoianador-client.constants.ts';
+import { REQUEST_TEXT_FIELD, RESPONSE_TEXT_FIELDS } from '../../playground/lib/engoianador-client.constants.ts';
 import { CONFIGURED_PUBLIC_ENV } from '../playwright.constants.ts';
 import { configuredServerOrigin, defaultServerOrigin } from './support/servers.ts';
 
@@ -47,7 +47,7 @@ test.describe('Engoianador — com URL configurada', () => {
         status: 200,
         contentType: 'application/json',
         headers: corsHeaders,
-        body: JSON.stringify({ engoianado: `Ô sô: ${body[REQUEST_TEXT_FIELD] ?? ''}` }),
+        body: JSON.stringify({ [RESPONSE_TEXT_FIELDS[0]]: `Ô sô: ${body[REQUEST_TEXT_FIELD] ?? ''}` }),
       });
     });
   });
