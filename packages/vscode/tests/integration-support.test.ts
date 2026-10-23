@@ -1,6 +1,7 @@
 import { EventEmitter } from 'node:events';
 import { describe, expect, it, vi } from 'vitest';
-import { isValidOnThisPlatform, spyOnChildProcess } from './integration/fixtures.ts';
+import fs from 'node:fs';
+import { isValidOnThisPlatform, makeTempDir, removeTempDirs, spyOnChildProcess } from './integration/fixtures.ts';
 import type { ChildCall, ChildProcessModule } from './integration/integration.types.ts';
 import { HOSTILE_NAMES } from './integration/integration.constants.ts';
 import { buildLaunchArgs, buildUserSettings } from './integration/launch-config.ts';
@@ -108,5 +109,16 @@ describe('argumentos de lançamento do VS Code', () => {
   it('liga o Modo Restrito sem pergunta nem faixa no cenário não confiável', () => {
     expect(buildUserSettings('untrusted')).toMatchObject({ 'security.workspace.trust.enabled': true, 'security.workspace.trust.startupPrompt': 'never' });
     expect(buildUserSettings('trusted')).not.toHaveProperty('security.workspace.trust.enabled', true);
+  });
+});
+
+describe('diretórios temporários dos testes', () => {
+  it('remove tudo o que makeTempDir criou, inclusive o conteúdo', () => {
+    const first = makeTempDir();
+    const second = makeTempDir();
+    fs.writeFileSync(`${first}/hostil.gs`, 'x');
+    removeTempDirs();
+    expect(fs.existsSync(first)).toBe(false);
+    expect(fs.existsSync(second)).toBe(false);
   });
 });

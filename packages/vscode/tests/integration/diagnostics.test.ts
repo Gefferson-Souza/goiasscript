@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { suite, suiteTeardown, test } from 'mocha';
 import * as vscode from 'vscode';
-import { makeTempDir } from './fixtures.ts';
+import { makeTempDir, removeTempDirs } from './fixtures.ts';
 import { BROKEN_PROGRAM, BROKEN_PROGRAM_CODE, DIAGNOSTICS_SOURCE, TEST_TIMEOUT_MS } from './integration.constants.ts';
 import { activateExtension, closeEverything, waitFor } from './vscode-helpers.ts';
 
@@ -13,7 +13,10 @@ function codeValue(code: vscode.Diagnostic['code']): string {
 
 suite('diagnósticos', function () {
   this.timeout(TEST_TIMEOUT_MS);
-  suiteTeardown(closeEverything);
+  suiteTeardown(async () => {
+    await closeEverything();
+    removeTempDirs();
+  });
 
   test('abrir um .gs com erro publica o diagnóstico da extensão', async () => {
     await activateExtension();

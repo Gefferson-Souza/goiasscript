@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { suite, suiteTeardown, test } from 'mocha';
 import * as vscode from 'vscode';
-import { makeTempDir, spyOnChildProcess } from './fixtures.ts';
+import { makeTempDir, spyOnChildProcess, removeTempDirs } from './fixtures.ts';
 import { RUN_COMMAND, SAMPLE_PROGRAM, SCENARIO_ENV, TEST_TIMEOUT_MS, TRANSLATE_COMMAND, UNTRUSTED_MESSAGE } from './integration.constants.ts';
 import type { ChildCall, ChildProcessModule } from './integration.types.ts';
 import { activateExtension, captureErrorMessages, closeEverything, openAndRun } from './vscode-helpers.ts';
@@ -36,7 +36,10 @@ async function runCommand(command: string): Promise<Outcome> {
 
 suite(`modo restrito (${expectUntrusted ? 'pasta não confiável' : 'pasta confiável'})`, function () {
   this.timeout(TEST_TIMEOUT_MS);
-  suiteTeardown(closeEverything);
+  suiteTeardown(async () => {
+    await closeEverything();
+    removeTempDirs();
+  });
 
   test('o manifesto exige o suporte limitado em pasta não confiável', async () => {
     const extension = await activateExtension();

@@ -10,8 +10,16 @@ export function isValidOnThisPlatform(name: string, platform: NodeJS.Platform = 
   return platform !== 'win32' || !NTFS_FORBIDDEN_CHARACTERS.some((character) => name.includes(character));
 }
 
+const createdTempDirs: string[] = [];
+
 export function makeTempDir(): string {
-  return fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), TEMP_DIR_PREFIX)));
+  const dir = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), TEMP_DIR_PREFIX)));
+  createdTempDirs.push(dir);
+  return dir;
+}
+
+export function removeTempDirs(): void {
+  for (const dir of createdTempDirs.splice(0)) fs.rmSync(dir, { recursive: true, force: true });
 }
 
 function stringsOf(value: unknown): readonly string[] {
