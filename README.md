@@ -1,40 +1,32 @@
-# 🇧🇷 GoiásScript v1.5 — Goianês na Web
+# GoiásScript: programar em goianês
 
-> **Linguagem de programação goiana que transpila dialeto goianês para JavaScript**
+> Linguagem de programação em goianês que vira JavaScript, uai!
 
-GoiásScript é um experimento cultural e técnico: uma DSL brasileira que aceita
-código escrito em goianês raiz (`uai`, `prosa`, `bota_pra_moer`) e produz JS
-limpo. A v1.5 entrega três coisas: o pacote `goiasscript` no npm (CLI + REPL),
-um **playground web** com Monaco Editor que roda no navegador, e o
-**Engoianador** — uma API que converte qualquer texto em goianês raiz via LLM.
+GoiásScript é uma linguagem educacional: você escreve com palavras do falar goiano (`uai`, `prosa`, `faz_trem`) e o
+compilador entrega JavaScript limpo, com as linhas do seu `.gs` preservadas. Ela não é JavaScript, e o compilador
+avisa em goianês quando ocê escorrega.
 
-[![Versão](https://img.shields.io/badge/versão-1.5.0-brightgreen.svg)](CHANGELOG.md)
 [![Licença](https://img.shields.io/badge/licença-MIT-blue.svg)](LICENSE)
-[![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](package.json)
-[![pnpm](https://img.shields.io/badge/pnpm-%3E%3D8-orange.svg)](https://pnpm.io)
 
-## 🚀 Instalação
+## Instalar
+
+Precisa do Node 22.12 ou mais novo. O pacote npm entra no ar na primeira publicação da v3.
 
 ```bash
-# Via npm (a partir do release v1.5.0)
-npm install -g goiasscript
-
-# Para desenvolver no monorepo
-git clone https://github.com/Gefferson-Souza/goiasscript.git
-cd goiasscript
-pnpm install
+npm install --global goiasscript
 ```
 
-## 🎯 Início rápido
+## Início rápido
 
-### 1. Armar o barraco (criar projeto)
+Crie um projeto, entre nele e bote o programa pra moer:
 
 ```bash
 goiasscript arma_o_barraco meu-projeto
 cd meu-projeto
+goiasscript bota_pra_moer main.gs
 ```
 
-### 2. Escrever um arquivo `main.gs`
+Um programa de exemplo:
 
 ```goiasscript
 uai nome é "Goiás"
@@ -52,218 +44,84 @@ faz_trem saudar(pessoa) {
 prosa(saudar(nome))
 ```
 
-### 3. Botar pra moer (executar)
+## Comandos
 
-```bash
-goiasscript bota_pra_moer main.gs
-```
+| Comando | O que faz |
+| --- | --- |
+| `goiasscript traduz arquivo.gs` | vira o `.gs` em JavaScript (`.mjs`) |
+| `goiasscript bota_pra_moer arquivo.gs` | traduz e já executa o programa |
+| `goiasscript vê_se_tá_certo arquivo.gs` | só confere o programa e mostra todos os problemas |
+| `goiasscript arma_o_barraco nome` | cria um projeto novo a partir do modelo |
+| `goiasscript explica GS0301` | explica um erro com exemplo e lição |
+| `goiasscript dedo_de_prosa` | mostra a versão e umas informações |
+| `goias` | abre a roda de prosa (REPL) |
 
-## 🛠️ Ferramentas CLI
+Todos aceitam a escrita sem acento (`ve_se_ta_certo`). O README do pacote
+[`goiasscript`](packages/cli/README.md) detalha as opções.
 
-V1.5 entrega 2 binários enxutos (a v2 tinha 8 — os outros foram arquivados):
-
-| Binário | Função |
-|---|---|
-| `goiasscript` | CLI principal (transpile, run, validate, scaffold) |
-| `goias` | Roda de Prosa — REPL interativo goiano |
-
-### Comandos de `goiasscript`
-
-<!-- AUTO-GENERATED:cli-commands -->
-
-| Comando | Alias | Descrição |
-|---|---|---|
-| `goiasscript traduz <arquivo.gs>` | `compile` | Transpila para JavaScript |
-| `goiasscript bota_pra_moer <arquivo.gs>` | `run` | Transpila e executa |
-| `goiasscript vê_se_tá_certo <arquivo.gs>` | `check-types` | Valida sintaxe e tipos |
-| `goiasscript arma_o_barraco <nome>` | `new` | Cria estrutura de projeto novo |
-| `goiasscript dedo_de_prosa` | `info` | Exibe banner com versão e info |
-| `goiasscript --version` | — | Mostra versão (1.5.0) |
-
-<!-- /AUTO-GENERATED:cli-commands -->
-
-### Comandos do REPL (`goias`)
-
-| Comando | Descrição |
-|---|---|
-| `.desenrola` | Mostra ajuda |
-| `.mostra_os_trem` | Lista variáveis em memória |
-| `.zera_o_trem` | Limpa o estado do REPL |
-| `.vaza` | Sai do REPL |
-
-## 🗣️ Sintaxe goiana
-
-### Declaração de variáveis
+## A linguagem em poucas linhas
 
 ```goiasscript
-uai nome é "João"          // const nome = "João"
-trem contador é 0           // var contador = 0
-```
+uai idade é 20
 
-### Operadores
-
-| GoiásScript | JavaScript |
-|---|---|
-| `é` | `=` |
-| `é_igualim` | `===` |
-| `diferente` | `!==` |
-| `mais` | `+` |
-| `menos` | `-` |
-| `vezes` | `*` |
-| `dividido` | `/` |
-| `e_mais` | `&&` |
-| `ou_então` | `\|\|` |
-| `num_é` | `!` |
-| `maior_que` | `>` |
-| `menor_que` | `<` |
-
-### Controle de fluxo
-
-```goiasscript
 se_ocê_quiser (idade pelo_menos 18) {
   prosa("Maior de idade")
-} se_num_for (idade pelo_menos 16) {
-  prosa("Pode tirar título")
 } se_não {
   prosa("Ainda criança")
 }
 
-vai_indo (uai i é 0; i menor_que 5; i mais 1) {
-  prosa("Iteração", i)
+vai_indo (trem i é 0; i menor_que 3; i é i mais 1) {
+  prosa("Volta", i)
 }
 ```
 
-### Funções
+A especificação, o vocabulário e a gramática ficam em [docs/spec](docs/spec). As decisões de arquitetura estão em
+[docs/adr](docs/adr).
 
-```goiasscript
-faz_trem somar(a, b) {
-  faz_favor a mais b
-}
+## Playground e Engoianador
 
-vai_na_frente faz_trem buscarDados() {
-  uai resultado é espera_um_cadim fetch("/api/dados")
-  faz_favor resultado.json()
-}
-```
+- **Playground:** editor no navegador que compila e executa goianês sem ir a servidor nenhum. Localmente:
+  `corepack pnpm playground:dev`.
+- **Engoianador:** API que recebe um texto e devolve em goianês usando um modelo de linguagem. Ela só responde depois
+  de implantada pelo dono do projeto; localmente: `corepack pnpm engoianador:dev`.
 
-### Valores especiais
+## Extensão do VS Code
 
-| GoiásScript | JavaScript |
-|---|---|
-| `certeza` | `true` |
-| `de_jeito_nenhum` | `false` |
-| `nada` | `null` |
-| `indefinido` | `undefined` |
-| `ocê` | `this` |
+Realce de sintaxe, trechos prontos e avisos do compilador para arquivos `.gs`. O código vive em
+[packages/vscode](packages/vscode). A instalação pelo Marketplace depende da primeira publicação.
 
-## 🔧 Métodos goianos nativos
+## O que não faz parte da v3
 
-Veja [docs/METODOS_GOIANOS.md](docs/METODOS_GOIANOS.md) pra referência completa.
-Resumo:
+Balaios, debugger, módulos, sistema de tipos, LSP separado, níveis graduais, interop com JavaScript nativo e IR
+própria **não fazem parte da v3**. Cada um só entra por RFC; veja o [CONTRIBUTING](CONTRIBUTING.md) e o
+[ADR-0010](docs/adr/0010-fora-da-v3.md).
 
-```goiasscript
-// Texto
-"Oi sô".pra_maiusculo()             // "OI SÔ"
-"Oi sô".trocar("Oi", "Eai")         // "Eai sô"
-
-// Lista
-[1, 2, 3].mapear(x => x vezes 2)    // [2, 4, 6]
-[1, 2, 3].filtrar(x => x maior_que 1) // [2, 3]
-
-// Math
-GoianoMath.sorteio()                // 0..1
-GoianoMath.arredondar(3.7)          // 4
-```
-
-## 🎮 Playground
-
-Editor web com Monaco que transpila e roda goianês direto no navegador (via
-Web Worker isolado, sem ida ao servidor).
-
-- **Deploy:** Vercel — configure URL após o primeiro deploy.
-- **Local:** `pnpm install && pnpm playground:dev` → http://localhost:3000.
-
-## 🪄 Engoianador
-
-API que recebe texto qualquer e devolve em goianês raiz, usando LLM
-(Groq + fallback Workers AI). Sem código, só cultura.
-
-```bash
-curl -X POST https://<seu-worker>.workers.dev/engoiana \
-  -H "Content-Type: application/json" \
-  -d '{"text":"Olá, tudo bem com você?"}'
-# → { "text": "Ô sô, e aí, tudo joia com ocê?" }
-```
-
-- **Limites:** `MAX_INPUT_CHARS` caracteres por requisição (padrão 2000) e
-  `RATE_LIMIT_PER_DAY` requisições por dia por rede (padrão 20).
-- **Local:** `pnpm engoianador:dev` (precisa de `GROQ_API_KEY` em
-  `apps/engoianador-api/.dev.vars`).
-
-## 🏗️ Estrutura do monorepo
+## Estrutura
 
 ```
 goiasscript/
-├── packages/core/              # Pacote npm principal (goiasscript@1.5.0)
+├── packages/
+│   ├── language/    # vocabulário, diagnósticos e biblioteca padrão (dados)
+│   ├── compiler/    # lexer, parser, análise e emissão
+│   ├── optimizer/   # otimizações opcionais do JavaScript emitido
+│   ├── cli/         # pacote npm da CLI e do REPL
+│   └── vscode/      # extensão do VS Code
 ├── apps/
-│   ├── playground/             # Next.js 15 + Monaco (deploy Vercel)
-│   └── engoianador-api/        # Cloudflare Worker (Groq + KV)
-├── docs/                       # Documentação
-├── vscode-extension/           # Extensão VSCode (Marketplace)
-└── KEEP-OR-ARCHIVE.md          # Triagem v1.5 (o que foi arquivado e por quê)
+│   ├── playground/        # Next.js + Monaco
+│   └── engoianador-api/   # Cloudflare Worker
+├── docs/            # spec, ADRs e RFCs
+└── tools/           # scanner de regras e testes de configuração
 ```
 
-## 🧪 Testes
+## Contribuindo
 
-```bash
-pnpm test                       # 85 tests passando
-pnpm test:coverage              # Com relatório de cobertura
-```
+Veja o [CONTRIBUTING](CONTRIBUTING.md). Resumo: `corepack pnpm install`, `corepack pnpm verify` e commits no padrão
+do [ADR-0008](docs/adr/0008-commits.md). Segurança: [SECURITY](SECURITY.md).
 
-## 🎨 Extensão VSCode
+## Licença
 
-```bash
-cd vscode-extension
-npm run package                 # Gera goiasscript-X.Y.Z.vsix
-code --install-extension goiasscript-2.2.0.vsix
-```
-
-Recursos: syntax highlighting, ícones de arquivos `.gs`, snippets goianos.
-
-## 🤝 Contribuindo
-
-Veja [CONTRIBUTING.md](CONTRIBUTING.md). Resumo:
-
-1. Fork + clone
-2. `pnpm install && pnpm test`
-3. Branch a partir de `main`
-4. Conventional commits
-5. PR com `pnpm test` + `pnpm lint` passando
-
-## 🗄️ Sobre o slim down
-
-A v2.0 inflou em 38k+ linhas com features over-engineered (JIT, LSP, debug
-adapter, 4 templates pesados, 6 CLIs extras) que nunca tiveram audiência. A
-v1.5 corta 70% mas preserva tudo em `archive/v2-experimental` (branch + tag
-`v2.0-pre-archive`) — recuperável a qualquer momento. Detalhes em
-[KEEP-OR-ARCHIVE.md](KEEP-OR-ARCHIVE.md).
-
-## 📄 Licença
-
-[MIT](LICENSE) — use, modifique, distribua.
-
-## 👥 Autor
-
-**Gefferson Souza** — [@Gefferson-Souza](https://github.com/Gefferson-Souza)
+[MIT](LICENSE).
 
 ---
 
-<div align="center">
-
-**🇧🇷 Feito com carinho em Goiás**
-
 *"Programar em goianês é prosa boa que vira código que roda."*
-
-[![Estrelas](https://img.shields.io/github/stars/Gefferson-Souza/goiasscript?style=social)](https://github.com/Gefferson-Souza/goiasscript/stargazers)
-
-</div>

@@ -1,9 +1,6 @@
 name: goiasscript
-# Legado reescrito nas fases futuras, evidência congelada e spikes descartáveis
-# não são código novo; o runner do playground executa código do aluno por design.
+# Evidência congelada e spikes descartáveis não são código novo.
 paths-ignore:
   - docs/auditoria
   - docs/pesquisa
   - spikes
-  - packages/core
-  - apps/playground/workers

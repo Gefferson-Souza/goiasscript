@@ -15,10 +15,6 @@ describe('manifesto do playground', () => {
     });
   });
 
-  it('não depende mais do pacote legado', () => {
-    expect(manifest.dependencies).not.toHaveProperty('goiasscript-legacy');
-  });
-
   it('gera os exemplos antes do dev e do build', () => {
     expect(manifest.scripts['prebuild']).toContain('build-examples.ts');
     expect(manifest.scripts['predev']).toContain('build-examples.ts');

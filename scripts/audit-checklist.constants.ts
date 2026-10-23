@@ -1,0 +1,14 @@
+export const AUDIT_REPORTS_DIR = 'docs/auditoria/2026-10-13';
+export const AUDIT_CLOSURE_PATH = 'scripts/audit-closure.json';
+export const CONFORMANCE_PREFIX = 'packages/compiler/tests/conformance/';
+export const ADR_PREFIX = 'docs/adr/';
+export const REPORT_FILE = /^([A-E])-.+\.md$/u;
+export const EXPECTED_FAIL_SCRIPT = 'packages/compiler/tests/support/list-expected-fail.ts';
+export const CORPUS_MARKER = 'diagnostics.json';
+export const HEADING_FINDING = /^#{2,4}\s*\[(CRITICAL|HIGH)\]\s+([A-Z]{1,3}-?\d{2})\s*[—–-]\s*(.+?)\s*$/u;
+export const LIST_FINDING = /^-\s*\[(CRITICAL|HIGH)\]\s+([A-Z]{1,3}-?\d{2})\s+(.+?)\s*$/u;
+export const CHECKLIST_HEADER = '| Achado | Gravidade | Título | Fechamento | Estado |';
+export const CHECKLIST_DIVIDER = '|---|---|---|---|---|';
+export const TABLE_CELL_BREAK = /\|/gu;
+export const LINE_COMMENT = /^\s*\/\/.*$/gmu;
+export const BLOCK_COMMENT = /\/\*[\s\S]*?\*\//gu;

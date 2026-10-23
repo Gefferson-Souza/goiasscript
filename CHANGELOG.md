@@ -5,6 +5,37 @@ Todas as mudanças importantes deste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [3.0.0] — ainda não lançada — *GoiásScript 3*
+
+Reescrita da linguagem: vocabulário fechado, mensagens de erro com código e um
+pacote só para o CLI e para a extensão do VS Code. A lista completa de mudanças
+e como migrar está em `docs/spec/migracao.md`.
+
+### Removido
+
+Palavras que não existem mais na linguagem. Elas deixam de ser reservadas e o
+compilador aponta a forma nova (GS0306).
+
+- `presta_serviço` vira `faz_trem`.
+- `vai_na_frente_presta_serviço` vira `vai_na_frente_faz_trem`.
+- `mexe_assim` saiu, sem substituto.
+- `vixe_que` vira `vixe`.
+- `vazio` vira `nada`.
+- `sei_lá` vira `indefinido`.
+- `se` vira `se_ocê_quiser`.
+- `senao` vira `se_não`.
+- `fazer` vira `faz_trem`.
+- `é_igual_a` vira `é_igualim`.
+- `um_tanto_de` saiu, sem substituto.
+- `ninguem_fuça` saiu, sem substituto.
+- `só_da_famia` saiu, sem substituto.
+- `todo_mundo_vê` saiu, sem substituto.
+
+### Alterado
+
+- `trem` passa a declarar `let` (na 1.5 era `var`): o escopo agora é o do bloco.
+- `.tamanho()` vira `.o_tanto`, sem parênteses; chamar com parênteses é `GS0603`.
+
 ## [1.5.0] — 2026-05-21 — *Goianês na Web (lançamento)*
 
 Lançamento estável da v1.5 com playground web e API do engoianador. O pacote
@@ -13,10 +44,10 @@ deploy (Vercel + Cloudflare Workers).
 
 ### Adicionado
 
-- `packages/core/src/browser.js` — entry browser-safe que envelopa só
+- `src/browser.js` do pacote principal — entry browser-safe que envelopa só
   `SimpleTranspiler` + `GoianoBuiltins`, sem `loadOptional()` (que confunde
   bundlers).
-- Campo `exports` em `packages/core/package.json` expondo `.` (Node) e
+- Campo `exports` no `package.json` do pacote principal expondo `.` (Node) e
   `./browser` (browser/bundler).
 - `apps/playground/` — Next.js 15 + Monaco Editor, executando GoiásScript no
   navegador via Web Worker isolado com timeout de 3s. Inclui página
@@ -45,7 +76,7 @@ monorepo, preparando terreno para playground web e ENGOIANADOR API.
 
 ### Adicionado
 
-- Layout monorepo com `pnpm workspaces` (`packages/core`, `apps/`, `docs/`)
+- Layout monorepo com `pnpm workspaces` (pacote principal, `apps/`, `docs/`)
 - Documentação de plano em `docs/plano/` (PLANO-RELANCAMENTO, STACK-ZERO-CUSTO, DESIGN-BRIEF)
 - `KEEP-OR-ARCHIVE.md` documentando a triagem v1.5
 - Padrão `loadOptional()` em `compiler.js` para deps opcionais com no-op fallback
@@ -67,7 +98,7 @@ monorepo, preparando terreno para playground web e ENGOIANADOR API.
 - `engines.node`: `>=14.0.0` → `>=18.0.0`
 - ESLint thresholds estilísticos (`no-useless-escape`, `max-len`) `error` → `warn`
 - Coverage threshold 80% → 50% (debt documentado, retorna na Fase 1)
-- Layout monolito → monorepo (`src/` → `packages/core/src/`, etc)
+- Layout monolito → monorepo (`src/` → pasta do pacote principal, etc)
 
 ### Arquivado (preservado em `archive/v2-experimental` + tag `v2.0-pre-archive`)
 
@@ -77,7 +108,7 @@ monorepo, preparando terreno para playground web e ENGOIANADOR API.
 - `src/modules/ModuleResolver.js`
 - `src/packages/PackageManager.js`
 - `src/debug/GoianoDebugger.js` + `GoianoDebugAdapter.js`
-- `lsp-server/` completo
+- servidor LSP completo
 - 6 binários CLI: `gs-balaio`, `gs-fuça`, `gspack`, `gsdebug`, `gs-debug-adapter`, `gsrepl`
 - Templates `goias-web-framework`, `roda-de-prosa`, `projeto-web`
 - Balaios `goiano-http`, `goiano-utils`

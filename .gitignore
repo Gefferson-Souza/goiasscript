@@ -13,8 +13,6 @@ yarn-error.log*
 # === BUILDS E CACHE ===
 dist/
 build/
-out/
-lib/
 .cache/
 .eslintcache
 .parcel-cache/
@@ -37,7 +35,6 @@ temp/
 # === ARQUIVOS DE DESENVOLVIMENTO ===
 debug-report.json
 *.js.map
-./docs
 
 # === CLAUDE CODE LOCAL CONFIG ===
 .claude/
@@ -58,16 +55,12 @@ apps/*/.vercel/
 apps/*/.wrangler/
 apps/playground/public/examples/
 apps/playground/public/vs/
-apps/playground/content/
 
 # === PLAYWRIGHT E2E ===
 apps/playground-e2e/test-results/
 apps/playground-e2e/playwright-report/
 apps/playground-e2e/.last-run.json
 apps/playground-e2e/blob-report/
-# Não ignorar lib/ dentro dos apps (o lib/ raiz acima é pra build output)
-!apps/**/lib/
-!apps/**/lib/**
 
 # === SISTEMA OPERACIONAL ===
 .DS_Store
@@ -79,20 +72,12 @@ ehthumbs.db
 Thumbs.db
 
 # === EDITORES ===
-.vscode/
+.vscode/*
+!.vscode/tasks.json
 .idea/
 *.swp
 *.swo
 *~
-
-# === EXTENSÃO VS CODE ===
-vscode-extension/*.vsix
-vscode-extension/node_modules/
-vscode-extension/out/
-vscode-extension/.vscode-test/
-
-# === LSP SERVER ===
-lsp-server/node_modules/
 
 # === PROJETOS DE TESTE (não devem subir) ===
 /meu-projeto/
@@ -141,13 +126,6 @@ gspack.json
 !examples/**/*.gs
 !templates/
 !balaios/
-!vscode-extension/src/
-!vscode-extension/package.json
-!vscode-extension/README.md
-!vscode-extension/CHANGELOG.md
-!lsp-server/server.js
-!lsp-server/package.json
-!lsp-server/README.md
 research_notes/
 reports/
 
@@ -164,3 +142,11 @@ packages/vscode/pack/
 # === TESTES DA EXTENSÃO DENTRO DO VS CODE ===
 packages/vscode/.integration/
 packages/vscode/.vscode-test/
+
+# === PACOTES DA EXTENSAO ===
+*.vsix
+
+# === EVIDENCIA CONGELADA ===
+!docs/auditoria/**/*.log
+!docs/auditoria/**/package-lock.json
+!docs/auditoria/**/test-results/

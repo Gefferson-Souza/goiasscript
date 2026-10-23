@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Reportar vulnerabilidade
+    url: https://github.com/Gefferson-Souza/goiasscript/security/advisories/new
+    about: Falha de segurança não vai em issue pública. Use o reporte privado do GitHub.

@@ -15,5 +15,5 @@ export function renderReferenceFiles(): readonly GeneratedFile[] {
     '## Palavras-chave', '', '| GoiásScript | JavaScript | Classe | Categoria |', '|---|---|---|---|', ...keywordRows, '',
     '## Biblioteca', '', '| Nome | Receptor | Forma | JS | Semântica |', '|---|---|---|---|---|', ...libraryRows, '',
   ].join('\n');
-  return [{ path: 'packages/language/generated/reference.md', content }];
+  return [{ path: 'docs/spec/referencia.md', content }];
 }

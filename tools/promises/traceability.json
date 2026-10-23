@@ -1,0 +1,248 @@
+[
+  {
+    "promise": "\"Cê escreve uai, faz trem, prosa! Vira JavaScript na hora!\"",
+    "proofs": [
+      {
+        "kind": "test",
+        "path": "packages/compiler/tests/conformance.test.ts",
+        "name": "corpus de conformidade",
+        "runsIn": "verify"
+      }
+    ],
+    "state": "green"
+  },
+  {
+    "promise": "Autocomplete com goianês → JS no editor",
+    "proofs": [
+      {
+        "kind": "test",
+        "path": "apps/playground-e2e/tests/editor-autocomplete.spec.ts",
+        "name": "prosa mostra o equivalente console.log",
+        "runsIn": "ci"
+      },
+      {
+        "kind": "test",
+        "path": "packages/vscode/tests/completion.test.ts",
+        "name": "oferece a palavra goiana com o equivalente em JS e a variante sem acento",
+        "runsIn": "verify"
+      }
+    ],
+    "state": "green"
+  },
+  {
+    "promise": "Tela dividida `.gs` / `.js`",
+    "proofs": [
+      {
+        "kind": "test",
+        "path": "apps/playground-e2e/tests/split-view.spec.ts",
+        "name": "mostra o JS gerado ao lado do editor e troca para o otimizado",
+        "runsIn": "ci"
+      }
+    ],
+    "state": "green"
+  },
+  {
+    "promise": "`goiasscript arma_o_barraco meu-projeto`",
+    "proofs": [
+      {
+        "kind": "test",
+        "path": "packages/cli/tests/e2e/scaffold-steps.e2e.ts",
+        "name": "seguidos à risca, rodam o projeto gerado",
+        "runsIn": "ci"
+      },
+      {
+        "kind": "workflow",
+        "path": ".github/workflows/promises-gate.yml"
+      }
+    ],
+    "state": "green",
+    "covers": [
+      "goiasscript arma_o_barraco"
+    ]
+  },
+  {
+    "promise": "`goiasscript bota_pra_moer main.gs` → \"Bão, sô\"",
+    "proofs": [
+      {
+        "kind": "test",
+        "path": "packages/cli/tests/e2e/scaffold-steps.e2e.ts",
+        "name": "seguidos à risca, rodam o projeto gerado",
+        "runsIn": "ci"
+      },
+      {
+        "kind": "workflow",
+        "path": ".github/workflows/promises-gate.yml"
+      }
+    ],
+    "state": "green",
+    "covers": [
+      "goiasscript bota_pra_moer"
+    ]
+  },
+  {
+    "promise": "Playground: roda no navegador",
+    "proofs": [
+      {
+        "kind": "test",
+        "path": "apps/playground-e2e/tests/run-output.spec.ts",
+        "name": "preserva a ordem entre saída síncrona e assíncrona",
+        "runsIn": "ci"
+      },
+      {
+        "kind": "workflow",
+        "path": ".github/workflows/playground-smoke.yml"
+      }
+    ],
+    "state": "ready",
+    "ownerCommand": "gh workflow run playground-smoke.yml depois do deploy do playground na Vercel",
+    "note": "O smoke do playground depende do deploy feito pelo dono."
+  },
+  {
+    "promise": "Extensão: realce, ícones, snippets",
+    "proofs": [
+      {
+        "kind": "test",
+        "path": "packages/vscode/tests/manifest-assets.test.ts",
+        "name": "cita ícone, configuração, gramática, snippets e ícones de arquivo",
+        "runsIn": "verify"
+      },
+      {
+        "kind": "workflow",
+        "path": ".github/workflows/smoke-extension.yml"
+      }
+    ],
+    "state": "ready",
+    "ownerCommand": "publicar vscode-v3.0.0 (release-vscode.yml) e rodar gh workflow run smoke-extension.yml",
+    "note": "O smoke da extensão instalada depende da publicação feita pelo dono."
+  },
+  {
+    "promise": "Engoianador: texto vira goianês com LLM",
+    "proofs": [
+      {
+        "kind": "workflow",
+        "path": ".github/workflows/engoianador-contract.yml"
+      },
+      {
+        "kind": "workflow",
+        "path": ".github/workflows/engoianador-smoke.yml"
+      },
+      {
+        "kind": "script",
+        "path": "apps/engoianador-api/scripts/contract-check.ts"
+      }
+    ],
+    "state": "ready",
+    "note": "O contrato agendado e o smoke pós-deploy dependem da implantação do Worker pelo dono.",
+    "ownerCommand": "corepack pnpm engoianador:deploy; depois gh workflow run engoianador-contract.yml e gh workflow run engoianador-smoke.yml"
+  },
+  {
+    "promise": "Roda de Prosa: \"Digita goias e vai\"",
+    "proofs": [
+      {
+        "kind": "test",
+        "path": "packages/cli/tests/repl-engine.test.ts",
+        "name": "persiste declarações entre entradas e mostra o eco",
+        "runsIn": "verify"
+      },
+      {
+        "kind": "test",
+        "path": "packages/cli/tests/repl-loop.test.ts",
+        "name": "TAB completa no terminal",
+        "runsIn": "verify"
+      }
+    ],
+    "state": "green",
+    "covers": [
+      "goias"
+    ]
+  },
+  {
+    "promise": "\"N testes\"",
+    "proofs": [
+      {
+        "kind": "workflow",
+        "path": ".github/workflows/ci.yml"
+      }
+    ],
+    "state": "ready",
+    "note": "O número vem do CI no momento da captura do vídeo.",
+    "ownerCommand": "gh workflow run ci.yml e usar o relatório JSON do Vitest anexado à execução como fonte do número"
+  },
+  {
+    "promise": "\"Lexer + parser escritos à mão\"",
+    "proofs": [
+      {
+        "kind": "test",
+        "path": "tools/script-tests/tests/compiler-dependencies.test.ts",
+        "name": "falha se o compilador declarar dependência de runtime",
+        "runsIn": "verify"
+      },
+      {
+        "kind": "workflow",
+        "path": ".github/workflows/promises-gate.yml"
+      }
+    ],
+    "state": "green"
+  },
+  {
+    "promise": "`npm install -g goiasscript` / versão",
+    "proofs": [
+      {
+        "kind": "workflow",
+        "path": ".github/workflows/release.yml"
+      },
+      {
+        "kind": "script",
+        "path": "scripts/release-target.ts"
+      }
+    ],
+    "state": "ready",
+    "note": "O smoke de instalação do latest depende da primeira publicação feita pelo dono.",
+    "covers": [
+      "npm install --global goiasscript"
+    ],
+    "ownerCommand": "git tag v3.0.0 && git push origin v3.0.0, aprovar o stage com 2FA (npm stage approve) e rodar o workflow smoke-release.yml (gh workflow run smoke-release.yml)"
+  },
+  {
+    "promise": "\"MIT, código aberto\"",
+    "proofs": [
+      {
+        "kind": "test",
+        "path": "packages/cli/tests/e2e/pack.e2e.ts",
+        "name": "o tarball traz só o que deve, com README e LICENSE",
+        "runsIn": "ci"
+      }
+    ],
+    "state": "green"
+  },
+  {
+    "promise": "\"O CLI nunca apaga nem sobrescreve o seu `.gs`\"",
+    "proofs": [
+      {
+        "kind": "test",
+        "path": "packages/cli/tests/e2e/name-matrix.e2e.ts",
+        "name": "saída igual à entrada e destino existente são recusados sem tocar no fonte",
+        "runsIn": "ci"
+      }
+    ],
+    "state": "green"
+  },
+  {
+    "promise": "\"A extensão não executa comando a partir do nome do arquivo e respeita o Modo Restrito\"",
+    "proofs": [
+      {
+        "kind": "test",
+        "path": "packages/vscode/tests/integration/hostile-names.test.ts",
+        "name": "não vira comando",
+        "runsIn": "ci"
+      },
+      {
+        "kind": "test",
+        "path": "packages/vscode/tests/manifest.test.ts",
+        "name": "executar o programa só aparece e só roda em workspace confiável de arquivo",
+        "runsIn": "verify"
+      }
+    ],
+    "state": "green"
+  }
+]

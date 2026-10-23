@@ -1,54 +1,30 @@
 ---
-name: Feature Request / Solicitação de Funcionalidade
-about: Sugira uma ideia para o GoiásScript
-title: '[FEATURE] '
+name: Sugestão
+about: Ideia de melhoria que não mexe na linguagem
+title: '[sugestão] '
 labels: 'enhancement'
 assignees: ''
 ---
 
-## 🚀 Funcionalidade Solicitada
+Mudança na linguagem (palavra nova, método da biblioteca, regra de erro) não entra por aqui: use o modelo **RFC**.
 
-Uma descrição clara e concisa da funcionalidade que você gostaria de ver implementada.
+## Qual problema isso resolve
 
-## 🤔 Problema que Resolve
+Conte a dor, não a solução.
 
-Esta funcionalidade está relacionada a um problema? Por favor descreva.
-Ex: Eu fico frustrado quando [...]
+## Como ocê imagina
 
-## 💡 Solução Proposta
+A mudança que resolveria, em poucas linhas.
 
-Uma descrição clara e concisa do que você quer que aconteça.
+## Alternativas que ocê pensou
 
-**Exemplo de como seria a sintaxe:**
-```goiasscript
-// Exemplo de como essa funcionalidade funcionaria
-```
+O que mais daria pra fazer, e por que não.
 
-## 🔀 Alternativas Consideradas
+## Contexto
 
-Uma descrição clara e concisa de qualquer solução alternativa ou funcionalidade que você considerou.
+Links, prints ou exemplos que ajudem.
 
-## 📊 Impacto
+## Antes de enviar
 
-- [ ] Quebra compatibilidade com versões anteriores
-- [ ] Requer mudanças na extensão VS Code
-- [ ] Requer documentação adicional
-- [ ] Impacta performance
-
-## 🎯 Casos de Uso
-
-Descreva alguns casos de uso específicos onde esta funcionalidade seria útil:
-
-1. **Caso de Uso 1**: Quando...
-2. **Caso de Uso 2**: Para...
-3. **Caso de Uso 3**: Durante...
-
-## 📝 Contexto Adicional
-
-Adicione qualquer outro contexto, screenshots ou exemplos sobre a solicitação de funcionalidade aqui.
-
-## ✅ Checklist
-
-- [ ] Eu verifiquei que não existe uma issue similar já aberta
-- [ ] Esta funcionalidade está alinhada com os objetivos do GoiásScript
-- [ ] Eu considerei o impacto nos usuários existentes
+- [ ] procurei uma issue parecida e não achei
+- [ ] conferi que a ideia não está na lista de "fora da v3" do `CONTRIBUTING.md`

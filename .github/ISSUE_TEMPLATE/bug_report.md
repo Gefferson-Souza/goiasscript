@@ -1,58 +1,45 @@
 ---
-name: Bug Report / Relatório de Bug
-about: Crie um report para nos ajudar a melhorar o GoiásScript
-title: '[BUG] '
+name: Bug
+about: Deu ruim? Conta pra nóis o que aconteceu
+title: '[bug] '
 labels: 'bug'
 assignees: ''
 ---
 
-## 🐛 Descrição do Bug
+## O que aconteceu
 
-Uma descrição clara e concisa do que é o bug.
+Descreva o problema em poucas linhas.
 
-## 🔄 Para Reproduzir
+## Programa que reproduz
 
-Passos para reproduzir o comportamento:
+O menor `.gs` que mostra o problema:
 
-1. Execute o comando '...'
-2. Com o código GoiásScript '...'
-3. Veja o erro
-
-**Código GoiásScript que causa o problema:**
 ```goiasscript
-// Cole aqui seu código .gs
+// cole o programa aqui
 ```
 
-## ✅ Comportamento Esperado
+## O que ocê esperava
 
-Uma descrição clara e concisa do que você esperava que acontecesse.
+O que devia acontecer.
 
-## ❌ Comportamento Atual
+## O que aconteceu de verdade
 
-O que realmente aconteceu.
-
-## 📸 Screenshots / Output
-
-Se aplicável, adicione screenshots ou o output do console para ajudar a explicar o problema.
+A saída ou a mensagem de erro, copiada inteira.
 
 ```
-Cole aqui o output do console
+cole a saída aqui
 ```
 
-## 🔧 Ambiente
+## Ambiente
 
-**Desktop:**
-- OS: [ex: Windows 10, Ubuntu 20.04, macOS]
-- Node.js: [ex: v16.14.0]
-- npm: [ex: 8.3.1]
-- GoiásScript: [ex: 1.0.3]
+- Sistema: (Linux, macOS ou Windows)
+- Node: (saída de `node --version`)
+- GoiásScript: (saída de `goiasscript dedo_de_prosa`)
+- pnpm (só se for problema ao desenvolver o repositório): saída de `corepack pnpm --version`
+- Como rodou: (CLI, playground, extensão do VS Code ou biblioteca)
 
-## 📝 Contexto Adicional
+## Antes de enviar
 
-Adicione qualquer outro contexto sobre o problema aqui.
-
-## ✅ Checklist
-
-- [ ] Eu verifiquei que não existe uma issue similar já aberta
-- [ ] Eu testei com a versão mais recente do GoiásScript
-- [ ] Eu incluí um exemplo mínimo que reproduz o problema
+- [ ] procurei uma issue parecida e não achei
+- [ ] testei com a versão mais nova do `goiasscript`
+- [ ] o programa acima é o menor que reproduz o problema

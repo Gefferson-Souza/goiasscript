@@ -1,0 +1,16 @@
+[
+  { "pattern": "Cannot read properties", "scope": "engine", "reason": "frase do motor V8 ao ler propriedade de nulo" },
+  { "pattern": "is not a function", "scope": "engine", "reason": "frase do motor V8 ao chamar o que não é função" },
+  { "pattern": "is not a constructor", "scope": "engine", "reason": "frase do motor V8 ao usar faz_um com o que não é construtor" },
+  { "pattern": "before initialization", "scope": "engine", "reason": "frase do motor V8 ao usar nome antes da declaração" },
+  { "pattern": "Maximum call stack", "scope": "engine", "reason": "frase do motor V8 de pilha estourada" },
+  { "pattern": "Invalid count value", "scope": "engine", "reason": "frase do motor V8 de repetição com contagem inválida" },
+  { "pattern": "toFixed\\(\\)", "scope": "engine", "reason": "frase do motor V8 sobre casas decimais fora da faixa" },
+  { "pattern": "unsettled", "scope": "engine", "reason": "aviso do Node para promessa que nunca termina" },
+  { "pattern": "Warning", "scope": "engine", "reason": "prefixo de aviso do Node impresso em inglês" },
+  { "pattern": "\\b(TypeError|ReferenceError|SyntaxError|RangeError)\\b", "scope": "ui", "reason": "nome de erro do motor que deve virar mensagem em goianês" },
+  { "pattern": "\\b(Uncaught|Unexpected)\\b", "scope": "ui", "reason": "início de mensagem de erro do motor" },
+  { "pattern": "\\bis not defined\\b", "flags": "iu", "scope": "ui", "reason": "frase do motor para nome inexistente" },
+  { "pattern": "\\b(something went wrong|please|try again)\\b", "flags": "iu", "scope": "ui", "reason": "texto de erro genérico em inglês" },
+  { "pattern": "\\b(the|and|failed|cannot|invalid|not found)\\b", "flags": "iu", "scope": "ui", "reason": "palavra comum de mensagem em inglês" }
+]

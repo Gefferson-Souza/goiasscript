@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { afterEach, describe, expect, it } from 'vitest';
 import { findAgentDocProblems } from '../../../scripts/agent-docs.ts';
 
@@ -46,5 +47,24 @@ describe('conferência dos documentos de agentes', () => {
   it('exige CLAUDE.md com menos de 200 linhas', () => {
     expect(problemsFor('linha\n'.repeat(MAX_LINES))).toEqual(['CLAUDE.md: CLAUDE.md precisa ter menos de 200 linhas']);
     expect(problemsFor('linha\n'.repeat(MAX_LINES - 2))).toEqual([]);
+  });
+
+  describe('CLAUDE.md real do repositório', () => {
+    const workspaceRoot = fileURLToPath(new URL('../../../', import.meta.url));
+    const realClaude = fs.readFileSync(path.join(workspaceRoot, CLAUDE_DOC), 'utf8');
+    const workspaceDirs = ['packages', 'apps', 'tools'].flatMap((group) =>
+      fs.readdirSync(path.join(workspaceRoot, group), { withFileTypes: true }).filter((entry) => entry.isDirectory()).map((entry) => `${group}/${entry.name}`),
+    );
+
+    it('não cita legado nem reconstrução', () => {
+      expect(realClaude).not.toMatch(/legado|reconstru|removível|removíveis/i);
+    });
+    it('cita os pacotes do workspace', () => {
+      const missing = workspaceDirs.filter((dir) => !realClaude.includes(`\`${dir}\``));
+      expect(missing).toEqual([]);
+    });
+    it('passa na conferência de caminhos, scripts e pacotes', () => {
+      expect(findAgentDocProblems(workspaceRoot, [CLAUDE_DOC, COPILOT_DOC])).toEqual([]);
+    });
   });
 });

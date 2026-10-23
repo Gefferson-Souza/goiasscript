@@ -1,0 +1,59 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`renderHelp > o --help não muda sem querer (neutro) 1`] = `
+"GoiásScript: linguagem de programação em goianês. (<versão>)
+
+Comandos:
+  goiasscript traduz arquivo.gs [-s saida.mjs] [--otimiza | --minifica] [--sobrescreve] [--json]
+    compila o .gs para JavaScript (.mjs)
+  goiasscript bota_pra_moer arquivo.gs
+    compila e executa o programa
+  goiasscript vê_se_tá_certo arquivo.gs [--json]
+    apenas verifica o programa e lista todos os diagnósticos
+  goiasscript arma_o_barraco nome
+    cria um projeto a partir do modelo
+  goiasscript explica [GS0301]
+    explica um diagnóstico com exemplo e lição
+  goiasscript dedo_de_prosa
+    mostra a versão e informações
+
+Opções:
+  -s, --saida             arquivo de saída
+  --otimiza               otimiza o JavaScript gerado
+  --minifica              minifica o JavaScript gerado
+  --sobrescreve           substitui o arquivo de saída existente
+  --json                  diagnósticos em JSON para ferramentas
+  --tom                   raiz (padrão) ou neutro
+
+  Os comandos também funcionam sem acento, por exemplo "ve_se_ta_certo".
+"
+`;
+
+exports[`renderHelp > o --help não muda sem querer (raiz) 1`] = `
+"GoiásScript: programar em goianês, uai! (<versão>)
+
+Comandos:
+  goiasscript traduz arquivo.gs [-s saida.mjs] [--otimiza | --minifica] [--sobrescreve] [--json]
+    vira o .gs em JavaScript (.mjs)
+  goiasscript bota_pra_moer arquivo.gs
+    traduz e já executa o programa
+  goiasscript vê_se_tá_certo arquivo.gs [--json]
+    só confere o programa e mostra todos os problemas
+  goiasscript arma_o_barraco nome
+    cria um projeto novo a partir do modelo
+  goiasscript explica [GS0301]
+    explica um erro com exemplo e lição
+  goiasscript dedo_de_prosa
+    mostra a versão e umas informações
+
+Opções:
+  -s, --saida             arquivo de saída
+  --otimiza               deixa o JavaScript mais enxuto
+  --minifica              aperta o JavaScript até não caber mais nada
+  --sobrescreve           troca o arquivo de saída que já existe
+  --json                  diagnósticos em JSON pra outras ferramentas
+  --tom                   raiz (padrão) ou neutro
+
+  Dá pra digitar sem acento, tipo "ve_se_ta_certo".
+"
+`;

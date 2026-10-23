@@ -1,7 +1,6 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "ignoreWorkspaces": [
-    "packages/core",
     "apps/playground-e2e"
   ],
   "ignoreExportsUsedInFile": true,
@@ -89,6 +88,15 @@
         "tests/**/*.mjs"
       ]
     },
+    "tools/script-tests": {
+      "entry": [
+        "tests/**/*.test.ts"
+      ],
+      "project": [
+        "tests/**/*.ts",
+        "*.ts"
+      ]
+    },
     "tools/config-tests": {
       "entry": [
         "tests/**/*.test.mjs"
@@ -129,6 +137,7 @@
     }
   },
   "ignore": [
-    "spikes/**"
+    "spikes/**",
+    "docs/**"
   ]
 }

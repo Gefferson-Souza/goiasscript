@@ -1,0 +1,9 @@
+[
+  { "kind": "proper-name", "text": "JavaScript", "reason": "nome próprio da linguagem de destino" },
+  { "kind": "proper-name", "text": "GoiásScript", "reason": "nome próprio da linguagem" },
+  { "kind": "proper-name", "text": "Node.js", "reason": "nome próprio do ambiente de execução" },
+  { "kind": "proper-name", "text": "npm", "reason": "nome próprio do gerenciador de pacotes" },
+  { "kind": "proper-name", "text": "VS Code", "reason": "nome próprio do editor" },
+  { "kind": "quoted-in-diagnostic", "codePrefix": "GS04", "reason": "o trecho entre aspas cita palavra, global ou API do JavaScript escrita pelo usuário" },
+  { "kind": "emitted-code", "source": "diagnostics:example", "reason": "o exemplo de cada diagnóstico é código de programa, não texto de interface" }
+]

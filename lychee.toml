@@ -1,0 +1,9 @@
+# Âncoras e arquivos locais são conferidos em todo PR; o job semanal confere os links externos.
+include_fragments = true
+no_progress = true
+
+# Registros históricos não são publicados e não entram na conferência.
+exclude_path = ['docs/superpowers', 'docs/auditoria', 'docs/pesquisa', 'docs/fase-']
+
+# Endereços de máquina local aparecem nos guias de uso e nunca respondem na CI.
+exclude = ['^https?://(localhost|127\.0\.0\.1)']

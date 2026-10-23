@@ -10,10 +10,14 @@ const scope = loadScope(REPOSITORY_ROOT);
 const relativePaths = (entries) => entries.map((entry) => entry.rel);
 
 describe('descoberta de arquivos do scanner', () => {
-  it('inclui o código novo e separa o legado em excluded', () => {
-    const discovery = discoverFiles(FAKE_ROOT, scope, ['packages/compiler/src/a.ts', 'packages/core/src/a.mjs', 'packages/core/tests/a.ts']);
+  it('nenhum caminho excluído do escopo', () => {
+    expect(scope.excluded).toEqual([]);
+  });
+  it('inclui o código novo e separa o que a lista excluded declara', () => {
+    const withExclusion = { ...scope, excluded: [{ path: 'vendor-fixture', reason: 'teste da mecânica de exclusão' }] };
+    const discovery = discoverFiles(FAKE_ROOT, withExclusion, ['packages/compiler/src/a.ts', 'vendor-fixture/src/a.mjs', 'vendor-fixture/tests/a.ts']);
     expect(relativePaths(discovery.included)).toEqual(['packages/compiler/src/a.ts']);
-    expect(discovery.excluded).toEqual(['packages/core/src/a.mjs', 'packages/core/tests/a.ts']);
+    expect(discovery.excluded).toEqual(['vendor-fixture/src/a.mjs', 'vendor-fixture/tests/a.ts']);
     expect(discovery.unscoped).toEqual([]);
   });
   it('acusa arquivo ts fora do escopo e da lista excluded', () => {
@@ -35,7 +39,7 @@ describe('descoberta de arquivos do scanner', () => {
   });
   it.skipIf(!hasDictionaries)('marca segmento de caminho em português e poupa o resto', () => {
     const findings = pathSegmentFindings(
-      ['packages/compiler/src/buscarUsuario.ts', 'packages/compiler/src/lexer.ts', 'docs/gramatica.md', 'packages/compiler/tests/exemplos/programa.gs', 'packages/core/src/arquivo.js'],
+      ['packages/compiler/src/buscarUsuario.ts', 'packages/compiler/src/lexer.ts', 'docs/gramatica.md', 'packages/compiler/tests/exemplos/programa.gs', 'docs/exemplos/arquivo.js'],
       scope,
       createLexicon(),
     );

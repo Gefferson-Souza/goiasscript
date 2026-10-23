@@ -3,9 +3,12 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { findEnglishHits, loadEnglishRules } from '../../../../scripts/english-ui.ts';
 
 const EXECUTION_TIMEOUT_MS = 10_000;
 const PRELOAD = pathToFileURL(path.join(import.meta.dirname, 'deterministic-preload.mjs')).href;
+const ROOT_DIR = path.resolve(import.meta.dirname, '../../../..');
+const ENGINE_PHRASES = loadEnglishRules(ROOT_DIR).forbidden.filter((entry) => entry.scope === 'engine');
 
 export function executeModule(code: string, stdin: string | null): Promise<string> {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'gs-case-'));
@@ -14,13 +17,19 @@ export function executeModule(code: string, stdin: string | null): Promise<strin
   return new Promise((resolve, reject) => {
     const child = spawn(process.execPath, ['--import', PRELOAD, file], { timeout: EXECUTION_TIMEOUT_MS });
     let stdout = '';
+    let stderr = '';
     child.stdout.on('data', (chunk: Buffer) => {
       stdout += chunk.toString('utf8');
+    });
+    child.stderr.on('data', (chunk: Buffer) => {
+      stderr += chunk.toString('utf8');
     });
     child.on('error', reject);
     child.on('close', () => {
       fs.rmSync(dir, { recursive: true, force: true });
-      resolve(stdout);
+      const leaked = findEnglishHits(`${stdout}\n${stderr}`, ENGINE_PHRASES);
+      if (leaked.length > 0) reject(new Error(`frase em inglês do motor vazou na saída: ${leaked.join(', ')}`));
+      else resolve(stdout);
     });
     child.stdin.end(stdin ?? '');
   });

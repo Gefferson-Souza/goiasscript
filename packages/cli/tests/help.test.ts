@@ -3,6 +3,8 @@ import { renderHelp } from '../src/help/help.ts';
 
 const ENGLISH_WORDS = /\b(usage|options?|commands?|file|version|help|error|run|check|translate)\b/iu;
 
+const VERSION_NUMBER = /\d+\.\d+\.\d+(-[\w.]+)?/gu;
+
 describe('renderHelp', () => {
   it.each(['raiz', 'neutro'] as const)('lista os seis comandos e as opções (%s)', (tone) => {
     const help = renderHelp(tone);
@@ -16,5 +18,8 @@ describe('renderHelp', () => {
   });
   it.each(['raiz', 'neutro'] as const)('não tem palavra em inglês (%s)', (tone) => {
     expect(ENGLISH_WORDS.test(renderHelp(tone))).toBe(false);
+  });
+  it.each(['raiz', 'neutro'] as const)('o --help não muda sem querer (%s)', (tone) => {
+    expect(renderHelp(tone).replace(VERSION_NUMBER, '<versão>')).toMatchSnapshot();
   });
 });
