@@ -24,6 +24,8 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with: { node-version: 24, cache: pnpm }
       - run: pnpm install --frozen-lockfile
+      - name: Recusa cedo tag que não pode sair
+        run: node scripts/release-target.ts
       - run: pnpm run verify
 
   pack:
