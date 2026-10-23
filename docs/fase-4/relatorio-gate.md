@@ -1,8 +1,11 @@
 # Relatório do gate da Fase 4
 
-**Veredito proposto:** pronto para o GATE 4 assim que a CI do `playground-e2e.yml` fechar verde em **Firefox e WebKit**
-(nunca rodaram localmente) e o dono cumprir o checklist da seção 9. A revisão de segurança não deixou CRITICAL nem HIGH
-abertos (seção 5); o MEDIUM achado foi corrigido com teste visto RED antes.
+**Veredito proposto:** **bloqueado**. O GATE 4 só fecha quando três condições forem cumpridas: (1) a revisão de
+segurança independente (agente `everything-claude-code:security-reviewer` em contexto fresco, somente leitura, sem
+CRITICAL/HIGH), que **não foi feita**: a tabela da seção 5 é autorrevisão do executor e não vale como evidência
+independente; (2) a CI do `playground-e2e.yml` verde em **Firefox e WebKit** (nunca rodaram localmente); (3) a decisão
+do dono sobre o teto de 29 KB do ADR-0001, hoje excedido (33.195 B, seção 6). O checklist da seção 9 também precisa ser
+cumprido. Esta unidade (U4-13) fica **não aceita** até a revisão independente e a CI.
 
 Medição: Node v26, Linux, CPU 12th Gen Intel(R) Core(TM) i5-12450H (12 núcleos), Google Chrome 155 do sistema para o
 Chromium do E2E e para a medição de `compile()`. Cobertura e contagens de testes vêm de `corepack pnpm verify` e de
@@ -33,21 +36,22 @@ Os commits não carregam o número da unidade no título; o agrupamento é pelo 
 | Alvo | Linhas | Ramos | Funções |
 | --- | --- | --- | --- |
 | `packages/language` | 100% | 98,00% | 100% |
-| `packages/compiler` | 99,78% | 95,74% | 99,83% |
+| `packages/compiler` | 99,74% | 95,74% | 99,83% |
 | `packages/optimizer` | 100% | 80,00% | 100% |
 | `packages/cli` | 98,00% | 89,38% | 97,57% |
-| `apps/playground` (config + lib + sandbox) | 96,66% | 90,15% | 95,88% |
+| `apps/playground` (config + lib + sandbox) | 96,70% | 90,20% | 95,91% |
 | \- `config` | 92,86% | 88,31% | 96,55% |
 | \- `lib` | 99,30% | 93,86% | 98,41% |
-| \- `sandbox` | 84,21% | 69,05% | 73,33% |
+| \- `sandbox` | 86,15% | 70,45% | 75,00% |
 
-Total: 1.957 testes passando, 7 ignorados, 166 arquivos (mais 1 ignorado); projeto `compiler` rodado à parte: 965
-testes. Instruções 98,32%, ramos 93,68%, funções 98,60%, linhas 98,87% (3947/3992). O piso de 80% vale por pacote e
+Total: 1.960 testes passando, 7 ignorados, 166 arquivos (mais 1 ignorado); projeto `compiler` rodado à parte: 965
+testes. Instruções 98,33% (4778/4859), ramos 93,68% (2805/2994), funções 98,60% (1135/1151), linhas 98,85%
+(3954/4000). O piso de 80% vale por pacote e
 para o conjunto `apps/playground/{config,lib,sandbox}`, e o `verify` sai 0.
 
 Ressalva honesta: medido isoladamente, `sandbox` fica abaixo de 80% em ramos e funções porque `sandbox/runner.ts` (a
 entrada do Worker, 19 linhas) não é carregado pelos testes de unidade e só é exercido pelo E2E de navegador; sem ele,
-`run-program.ts` tem 97,56% de linhas. O critério do gate é o do conjunto, que passa.
+`run-program.ts` tem cobertura alta de linhas. O critério do gate é o do conjunto, que passa.
 
 ## 3. E2E por navegador
 
@@ -103,16 +107,16 @@ independente, que o aceite pede, continua pendente** e deve ser disparada pelo d
 
 | # | Severidade | Onde | Descrição | Disposição |
 | --- | --- | --- | --- | --- |
-| 1 | MEDIUM | `sandbox/run-program.ts` | O coletor de `console` enviava o texto inteiro ao host; o corte nos tetos só vinha depois do clone da mensagem. Um programa que monta uma string de centenas de MB fazia a aba alocar tudo antes do corte (esgotamento de memória do próprio aluno). | **Corrigido** em b0018c2; teste `run-program.test.ts` visto RED (600003 contra 200001). O Worker corta o texto em `maxLogChars + 1`, o bastante para o host detectar o excesso. |
+| 1 | MEDIUM | `sandbox/run-program.ts` | O coletor de `console` enviava o texto inteiro ao host; o corte nos tetos só vinha depois do clone da mensagem. | **Corrigido em parte**: limita o que atravessa o `postMessage`. O Worker corta cada argumento e a junção em `maxLogChars + 1` (bastante para o host detectar o excesso), com testes para argumento único, vários argumentos e objeto grande. A memória do próprio Worker (a string ou o objeto que o programa monta, e o `JSON.stringify` de um objeto) **não** é limitada: risco aceito, contido por `maxRunMs` e pelo botão Parar (seção 8). |
 | 2 | LOW | `config/security-headers.constants.ts` | `script-src 'self' 'unsafe-inline'` na CSP da página (Next injeta scripts inline sem nonce). `unsafe-eval` só existe em `next dev`, nunca no build de produção (coberto por `security-headers.test.ts` e pelo E2E). | Aceito: não há sumidouro de HTML em todo o app (busca sem ocorrências); nonce exigiria renderização dinâmica. Rever se algum dia entrar HTML dinâmico. |
 | 3 | LOW | `/sandbox/runner.js` | O Worker roda na mesma origem da página. A barreira é a CSP do runner mais o mundo fechado do compilador, não a origem. O app só usa `localStorage`, que não existe em Worker, e não usa IndexedDB, Cache API nem `BroadcastChannel`. | Aceito como risco aberto (seção 8); ticket `GS-<n>` para servir o runner de origem separada, número a vir do dono. |
 | 4 | LOW | `app/use-playground.ts` | Abrir um link `#codigo=` grava o código do link no `localStorage`, sobrescrevendo o código salvo do aluno sem perguntar. O link nunca executa; só carrega no editor. | Aceito: perda de rascunho local, sem efeito de segurança; ticket `GS-<n>` para pedir confirmação. |
-| 5 | LOW | `compiler/src/helpers/helper-sources.ts` | O ajudante `pergunta` posta o enunciado inteiro; o host corta em 500 caracteres só depois do clone (mesma classe do achado 1). Fica no compilador (Fase 2), fora do perímetro do app. | Aceito: o teto absoluto de tempo limita o abuso; ticket `GS-<n>` para o compilador. |
+| 5 | LOW | `compiler/src/helpers/helper-sources.ts` | O ajudante `pergunta` posta o enunciado inteiro; o host corta em 500 caracteres só depois do clone (mesma classe do achado 1, no transporte). Fica no compilador (Fase 2), fora do perímetro do app. | Aceito: o teto absoluto de tempo limita o abuso; ticket `GS-<n>` para o compilador. |
 | 6 | LOW | `playground-smoke.yml` | A conferência de `base_url` com `grep` é por linha; um valor com quebra de linha passa pela primeira linha. O script reconfere com `new URL`, exige `https:` e só segue redirecionamento no mesmo host. Quem dispara é o dono. | Aceito: sem efeito prático. |
 | 7 | INFO | `lib/engoianador-client.ts` | A resposta do Engoianador não tem teto de tamanho. A origem é a configurada pelo dono, `credentials: 'omit'`, `redirect: 'error'`, o texto vai para o React como texto (sem HTML). | Aceito. |
 | 8 | INFO | workflows | Permissões `contents: read`, actions pinadas por SHA, `pull_request` (nunca `pull_request_target`), `base_url` passada por variável de ambiente e não interpolada no `run`. | Nenhuma ação. |
 
-Nenhum achado CRITICAL ou HIGH.
+Nenhum CRITICAL/HIGH na autorrevisão do executor; isso **não** substitui a revisão independente exigida pelo gate.
 
 ### 5.2 Checklist do plano e evidência
 
@@ -164,12 +168,16 @@ impede piora.
 
 ## 8. Riscos abertos
 
-- Firefox e WebKit sem execução até a CI rodar.
+- Revisão de segurança independente não feita (bloqueia o GATE 4).
+- Firefox e WebKit sem execução até a CI rodar (bloqueia o GATE 4).
 - Runner na mesma origem da página (achado 3): se a CSP ou o mundo fechado regredirem, o Worker alcança o armazenamento
   da origem. Os dois têm teste (CSP no E2E, mundo fechado nos testes do compilador).
+- A memória do Worker não é limitada por mensagem de log: um programa pode alocar strings ou objetos enormes dentro dele
+  até `maxRunMs` ou Parar (achado 1).
 - O Worker pode consumir CPU até o teto absoluto (`maxRunMs + maxAskWaitMs`) ou até o aluno clicar em Parar, quando
   finge uma pergunta.
-- Teto de 29 KB do ADR-0001 excedido (33.195 B), decisão do dono pendente.
+- Teto de 29 KB do ADR-0001 excedido (33.195 B), pré-condição do GATE 4: exige decisão do dono (decisão 16) ou ADR de
+  emenda antes de fechar a fase; a catraca só impede piora.
 - Nenhum deploy real foi feito: o smoke pós-deploy só roda contra uma URL real (tarefa do dono 8).
 
 ## 9. Rastreabilidade (§11) e checklist do dono
@@ -185,10 +193,12 @@ impede piora.
 1. Enviar a branch ao remoto e anexar aqui o resultado da CI do `playground-e2e.yml` em Chromium, Firefox e WebKit;
    qualquer falha de segurança em Firefox ou WebKit bloqueia a fase.
 2. Cumprir as pendências da Fase 3 que ainda estiverem abertas (CI do tarball em Windows e macOS, Ctrl+C no `goias`,
-   tickets `GS-<n>` dos achados 3 e 4, teto de 29 KB).
+   teto de 29 KB, item 8).
 3. Abrir os tickets `GS-<n>` dos achados 3, 4 e 5 da seção 5.1.
 4. Criar o projeto na Vercel apontando para `apps/playground` (diretório raiz), com as variáveis `NEXT_PUBLIC_*` do
    `.env.example`, e registrar o domínio ou adotar o `.vercel.app`.
 5. Fornecer a chave Pix real e/ou os links do GitHub Sponsors e do Ko-fi, ou deixar as variáveis vazias (a seção some).
 6. Disparar o `playground-smoke.yml` com a URL do deploy e anexar o resultado.
-7. Disparar a revisão de segurança independente (contexto fresco, somente leitura) e anexar a tabela.
+7. Disparar a revisão de segurança independente (`everything-claude-code:security-reviewer`, contexto fresco, somente
+   leitura, perímetro do plano) e anexar a tabela; sem CRITICAL/HIGH abertos.
+8. Decidir o teto de 29 KB do ADR-0001 (decisão 16) ou registrar um ADR de emenda.
