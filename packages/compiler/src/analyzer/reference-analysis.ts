@@ -5,12 +5,15 @@ import { AnalysisBase } from './analysis-base.ts';
 import type { Resolution } from './analyzer.types.ts';
 import { CODES } from './codes.constants.ts';
 import { checkDeclaredMember, checkMemberAccess } from './javascript-checks.ts';
+import { CandidatePool } from './candidate-pool.ts';
 import { LIBRARY_GLOBAL_NAMES, resolveLibraryGlobal } from './library-scope.ts';
 import { checkCallShape, methodAsValueDiagnostic, reservationDiagnostic, reservedEntries } from './library-checks.ts';
 import type { MemberValue } from './library-checks.types.ts';
 import { memberName, propertyKeyName } from './member-census.ts';
 import { unresolvedNameDiagnostic } from './name-checks.ts';
 import type { MemberRole } from './reference-analysis.types.ts';
+
+const LIBRARY_GLOBAL_POOL = CandidatePool.of(LIBRARY_GLOBAL_NAMES);
 
 // Referências a nomes e membros: resolve contra o programa, a sessão e a biblioteca, e aplica as checagens de nome.
 export abstract class ReferenceAnalysis extends AnalysisBase {
@@ -27,15 +30,15 @@ export abstract class ReferenceAnalysis extends AnalysisBase {
     const entry = resolveLibraryGlobal(identifier.name);
     if (entry === undefined) {
       this.resolve(identifier, { kind: 'unresolved' });
-      this.add(unresolvedNameDiagnostic(identifier, this.candidateNames()));
+      this.add(unresolvedNameDiagnostic(identifier, this.candidatePools()));
       return;
     }
     this.resolve(identifier, { kind: 'library', entry });
     if (entry.requiresAsync === true && !this.control.awaitAllowed) this.report(CODES.inputOutsideAsync, identifier.start, identifier.end);
   }
 
-  private candidateNames(): readonly string[] {
-    return [...this.scope.visibleNames(), ...LIBRARY_GLOBAL_NAMES];
+  private candidatePools(): readonly CandidatePool[] {
+    return [...this.scope.suggestionPools(), LIBRARY_GLOBAL_POOL];
   }
 
   protected visitMember(member: MemberExpression, role: MemberRole, argumentCount = 0): void {
