@@ -5,7 +5,8 @@
   "description": "🇧🇷 Playground web do GoiásScript — escreva goianês no navegador",
   "scripts": {
     "predev": "node scripts/copy-monaco.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-examples.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-runner.ts",
-    "prebuild": "node scripts/copy-monaco.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-examples.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-runner.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-public-config.ts",
+    "prebuild": "node scripts/copy-monaco.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-examples.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-runner.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-public-config.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-cartilha.ts --somente-compila",
+    "check:cartilha": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-cartilha.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
@@ -19,7 +20,8 @@
     "monaco-editor": "^0.55.1",
     "next": "^15.5.28",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "yaml": "2.9.1"
   },
   "devDependencies": {
     "@types/node": "^20.19.43",
