@@ -44,7 +44,7 @@ export function hasPendingChangesets(directory: string): boolean {
   }
   return names
     .filter((name) => CHANGESET_FILE.test(name))
-    .some((name) => fs.readFileSync(path.join(directory, name), 'utf8').startsWith(FRONTMATTER_FENCE));
+    .some((name) => fs.readFileSync(path.join(directory, name), 'utf8').trimStart().startsWith(FRONTMATTER_FENCE));
 }
 
 function run(): void {

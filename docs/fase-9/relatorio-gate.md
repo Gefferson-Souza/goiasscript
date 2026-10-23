@@ -126,6 +126,15 @@ O README só afirma o que está provado; a descrição proposta para o campo "Ab
 | 4 Playground | feita | 0 |
 | 5 Extensão | feita | 0 |
 | 7 Worker | feita | 0 |
+| 8 e 9 Docs e relançamento | feita | 0 |
+
+Na revisão das Fases 8 e 9 foram corrigidos: a publicação exige a tag na ponta da `main`
+(antes aceitava qualquer ancestral) e o changeset com BOM ou espaço antes do frontmatter conta como
+pendente. A aprovação humana do `npm-release` depende de configuração do GitHub e entrou no runbook
+(`docs/operacao.md`) e no item 9 da seção 8. Aceitos com motivo: o `npm` pinado instalado no job com OIDC
+(versão fixa), o sha256 do tarball no mesmo artifact (detecta corrupção, não adulteração; a prova é o
+provenance), a rede liberada no sandbox dos blocos (Node 22 e 24 não negam rede; o job não tem segredo
+nem escrita) e o ambiente herdado pelo `video:facts` (ferramenta manual do dono, com saída redigida).
 
 Zero CRITICAL/HIGH técnico aberto. Itens MEDIUM/LOW aceitos ou mitigados estão nos relatórios de cada fase (por
 exemplo, o diagnóstico em tempo real da extensão compila no processo de extensões, com teto de 100.000 caracteres).
@@ -166,7 +175,7 @@ Estado de todas: `pendente do dono`, salvo quando marcado.
 | 6 | Doação | 4 | guarda de configuração | fornecer a chave Pix real e Sponsors, ou deixar as variáveis vazias | seção visível ou ausente de propósito |
 | 7 | Cloudflare e Engoianador | 7 | `wrangler.toml`, Durable Object, `predeploy` | conta, `wrangler login`, KV, `GROQ_API_KEY`, `engoianador:deploy`, aquecer o cache, `ALLOWED_ORIGINS` de produção | `/health` com todos os bindings `true` |
 | 8 | Groq e variáveis no GitHub | 7 | `engoianador-contract.yml`, `engoianador-smoke.yml` | segredo `GROQ_API_KEY`, variável `ENGOIANADOR_URL`, disparar os dois workflows; preencher `NEXT_PUBLIC_ENGOIANADOR_URL` na Vercel | execuções verdes |
-| 9 | Versão estável do npm | 9 | `release.yml`, `release-target.ts`, Changesets, `compat` | aplicar o versionamento do Changesets (3.0.0), criar o trusted publisher imediatamente antes, tag `v3.0.0`, `npm stage approve` com 2FA, validar em até 2 dias | `npm view goiasscript dist-tags` com `latest` em 3.0.0 e provenance |
+| 9 | Versão estável do npm | 9 | `release.yml`, `release-target.ts`, Changesets, `compat` | aplicar o versionamento do Changesets (3.0.0), conferir revisor obrigatório e restrição `v3.*` no ambiente `npm-release`, criar o trusted publisher imediatamente antes, tag `v3.0.0`, `npm stage approve` com 2FA, validar em até 2 dias | `npm view goiasscript dist-tags` com `latest` em 3.0.0 e provenance |
 | 10 | Deprecar a 2.0.0 | 9 | página "o que mudou" | `npm deprecate goiasscript@2.0.0` com a mensagem apontando para a página | aviso na página do pacote |
 | 11 | Extensão | 5, 9 | `release-vscode.yml`, `smoke-extension.yml` | publisher do Marketplace com Entra ID federado, conta Eclipse e namespace do Open VSX, ambientes com revisores, tag `vscode-v3.0.0`, GitHub Release | extensão nos dois marketplaces |
 | 12 | Smokes pós-publicação | 9 | `smoke-release.yml`, `playground-smoke.yml`, `smoke-extension.yml` | disparar e anexar o resultado; atualizar a descrição do repositório com o texto proposto | execuções verdes |
