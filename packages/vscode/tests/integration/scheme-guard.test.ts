@@ -2,7 +2,7 @@ import assert from 'node:assert';
 import childProcess from 'node:child_process';
 import { suite, suiteTeardown, test } from 'mocha';
 import * as vscode from 'vscode';
-import { spyOnChildProcess } from './fixtures.ts';
+import { isCliCall, spyOnChildProcess } from './fixtures.ts';
 import { LANGUAGE_ID, NOT_FILE_MESSAGE, RUN_COMMAND, SAMPLE_PROGRAM, TEST_TIMEOUT_MS, TRANSLATE_COMMAND, VIRTUAL_SCHEME } from './integration.constants.ts';
 import type { ChildCall, ChildProcessModule } from './integration.types.ts';
 import { activateExtension, captureErrorMessages, closeEverything } from './vscode-helpers.ts';
@@ -16,7 +16,7 @@ async function expectRefusal(command: string, open: () => Thenable<vscode.TextDo
   assert.strictEqual(document.languageId, LANGUAGE_ID);
   await vscode.window.showTextDocument(document);
   const calls: ChildCall[] = [];
-  const spy = spyOnChildProcess(childProcess as unknown as ChildProcessModule, calls);
+  const spy = spyOnChildProcess(childProcess as unknown as ChildProcessModule, calls, isCliCall);
   const errors = captureErrorMessages();
   try {
     await vscode.commands.executeCommand(command, ...(target === undefined ? [] : [target]));

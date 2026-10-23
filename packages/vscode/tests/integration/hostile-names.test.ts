@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { suite, suiteTeardown, test } from 'mocha';
 import * as vscode from 'vscode';
-import { isValidOnThisPlatform, makeTempDir, spyOnChildProcess, removeTempDirs } from './fixtures.ts';
+import { isCliCall, isValidOnThisPlatform, makeTempDir, spyOnChildProcess, removeTempDirs } from './fixtures.ts';
 import { END_OF_OPTIONS, HOSTILE_NAMES, PWNED_MARKER, RUN_COMMAND, SAMPLE_PROGRAM, TEST_TIMEOUT_MS, TRANSLATE_COMMAND } from './integration.constants.ts';
 import type { ChildCall, ChildProcessModule } from './integration.types.ts';
 import { closeEverything, openAndRun } from './vscode-helpers.ts';
@@ -22,7 +22,7 @@ suite('nomes hostis', function () {
       const file = path.join(dir, name);
       fs.writeFileSync(file, SAMPLE_PROGRAM);
       const calls: ChildCall[] = [];
-      const spy = spyOnChildProcess(childProcess as unknown as ChildProcessModule, calls);
+      const spy = spyOnChildProcess(childProcess as unknown as ChildProcessModule, calls, isCliCall);
       try {
         await openAndRun(TRANSLATE_COMMAND, file);
         await openAndRun(RUN_COMMAND, file);

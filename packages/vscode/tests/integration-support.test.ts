@@ -1,7 +1,7 @@
 import { EventEmitter } from 'node:events';
 import { describe, expect, it, vi } from 'vitest';
 import fs from 'node:fs';
-import { isValidOnThisPlatform, makeTempDir, removeTempDirs, spyOnChildProcess } from './integration/fixtures.ts';
+import { isCliCall, isValidOnThisPlatform, makeTempDir, removeTempDirs, spyOnChildProcess } from './integration/fixtures.ts';
 import type { ChildCall, ChildProcessModule } from './integration/integration.types.ts';
 import { HOSTILE_NAMES } from './integration/integration.constants.ts';
 import { buildLaunchArgs, buildUserSettings } from './integration/launch-config.ts';
@@ -23,6 +23,25 @@ function createFakeModule(): { readonly module: { execFile: unknown; spawn: unkn
 }
 
 describe('espião de child_process', () => {
+  it('reconhece só a chamada que leva o CLI embutido', () => {
+    expect(isCliCall(['/ext/dist/cli/goiasscript.mjs', 'traduz', '--', '/a.gs'])).toBe(true);
+    expect(isCliCall(['rev-parse', '--show-toplevel'])).toBe(false);
+  });
+
+  it('repassa sem registrar nem esperar a chamada que o filtro descarta', async () => {
+    const { module } = createFakeModule();
+    const { spawn: originalSpawn, execFile: originalExecFile } = module;
+    const calls: ChildCall[] = [];
+    const spy = spyOnChildProcess(module as ChildProcessModule, calls, isCliCall);
+    (module.spawn as (...params: readonly unknown[]) => unknown)('git', ['status'], {});
+    (module.execFile as (...params: readonly unknown[]) => unknown)('git', ['log'], {}, () => undefined);
+    expect(calls).toEqual([]);
+    expect(originalSpawn).toHaveBeenCalledTimes(1);
+    expect(originalExecFile).toHaveBeenCalledTimes(1);
+    await spy.settled();
+    spy.restore();
+  });
+
   it('registra a chamada de execFile e repassa para a função original', () => {
     const { module, pendingCallbacks } = createFakeModule();
     const calls: ChildCall[] = [];

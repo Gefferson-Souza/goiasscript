@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { suite, suiteTeardown, test } from 'mocha';
 import * as vscode from 'vscode';
-import { makeTempDir, spyOnChildProcess, removeTempDirs } from './fixtures.ts';
+import { isCliCall, makeTempDir, spyOnChildProcess, removeTempDirs } from './fixtures.ts';
 import { RUN_COMMAND, SAMPLE_PROGRAM, SCENARIO_ENV, TEST_TIMEOUT_MS, TRANSLATE_COMMAND, UNTRUSTED_MESSAGE } from './integration.constants.ts';
 import type { ChildCall, ChildProcessModule } from './integration.types.ts';
 import { activateExtension, captureErrorMessages, closeEverything, openAndRun } from './vscode-helpers.ts';
@@ -22,7 +22,7 @@ async function runCommand(command: string): Promise<Outcome> {
   const file = path.join(dir, 'programa.gs');
   fs.writeFileSync(file, SAMPLE_PROGRAM);
   const calls: ChildCall[] = [];
-  const spy = spyOnChildProcess(childProcess as unknown as ChildProcessModule, calls);
+  const spy = spyOnChildProcess(childProcess as unknown as ChildProcessModule, calls, isCliCall);
   const errors = captureErrorMessages();
   try {
     await openAndRun(command, file);

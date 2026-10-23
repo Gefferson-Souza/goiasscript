@@ -16,8 +16,10 @@ const marketplaceBody = (versions: readonly string[]): unknown => ({
   results: [{ extensions: [{ versions: versions.map((version) => ({ version })) }] }],
 });
 
+const hostOf = (url: string): string => new URL(url).hostname;
+
 function fakeFetch(marketplace: SmokeResponse, openVsx: SmokeResponse): SmokeFetch {
-  return (url) => Promise.resolve(url.includes(MARKETPLACE_HOST) ? marketplace : openVsx);
+  return (url) => Promise.resolve(hostOf(url) === MARKETPLACE_HOST ? marketplace : openVsx);
 }
 
 describe('runExtensionSmoke', () => {
@@ -47,7 +49,7 @@ describe('runExtensionSmoke', () => {
 
   it('acusa resposta fora do formato e erro de rede sem estourar', async () => {
     const broken: SmokeFetch = (url) =>
-      url.includes(OPEN_VSX_HOST) ? Promise.reject(new Error('sem rede')) : Promise.resolve(reply(200, 'lixo'));
+      hostOf(url) === OPEN_VSX_HOST ? Promise.reject(new Error('sem rede')) : Promise.resolve(reply(200, 'lixo'));
     const failures = await runExtensionSmoke(broken, IDS);
     expect(failures.map((failure) => failure.registry)).toEqual(['marketplace', 'open-vsx']);
     expect(failures[1]?.message).toContain('sem rede');
@@ -57,7 +59,7 @@ describe('runExtensionSmoke', () => {
     const bodies: string[] = [];
     const spy: SmokeFetch = (url, init) => {
       if (init?.body !== undefined) bodies.push(init.body);
-      return Promise.resolve(url.includes(MARKETPLACE_HOST) ? reply(200, marketplaceBody(['0.3.0'])) : reply(200, { version: '0.3.0' }));
+      return Promise.resolve(hostOf(url) === MARKETPLACE_HOST ? reply(200, marketplaceBody(['0.3.0'])) : reply(200, { version: '0.3.0' }));
     };
     await runExtensionSmoke(spy, IDS);
     expect(bodies.join('')).toContain('goiasscript.goiasscript-vscode');

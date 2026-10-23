@@ -17,8 +17,10 @@ describe('diretório de trabalho dos testes no VS Code', () => {
   });
 
   it('prefere a base curta fora do Windows e cai no tmpdir do sistema no Windows', () => {
-    expect(pickBaseDir('darwin', '/tmp')).toBe('/tmp');
-    expect(pickBaseDir('win32', '/tmp')).toBe(os.tmpdir());
+    const shortBase = fs.mkdtempSync(path.join(os.tmpdir(), 'gs-base-'));
+    created.push(shortBase);
+    expect(pickBaseDir('darwin', shortBase)).toBe(shortBase);
+    expect(pickBaseDir('win32', shortBase)).toBe(os.tmpdir());
     expect(pickBaseDir('linux', '/nao/existe')).toBe(os.tmpdir());
   });
 

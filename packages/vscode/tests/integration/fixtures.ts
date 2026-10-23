@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { NTFS_FORBIDDEN_CHARACTERS, TEMP_DIR_PREFIX } from './integration.constants.ts';
+import { CLI_ENTRY_FILE_NAME, NTFS_FORBIDDEN_CHARACTERS, TEMP_DIR_PREFIX } from './integration.constants.ts';
 import type { ChildCall, ChildProcessModule, ChildSpy } from './integration.types.ts';
 
 type AnyFunction = (...params: readonly unknown[]) => unknown;
@@ -52,8 +52,13 @@ function whenChildEnds(child: unknown, onDone: () => void): void {
   emitter.once('error', onDone);
 }
 
+// Extensões embutidas, como a do git, usam o mesmo child_process do host; só a chamada do CLI interessa ao teste.
+export function isCliCall(args: readonly string[]): boolean {
+  return args.some((arg) => arg.endsWith(CLI_ENTRY_FILE_NAME));
+}
+
 // O espião repassa a chamada ao módulo real: o comando precisa rodar de verdade para o teste valer.
-export function spyOnChildProcess(target: ChildProcessModule, calls: ChildCall[]): ChildSpy {
+export function spyOnChildProcess(target: ChildProcessModule, calls: ChildCall[], isRelevant: (args: readonly string[]) => boolean = () => true): ChildSpy {
   const originalExecFile = target.execFile;
   const originalSpawn = target.spawn;
   const pending: Promise<void>[] = [];
@@ -69,12 +74,14 @@ export function spyOnChildProcess(target: ChildProcessModule, calls: ChildCall[]
   };
   Object.assign(target, {
     execFile: (...params: readonly unknown[]) => {
+      if (!isRelevant(stringsOf(params[1]))) return originalExecFile(...params);
       record('execFile', params);
       return originalExecFile(...wrapCallback(params, track()));
     },
     spawn: (...params: readonly unknown[]) => {
-      record('spawn', params);
       const child = originalSpawn(...params);
+      if (!isRelevant(stringsOf(params[1]))) return child;
+      record('spawn', params);
       whenChildEnds(child, track());
       return child;
     },

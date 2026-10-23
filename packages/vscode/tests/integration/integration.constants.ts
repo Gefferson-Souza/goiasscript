@@ -28,3 +28,4 @@ export const SCENARIO_FILES: Readonly<Record<IntegrationScenario, readonly strin
   trusted: ['hostile-names.test.cjs', 'scheme-guard.test.cjs', 'untrusted-workspace.test.cjs', 'diagnostics.test.cjs'],
   untrusted: ['untrusted-workspace.test.cjs'],
 };
+export const CLI_ENTRY_FILE_NAME = 'goiasscript.mjs';
