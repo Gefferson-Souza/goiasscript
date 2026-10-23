@@ -1,6 +1,6 @@
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { pendingBump, replayOkCases, requiredBump, runCompatCheck, runCompatCli } from '../../../scripts/compat-check.ts';
+import { pendingBump, replayOkCases, requiredBump, runCompatCheck, runCompatCli, versionBump } from '../../../scripts/compat-check.ts';
 import { createGitPort, parseChangeset } from '../../../scripts/compat-ports.ts';
 import type { Changeset, CompatDeps, GitPort, VocabularyLock } from '../../../scripts/compat-check.types.ts';
 
@@ -76,6 +76,39 @@ describe('requiredBump', () => {
     const result = requiredBump(lock(), next);
     expect(result.bump).toBe('major');
     expect(result.reasons.join(' ')).toContain('GS0101');
+  });
+});
+
+describe('requiredBump com diagnósticos e depreciações', () => {
+  it('remover diagnóstico error exige major', () => {
+    const result = requiredBump(lock(), lock({ diagnostics: [{ code: 'GS0201', severity: 'warning' }] }));
+    expect(result.bump).toBe('major');
+    expect(result.reasons.join(' ')).toContain('GS0101');
+  });
+
+  it('remover diagnóstico warning exige minor', () => {
+    expect(requiredBump(lock(), lock({ diagnostics: [{ code: 'GS0101', severity: 'error' }] })).bump).toBe('minor');
+  });
+
+  it('marcar ou mudar deprecatedIn exige minor', () => {
+    const next = lock({ reserved: [{ name: 'uai', source: 'keyword', since: '3.0.0', deprecatedIn: '3.2.0' }, { name: 'trem', source: 'keyword', since: '3.0.0' }] });
+    const result = requiredBump(lock(), next);
+    expect(result.bump).toBe('minor');
+    expect(result.reasons.join(' ')).toContain('uai');
+  });
+});
+
+describe('versionBump', () => {
+  it.each([
+    ['v3.0.0', '3.0.1', 'patch'],
+    ['v3.0.4', '3.1.0', 'minor'],
+    ['v3.2.0', '4.0.0', 'major'],
+    ['v3.1.0', '3.1.0', 'none'],
+    ['v3.1.2', '3.1.1', 'none'],
+    ['v3.1.0', '3.0.0-alpha.0', 'none'],
+    ['v3.1.0', null, 'none'],
+  ] as const)('de %s para %s dá %s', (tag, version, expected) => {
+    expect(versionBump(tag, version)).toBe(expected);
   });
 });
 
@@ -163,6 +196,18 @@ describe('runCompatCheck', () => {
     expect(result.ok).toBe(false);
     expect(result.failures.join(' ')).toContain('c1');
     expect((await runCompatCheck({ ...failing, changesets: [changeset('major')] })).ok).toBe(true);
+  });
+
+  it('PR de versionamento sem changeset passa quando o manifesto já subiu o bump exigido', async () => {
+    const currentLock = lock({ reserved: [] });
+    expect((await runCompatCheck(deps({ currentLock, manifestVersion: '4.0.0' }))).ok).toBe(true);
+    const minorLock = lock({ diagnostics: [...lock().diagnostics, { code: 'GS0202', severity: 'warning' }] });
+    expect((await runCompatCheck(deps({ currentLock: minorLock, manifestVersion: '3.1.0' }))).ok).toBe(true);
+  });
+
+  it('PR de versionamento com versão insuficiente ainda falha', async () => {
+    const result = await runCompatCheck(deps({ currentLock: lock({ reserved: [] }), manifestVersion: '3.1.0' }));
+    expect(result.ok).toBe(false);
   });
 
   it('tag anterior sem o arquivo de vocabulário avisa e passa', async () => {
