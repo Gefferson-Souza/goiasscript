@@ -45,12 +45,11 @@ test.describe('Editor — diagnósticos ao vivo', () => {
     await playground.open();
 
     await playground.typeProgram(UNDEFINED_NAME_PROGRAM);
-    await expect.poll(async () => (await readModelMarkers(page)).length).toBe(1);
 
-    const [marker] = await readModelMarkers(page);
-    expect(marker?.startLineNumber).toBe(1);
-    expect(marker?.startColumn).toBe(UNDEFINED_NAME_START);
-    expect(marker?.endColumn).toBe(UNDEFINED_NAME_END);
+    // Esperar só a contagem aceitaria o marcador do exemplo carregado, que no WebKit ainda está lá.
+    await expect
+      .poll(async () => (await readModelMarkers(page)).map(({ startLineNumber, startColumn, endColumn }) => ({ startLineNumber, startColumn, endColumn })))
+      .toEqual([{ startLineNumber: 1, startColumn: UNDEFINED_NAME_START, endColumn: UNDEFINED_NAME_END }]);
   });
 
   for (const { title, text, startColumn } of COLUMN_CASES) {
