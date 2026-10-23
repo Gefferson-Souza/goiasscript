@@ -31,6 +31,7 @@ export default defineConfig({
     { name: 'firefox', use: { ...devices['Desktop Firefox'] }, testIgnore: [...CHROMIUM_ONLY_SPECS] },
     { name: 'webkit', use: { ...devices['Desktop Safari'] }, testIgnore: [...CHROMIUM_ONLY_SPECS] },
   ],
+  // O Playwright sobe um webServer por vez e só segue quando a URL responde; o build do segundo não corre com o do primeiro.
   webServer: [
     {
       command: BUILD_AND_START,

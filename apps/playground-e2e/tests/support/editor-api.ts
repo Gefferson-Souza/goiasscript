@@ -9,6 +9,9 @@ interface MonacoGlobal {
 export async function readModelMarkers(page: Page): Promise<readonly ModelMarker[]> {
   return page.evaluate(() => {
     const monaco = (window as unknown as { monaco?: MonacoGlobal }).monaco;
-    return monaco === undefined ? [] : monaco.editor.getModelMarkers({});
+    if (monaco === undefined) {
+      throw new Error('window.monaco não existe: o carregador do Monaco mudou e os marcadores não dá pra ler.');
+    }
+    return monaco.editor.getModelMarkers({});
   });
 }
