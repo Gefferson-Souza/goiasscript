@@ -3,6 +3,8 @@ import { ERROR_COPY } from '../lib/error-pages.constants.ts';
 export const STATUS_OK = 200;
 export const STATUS_NOT_FOUND = 404;
 export const MAX_REDIRECTS = 3;
+export const REQUEST_TIMEOUT_MS = 10_000;
+export const MAX_BODY_BYTES = 65_536;
 export const REDIRECT_STATUS_MIN = 300;
 export const REDIRECT_STATUS_MAX = 399;
 export const MISSING_ROUTE = '/rota-que-nao-existe';

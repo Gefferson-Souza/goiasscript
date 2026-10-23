@@ -6,6 +6,7 @@ export interface SmokeFailure {
 export interface SmokeCheck {
   readonly path: string;
   readonly expectedStatus: number;
+  readonly needsBody?: boolean;
   readonly inspect: (response: Response, body: string) => readonly string[];
 }
 
