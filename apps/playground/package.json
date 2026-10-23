@@ -4,8 +4,8 @@
   "private": true,
   "description": "🇧🇷 Playground web do GoiásScript — escreva goianês no navegador",
   "scripts": {
-    "predev": "node scripts/copy-examples.mjs",
-    "prebuild": "node scripts/copy-examples.mjs",
+    "predev": "node scripts/copy-examples.mjs && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-runner.ts",
+    "prebuild": "node scripts/copy-examples.mjs && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-runner.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
@@ -27,6 +27,7 @@
     "@types/react": "^18.3.31",
     "@types/react-dom": "^18.3.7",
     "autoprefixer": "^10.6.1",
+    "esbuild": "0.28.2",
     "postcss": "^8.5.31",
     "tailwindcss": "^3.4.19",
     "typescript": "6.0.3"

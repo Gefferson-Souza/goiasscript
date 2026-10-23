@@ -152,3 +152,6 @@ reports/
 # === MUTAÇÃO ===
 .stryker-tmp/
 packages/compiler/reports/
+
+# Runner do sandbox gerado pelo build
+apps/playground/public/sandbox/
