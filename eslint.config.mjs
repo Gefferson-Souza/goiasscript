@@ -36,6 +36,17 @@ const CLI_SRC_FILES = ['packages/cli/src/**/*.ts'];
 const CLI_ENTRY_FILES = ['packages/cli/src/entry/**/*.ts'];
 const PROCESS_MESSAGE = 'O processo só aparece em src/entry; o resto recebe E/S injetada.';
 
+const VSCODE_SRC_FILES = ['packages/vscode/src/**/*.ts'];
+const VSCODE_HOST_FILES = ['packages/vscode/src/host/**/*.ts', 'packages/vscode/src/extension.ts'];
+const VSCODE_IMPORT_MESSAGE = 'A API do VS Code só entra por src/host e src/extension.ts; o resto recebe o host injetado.';
+const SHELL_MESSAGE = 'Sem shell: use execFile com lista de argumentos, e o nome do arquivo como um único elemento depois de --.';
+const shellSelectors = [
+  { selector: "Property[key.name='shell']:not([value.value=false])", message: SHELL_MESSAGE },
+  { selector: "ImportSpecifier[imported.name=/^(exec|execSync)$/]", message: SHELL_MESSAGE },
+  { selector: "ImportDeclaration[source.value=/^(node:)?child_process$/] > :matches(ImportNamespaceSpecifier, ImportDefaultSpecifier)", message: SHELL_MESSAGE },
+  { selector: "CallExpression[callee.property.name='sendText']", message: 'Terminal.sendText não: o programa roda num terminal de pseudo-terminal ligado ao processo filho.' },
+];
+
 const typeDeclarationSelectors = [
   { selector: 'ExportNamedDeclaration > TSInterfaceDeclaration', message: 'Interface exportada vive em arquivo *.types.ts.' },
   { selector: 'ExportNamedDeclaration > TSTypeAliasDeclaration', message: 'Tipo exportado vive em arquivo *.types.ts.' },
@@ -95,6 +106,14 @@ export function createConfig(projectService = true) {
         'functional/immutable-data': ['error', { ignoreAccessorPattern: 'process.**' }],
       },
     },
+    {
+      files: VSCODE_SRC_FILES,
+      rules: {
+        'no-restricted-imports': ['error', { paths: [{ name: 'vscode', message: VSCODE_IMPORT_MESSAGE }] }],
+        'no-restricted-syntax': ['error', ...typeDeclarationSelectors, swallowedCatchSelector, ...shellSelectors],
+      },
+    },
+    { files: VSCODE_HOST_FILES, rules: { 'no-restricted-imports': 'off', 'functional/immutable-data': 'off' } },
     { files: ['apps/playground/scripts/check-public-config.ts', 'apps/playground/scripts/run-smoke-playground.ts'], rules: { 'functional/immutable-data': ['error', { ignoreAccessorPattern: 'process.**' }] } },
     {
       files: APP_REACT_FILES,

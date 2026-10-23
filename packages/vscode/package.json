@@ -1,0 +1,151 @@
+{
+  "name": "goiasscript-vscode",
+  "displayName": "GoiásScript",
+  "description": "Linguagem goiana no VS Code: o editor fica de olho nos erros, dá a dica e bota o programa pra moer, sô.",
+  "version": "0.3.0",
+  "publisher": "goiasscript",
+  "license": "MIT",
+  "type": "module",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gefferson-Souza/goiasscript.git"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "main": "./dist/extension.cjs",
+  "activationEvents": [
+    "onLanguage:goiasscript"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "Em pasta não confiável o GoiásScript só traduz e mostra os erros; bota_pra_moer fica desligado, porque executa o programa."
+    }
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "goiasscript",
+        "aliases": [
+          "GoiásScript",
+          "goiasscript"
+        ],
+        "extensions": [
+          ".gs"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./assets/icons/goiasscript-file.svg",
+          "dark": "./assets/icons/goiasscript-file.svg"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "goiasscript",
+        "scopeName": "source.goiasscript",
+        "path": "./syntaxes/goiasscript.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "goiasscript",
+        "path": "./snippets/goiasscript.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "goiasscript.translate",
+        "title": "GoiásScript: Traduz"
+      },
+      {
+        "command": "goiasscript.run",
+        "title": "GoiásScript: Bota pra moer"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "goiasscript.translate",
+          "when": "editorLangId == goiasscript && resourceScheme == file"
+        },
+        {
+          "command": "goiasscript.run",
+          "when": "editorLangId == goiasscript && resourceScheme == file && isWorkspaceTrusted"
+        }
+      ],
+      "editor/title/run": [
+        {
+          "command": "goiasscript.run",
+          "when": "resourceLangId == goiasscript && resourceScheme == file && isWorkspaceTrusted",
+          "group": "navigation@1"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "goiasscript.translate",
+          "when": "resourceExtname == .gs && resourceScheme == file",
+          "group": "goiasscript@1"
+        },
+        {
+          "command": "goiasscript.run",
+          "when": "resourceExtname == .gs && resourceScheme == file && isWorkspaceTrusted",
+          "group": "goiasscript@2"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "goiasscript.run",
+        "key": "ctrl+alt+g",
+        "mac": "cmd+alt+g",
+        "when": "editorLangId == goiasscript && resourceScheme == file && isWorkspaceTrusted"
+      }
+    ],
+    "configuration": {
+      "title": "GoiásScript",
+      "properties": {
+        "goiasscript.tone": {
+          "type": "string",
+          "enum": [
+            "raiz",
+            "neutro"
+          ],
+          "enumDescriptions": [
+            "Fala goianês raiz nas mensagens.",
+            "Fala mais sem sotaque nas mensagens."
+          ],
+          "default": "raiz",
+          "description": "Jeito de falar das mensagens de erro e dos avisos."
+        },
+        "goiasscript.diagnosticsDelayMs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5000,
+          "default": 300,
+          "description": "Quanto o editor espera, em milissegundos, depois que ocê para de digitar pra conferir os erros."
+        },
+        "goiasscript.lessonBaseUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "default": null,
+          "description": "Endereço https da cartilha. Quando preenchido, cada erro ganha um link pra lição dele."
+        }
+      }
+    }
+  },
+  "devDependencies": {
+    "@goiasscript/compiler": "workspace:*",
+    "@goiasscript/language": "workspace:*",
+    "@types/vscode": "1.90.0",
+    "@vscode/vsce": "4.0.0"
+  }
+}

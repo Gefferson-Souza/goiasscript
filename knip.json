@@ -66,6 +66,19 @@
         "tests/**/*.ts"
       ]
     },
+    "packages/vscode": {
+      "entry": [
+        "src/extension.ts",
+        "tests/**/*.test.ts"
+      ],
+      "project": [
+        "src/**/*.ts",
+        "tests/**/*.ts"
+      ],
+      "ignoreDependencies": [
+        "@vscode/vsce"
+      ]
+    },
     "tools/rules-scan": {
       "entry": [
         "tests/**/*.test.mjs"
