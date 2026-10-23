@@ -148,10 +148,11 @@ describe('runSummarizePilot com arquivos fora do padrão', () => {
     for (const [name, content] of Object.entries(files)) writeFileSync(join(dir, name), content);
     return dir;
   }
-  const valid = JSON.stringify(answer('A1', FIRST_FIVE));
+  const valid = JSON.stringify(answer('A2', FIRST_FIVE));
 
+  // A2.json é o arquivo válido: A1.json colidiria com a1.json em sistemas de arquivos sem distinção de caixa.
   it.each(['a1.json', 'A10.json', 'A1.JSON', 'A1.json.bak', 'notas.txt', 'maria.json'])('recusa o arquivo %s em respostas', (name) => {
-    const result = run(dirWith({ 'A1.json': valid, [name]: valid }));
+    const result = run(dirWith({ 'A2.json': valid, [name]: valid }));
     expect(result.code).toBe(1);
     expect(result.err).toContain(name);
   });
