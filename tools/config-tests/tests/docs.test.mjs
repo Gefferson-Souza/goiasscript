@@ -167,8 +167,9 @@ describe('docs/operacao.md', () => {
     'Rodar contrato e smoke',
   ];
   const WORKSPACE_ROOTS = ['apps', 'packages', 'tools'];
-  const PNPM_COMMAND = /\bpnpm((?:\s+--filter\s+\S+)?)\s+(?:run\s+)?([a-z][\w:-]*)/gu;
+  const PNPM_COMMAND = /\bpnpm((?:\s+--filter\s+\S+)?)\s+(run\s+)?([a-z][\w:-]*)/gu;
   const PNPM_NON_SCRIPTS = new Set(['exec', 'install', 'add', 'dlx', 'audit']);
+  const PNPM_NATIVE_COMMANDS = new Set(['deploy', 'publish', 'pack', 'link', 'update', 'remove', 'rebuild', 'prune', 'fetch', 'patch', 'stage']);
   const WORKFLOW_FILE = /\.github\/workflows\/([\w.-]+\.yml)/gu;
   const FILE_REFERENCE = /`((?:apps|packages|scripts|tools|docs)\/[\w./-]+\.(?:ts|mjs|toml|md|json))`/gu;
 
@@ -191,14 +192,35 @@ describe('docs/operacao.md', () => {
 
   it('todo script pnpm citado existe no package.json', () => {
     const missing = [...operation.matchAll(PNPM_COMMAND)]
-      .filter(([, , script]) => !PNPM_NON_SCRIPTS.has(script))
-      .filter(([, filter, script]) => {
+      .filter(([, , , script]) => !PNPM_NON_SCRIPTS.has(script))
+      .filter(([, filter, , script]) => {
         const packageName = filter.trim().split(/\s+/u)[1];
         const scripts = packageName === undefined ? rootScripts : scriptsByPackageName.get(packageName);
         return scripts?.[script] === undefined;
       })
       .map(([command]) => command);
     expect(missing).toEqual([]);
+  });
+
+  it('comando nativo do pnpm só aparece com run, para executar o script do pacote', () => {
+    const shadowed = [...operation.matchAll(PNPM_COMMAND)]
+      .filter(([, , runKeyword, script]) => runKeyword === undefined && PNPM_NATIVE_COMMANDS.has(script))
+      .map(([command]) => command);
+    expect(shadowed).toEqual([]);
+  });
+
+  it('scripts da raiz não chamam comando nativo do pnpm sem run', () => {
+    const shadowed = Object.entries(rootScripts)
+      .filter(([, body]) => [...body.matchAll(PNPM_COMMAND)].some(([, , runKeyword, script]) => runKeyword === undefined && PNPM_NATIVE_COMMANDS.has(script)))
+      .map(([name]) => name);
+    expect(shadowed).toEqual([]);
+  });
+
+  it('deixa claro que o stage do npm precisa de aprovação manual com 2FA', () => {
+    const release = sectionBody(operation, 'Deprecar versão e mexer nas dist-tags') + sectionBody(operation, 'Recriar o trusted publisher expirado');
+    expect(release).toContain('npm stage approve');
+    expect(release).toMatch(/2FA/u);
+    expect(release).toMatch(/latest/u);
   });
 
   it('cita ao menos um script pnpm', () => {
