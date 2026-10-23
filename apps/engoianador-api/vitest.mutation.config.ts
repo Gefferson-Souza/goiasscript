@@ -6,6 +6,6 @@ export default defineConfig({
     name: 'engoianador-api-mutation',
     environment: 'node',
     include: ['test/**/*.test.ts'],
-    exclude: ['test/check-worker-config.test.ts', 'test/verify-model.test.ts'],
+    exclude: ['test/check-worker-config.test.ts', 'test/verify-model.test.ts', 'test/warm-cache-cli.test.ts'],
   },
 });

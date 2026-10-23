@@ -133,6 +133,19 @@ describe('createHandler', () => {
     expect(cache.get).toHaveBeenCalledTimes(LOOKUP_MAX_PER_WINDOW);
   });
 
+  it('rajada de acertos de cache girando endereços do mesmo /64 também leva 429', async () => {
+    const { deps, cache } = makeDoubles();
+    cache.get.mockResolvedValue('do cache, sô');
+    const handler = createHandler(deps);
+    const send = (suffix: number): Promise<Response> => {
+      const request = jsonRequest('{"text":"oi"}');
+      request.headers.set('cf-connecting-ip', `2001:db8:1:2::${suffix.toString(16)}`);
+      return handler(request, makeEnv());
+    };
+    for (let index = 0; index < LOOKUP_MAX_PER_WINDOW; index += 1) expect((await send(index + 1)).status).toBe(200);
+    expect((await send(LOOKUP_MAX_PER_WINDOW + 1)).status).toBe(429);
+  });
+
   it('erro do cache vira acerto perdido e a requisição segue', async () => {
     const { deps, cache, providers } = makeDoubles();
     cache.get.mockRejectedValueOnce(new Error('kv fora'));

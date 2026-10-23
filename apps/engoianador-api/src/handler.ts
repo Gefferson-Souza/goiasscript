@@ -6,6 +6,7 @@ import { createLookupGuard } from './lookup-guard';
 import type { LookupGuard } from './lookup-guard.types';
 import { MESSAGES } from './messages.constants';
 import type { QuotaDecision } from './ports.types';
+import { networkKeyOf } from './quota/network-key';
 import { ERROR_FIELD, RESPONSE_TEXT_FIELD, STATUS_PAYLOAD } from './responses.constants';
 import { parseEngoianarRequest } from './validation';
 
@@ -73,8 +74,9 @@ async function engoiana(request: Request, deps: HandlerDeps, reply: Reply, guard
   if (!parsed.ok) return reply({ [ERROR_FIELD]: parsed.error }, parsed.status);
 
   // O cf-connecting-ip vem da Cloudflare e não dá para forjar; x-forwarded-for o cliente controla.
+  // O guarda agrupa IPv6 pelo /64, como a cota: girar endereço do bloco não abre janela nova.
   const networkKey = request.headers.get('cf-connecting-ip') ?? ANONYMOUS_KEY;
-  const lookup = guard.check(networkKey, Date.now());
+  const lookup = guard.check(networkKeyOf(networkKey), Date.now());
   if (!lookup.allowed) {
     return reply({ [ERROR_FIELD]: MESSAGES.tooFast }, HTTP_STATUS.tooManyRequests, { 'Retry-After': String(lookup.retryAfterSec) });
   }
