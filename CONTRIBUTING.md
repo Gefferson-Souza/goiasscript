@@ -9,7 +9,7 @@ Precisa de Node 22.22.1 ou mais novo (o pacote publicado aceita 22.12, mas as fe
 versão maior). O `pnpm` vem pelo Corepack, então use sempre `corepack pnpm`.
 
 ```bash
-git clone https://github.com/SEU_USUARIO/goiasscript.git
+git clone https://github.com/Gefferson-Souza/goiasscript.git
 cd goiasscript
 corepack pnpm install
 corepack pnpm verify

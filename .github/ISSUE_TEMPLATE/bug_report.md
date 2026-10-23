@@ -34,7 +34,7 @@ cole a saída aqui
 
 - Sistema: (Linux, macOS ou Windows)
 - Node: (saída de `node --version`)
-- GoiásScript: (saída de `goiasscript --version`)
+- GoiásScript: (saída de `goiasscript dedo_de_prosa`)
 - pnpm (só se for problema ao desenvolver o repositório): saída de `corepack pnpm --version`
 - Como rodou: (CLI, playground, extensão do VS Code ou biblioteca)
 
