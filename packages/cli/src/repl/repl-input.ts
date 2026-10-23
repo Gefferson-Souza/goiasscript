@@ -1,5 +1,6 @@
 import { toPrintable } from '../args/printable-text.ts';
 import { appendLine, bufferSource, EMPTY_LINE_BUFFER, isBufferEmpty } from './line-buffer.ts';
+import { HISTORY_LIMIT } from './repl.constants.ts';
 import type { ReplCommandId } from './repl-commands.types.ts';
 import { parseReplCommand } from './repl-commands.ts';
 import { formatBindings, formatHistory } from './repl-listing.ts';
@@ -36,7 +37,7 @@ export function createReplInput(deps: ReplInputDeps): ReplInput {
     const result = await pending;
     if (result.kind === 'incomplete') return;
     buffer = EMPTY_LINE_BUFFER;
-    if (isAccepted(result)) history = [...history, source];
+    if (isAccepted(result)) history = [...history.slice(1 - HISTORY_LIMIT), source];
     reportEvaluation(io, tone, result, source);
   };
 
