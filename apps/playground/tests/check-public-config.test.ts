@@ -99,6 +99,40 @@ describe('checkDonationLinksOnline', () => {
     expect(calls[0]?.init?.signal).toBeInstanceOf(AbortSignal);
   });
 
+  it.each([403, 405])('HEAD com %i é repetido como GET de 1 byte e passa se o GET der 2xx', async (headStatus) => {
+    const calls: { init: RequestInit | undefined }[] = [];
+    const fetchFn = (_url: string | URL | Request, init?: RequestInit): Promise<Response> => {
+      calls.push({ init });
+      return Promise.resolve(new Response(null, { status: init?.method === 'HEAD' ? headStatus : 206 }));
+    };
+    expect(await checkDonationLinksOnline(links, fetchFn)).toEqual([]);
+    const retry = calls.find((call) => call.init?.method === 'GET');
+    expect(new Headers(retry?.init?.headers).get('range')).toBe('bytes=0-0');
+    expect(retry?.init?.redirect).toBe('manual');
+    expect(retry?.init?.signal).toBeInstanceOf(AbortSignal);
+  });
+
+  it('manda User-Agent identificável em HEAD e GET', async () => {
+    const agents: (string | null)[] = [];
+    const fetchFn = (_url: string | URL | Request, init?: RequestInit): Promise<Response> => {
+      agents.push(new Headers(init?.headers).get('user-agent'));
+      return Promise.resolve(new Response(null, { status: init?.method === 'HEAD' ? 405 : 200 }));
+    };
+    await checkDonationLinksOnline(links.slice(0, 1), fetchFn);
+    expect(agents).toHaveLength(2);
+    expect(agents.every((agent) => agent?.startsWith('goiasscript-link-check'))).toBe(true);
+  });
+
+  it('403 no HEAD e 403 no GET continua sendo falha', async () => {
+    expect(await checkDonationLinksOnline(links, respond(403))).toHaveLength(2);
+  });
+
+  it('GET que cai na rede depois do HEAD 405 vira falha', async () => {
+    const fetchFn = (_url: string | URL | Request, init?: RequestInit): Promise<Response> =>
+      init?.method === 'HEAD' ? Promise.resolve(new Response(null, { status: 405 })) : Promise.reject(new Error('rede'));
+    expect(await checkDonationLinksOnline(links, fetchFn)).toHaveLength(2);
+  });
+
   it('404 e 500 viram falha com o nome do link, sem a URL', async () => {
     const failures = await checkDonationLinksOnline(links, respond(404));
     expect(failures).toHaveLength(2);
