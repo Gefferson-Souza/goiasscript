@@ -104,7 +104,9 @@ describe('porta de entrada da comunidade', () => {
   const PLANNING_REFERENCE = /Discussions|PLANO-RELANCAMENTO|docs\/plano|superpowers|KEEP-OR-ARCHIVE/u;
   const ENTRY_DOCS = ['CONTRIBUTING.md', 'README.md', 'SECURITY.md', 'CODE_OF_CONDUCT.md'];
   const TEMPLATES = ['bug_report.md', 'feature_request.md', 'rfc.md'].map((name) => `.github/ISSUE_TEMPLATE/${name}`);
-  const PNPM_BUILTINS = new Set(['install', 'exec', 'dlx', 'add', 'run']);
+  const PNPM_BUILTINS = new Set(['install', 'exec', 'dlx', 'add']);
+  const COMMAND_NAME = /^\s+(?:id: '[^']+', )?name: '([^']+)'(?:, asciiName: '([^']+)')?/gmu;
+  const cliCommands = new Set([...readDoc('packages/cli/src/args/commands.data.ts').matchAll(COMMAND_NAME)].flatMap((match) => [match[1], match[2]].filter(Boolean)));
   const scripts = new Set(Object.keys(JSON.parse(readDoc('package.json')).scripts));
 
   it('CONTRIBUTING não cita Discussions nem planejamento', () => {
@@ -119,13 +121,19 @@ describe('porta de entrada da comunidade', () => {
   });
 
   it('todo script pnpm citado em CONTRIBUTING e README existe no package.json', () => {
-    const cited = ['CONTRIBUTING.md', 'README.md'].flatMap((file) => [...readDoc(file).matchAll(/corepack pnpm ([a-z][\w:-]*)/gu)].map((match) => match[1]));
+    const cited = [...ENTRY_DOCS, ...TEMPLATES].flatMap((file) => [...readDoc(file).matchAll(/corepack pnpm (?:run\s+)?([a-z][\w:-]*)/gu)].map((match) => match[1]));
     expect(cited.length).toBeGreaterThan(0);
     expect(cited.filter((name) => !scripts.has(name) && !PNPM_BUILTINS.has(name))).toEqual([]);
   });
 
+  it('todo comando goiasscript citado em código inline existe no CLI', () => {
+    const cited = [...ENTRY_DOCS, ...TEMPLATES].flatMap((file) => [...readDoc(file).matchAll(/(?<!`)`goiasscript[ \t]+([^\s`]+)[^`\n]*`(?!`)/gu)].map((match) => match[1]));
+    expect(cited.length).toBeGreaterThan(0);
+    expect(cited.filter((name) => !cliCommands.has(name))).toEqual([]);
+  });
+
   it('SECURITY e CODE_OF_CONDUCT não têm e-mail e apontam o reporte privado do GitHub', () => {
-    for (const file of ENTRY_DOCS) expect(readDoc(file)).not.toMatch(EMAIL);
+    for (const file of [...ENTRY_DOCS, ...TEMPLATES]) expect(readDoc(file)).not.toMatch(EMAIL);
     expect(readDoc('SECURITY.md')).toMatch(/reporte privado/u);
     expect(readDoc('CODE_OF_CONDUCT.md')).toMatch(/perfil/u);
   });
