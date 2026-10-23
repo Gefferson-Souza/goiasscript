@@ -24,15 +24,6 @@
     "apps/playground-e2e/tests/engoianador.spec.ts": {
       "R14": 1
     },
-    "apps/playground-e2e/tests/examples.spec.ts": {
-      "R07": 1,
-      "R14": 2
-    },
-    "apps/playground-e2e/tests/security.spec.ts": {
-      "R07": 2,
-      "R12": 1,
-      "R14": 1
-    },
     "apps/playground/tailwind.config.ts": {
       "R14": 7
     }

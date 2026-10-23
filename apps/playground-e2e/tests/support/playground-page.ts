@@ -1,4 +1,5 @@
 import type { Locator, Page } from '@playwright/test';
+import { TEXTS } from '../../../playground/components/ui-texts.constants.ts';
 import { TEST_IDS } from '../../../playground/lib/test-ids.constants.ts';
 import {
   EDITOR_READY_TIMEOUT_MS,
@@ -8,7 +9,7 @@ import {
   MARKER_SELECTOR,
   MONACO_INPUT_SELECTOR,
 } from './playground-page.constants.ts';
-import type { OpenOptions } from './playground-page.types.ts';
+import type { OpenOptions, OutputStream } from './playground-page.types.ts';
 
 export class PlaygroundPage {
   readonly #page: Page;
@@ -41,9 +42,14 @@ export class PlaygroundPage {
     await this.#page.locator(MONACO_INPUT_SELECTOR).first().waitFor({ state: 'attached', timeout: EDITOR_READY_TIMEOUT_MS });
   }
 
-  // insertText evita o fechamento automático de parênteses e as sugestões do Monaco.
+  // Texto de uma linha entra pelo teclado (sem fechamento automático de parênteses). Várias linhas entram pelo modelo,
+  // porque o Monaco reindenta e fecha chaves a cada quebra de linha digitada, mudando o programa.
   async typeProgram(source: string): Promise<void> {
     await this.#byId(TEST_IDS.editor).click();
+    if (source.includes('\n')) {
+      await this.#replaceModelText(source);
+      return;
+    }
     await this.#page.keyboard.press('ControlOrMeta+A');
     await this.#page.keyboard.press('Delete');
     await this.#page.keyboard.insertText(source);
@@ -69,6 +75,22 @@ export class PlaygroundPage {
     return this.#page.locator(MARKER_SELECTOR);
   }
 
+  status(): Locator {
+    return this.#page.getByRole('region', { name: TEXTS.outputTitle }).getByRole('status');
+  }
+
+  streamLines(stream: OutputStream): Locator {
+    return this.#byId(TEST_IDS.output).locator(`[data-stream="${stream}"]`);
+  }
+
+  askBox(): Locator {
+    return this.#byId(TEST_IDS.askBox);
+  }
+
+  outputElements(tagName: string): Locator {
+    return this.#byId(TEST_IDS.output).locator(tagName);
+  }
+
   canaryRequests(): readonly string[] {
     return [...this.#canaryRequests];
   }
@@ -77,6 +99,14 @@ export class PlaygroundPage {
     const input = this.#byId(TEST_IDS.askInput);
     await input.fill(text);
     await input.press('Enter');
+  }
+
+  async #replaceModelText(source: string): Promise<void> {
+    await this.#page.waitForFunction(() => Reflect.has(window, 'monaco'));
+    await this.#page.evaluate((text) => {
+      const monaco = Reflect.get(window, 'monaco') as { editor: { getModels: () => { setValue: (value: string) => void }[] } };
+      monaco.editor.getModels()[0]?.setValue(text);
+    }, source);
   }
 
   #byId(id: string): Locator {
