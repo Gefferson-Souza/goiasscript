@@ -1,4 +1,4 @@
-import { LOG_STREAMS, MESSAGE_TYPES } from './protocol.constants.ts';
+import { LOG_STREAMS, MAX_LOG_MESSAGE_CHARS, MESSAGE_TYPES } from './protocol.constants.ts';
 import type { LogStream, RunnerPort, RunnerToHost } from './protocol.types.ts';
 import type { ExecuteMessage, ProgramEnvironment } from './run-program.types.ts';
 
@@ -45,7 +45,8 @@ function createCollector(port: RunnerPort, runId: number): Readonly<Record<strin
   const collect =
     (stream: LogStream): ConsoleMethod =>
     (...values) => {
-      port.postMessage({ type: MESSAGE_TYPES.log, runId, stream, text: values.map(formatValue).join(' ') });
+      const text = values.map(formatValue).join(' ');
+      port.postMessage({ type: MESSAGE_TYPES.log, runId, stream, text: text.slice(0, MAX_LOG_MESSAGE_CHARS) });
     };
   return Object.freeze({
     ...Object.fromEntries(OUT_METHODS.map((name) => [name, collect(LOG_STREAMS.out)])),

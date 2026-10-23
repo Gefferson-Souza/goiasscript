@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { MAX_LOG_MESSAGE_CHARS } from '../sandbox/protocol.constants.ts';
 import { runProgram } from '../sandbox/run-program.ts';
 import type { RunnerToHost } from '../sandbox/protocol.types.ts';
 
@@ -150,5 +151,20 @@ describe('execução do programa no Worker', () => {
     // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors -- o teste exige rejeição que não é Error
     await harness.run(() => Promise.reject('deu ruim'));
     expect(harness.posted).toEqual([{ type: 'gs:falhou', runId: 4, stack: 'deu ruim', errorName: 'Error' }]);
+  });
+
+  it('corta no Worker o texto de um log gigante antes de enviar ao host', async () => {
+    const harness = createHarness();
+    await harness.run(() => Promise.resolve(consoleOf(harness.scope)['log']?.('x'.repeat(MAX_LOG_MESSAGE_CHARS * 3))));
+    const logs = harness.posted.filter((message) => message.type === 'gs:log');
+    expect(logs).toHaveLength(1);
+    expect(logs[0]?.type === 'gs:log' ? logs[0].text.length : 0).toBe(MAX_LOG_MESSAGE_CHARS);
+  });
+
+  it('não corta log que cabe no teto de transporte', async () => {
+    const harness = createHarness();
+    await harness.run(() => Promise.resolve(consoleOf(harness.scope)['log']?.('x'.repeat(MAX_LOG_MESSAGE_CHARS))));
+    const log = harness.posted.find((message) => message.type === 'gs:log');
+    expect(log?.type === 'gs:log' ? log.text.length : 0).toBe(MAX_LOG_MESSAGE_CHARS);
   });
 });
