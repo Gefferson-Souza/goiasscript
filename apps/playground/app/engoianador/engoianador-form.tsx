@@ -8,12 +8,11 @@ import { useEngoianadorSession } from './use-engoianador-session.ts';
 
 export function EngoianadorForm({ engoianadorUrl }: { readonly engoianadorUrl: string }) {
   const session = useEngoianadorSession(engoianadorUrl);
-  const health = useEngoianadorHealth(engoianadorUrl);
-
-  if (health === 'down') return <EngoianadorIdleNotice />;
+  const { health, recheck } = useEngoianadorHealth(engoianadorUrl);
 
   return (
     <>
+      {health === 'down' && <EngoianadorIdleNotice onRecheck={recheck} />}
       <PresetBar session={session} />
       <TextPanels session={session} />
       <ActionBar session={session} />

@@ -3,6 +3,7 @@ export const SHARE_FILE_NAME = 'engoianado.png';
 export const SHARE_TEXT = 'Engoianei um trem aqui ó 🐂👇';
 export const SHARE_FAILURE_MESSAGE = 'Num consegui gerar a imagem, sô. Tenta de novo.';
 export const IDLE_NOTICE = 'O Engoianador tá de folga, sô';
+export const RECHECK_LABEL = 'Dá outra olhada, sô';
 
 export const PRIVACY_NOTICE =
   'Cuidado, sô: o texto que ocê mandar vai pra um provedor de LLM e fica guardado em cache por um tempo. Não manda senha, dado pessoal nem segredo.';
