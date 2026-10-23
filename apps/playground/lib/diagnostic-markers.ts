@@ -6,13 +6,22 @@ import type { EditorRange } from './editor-position.types.ts';
 
 const LINE_BREAK = /\r\n|\r|\n/u;
 
+const HIGH_SURROGATE = /[\uD800-\uDBFF]/u;
+const LOW_SURROGATE = /[\uDC00-\uDFFF]/u;
+
+function startsPair(line: string, index: number): boolean {
+  return HIGH_SURROGATE.test(line.charAt(index)) && LOW_SURROGATE.test(line.charAt(index + 1));
+}
+
 // Marcador de largura zero some no editor: sublinha o caractere seguinte ou, no fim da linha, o anterior.
 function widen(range: EditorRange, lines: readonly string[]): EditorRange {
   if (range.startLineNumber !== range.endLineNumber || range.startColumn !== range.endColumn) return range;
-  const lineLength = lines[range.startLineNumber - 1]?.length ?? 0;
-  const atLineEnd = range.startColumn > lineLength && range.startColumn > 1;
-  const startColumn = atLineEnd ? range.startColumn - 1 : range.startColumn;
-  return { ...range, startColumn, endColumn: startColumn + 1 };
+  const line = lines[range.startLineNumber - 1] ?? '';
+  const atLineEnd = range.startColumn > line.length && range.startColumn > 1;
+  const lastCharWidth = startsPair(line, line.length - 2) ? 2 : 1;
+  const startColumn = atLineEnd ? range.startColumn - lastCharWidth : range.startColumn;
+  const width = startsPair(line, startColumn - 1) ? 2 : 1;
+  return { ...range, startColumn, endColumn: Math.max(startColumn + 1, Math.min(startColumn + width, line.length + 1)) };
 }
 
 function toMarker(diagnostic: Diagnostic, lines: readonly string[], lessonUrlOf: LessonUrlOf): EditorMarker {

@@ -49,7 +49,14 @@ export function createCompileService(options: CompileServiceOptions): CompileSer
     compile(source, view) {
       if (memo?.source === source && memo.view === view) return memo.promise;
       const promise = build(source, view);
-      memo = { source, view, promise };
+      const entry: Memo = { source, view, promise };
+      memo = entry;
+      const forget = (): void => {
+        if (memo === entry) memo = undefined;
+      };
+      promise.then((built) => {
+        if (built.markers[0] === OPTIMIZER_UNAVAILABLE_MARKER) forget();
+      }, forget);
       return promise;
     },
   };
