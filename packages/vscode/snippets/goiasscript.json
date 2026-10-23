@@ -1,0 +1,60 @@
+{
+  "se_ocê_quiser": {
+    "prefix": "se_ocê_quiser",
+    "body": [
+      "se_ocê_quiser (${1:condicao}) {",
+      "  $0",
+      "} se_não {",
+      "  ",
+      "}"
+    ],
+    "description": "Trecho de se_ocê_quiser"
+  },
+  "vai_indo": {
+    "prefix": "vai_indo",
+    "body": [
+      "vai_indo (trem ${1:i} é 0; ${1:i} menor_que ${2:limite}; ${1:i} é ${1:i} mais 1) {",
+      "  $0",
+      "}"
+    ],
+    "description": "Trecho de vai_indo"
+  },
+  "faz_trem": {
+    "prefix": "faz_trem",
+    "body": [
+      "faz_trem ${1:nome}(${2:parametros}) {",
+      "  $0",
+      "}"
+    ],
+    "description": "Trecho de faz_trem"
+  },
+  "arruma_trem": {
+    "prefix": "arruma_trem",
+    "body": [
+      "arruma_trem ${1:Nome} {",
+      "  aprepara_trem(${2:parametros}) {",
+      "    $0",
+      "  }",
+      "}"
+    ],
+    "description": "Trecho de arruma_trem"
+  },
+  "tenta_aí": {
+    "prefix": "tenta_aí",
+    "body": [
+      "tenta_aí {",
+      "  $0",
+      "} se_der_ruim (${1:erro}) {",
+      "  ",
+      "}"
+    ],
+    "description": "Trecho de tenta_aí"
+  },
+  "prosa": {
+    "prefix": "prosa",
+    "body": [
+      "prosa(${1:valor})"
+    ],
+    "description": "Trecho de prosa"
+  }
+}
