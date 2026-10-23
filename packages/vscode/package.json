@@ -26,7 +26,10 @@
   "capabilities": {
     "untrustedWorkspaces": {
       "supported": "limited",
-      "description": "Em pasta não confiável o GoiásScript só traduz e mostra os erros; bota_pra_moer fica desligado, porque executa o programa."
+      "description": "Em pasta não confiável o GoiásScript só traduz e mostra os erros; bota_pra_moer fica desligado, porque executa o programa.",
+      "restrictedConfigurations": [
+        "goiasscript.lessonBaseUrl"
+      ]
     }
   },
   "contributes": {

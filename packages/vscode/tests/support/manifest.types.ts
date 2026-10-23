@@ -15,7 +15,7 @@ export interface ExtensionManifest {
   readonly main: string;
   readonly activationEvents: readonly string[];
   readonly engines: { readonly vscode: string };
-  readonly capabilities: { readonly untrustedWorkspaces: { readonly supported: string; readonly description: string } };
+  readonly capabilities: { readonly untrustedWorkspaces: { readonly supported: string; readonly description: string; readonly restrictedConfigurations?: readonly string[] } };
   readonly contributes: {
     readonly menus: Readonly<Record<string, readonly MenuEntry[]>>;
     readonly keybindings: readonly KeybindingEntry[];

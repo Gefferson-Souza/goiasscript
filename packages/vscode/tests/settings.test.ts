@@ -37,4 +37,9 @@ describe('readSettings', () => {
     expect(readSettings({ lessonBaseUrl: 'não é endereço' }).lessonBaseUrl).toBeNull();
     expect(readSettings({ lessonBaseUrl: 42 }).lessonBaseUrl).toBeNull();
   });
+
+  it('recusa endereço de lição com usuário ou senha', () => {
+    expect(readSettings({ lessonBaseUrl: 'https://aluno:senha@cartilha.exemplo.dev' }).lessonBaseUrl).toBeNull();
+    expect(readSettings({ lessonBaseUrl: 'https://aluno@cartilha.exemplo.dev' }).lessonBaseUrl).toBeNull();
+  });
 });

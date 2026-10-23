@@ -14,7 +14,9 @@ function readDelay(value: unknown): number {
 function readLessonBaseUrl(value: unknown): string | null {
   if (typeof value !== 'string') return null;
   const trimmed = value.trim();
-  return URL.canParse(trimmed) && new URL(trimmed).protocol === LESSON_URL_PROTOCOL ? trimmed : null;
+  if (!URL.canParse(trimmed)) return null;
+  const { protocol, username, password } = new URL(trimmed);
+  return protocol === LESSON_URL_PROTOCOL && username === '' && password === '' ? trimmed : null;
 }
 
 export function readSettings(raw: RawSettings): ExtensionSettings {
