@@ -80,6 +80,11 @@ describe('hasPendingChangesets', () => {
     expect(hasPendingChangesets(directory)).toBe(true);
   });
 
+  it('changeset com BOM ou linha em branco antes do frontmatter conta como pendência', () => {
+    fs.writeFileSync(path.join(directory, 'com-bom.md'), '\uFEFF\n  ---\n"goiasscript": patch\n---\n');
+    expect(hasPendingChangesets(directory)).toBe(true);
+  });
+
   it('pasta inexistente falha com mensagem em goianês', () => {
     expect(() => hasPendingChangesets(path.join(directory, 'nao-existe'))).toThrow(/Eita! Não achei a pasta de changesets/);
   });

@@ -89,6 +89,11 @@ Se expirou:
 Só crie o trusted publisher imediatamente antes de publicar, com o `release.yml`
 definitivo já na `main`.
 
+O OIDC dispensa segredo, então a aprovação humana mora no GitHub. Antes da
+primeira tag, confira que o ambiente `npm-release` exige revisor e só aceita tags
+`v3.*`, e que um ruleset de tags limita `v3.*` aos mantenedores. O workflow só
+publica quando a tag aponta para a ponta da `main`.
+
 ## Reverter o deploy do playground
 
 O playground roda na Vercel (`apps/playground/vercel.json`).

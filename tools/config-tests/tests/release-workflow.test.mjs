@@ -72,11 +72,12 @@ describe('release.yml', () => {
     expect(targetIndex).toBeLessThan(verifyIndex);
   });
 
-  it('só publica commit que está na main, com histórico completo', () => {
+  it('só publica o commit da ponta da main, com histórico completo', () => {
     const publishSteps = stepsOf(workflow.jobs.publish);
     expect(publishSteps[0].with['fetch-depth']).toBe(0);
     const script = scriptsOf(workflow.jobs.publish);
-    expect(script).toContain('git merge-base --is-ancestor "$GITHUB_SHA" origin/main');
+    expect(script).toContain('[ "$GITHUB_SHA" != "$(git rev-parse origin/main)" ]');
+    expect(script).not.toContain('is-ancestor');
   });
 
   it('exige um único tarball cuja versão interna bate com a da tag', () => {
