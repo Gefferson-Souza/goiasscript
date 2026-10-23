@@ -1,0 +1,9 @@
+export const PACKAGE_NAME = 'goiasscript';
+export const NPM_COMMAND = 'npm';
+export const INFO_COMMAND = 'dedo_de_prosa';
+export const VERSION_FLAG = '--version';
+export const LICENSE_FILE = 'LICENSE';
+export const TMP_DIR_PREFIX = 'goiasscript-smoke-';
+export const SMOKE_DISTS = ['latest', 'next'] as const;
+export const SUCCESS_MESSAGE = 'Tá pronto, sô! O pacote publicado instala e responde direitinho.';
+export const EXEC_MAX_BUFFER_BYTES = 8_388_608;
