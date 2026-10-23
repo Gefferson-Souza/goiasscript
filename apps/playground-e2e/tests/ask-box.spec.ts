@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test';
+import { RUN_LIMITS } from '../../playground/config/run-limits.constants.ts';
 import { STATUS_LABELS } from '../../playground/components/ui-texts.constants.ts';
+import { hostileSource } from './support/hostile-programs.ts';
 import { PlaygroundPage } from './support/playground-page.ts';
 
 const TWO_QUESTIONS_PROGRAM = [
@@ -50,5 +52,32 @@ test.describe('caixa de pergunta', () => {
     await expect(playground.status()).toHaveText(STATUS_LABELS.finished);
     expect(await playground.output()).toContain('eco: <b>x</b>');
     await expect(playground.outputElements('b')).toHaveCount(0);
+  });
+
+  test('pergunta sem resposta fica esperando até o aluno clicar em Parar', async ({ page }) => {
+    const playground = new PlaygroundPage(page);
+    await playground.open();
+    await playground.typeProgram(hostileSource('pergunta sem resposta'));
+    await playground.run();
+
+    await expect(playground.askBox()).toBeVisible();
+    await expect(playground.status()).toHaveText(STATUS_LABELS.asking);
+    await playground.stop();
+    await expect(playground.status()).toHaveText(STATUS_LABELS.stopped);
+    await expect(playground.askBox()).toHaveCount(0);
+  });
+
+  test('pergunta sem resposta é cortada pelo teto absoluto de tempo', async ({ page }) => {
+    await page.clock.install();
+    const playground = new PlaygroundPage(page);
+    await playground.open();
+    await playground.typeProgram(hostileSource('pergunta sem resposta'));
+    await playground.run();
+
+    await expect(playground.askBox()).toBeVisible();
+    await page.clock.fastForward(RUN_LIMITS.maxRunMs + RUN_LIMITS.maxAskWaitMs);
+    await expect(playground.status()).toHaveText(STATUS_LABELS.timeout);
+    expect(await playground.output()).toContain('Esse trem travou, sô');
+    await expect(playground.askBox()).toHaveCount(0);
   });
 });

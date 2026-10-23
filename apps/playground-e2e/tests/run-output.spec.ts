@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { STATUS_LABELS } from '../../playground/components/ui-texts.constants.ts';
+import { TYPE_ERROR_PHRASE } from './support/expected-failures.constants.ts';
 import { PlaygroundPage } from './support/playground-page.ts';
 
 const ASYNC_ORDER_PROGRAM = [
@@ -43,13 +44,13 @@ test.describe('saída do programa', () => {
   test('preserva a ordem entre saída síncrona e assíncrona', async ({ page }) => {
     const playground = new PlaygroundPage(page);
     await runProgram(playground, ASYNC_ORDER_PROGRAM);
-    await expect(playground.streamLines('out')).toHaveText([/um$/u, /dois$/u, /três$/u]);
+    expect(await playground.streamLines('out').allInnerTexts()).toEqual([expect.stringMatching(/um$/u), expect.stringMatching(/dois$/u), expect.stringMatching(/três$/u)]);
   });
 
   test('saída de função assíncrona aparece completa antes de terminar', async ({ page }) => {
     const playground = new PlaygroundPage(page);
     await runProgram(playground, AWAIT_PROGRAM);
-    await expect(playground.streamLines('out')).toHaveText([/começo$/u, /meio$/u, /fim$/u]);
+    expect(await playground.streamLines('out').allInnerTexts()).toEqual([expect.stringMatching(/começo$/u), expect.stringMatching(/meio$/u), expect.stringMatching(/fim$/u)]);
   });
 
   test('erro vai para o fluxo err, visualmente distinto da saída normal', async ({ page }) => {
@@ -63,7 +64,7 @@ test.describe('saída do programa', () => {
     const playground = new PlaygroundPage(page);
     await runProgram(playground, CAUGHT_TYPE_ERROR_PROGRAM);
     const output = await playground.output();
-    expect(output).toContain('erro de tipo');
+    expect(output).toContain(TYPE_ERROR_PHRASE);
     expect(output).not.toMatch(ENGINE_PHRASES);
   });
 });
