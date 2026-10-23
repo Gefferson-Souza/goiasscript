@@ -326,7 +326,7 @@ não valem como decisão.
 | h1 | data como texto ISO, usada pelos exemplos do núcleo | `.toISOString` | sem candidato | GS0406; montar com `.ano()`, `.mês()` e `.dia()` | fora da v3; exemplos reescritos |
 | h2 | chamar função com outro `ocê`, usada num exemplo de classes | `.call` | sem candidato | GS0406; repensar o exemplo | fora da v3; exemplo reescrito |
 
-As linhas `h` vêm de passar os exemplos de `packages/core/examples` e dos modelos de projeto pelo mundo fechado
+As linhas `h` vêm de passar os exemplos de `examples` do pacote da v1.5 (tag `legacy/1.5`) e dos modelos de projeto pelo mundo fechado
 (`.toISOString` em `faz_um Date().toISOString()`, `.call` num método redefinido); os exemplos usam também
 `JSON.stringify` e `Promise.all`, que já são as linhas a1 e b. O `demo` do vídeo não está no repositório e ainda não
 passou pela mesma conferência.

@@ -57,7 +57,7 @@ const swallowedCatchSelector = {
 
 export function createConfig(projectService = true) {
   return tseslint.config(
-    { ignores: ['**/node_modules/**', '**/coverage/**', '**/dist/**', '**/.integration/**', '**/.vscode-test/**', '**/generated/**', 'packages/core/**', 'vscode-extension/**', 'lsp-server/**', ...LEGACY_APP_FILES, 'apps/playground/public/**', 'apps/playground/.next/**', 'apps/*/.next-configured/**', 'apps/playground/next-env.d.ts', 'docs/**', 'spikes/**', 'packages/compiler/tests/conformance/**'] },
+    { ignores: ['**/node_modules/**', '**/coverage/**', '**/dist/**', '**/.integration/**', '**/.vscode-test/**', '**/generated/**', ...LEGACY_APP_FILES, 'apps/playground/public/**', 'apps/playground/.next/**', 'apps/*/.next-configured/**', 'apps/playground/next-env.d.ts', 'docs/**', 'spikes/**', 'packages/compiler/tests/conformance/**'] },
     { linterOptions: { reportUnusedDisableDirectives: 'error' } },
     {
       files: TS_FILES,

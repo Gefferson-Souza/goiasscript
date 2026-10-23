@@ -31,7 +31,7 @@ module.exports = {
   ],
   options: {
     doNotFollow: { path: 'node_modules' },
-    exclude: { path: '(^|/)(node_modules|coverage|dist|generated|fixtures)/|(^|/)packages/core/|(^|/)vscode-extension/|(^|/)lsp-server/|(^|/)spikes/' },
+    exclude: { path: '(^|/)(node_modules|coverage|dist|generated|fixtures)/|(^|/)spikes/' },
     tsPreCompilationDeps: true,
     tsConfig: { fileName: 'tsconfig.json' },
     enhancedResolveOptions: { exportsFields: ['exports'], conditionNames: ['import', 'require', 'node', 'default'] },

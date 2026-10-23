@@ -12,7 +12,7 @@ GoiásScript 3 é uma linguagem educacional em goianês que compila para JavaScr
 
 - Código novo: `packages/language`, `packages/compiler`, `packages/optimizer`, `tools/rules-scan`, `tools/config-tests` e `scripts/`.
 - Pacotes: `@goiasscript/language`, `@goiasscript/compiler` e `@goiasscript/optimizer`, nessa ordem de camadas. `language` e `compiler` não importam `node:*`, e o compilador não tem dependência de runtime.
-- Legado, fora dos gates e removível na Fase 8: `packages/core`, `apps/`, `vscode-extension/` e `lsp-server/`.
+- Aplicações: `apps/playground` (site), `apps/engoianador-api` (Worker) e `apps/playground-e2e`; extensão do VS Code em `packages/vscode` e `packages/cli`.
 
 ## Comandos
 

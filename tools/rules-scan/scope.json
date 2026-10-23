@@ -13,10 +13,6 @@
   ],
   "ignoredSegments": ["node_modules", ".next", "coverage", "dist", "generated"],
   "ignoredPrefixes": ["docs", "packages/compiler/tests/conformance", "apps/playground/public/vs", "apps/playground/public/examples", "apps/playground/next-env.d.ts"],
-  "excluded": [
-    { "path": "packages/core", "reason": "legado removido na Fase 8" },
-    { "path": "vscode-extension", "reason": "legado removido na Fase 8" },
-    { "path": "lsp-server", "reason": "legado removido na Fase 8" }
-  ],
+  "excluded": [],
   "pathSegmentsExemptPrefixes": ["docs"]
 }
