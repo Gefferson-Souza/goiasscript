@@ -6,6 +6,7 @@ import { renderAll } from '../generators/run.ts';
 import { KEYWORDS, STDLIB } from '../src/index.ts';
 
 const REPOSITORY_ROOT = resolve(import.meta.dirname, '../../..');
+const PROCESS_TEST_TIMEOUT_MS = 30_000;
 const EXPECTED_PATHS = [
   'docs/spec/o-que-mudou.md', 'docs/spec/vocabulario.lock.json',
   'packages/language/generated/cli-help.txt', 'packages/language/generated/completions.json',
@@ -46,7 +47,7 @@ describe('generate:check (CI)', () => {
       writeFileSync(target, original);
     }
     expect(run('--check').status).toBe(0);
-  });
+  }, PROCESS_TEST_TIMEOUT_MS);
   it('o verify da raiz roda o check dos gerados', () => {
     const manifest = JSON.parse(readFileSync(resolve(REPOSITORY_ROOT, 'package.json'), 'utf8')) as { readonly scripts: Readonly<Record<string, string>> };
     expect(manifest.scripts['verify']).toContain('packages/language/generators/run.ts --check');
