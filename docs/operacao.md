@@ -58,7 +58,7 @@ coloca o tarball em stage: enquanto ninguém aprovar o stage, a versão não est
 publicada no npm e a dist-tag não vale.
 
 Ciclo de uma versão: o workflow prepara o stage de `next`; o dono aprova com
-`npm stage approve <stage-id>` (pede 2FA) e confere com `npm view goiasscript dist-tags`.
+`npm stage approve <stage-id>` (pede 2FA) e confere com `npm dist-tag ls goiasscript`.
 Para a `latest`, uma nova publicação em stage com a tag `latest` passa pela mesma
 aprovação com 2FA, só depois de o `next` ter sido validado.
 

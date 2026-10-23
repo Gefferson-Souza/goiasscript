@@ -86,5 +86,41 @@
   {
     "word": "question",
     "reason": "nome da label de issue do GitHub"
+  },
+  {
+    "word": "verify",
+    "reason": "script do repositório que roda todas as verificações"
+  },
+  {
+    "word": "predeploy",
+    "reason": "gancho de script do Worker do Engoianador"
+  },
+  {
+    "word": "KILL_SWITCH",
+    "reason": "variável de configuração do Worker do Engoianador"
+  },
+  {
+    "word": "marketplace",
+    "reason": "nome do script de publicação da extensão do VS Code"
+  },
+  {
+    "word": "next",
+    "reason": "nome da dist-tag de pré-lançamento no npm"
+  },
+  {
+    "word": "latest",
+    "reason": "nome da dist-tag estável no npm"
+  },
+  {
+    "word": "https",
+    "reason": "protocolo citado nos endereços do runbook de operação"
+  },
+  {
+    "word": "ENGOIANADOR_URL",
+    "reason": "variável de ambiente do teste de contrato do Engoianador"
+  },
+  {
+    "word": "base_url",
+    "reason": "campo do cabeçalho de configuração do teste de contrato"
   }
 ]

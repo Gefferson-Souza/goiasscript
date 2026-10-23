@@ -104,7 +104,7 @@ goiasscript/
 │   ├── language/    # vocabulário, diagnósticos e biblioteca padrão (dados)
 │   ├── compiler/    # lexer, parser, análise e emissão
 │   ├── optimizer/   # otimizações opcionais do JavaScript emitido
-│   ├── cli/         # pacote npm goiasscript (goiasscript e goias)
+│   ├── cli/         # pacote npm da CLI e do REPL
 │   └── vscode/      # extensão do VS Code
 ├── apps/
 │   ├── playground/        # Next.js + Monaco
