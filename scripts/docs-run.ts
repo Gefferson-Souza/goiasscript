@@ -20,7 +20,8 @@ function toResult(error: ExecFileException | null, stdout: string, stderr: strin
   return { stdout, stderr: exitCode === null && !timedOut && stderr === '' ? error.message : stderr, exitCode, timedOut };
 }
 
-// O modelo de permissão do Node nega rede, filho e escrita; leitura só na pasta do programa.
+// A permissão do Node nega escrita, processo filho e worker; leitura só na pasta do programa.
+// Rede não é negada nessas versões; o ambiente mínimo é a única barreira restante.
 function execute(file: string, dir: string, stdin: string): Promise<DocRunResult> {
   return new Promise((resolve) => {
     const child = execFile(

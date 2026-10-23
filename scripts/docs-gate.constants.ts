@@ -1,4 +1,4 @@
-export const FENCE_OPENING = /^ {0,3}(`{3,})(.*)$/u;
+export const FENCE_OPENING = /^ {0,3}(`{3,}|~{3,})(.*)$/u;
 export const BLOCK_LANGUAGE = 'goiasscript';
 export const INPUT_FLAG_PREFIX = 'entrada=';
 export const SKIP_RUN_FLAG = 'sem-execucao';

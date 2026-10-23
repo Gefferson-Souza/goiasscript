@@ -1,6 +1,6 @@
 import type { CompileResult } from '../packages/compiler/src/index.ts';
 
-export type DocExpectation = 'runs' | 'compiles-only' | 'expected-error';
+export type DocExpectation = 'runs' | 'compiles-only' | 'expected-error' | 'misspelled-language';
 
 export interface DocBlock {
   readonly file: string;

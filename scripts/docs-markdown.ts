@@ -2,7 +2,8 @@ import { FENCE_OPENING, LINE_BREAK } from './docs-gate.constants.ts';
 import type { FencedBlock, ProseLine, ScannedMarkdown } from './docs-markdown.types.ts';
 
 interface OpenFence {
-  readonly ticks: number;
+  readonly marker: string;
+  readonly length: number;
   readonly line: number;
   readonly tokens: readonly string[];
   readonly code: readonly string[];
@@ -14,13 +15,14 @@ interface ScanState {
   readonly prose: readonly ProseLine[];
 }
 
-const closes = (text: string, ticks: number): boolean => new RegExp(`^ {0,3}\`{${String(ticks)},}\\s*$`, 'u').test(text);
+const closes = (text: string, marker: string, length: number): boolean => new RegExp(`^ {0,3}${marker}{${String(length)},}\\s*$`, 'u').test(text);
 
 function openFence(text: string, line: number): OpenFence | null {
   const match = FENCE_OPENING.exec(text);
   if (match === null) return null;
   const tokens = (match[2] ?? '').trim().split(/\s+/u).filter((token) => token !== '');
-  return { ticks: (match[1] ?? '').length, line, tokens, code: [] };
+  const fence = match[1] ?? '';
+  return { marker: fence.charAt(0), length: fence.length, line, tokens, code: [] };
 }
 
 function step(state: ScanState, text: string, index: number): ScanState {
@@ -28,7 +30,7 @@ function step(state: ScanState, text: string, index: number): ScanState {
     const opened = openFence(text, index + 1);
     return opened === null ? { ...state, prose: [...state.prose, { line: index + 1, text }] } : { ...state, open: opened };
   }
-  if (closes(text, state.open.ticks)) {
+  if (closes(text, state.open.marker, state.open.length)) {
     const { line, tokens, code } = state.open;
     return { open: null, fenced: [...state.fenced, { line, tokens, code: code.join('\n') }], prose: state.prose };
   }
