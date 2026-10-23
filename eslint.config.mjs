@@ -21,7 +21,7 @@ const LEGACY_APP_FILES = [
   'apps/playground/workers/**',
   'apps/playground/types/**',
   'apps/playground/tailwind.config.ts',
-  'apps/playground/scripts/**',
+  'apps/playground/scripts/copy-examples.mjs',
   'apps/playground/lib/engoianador-client.ts',
   'apps/playground/lib/monaco-goias.ts',
   'apps/playground/lib/share.ts',
