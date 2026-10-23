@@ -1,3 +1,4 @@
+import { expect } from '@playwright/test';
 import type { Locator, Page } from '@playwright/test';
 import { TEXTS } from '../../../playground/components/ui-texts.constants.ts';
 import { TEST_IDS } from '../../../playground/lib/test-ids.constants.ts';
@@ -50,6 +51,8 @@ export class PlaygroundPage {
       await this.#replaceModelText(source);
       return;
     }
+    // No WebKit o clique pode chegar antes do foco do Monaco, e o select-all cairia fora do editor.
+    await expect(this.#page.locator(MONACO_INPUT_SELECTOR).first()).toBeFocused();
     await this.#page.keyboard.press('ControlOrMeta+A');
     await this.#page.keyboard.press('Delete');
     await this.#page.keyboard.insertText(source);

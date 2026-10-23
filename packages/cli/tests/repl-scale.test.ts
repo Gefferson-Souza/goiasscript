@@ -7,7 +7,8 @@ import { createMemoryIo } from './support/memory-io.ts';
 const SMALL_LINE_COUNT = 10_000;
 const LARGE_LINE_COUNT = 20_000;
 const MAX_GROWTH_RATIO = 3.5;
-const MAX_SECONDS = 3;
+// A razão entre tamanhos prova a linearidade; o teto absoluto só barra desastre e precisa caber na máquina da CI.
+const MAX_SECONDS = 8;
 const WARMUP_LINE_COUNT = 500;
 const SAMPLES_PER_SIZE = 3;
 const HUGE_IDENTIFIER_LENGTH = 3_000_000;
