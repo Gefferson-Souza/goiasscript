@@ -154,3 +154,71 @@ describe('porta de entrada da comunidade', () => {
     expect(readDoc('CONTRIBUTING.md')).not.toContain('AUTO-GENERATED');
   });
 });
+
+describe('docs/operacao.md', () => {
+  const OPERATION_SECTIONS = [
+    'Rotacionar a chave da Groq',
+    'Acionar e desligar o kill switch',
+    'Republicar a extensão',
+    'Deprecar versão e mexer nas dist-tags',
+    'Recriar o trusted publisher expirado',
+    'Reverter o deploy do playground',
+    'Aquecer o cache do Engoianador',
+    'Rodar contrato e smoke',
+  ];
+  const WORKSPACE_ROOTS = ['apps', 'packages', 'tools'];
+  const PNPM_COMMAND = /\bpnpm((?:\s+--filter\s+\S+)?)\s+(?:run\s+)?([a-z][\w:-]*)/gu;
+  const PNPM_NON_SCRIPTS = new Set(['exec', 'install', 'add', 'dlx', 'audit']);
+  const WORKFLOW_FILE = /\.github\/workflows\/([\w.-]+\.yml)/gu;
+  const FILE_REFERENCE = /`((?:apps|packages|scripts|tools|docs)\/[\w./-]+\.(?:ts|mjs|toml|md|json))`/gu;
+
+  const operation = readDoc('docs/operacao.md');
+  const readScripts = (dir) => JSON.parse(fs.readFileSync(path.join(ROOT_DIR, dir, 'package.json'), 'utf8')).scripts ?? {};
+  const workspaces = WORKSPACE_ROOTS.flatMap((root) =>
+    fs
+      .readdirSync(path.join(ROOT_DIR, root), { withFileTypes: true })
+      .filter((entry) => entry.isDirectory() && fs.existsSync(path.join(ROOT_DIR, root, entry.name, 'package.json')))
+      .map((entry) => `${root}/${entry.name}`),
+  );
+  const scriptsByPackageName = new Map(
+    workspaces.map((dir) => [JSON.parse(readDoc(`${dir}/package.json`)).name, readScripts(dir)]),
+  );
+  const rootScripts = readScripts('.');
+
+  it('tem as oito seções do runbook, cada uma preenchida', () => {
+    expect(OPERATION_SECTIONS.filter((heading) => sectionBody(operation, heading) === '')).toEqual([]);
+  });
+
+  it('todo script pnpm citado existe no package.json', () => {
+    const missing = [...operation.matchAll(PNPM_COMMAND)]
+      .filter(([, , script]) => !PNPM_NON_SCRIPTS.has(script))
+      .filter(([, filter, script]) => {
+        const packageName = filter.trim().split(/\s+/u)[1];
+        const scripts = packageName === undefined ? rootScripts : scriptsByPackageName.get(packageName);
+        return scripts?.[script] === undefined;
+      })
+      .map(([command]) => command);
+    expect(missing).toEqual([]);
+  });
+
+  it('cita ao menos um script pnpm', () => {
+    expect([...operation.matchAll(PNPM_COMMAND)].length).toBeGreaterThan(0);
+  });
+
+  it('todo workflow citado existe em .github/workflows', () => {
+    const cited = [...operation.matchAll(WORKFLOW_FILE)].map(([, file]) => file);
+    expect(cited.length).toBeGreaterThan(0);
+    expect(cited.filter((file) => !fs.existsSync(path.join(ROOT_DIR, '.github/workflows', file)))).toEqual([]);
+  });
+
+  it('todo arquivo do repositório citado existe', () => {
+    const cited = [...operation.matchAll(FILE_REFERENCE)].map(([, file]) => file);
+    expect(cited.length).toBeGreaterThan(0);
+    expect(cited.filter((file) => !fs.existsSync(path.join(ROOT_DIR, file)))).toEqual([]);
+  });
+
+  it('não tem e-mail nem caminho absoluto da máquina', () => {
+    expect(operation).not.toMatch(/[\w.+-]+@[\w-]+\.[\w.-]+/u);
+    expect(operation).not.toMatch(/(?:^|[\s("'`])(?:\/(?:home|Users|root)\/|[A-Za-z]:\\)/mu);
+  });
+});
