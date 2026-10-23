@@ -1,0 +1,31 @@
+name: Smoke do Engoianador
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: 'Endereço https do Engoianador já implantado'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      ENGOIANADOR_URL: ${{ inputs.base_url }}
+    steps:
+      - name: Confere o formato do endereço
+        run: |
+          if ! printf '%s' "$ENGOIANADOR_URL" | grep -Eq '^https://[^[:space:]]+$'; then
+            echo "Ô sô! base_url tem que começar com https:// e não ter espaço." >&2
+            exit 1
+          fi
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with: { node-version: 24 }
+      - name: Roda o contrato da API contra o endereço informado
+        run: node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON apps/engoianador-api/scripts/contract-check.ts
