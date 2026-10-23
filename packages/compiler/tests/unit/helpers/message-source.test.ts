@@ -18,4 +18,8 @@ describe('$gs_mensagem', () => {
     const text = message(Object.assign(new Error('x'), { gsCode: 'GS0701' }));
     expect(text).not.toMatch(/\{|undefined|«/u);
   });
+  it('trata o InternalError de recursão do Firefox como o RangeError dos outros motores', () => {
+    const firefoxRecursion = Object.assign(new Error('too much recursion'), { name: 'InternalError' });
+    expect(message(firefoxRecursion)).toBe(rootPhrase('GS0712'));
+  });
 });

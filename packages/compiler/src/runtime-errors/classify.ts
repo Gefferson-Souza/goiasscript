@@ -1,4 +1,5 @@
-const RUNTIME_CODE = { TypeError: 'GS0710', ReferenceError: 'GS0711', RangeError: 'GS0712', SyntaxError: 'GS0713' } as const;
+// O Firefox estoura a pilha com InternalError, onde os outros motores lançam RangeError.
+const RUNTIME_CODE = { TypeError: 'GS0710', ReferenceError: 'GS0711', RangeError: 'GS0712', InternalError: 'GS0712', SyntaxError: 'GS0713' } as const;
 export const GENERIC_RUNTIME_CODE = 'GS0714';
 
 const CODE_BY_CLASS: ReadonlyMap<string, string> = new Map(Object.entries(RUNTIME_CODE));
