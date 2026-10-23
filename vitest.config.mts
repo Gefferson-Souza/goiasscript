@@ -27,7 +27,7 @@ export default defineConfig({
       reporter: ['text-summary', 'lcov'],
       include: ['packages/*/src/**/*.ts', PLAYGROUND_COVERED, WORKER_COVERED],
       exclude: ['packages/cli/src/entry/**', ...VSCODE_HOST_BOUND, ...PLAYGROUND_LEGACY],
-      thresholds: { 'packages/language/src/**': perPackage, 'packages/compiler/src/**': perPackage, 'packages/optimizer/src/**': perPackage, 'packages/cli/src/**': perPackage, 'packages/vscode/src/**': perPackage, [PLAYGROUND_COVERED]: perPackage },
+      thresholds: { 'packages/language/src/**': perPackage, 'packages/compiler/src/**': perPackage, 'packages/optimizer/src/**': perPackage, 'packages/cli/src/**': perPackage, 'packages/vscode/src/**': perPackage, [PLAYGROUND_COVERED]: perPackage, [WORKER_COVERED]: perPackage },
     },
   },
 });
