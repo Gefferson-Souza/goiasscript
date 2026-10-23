@@ -2,7 +2,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import type { TraceabilityEntry, TraceabilityFs } from '../../../scripts/gate.types.ts';
-import { checkTraceability, loadTraceability, testRunsIn } from '../../../scripts/traceability.ts';
+import { checkTraceability, loadReadmeClaims, loadTraceability, realFiles, testRunsIn } from '../../../scripts/traceability.ts';
+import { readmeClaims, readmeProblems, renderReport } from '../../../scripts/traceability-report.ts';
+import { runCheckTraceability } from '../../../scripts/check-traceability.ts';
 
 const ROOT_DIR = path.resolve(import.meta.dirname, '../../..');
 const SPEC_PATH = 'docs/superpowers/specs/2026-10-14-goiasscript-3-design.md';
@@ -71,9 +73,9 @@ describe('checkTraceability', () => {
   });
 
   it('estado ready exige workflow ou script existente', () => {
-    const ok = checkTraceability([entry({ state: 'ready', proofs: [{ kind: 'workflow', path: '.github/workflows/w.yml' }] })], memory);
-    const onlyTest = checkTraceability([entry({ state: 'ready' })], memory);
-    const absent = checkTraceability([entry({ state: 'ready', proofs: [{ kind: 'script', path: 'scripts/nada.ts' }] })], memory);
+    const ok = checkTraceability([entry({ state: 'ready', ownerCommand: 'do x', proofs: [{ kind: 'workflow', path: '.github/workflows/w.yml' }] })], memory);
+    const onlyTest = checkTraceability([entry({ state: 'ready', ownerCommand: 'do x' })], memory);
+    const absent = checkTraceability([entry({ state: 'ready', ownerCommand: 'do x', proofs: [{ kind: 'script', path: 'scripts/nada.ts' }] })], memory);
     expect(ok).toEqual([]);
     expect(onlyTest).toHaveLength(1);
     expect(absent).toHaveLength(1);
@@ -93,5 +95,50 @@ describe('tabela versionada', () => {
     const real: TraceabilityFs = { exists: (file) => fs.existsSync(path.join(ROOT_DIR, file)), read: (file) => fs.readFileSync(path.join(ROOT_DIR, file), 'utf8') };
     expect(checkTraceability(entries, real)).toEqual([]);
     expect(entries.every((item) => item.state !== 'missing')).toBe(true);
+  });
+});
+
+describe('estado ready e relatório', () => {
+  const ready = entry({ promise: 'pronta', state: 'ready', ownerCommand: 'gh workflow run w.yml', proofs: [{ kind: 'workflow', path: '.github/workflows/w.yml' }] });
+
+  it('estado ready lista o comando do dono', () => {
+    expect(checkTraceability([entry({ state: 'ready', proofs: ready.proofs })], memory)).toHaveLength(1);
+    expect(renderReport([entry({ promise: 'verde' }), ready])).toContain('gh workflow run w.yml');
+  });
+
+  it('o relatório separa green, ready e o que falta do dono', () => {
+    const text = renderReport([entry({ promise: 'verde' }), ready, entry({ promise: 'faltando', state: 'missing' })]);
+    expect(text).toMatch(/green \(1\)[\s\S]*verde/u);
+    expect(text).toMatch(/ready \(1\)[\s\S]*pronta/u);
+    expect(text).toMatch(/missing \(1\)[\s\S]*faltando/u);
+  });
+
+  it('--report imprime o relatório e sai 0 com a tabela versionada', () => {
+    const out: string[] = [];
+    const code = runCheckTraceability(ROOT_DIR, { out: (text) => out.push(text), err: () => undefined }, true);
+    expect(code).toBe(0);
+    expect(out.join('')).toContain('ready');
+  });
+});
+
+describe('README', () => {
+  const entries = [...loadTraceability(ROOT_DIR), ...loadReadmeClaims(ROOT_DIR)];
+  const readme = fs.readFileSync(path.join(ROOT_DIR, 'README.md'), 'utf8');
+
+  it('toda promessa do README está na tabela', () => {
+    expect(readmeClaims(readme).length).toBeGreaterThan(0);
+    expect(readmeProblems(readme, entries)).toEqual([]);
+    expect(checkTraceability(loadReadmeClaims(ROOT_DIR), realFiles(ROOT_DIR))).toEqual([]);
+  });
+
+  it('promessa sem prova falha', () => {
+    const problems = readmeProblems('| `goiasscript inventado x.gs` | faz mágica |', entries);
+    expect(problems).toHaveLength(1);
+    expect(problems[0]?.message).toContain('goiasscript inventado');
+  });
+
+  it('número de testes sem fonte falha', () => {
+    expect(readmeProblems('Temos 1200 testes.', entries)).toHaveLength(1);
+    expect(readmeProblems('Temos 1200 testes (fonte: relatório do CI).', entries)).toEqual([]);
   });
 });

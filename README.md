@@ -10,7 +10,7 @@ avisa em goianês quando ocê escorrega.
 
 ## Instalar
 
-Precisa do Node 22.12 ou mais novo.
+Precisa do Node 22.12 ou mais novo. O pacote npm entra no ar na primeira publicação da v3.
 
 ```bash
 npm install --global goiasscript
@@ -82,13 +82,13 @@ A especificação, o vocabulário e a gramática ficam em [docs/spec](docs/spec)
 
 - **Playground:** editor no navegador que compila e executa goianês sem ir a servidor nenhum. Localmente:
   `corepack pnpm playground:dev`.
-- **Engoianador:** API que recebe um texto e devolve em goianês raiz usando um modelo de linguagem. Localmente:
-  `corepack pnpm engoianador:dev`.
+- **Engoianador:** API que recebe um texto e devolve em goianês usando um modelo de linguagem. Ela só responde depois
+  de implantada pelo dono do projeto; localmente: `corepack pnpm engoianador:dev`.
 
 ## Extensão do VS Code
 
 Realce de sintaxe, trechos prontos e avisos do compilador para arquivos `.gs`. O código vive em
-[packages/vscode](packages/vscode).
+[packages/vscode](packages/vscode). A instalação pelo Marketplace depende da primeira publicação.
 
 ## O que não faz parte da v3
 

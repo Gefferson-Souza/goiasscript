@@ -44,6 +44,8 @@ export interface TraceabilityEntry {
   readonly proofs: readonly TraceabilityProof[];
   readonly state: TraceabilityState;
   readonly note?: string;
+  readonly ownerCommand?: string;
+  readonly covers?: readonly string[];
 }
 
 export interface TraceabilityFs {

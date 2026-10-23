@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { CI_ONLY_TEST_PATH, TEST_TITLE, TRACEABILITY_PATH } from './gate.constants.ts';
+import { CI_ONLY_TEST_PATH, README_CLAIMS_PATH, TEST_TITLE, TRACEABILITY_PATH } from './gate.constants.ts';
 import type { GateProblem, TestRunner, TraceabilityEntry, TraceabilityFs, TraceabilityProof } from './gate.types.ts';
 
 const TEST_PROOF = 'test';
@@ -35,6 +35,7 @@ function stateProblems(entry: TraceabilityEntry): readonly GateProblem[] {
   if (entry.state === 'ready' && !kinds.some((kind) => READY_PROOF_KINDS.includes(kind))) {
     return [problem(entry, 'o estado ready exige um workflow ou um script.')];
   }
+  if (entry.state === 'ready' && (entry.ownerCommand ?? '').trim() === '') return [problem(entry, 'o estado ready exige o comando do dono (ownerCommand).')];
   return [];
 }
 
@@ -44,6 +45,10 @@ export function checkTraceability(entries: readonly TraceabilityEntry[], files: 
 
 export function loadTraceability(root: string): readonly TraceabilityEntry[] {
   return JSON.parse(fs.readFileSync(path.join(root, TRACEABILITY_PATH), 'utf8')) as readonly TraceabilityEntry[];
+}
+
+export function loadReadmeClaims(root: string): readonly TraceabilityEntry[] {
+  return JSON.parse(fs.readFileSync(path.join(root, README_CLAIMS_PATH), 'utf8')) as readonly TraceabilityEntry[];
 }
 
 export function realFiles(root: string): TraceabilityFs {

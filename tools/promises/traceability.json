@@ -55,7 +55,10 @@
         "path": ".github/workflows/promises-gate.yml"
       }
     ],
-    "state": "green"
+    "state": "green",
+    "covers": [
+      "goiasscript arma_o_barraco"
+    ]
   },
   {
     "promise": "`goiasscript bota_pra_moer main.gs` → \"Bão, sô\"",
@@ -71,7 +74,10 @@
         "path": ".github/workflows/promises-gate.yml"
       }
     ],
-    "state": "green"
+    "state": "green",
+    "covers": [
+      "goiasscript bota_pra_moer"
+    ]
   },
   {
     "promise": "Playground: roda no navegador",
@@ -87,7 +93,9 @@
         "path": ".github/workflows/playground-smoke.yml"
       }
     ],
-    "state": "green"
+    "state": "ready",
+    "ownerCommand": "gh workflow run playground-smoke.yml depois do deploy do playground na Vercel",
+    "note": "O smoke do playground depende do deploy feito pelo dono."
   },
   {
     "promise": "Extensão: realce, ícones, snippets",
@@ -103,7 +111,9 @@
         "path": ".github/workflows/smoke-extension.yml"
       }
     ],
-    "state": "green"
+    "state": "ready",
+    "ownerCommand": "publicar vscode-v3.0.0 (release-vscode.yml) e rodar gh workflow run smoke-extension.yml",
+    "note": "O smoke da extensão instalada depende da publicação feita pelo dono."
   },
   {
     "promise": "Engoianador: texto vira goianês com LLM",
@@ -122,7 +132,8 @@
       }
     ],
     "state": "ready",
-    "note": "O contrato agendado e o smoke pós-deploy dependem da implantação do Worker pelo dono."
+    "note": "O contrato agendado e o smoke pós-deploy dependem da implantação do Worker pelo dono.",
+    "ownerCommand": "corepack pnpm engoianador:deploy; depois gh workflow run engoianador-contract.yml e gh workflow run engoianador-smoke.yml"
   },
   {
     "promise": "Roda de Prosa: \"Digita goias e vai\"",
@@ -140,7 +151,10 @@
         "runsIn": "verify"
       }
     ],
-    "state": "green"
+    "state": "green",
+    "covers": [
+      "goias"
+    ]
   },
   {
     "promise": "\"N testes\"",
@@ -151,7 +165,8 @@
       }
     ],
     "state": "ready",
-    "note": "O número vem do CI no momento da captura do vídeo."
+    "note": "O número vem do CI no momento da captura do vídeo.",
+    "ownerCommand": "gh workflow run ci.yml e usar o relatório JSON do Vitest anexado à execução como fonte do número"
   },
   {
     "promise": "\"Lexer + parser escritos à mão\"",
@@ -182,7 +197,11 @@
       }
     ],
     "state": "ready",
-    "note": "O smoke de instalação do latest depende da primeira publicação feita pelo dono."
+    "note": "O smoke de instalação do latest depende da primeira publicação feita pelo dono.",
+    "covers": [
+      "npm install --global goiasscript"
+    ],
+    "ownerCommand": "git tag v3.0.0 && git push origin v3.0.0, aprovar o stage com 2FA (npm stage approve) e rodar o workflow smoke-release.yml (gh workflow run smoke-release.yml)"
   },
   {
     "promise": "\"MIT, código aberto\"",
