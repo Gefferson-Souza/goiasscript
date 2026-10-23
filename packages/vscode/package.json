@@ -18,6 +18,7 @@
     "Programming Languages",
     "Snippets"
   ],
+  "icon": "./assets/icons/goiasscript-icon.png",
   "main": "./dist/extension.cjs",
   "activationEvents": [
     "onLanguage:goiasscript"
@@ -41,8 +42,8 @@
         ],
         "configuration": "./language-configuration.json",
         "icon": {
-          "light": "./assets/icons/goiasscript-file.svg",
-          "dark": "./assets/icons/goiasscript-file.svg"
+          "light": "./assets/icons/goiasscript-file-light.svg",
+          "dark": "./assets/icons/goiasscript-file-dark.svg"
         }
       }
     ],
@@ -141,6 +142,9 @@
         }
       }
     }
+  },
+  "scripts": {
+    "generate:check": "node ../../scripts/build-vscode.ts --check-assets"
   },
   "devDependencies": {
     "@goiasscript/compiler": "workspace:*",

@@ -5,6 +5,7 @@ import { brotliCompressSync, constants } from 'node:zlib';
 import { build } from 'esbuild';
 import { buildCli } from './build-cli.ts';
 import type { BuildVscodeOptions, BuildVscodeResult } from './build-vscode.types.ts';
+import { copyGeneratedAssets, findStaleGeneratedAssets } from './vscode-generated-assets.ts';
 
 const ROOT = path.join(import.meta.dirname, '..');
 const VSCODE_DIR = path.join(ROOT, 'packages/vscode');
@@ -14,6 +15,7 @@ const NODE_TARGET = 'node20';
 const BUNDLER_PATH_COMMENT = /^\/\/ \S+\.(?:ts|mjs|js|cjs|json)\r?\n/gmu;
 const BUNDLE_NAME = 'extension.cjs';
 const CLI_DECLARATIONS = 'index.d.ts';
+const CHECK_FLAG = '--check-assets';
 
 function measureBrotliBytes(file: string): number {
   return brotliCompressSync(fs.readFileSync(file), { params: { [constants.BROTLI_PARAM_QUALITY]: constants.BROTLI_MAX_QUALITY } }).byteLength;
@@ -21,6 +23,7 @@ function measureBrotliBytes(file: string): number {
 
 export async function buildVscode(options: BuildVscodeOptions): Promise<BuildVscodeResult> {
   const outDir = path.resolve(options.outDir);
+  copyGeneratedAssets();
   fs.rmSync(outDir, { recursive: true, force: true });
   await build({
     absWorkingDir: ROOT,
@@ -46,8 +49,19 @@ export async function buildVscode(options: BuildVscodeOptions): Promise<BuildVsc
   return { extensionBrotliBytes: measureBrotliBytes(bundle) };
 }
 
+function checkAssets(): number {
+  const stale = findStaleGeneratedAssets();
+  if (stale.length === 0) return 0;
+  process.stderr.write(`Ô rapaz! Estes arquivos divergiram do gerado: ${stale.join(', ')}. Rode "corepack pnpm build:vscode".\n`);
+  return 1;
+}
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const { extensionBrotliBytes } = await buildVscode({ outDir: path.join(VSCODE_DIR, 'dist') });
-  const budget = (JSON.parse(fs.readFileSync(BUDGETS_FILE, 'utf8')) as { readonly extensionBundleBrotliBytes: number }).extensionBundleBrotliBytes;
-  process.stdout.write(`${BUNDLE_NAME}: ${String(extensionBrotliBytes)} B brotli (registrado: ${String(budget)} B)\n`);
+  if (process.argv.includes(CHECK_FLAG)) {
+    process.exit(checkAssets());
+  } else {
+    const { extensionBrotliBytes } = await buildVscode({ outDir: path.join(VSCODE_DIR, 'dist') });
+    const budget = (JSON.parse(fs.readFileSync(BUDGETS_FILE, 'utf8')) as { readonly extensionBundleBrotliBytes: number }).extensionBundleBrotliBytes;
+    process.stdout.write(`${BUNDLE_NAME}: ${String(extensionBrotliBytes)} B brotli (registrado: ${String(budget)} B)\n`);
+  }
 }
