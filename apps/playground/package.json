@@ -5,7 +5,7 @@
   "description": "🇧🇷 Playground web do GoiásScript — escreva goianês no navegador",
   "scripts": {
     "predev": "node scripts/copy-monaco.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-examples.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-runner.ts",
-    "prebuild": "node scripts/copy-monaco.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-examples.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-runner.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-public-config.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-cartilha.ts --somente-compila",
+    "prebuild": "node scripts/copy-monaco.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-examples.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-runner.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-public-config.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-lesson-index.ts --write && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-cartilha.ts --somente-compila",
     "check:cartilha": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-cartilha.ts",
     "dev": "next dev",
     "build": "next build",

@@ -84,6 +84,16 @@ describe('autocomplete: link da lição', () => {
   });
 });
 
+describe('autocomplete com o mapa de termos da cartilha', () => {
+  it('prosa e uai ganham o link da lição, sem base nenhum item ganha', () => {
+    const proItems = completionItemsFor({ linePrefix: 'pro', lessonBaseUrl: BASE_URL });
+    const uaItems = completionItemsFor({ linePrefix: 'ua', lessonBaseUrl: BASE_URL });
+    expect(proItems.find((item) => item.label === 'prosa' && item.kind !== 'snippet')?.lessonUrl).toBe(`${BASE_URL}/licao-01`);
+    expect(uaItems.find((item) => item.label === 'uai')?.lessonUrl).toBe(`${BASE_URL}/licao-02`);
+    expect(completionItemsFor({ linePrefix: 'pro', lessonBaseUrl: null }).every((item) => item.lessonUrl === undefined)).toBe(true);
+  });
+});
+
 describe('gatilho do autocomplete', () => {
   it('abre a lista ao digitar o ponto', () => {
     expect(MEMBER_TRIGGER_CHARACTER).toBe('.');
