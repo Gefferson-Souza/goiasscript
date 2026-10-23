@@ -1,7 +1,8 @@
 import { loadEnvFile } from 'node:process';
+import { fileURLToPath } from 'node:url';
 import { loadEnvFiles, runPublicConfigCheck } from '../config/public-config-cli.ts';
 
-loadEnvFiles(new URL('..', import.meta.url).pathname, loadEnvFile);
+loadEnvFiles(fileURLToPath(new URL('..', import.meta.url)), loadEnvFile);
 
 const io = {
   out: (text: string) => process.stdout.write(text),
