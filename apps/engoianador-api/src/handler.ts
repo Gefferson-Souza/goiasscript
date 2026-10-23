@@ -8,6 +8,7 @@ import { MESSAGES } from './messages.constants';
 import type { QuotaDecision } from './ports.types';
 import { networkKeyOf } from './quota/network-key';
 import { ERROR_FIELD, RESPONSE_TEXT_FIELD, STATUS_PAYLOAD } from './responses.constants';
+import { REFUNDABLE_FAILURES } from './refund.constants';
 import { parseEngoianarRequest } from './validation';
 
 type Reply = (body: unknown, status: number, headers?: Readonly<Record<string, string>>) => Response;
@@ -89,7 +90,7 @@ async function engoiana(request: Request, deps: HandlerDeps, reply: Reply, guard
 
   const result = await deps.providers.complete(parsed.text, request.signal);
   if (!result.ok) {
-    await refundQuietly(deps, decision.reservation);
+    if (REFUNDABLE_FAILURES.has(result.failure) && !request.signal.aborted) await refundQuietly(deps, decision.reservation);
     return reply({ [ERROR_FIELD]: MESSAGES.providerFailed }, HTTP_STATUS.badGateway);
   }
   await writeCache(deps, parsed.text, result.text);

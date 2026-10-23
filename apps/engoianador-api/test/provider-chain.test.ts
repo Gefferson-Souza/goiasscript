@@ -45,6 +45,11 @@ describe('createProviderChain', () => {
     expect(await chain.complete('oi', NEVER_ABORTED)).toEqual({ ok: false, failure: 'empty', provider: 'workers-ai' });
   });
 
+  it('prefere a falha causada pelo pedido quando as causas se misturam', async () => {
+    const chain = createProviderChain([failing('groq', 'client-error'), failing('workers-ai', 'server-error')]);
+    expect(await chain.complete('oi', NEVER_ABORTED)).toEqual({ ok: false, failure: 'client-error', provider: 'groq' });
+  });
+
   it('não tenta o próximo provedor depois que o pedido foi cancelado', async () => {
     const controller = new AbortController();
     let secondCalls = 0;
