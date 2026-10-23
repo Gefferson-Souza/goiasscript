@@ -55,7 +55,7 @@ suite(`modo restrito (${expectUntrusted ? 'pasta não confiável' : 'pasta confi
     const outcome = await runCommand(TRANSLATE_COMMAND);
     assert.deepStrictEqual(outcome.calls.map((call) => call.api), ['execFile']);
     assert.deepStrictEqual(outcome.errors, []);
-    assert.ok(fs.existsSync(path.join(outcome.dir, 'programa.js')), 'a tradução devia ter gerado o arquivo de saída');
+    assert.ok(fs.existsSync(path.join(outcome.dir, 'programa.mjs')), 'a tradução devia ter gerado o arquivo de saída');
   });
 
   test(expectUntrusted ? 'bota_pra_moer é recusado sem executar nada' : 'bota_pra_moer executa o programa', async () => {
