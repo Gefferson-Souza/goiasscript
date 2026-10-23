@@ -1,13 +1,11 @@
 # Relatório do gate da Fase 7
 
-**Veredito:** NÃO APROVADO, condicionado à revisão independente. O aceite exige o `security-reviewer` em contexto
-fresco e ele ainda não rodou: a revisão da seção 6 foi autorrevisão do executor (mais uma leitura posterior, sem agente
-de segurança dedicado). Sem essa prova, a ausência de achado CRITICAL ou HIGH é só a leitura do executor, não está
-comprovada de forma independente. Dentro do que foi feito, a
-validação de corpo está coberta por teste, a cota sob concorrência passa exatamente o limite, cobertura e mutação foram
-medidas e `apps/engoianador-api` não tem entrada no `baseline.json`. O que depende de conta, chave ou ato do dono
-(Cloudflare, Groq, KV, Durable Object, secrets, `wrangler deploy`) está na seção 9 como `pendente do dono`. Nada foi
-implantado, publicado nem enviado ao remoto, e nenhuma tag foi criada.
+**Veredito:** pronto para o GATE 7, que o dono decide. A revisão independente (subagente de segurança em contexto
+fresco) foi feita e não achou CRITICAL nem HIGH; os 3 achados MEDIUM e os 2 LOW corrigíveis foram corrigidos com teste
+(seção 6.3). A validação de corpo está coberta por teste, a cota sob concorrência passa exatamente o limite, cobertura
+e mutação foram medidas e `apps/engoianador-api` não tem entrada no `baseline.json`. O que depende de conta, chave ou
+ato do dono (Cloudflare, Groq, KV, Durable Object, secrets, `wrangler deploy`) está na seção 9 como `pendente do dono`.
+Nada foi implantado, publicado nem enviado ao remoto, e nenhuma tag foi criada.
 
 Medição: Node v26, Linux. Cobertura e contagens vêm de `vitest run --coverage` e de `corepack pnpm verify` feitos depois
 do último commit de código. A nota de mutação é de uma execução (1 min).
@@ -98,11 +96,11 @@ observável depois do deploy (seção 9).
 
 ## 6. Revisão de segurança e disposição
 
-**Como foi feita.** A ferramenta de subagente não estava disponível na execução desta unidade; a revisão foi feita
-direto pelo executor, em modo de leitura, sobre `apps/engoianador-api/{src,scripts,wrangler.toml}`,
-`.github/workflows/engoianador-*.yml` e `apps/playground/lib/engoianador-client.ts` (perímetro ignorado:
-`node_modules`, `dist`, `packages/core`). **A revisão em contexto fresco por agente independente, que o aceite pede,
-continua pendente** e deve ser disparada pelo dono ou pelo orquestrador antes de aprovar o GATE 7.
+**Como foi feita.** A autorrevisão do executor (tabela 6.1) foi seguida de uma revisão independente por agente de
+segurança em contexto fresco (tabela 6.3), sobre `apps/engoianador-api/{src,scripts,wrangler.toml}`,
+`.github/workflows/engoianador-*.yml`, `apps/playground/lib/engoianador-client.ts` e a execução da cartilha (perímetro
+ignorado: `node_modules`, `dist`, `packages/core`). Resultado: nenhum CRITICAL, nenhum HIGH. O veredito final do
+GATE 7 é do dono.
 
 ### 6.1 Achados
 
@@ -144,6 +142,20 @@ continua pendente** e deve ser disparada pelo dono ou pelo orquestrador antes de
 - **Durable Object:** só alcançável pelo binding (sem rota pública); o corpo é validado por esquema estrito e o texto do
   usuário nunca chega ao objeto.
 
+### 6.3 Revisão independente
+
+| Id | Severidade | Arquivo | Achado | Decisão |
+| --- | --- | --- | --- | --- |
+| M1 | MEDIUM | `handler.ts` | A cota era devolvida em qualquer falha: quem força `client-error` ou `empty` nos dois provedores, ou aborta a conexão, nunca gasta cota e ainda gera chamadas pagas. | **Corrigido** em 3b2d472: devolve só em `server-error` ou `timeout`, nunca com `request.signal.aborted`; a cadeia de provedores reporta a falha provocável quando as causas se misturam. |
+| M2 | MEDIUM | `prompt.ts` | A limpeza de uma passada deixava montar o delimitador por aninhamento (`<texto_<texto_do_usuario>do_usuario>`). | **Corrigido** em 221d195: NFKC (cobre `＜＞` de largura total) e remoção repetida até não sobrar tag; testes com entrada aninhada e largura total. |
+| M3 | MEDIUM | `run-lesson-program.ts` | O programa da lição rodava com fs e rede totais (`check-cartilha`). | **Corrigido** em 9f7f43e: `--permission` com `--allow-fs-read` restrito à pasta temporária; teste de leitura fora da pasta falha. |
+| L1 | LOW | `engoianador-smoke.yml` | A validação de `base_url` com `grep` aceitava valor de várias linhas. | **Corrigido** em fe6d17a: validação com `new URL`, exige `https:`, recusa espaço e quebra de linha; teste executa o passo de verdade. |
+| L2 | LOW | `wrangler.toml` | `[vars]` de produção tinha `http://localhost:3000` em `ALLOWED_ORIGINS`. | **Corrigido** em cdfb2d4: localhost vai para `[env.dev]` (`wrangler dev --env dev`); `check-worker-config` recusa origem local na produção. |
+| L3 | LOW | `handler.ts` | Balde `anon` quando falta `cf-connecting-ip`. | **Aceito:** na Cloudflare o cabeçalho sempre existe e não é forjável. |
+| L4 | LOW | `health.ts` | `/health` público mostra o modelo e quais bindings existem. | **Aceito:** necessário para o smoke e o diagnóstico do dono; sem valor de segredo. |
+| L5 | LOW | `rate-limiter.do.ts` | Um Durable Object por rede, sem limpeza. | **Aceito:** limitado pelo teto global e pelo guarda de leitura; o alarme de uso fica como pendência do dono (seção 9). |
+| - | INFO | CORS | CORS não é controle de servidor. | **Aceito:** o controle real é a cota por rede e o teto global. Turnstile fica como sugestão ao dono. |
+
 ## 7. Rastreabilidade (§11)
 
 | Requisito do spec | Prova |
@@ -157,7 +169,7 @@ continua pendente** e deve ser disparada pelo dono ou pelo orquestrador antes de
 
 ## 8. Divergências do spec e do plano
 
-1. A revisão de segurança foi feita pelo executor, não por agente em contexto fresco (seção 6).
+1. A revisão de segurança teve duas etapas: autorrevisão do executor (6.1) e revisão independente em contexto fresco (6.3).
 2. A nota de mutação ficou em 78,92%, abaixo do verde de 80% do Stryker, mas o limiar é só de relatório (decisão 29).
    Os sobreviventes de `lookup-guard.ts` (58,49%), `reservation.ts` e `rate-limiter.do.ts` (64,71%) ficam para a
    manutenção: endurecer esses três arquivos com testes que matem os sobreviventes e então ligar o limiar de ruptura em
@@ -178,5 +190,6 @@ continua pendente** e deve ser disparada pelo dono ou pelo orquestrador antes de
 | Aquecer o cache | U7-04 | `scripts/warm-cache.ts` (cinco frases do playground) | rodar o script com a URL implantada | cinco respostas 200 relatadas | pendente do dono |
 | Variável `ENGOIANADOR_URL` e contrato semanal | U7-06 | `engoianador-contract.yml` | definir a variável e o segredo e disparar o workflow | execução verde (sem "pendente do dono" no resumo) | pendente do dono |
 | Smoke pós-deploy | U7-06 | `engoianador-smoke.yml` | disparar com `base_url` implantado | execução verde | pendente do dono |
-| Revisão de segurança independente (bloqueia o GATE 7) | U7-08 | perímetro e checklist da seção 6 | despachar o `everything-claude-code:security-reviewer` em contexto fresco e anexar a tabela na seção 6 | tabela sem CRITICAL/HIGH | pendente do orquestrador |
+| Revisão de segurança independente | U7-08 | perímetro e checklist da seção 6; tabela 6.3 | nenhuma | tabela sem CRITICAL/HIGH | feita |
 | Aplicar `ALLOWED_ORIGINS` de produção | U7-00 | validação de origens `https:` na configuração | trocar pelo domínio real no `wrangler.toml` | `/health` 200 e CORS da origem real | pendente do dono |
+| Alarme de uso de Durable Objects e Turnstile (opcional) | U7-08 | teto global e guarda de leitura limitam o abuso | configurar alerta de uso dos Durable Objects na Cloudflare e, se quiser, Turnstile na frente do `/engoiana` | alerta ativo; desafio validado no Worker | pendente do dono |
