@@ -1,8 +1,11 @@
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { WhatChanged } from '../components/cartilha/WhatChanged.tsx';
+import { copyWhatChanged } from '../scripts/copy-what-changed.ts';
 import { loadWhatChanged, splitPipeTables } from '../lib/cartilha/what-changed.ts';
 
 const APP_ROOT = join(import.meta.dirname, '..');
@@ -33,5 +36,31 @@ describe('página o que mudou', () => {
 
   it('falha em goianês quando o arquivo não existe', () => {
     expect(() => loadWhatChanged('/caminho/que/nao/existe')).toThrow(/Ô sô/u);
+  });
+
+  it('barra escapada fica dentro da célula', () => {
+    const [table] = splitPipeTables('| a | b |\n|---|---|\n| x \\| y | z |');
+    expect(table).toMatchObject({ kind: 'table', rows: [['x | y', 'z']] });
+  });
+
+  it('linhas repetidas renderizam sem key duplicada', () => {
+    const errors: unknown[][] = [];
+    const original = globalThis.console.error;
+    globalThis.console.error = (...args: unknown[]) => void errors.push(args);
+    renderToStaticMarkup(createElement(WhatChanged, { markdown: '| a |\n|---|\n| x |\n| x |' }));
+    globalThis.console.error = original;
+    expect(errors).toEqual([]);
+  });
+
+  it('lê a cópia local quando o docs/spec não está ao lado', () => {
+    const root = mkdtempSync(join(tmpdir(), 'wc-'));
+    mkdirSync(join(root, 'content'));
+    writeFileSync(join(root, 'content', 'o-que-mudou.md'), '# copia');
+    expect(loadWhatChanged(root)).toBe('# copia');
+    rmSync(root, { recursive: true });
+  });
+
+  it('copia o spec para o app quando existe', () => {
+    expect(copyWhatChanged('/caminho/que/nao/existe')).toBe('missing-source');
   });
 });

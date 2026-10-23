@@ -1,16 +1,20 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { CELL_SEPARATOR, TABLE_ROW, TABLE_SEPARATOR_ROW, WHAT_CHANGED_FILE_SEGMENTS, WHAT_CHANGED_LOAD_FAILURE } from './what-changed.constants.ts';
+import { ESCAPED_CELL_SEPARATOR, TABLE_ROW, TABLE_SEPARATOR_ROW, UNESCAPED_CELL_SEPARATOR, WHAT_CHANGED_CANDIDATE_SEGMENTS, WHAT_CHANGED_LOAD_FAILURE } from './what-changed.constants.ts';
 import type { MarkdownPart } from './what-changed.types.ts';
 
-const cellsOf = (line: string): readonly string[] => line.trim().replace(/^\|/u, '').replace(/\|$/u, '').split(CELL_SEPARATOR).map((cell) => cell.trim());
+const cellsOf = (line: string): readonly string[] =>
+  line
+    .trim()
+    .replace(/^\|/u, '')
+    .replace(/(?<!\\)\|$/u, '')
+    .split(UNESCAPED_CELL_SEPARATOR)
+    .map((cell) => cell.trim().replaceAll(ESCAPED_CELL_SEPARATOR, '|'));
 
 export function loadWhatChanged(root: string = process.cwd()): string {
-  try {
-    return readFileSync(join(root, ...WHAT_CHANGED_FILE_SEGMENTS), 'utf8');
-  } catch {
-    throw new Error(WHAT_CHANGED_LOAD_FAILURE);
-  }
+  const found = WHAT_CHANGED_CANDIDATE_SEGMENTS.map((segments) => join(root, ...segments)).find((path) => existsSync(path));
+  if (found === undefined) throw new Error(WHAT_CHANGED_LOAD_FAILURE);
+  return readFileSync(found, 'utf8');
 }
 
 const isTableStart = (lines: readonly string[], index: number): boolean => {

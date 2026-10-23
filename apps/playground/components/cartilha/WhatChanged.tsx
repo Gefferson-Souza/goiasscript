@@ -35,8 +35,8 @@ export function WhatChanged({ markdown }: Props) {
                 </tr>
               </thead>
               <tbody>
-                {part.rows.map((row) => (
-                  <tr key={row.join('|')}>
+                {part.rows.map((row, rowIndex) => (
+                  <tr key={`${String(rowIndex)}-${row.join('|')}`}>
                     {row.map((cell, cellIndex) => (
                       <td key={`${String(cellIndex)}-${cell}`}>
                         <Cell text={cell} />

@@ -1,6 +1,9 @@
-export const WHAT_CHANGED_FILE_SEGMENTS: readonly string[] = ['..', '..', 'docs', 'spec', 'o-que-mudou.md'];
+export const WHAT_CHANGED_SPEC_SEGMENTS: readonly string[] = ['..', '..', 'docs', 'spec', 'o-que-mudou.md'];
+export const WHAT_CHANGED_COPY_SEGMENTS: readonly string[] = ['content', 'o-que-mudou.md'];
+export const WHAT_CHANGED_CANDIDATE_SEGMENTS: readonly (readonly string[])[] = [WHAT_CHANGED_SPEC_SEGMENTS, WHAT_CHANGED_COPY_SEGMENTS];
 export const WHAT_CHANGED_LOAD_FAILURE = 'Ô sô, num achei a página "o que mudou" em docs/spec e o build num segue sem ela.';
 export const TABLE_SEPARATOR_ROW = /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)*\|?\s*$/u;
 export const TABLE_ROW = /^\s*\|.*\|\s*$/u;
-export const CELL_SEPARATOR = '|';
+export const UNESCAPED_CELL_SEPARATOR = /(?<!\\)\|/u;
+export const ESCAPED_CELL_SEPARATOR = '\\|';
 export const INLINE_CODE_FENCE = '`';
