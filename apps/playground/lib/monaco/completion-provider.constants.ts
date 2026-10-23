@@ -1,7 +1,7 @@
 const KIND_FUNCTION = 1;
 const KIND_PROPERTY = 9;
 const KIND_KEYWORD = 17;
-const KIND_SNIPPET = 25;
+const KIND_SNIPPET = 28;
 const INSERT_AS_SNIPPET = 4;
 
 // Valores de CompletionItemKind e CompletionItemInsertTextRule do Monaco, fixos pela API do editor.
