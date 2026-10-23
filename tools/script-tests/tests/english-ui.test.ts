@@ -2,8 +2,10 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { executeModule } from '../../../packages/compiler/tests/support/execute-module.ts';
 import { checkEnglish, findEnglishHits, loadEnglishRules } from '../../../scripts/english-ui.ts';
+import { UI_SOURCE_EXCLUSIONS } from '../../../scripts/gate.constants.ts';
 import type { AllowEntry, ForbiddenEntry, UiString } from '../../../scripts/gate.types.ts';
 import { extractStringLiterals } from '../../../scripts/ui-strings.literals.ts';
+import { discoverUiSourceFiles, isUiSource } from '../../../scripts/ui-strings.sources.ts';
 import { collectCatalogStrings, collectUserFacingStrings } from '../../../scripts/ui-strings.ts';
 
 const ROOT_DIR = path.resolve(import.meta.dirname, '../../..');
@@ -22,11 +24,25 @@ describe('checkEnglish', () => {
     expect(problems[0]?.message).toContain('failed');
   });
 
-  it('aceita o trecho entre aspas em GS04xx', () => {
-    const quoted = text('Ô sô, "x is not a function" é do JavaScript.', 'diagnostic', 'GS0403');
+  it('aceita o identificador do usuário entre aspas em GS04xx', () => {
+    const quoted = text('Ô sô, "failed" e "fetch.failed()" são do JavaScript.', 'diagnostic', 'GS0403');
     expect(checkEnglish([quoted], FORBIDDEN, [CATALOG_ALLOW])).toEqual([]);
-    const outside = text('Ô sô, "x is not a function" é do JavaScript.', 'diagnostic', 'GS0301');
+    const outside = text('Ô sô, "failed" é do JavaScript.', 'diagnostic', 'GS0301');
     expect(checkEnglish([outside], FORBIDDEN, [CATALOG_ALLOW])).toHaveLength(1);
+  });
+
+  it('recusa frase em inglês entre aspas em GS04xx', () => {
+    const sentence = text('Ô sô, "x is not a function" saiu do motor.', 'diagnostic', 'GS0403');
+    expect(checkEnglish([sentence], FORBIDDEN, [CATALOG_ALLOW])).toHaveLength(1);
+    const phrase = text('Ô sô, "the build failed" saiu.', 'diagnostic', 'GS0402');
+    expect(checkEnglish([phrase], FORBIDDEN, [CATALOG_ALLOW])).toHaveLength(1);
+  });
+
+  it('nome próprio só vale como palavra inteira', () => {
+    const substring: readonly ForbiddenEntry[] = [{ pattern: 'fail', scope: 'ui', reason: 'trecho em inglês' }];
+    const allowed: AllowEntry = { kind: 'proper-name', text: 'fail', reason: 'nome de exemplo' };
+    expect(checkEnglish([text('Use fail, sô')], substring, [allowed])).toEqual([]);
+    expect(checkEnglish([text('Isso é failure, sô')], substring, [allowed])).toHaveLength(1);
   });
 
   it('aceita nome próprio da lista de permissão e recusa o mesmo texto sem a permissão', () => {
@@ -75,6 +91,16 @@ describe('strings vistas pelo usuário', () => {
     const strings = collectCatalogStrings();
     expect(new Set(strings.map((item) => item.source))).toEqual(new Set(['diagnostics:raiz', 'diagnostics:neutro', 'diagnostics:example']));
     expect(checkEnglish(strings, rules.forbidden, rules.allowlist)).toEqual([]);
+  });
+
+  it('descobre por glob os textos de interface e respeita as exclusões', () => {
+    const files = discoverUiSourceFiles(ROOT_DIR);
+    for (const expected of ['apps/playground/lib/engoianador-messages.constants.ts', 'apps/playground/lib/run/run-state-view.constants.ts', 'packages/cli/src/scaffold/template.constants.ts']) {
+      expect(files).toContain(expected);
+    }
+    for (const excluded of Object.keys(UI_SOURCE_EXCLUSIONS)) expect(files).not.toContain(excluded);
+    expect(isUiSource('apps/playground/lib/novo-texto.constants.ts')).toBe(true);
+    expect(isUiSource('apps/playground/tests/x.constants.ts')).toBe(false);
   });
 
   it('a coleta traz catálogo, ajuda, interface e mensagens do Worker', () => {

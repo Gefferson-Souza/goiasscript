@@ -1,19 +1,30 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { TRACEABILITY_PATH } from './gate.constants.ts';
-import type { GateProblem, TraceabilityEntry, TraceabilityFs, TraceabilityProof } from './gate.types.ts';
+import { CI_ONLY_TEST_PATH, TEST_TITLE, TRACEABILITY_PATH } from './gate.constants.ts';
+import type { GateProblem, TestRunner, TraceabilityEntry, TraceabilityFs, TraceabilityProof } from './gate.types.ts';
 
 const TEST_PROOF = 'test';
 const READY_PROOF_KINDS: readonly string[] = ['workflow', 'script'];
 
 const problem = (entry: TraceabilityEntry, message: string): GateProblem => ({ file: TRACEABILITY_PATH, message: `"${entry.promise}": ${message}` });
 
+export const testRunsIn = (file: string): TestRunner => (CI_ONLY_TEST_PATH.test(file) ? 'ci' : 'verify');
+
+const testTitles = (source: string): readonly string[] => Array.from(source.matchAll(TEST_TITLE), (match) => match[2] ?? '');
+
+function runnerProblems(entry: TraceabilityEntry, proof: TraceabilityProof): readonly GateProblem[] {
+  if (proof.kind !== TEST_PROOF) return [];
+  const expected = testRunsIn(proof.path);
+  return proof.runsIn === expected ? [] : [problem(entry, `a prova ${proof.path} roda em "${expected}", e o registro diz "${proof.runsIn ?? 'nada'}".`)];
+}
+
 function proofProblem(entry: TraceabilityEntry, proof: TraceabilityProof, files: TraceabilityFs): readonly GateProblem[] {
   if (!files.exists(proof.path)) return [problem(entry, `a prova ${proof.path} não existe.`)];
-  if (proof.name !== undefined && !files.read(proof.path).includes(proof.name)) {
-    return [problem(entry, `o nome "${proof.name}" não aparece em ${proof.path}.`)];
+  const name = proof.name;
+  if (name !== undefined && !testTitles(files.read(proof.path)).some((title) => title.includes(name))) {
+    return [problem(entry, `o nome "${name}" não é título de it/test/describe em ${proof.path}.`)];
   }
-  return [];
+  return runnerProblems(entry, proof);
 }
 
 function stateProblems(entry: TraceabilityEntry): readonly GateProblem[] {

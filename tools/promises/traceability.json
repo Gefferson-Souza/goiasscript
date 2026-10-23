@@ -5,7 +5,8 @@
       {
         "kind": "test",
         "path": "packages/compiler/tests/conformance.test.ts",
-        "name": "corpus de conformidade"
+        "name": "corpus de conformidade",
+        "runsIn": "verify"
       }
     ],
     "state": "green"
@@ -16,12 +17,14 @@
       {
         "kind": "test",
         "path": "apps/playground-e2e/tests/editor-autocomplete.spec.ts",
-        "name": "prosa mostra o equivalente console.log"
+        "name": "prosa mostra o equivalente console.log",
+        "runsIn": "ci"
       },
       {
         "kind": "test",
         "path": "packages/vscode/tests/completion.test.ts",
-        "name": "oferece a palavra goiana com o equivalente em JS e a variante sem acento"
+        "name": "oferece a palavra goiana com o equivalente em JS e a variante sem acento",
+        "runsIn": "verify"
       }
     ],
     "state": "green"
@@ -32,7 +35,8 @@
       {
         "kind": "test",
         "path": "apps/playground-e2e/tests/split-view.spec.ts",
-        "name": "mostra o JS gerado ao lado do editor e troca para o otimizado"
+        "name": "mostra o JS gerado ao lado do editor e troca para o otimizado",
+        "runsIn": "ci"
       }
     ],
     "state": "green"
@@ -43,7 +47,8 @@
       {
         "kind": "test",
         "path": "packages/cli/tests/e2e/scaffold-steps.e2e.ts",
-        "name": "seguidos à risca, rodam o projeto gerado"
+        "name": "seguidos à risca, rodam o projeto gerado",
+        "runsIn": "ci"
       },
       {
         "kind": "workflow",
@@ -58,7 +63,8 @@
       {
         "kind": "test",
         "path": "packages/cli/tests/e2e/scaffold-steps.e2e.ts",
-        "name": "Bão, sô! Olá, mundo"
+        "name": "seguidos à risca, rodam o projeto gerado",
+        "runsIn": "ci"
       },
       {
         "kind": "workflow",
@@ -73,7 +79,8 @@
       {
         "kind": "test",
         "path": "apps/playground-e2e/tests/run-output.spec.ts",
-        "name": "preserva a ordem entre saída síncrona e assíncrona"
+        "name": "preserva a ordem entre saída síncrona e assíncrona",
+        "runsIn": "ci"
       },
       {
         "kind": "workflow",
@@ -88,7 +95,8 @@
       {
         "kind": "test",
         "path": "packages/vscode/tests/manifest-assets.test.ts",
-        "name": "cita ícone, configuração, gramática, snippets e ícones de arquivo"
+        "name": "cita ícone, configuração, gramática, snippets e ícones de arquivo",
+        "runsIn": "verify"
       },
       {
         "kind": "workflow",
@@ -122,12 +130,14 @@
       {
         "kind": "test",
         "path": "packages/cli/tests/repl-engine.test.ts",
-        "name": "persiste declarações entre entradas e mostra o eco"
+        "name": "persiste declarações entre entradas e mostra o eco",
+        "runsIn": "verify"
       },
       {
         "kind": "test",
         "path": "packages/cli/tests/repl-loop.test.ts",
-        "name": "TAB completa no terminal"
+        "name": "TAB completa no terminal",
+        "runsIn": "verify"
       }
     ],
     "state": "green"
@@ -149,7 +159,8 @@
       {
         "kind": "test",
         "path": "tools/script-tests/tests/compiler-dependencies.test.ts",
-        "name": "falha se o compilador declarar dependência de runtime"
+        "name": "falha se o compilador declarar dependência de runtime",
+        "runsIn": "verify"
       },
       {
         "kind": "workflow",
@@ -179,7 +190,8 @@
       {
         "kind": "test",
         "path": "packages/cli/tests/e2e/pack.e2e.ts",
-        "name": "o tarball traz só o que deve, com README e LICENSE"
+        "name": "o tarball traz só o que deve, com README e LICENSE",
+        "runsIn": "ci"
       }
     ],
     "state": "green"
@@ -190,7 +202,8 @@
       {
         "kind": "test",
         "path": "packages/cli/tests/e2e/name-matrix.e2e.ts",
-        "name": "saída igual à entrada e destino existente são recusados sem tocar no fonte"
+        "name": "saída igual à entrada e destino existente são recusados sem tocar no fonte",
+        "runsIn": "ci"
       }
     ],
     "state": "green"
@@ -201,12 +214,14 @@
       {
         "kind": "test",
         "path": "packages/vscode/tests/integration/hostile-names.test.ts",
-        "name": "não vira comando"
+        "name": "não vira comando",
+        "runsIn": "ci"
       },
       {
         "kind": "test",
         "path": "packages/vscode/tests/manifest.test.ts",
-        "name": "executar o programa só aparece e só roda em workspace confiável de arquivo"
+        "name": "executar o programa só aparece e só roda em workspace confiável de arquivo",
+        "runsIn": "verify"
       }
     ],
     "state": "green"

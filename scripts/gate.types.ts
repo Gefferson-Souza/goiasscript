@@ -29,12 +29,14 @@ export interface EnglishRules {
 }
 
 export type ProofKind = 'test' | 'workflow' | 'script';
+export type TestRunner = 'verify' | 'ci';
 export type TraceabilityState = 'green' | 'ready' | 'missing';
 
 export interface TraceabilityProof {
   readonly kind: ProofKind;
   readonly path: string;
   readonly name?: string;
+  readonly runsIn?: TestRunner;
 }
 
 export interface TraceabilityEntry {

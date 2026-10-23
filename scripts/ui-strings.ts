@@ -4,7 +4,7 @@ import { DIAGNOSTICS } from '../packages/language/src/index.ts';
 import { BLANK, CLI_HELP_PATH, CLI_HELP_SOURCE } from './gate.constants.ts';
 import type { UiString } from './gate.types.ts';
 import { extractStringLiterals } from './ui-strings.literals.ts';
-import { UI_SOURCE_FILES } from './ui-strings.sources.ts';
+import { discoverUiSourceFiles } from './ui-strings.sources.ts';
 
 const ROOT_DIR = path.resolve(import.meta.dirname, '..');
 
@@ -25,6 +25,6 @@ function collectHelpStrings(): readonly UiString[] {
 }
 
 export function collectUserFacingStrings(): readonly UiString[] {
-  const declared = UI_SOURCE_FILES.flatMap((file) => extractStringLiterals(fs.readFileSync(path.join(ROOT_DIR, file), 'utf8')).map((text) => ({ source: file, text })));
+  const declared = discoverUiSourceFiles(ROOT_DIR).flatMap((file) => extractStringLiterals(fs.readFileSync(path.join(ROOT_DIR, file), 'utf8')).map((text) => ({ source: file, text })));
   return [...collectCatalogStrings(), ...collectHelpStrings(), ...declared];
 }

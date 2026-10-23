@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { ENGLISH_ALLOWLIST_PATH, FORBIDDEN_ENGLISH_PATH, QUOTED_TEXT } from './gate.constants.ts';
+import { ENGLISH_ALLOWLIST_PATH, FORBIDDEN_ENGLISH_PATH, QUOTED_IDENTIFIER, REGEX_SPECIALS, WORD_CHAR } from './gate.constants.ts';
 import type { AllowEntry, EnglishRules, ForbiddenEntry, GateProblem, UiString } from './gate.types.ts';
 
 const DEFAULT_FLAGS = 'u';
@@ -19,9 +19,11 @@ function rulesProblems(forbidden: readonly ForbiddenEntry[], allowlist: readonly
   return [...forbiddenProblems, ...allowProblems];
 }
 
+const properNamePattern = (name: string): RegExp => new RegExp(`(?<!${WORD_CHAR})${name.replace(REGEX_SPECIALS, '\\$&')}(?!${WORD_CHAR})`, 'gu');
+
 function stripAllowed(item: UiString, text: string, entry: AllowEntry): string {
-  if (entry.kind === 'proper-name') return text.replaceAll(entry.text, '');
-  if (entry.kind === 'quoted-in-diagnostic' && item.diagnosticCode?.startsWith(entry.codePrefix) === true) return text.replace(QUOTED_TEXT, '');
+  if (entry.kind === 'proper-name') return text.replace(properNamePattern(entry.text), '');
+  if (entry.kind === 'quoted-in-diagnostic' && item.diagnosticCode?.startsWith(entry.codePrefix) === true) return text.replace(QUOTED_IDENTIFIER, '');
   return text;
 }
 
