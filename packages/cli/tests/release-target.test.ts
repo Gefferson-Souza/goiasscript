@@ -1,5 +1,8 @@
-import { describe, expect, it } from 'vitest';
-import { resolveReleaseTarget } from '../../../scripts/release-target.ts';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { hasPendingChangesets, resolveReleaseTarget } from '../../../scripts/release-target.ts';
 
 const CLEAN = { changesetsPending: false } as const;
 const PENDING = { changesetsPending: true } as const;
@@ -43,5 +46,41 @@ describe('resolveReleaseTarget', () => {
   it('explica a recusa em goianês', () => {
     const result = resolveReleaseTarget('v3.0', '3.0.0', CLEAN);
     expect(result.ok ? '' : result.reason).toContain('Ô rapaz');
+  });
+});
+
+describe('hasPendingChangesets', () => {
+  let directory = '';
+
+  beforeEach(() => {
+    directory = fs.mkdtempSync(path.join(os.tmpdir(), 'gs-changeset-'));
+  });
+
+  afterEach(() => {
+    fs.rmSync(directory, { recursive: true, force: true });
+  });
+
+  it('pasta vazia não tem pendência', () => {
+    expect(hasPendingChangesets(directory)).toBe(false);
+  });
+
+  it('só README e config não contam como pendência', () => {
+    fs.writeFileSync(path.join(directory, 'README.md'), '# Changesets\n');
+    fs.writeFileSync(path.join(directory, 'config.json'), '{}');
+    expect(hasPendingChangesets(directory)).toBe(false);
+  });
+
+  it('markdown solto sem frontmatter não conta', () => {
+    fs.writeFileSync(path.join(directory, 'notas.md'), 'texto solto\n');
+    expect(hasPendingChangesets(directory)).toBe(false);
+  });
+
+  it('um changeset de verdade conta como pendência', () => {
+    fs.writeFileSync(path.join(directory, 'trem-bom.md'), '---\n"goiasscript": minor\n---\n\nbota o trem\n');
+    expect(hasPendingChangesets(directory)).toBe(true);
+  });
+
+  it('pasta inexistente falha com mensagem em goianês', () => {
+    expect(() => hasPendingChangesets(path.join(directory, 'nao-existe'))).toThrow(/Eita! Não achei a pasta de changesets/);
   });
 });

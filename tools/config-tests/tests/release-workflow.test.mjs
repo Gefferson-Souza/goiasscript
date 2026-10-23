@@ -64,6 +64,14 @@ describe('release.yml', () => {
     expect(script).toMatch(/npm stage publish "\$TARBALL" --tag "\$DIST_TAG" --provenance/);
   });
 
+  it('recusa tag inválida já no job verify, antes do gate completo', () => {
+    const steps = stepsOf(workflow.jobs.verify);
+    const targetIndex = steps.findIndex((step) => (step.run ?? '').includes('release-target.ts'));
+    const verifyIndex = steps.findIndex((step) => (step.run ?? '').includes('run verify'));
+    expect(targetIndex).toBeGreaterThanOrEqual(0);
+    expect(targetIndex).toBeLessThan(verifyIndex);
+  });
+
   it('só publica commit que está na main, com histórico completo', () => {
     const publishSteps = stepsOf(workflow.jobs.publish);
     expect(publishSteps[0].with['fetch-depth']).toBe(0);

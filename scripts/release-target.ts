@@ -11,6 +11,7 @@ const ROOT = path.join(import.meta.dirname, '..');
 const CLI_MANIFEST = path.join(ROOT, 'packages/cli/package.json');
 const CHANGESET_DIR = path.join(ROOT, '.changeset');
 const CHANGESET_FILE = /^(?!README\.md$).+\.md$/;
+const FRONTMATTER_FENCE = '---';
 
 export function resolveReleaseTarget(tag: string, packageVersion: string, options: ReleaseTargetOptions): ReleaseTarget {
   const alphaVersion = ALPHA_TAG.exec(tag)?.[1];
@@ -31,11 +32,22 @@ export function resolveReleaseTarget(tag: string, packageVersion: string, option
   return { ok: true, version, distTag: STABLE_DIST_TAG };
 }
 
-function hasPendingChangesets(directory: string): boolean {
-  return fs.readdirSync(directory).some((name) => CHANGESET_FILE.test(name));
+export function hasPendingChangesets(directory: string): boolean {
+  let names: readonly string[];
+  try {
+    names = fs.readdirSync(directory);
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+      throw new Error(`Eita! Não achei a pasta de changesets em ${directory}.`, { cause: error });
+    }
+    throw error;
+  }
+  return names
+    .filter((name) => CHANGESET_FILE.test(name))
+    .some((name) => fs.readFileSync(path.join(directory, name), 'utf8').startsWith(FRONTMATTER_FENCE));
 }
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+function run(): void {
   const tag = process.env['GITHUB_REF_NAME'] ?? '';
   const { version } = JSON.parse(fs.readFileSync(CLI_MANIFEST, 'utf8')) as { readonly version: string };
   const target = resolveReleaseTarget(tag, version, { changesetsPending: hasPendingChangesets(CHANGESET_DIR) });
@@ -44,4 +56,13 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     process.exit(1);
   }
   process.stdout.write(`version=${target.version}\ndist_tag=${target.distTag}\n`);
+}
+
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  try {
+    run();
+  } catch (error) {
+    process.stderr.write(`${error instanceof Error ? error.message : String(error)}\n`);
+    process.exit(1);
+  }
 }
