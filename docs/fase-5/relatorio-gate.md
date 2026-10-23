@@ -14,14 +14,14 @@ Os commits não carregam o número da unidade no título; o agrupamento é pelo 
 
 | Unidade | Commits principais |
 | --- | --- |
-| U5-01 pacote, host injetável e build | f07f5f3, dbbb9c4, 507da61, 916c012 |
+| U5-01 pacote, host injetável e build | f07f5f3, dbbb9c4, 507da61, 916c012, 0ad8586 (lockfile do esbuild) |
 | U5-02 diagnósticos em tempo real | e260aaa, 54395c8 |
 | U5-03 autocomplete e hover | 6d1040a, 4dafd42, 02dadf5 |
 | U5-04 comandos `traduz` e `bota_pra_moer` | 865c442, 82c26fb, 70a07fd, 8c29cab |
 | U5-05 gramática, snippets, ícones e configuração | db42f6a |
-| U5-06 testes dentro do VS Code | 8ee003e, 2ff2884, 17e25b0 |
+| U5-06 testes dentro do VS Code | 8ee003e, 2ff2884 (matriz de CI), 17e25b0 (suites de Modo Restrito e nomes hostis) |
 | U5-07 release preparado | a26b701, 4944618, 8882fdf |
-| U5-08 revisão de segurança e este relatório | 753ae55 e o commit deste relatório |
+| U5-08 revisão de segurança e este relatório | 753ae55, e16e9c3 (relatório), 6f46c1c (correções do relatório) |
 
 ## 2. Cobertura (`vitest run --coverage`)
 
@@ -84,7 +84,7 @@ pendente** e deve ser disparada pelo dono ou pelo orquestrador antes do GATE 5.
 | --- | --- | --- | --- | --- |
 | 1 | MEDIUM | `package.json` (`capabilities`), `lessonBaseUrl` | Uma pasta não confiável podia trazer `goiasscript.lessonBaseUrl` nas próprias configurações e fazer os links de diagnóstico e hover levarem a uma página de terceiro (https, mas escolhida por quem preparou a pasta). | **Corrigido** em 753ae55: `restrictedConfigurations` lista a chave; teste no manifesto (RED observado antes). |
 | 2 | LOW | `settings/settings.ts` | O endereço de lição aceitava `https://usuario:senha@host`. O playground já recusa; a extensão destoava. | **Corrigido** em 753ae55: usuário ou senha no endereço viram `null`; teste (RED observado antes). |
-| 3 | MEDIUM | `.github/rulesets/tags.json`, `release-vscode.yml` | O ruleset de tags só protege `legacy/*` e o arquivo do protótipo; quem tem escrita pode empurrar `vscode-v*` e disparar o workflow. Contenções que existem: ambientes `marketplace` e `open-vsx` (a aprovação é do dono) e a conferência de que o commit da tag está na `main`. | Aceito por ora: não muda configuração do GitHub sem o dono. Entra no checklist da seção 9 (revisores obrigatórios nos dois ambientes e ruleset para `vscode-v*`). |
+| 3 | MEDIUM | `.github/rulesets/tags.json`, `release-vscode.yml` | O ruleset de tags só protege `legacy/*` e o arquivo do protótipo; quem tem escrita pode empurrar `vscode-v*` e disparar o workflow. Contenções que existem: ambientes `marketplace` e `open-vsx` (a aprovação é do dono) e a conferência de que o commit da tag está na `main`. | Corrigido no arquivo: `refs/tags/vscode-v*` entrou no ruleset versionado (deletion, update, non_fast_forward) com teste em `rulesets.test.mjs`. Aplicar o ruleset no GitHub continua com o dono (checklist da seção 11). |
 | 4 | LOW | `release-vscode.yml` | Os dois jobs de publicação são independentes: um pode publicar e o outro falhar, e as versões divergem entre Marketplace e Open VSX. | Aceito: a correção é republicar com a versão seguinte; o `smoke-extension.yml` confere os dois lados. |
 | 5 | LOW | `diagnostics/live-diagnostics.ts` | Documento de até 500.000 caracteres é compilado no processo de extensões: medido 257 a 362 ms (mediana de 5, 25 mil linhas). O `getText()` roda em todo evento mesmo para documento acima do teto. | Aceito: o teto existe, o atraso (padrão 300 ms) agrupa a digitação e o compilador é linear. |
 | 6 | LOW | `cli-invocation.ts` | O `cwd` do filho é a pasta do arquivo (controlada pelo usuário). | Aceito: é o que faz caminhos relativos do programa funcionarem; o Node resolve módulos pelo script (caminho absoluto dentro da extensão), e `NODE_OPTIONS`, `LD_PRELOAD` e afins não passam (lista fechada de variáveis, testada). |
@@ -108,10 +108,9 @@ pendente** e deve ser disparada pelo dono ou pelo orquestrador antes do GATE 5.
 - **Ambiente do filho:** lista fechada (`PATH`, `HOME`, `USERPROFILE`, `TMPDIR`, `TEMP`, `LANG`, `SystemRoot`) mais
   `ELECTRON_RUN_AS_NODE=1`; teste com `NODE_OPTIONS`, `LD_PRELOAD`, `DYLD_INSERT_LIBRARIES` e segredo de exemplo.
 - **`cwd`:** achado 6.
-- **Markdown de hover e documentação:** `MarkdownString` com `isTrusted = false` e `supportHtml = false` (aplicado em
-  `host/vscode-host.ts`, só coberto dentro do editor; `hover.test.ts` confere `trusted: false` no dado); texto do
-  programa escapado e URL passada por `encodeURI` com parênteses escapados no código (sem teste dedicado para os
-  parênteses).
+- **Markdown de hover e documentação:** `MarkdownString` com as opções de `UNTRUSTED_MARKDOWN_OPTIONS` (`isTrusted = false`,
+  `supportHtml = false`), aplicadas em `host/vscode-host.ts`; `hover.test.ts` confere as opções e que uma base de
+  lição com `(`, `)`, `]`, espaço e `<` gera um único link bem formado, com os parênteses e o espaço escapados.
 - **Sequência de controle:** `sanitizeTerminalText` tira controles (inclusive ESC e CR), formato e separadores de
   linha e parágrafo; vale para o terminal, o título do terminal, o canal de saída e a mensagem de sucesso;
   `stripEscapeSequences` limpa setas e colar na digitação antes do `stdin` do filho
@@ -137,7 +136,7 @@ HIGH abertos o gate fecha.
 | Medida | Valor |
 | --- | --- |
 | `dist/extension.cjs` (brotli, qualidade máxima) | **49.579 B** (bruto 237.009 B); catraca em `budgets.json` atualizada de 49.492 para 49.579 B pela correção do achado 2 |
-| `.vsix` | 335 KB, 21 entradas, 1.452.149 B descomprimidos |
+| `.vsix` | **334.712 B** (`stat -c %s packages/vscode/pack/goiasscript-vscode-0.3.0.vsix`), 21 entradas, 1.452.149 B descomprimidos |
 | CLI embutido (`dist/cli`) | `optimizer.mjs` 896.780 B é a maior parte; é o bundle do CLI da Fase 3, sem mapa |
 
 ## 7. Conteúdo do `.vsix` (`corepack pnpm pack:vscode`)
@@ -156,7 +155,7 @@ extension/dist/cli/chunks/{chunk-2UPSRMOW.mjs, chunk-UR5PIFSO.mjs, chunk-YLBYRMS
 Conferido: nenhum `.ts`, nenhum mapa, nenhum teste, nenhum `src/`, nenhum `.env`; nenhum caminho absoluto de máquina,
 e-mail nem formato de token nos arquivos; `package-layout.test.ts` falha se aparecer qualquer entrada fora da lista
 permitida. O comando `vsce ls` sobre a pasta do pacote lista a fonte (manifesto, gramática, snippets, ícones);
-o conteúdo final, com o bundle, é o da lista acima, lida do arquivo gerado.
+o conteúdo final, com o bundle, é o da lista acima, lida do arquivo gerado com `unzip -l packages/vscode/pack/goiasscript-vscode-0.3.0.vsix`.
 
 ## 8. Verificação manual do dono
 
@@ -178,7 +177,7 @@ Ctrl+C); (3) ícone do arquivo `.gs` nos temas claro e escuro e ícone da extens
 
 - Revisão de segurança independente não feita (bloqueia o GATE 5).
 - `test:integration` sem execução nas seis combinações até a CI rodar (bloqueia o GATE 5).
-- Tag `vscode-v*` sem ruleset: a defesa é a aprovação dos ambientes (achado 3).
+- Tag `vscode-v*`: o ruleset versionado já a protege; até o dono aplicá-lo, a defesa é a aprovação dos ambientes (achado 3).
 - Publicação parcial entre Marketplace e Open VSX (achado 4).
 - Os PATs globais do Azure DevOps são aposentados em 2026-12-01; sem o método decidido até lá, a publicação precisa de
   PAT mínimo só para a primeira vez (`docs/fase-0/publicacao-extensao.md`).
@@ -205,7 +204,7 @@ Ctrl+C); (3) ícone do arquivo `.gs` nos temas claro e escuro e ícone da extens
 4. Criar a conta Eclipse, assinar o Publisher Agreement do Open VSX, criar o namespace (`ovsx create-namespace`) e um
    token de escopo restrito; criar o ambiente `open-vsx` com o segredo `OVSX_PAT`.
 5. Pôr revisores obrigatórios nos dois ambientes e, se quiser, um ruleset de criação restrita para `vscode-v*`
-   (achado 3).
+   (achado 3; o arquivo versionado `.github/rulesets/tags.json` já inclui `vscode-v*`, falta o dono aplicá-lo).
 6. Definir `GS_EXTENSION_PUBLISHER` se o identificador não for `goiasscript`; criar a tag `vscode-v0.3.0` a partir de
    um commit já na `main`; aprovar os ambientes; rodar o `smoke-extension.yml`.
 7. Conferir num VS Code real e anexar capturas (seção 8).

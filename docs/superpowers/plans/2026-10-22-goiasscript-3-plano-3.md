@@ -1023,7 +1023,7 @@ Cada item bloqueia a fase indicada; o relatório de gate da fase repete o seu ch
 
 **Fase 5 (extensão)**
 9. Decidir o método do Marketplace (decisão 12) **antes de 2026-12-01**; criar o publisher; registrar o aplicativo Entra ID, a credencial federada (`repo:<org>/<repo>:environment:marketplace`) e adicionar o principal ao publisher; criar o ambiente `marketplace` e as variáveis `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `MARKETPLACE_PUBLISHER`.
-10. Criar a conta Eclipse, assinar o Publisher Agreement do Open VSX, criar o namespace (`ovsx create-namespace`) e um token com escopo restrito; criar o ambiente `open-vsx` com o segredo `OVSX_TOKEN`.
+10. Criar a conta Eclipse, assinar o Publisher Agreement do Open VSX, criar o namespace (`ovsx create-namespace`) e um token com escopo restrito; criar o ambiente `open-vsx` com o segredo `OVSX_PAT`.
 11. Definir `GS_EXTENSION_PUBLISHER` (se o identificador não for `goiasscript`), criar a tag `vscode-v0.3.0`, aprovar os ambientes e rodar o smoke pós-publicação.
 12. Conferir num VS Code real: Modo Restrito, `pergunta` no terminal, ícone, snippets (capturas anexadas ao relatório).
 
