@@ -1,7 +1,6 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "ignoreWorkspaces": [
-    "packages/core",
     "apps/playground-e2e"
   ],
   "ignoreExportsUsedInFile": true,
@@ -138,6 +137,7 @@
     }
   },
   "ignore": [
-    "spikes/**"
+    "spikes/**",
+    "docs/**"
   ]
 }

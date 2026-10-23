@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
   distDir: process.env.NEXT_DIST_DIR ?? '.next',
   reactStrictMode: true,
   eslint: { ignoreDuringBuilds: true },
-  transpilePackages: ['goiasscript-legacy', '@goiasscript/compiler', '@goiasscript/language', '@goiasscript/optimizer'],
+  transpilePackages: ['@goiasscript/compiler', '@goiasscript/language', '@goiasscript/optimizer'],
   headers: () => Promise.resolve(buildSecurityHeaders(siteConfig, mode).map((rule) => ({ ...rule, headers: [...rule.headers] }))),
 };
 

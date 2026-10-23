@@ -62,5 +62,4 @@ Para rodar o smoke da sua máquina: `node scripts/run-smoke-playground.ts https:
 - `app/engoianador/page.tsx` — UI do engoianador.
 - `workers/runner.worker.ts` — Web Worker que transpila e executa.
 - `lib/monaco-goias.ts` — registro da linguagem GoiásScript no Monaco.
-- `scripts/copy-examples.mjs` — copia `.gs` de `packages/core/examples/basic/`
-  para `public/examples/` em tempo de build.
+- `scripts/build-examples.ts` — gera `public/examples/` a partir de `examples/` em tempo de build.

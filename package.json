@@ -4,12 +4,6 @@
   "private": true,
   "description": "🇧🇷 Monorepo do GoiásScript — linguagem de programação goiana, playground web e ENGOIANADOR API",
   "scripts": {
-    "legacy:test": "pnpm --filter goiasscript-legacy test",
-    "legacy:test:coverage": "pnpm --filter goiasscript-legacy test:coverage",
-    "legacy:lint": "ESLINT_USE_FLAT_CONFIG=false pnpm --filter goiasscript-legacy lint",
-    "legacy:lint:fix": "ESLINT_USE_FLAT_CONFIG=false pnpm --filter goiasscript-legacy lint:fix",
-    "legacy:format": "pnpm --filter goiasscript-legacy format",
-    "legacy:format:check": "pnpm --filter goiasscript-legacy format:check",
     "playground:dev": "pnpm --filter playground dev",
     "playground:build": "pnpm --filter playground build",
     "playground:start": "pnpm --filter playground start",
