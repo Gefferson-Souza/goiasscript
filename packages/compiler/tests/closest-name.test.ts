@@ -14,4 +14,10 @@ describe('closestName', () => {
     expect(closestName('a'.repeat(HUGE_NAME_LENGTH), ['nome', 'idade'])).toBeUndefined();
     expect(performance.now() - start).toBeLessThan(MAX_MILLISECONDS);
   });
+  it('nome gigante contra candidato de tamanho parecido também não custa tempo', () => {
+    const candidate = 'b'.repeat(HUGE_NAME_LENGTH);
+    const start = performance.now();
+    expect(closestName('a'.repeat(HUGE_NAME_LENGTH), [candidate])).toBeUndefined();
+    expect(performance.now() - start).toBeLessThan(MAX_MILLISECONDS);
+  });
 });
