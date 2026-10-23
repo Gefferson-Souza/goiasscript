@@ -90,4 +90,26 @@ describe('createCompileService', () => {
     const other = await service.compile('prosa(1)', 'optimized').catch(() => null);
     expect(other).not.toBe(first);
   });
+
+  it('não memoriza o resultado de fallback do otimizador', async () => {
+    const { module } = fakeOptimizer();
+    const loadOptimizer = vi.fn().mockRejectedValueOnce(new Error('rede')).mockResolvedValue(module);
+    const service = createCompileService({ tone: 'raiz', loadOptimizer });
+    const first = await service.compile('prosa(1)', 'optimized');
+    const second = await service.compile('prosa(1)', 'optimized');
+    expect(first.markers).toHaveLength(1);
+    expect(second.markers).toEqual([]);
+    expect(second.generatedCode?.startsWith(OPTIMIZED_MARK)).toBe(true);
+  });
+
+  it('não memoriza rejeição quando o compilador lança', async () => {
+    const compile = vi.fn<typeof realCompile>().mockImplementationOnce(() => {
+      throw new Error('boom');
+    });
+    compile.mockImplementation((source, options) => realCompile(source, options));
+    const service = createCompileService({ tone: 'raiz', loadOptimizer: vi.fn(), compile });
+    await expect(service.compile('prosa(1)', 'didactic')).rejects.toThrow('boom');
+    const retry = await service.compile('prosa(1)', 'didactic');
+    expect(retry.result.ok).toBe(true);
+  });
 });

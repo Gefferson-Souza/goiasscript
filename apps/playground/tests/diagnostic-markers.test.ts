@@ -71,4 +71,16 @@ describe('toEditorMarkers', () => {
     const { markers } = toEditorMarkers([fakeDiagnostic({ range: { start: at, end: at } })], '', noLesson);
     expect(markers[0]).toMatchObject({ startColumn: 1, endColumn: 2 });
   });
+
+  it('largura zero antes de emoji cobre o par substituto inteiro', () => {
+    const at = { offset: 1, line: 1, column: 2 };
+    const { markers } = toEditorMarkers([fakeDiagnostic({ range: { start: at, end: at } })], 'a😀b', noLesson);
+    expect(markers[0]).toMatchObject({ startColumn: 2, endColumn: 4 });
+  });
+
+  it('largura zero depois de emoji, no fim da linha, volta ao par inteiro', () => {
+    const at = { offset: 3, line: 1, column: 4 };
+    const { markers } = toEditorMarkers([fakeDiagnostic({ range: { start: at, end: at } })], 'a😀', noLesson);
+    expect(markers[0]).toMatchObject({ startColumn: 2, endColumn: 4 });
+  });
 });
