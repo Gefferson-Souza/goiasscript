@@ -103,4 +103,10 @@ describe('empacotamento do vsix', () => {
     expect(packed.publisher).toBe('meu-publisher');
     expect(readManifest().publisher).toBe('goiasscript');
   });
+
+  it('marca o vsix como pré-lançamento enquanto a versão é anterior à 3.0.0', async () => {
+    const result = await packVscode({ outDir: path.join(workDir, 'pack-prerelease'), env: {} });
+    const vsixManifest = readZipEntry(fs.readFileSync(result.vsix), 'extension.vsixmanifest').toString('utf8');
+    expect(vsixManifest).toContain('Microsoft.VisualStudio.Code.PreRelease');
+  });
 });
