@@ -1,0 +1,6 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": { "lib": ["ES2023", "DOM"], "types": ["node"], "module": "esnext", "moduleResolution": "bundler" },
+  "include": ["playwright.config.ts", "playwright.constants.ts", "tests/**/*.ts"],
+  "exclude": ["node_modules"]
+}
