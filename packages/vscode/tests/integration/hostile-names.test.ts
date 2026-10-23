@@ -4,14 +4,17 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { suite, suiteTeardown, test } from 'mocha';
 import * as vscode from 'vscode';
-import { isValidOnThisPlatform, makeTempDir, spyOnChildProcess } from './fixtures.ts';
+import { isValidOnThisPlatform, makeTempDir, spyOnChildProcess, removeTempDirs } from './fixtures.ts';
 import { END_OF_OPTIONS, HOSTILE_NAMES, PWNED_MARKER, RUN_COMMAND, SAMPLE_PROGRAM, TEST_TIMEOUT_MS, TRANSLATE_COMMAND } from './integration.constants.ts';
 import type { ChildCall, ChildProcessModule } from './integration.types.ts';
 import { closeEverything, openAndRun } from './vscode-helpers.ts';
 
 suite('nomes hostis', function () {
   this.timeout(TEST_TIMEOUT_MS);
-  suiteTeardown(closeEverything);
+  suiteTeardown(async () => {
+    await closeEverything();
+    removeTempDirs();
+  });
 
   for (const name of HOSTILE_NAMES.filter((candidate) => isValidOnThisPlatform(candidate))) {
     test(`${name} não vira comando`, async () => {
