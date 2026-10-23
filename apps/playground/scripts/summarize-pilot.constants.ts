@@ -15,3 +15,5 @@ export const TOP_LIMIT = 5;
 
 export const ANSWER_FILE_PATTERN = /^A[1-9]\.json$/u;
 export const DIR_FLAG = '--dir';
+export const KEEP_FILE = '.gitkeep';
+export const MAX_COMMENT_LENGTH = 280;

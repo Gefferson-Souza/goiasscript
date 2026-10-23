@@ -140,3 +140,30 @@ describe('runSummarizePilot', () => {
     expect(duplicated.err).toContain('A1');
   });
 });
+
+describe('runSummarizePilot com arquivos fora do padrão', () => {
+  function dirWith(files: Readonly<Record<string, string>>): string {
+    const dir = mkdtempSync(join(tmpdir(), 'pilot-'));
+    tempDirs.push(dir);
+    for (const [name, content] of Object.entries(files)) writeFileSync(join(dir, name), content);
+    return dir;
+  }
+  const valid = JSON.stringify(answer('A1', FIRST_FIVE));
+
+  it.each(['a1.json', 'A10.json', 'A1.JSON', 'A1.json.bak', 'notas.txt', 'maria.json'])('recusa o arquivo %s em respostas', (name) => {
+    const result = run(dirWith({ 'A1.json': valid, [name]: valid }));
+    expect(result.code).toBe(1);
+    expect(result.err).toContain(name);
+  });
+
+  it('aceita o .gitkeep ao lado das respostas', () => {
+    expect(run(dirWith({ '.gitkeep': '', 'A1.json': valid })).code).toBe(0);
+  });
+
+  it('recusa comentário com mais de 280 caracteres', () => {
+    const raw = answer('A1', [], { confusingLessons: [{ lessonId: 'licao-01', comment: 'a'.repeat(281) }] });
+    expect(parsePilotAnswer(raw)).toMatchObject({ ok: false });
+    const ok = answer('A1', [], { confusingLessons: [{ lessonId: 'licao-01', comment: 'a'.repeat(280) }] });
+    expect(parsePilotAnswer(ok).ok).toBe(true);
+  });
+});
