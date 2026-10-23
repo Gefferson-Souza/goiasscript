@@ -1,4 +1,4 @@
-import { FNV_OFFSET_BASIS, FNV_PRIME, HASH_HEX_LENGTH, HEX_RADIX, PROMPT_PART_SEPARATOR, PROMPT_VERSION_PREFIX } from './prompt.constants';
+import { DELIMITER_TAG, FNV_OFFSET_BASIS, FNV_PRIME, HASH_HEX_LENGTH, HEX_RADIX, PROMPT_PART_SEPARATOR, PROMPT_VERSION_PREFIX } from './prompt.constants';
 import type { ChatMessage } from './prompt.types';
 
 // Prompt do engoianador: instrui a LLM a reescrever qualquer texto em
@@ -49,10 +49,15 @@ export const FEW_SHOT: readonly ChatMessage[] = [
   },
 ];
 
-// Remove as tags delimitadoras para o usuário não "fechar" o bloco e injetar
-// instruções fora dele; pega também variações com espaço e atributos.
+// Remove as tags delimitadoras até não sobrar nenhuma: uma passada só deixa
+// "<texto_<texto_do_usuario>do_usuario>" reconstruir a tag. NFKC cobre ＜＞ de largura total.
 export function sanitizeUserText(text: string): string {
-  return text.replace(/<\s*\/?\s*texto_do_usuario[^>]*>/gi, '');
+  let current = text.normalize('NFKC');
+  for (let previous = ''; previous !== current; ) {
+    previous = current;
+    current = current.replace(DELIMITER_TAG, '');
+  }
+  return current;
 }
 
 export function buildMessages(text: string): readonly ChatMessage[] {
