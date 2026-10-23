@@ -1,10 +1,10 @@
 import type { CompileResult } from '@goiasscript/compiler';
 import type { RunLessonProgramResult } from './run-lesson-program.types.ts';
 
-export type LessonBlockKind = 'static' | 'example' | 'expected-error';
+export type BlockMode = 'editable' | 'static' | 'expected-error';
 
 export interface LessonBlock {
-  readonly kind: LessonBlockKind;
+  readonly mode: BlockMode;
   readonly code: string;
   readonly line: number;
   readonly expectedCode?: string;
@@ -15,7 +15,7 @@ export interface LessonExercise {
   readonly starter: string;
   readonly solution: string;
   readonly expectedStdout: string;
-  readonly stdin: string;
+  readonly stdin?: readonly string[];
 }
 
 export interface Lesson {
@@ -27,7 +27,8 @@ export interface Lesson {
   readonly terms: readonly string[];
   readonly exercise: LessonExercise;
   readonly blocks: readonly LessonBlock[];
-  readonly body: string;
+  readonly example: LessonBlock;
+  readonly bodyMarkdown: string;
   readonly solutionLine: number;
 }
 
@@ -56,8 +57,8 @@ export type FrontmatterResult =
   | { readonly ok: false; readonly issues: readonly FrontmatterIssue[] };
 
 export interface LessonProblem {
-  readonly file: string;
-  readonly line: number;
+  readonly lessonId: string | null;
+  readonly line: number | null;
   readonly message: string;
 }
 
@@ -75,4 +76,11 @@ export type ReadStdin = (stdinFile: string) => string;
 export interface CheckLessonBlocksDeps {
   readonly compile: (source: string) => CompileResult;
   readonly run?: (code: string, stdin: string) => Promise<RunLessonProgramResult>;
+}
+
+export interface ProgramToCheck {
+  readonly source: string;
+  readonly line: number;
+  readonly label: string;
+  readonly stdin: string;
 }

@@ -3,7 +3,7 @@ import {
   BLOCK_LANGUAGE, CODE_FENCE, DIAGNOSTIC_CODE_PATTERN, EXAMPLE_MODIFIER, EXPECTED_ERROR_MODIFIER, FRONTMATTER_FENCE, SOURCE_LINE_BREAK,
 } from './lesson.constants.ts';
 import { lessonProblem, validateFrontmatter } from './lesson-schema.ts';
-import type { FrontmatterIssue, Lesson, LessonBlock, LessonBlockKind, LessonProblem, ParseLessonResult, ReadStdin } from './lesson.types.ts';
+import type { FrontmatterIssue, Lesson, LessonBlock, BlockMode, LessonProblem, ParseLessonResult, ReadStdin } from './lesson.types.ts';
 
 interface BlockScan {
   readonly blocks: readonly LessonBlock[];
@@ -11,16 +11,16 @@ interface BlockScan {
 }
 
 interface Info {
-  readonly kind: LessonBlockKind;
+  readonly mode: BlockMode;
   readonly expectedCode?: string;
 }
 
 function infoOf(tokens: readonly string[]): Info | string {
-  if (tokens.length === 0) return { kind: 'static' };
+  if (tokens.length === 0) return { mode: 'static' };
   const [modifier, code] = tokens;
-  if (tokens.length === 1 && modifier === EXAMPLE_MODIFIER) return { kind: 'example' };
+  if (tokens.length === 1 && modifier === EXAMPLE_MODIFIER) return { mode: 'editable' };
   if (tokens.length === 2 && modifier === EXPECTED_ERROR_MODIFIER && code !== undefined && DIAGNOSTIC_CODE_PATTERN.test(code)) {
-    return { kind: 'expected-error', expectedCode: code };
+    return { mode: 'expected-error', expectedCode: code };
   }
   return `o bloco "${tokens.join(' ')}" não é exemplo nem erro-esperado GSnnnn.`;
 }
@@ -53,7 +53,7 @@ function issueProblems(file: string, frontLines: readonly string[], issues: read
 }
 
 function exampleProblems(file: string, blocks: readonly LessonBlock[]): readonly LessonProblem[] {
-  const examples = blocks.filter((block) => block.kind === 'example');
+  const examples = blocks.filter((block) => block.mode === 'editable');
   if (examples.length === 0) return [lessonProblem(file, 1, 'lição sem bloco exemplo: precisa de um ```goiasscript exemplo.')];
   return examples.slice(1).map((block) => lessonProblem(file, block.line, 'tem mais de um bloco exemplo, só pode ter um.'));
 }
@@ -73,14 +73,21 @@ function parseData(file: string, front: readonly string[]): { readonly data: unk
   }
 }
 
-function readStdinSafe(file: string, front: readonly string[], stdinFile: string | undefined, readStdin: ReadStdin): string | LessonProblem {
-  if (stdinFile === undefined) return '';
+function splitAnswers(text: string): readonly string[] {
+  const lines = text.split(SOURCE_LINE_BREAK);
+  return lines.at(-1) === '' ? lines.slice(0, -1) : lines;
+}
+
+function readStdinSafe(file: string, front: readonly string[], stdinFile: string | undefined, readStdin: ReadStdin): readonly string[] | undefined | LessonProblem {
+  if (stdinFile === undefined) return undefined;
   try {
-    return readStdin(stdinFile);
+    return splitAnswers(readStdin(stdinFile));
   } catch {
     return lessonProblem(file, locateKey(front, 'stdinFile'), `não consegui abrir o arquivo de entrada "${stdinFile}".`);
   }
 }
+
+const isProblem = (value: unknown): value is LessonProblem => typeof value === 'object' && value !== null && 'message' in value;
 
 export function parseLesson(file: string, raw: string, readStdin: ReadStdin): ParseLessonResult {
   const lines = raw.split(SOURCE_LINE_BREAK);
@@ -93,14 +100,22 @@ export function parseLesson(file: string, raw: string, readStdin: ReadStdin): Pa
   if (!checked.ok) return { ok: false, problems: [...issueProblems(file, head.front, checked.issues), ...scan.problems] };
   const { exercise, ...meta } = checked.value;
   const stdin = readStdinSafe(file, head.front, exercise.stdinFile, readStdin);
-  const problems = [...scan.problems, ...exampleProblems(file, scan.blocks), ...(typeof stdin === 'string' ? [] : [stdin])];
-  if (problems.length > 0 || typeof stdin !== 'string') return { ok: false, problems };
+  const example = scan.blocks.find((block) => block.mode === 'editable');
+  const problems = [...scan.problems, ...exampleProblems(file, scan.blocks), ...(isProblem(stdin) ? [stdin] : [])];
+  if (problems.length > 0 || isProblem(stdin) || example === undefined) return { ok: false, problems };
   const lesson: Lesson = {
     ...meta,
     file,
-    exercise: { prompt: exercise.prompt, starter: exercise.starter, solution: exercise.solution, expectedStdout: exercise.expectedStdout, stdin },
+    exercise: {
+      prompt: exercise.prompt,
+      starter: exercise.starter,
+      solution: exercise.solution,
+      expectedStdout: exercise.expectedStdout,
+      ...(stdin === undefined ? {} : { stdin }),
+    },
     blocks: scan.blocks,
-    body: lines.slice(head.bodyStart).join('\n'),
+    example,
+    bodyMarkdown: lines.slice(head.bodyStart).join('\n'),
     solutionLine: locateKey(head.front, 'solution'),
   };
   return { ok: true, lesson };

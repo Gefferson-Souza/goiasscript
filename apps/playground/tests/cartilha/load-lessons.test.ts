@@ -31,7 +31,7 @@ describe('loadLessons', () => {
     const { lessons, problems } = loadLessons(dir);
     expect(problems).toEqual([]);
     expect(lessons.map((lesson) => lesson.id)).toEqual(['licao-01', 'licao-02']);
-    expect(lessons[1]?.exercise.stdin).toBe('10.50\n');
+    expect(lessons[1]?.exercise.stdin).toEqual(['10.50']);
   });
 
   it('aceita pasta vazia ou ausente', () => {

@@ -1,6 +1,6 @@
-import type { Diagnostic } from '@goiasscript/compiler';
+import type { CompileResult, Diagnostic } from '@goiasscript/compiler';
 import { lessonProblem } from './lesson-schema.ts';
-import type { CheckLessonBlocksDeps, Lesson, LessonBlock, LessonProblem } from './lesson.types.ts';
+import type { CheckLessonBlocksDeps, Lesson, LessonBlock, LessonProblem, ProgramToCheck } from './lesson.types.ts';
 import type { RunLessonProgramResult } from './run-lesson-program.types.ts';
 
 const TRAILING_SPACE = /[ \t]+$/u;
@@ -19,30 +19,41 @@ function runProblems(lesson: Lesson, line: number, label: string, result: RunLes
   return [lessonProblem(lesson.file, line, `${label} terminou com erro (saída ${String(result.exitCode)}): ${detail}`)];
 }
 
-async function checkProgram(lesson: Lesson, source: string, line: number, label: string, deps: CheckLessonBlocksDeps): Promise<{ readonly problems: readonly LessonProblem[]; readonly stdout?: string }> {
+const toStdin = (answers: readonly string[]): string => answers.map((answer) => `${answer}\n`).join('');
+
+function compileProblems(lesson: Lesson, line: number, label: string, compiled: CompileResult): readonly LessonProblem[] {
+  if (compiled.diagnostics.length === 0) return [lessonProblem(lesson.file, line, `${label} não compilou.`)];
+  return compiled.diagnostics.map((d) => lessonProblem(lesson.file, line + d.range.start.line, `${label} tem diagnóstico: ${describeDiagnostic(d)}.`));
+}
+
+async function checkProgram(lesson: Lesson, program: ProgramToCheck, deps: CheckLessonBlocksDeps): Promise<{ readonly problems: readonly LessonProblem[]; readonly stdout?: string }> {
+  const { source, line, label, stdin } = program;
   const compiled = deps.compile(source);
-  if (!compiled.ok || compiled.diagnostics.length > 0) {
-    return { problems: compiled.diagnostics.map((d) => lessonProblem(lesson.file, line + d.range.start.line, `${label} tem diagnóstico: ${describeDiagnostic(d)}.`)) };
-  }
+  if (!compiled.ok || compiled.diagnostics.length > 0) return { problems: compileProblems(lesson, line, label, compiled) };
   if (deps.run === undefined) return { problems: [] };
-  const result = await deps.run(compiled.code, lesson.exercise.stdin);
+  const result = await deps.run(compiled.code, stdin);
   return { problems: runProblems(lesson, line, label, result), stdout: result.stdout };
 }
 
 function checkExpectedError(lesson: Lesson, block: LessonBlock, deps: CheckLessonBlocksDeps): readonly LessonProblem[] {
   const codes = deps.compile(block.code).diagnostics.map((diagnostic) => diagnostic.code);
-  if (block.expectedCode !== undefined && codes.includes(block.expectedCode)) return [];
+  const exact = codes.length > 0 && codes.every((code) => code === block.expectedCode);
+  if (exact) return [];
   const got = codes.length === 0 ? 'nada' : codes.join(', ');
   return [lessonProblem(lesson.file, block.line, `o bloco devia dar ${String(block.expectedCode)}, mas deu ${got}.`)];
 }
 
 async function checkBlock(lesson: Lesson, block: LessonBlock, deps: CheckLessonBlocksDeps): Promise<readonly LessonProblem[]> {
-  if (block.kind === 'expected-error') return checkExpectedError(lesson, block, deps);
-  return (await checkProgram(lesson, block.code, block.line, 'o bloco', deps)).problems;
+  if (block.mode === 'expected-error') return checkExpectedError(lesson, block, deps);
+  return (await checkProgram(lesson, { source: block.code, line: block.line, label: 'o bloco', stdin: '' }, deps)).problems;
 }
 
 async function checkSolution(lesson: Lesson, deps: CheckLessonBlocksDeps): Promise<readonly LessonProblem[]> {
-  const { problems, stdout } = await checkProgram(lesson, lesson.exercise.solution, lesson.solutionLine, 'a solução do exercício', deps);
+  const { problems, stdout } = await checkProgram(
+    lesson,
+    { source: lesson.exercise.solution, line: lesson.solutionLine, label: 'a solução do exercício', stdin: toStdin(lesson.exercise.stdin ?? []) },
+    deps,
+  );
   if (problems.length > 0 || stdout === undefined) return problems;
   const expected = normalizeOutput(lesson.exercise.expectedStdout);
   const got = normalizeOutput(stdout);

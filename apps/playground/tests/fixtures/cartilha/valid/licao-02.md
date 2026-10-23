@@ -18,7 +18,7 @@ exercise:
 # Perguntando o nome
 
 ```goiasscript exemplo
-uai nome é pergunta("Nome?")
+uai nome é "Pequi"
 prosa(nome)
 ```
 
