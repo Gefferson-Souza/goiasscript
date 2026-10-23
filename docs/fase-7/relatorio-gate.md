@@ -1,6 +1,9 @@
 # Relatório do gate da Fase 7
 
-**Veredito proposto:** pronto para o GATE 7 do ponto de vista técnico. Não há achado CRITICAL nem HIGH aberto, a
+**Veredito:** NÃO APROVADO, condicionado à revisão independente. O aceite exige o `security-reviewer` em contexto
+fresco e ele ainda não rodou: a revisão da seção 6 foi autorrevisão do executor (mais uma leitura posterior, sem agente
+de segurança dedicado). Sem essa prova, a ausência de achado CRITICAL ou HIGH é só a leitura do executor, não está
+comprovada de forma independente. Dentro do que foi feito, a
 validação de corpo está coberta por teste, a cota sob concorrência passa exatamente o limite, cobertura e mutação foram
 medidas e `apps/engoianador-api` não tem entrada no `baseline.json`. O que depende de conta, chave ou ato do dono
 (Cloudflare, Groq, KV, Durable Object, secrets, `wrangler deploy`) está na seção 9 como `pendente do dono`. Nada foi
@@ -23,17 +26,17 @@ Os commits não carregam o número da unidade no título; o agrupamento é pelo 
 | U7-04 cache por hash do texto normalizado | 1ce6098, bb4a35f, 741eb0a (limite de leituras por rede) |
 | U7-06 contrato semanal e smoke pós-deploy | 6ee10af, 3066ebc |
 | U7-07 testes de `index` e `engoiana` e mutação | 28d69fe, 19ed382 |
-| U7-08 revisão de segurança e este relatório | `fix(engoianador): agrupa o guarda de leitura pelo /64 e isola o warm-cache da mutação` e o commit deste relatório |
+| U7-08 revisão de segurança e este relatório | 51bf233 (`fix(engoianador): agrupa o guarda de leitura pelo /64 no worker`; o mesmo commit também ajusta `vitest.mutation.config.ts`), 37ee0a1 (relatório) e 92f8299 (correções da revisão: reset do guarda e `ALLOW_UNLIMITED`) |
 
 ## 2. Cobertura (`vitest run --coverage`)
 
 | Alvo | Linhas | Ramos | Funções |
 | --- | --- | --- | --- |
 | `apps/engoianador-api/src` (somado de `lcov.info`) | 98,27% (454/462) | 91,14% (247/271) | 99,13% (114/115) |
-| Repositório inteiro (cobertura do `verify`) | 97,70% | 93,13% | 96,79% |
+| Repositório inteiro (cobertura do `verify`) | 97,67% | 93,06% | 96,79% |
 
-Total da execução com cobertura: 2.693 testes passando, 7 ignorados, 235 arquivos (mais 1 ignorado); o projeto
-`compiler` roda à parte no `verify`. Só o Worker: 22 arquivos e 218 testes. O piso de 80% por linhas, funções, ramos e
+Total da execução com cobertura: 2.694 testes passando, 7 ignorados, 235 arquivos (mais 1 ignorado); o projeto
+`compiler` roda à parte no `verify`. Só o Worker: 22 arquivos e 219 testes. O piso de 80% por linhas, funções, ramos e
 instruções vale para `apps/engoianador-api/src/**` (`vitest.config.mts`) e o `verify` sai 0.
 
 ## 3. Nota de mutação (`corepack pnpm --filter engoianador-api mutate`)
@@ -57,7 +60,7 @@ Leitura: o miolo de risco (validação, cota, cache, cadeia de provedores) está
 concentram-se em mensagens e literais de erro, em fronteiras de status HTTP no classificador da Groq (`>=` contra `>`)
 e em `log.ts`, que é só a saída para o console da plataforma. O limiar de ruptura entra no plano de manutenção.
 
-Na execução houve um defeito de configuração, corrigido no commit desta unidade: o teste que roda o `warm-cache` direto
+Na execução houve um defeito de configuração, corrigido no commit 51bf233, que também traz o fix de segurança sem citar este ajuste no título: o teste que roda o `warm-cache` direto
 no Node (`warm-cache-cli.test.ts`) importa o `playground` pela raiz do repositório e quebrava a rodada inicial do
 Stryker, cujo sandbox fica dentro do pacote; ele passou para a lista de exclusão de `vitest.mutation.config.ts`, como
 os outros dois testes que leem a raiz.
@@ -106,7 +109,8 @@ continua pendente** e deve ser disparada pelo dono ou pelo orquestrador antes de
 | # | Severidade | Onde | Descrição | Disposição |
 | --- | --- | --- | --- | --- |
 | 1 | MEDIUM | `handler.ts` | O guarda de rajada de leituras de cache usava o IP cru como chave. Quem controla um bloco IPv6 /64 girava o endereço e abria uma janela nova a cada requisição, lendo o KV sem limite (a cota só vale para quem chama o provedor). | **Corrigido:** o guarda usa `networkKeyOf`, a mesma chave da cota. Teste 'rajada de acertos de cache girando endereços do mesmo /64 também leva 429' (RED observado: esperado 429, veio 200). |
-| 2 | LOW | `config.ts`, `env.types.ts` | `ALLOW_UNLIMITED` é lido para a configuração mas nenhum código o consulta; hoje não há desvio de cota, só um interruptor sem efeito que pode enganar quem opera. | Aceito: sem efeito de segurança. Deve ser removido da configuração ou implementado com teste de produção na manutenção. |
+| 2 | MEDIUM | `config.ts`, `env.types.ts` | `ALLOW_UNLIMITED` era lido para a configuração mas nenhum código o consultava: um interruptor de desvio de cota que parece funcionar e não faz nada engana quem opera. | **Corrigido:** removido da configuração e do tipo (92f8299). Não há mais interruptor de desvio de cota. |
+| 9 | MEDIUM | `lookup-guard.ts` | Com o mapa de redes cheio, `evictExpired` zerava as janelas de todas as redes; quem usa muitos endereços distintos soltava a rajada de leitura de cache de qualquer rede. Impacto limitado à leitura de KV por isolate. | **Corrigido:** sai uma rede por vez, preferindo as que ainda não estão no teto; redes barradas são as últimas a sair. Teste 'não solta a rajada de uma rede já barrada quando o mapa enche' (RED observado: veio 200 esperando 429). |
 | 3 | LOW | `prompt.ts` | Injeção de prompt: o texto do usuário vai entre tags removidas do conteúdo, com instrução de tratar como dado e exemplo de ataque no few-shot, mas o modelo pode ainda vazar o prompt de sistema. | Aceito: o prompt é público no repositório e não há segredo nele; a saída não executa nada e só volta ao autor da requisição. |
 | 4 | LOW | `handler.ts` | Um cliente que desconecta no meio da chamada cancela `request.signal`; a devolução da cota pode não rodar se o isolate for encerrado. | Aceito: a falha é do lado seguro (cota a menos para quem abandonou a requisição); o ledger limpa por dia. |
 | 5 | LOW | `limiter.ts` | Muitas redes distintas podem esgotar o teto global do dia (negação de serviço da cota de todos). | Aceito: é o propósito do teto global (limita o custo); o kill switch e o teto são ajustáveis sem deploy de código. |
@@ -123,7 +127,7 @@ continua pendente** e deve ser disparada pelo dono ou pelo orquestrador antes de
   recebe `Access-Control-Allow-Origin` e o preflight devolve 403.
 - **Bypass da cota:** a chave vem só de `cf-connecting-ip` (a Cloudflare define; `x-forwarded-for` é ignorado, teste
   'usa cf-connecting-ip como chave de rede'); IPv6 vira /64 e IPv4 mapeado em IPv6 vira o IPv4 (`network-key.test.ts`);
-  entrada inválida e ausente caem no balde `anon` (todos juntos, do lado seguro); `ALLOW_UNLIMITED` não é consultado
+  entrada inválida e ausente caem no balde `anon` (todos juntos, do lado seguro); `ALLOW_UNLIMITED` foi removido
   (achado 2); o guarda de leituras agora usa a mesma chave (achado 1).
 - **Reserva não devolvida:** falha dos provedores devolve a reserva (`handler.test.ts`, 'falha do provedor devolve a
   cota'); a reserva global é devolvida se a da rede nega ou lança; `refund` é idempotente.
@@ -155,13 +159,17 @@ continua pendente** e deve ser disparada pelo dono ou pelo orquestrador antes de
 
 1. A revisão de segurança foi feita pelo executor, não por agente em contexto fresco (seção 6).
 2. A nota de mutação ficou em 78,92%, abaixo do verde de 80% do Stryker, mas o limiar é só de relatório (decisão 29).
+   Os sobreviventes de `lookup-guard.ts` (58,49%), `reservation.ts` e `rate-limiter.do.ts` (64,71%) ficam para a
+   manutenção: endurecer esses três arquivos com testes que matem os sobreviventes e então ligar o limiar de ruptura em
+   80%. O número do ticket GS-<n> deve ser aberto pelo dono; nenhum número foi inventado aqui. O novo teste do guarda
+   cobre o caso de maior risco (reset do mapa), mas a nota não foi remedida.
 3. O contrato semanal não rodou contra a Groq nem contra a API: não há chave nem URL (seção 9).
 
 ## 9. Pendências do dono
 
 | Item | Unidade | O que está pronto | Comando ou ação do dono | Evidência esperada | Estado |
 | --- | --- | --- | --- | --- | --- |
-| Conta Cloudflare e `wrangler login` | U7-00 | `wrangler.toml` completo (vars, Durable Object com migração `new_sqlite_classes`, dois KV, `[ai]`) | criar a conta e autenticar o `wrangler` | `wrangler whoami` | pendente do dono |
+| Conta Cloudflare e `wrangler login` | U7-00 | `wrangler.toml` completo (vars, Durable Object com migração `new_sqlite_classes`, um KV, `[ai]`) | criar a conta e autenticar o `wrangler` | `wrangler whoami` | pendente do dono |
 | Namespaces KV | U7-04 | binding `ENGOIANADOR_CACHE` com id marcador que o `check-worker-config` recusa | `wrangler kv namespace create ENGOIANADOR_CACHE` e colar o id no `wrangler.toml` | `check-worker-config` sem recusa | pendente do dono |
 | Durable Object | U7-02 | classe `QuotaLedgerObject` e migração `v1` | publicar com `wrangler deploy` (cria a migração) | `/health` com `bindings.QUOTA_LEDGER: true` | pendente do dono |
 | Secret `GROQ_API_KEY` | U7-03 | provedor, `verify-model` e `.dev.vars.example` | `wrangler secret put GROQ_API_KEY` e segredo do GitHub com o mesmo nome | `/health` com `bindings.GROQ_API_KEY: true` | pendente do dono |
@@ -170,5 +178,5 @@ continua pendente** e deve ser disparada pelo dono ou pelo orquestrador antes de
 | Aquecer o cache | U7-04 | `scripts/warm-cache.ts` (cinco frases do playground) | rodar o script com a URL implantada | cinco respostas 200 relatadas | pendente do dono |
 | Variável `ENGOIANADOR_URL` e contrato semanal | U7-06 | `engoianador-contract.yml` | definir a variável e o segredo e disparar o workflow | execução verde (sem "pendente do dono" no resumo) | pendente do dono |
 | Smoke pós-deploy | U7-06 | `engoianador-smoke.yml` | disparar com `base_url` implantado | execução verde | pendente do dono |
-| Revisão de segurança independente | U7-08 | perímetro e checklist da seção 6 | disparar o `security-reviewer` em contexto fresco | tabela sem CRITICAL/HIGH | pendente do dono |
+| Revisão de segurança independente (bloqueia o GATE 7) | U7-08 | perímetro e checklist da seção 6 | despachar o `everything-claude-code:security-reviewer` em contexto fresco e anexar a tabela na seção 6 | tabela sem CRITICAL/HIGH | pendente do orquestrador |
 | Aplicar `ALLOWED_ORIGINS` de produção | U7-00 | validação de origens `https:` na configuração | trocar pelo domínio real no `wrangler.toml` | `/health` 200 e CORS da origem real | pendente do dono |
