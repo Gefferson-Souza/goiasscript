@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { SETTINGS_SECTION } from '../settings/settings.constants.ts';
 import { readSettings } from '../settings/settings.ts';
+import { LESSON_LINK_LABEL } from '../language/lesson-link.constants.ts';
 import { resourceUriOf } from './command-target.ts';
 import { sanitizeTerminalText } from './terminal-text.ts';
 import { DIAGNOSTICS_SOURCE, LANGUAGE_ID, OUTPUT_CHANNEL_NAME, TERMINAL_NEWLINE } from './host.constants.ts';
@@ -10,6 +11,7 @@ const COMPLETION_KINDS: Readonly<Record<CompletionItemData['kind'], vscode.Compl
   keyword: vscode.CompletionItemKind.Keyword,
   function: vscode.CompletionItemKind.Function,
   property: vscode.CompletionItemKind.Property,
+  snippet: vscode.CompletionItemKind.Snippet,
 };
 const SEVERITIES: Readonly<Record<HostDiagnostic['severity'], vscode.DiagnosticSeverity>> = {
   error: vscode.DiagnosticSeverity.Error,
@@ -29,13 +31,15 @@ function toDiagnostic(diagnostic: HostDiagnostic): vscode.Diagnostic {
   return Object.assign(result, { code, source: DIAGNOSTICS_SOURCE });
 }
 
-function toCompletionItem(data: CompletionItemData): vscode.CompletionItem {
-  return Object.assign(new vscode.CompletionItem(data.label, COMPLETION_KINDS[data.kind]), { detail: data.detail, insertText: data.insertText ?? data.label });
-}
-
-// A hover mostra texto do programa do aluno: nunca confiável, nunca HTML.
+// Hover e documentação mostram texto ligado ao programa do aluno: nunca confiável, nunca HTML.
 function untrustedMarkdown(value: string): vscode.MarkdownString {
   return Object.assign(new vscode.MarkdownString(value), { isTrusted: false, supportHtml: false });
+}
+
+function toCompletionItem(data: CompletionItemData): vscode.CompletionItem {
+  const insertText = data.kind === 'snippet' ? new vscode.SnippetString(data.insertText ?? data.label) : (data.insertText ?? data.label);
+  const documentation = data.lessonUrl === undefined ? undefined : untrustedMarkdown(`[${LESSON_LINK_LABEL}](${data.lessonUrl})`);
+  return Object.assign(new vscode.CompletionItem(data.label, COMPLETION_KINDS[data.kind]), { detail: data.detail, insertText, documentation });
 }
 
 function createProgramTerminal(title: string): ProgramTerminal {
