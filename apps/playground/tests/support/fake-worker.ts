@@ -3,6 +3,8 @@ import type { HostToRunner } from '../../sandbox/protocol.types.ts';
 
 export class FakeWorker implements WorkerPort {
   onmessage: ((event: MessageEvent<unknown>) => void) | null = null;
+  onerror: ((event: ErrorEvent) => void) | null = null;
+  onmessageerror: ((event: MessageEvent<unknown>) => void) | null = null;
   readonly posted: HostToRunner[] = [];
   terminateCount = 0;
 
@@ -20,6 +22,14 @@ export class FakeWorker implements WorkerPort {
 
   emit(data: unknown): void {
     this.onmessage?.(new MessageEvent('message', { data }));
+  }
+
+  emitError(message: string): void {
+    this.onerror?.(new ErrorEvent('error', { message }));
+  }
+
+  emitMessageError(): void {
+    this.onmessageerror?.(new MessageEvent('messageerror'));
   }
 }
 

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { RUN_LIMITS } from '../config/run-limits.constants.ts';
-import { parseRunnerMessage } from '../lib/run/message-guards.ts';
+import { isRunnerMessage, parseRunnerMessage } from '../lib/run/message-guards.ts';
 
 const parse = (data: unknown) => parseRunnerMessage(data, RUN_LIMITS);
 
@@ -68,5 +68,12 @@ describe('guarda das mensagens do runner', () => {
     const withExtra = parse({ type: 'gs:terminou', runId: 1, extra: 'x', __proto__: { runId: 9 } });
     expect(withExtra).toEqual({ type: 'gs:terminou', runId: 1 });
     expect(Object.keys(withExtra ?? {})).toEqual(['type', 'runId']);
+  });
+
+  it('isRunnerMessage é o guarda booleano do contrato', () => {
+    expect(isRunnerMessage({ type: 'gs:pronto' })).toBe(true);
+    expect(isRunnerMessage({ type: 'gs:log', runId: 1, stream: 'out', text: 'oi' })).toBe(true);
+    expect(isRunnerMessage({ type: 'gs:log', runId: -1, stream: 'out', text: 'oi' })).toBe(false);
+    expect(isRunnerMessage(null)).toBe(false);
   });
 });

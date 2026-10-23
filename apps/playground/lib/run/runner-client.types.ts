@@ -19,6 +19,8 @@ export interface WorkerPort {
   postMessage(message: HostToRunner): void;
   terminate(): void;
   onmessage: ((event: MessageEvent<unknown>) => void) | null;
+  onerror: ((event: ErrorEvent) => void) | null;
+  onmessageerror: ((event: MessageEvent<unknown>) => void) | null;
 }
 
 export type TimerHandle = number | object;
@@ -71,9 +73,10 @@ export interface RunSession {
   readonly emit: (event: RunEvent) => void;
   readonly buffer: OutputBuffer;
   readonly phase: Cell<RunPhase>;
-  readonly moduleDone: Cell<boolean>;
+  readonly ready: Cell<boolean>;
   readonly idleTimer: Cell<TimerHandle | null>;
   readonly maxTimer: Cell<TimerHandle | null>;
+  readonly wallTimer: Cell<TimerHandle | null>;
   readonly budgetMs: Cell<number>;
   readonly segmentStartedAt: Cell<number>;
 }

@@ -85,12 +85,24 @@ describe('cliente do runner', () => {
     expect(harness.events.at(-1)).toEqual({ kind: 'finished' });
   });
 
-  it('silêncio antes do fim do módulo (cochilo) não encerra a execução', () => {
+  it('termina por silêncio do Worker mesmo sem gs:terminou', () => {
+    const harness = createHarness();
+    startRun(harness);
+    harness.worker.emit({ type: 'gs:log', runId: 1, stream: 'out', text: 'oi' });
+    harness.timers.advance(RUN_LIMITS.idleMs - 1);
+    expect(harness.events).toEqual([{ kind: 'out', text: 'oi' }]);
+    harness.timers.advance(1);
+    expect(harness.events.at(-1)).toEqual({ kind: 'finished' });
+    expect(harness.worker.terminated).toBe(true);
+  });
+
+  it('antes de qualquer mensagem do Worker só o tempo máximo encerra', () => {
     const harness = createHarness();
     startRun(harness);
     harness.timers.advance(RUN_LIMITS.maxRunMs - 1);
     expect(harness.events).toEqual([]);
-    expect(harness.worker.terminated).toBe(false);
+    harness.timers.advance(1);
+    expect(harness.events).toEqual([{ kind: 'timeout' }]);
   });
 
   it('mensagem de outra execução é ignorada (runId diferente)', () => {
@@ -143,8 +155,12 @@ describe('cliente do runner', () => {
     harness.worker.emit({ type: 'gs:pergunta', prompt: 'Nome?' });
     harness.timers.advance(120_000);
     harness.client.answer('Ana');
-    harness.timers.advance(999);
-    expect(harness.events).toEqual([{ kind: 'ask', prompt: 'Nome?' }]);
+    for (let elapsed = 0; elapsed < 900; elapsed += 100) {
+      harness.worker.emit({ type: 'gs:log', runId: 1, stream: 'out', text: '.' });
+      harness.timers.advance(100);
+    }
+    harness.timers.advance(99);
+    expect(harness.events.some((event) => event.kind === 'timeout')).toBe(false);
     harness.timers.advance(1);
     expect(harness.events.at(-1)).toEqual({ kind: 'timeout' });
   });
@@ -250,5 +266,52 @@ describe('cliente do runner', () => {
     harness.client.dispose();
     startRun(harness);
     expect(harness.workers).toHaveLength(0);
+  });
+
+  it('pergunta forjada que nunca é respondida não escapa do teto absoluto', () => {
+    const harness = createHarness();
+    startRun(harness);
+    harness.worker.emit({ type: 'gs:pergunta', prompt: 'forjada' });
+    harness.timers.advance(RUN_LIMITS.maxRunMs + RUN_LIMITS.maxAskWaitMs - 1);
+    expect(harness.events).toEqual([{ kind: 'ask', prompt: 'forjada' }]);
+    harness.timers.advance(1);
+    expect(harness.events.at(-1)).toEqual({ kind: 'timeout' });
+    expect(harness.worker.terminated).toBe(true);
+  });
+
+  it('falha ao carregar o runner vira diagnóstico em vez de esperar o tempo máximo', () => {
+    const harness = createHarness();
+    startRun(harness);
+    harness.worker.emitError('Failed to load');
+    expect(harness.events).toHaveLength(1);
+    expect(harness.events[0]).toMatchObject({ kind: 'failed', diagnostic: { severity: 'error' } });
+    expect(harness.worker.terminated).toBe(true);
+    harness.timers.advance(RUN_LIMITS.maxRunMs);
+    expect(harness.events).toHaveLength(1);
+  });
+
+  it('erro assíncrono depois de pronto chega ao host como falha', () => {
+    const harness = createHarness();
+    startRun(harness);
+    harness.worker.emit({ type: 'gs:pronto' });
+    harness.worker.emitError('Uncaught Error: boom');
+    expect(harness.events.at(-1)).toMatchObject({ kind: 'failed' });
+    expect(harness.worker.terminated).toBe(true);
+  });
+
+  it('mensagem ilegível do Worker encerra a execução com falha', () => {
+    const harness = createHarness();
+    startRun(harness);
+    harness.worker.emitMessageError();
+    expect(harness.events.at(-1)).toMatchObject({ kind: 'failed' });
+    expect(harness.worker.terminated).toBe(true);
+  });
+
+  it('erro do Worker depois do encerramento é ignorado', () => {
+    const harness = createHarness();
+    startRun(harness);
+    harness.client.stop();
+    harness.worker.emitError('tarde');
+    expect(harness.events).toEqual([{ kind: 'stopped' }]);
   });
 });
