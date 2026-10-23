@@ -45,3 +45,30 @@ describe('docs/rfc e docs/spec', () => {
     expect(readDoc('docs/spec/o-que-mudou.md').startsWith('# O que mudou')).toBe(true);
   });
 });
+
+describe('docs/piloto', () => {
+  const PILOT_DIR = path.join(ROOT_DIR, 'docs/piloto');
+  const EMAIL = /[\w.+-]+@[\w-]+\.[\w.-]+/u;
+  const ABSOLUTE_PATH = /(?:^|[\s("'`])(?:\/(?:home|Users|root)\/|[A-Za-z]:\\)/mu;
+  const PHONE = /(?:\+?\d{2}\s?)?\(?\d{2}\)?[\s.-]?9?\d{4}[\s.-]?\d{4}/u;
+  const LEARNER_NAME = /(?:aprendiz|participante|aluno)\s+(?:[A-ZÀ-Ý][a-zà-ÿ]+)\b/u;
+  const listFiles = (dir) =>
+    fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+      const full = path.join(dir, entry.name);
+      return entry.isDirectory() ? listFiles(full) : [full];
+    });
+  const pilotFiles = listFiles(PILOT_DIR);
+
+  it('traz os quatro documentos do kit e a pasta das respostas', () => {
+    const names = pilotFiles.map((file) => path.relative(PILOT_DIR, file).split(path.sep).join('/'));
+    expect(names).toEqual(expect.arrayContaining(['README.md', 'roteiro.md', 'formulario-retorno.md', 'modelo-relatorio.md', 'respostas/.gitkeep']));
+  });
+
+  it('docs/piloto não tem e-mail, caminho absoluto, telefone nem nome próprio de aprendiz', () => {
+    const offenders = pilotFiles.flatMap((file) => {
+      const text = fs.readFileSync(file, 'utf8');
+      return [EMAIL, ABSOLUTE_PATH, PHONE, LEARNER_NAME].filter((pattern) => pattern.test(text)).map((pattern) => `${path.relative(ROOT_DIR, file)}: ${String(pattern)}`);
+    });
+    expect(offenders).toEqual([]);
+  });
+});
