@@ -13,6 +13,7 @@ const NULL_TEXT = 'nada';
 const UNDEFINED_TEXT = 'indefinido';
 const OPAQUE_OBJECT_TEXT = '[objeto]';
 const FUNCTION_TEXT = '[função]';
+const ARGUMENT_SEPARATOR = ' ';
 
 export function isExecuteMessage(data: unknown): data is ExecuteMessage {
   return (
@@ -41,12 +42,25 @@ function formatValue(value: unknown): string {
   }
 }
 
+// Para de acumular ao atingir o teto: nenhum argumento nem o join passa de MAX_LOG_MESSAGE_CHARS.
+function joinWithinLimit(values: readonly unknown[]): string {
+  const parts: string[] = [];
+  let used = 0;
+  for (const value of values) {
+    if (used >= MAX_LOG_MESSAGE_CHARS) break;
+    const part = formatValue(value).slice(0, MAX_LOG_MESSAGE_CHARS - used);
+    // eslint-disable-next-line functional/immutable-data -- acumulador local descartado ao fim da chamada
+    parts.push(part);
+    used += part.length + ARGUMENT_SEPARATOR.length;
+  }
+  return parts.join(ARGUMENT_SEPARATOR).slice(0, MAX_LOG_MESSAGE_CHARS);
+}
+
 function createCollector(port: RunnerPort, runId: number): Readonly<Record<string, ConsoleMethod>> {
   const collect =
     (stream: LogStream): ConsoleMethod =>
     (...values) => {
-      const text = values.map(formatValue).join(' ');
-      port.postMessage({ type: MESSAGE_TYPES.log, runId, stream, text: text.slice(0, MAX_LOG_MESSAGE_CHARS) });
+      port.postMessage({ type: MESSAGE_TYPES.log, runId, stream, text: joinWithinLimit(values) });
     };
   return Object.freeze({
     ...Object.fromEntries(OUT_METHODS.map((name) => [name, collect(LOG_STREAMS.out)])),

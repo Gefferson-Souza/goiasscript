@@ -167,4 +167,27 @@ describe('execução do programa no Worker', () => {
     const log = harness.posted.find((message) => message.type === 'gs:log');
     expect(log?.type === 'gs:log' ? log.text.length : 0).toBe(MAX_LOG_MESSAGE_CHARS);
   });
+
+  it('limita o texto final quando vários argumentos somam mais que o teto', async () => {
+    const harness = createHarness();
+    const big = 'y'.repeat(MAX_LOG_MESSAGE_CHARS);
+    await harness.run(() => Promise.resolve(consoleOf(harness.scope)['log']?.(big, big, big, 'fim')));
+    const logs = harness.posted.filter((message) => message.type === 'gs:log');
+    expect(logs[0]?.type === 'gs:log' ? logs[0].text.length : 0).toBe(MAX_LOG_MESSAGE_CHARS);
+  });
+
+  it('mantém o separador entre argumentos curtos', async () => {
+    const harness = createHarness();
+    await harness.run(() => Promise.resolve(consoleOf(harness.scope)['log']?.('a', 1, null)));
+    const log = harness.posted.find((message) => message.type === 'gs:log');
+    expect(log?.type === 'gs:log' ? log.text : '').toBe('a 1 nada');
+  });
+
+  it('limita o texto de um objeto grande', async () => {
+    const harness = createHarness();
+    const bigObject = { payload: 'z'.repeat(MAX_LOG_MESSAGE_CHARS * 2) };
+    await harness.run(() => Promise.resolve(consoleOf(harness.scope)['error']?.(bigObject)));
+    const log = harness.posted.find((message) => message.type === 'gs:log');
+    expect(log?.type === 'gs:log' ? log.text.length : 0).toBe(MAX_LOG_MESSAGE_CHARS);
+  });
 });
