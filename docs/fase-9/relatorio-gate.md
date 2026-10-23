@@ -1,10 +1,18 @@
 # Relatório do gate da Fase 9 e relatório final
 
-**Veredito:** pronto para o GATE 9, que o dono decide. Não há pendência técnica aberta: o `verify` sai 0, a
-rastreabilidade tem 0 prova ausente (14 `green`, 5 `ready`), o checklist da auditoria tem 46 achados CRITICAL/HIGH
-todos fechados e nenhum CRITICAL/HIGH ficou aberto nas revisões de segurança das fases 3, 4, 5 e 7. O que falta para
-o lançamento é ato do dono (publicar, implantar, recrutar aprendizes) e leitura de CI em três sistemas e dois
-navegadores, tudo listado na seção 8 com a ordem recomendada. Nada foi enviado ao remoto, publicado, implantado nem
+**Veredito:** sem CRITICAL/HIGH técnico aberto, mas o critério do GATE 9 (rastreabilidade 100% verde) **não está
+atendido**: 5 das 19 promessas seguem `ready` e só fecham depois dos smokes pós-publicação, que dependem do dono. O
+`verify` sai 0, a rastreabilidade tem 0 prova ausente (14 `green`, 5 `ready`), o checklist da auditoria tem 46 achados
+CRITICAL/HIGH fechados (anexo em `docs/fase-9/checklist-auditoria.md`) e nenhum CRITICAL/HIGH ficou aberto nas revisões
+de segurança das fases 3, 4, 5 e 7. Ressalvas técnicas que continuam abertas:
+
+1. S5 só parcial: o baseline do scanner de regras não está vazio (`apps/playground/tailwind.config.ts`, 7 ocorrências
+   de R14), e o spec pede baseline vazio. Fica para decisão do dono ou correção do arquivo.
+2. A mutação do compilador (92,91) é a medida da Fase 2, sem nova medição nesta fase.
+3. Os manifestos seguem em `3.0.0-alpha.0` e não há changeset pendente; o release estável depende do versionamento.
+
+Também estão abertos o teto de 29 KB brotli do ADR-0001 (excedido na Fase 4) e todos os atos do dono. O GATE 9 só
+fecha depois de publicar, implantar e rodar os smokes (seção 8). Nada foi enviado ao remoto, publicado, implantado nem
 etiquetado por este trabalho. O S7 (tudo no ar) e o S8 (piloto) **não** estão cumpridos: dependem do dono.
 
 Medição: Node v26, Linux. Os números vêm de `corepack pnpm verify` e dos comandos da seção 2, rodados depois do último
@@ -42,15 +50,30 @@ lições, Vitest com cobertura, projeto `compiler`, dependency-cruiser, knip, e 
 | Arquivos de teste | 249 passaram, 1 ignorado (250) |
 | Testes | 2.972 passaram, 7 ignorados (2.979) |
 | Projeto `compiler` | 66 arquivos, 967 testes passaram |
-| Cobertura de instruções | 97,08% (6204/6390) |
-| Cobertura de ramos | 93,15% (3536/3796) |
+| Cobertura de instruções | 97,05% (6202/6390) |
+| Cobertura de ramos | 93,09% (3534/3796) |
 | Cobertura de funções | 96,8% (1514/1564) |
-| Cobertura de linhas | 97,72% (5147/5267) |
+| Cobertura de linhas | 97,68% (5145/5267) |
 | dependency-cruiser | 786 módulos, 1.949 dependências, nenhuma violação |
 | Blocos da documentação | 40 conferidos |
 | Comandos e palavras citados | 30 documentos conferidos |
 | Inglês proibido na interface | 955 textos, nenhum em inglês |
 | Compilador sem dependência de runtime | 125 arquivos conferidos |
+
+Cobertura por pacote (relatório `lcov` do Vitest, mesma execução; o `verify` barra qualquer pacote abaixo de 80% em
+linhas, funções, ramos e instruções por `thresholds` no `vitest.config.ts`). Para `apps/playground` e
+`apps/engoianador-api` entram só os arquivos de lógica listados em `include`.
+
+| Pacote | Linhas | Ramos | Funções |
+| --- | --- | --- | --- |
+| `packages/language` | 100,00% | 98,00% | 100,00% |
+| `packages/compiler` | 99,74% | 95,74% | 99,83% |
+| `packages/optimizer` | 100,00% | 80,00% | 100,00% |
+| `packages/cli` | 98,00% | 89,38% | 97,57% |
+| `packages/vscode` | 98,18% | 93,88% | 97,25% |
+| `apps/playground` | 92,39% | 89,68% | 89,66% |
+| `apps/engoianador-api` | 98,11% | 90,94% | 99,15% |
+
 
 ## 3. Rastreabilidade (§11)
 
@@ -75,21 +98,20 @@ O README só afirma o que está provado; a descrição proposta para o campo "Ab
 
 | # | Estado | Prova ou pendência |
 | --- | --- | --- |
-| S1 | cumprido, com 5 provas `ready` | gate de promessas (`docs:blocks`, `docs:commands`, inglês, rastreabilidade): verde no `verify`; as 5 promessas `ready` da seção 3 só se completam após a publicação |
+| S1 | parcial: 14 de 19 `green` | gate de promessas (`docs:blocks`, `docs:commands`, inglês, rastreabilidade): verde no `verify`, com 0 prova ausente; as 5 promessas `ready` da seção 3 só viram `green` depois da publicação e dos smokes, então o critério de 100% verde não está atendido |
 | S2 | cumprido | 227 casos em `tests/conformance`: 168 `audit` mais 5 movidos para outro teste (`audit-moved.json`) = 173; 0 `expected-fail` |
 | S3 | cumprido | 46 achados CRITICAL/HIGH fechados com prova verificável (seção 5); os dois CRITICAL ligados a `name-matrix.e2e.ts` e `hostile-names.test.ts`; palavras aposentadas fecham por golden de GS0306 |
 | S4 | cumprido | orçamento `programa só nativo tem 0 bytes de runtime no alvo module` em `budgets.test.ts`, verde |
-| S5 | cumprido com uma ressalva | gates bloqueantes verdes (ESLint, scanner, dependency-cruiser). O baseline do scanner não está vazio: `apps/playground/tailwind.config.ts` com 7 ocorrências de R14. A exceção de mutação confinada a `this.*` (ADR-0004) está registrada; o dono confirma as duas |
-| S6 | cumprido | cobertura acima de 80% por pacote (97,72% de linhas no total); mutação do compilador 92,91 com `thresholds.break` = 90, medida na Fase 2 e não repetida aqui por falta de disco; o Worker e o CLI têm só relatório de mutação |
+| S5 | parcial, depende de decisão do dono | gates bloqueantes verdes (ESLint, scanner, dependency-cruiser), mas o spec exige baseline vazio e o do scanner guarda 7 ocorrências de R14 em `apps/playground/tailwind.config.ts`. A exceção de mutação confinada a `this.*` (ADR-0004) está registrada; o dono decide as duas |
+| S6 | cumprido | cobertura acima de 80% em cada pacote (tabela da seção 2, imposta pelo `verify`); mutação do compilador 92,91 com `thresholds.break` = 90, medida na Fase 2 e sem nova medição; o Worker e o CLI têm só relatório de mutação |
 | S7 | pendente do dono | CLI no npm, playground no ar, extensão no Marketplace e Open VSX e Engoianador no ar exigem contas e segredos do dono; os quatro smokes estão prontos |
 | S8 | pendente do dono | `docs/piloto/relatorio-piloto.md` registra `0/3`; kit, formulário e `summarize-pilot` prontos |
 
 ## 5. Checklist da auditoria (anexo)
 
-Saída de `corepack pnpm audit:checklist`: 46 achados (A 12, B 9, C 8, D 7, E 10), 46 `closed`, 0 `open`. Cada linha
-vem de `scripts/audit-closure.json` e o script confere que o arquivo existe e que o título do teste está nele. O texto
-completo da tabela, com o fechamento de cada achado, é gerado pelo comando acima e vai ao PR de release; os dois
-CRITICAL são:
+46 achados (A 12, B 9, C 8, D 7, E 10), 46 `closed`, 0 `open`. A tabela completa gerada por
+`corepack pnpm audit:checklist`, com o fechamento de cada achado, está anexada em
+[`checklist-auditoria.md`](./checklist-auditoria.md). Os dois CRITICAL são:
 
 | Achado | Gravidade | Fechamento |
 | --- | --- | --- |
@@ -136,7 +158,7 @@ Estado de todas: `pendente do dono`, salvo quando marcado.
 
 | Ordem | Item | Fase | O que está pronto | Ação do dono | Evidência esperada |
 | --- | --- | --- | --- | --- | --- |
-| 1 | Abrir a branch e ler a CI | 3 a 8 | workflows `ci.yml`, `vscode.yml`, `playground-e2e.yml`, `promises-gate.yml` | enviar a branch, abrir o PR de cada fase e ler a execução (pendente de CI) | Ubuntu, Windows e macOS (Node 22 e 24) verdes; Chromium, Firefox e WebKit verdes; `lychee` verde |
+| 1 | Abrir a branch e ler a CI (somente CI, sem ação além de ler) | 3 a 8 | workflows `ci.yml`, `vscode.yml`, `playground-e2e.yml`, `promises-gate.yml` | enviar a branch, abrir o PR de cada fase e ler a execução (pendente de CI) | Ubuntu, Windows e macOS (Node 22 e 24) verdes; Chromium, Firefox e WebKit verdes; `lychee` verde |
 | 2 | Contato público e reporte privado | 8 | `SECURITY.md` e `CODE_OF_CONDUCT.md` sem e-mail | preencher o perfil e ligar o reporte privado de vulnerabilidade | opção ativa no repositório |
 | 3 | Configurações do GitHub | 8 | rulesets versionados em `.github/rulesets` | aplicar rulesets (inclui `vscode-v*`), marcar os jobs do gate de promessas como obrigatórios, desligar Discussions | regra de proteção listando os jobs |
 | 4 | Tag de arquivo do protótipo Rust | 8 | commit candidato 371477b | `git tag archive/rust-prototype 371477b && git push origin archive/rust-prototype` | tag no remoto |
@@ -151,8 +173,14 @@ Estado de todas: `pendente do dono`, salvo quando marcado.
 | 13 | Piloto | 6 | kit em `docs/piloto/`, `summarize-pilot` | 3 a 5 aprendizes (um de fora de Goiás), salvar `docs/piloto/respostas/AN.json`, rodar o resumo | `3/3` ou mais |
 | 14 | Vídeo | 9 | `video:facts` | gerar `video-facts.json` com `ENGOIANADOR_URL` depois do versionamento e renderizar de novo no kit externo | JSON com `engoianador.status: ok` |
 | 15 | Ctrl+C no `goias` em terminal gráfico | 3 | conferência manual descrita no relatório da Fase 3 | conferir uma vez, antes do primeiro publish | registro no relatório da Fase 3 |
+| 16 | Teto de 29 KB do ADR-0001 | 4 | catraca em `budgets.json` (33.195 B brotli, só impede piora) | decidir o teto ou registrar ADR de emenda | decisão registrada antes do GATE 4 ser dado por fechado |
+| 17 | Extensão num VS Code real | 5 | testes de integração escritos, executados só na CI | conferir Modo Restrito e comandos, anexar capturas ao relatório da Fase 5; criar o segredo `OVSX_PAT` (o plano cita `OVSX_TOKEN`; vale o nome do workflow) | capturas anexadas; ambiente `open-vsx` com o segredo |
+| 18 | Tickets dos achados aceitos | 3, 4 | achados LOW descritos nos relatórios das fases | abrir os tickets `GS-<n>` (3 e 4 da Fase 3; 3, 4 e 5 da Fase 4) e citar os números | tickets criados |
+| 19 | Alarme de uso, Turnstile e modelo | 7 | teto global e guarda de leitura; `verify-model` no `predeploy` | alerta de uso dos Durable Objects na Cloudflare, Turnstile se quiser, rodar `verify-model` com a chave | alerta ativo; "tá ativo na Groq" |
+| 20 | Página "o que mudou" implantada | 6 | `/cartilha/o-que-mudou` lê `docs/spec/o-que-mudou.md` | conferir a página implantada contra o spec | texto igual |
+| 21 | Merge e branches do repositório | 8 | ADR-0011 e rulesets | ligar `delete_branch_on_merge`, desligar merge commit | `gh api` com `delete_branch_on_merge=true` e `allow_merge_commit=false` |
 
-Decisões do dono ainda abertas: confirmar as exceções às regras (ADR-0004 mutação confinada, ADR-0008 commits sem ID
+Decisões do dono ainda abertas: o teto de 29 KB brotli do ADR-0001 (item 16), confirmar as exceções às regras (ADR-0004 mutação confinada, ADR-0008 commits sem ID
 Jira, ADR-0007 `TODO(GS-<n>)`), o baseline do scanner com `tailwind.config.ts`, a leitura do teto de 150 ms como
 relativo à máquina de referência (relatório da Fase 2) e o método do Marketplace antes de 2026-12-01.
 
