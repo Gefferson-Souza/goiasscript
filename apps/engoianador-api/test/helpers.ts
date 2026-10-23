@@ -3,23 +3,6 @@ import type { Env, WorkerConfig } from '../src/env.types';
 
 type EnvOverrides = { readonly [Key in keyof Env]?: Env[Key] | undefined };
 
-/** KV em memória que imita a interface usada por rate-limit.ts. */
-export function fakeKV() {
-  const store = new Map<string, string>();
-  return {
-    store,
-    get: (key: string) => Promise.resolve(store.get(key) ?? null),
-    put: (key: string, value: string) => {
-      store.set(key, value);
-      return Promise.resolve();
-    },
-    delete: (key: string) => {
-      store.delete(key);
-      return Promise.resolve();
-    },
-  };
-}
-
 export function makeEnv(overrides: EnvOverrides = {}): Env {
   return {
     GROQ_MODEL: 'llama-3.1-70b-versatile',

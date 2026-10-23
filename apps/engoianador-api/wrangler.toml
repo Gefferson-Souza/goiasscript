@@ -22,12 +22,8 @@ class_name = "QuotaLedgerObject"
 tag = "v1"
 new_sqlite_classes = ["QuotaLedgerObject"]
 
-# Os ids abaixo são marcadores: o check-worker-config recusa o deploy enquanto
-# houver `COLE_O_ID`. Crie cada namespace com `wrangler kv namespace create <nome>`.
-[[kv_namespaces]]
-binding = "ENGOIANADOR_RL"
-id = "COLE_O_ID_DE_ENGOIANADOR_RL"
-
+# O id abaixo é um marcador: o check-worker-config recusa o deploy enquanto
+# houver `COLE_O_ID`. Crie o namespace com `wrangler kv namespace create ENGOIANADOR_CACHE`.
 [[kv_namespaces]]
 binding = "ENGOIANADOR_CACHE"
 id = "COLE_O_ID_DE_ENGOIANADOR_CACHE"

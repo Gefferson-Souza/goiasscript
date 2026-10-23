@@ -1,0 +1,7 @@
+export const INTEGER_VARIABLES = ['RATE_LIMIT_PER_DAY', 'GLOBAL_DAILY_CAP', 'MAX_INPUT_CHARS', 'MAX_BODY_BYTES', 'CACHE_TTL_SEC'] as const;
+export const POSITIVE_INTEGER_PATTERN = /^[1-9]\d*$/u;
+export const PLACEHOLDER_MARKER = 'COLE_O_ID';
+export const DURABLE_OBJECT_BINDING = 'QUOTA_LEDGER';
+export const DURABLE_OBJECT_CLASS = 'QuotaLedgerObject';
+export const CACHE_KV_BINDING = 'ENGOIANADOR_CACHE';
+export const AI_BINDING = 'AI';
