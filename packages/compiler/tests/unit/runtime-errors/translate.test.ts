@@ -32,6 +32,7 @@ describe('translateRuntimeError', () => {
     expect(translateRuntimeError(new TypeError('x'), base).code).toBe('GS0710');
     expect(translateRuntimeError(new ReferenceError('x'), base).code).toBe('GS0711');
     expect(translateRuntimeError(new RangeError('x'), base).code).toBe('GS0712');
+    expect(translateRuntimeError(Object.assign(new Error('too much recursion'), { name: 'InternalError' }), base).code).toBe('GS0712');
     expect(translateRuntimeError(new SyntaxError('x'), base).code).toBe('GS0713');
     expect(translateRuntimeError(new Error('Cannot read properties of undefined'), base).code).toBe('GS0714');
     expect(translateRuntimeError(new URIError('x'), base).code).toBe('GS0714');
