@@ -17,6 +17,10 @@ describe('manifesto da extensão', () => {
     expect(manifest.capabilities.untrustedWorkspaces.description.length).toBeGreaterThan(MIN_DESCRIPTION_LENGTH);
   });
 
+  it('o endereço das lições não vem de configuração de pasta não confiável', () => {
+    expect(manifest.capabilities.untrustedWorkspaces.restrictedConfigurations).toContain('goiasscript.lessonBaseUrl');
+  });
+
   it('não herda nada da extensão anterior', () => {
     for (const key of ['debuggers', 'themes', 'languagePacks', 'walkthroughs', 'viewsContainers']) {
       expect(manifest.contributes).not.toHaveProperty(key);
