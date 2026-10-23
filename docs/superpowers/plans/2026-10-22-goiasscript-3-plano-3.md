@@ -290,7 +290,7 @@ export interface CompileView {
   readonly markers: readonly EditorMarker[];      // no máximo MAX_MARKERS (200)
   readonly hiddenMarkerCount: number;
 }
-export interface EditorMarker { readonly code: string; readonly severity: 'error' | 'warning'; readonly message: string; readonly startLine: number; readonly startColumn: number; readonly endLine: number; readonly endColumn: number; readonly lessonUrl?: string }
+export interface EditorMarker { readonly code: string; readonly severity: 8 | 4; /* MarkerSeverity do Monaco: 8 erro, 4 aviso */ readonly message: string; readonly startLineNumber: number; readonly startColumn: number; readonly endLineNumber: number; readonly endColumn: number; readonly lessonUrl?: string }
 export function createCompileService(options: { readonly tone: Tone; readonly loadOptimizer: () => Promise<typeof import('@goiasscript/optimizer')> }): {
   compile(source: string, view: TargetView): Promise<CompileView>;
 };
