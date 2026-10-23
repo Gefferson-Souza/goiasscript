@@ -1,3 +1,4 @@
+import { RUN_LIMITS } from '../../config/run-limits.constants.ts';
 import type { RunLimits } from '../../config/run-limits.types.ts';
 import { LOG_STREAMS, MAX_ERROR_CODE_CHARS, MAX_ERROR_NAME_CHARS, MAX_STACK_CHARS, MESSAGE_TYPES } from '../../sandbox/protocol.constants.ts';
 import type { LogStream, RunnerToHost } from '../../sandbox/protocol.types.ts';
@@ -74,3 +75,6 @@ export function parseRunnerMessage(data: unknown, limits: RunLimits): RunnerToHo
   const type = own(data, 'type');
   return typeof type === 'string' ? (PARSERS.get(type)?.(data, limits) ?? null) : null;
 }
+
+// Versão booleana do contrato; quem precisa da mensagem já cortada nos limites usa parseRunnerMessage.
+export const isRunnerMessage = (data: unknown, limits: RunLimits = RUN_LIMITS): data is RunnerToHost => parseRunnerMessage(data, limits) !== null;
