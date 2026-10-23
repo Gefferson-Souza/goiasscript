@@ -38,7 +38,7 @@ describe('GET /health', () => {
     expect(response.status).toBe(200);
     expect(await response.json()).toEqual({
       ok: true,
-      model: 'llama-3.1-70b-versatile',
+      model: makeConfig().groqModel,
       bindings: { QUOTA_LEDGER: true, ENGOIANADOR_CACHE: true, AI: false, GROQ_API_KEY: true },
     });
   });
