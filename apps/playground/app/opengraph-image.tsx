@@ -1,4 +1,6 @@
 import { ImageResponse } from 'next/og';
+import { currentSiteConfig } from '@/config/current-site-config';
+import { SHARE_SNIPPET } from '@/lib/share-snippet.constants';
 
 export const alt = 'GoiásScript — Goianês na Web';
 export const size = { width: 1200, height: 630 };
@@ -6,6 +8,7 @@ export const contentType = 'image/png';
 
 // Tipográfica de propósito: sem emoji para não depender de rede em build.
 export default function OpengraphImage() {
+  const { siteUrl } = currentSiteConfig();
   return new ImageResponse(
     (
       <div
@@ -41,10 +44,11 @@ export default function OpengraphImage() {
             color: '#e6edf3',
           }}
         >
-          <span style={{ color: '#1f7a3d' }}>uai</span> saudacao{' '}
-          <span style={{ color: '#1f7a3d' }}>é</span>{' '}
-          <span style={{ color: '#f5c518' }}>&quot;bão demais da conta!&quot;</span>
-          <span style={{ marginTop: 6 }}>prosa(saudacao)</span>
+          {SHARE_SNIPPET.split('\n').map((line, index) => (
+            <span key={index} style={{ whiteSpace: 'pre' }}>
+              {line}
+            </span>
+          ))}
         </div>
 
         <div
@@ -56,7 +60,7 @@ export default function OpengraphImage() {
           }}
         >
           <span>Feito com carinho em Goiás</span>
-          <span>playground.goiasscript.com.br</span>
+          <span>{siteUrl === null ? '' : new URL(siteUrl).host}</span>
         </div>
       </div>
     ),
