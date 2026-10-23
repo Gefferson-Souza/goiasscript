@@ -1,0 +1,57 @@
+name: Smoke pós-publicação
+
+on:
+  workflow_dispatch:
+    inputs:
+      dist:
+        description: 'Dist-tag do npm que acabou de sair'
+        required: true
+        default: latest
+        type: choice
+        options:
+          - latest
+          - next
+      playground_url:
+        description: 'Endereço https do playground implantado (vazio pula o smoke dele)'
+        required: false
+        default: ''
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    name: package
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      DIST_TAG: ${{ inputs.dist }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with: { node-version: 24 }
+      - name: Instala o pacote publicado e confere versão, licença e comando
+        run: node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/smoke-release.ts "$DIST_TAG"
+
+  dispatch:
+    name: dispatch
+    needs: package
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PLAYGROUND_URL: ${{ inputs.playground_url }}
+    steps:
+      - name: Dispara o smoke da extensão
+        run: gh workflow run smoke-extension.yml --repo "$GITHUB_REPOSITORY" --ref "$GITHUB_REF_NAME"
+      - name: Dispara o smoke do playground
+        run: |
+          if [ -z "$PLAYGROUND_URL" ]; then
+            echo "Sem endereço do playground: o smoke dele fica por conta do dono."
+            exit 0
+          fi
+          gh workflow run playground-smoke.yml --repo "$GITHUB_REPOSITORY" --ref "$GITHUB_REF_NAME" -f base_url="$PLAYGROUND_URL"
