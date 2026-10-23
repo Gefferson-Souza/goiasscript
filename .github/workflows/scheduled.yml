@@ -30,3 +30,6 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Teste de mutação do compilador
         run: pnpm --filter @goiasscript/compiler mutate
+      - name: Teste de mutação do cli (somente relatório)
+        timeout-minutes: 40
+        run: pnpm --filter goiasscript mutate
