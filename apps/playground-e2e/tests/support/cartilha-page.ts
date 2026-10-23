@@ -21,7 +21,21 @@ export class PrimerPage {
   async openLesson(lessonId: string): Promise<void> {
     await this.#page.goto(`${PRIMER_PATH}/${lessonId}`);
     await this.#byId(TEST_IDS.editor).waitFor({ timeout: PRIMER_EDITOR_TIMEOUT_MS });
-    await this.#page.waitForFunction(() => Reflect.has(window, 'monaco'), undefined, { timeout: PRIMER_EDITOR_TIMEOUT_MS });
+    // `monaco` aparece em window antes do editor montar, e o modelo nasce antes de o React ouvir as edições.
+    // Dois quadros depois o React já assinou o onChange; um setValue antes disso nunca chega à lição.
+    await this.#page.waitForFunction(
+      () => {
+        const monaco = Reflect.get(window, 'monaco') as { editor: { getModels: () => unknown[] } } | undefined;
+        return (monaco?.editor.getModels().length ?? 0) > 0;
+      },
+      undefined,
+      { timeout: PRIMER_EDITOR_TIMEOUT_MS },
+    );
+    await this.#page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        resolve();
+      });
+    })));
   }
 
   async selectExercise(): Promise<void> {
