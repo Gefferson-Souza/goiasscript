@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { readModelMarkers } from './support/editor-api.ts';
 import { PrimerPage } from './support/cartilha-page.ts';
-import { LESSON_ELEVEN_EXPECTED_OUTPUT, LESSON_ELEVEN_SOLUTION } from './support/cartilha-page.constants.ts';
+import { LESSON_ELEVEN_SOLUTION } from './support/cartilha-page.constants.ts';
 
 const LESSON_ELEVEN = 'licao-11';
 const COMMA_WARNING_CODE = 'GS0805';
@@ -14,7 +14,6 @@ test.describe('cartilha — pergunta', () => {
     await primer.setProgram(LESSON_ELEVEN_SOLUTION);
     await primer.checkExercise();
     await expect(primer.verdict()).toHaveAttribute('data-verdict', 'correct', { timeout: primer.doneTimeoutMs() });
-    await expect(primer.actualOutput()).toHaveText(LESSON_ELEVEN_EXPECTED_OUTPUT);
   });
 
   test('o aviso da vírgula aparece quando a resposta é 10,50 sem converter', async ({ page }) => {

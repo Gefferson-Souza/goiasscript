@@ -17,15 +17,21 @@ export function normalizeStdout(text: string): string {
 
 const joinLines = (lines: readonly string[]): string => normalizeStdout(lines.join(OUTPUT_LINE_JOINER));
 
-function stepOnAsk(state: CollectorState): CollectorStep {
+// A pergunta aparece na saída antes do próximo texto, como no terminal.
+function stepOnAsk(state: CollectorState, promptText: string): CollectorStep {
   const [next, ...rest] = state.answers;
   if (next === undefined) return { state, effect: { kind: 'finish', verdict: 'run-failed', reason: GRADE_REASONS.tooManyQuestions, stopRunner: true } };
-  return { state: { ...state, answers: rest }, effect: { kind: 'answer', value: next } };
+  return { state: { ...state, answers: rest, promptPrefix: `${state.promptPrefix}${promptText} ` }, effect: { kind: 'answer', value: next } };
+}
+
+function withTrailingPrompt(state: CollectorState): CollectorState {
+  return state.promptPrefix === '' ? state : { ...state, lines: [...state.lines, state.promptPrefix], promptPrefix: '' };
 }
 
 function stepOnFinished(state: CollectorState, expected: string): CollectorStep {
-  const correct = !state.truncated && joinLines(state.lines) === expected;
-  return { state, effect: { kind: 'finish', verdict: correct ? 'correct' : 'wrong' } };
+  const settled = withTrailingPrompt(state);
+  const correct = !settled.truncated && joinLines(settled.lines) === expected;
+  return { state: settled, effect: { kind: 'finish', verdict: correct ? 'correct' : 'wrong' } };
 }
 
 // Passo puro: a máquina de coleta recebe o evento e devolve o novo estado e o que fazer.
@@ -33,11 +39,11 @@ export function stepCollector(state: CollectorState, event: RunEvent, expected: 
   const idle: CollectorStep = { state, effect: { kind: 'none' } };
   switch (event.kind) {
     case 'out':
-      return { state: { ...state, lines: [...state.lines, event.text] }, effect: idle.effect };
+      return { state: { ...state, lines: [...state.lines, `${state.promptPrefix}${event.text}`], promptPrefix: '' }, effect: idle.effect };
     case 'truncated':
       return { state: { ...state, truncated: true }, effect: idle.effect };
     case 'ask':
-      return stepOnAsk(state);
+      return stepOnAsk(state, event.prompt);
     case 'finished':
       return stepOnFinished(state, expected);
     case 'failed':
@@ -62,14 +68,14 @@ function drive(compiled: CompileSuccess, request: GradeRequest, deps: GradeDeps)
   const expectedStdout = normalizeStdout(request.exercise.expectedStdout);
   const timers = deps.timers ?? defaultTimers;
   return new Promise<GradeResult>((resolve) => {
-    let state: CollectorState = { lines: [], answers: request.exercise.stdin ?? [], truncated: false };
+    let state: CollectorState = { lines: [], answers: request.exercise.stdin ?? [], promptPrefix: '', truncated: false };
     let settled = false;
     let ceiling: TimerHandle | null = null;
     const settle = (verdict: Verdict, reason?: string): void => {
       if (settled) return;
       settled = true;
       if (ceiling !== null) timers.clearTimeout(ceiling);
-      resolve({ verdict, actualStdout: joinLines(state.lines), expectedStdout, ...(reason === undefined ? {} : { reason }) });
+      resolve({ verdict, actualStdout: joinLines(withTrailingPrompt(state).lines), expectedStdout, ...(reason === undefined ? {} : { reason }) });
     };
     const onEvent = (event: RunEvent): void => {
       if (settled) return;
