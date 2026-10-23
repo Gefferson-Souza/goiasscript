@@ -38,6 +38,8 @@ const violations = [
   ['console fora do runner', 'apps/playground/lib/virtual.ts', 'console.warn("x");\n', 'no-console'],
   ['any em app', 'apps/playground/lib/virtual.ts', 'export const value: any = 1;\n', '@typescript-eslint/no-explicit-any'],
   ['hook condicional em componente', 'apps/playground/lib/virtual.tsx', "import { useState } from 'react';\nexport function Box({ on }: { readonly on: boolean }): null {\n  if (on) {\n    useState(0);\n  }\n  return null;\n}\n", 'react-hooks/rules-of-hooks'],
+  ['vscode fora do host', 'packages/vscode/src/features/virtual.ts', "import * as vscode from 'vscode';\nexport const api = vscode;\n", 'no-restricted-imports'],
+  ['shell proibido', 'packages/vscode/src/commands/virtual.ts', "import { execFile } from 'node:child_process';\nexecFile('a', [], { shell: true });\n", 'no-restricted-syntax'],
   ['função fora de camelCase', SRC, 'export function Foo_bar(): void {\n  return;\n}\n', '@typescript-eslint/naming-convention'],
 ];
 const accepted = [
@@ -47,6 +49,9 @@ const accepted = [
   ['interface em *.types.ts', 'packages/language/src/virtual.types.ts', 'export interface Entry {\n  readonly name: string;\n}\n', 'no-restricted-syntax'],
   ['catch que relança', SRC, tryCatch('\n    throw error;\n  '), 'no-restricted-syntax'],
   ['console no runner', 'apps/playground/sandbox/runner.ts', 'const original = console.log;\nexport { original };\n', 'no-console'],
+  ['vscode no host', 'packages/vscode/src/host/virtual.ts', "import * as vscode from 'vscode';\nexport const api = vscode;\n", 'no-restricted-imports'],
+  ['vscode na entrada da extensão', 'packages/vscode/src/extension.ts', "import * as vscode from 'vscode';\nexport const api = vscode;\n", 'no-restricted-imports'],
+  ['execFile sem shell', 'packages/vscode/src/commands/virtual.ts', "import { execFile } from 'node:child_process';\nexecFile('a', [], { windowsHide: true });\n", 'no-restricted-syntax'],
   ['process em entry', 'packages/cli/src/entry/virtual.ts', 'export const sink = process.stdout;\n', 'no-restricted-globals'],
 ];
 
