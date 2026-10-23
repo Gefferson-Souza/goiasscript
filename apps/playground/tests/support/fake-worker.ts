@@ -1,6 +1,20 @@
 import type { WorkerPort } from '../../lib/run/runner-client.types.ts';
 import type { HostToRunner } from '../../sandbox/protocol.types.ts';
 
+// O Node 22 e 24 não têm o construtor ErrorEvent, só o Event.
+class FakeErrorEvent extends Event implements ErrorEvent {
+  readonly colno = 0;
+  readonly error = null;
+  readonly filename = '';
+  readonly lineno = 0;
+  readonly message: string;
+
+  constructor(message: string) {
+    super('error', { cancelable: true });
+    this.message = message;
+  }
+}
+
 export class FakeWorker implements WorkerPort {
   onmessage: ((event: MessageEvent<unknown>) => void) | null = null;
   onerror: ((event: ErrorEvent) => void) | null = null;
@@ -25,7 +39,7 @@ export class FakeWorker implements WorkerPort {
   }
 
   emitError(message: string): void {
-    this.onerror?.(new ErrorEvent('error', { message }));
+    this.onerror?.(new FakeErrorEvent(message));
   }
 
   emitMessageError(): void {
