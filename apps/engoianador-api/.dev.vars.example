@@ -3,3 +3,7 @@
 
 # Chave da Groq (https://console.groq.com). Sem ela, cai no fallback Workers AI.
 GROQ_API_KEY=
+
+# Modelo da Groq: o padrão vem do wrangler.toml (GROQ_MODEL). Para testar outro id
+# em dev, sobrescreva aqui e rode `node scripts/verify-model.ts --model <id> --require`.
+# GROQ_MODEL=

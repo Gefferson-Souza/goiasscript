@@ -8,7 +8,7 @@ import { HTTP_STATUS, JSON_CONTENT_TYPE } from './http.constants';
 import { createLimiter } from './limiter';
 import { workerLog } from './log';
 import { MESSAGES } from './messages.constants';
-import { createProviderChain } from './providers';
+import { createWorkerProviderChain } from './providers';
 import { QuotaLedgerObject } from './rate-limiter.do';
 import { ERROR_FIELD } from './responses.constants';
 
@@ -41,7 +41,7 @@ function handlerFor(env: Env, config: Extract<ConfigResult, { readonly ok: true 
   if (known !== undefined) return known;
   const handler = createHandler({
     limiter: createLimiter(env, config),
-    providers: createProviderChain({ env, log: workerLog }),
+    providers: createWorkerProviderChain({ env, config, log: workerLog }),
     cache: createCache(),
     health: createHealth(env),
     config,

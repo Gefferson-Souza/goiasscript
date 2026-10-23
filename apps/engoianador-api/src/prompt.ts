@@ -1,3 +1,4 @@
+import { FNV_OFFSET_BASIS, FNV_PRIME, HASH_HEX_LENGTH, HEX_RADIX, PROMPT_PART_SEPARATOR, PROMPT_VERSION_PREFIX } from './prompt.constants';
 import type { ChatMessage } from './prompt.types';
 
 // Prompt do engoianador: instrui a LLM a reescrever qualquer texto em
@@ -62,3 +63,14 @@ export function buildMessages(text: string): readonly ChatMessage[] {
     { role: 'user', content: `<texto_do_usuario>${safe}</texto_do_usuario>` },
   ];
 }
+
+export function computePromptVersion(system: string, fewShot: readonly ChatMessage[]): string {
+  const source = [system, ...fewShot.map((message) => `${message.role}:${message.content}`)].join(PROMPT_PART_SEPARATOR);
+  let hash = FNV_OFFSET_BASIS;
+  for (let index = 0; index < source.length; index += 1) {
+    hash = Math.imul(hash ^ source.charCodeAt(index), FNV_PRIME) >>> 0;
+  }
+  return `${PROMPT_VERSION_PREFIX}${hash.toString(HEX_RADIX).padStart(HASH_HEX_LENGTH, '0')}`;
+}
+
+export const PROMPT_VERSION = computePromptVersion(SYSTEM_PROMPT, FEW_SHOT);
