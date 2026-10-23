@@ -4,14 +4,14 @@ import { fakeKV, makeEnv } from './helpers';
 
 describe('checkRateLimit — fail-closed', () => {
   it('recusa com misconfig quando não há KV e não é dev', async () => {
-    const r = await checkRateLimit('1.2.3.4', makeEnv({ ENGOIANADOR_RL: undefined }));
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.reason).toBe('misconfig');
+    const result = await checkRateLimit('1.2.3.4', makeEnv({ ENGOIANADOR_RL: undefined }));
+    expect(result.ok).toBe(false);
+    if (!result.ok) expect(result.reason).toBe('misconfig');
   });
 
   it('libera sem KV apenas com ALLOW_UNLIMITED=true (dev)', async () => {
-    const r = await checkRateLimit('1.2.3.4', makeEnv({ ALLOW_UNLIMITED: 'true' }));
-    expect(r.ok).toBe(true);
+    const result = await checkRateLimit('1.2.3.4', makeEnv({ ALLOW_UNLIMITED: 'true' }));
+    expect(result.ok).toBe(true);
   });
 
   it('permite até o limite diário e bloqueia depois', async () => {
@@ -21,10 +21,10 @@ describe('checkRateLimit — fail-closed', () => {
     expect((await checkRateLimit(ip, env)).ok).toBe(true);
     expect((await checkRateLimit(ip, env)).ok).toBe(true);
     expect((await checkRateLimit(ip, env)).ok).toBe(true);
-    const quarta = await checkRateLimit(ip, env);
-    expect(quarta.ok).toBe(false);
-    if (!quarta.ok && quarta.reason === 'rate') {
-      expect(quarta.retryAfterSec).toBeGreaterThan(0);
+    const fourth = await checkRateLimit(ip, env);
+    expect(fourth.ok).toBe(false);
+    if (!fourth.ok && fourth.reason === 'rate') {
+      expect(fourth.retryAfterSec).toBeGreaterThan(0);
     } else {
       throw new Error('esperava reason rate');
     }
@@ -42,7 +42,7 @@ describe('checkRateLimit — fail-closed', () => {
     const kv = fakeKV();
     kv.store.set('rl:x', 'isso não é json');
     const env = makeEnv({ ENGOIANADOR_RL: kv as never, RATE_LIMIT_PER_DAY: '5' });
-    const r = await checkRateLimit('x', env);
-    expect(r.ok).toBe(true);
+    const result = await checkRateLimit('x', env);
+    expect(result.ok).toBe(true);
   });
 });
