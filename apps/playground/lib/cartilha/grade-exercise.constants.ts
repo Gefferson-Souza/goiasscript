@@ -1,3 +1,8 @@
+import { RUN_LIMITS } from '../../config/run-limits.constants.ts';
+
+const CEILING_MARGIN_MS = 5_000;
+
+export const GRADE_CEILING_MS = RUN_LIMITS.maxRunMs + CEILING_MARGIN_MS;
 export const GRADE_FILE_NAME = 'exercicio.gs';
 export const TRAILING_BLANKS = /[ \t]+$/u;
 export const TRAILING_NEWLINES = /\n+$/u;
