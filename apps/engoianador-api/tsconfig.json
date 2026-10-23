@@ -6,6 +6,6 @@
     "moduleResolution": "Bundler",
     "types": ["@cloudflare/workers-types", "node"]
   },
-  "include": ["src/**/*.ts", "test/**/*.ts", "scripts/**/*.ts", "vitest.config.ts"],
+  "include": ["src/**/*.ts", "test/**/*.ts", "scripts/**/*.ts", "vitest.config.ts", "vitest.mutation.config.ts"],
   "exclude": ["node_modules"]
 }

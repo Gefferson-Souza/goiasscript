@@ -100,7 +100,8 @@
     "apps/engoianador-api": {
       "entry": [
         "scripts/*.ts",
-        "test/**/*.test.ts"
+        "test/**/*.test.ts",
+        "vitest.mutation.config.ts"
       ],
       "project": [
         "src/**/*.ts",

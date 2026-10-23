@@ -27,9 +27,10 @@ describe('higiene do repositório (GATE 1)', () => {
     const mailmapEmails = [...readFileSync(path.join(ROOT_DIR, '.mailmap'), 'utf8').matchAll(/<([^>]+)>/g)].map((match) => match[1]);
     for (const email of mailmapEmails) expect(email).toMatch(/@users\.noreply\.github\.com$/);
   });
-  it('cobertura mínima de 80% em cada pacote, na extensão e no código do playground', () => {
+  it('cobertura mínima de 80% em cada pacote, na extensão, no playground e no Worker', () => {
     const thresholds = config.test.coverage.thresholds;
-    expect(Object.keys(thresholds)).toHaveLength(6);
+    expect(Object.keys(thresholds)).toHaveLength(7);
+    expect(Object.keys(thresholds)).toContain('apps/engoianador-api/src/**/*.ts');
     for (const limits of Object.values(thresholds)) expect(limits).toEqual({ lines: MINIMUM, functions: MINIMUM, branches: MINIMUM, statements: MINIMUM });
   });
 });
