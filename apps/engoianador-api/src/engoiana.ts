@@ -11,6 +11,7 @@ export function createProviderChain(providers: readonly ProviderPort[], log?: Lo
         last = await provider.complete(text, signal);
         if (last.ok) return last;
         log?.warn('provider failed', `${last.provider}:${last.failure}`);
+        if (signal.aborted) return last;
       }
       return last;
     },
