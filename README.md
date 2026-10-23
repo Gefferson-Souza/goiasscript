@@ -191,11 +191,12 @@ API que recebe texto qualquer e devolve em goianês raiz, usando LLM
 ```bash
 curl -X POST https://<seu-worker>.workers.dev/engoiana \
   -H "Content-Type: application/json" \
-  -d '{"texto":"Olá, tudo bem com você?"}'
-# → { "engoianado": "Ô sô, e aí, tudo joia com ocê?" }
+  -d '{"text":"Olá, tudo bem com você?"}'
+# → { "text": "Ô sô, e aí, tudo joia com ocê?" }
 ```
 
-- **Limites:** 2000 caracteres por requisição, 10 req/min/IP.
+- **Limites:** `MAX_INPUT_CHARS` caracteres por requisição (padrão 2000) e
+  `RATE_LIMIT_PER_DAY` requisições por dia por rede (padrão 20).
 - **Local:** `pnpm engoianador:dev` (precisa de `GROQ_API_KEY` em
   `apps/engoianador-api/.dev.vars`).
 
