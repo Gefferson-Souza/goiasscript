@@ -49,6 +49,7 @@ export interface CompatDeps {
   readonly currentTag: string | null;
   readonly currentLock: VocabularyLock;
   readonly changesets: readonly Changeset[];
+  readonly manifestVersion?: string | null;
   readonly compile: CompileFn;
 }
 

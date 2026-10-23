@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { BUMP_ORDER, CONFORMANCE_DIR, GITHUB_WARNING_PREFIX, LOCK_FILE, STABLE_V3_TAG } from './compat-check.constants.ts';
+import { BUMP_ORDER, CONFORMANCE_DIR, GITHUB_WARNING_PREFIX, LOCK_FILE, MANIFEST_FILE, STABLE_MAJOR, STABLE_V3_TAG, STABLE_VERSION } from './compat-check.constants.ts';
 import { compile } from '../packages/compiler/src/index.ts';
 import { createGitPort, readChangesets } from './compat-ports.ts';
 import { processIo } from './gate-report.ts';
@@ -20,6 +20,20 @@ function reservedChanges(previous: VocabularyLock, next: VocabularyLock): readon
   ];
 }
 
+function deprecationChanges(previous: VocabularyLock, next: VocabularyLock): readonly (readonly [BumpKind, string])[] {
+  const before = new Map(previous.reserved.map((entry) => [entry.name, entry.deprecatedIn]));
+  return next.reserved
+    .filter((entry) => before.has(entry.name) && before.get(entry.name) !== entry.deprecatedIn)
+    .map((entry) => ['minor', `depreciação de ${entry.name} mudou`] as const);
+}
+
+function removedDiagnostics(previous: VocabularyLock, next: VocabularyLock): readonly (readonly [BumpKind, string])[] {
+  const kept = new Set(next.diagnostics.map((entry) => entry.code));
+  return previous.diagnostics
+    .filter((entry) => !kept.has(entry.code))
+    .map((entry) => [entry.severity === 'error' ? 'major' : 'minor', `diagnóstico removido: ${entry.code}`] as const);
+}
+
 function diagnosticChange(previous: ReadonlyMap<string, LockDiagnostic>, current: LockDiagnostic): readonly [BumpKind, string] | null {
   const old = previous.get(current.code);
   if (old === undefined) {
@@ -31,7 +45,7 @@ function diagnosticChange(previous: ReadonlyMap<string, LockDiagnostic>, current
 
 export function requiredBump(previous: VocabularyLock, next: VocabularyLock): BumpRequirement {
   const known = new Map(previous.diagnostics.map((entry) => [entry.code, entry]));
-  const changes = [...reservedChanges(previous, next), ...next.diagnostics.map((entry) => diagnosticChange(known, entry)).filter((change) => change !== null)];
+  const changes = [...reservedChanges(previous, next), ...deprecationChanges(previous, next), ...removedDiagnostics(previous, next), ...next.diagnostics.map((entry) => diagnosticChange(known, entry)).filter((change) => change !== null)];
   return { bump: changes.reduce<BumpKind>((acc, [bump]) => maxBump(acc, bump), 'none'), reasons: changes.map(([, reason]) => reason) };
 }
 
@@ -73,6 +87,18 @@ export function previousStableTag(tags: readonly string[], currentTag: string | 
   return sorted[0]?.tag ?? null;
 }
 
+export function versionBump(previousTag: string, manifestVersion: string | null): BumpKind {
+  const previous = STABLE_V3_TAG.exec(previousTag);
+  const current = manifestVersion === null ? null : STABLE_VERSION.exec(manifestVersion);
+  if (previous === null || current === null) return 'none';
+  const [previousMajor, previousMinor, previousPatch] = [STABLE_MAJOR, Number(previous[1]), Number(previous[2])];
+  const [major, minor, patch] = [Number(current[1]), Number(current[2]), Number(current[3])];
+  if (major > previousMajor) return 'major';
+  if (major < previousMajor) return 'none';
+  if (minor !== previousMinor) return minor > previousMinor ? 'minor' : 'none';
+  return patch > previousPatch ? 'patch' : 'none';
+}
+
 function insufficient(required: BumpKind, pending: BumpKind): boolean {
   return rank(pending) < rank(required);
 }
@@ -86,11 +112,11 @@ export async function runCompatCheck(deps: CompatDeps): Promise<CompatResult> {
   if (previousText === null) {
     return { ok: true, failures: [], warnings: [`A tag ${previousTag} não tem ${LOCK_FILE}; o compat passou sem conferir o vocabulário.`] };
   }
-  const pending = pendingBump(deps.changesets);
+  const pending = maxBump(pendingBump(deps.changesets), versionBump(previousTag, deps.manifestVersion ?? null));
   const required = requiredBump(JSON.parse(previousText) as VocabularyLock, deps.currentLock);
   const broken = (await replayOkCases(previousTag, deps.compile, deps.git)).filter((result) => result.nowFails);
   const failures = [
-    ...(insufficient(required.bump, pending) ? [`Ô rapaz! A mudança pede bump ${required.bump}, mas o changeset pendente é ${pending}: ${required.reasons.join('; ')}.`] : []),
+    ...(insufficient(required.bump, pending) ? [`Ô rapaz! A mudança pede bump ${required.bump}, mas o changeset pendente ou versão do manifesto cobre só ${pending}: ${required.reasons.join('; ')}.`] : []),
     ...(broken.length > 0 && insufficient('major', pending) ? [`Eita! ${String(broken.length)} caso(s) que compilavam na ${previousTag} agora dão erro e não tem changeset major: ${broken.map((result) => result.id).join(', ')}.`] : []),
   ];
   return { ok: failures.length === 0, failures, warnings: [] };
@@ -98,7 +124,8 @@ export async function runCompatCheck(deps: CompatDeps): Promise<CompatResult> {
 
 export async function runCompatCli(root: string, io: GateIo, currentTag: string | null): Promise<number> {
   const currentLock = JSON.parse(fs.readFileSync(path.join(root, LOCK_FILE), 'utf8')) as VocabularyLock;
-  const result = await runCompatCheck({ git: createGitPort(root), currentTag, currentLock, changesets: readChangesets(root), compile });
+  const manifestVersion = (JSON.parse(fs.readFileSync(path.join(root, MANIFEST_FILE), 'utf8')) as { readonly version?: string }).version ?? null;
+  const result = await runCompatCheck({ git: createGitPort(root), currentTag, currentLock, changesets: readChangesets(root), manifestVersion, compile });
   for (const warning of result.warnings) io.out(`${GITHUB_WARNING_PREFIX}${warning}\n`);
   for (const failure of result.failures) io.err(`${failure}\n`);
   if (result.ok) io.out('Tá pronto, sô! O compat conferiu o vocabulário e os casos da tag anterior.\n');
