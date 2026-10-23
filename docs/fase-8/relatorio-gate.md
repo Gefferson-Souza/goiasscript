@@ -1,9 +1,10 @@
 # Relatório do gate da Fase 8
 
-**Veredito:** pronto para o GATE 8, que o dono decide. O gate de promessas está completo e verde, o `verify` sai 0
-sem exceção por caminho e o código removido não deixa referência fora dos registros históricos. Os links externos dos
-documentos publicados foram conferidos uma vez e respondem 200. O que depende de ato do dono está na seção 7 como
-`pendente do dono`. Nada foi enviado ao remoto, publicado nem etiquetado por este trabalho.
+**Veredito:** pronto para o GATE 8, que o dono decide, com um item parcial. Os checks de promessas rodáveis aqui
+estão verdes, o `verify` sai 0 e o código removido não deixa referência fora dos registros históricos. A conferência
+de links é parcial: links locais (sem âncoras) e 3 endereços externos por `curl` foram conferidos aqui; âncoras e a
+varredura externa completa ficam com o `lychee` na CI (estado `pendente de CI`, seções 2 e 6). O que depende de ato do
+dono está na seção 7 como `pendente do dono`. Nada foi enviado ao remoto, publicado nem etiquetado por este trabalho.
 
 Medição: Node v26, Linux. Os números vêm de `corepack pnpm verify` e dos comandos da seção 2, rodados depois do último
 commit de código da fase.
@@ -20,6 +21,12 @@ commit de código da fase.
 | U8-06 remoção do código antigo da v1 | 9cc66a3, 35f83d1 |
 | U8-07 `CLAUDE.md` final | 3f8c070 |
 
+Ordem na branch: os commits da U9-01 (2b29160, changesets e job `compat`; 2a2cced, correção do `compat`) já estavam
+na base `v3/integracao` antes deste relatório e não fazem parte do diff da U8-08. Pelo plano, a U9-01 depende do
+GATE 8: a ordem é registrada aqui, não confirmada como intencional, e fica para o dono avaliar. O job `compat`
+(`.github/workflows/compat.yml`, só em PR para `main`) é separado do `verify`: o `verify` não o executa e este
+relatório não o mediu.
+
 ## 2. Gate de promessas
 
 | Item do gate | Comando | Resultado |
@@ -31,14 +38,15 @@ commit de código da fase.
 | Compilador sem dependência de runtime | `node scripts/check-compiler-dependencies.ts` | verde: 125 arquivos conferidos |
 | Rastreabilidade das 15 linhas do §11 | `node scripts/check-traceability.ts` | verde: 15 promessas com prova no lugar |
 | Documentos dos agentes | `corepack pnpm agent-docs` | verde |
-| Links locais e âncoras | conferência própria sobre `README.md`, `CONTRIBUTING.md`, `docs/**` e a cartilha | 38 arquivos, 16 links locais, 0 quebrados |
-| Links externos (uma vez) | `curl` em cada endereço externo dos documentos publicados | 3 endereços, todos 200 (repositório, issues, selo de licença) |
+| Links locais (sem âncoras) | conferência própria sobre `README.md`, `CONTRIBUTING.md`, `docs/**` e a cartilha; o script não está versionado | 38 arquivos, 16 links locais, 0 quebrados; âncoras não conferidas |
+| Links externos (uma vez) | `curl` em cada endereço externo dos documentos publicados | parcial: 3 endereços, todos 200 (repositório, issues, selo de licença); `lychee` pendente de CI |
 
 Observação sobre os links: o binário `lychee` não está instalado nesta máquina e o disco não comporta instalá-lo; ele
 roda na CI (`promises-gate.yml`, job `links`, e `scheduled.yml`, job `links-externos`). A conferência local acima cobre
-o mesmo conjunto de arquivos e exclusões do `lychee.toml`, mas não as âncoras internas.
+o mesmo conjunto de arquivos e exclusões do `lychee.toml`, mas não as âncoras internas, que só o `lychee` confere, na CI. O script da conferência local não está
+versionado, então o número "38 arquivos, 16 links" não é reproduzível a partir do repositório.
 
-## 3. `verify` sem exceção por caminho
+## 3. `verify` e escopo das exceções
 
 `corepack pnpm verify` saiu 0. Dentro dele: `tsc` dos quatro projetos, ESLint com zero avisos, scanner de regras,
 `generate:check`, Vitest com cobertura, projeto `compiler`, dependency-cruiser (765 módulos, 1877 dependências, nenhuma
@@ -54,8 +62,11 @@ violação), knip e os cinco checks da seção 2.
 | Cobertura de funções | 96,8% (1514/1564) |
 | Cobertura de linhas | 97,68% (5145/5267) |
 
-Sem exceção por caminho: `tools/rules-scan/scope.json` tem `excluded: []` e o `knip.json` só ignora o workspace
-`apps/playground-e2e`, que roda só na CI. `pnpm install --frozen-lockfile` passa e `generate:check` não deixa árvore suja.
+Exceções que existem: `tools/rules-scan/scope.json` tem `excluded: []`, mas `ignoredPrefixes` cobre `docs`, o corpus
+de conformidade (`packages/compiler/tests/conformance`), os assets gerados do playground (`apps/playground/public/vs`,
+`apps/playground/public/examples`) e `apps/playground/next-env.d.ts`; `pathSegmentsExemptPrefixes` isenta `docs`. O
+`knip.json` ignora o workspace `apps/playground-e2e` (roda só na CI) e as dependências `lint-staged` e
+`@commitlint/cli`, usadas por hooks. `pnpm install --frozen-lockfile` passa e `generate:check` não deixa árvore suja.
 
 ## 4. Remoção do código antigo da v1
 
@@ -69,18 +80,21 @@ Comandos rodados sobre os documentos publicados e alterados na fase (`README.md`
 `CODE_OF_CONDUCT.md`, `CLAUDE.md`, `docs/spec`, `docs/operacao.md`, `docs/piloto`, `.github`):
 
 ```
-git grep -nE '[A-Za-z0-9._+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}' -- <arquivos>
-git grep -nE '<prefixo de diretório pessoal do Linux, macOS ou Windows>' -- <arquivos>
+FILES="README.md CONTRIBUTING.md SECURITY.md CODE_OF_CONDUCT.md CLAUDE.md docs/spec docs/operacao.md docs/piloto .github"
+git grep -nE '[A-Za-z0-9._+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}' -- $FILES
+git grep -nE '(^|[^[:alnum:]])(/ho[m]e/|/Use[r]s/|[A-Za-z]:\\Use[r]s\\)' -- $FILES
 ```
 
-Os dois voltaram vazios. Este relatório também não cita e-mail, caminho absoluto, empregador nem dado pessoal.
+Os colchetes evitam que a própria expressão case com o texto deste relatório. Os dois voltaram vazios. Não há teste
+versionado que execute essa varredura: ela é manual e reproduzível pelos comandos acima. Este
+relatório também não cita e-mail, caminho absoluto, empregador nem dado pessoal.
 
 ## 6. Itens que a CI confere e este ambiente não rodou
 
 | Item | Motivo | Onde roda |
 | --- | --- | --- |
 | E2E do playground em Chromium | os navegadores do Playwright não são baixados aqui (disco) | `apps/playground-e2e` na CI |
-| `lychee` (âncoras e links externos automáticos) | binário não instalado aqui | jobs `links` e `links-externos` |
+| `lychee` (âncoras e links externos automáticos) | binário não instalado aqui; item de links parcial até a CI rodar | jobs `links` e `links-externos` |
 
 ## 7. Pendências do dono
 
