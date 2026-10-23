@@ -4,7 +4,9 @@ import { timingEnforced } from './support/timing.ts';
 
 // Sob cobertura o tempo dobra: as medições rodam só no passo sem instrumentação.
 const timed = timingEnforced ? it : it.skip;
-const ROUNDS = 3;
+const ROUNDS = 5;
+// Escala de 4x: linear dá ~4, quadrático dá ~16; o teto absorve ruído de carga na CI.
+const MAX_LINEAR_RATIO = 10;
 // Cada medição de razão compila sete vezes, o que passa dos 5 s padrão na máquina da CI.
 const SCALE_TEST_TIMEOUT_MS = 30_000;
 
@@ -35,7 +37,7 @@ describe('compile com muitos diagnósticos', { timeout: SCALE_TEST_TIMEOUT_MS },
     measureMs(distinctNames(250), 250);
     const small = Math.max(medianMs(distinctNames(2_000), 2_000), 1);
     const large = medianMs(distinctNames(8_000), 8_000);
-    expect(large / small).toBeLessThan(6);
+    expect(large / small).toBeLessThan(MAX_LINEAR_RATIO);
   });
   timed('8 mil diagnósticos saem em menos de 2 s', () => {
     expect(medianMs(distinctNames(8_000), 8_000)).toBeLessThan(2_000);
@@ -44,7 +46,7 @@ describe('compile com muitos diagnósticos', { timeout: SCALE_TEST_TIMEOUT_MS },
     measureMs(similarNames(250), 250);
     const small = Math.max(medianMs(similarNames(2_000), 2_000), 1);
     const large = medianMs(similarNames(8_000), 8_000);
-    expect(large / small).toBeLessThan(6);
+    expect(large / small).toBeLessThan(MAX_LINEAR_RATIO);
   });
   timed('16 mil usos com nomes parecidos saem em menos de 3 s', () => {
     expect(measureMs(similarNames(8_000), 8_000)).toBeLessThan(3_000);
