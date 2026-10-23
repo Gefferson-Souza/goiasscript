@@ -2,6 +2,8 @@ import { corsHeaders, handlePreflight } from './cors';
 import type { Env } from './env.types';
 import type { HandlerDeps } from './handler.types';
 import { HTTP_STATUS, JSON_CONTENT_TYPE } from './http.constants';
+import { createLookupGuard } from './lookup-guard';
+import type { LookupGuard } from './lookup-guard.types';
 import { MESSAGES } from './messages.constants';
 import type { QuotaDecision } from './ports.types';
 import { ERROR_FIELD, RESPONSE_TEXT_FIELD, STATUS_PAYLOAD } from './responses.constants';
@@ -65,16 +67,21 @@ async function refundQuietly(deps: HandlerDeps, reservation: string): Promise<vo
   }
 }
 
-async function engoiana(request: Request, deps: HandlerDeps, reply: Reply): Promise<Response> {
+async function engoiana(request: Request, deps: HandlerDeps, reply: Reply, guard: LookupGuard): Promise<Response> {
   if (deps.config.killSwitch) return reply({ [ERROR_FIELD]: MESSAGES.killSwitch }, HTTP_STATUS.serviceUnavailable);
   const parsed = await parseEngoianarRequest(request, deps.config);
   if (!parsed.ok) return reply({ [ERROR_FIELD]: parsed.error }, parsed.status);
 
+  // O cf-connecting-ip vem da Cloudflare e não dá para forjar; x-forwarded-for o cliente controla.
+  const networkKey = request.headers.get('cf-connecting-ip') ?? ANONYMOUS_KEY;
+  const lookup = guard.check(networkKey, Date.now());
+  if (!lookup.allowed) {
+    return reply({ [ERROR_FIELD]: MESSAGES.tooFast }, HTTP_STATUS.tooManyRequests, { 'Retry-After': String(lookup.retryAfterSec) });
+  }
+
   const cached = await readCache(deps, parsed.text);
   if (cached !== null) return reply({ [RESPONSE_TEXT_FIELD]: cached }, HTTP_STATUS.ok);
 
-  // O cf-connecting-ip vem da Cloudflare e não dá para forjar; x-forwarded-for o cliente controla.
-  const networkKey = request.headers.get('cf-connecting-ip') ?? ANONYMOUS_KEY;
   const decision = await deps.limiter.reserve(networkKey, Math.floor(Date.now() / MS_PER_SEC));
   if (!decision.ok) return refusalReply(reply, decision);
 
@@ -92,20 +99,21 @@ function healthReply(deps: HandlerDeps, reply: Reply): Response {
   return reply(report, report.ok ? HTTP_STATUS.ok : HTTP_STATUS.serviceUnavailable);
 }
 
-async function route(request: Request, deps: HandlerDeps, reply: Reply): Promise<Response> {
+async function route(request: Request, deps: HandlerDeps, reply: Reply, guard: LookupGuard): Promise<Response> {
   const { pathname } = new URL(request.url);
   if (pathname === ROOT_PATH && request.method === 'GET') return reply(STATUS_PAYLOAD, HTTP_STATUS.ok);
   if (pathname === HEALTH_PATH && request.method === 'GET') return healthReply(deps, reply);
-  if (pathname === ENGOIANA_PATH && request.method === 'POST') return engoiana(request, deps, reply);
+  if (pathname === ENGOIANA_PATH && request.method === 'POST') return engoiana(request, deps, reply, guard);
   return reply({ [ERROR_FIELD]: MESSAGES.notFound }, HTTP_STATUS.notFound);
 }
 
 export function createHandler(deps: HandlerDeps): (request: Request, env: Env) => Promise<Response> {
+  const guard = createLookupGuard();
   return async (request, env) => {
     if (request.method === 'OPTIONS') return handlePreflight(request, env);
     const reply = makeReply(request, env);
     try {
-      return await route(request, deps, reply);
+      return await route(request, deps, reply, guard);
     } catch (error) {
       deps.log.error('request failed', error instanceof Error ? error.name : 'unknown');
       return reply({ [ERROR_FIELD]: MESSAGES.internal }, HTTP_STATUS.internalError);

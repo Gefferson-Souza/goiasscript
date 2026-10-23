@@ -11,6 +11,7 @@ export const MESSAGES = {
   killSwitch: 'O engoianador tá de folga por enquanto, sô. Volta mais tarde.',
   dailyCap: 'Hoje o engoianador já deu o que tinha, sô. Volta amanhã.',
   rateLimited: 'Calma aí, sô! Ocê já engoianou demais hoje. Volta amanhã.',
+  tooFast: 'Devagar, sô! Ocê tá mandando trem demais de uma vez. Espera um tiquinho.',
   providerFailed: 'Ô rapaz! Deu ruim no engoianador. Tenta de novo daqui a pouco.',
   internal: 'Eita, deu um trem estranho aqui dentro. Tenta de novo daqui a pouco, sô.',
 } as const;
