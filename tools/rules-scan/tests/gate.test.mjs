@@ -9,6 +9,8 @@ const TOOL_DIR = path.resolve(import.meta.dirname, '..');
 const CLI = path.join(TOOL_DIR, 'src/cli.mjs');
 const TOOL_FILES = ['scope.json', 'policy.json', 'dictionaries.lock.json'];
 const EMPTY_BASELINE = '{"version":1,"files":{}}\n';
+// Dentro de um hook do git, GIT_DIR e afins apontam para o repositório real e desviariam o git do projeto temporário.
+const CLEAN_ENV = Object.fromEntries(Object.entries(process.env).filter(([key]) => !key.startsWith('GIT_')));
 let temporary = [];
 afterEach(() => {
   for (const dir of temporary) fs.rmSync(dir, { recursive: true, force: true });
@@ -18,7 +20,7 @@ afterEach(() => {
 function createProject(files) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rules-scan-gate-'));
   temporary = [...temporary, root];
-  spawnSync('git', ['init', '--quiet'], { cwd: root });
+  spawnSync('git', ['init', '--quiet'], { cwd: root, env: CLEAN_ENV });
   fs.mkdirSync(path.join(root, 'tools/rules-scan'), { recursive: true });
   for (const name of TOOL_FILES) fs.copyFileSync(path.join(TOOL_DIR, name), path.join(root, 'tools/rules-scan', name));
   fs.writeFileSync(path.join(root, 'tools/rules-scan/baseline.json'), EMPTY_BASELINE);
@@ -29,7 +31,7 @@ function createProject(files) {
   return root;
 }
 
-const check = (files) => spawnSync('node', [CLI, 'check', '--root', createProject(files)], { encoding: 'utf8' });
+const check = (files) => spawnSync('node', [CLI, 'check', '--root', createProject(files)], { encoding: 'utf8', env: CLEAN_ENV });
 
 describe.skipIf(!hasDictionaries)('gate ponta a ponta do scanner', () => {
   it('barra identificador em português no compilador (R14)', () => {
