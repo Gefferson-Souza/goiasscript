@@ -89,3 +89,30 @@ describe('checkDocBlocks', () => {
     expect(stdins).toEqual([]);
   });
 });
+
+describe('cercas do gate', () => {
+  it('aceita cerca de til', () => {
+    const blocks = extractGoiasscriptBlocks('~~~goiasscript\nprosa(1)\n~~~\n', 'a.md');
+    expect(blocks).toHaveLength(1);
+    expect(blocks[0]?.expectation).toBe('runs');
+    expect(blocks[0]?.code).toBe('prosa(1)');
+  });
+
+  it('idioma com caixa diferente ou colado vira problema', async () => {
+    const upper = extractGoiasscriptBlocks('```GoiasScript\nprosa(1)\n```\n', 'a.md');
+    const glued = extractGoiasscriptBlocks('```goiasscript{.x}\nprosa(1)\n```\n', 'a.md');
+    expect((await checkDocBlocks(upper, depsRecording([])))[0]?.message).toContain('exatamente "goiasscript"');
+    expect((await checkDocBlocks(glued, depsRecording([])))[0]?.message).toContain('exatamente "goiasscript"');
+  });
+});
+
+describe('erro-esperado GS0306', () => {
+  const retired = 'presta_serviço soma(a, b) {}';
+
+  it('palavra aposentada passa com GS0306 e falha com outro código', async () => {
+    const right = extractGoiasscriptBlocks(fence(' erro-esperado GS0306', retired), 'a.md');
+    const wrong = extractGoiasscriptBlocks(fence(' erro-esperado GS0301', retired), 'a.md');
+    expect(await checkDocBlocks(right, depsRecording([]))).toEqual([]);
+    expect((await checkDocBlocks(wrong, depsRecording([])))[0]?.message).toContain('devia dar GS0301, mas deu GS0306');
+  });
+});

@@ -1,5 +1,6 @@
 import { BLOCK_LANGUAGE, DIAGNOSTIC_CODE, ESCAPED_NEWLINE, EXAMPLE_FLAG, EXPECTED_ERROR_FLAG, INPUT_FLAG_PREFIX, SKIP_RUN_FLAG } from './docs-gate.constants.ts';
 import type { DocBlock, DocBlockDeps, DocProblem } from './docs-gate.types.ts';
+import type { FencedBlock } from './docs-markdown.types.ts';
 import { scanMarkdown } from './docs-markdown.ts';
 
 interface Flags {
@@ -21,11 +22,18 @@ function readFlags(tokens: readonly string[]): Flags {
   return { expectation: 'runs', stdin: `${unquote(input.slice(INPUT_FLAG_PREFIX.length)).replace(ESCAPED_NEWLINE, '\n')}\n` };
 }
 
+function toDocBlock(block: FencedBlock, file: string): DocBlock {
+  const base = { file, line: block.line, code: block.code };
+  if (block.tokens[0] !== BLOCK_LANGUAGE) return { ...base, expectation: 'misspelled-language' };
+  return { ...base, ...readFlags(block.tokens.slice(1).filter((token) => token !== EXAMPLE_FLAG)) };
+}
+
 // A info string aceita [entrada=<texto>] [sem-execucao] [erro-esperado GSnnnn] e o `exemplo` da cartilha.
+// Idioma que só difere de `goiasscript` na caixa ou colado em texto vira problema em vez de ser ignorado.
 export function extractGoiasscriptBlocks(markdown: string, file: string): readonly DocBlock[] {
-  return scanMarkdown(markdown).fenced
-    .filter((block) => block.tokens[0] === BLOCK_LANGUAGE)
-    .map((block) => ({ file, line: block.line, code: block.code, ...readFlags(block.tokens.slice(1).filter((token) => token !== EXAMPLE_FLAG)) }));
+  return scanMarkdown(markdown)
+    .fenced.filter((block) => (block.tokens[0] ?? '').toLowerCase().startsWith(BLOCK_LANGUAGE))
+    .map((block) => toDocBlock(block, file));
 }
 
 const problem = (block: DocBlock, offset: number, message: string): DocProblem => ({ file: block.file, line: block.line + offset, message });
@@ -56,10 +64,15 @@ async function checkRegular(block: DocBlock, deps: DocBlockDeps): Promise<readon
   return block.expectation === 'runs' ? checkRuns(block, compiled.code, deps) : [];
 }
 
+function checkOne(block: DocBlock, deps: DocBlockDeps): Promise<readonly DocProblem[]> | readonly DocProblem[] {
+  if (block.expectation === 'misspelled-language') return [problem(block, 0, `a cerca precisa do idioma exatamente "${BLOCK_LANGUAGE}", em minúsculas e separado das opções.`)];
+  return block.expectation === 'expected-error' ? checkExpectedError(block, deps) : checkRegular(block, deps);
+}
+
 // Sequencial de propósito: cada bloco que roda sobe um processo, e a CI não aguenta todos juntos.
 export function checkDocBlocks(blocks: readonly DocBlock[], deps: DocBlockDeps): Promise<readonly DocProblem[]> {
   return blocks.reduce<Promise<readonly DocProblem[]>>(async (previous, block) => {
-    const found = block.expectation === 'expected-error' ? checkExpectedError(block, deps) : await checkRegular(block, deps);
+    const found = await checkOne(block, deps);
     return [...(await previous), ...found];
   }, Promise.resolve([]));
 }
