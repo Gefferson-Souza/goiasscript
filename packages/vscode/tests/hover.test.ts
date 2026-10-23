@@ -3,6 +3,7 @@ import { hoverFeature } from '../src/features/hover.feature.ts';
 import { hoverFor } from '../src/language/hover-content.ts';
 import type { LessonLookup } from '../src/language/lesson-link.types.ts';
 import { wordAt } from '../src/language/word-at.ts';
+import { UNTRUSTED_MARKDOWN_OPTIONS } from '../src/host/untrusted-markdown.constants.ts';
 import { createFakeHost } from './support/fake-host.ts';
 
 const BASE_URL = 'https://cartilha.example/licoes';
@@ -41,6 +42,27 @@ describe('hover', () => {
     expect(hoverFor('uai', null, LESSONS)?.markdown).not.toContain('http');
     expect(hoverFor('uai', BASE_URL, LESSONS)?.markdown).toContain(`(${BASE_URL}/licao-01)`);
     expect(hoverFor('faz_trem', BASE_URL, LESSONS)?.markdown).not.toContain('http');
+  });
+});
+
+describe('defesa do link da lição', () => {
+  const HOSTILE_BASE_URL = 'https://cartilha.example/a(b)c]d e<f>/x)(https://evil.example';
+  const LINK_LINE = /^\[[^\]]+\]\(([^()\s<>\][]*)\)$/u;
+
+  it('base com parêntese, colchete, espaço e menor-que mantém um único link bem formado', () => {
+    const markdown = hoverFor('uai', HOSTILE_BASE_URL, LESSONS)?.markdown ?? '';
+    const linkLines = markdown.split('\n\n').filter((line) => line.startsWith('['));
+    expect(linkLines).toHaveLength(1);
+    const target = LINK_LINE.exec(linkLines[0] ?? '')?.[1];
+    expect(target).toBeDefined();
+    expect(target).toContain('%28');
+    expect(target).toContain('%29');
+    expect(target).toContain('%20');
+    expect(markdown).not.toMatch(/[<>]/u);
+  });
+
+  it('o markdown montado pelo host nunca é confiável e não aceita HTML', () => {
+    expect(UNTRUSTED_MARKDOWN_OPTIONS).toEqual({ isTrusted: false, supportHtml: false });
   });
 });
 

@@ -1,3 +1,4 @@
+import { UNTRUSTED_MARKDOWN_OPTIONS } from './untrusted-markdown.constants.ts';
 import * as vscode from 'vscode';
 import { SETTINGS_SECTION } from '../settings/settings.constants.ts';
 import { readSettings } from '../settings/settings.ts';
@@ -34,7 +35,7 @@ function toDiagnostic(diagnostic: HostDiagnostic): vscode.Diagnostic {
 
 // Hover e documentação mostram texto ligado ao programa do aluno: nunca confiável, nunca HTML.
 function untrustedMarkdown(value: string): vscode.MarkdownString {
-  return Object.assign(new vscode.MarkdownString(value), { isTrusted: false, supportHtml: false });
+  return Object.assign(new vscode.MarkdownString(value), UNTRUSTED_MARKDOWN_OPTIONS);
 }
 
 function toCompletionItem(data: CompletionItemData): vscode.CompletionItem {
