@@ -95,7 +95,7 @@ export function createConfig(projectService = true) {
         'functional/immutable-data': ['error', { ignoreAccessorPattern: 'process.**' }],
       },
     },
-    { files: ['apps/playground/scripts/check-public-config.ts'], rules: { 'functional/immutable-data': ['error', { ignoreAccessorPattern: 'process.**' }] } },
+    { files: ['apps/playground/scripts/check-public-config.ts', 'apps/playground/scripts/run-smoke-playground.ts'], rules: { 'functional/immutable-data': ['error', { ignoreAccessorPattern: 'process.**' }] } },
     {
       files: APP_REACT_FILES,
       plugins: { 'react-hooks': reactHooks, '@next/next': nextPlugin },

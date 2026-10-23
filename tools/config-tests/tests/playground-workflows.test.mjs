@@ -41,3 +41,38 @@ describe('playground-e2e.yml', () => {
     expect(text).not.toContain('pull_request_target');
   });
 });
+
+const SMOKE_PATH = '.github/workflows/playground-smoke.yml';
+const smokeText = fs.readFileSync(path.join(ROOT_DIR, SMOKE_PATH), 'utf8');
+const smoke = parse(smokeText);
+const smokeSteps = Object.values(smoke.jobs).flatMap((job) => job.steps ?? []);
+const smokeCommands = smokeSteps.map((step) => step.run ?? '').join('\n');
+
+describe('playground-smoke.yml', () => {
+  it('só dispara manualmente, com a entrada base_url obrigatória', () => {
+    expect(Object.keys(smoke.on)).toEqual(['workflow_dispatch']);
+    expect(smoke.on.workflow_dispatch.inputs.base_url.required).toBe(true);
+  });
+  it('declara permissão mínima de leitura no topo', () => {
+    expect(smoke.permissions).toEqual({ contents: 'read' });
+  });
+  it('pina toda action por SHA de 40 caracteres', () => {
+    const uses = smokeSteps.map((step) => step.uses).filter((value) => value !== undefined);
+    expect(uses.length).toBeGreaterThan(0);
+    expect(uses.filter((value) => !PINNED_ACTION.test(value))).toEqual([]);
+  });
+  it('valida base_url por regex https antes de usar e passa pelo ambiente', () => {
+    expect(smokeCommands).toContain('^https://');
+    expect(smokeCommands).not.toContain('${{ inputs.base_url }}');
+    expect(smokeText).toContain('BASE_URL: ${{ inputs.base_url }}');
+  });
+  it('roda o script de smoke sem segredo nem pull_request_target', () => {
+    expect(smokeCommands).toContain('run-smoke-playground.ts');
+    expect(smokeText).not.toContain('secrets.');
+    expect(smokeText).not.toContain('pull_request_target');
+  });
+  it('usa Node 24', () => {
+    const setup = smokeSteps.find((step) => step.uses?.startsWith('actions/setup-node@'));
+    expect(setup?.with?.['node-version']).toBe(24);
+  });
+});
