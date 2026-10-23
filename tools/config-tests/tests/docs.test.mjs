@@ -98,3 +98,51 @@ describe('docs/piloto', () => {
     expect(offenders).toEqual([]);
   });
 });
+
+describe('porta de entrada da comunidade', () => {
+  const EMAIL = /[A-Za-z0-9._+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}/u;
+  const PLANNING_REFERENCE = /Discussions|PLANO-RELANCAMENTO|docs\/plano|superpowers|KEEP-OR-ARCHIVE/u;
+  const ENTRY_DOCS = ['CONTRIBUTING.md', 'README.md', 'SECURITY.md', 'CODE_OF_CONDUCT.md'];
+  const TEMPLATES = ['bug_report.md', 'feature_request.md', 'rfc.md'].map((name) => `.github/ISSUE_TEMPLATE/${name}`);
+  const PNPM_BUILTINS = new Set(['install', 'exec', 'dlx', 'add', 'run']);
+  const scripts = new Set(Object.keys(JSON.parse(readDoc('package.json')).scripts));
+
+  it('CONTRIBUTING não cita Discussions nem planejamento', () => {
+    expect(readDoc('CONTRIBUTING.md')).not.toMatch(PLANNING_REFERENCE);
+  });
+
+  it('CONTRIBUTING cobre RFC, mantenedor único, fora da v3, commits e merge', () => {
+    const text = readDoc('CONTRIBUTING.md');
+    for (const expected of ['docs/rfc/rfc.md', 'sem prazo', 'docs/adr/0010-fora-da-v3.md', 'docs/adr/0008-commits.md', 'docs/adr/0011-fluxo-de-pr-e-historico.md']) {
+      expect(text).toContain(expected);
+    }
+  });
+
+  it('todo script pnpm citado em CONTRIBUTING e README existe no package.json', () => {
+    const cited = ['CONTRIBUTING.md', 'README.md'].flatMap((file) => [...readDoc(file).matchAll(/corepack pnpm ([a-z][\w:-]*)/gu)].map((match) => match[1]));
+    expect(cited.length).toBeGreaterThan(0);
+    expect(cited.filter((name) => !scripts.has(name) && !PNPM_BUILTINS.has(name))).toEqual([]);
+  });
+
+  it('SECURITY e CODE_OF_CONDUCT não têm e-mail e apontam o reporte privado do GitHub', () => {
+    for (const file of ENTRY_DOCS) expect(readDoc(file)).not.toMatch(EMAIL);
+    expect(readDoc('SECURITY.md')).toMatch(/reporte privado/u);
+    expect(readDoc('CODE_OF_CONDUCT.md')).toMatch(/perfil/u);
+  });
+
+  it('templates de issue existem e config.yml desliga issue em branco', () => {
+    for (const template of TEMPLATES) expect(fs.existsSync(path.join(ROOT_DIR, template))).toBe(true);
+    expect(readDoc('.github/ISSUE_TEMPLATE/config.yml')).toMatch(/^blank_issues_enabled: false$/mu);
+    expect(readDoc('.github/ISSUE_TEMPLATE/bug_report.md')).toContain('pnpm');
+    for (const template of TEMPLATES) expect(readDoc(template)).not.toMatch(PLANNING_REFERENCE);
+  });
+
+  it('README declara a política não faz parte da v3', () => {
+    expect(readDoc('README.md')).toMatch(/não faz parte da v3/u);
+  });
+
+  it('README e CONTRIBUTING não têm marcador AUTO-GENERATED sem gerador', () => {
+    expect(readDoc('README.md')).not.toContain('AUTO-GENERATED');
+    expect(readDoc('CONTRIBUTING.md')).not.toContain('AUTO-GENERATED');
+  });
+});

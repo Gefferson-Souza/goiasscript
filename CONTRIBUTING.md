@@ -1,203 +1,77 @@
-# Contribuindo para o GoiásScript 🤠
+# Contribuindo com o GoiásScript
 
-Ô gente, que bão que ocê quer contribuir! Este guia explica como participar
-do desenvolvimento do GoiásScript v1.5+.
+Que bão que ocê quer ajudar, sô! Este guia é curto de propósito: diz como rodar o projeto, como propor uma palavra
+nova e como o trabalho entra na `main`.
 
-## 🚀 Setup do ambiente
+## Como rodar
 
-### Pré-requisitos
-
-| Ferramenta | Versão mínima |
-|---|---|
-| Node.js | `>=18.0.0` |
-| pnpm | `>=8.0.0` |
-
-Se ainda não tem pnpm: `npm install -g pnpm` ou ver [pnpm.io/installation](https://pnpm.io/installation).
-
-### Clonar e instalar
+Precisa de Node 22.22.1 ou mais novo (o pacote publicado aceita 22.12, mas as ferramentas de desenvolvimento pedem a
+versão maior). O `pnpm` vem pelo Corepack, então use sempre `corepack pnpm`.
 
 ```bash
-# 1. Faça fork pelo GitHub e clone seu fork
-git clone https://github.com/SEU_USERNAME/goiasscript.git
+git clone https://github.com/SEU_USUARIO/goiasscript.git
 cd goiasscript
-
-# 2. Instalar dependências do monorepo
-pnpm install
-
-# 3. Confirmar que tudo funciona
-pnpm test
+corepack pnpm install
+corepack pnpm verify
 ```
 
-### Estrutura do monorepo
+O `verify` roda tipos, lint, scanner de regras, arquivos gerados, testes com cobertura, dependency-cruiser, knip e a
+conferência dos documentos de agentes. Ele precisa sair com zero antes de qualquer commit.
+
+Etapas isoladas: `corepack pnpm typecheck`, `corepack pnpm lint`, `corepack pnpm rules-scan`,
+`corepack pnpm test`, `corepack pnpm depcruise`, `corepack pnpm knip` e `corepack pnpm agent-docs`.
+
+Para mexer nos aplicativos: `corepack pnpm playground:dev` sobe o playground e `corepack pnpm engoianador:dev` sobe
+o Worker do Engoianador (precisa de `GROQ_API_KEY` em `apps/engoianador-api/.dev.vars`).
+
+## Como propor uma palavra ou mudança na linguagem
+
+Mudança de linguagem (palavra reservada, método da biblioteca, regra de diagnóstico) só entra por RFC:
+
+1. Copie `docs/rfc/rfc.md` para `docs/rfc/NNNN-assunto.md` e preencha as sete seções.
+2. Abra uma issue com o modelo "RFC" apontando para o arquivo.
+3. A conversa e a decisão ficam na própria issue; o status do arquivo acompanha.
+
+## O que fica fora da v3
+
+Balaios, debugger, módulos, sistema de tipos, LSP separado, níveis graduais, interop com JavaScript nativo e IR
+própria não fazem parte da v3 e só entram por RFC. A lista e o motivo estão em
+[docs/adr/0010-fora-da-v3.md](docs/adr/0010-fora-da-v3.md).
+
+## Expectativa de resposta
+
+O projeto tem um único mantenedor, que cuida dele no tempo livre. Não há SLA, ou seja, sem prazo de resposta: issue e PR são lidos
+e respondidos quando dá. Se o assunto for urgente de segurança, use o reporte privado descrito no
+[SECURITY.md](SECURITY.md).
+
+## Commits
+
+Conventional Commits em português, minúsculos, com escopo semântico, cabeçalho de até 72 caracteres e sem ponto final:
 
 ```
-goiasscript/
-├── packages/
-│   └── core/                       # Legado (npm "goiasscript-legacy")
-│       ├── src/                    # Transpiler, lexer, runtime goiano
-│       ├── bin/                    # CLIs: goiasscript, goias (REPL)
-│       ├── tests/unit/             # Suites Jest
-│       ├── examples/               # .gs de exemplo
-│       └── templates/              # Templates de projeto
-├── apps/                           # Playground (W20), ENGOIANADOR (W23)
-├── docs/
-│   ├── plano/                      # Plano de relançamento v1.5
-│   └── METODOS_GOIANOS.md          # Referência de métodos goianos
-├── vscode-extension/               # Extensão VSCode (independente)
-├── KEEP-OR-ARCHIVE.md              # Triagem v1.5 (o que foi arquivado)
-└── CHANGELOG.md
+fix(compiler): corrige a posição do erro em laço sem chave
 ```
 
-## 📜 Comandos disponíveis
+Tipos e escopos aceitos estão em `commitlint.config.mjs`; a regra completa está em
+[docs/adr/0008-commits.md](docs/adr/0008-commits.md). O hook local e o CI barram o que fugir do padrão.
 
-<!-- AUTO-GENERATED:scripts -->
+## Como o PR entra
 
-### Root (workspace)
+O merge exige CI verde, o checklist de auto-revisão do modelo de PR e a revisão colada na seção "Revisão". O histórico
+é linear: squash, ou rebase no PR de fase com um commit por unidade. Não há merge commit. Detalhes em
+[docs/adr/0011-fluxo-de-pr-e-historico.md](docs/adr/0011-fluxo-de-pr-e-historico.md).
 
-| Comando | Descrição |
-|---|---|
-| `pnpm test` | Executa toda a suite de testes |
-| `pnpm test:coverage` | Tests com relatório de cobertura |
-| `pnpm lint` | ESLint em src/ e tests/ |
-| `pnpm lint:fix` | ESLint com auto-fix |
-| `pnpm format` | Prettier write em src/ e tests/ |
-| `pnpm format:check` | Prettier check sem modificar |
+## Padrões de código
 
-### Dentro de `packages/core/`
+- Identificadores em inglês; mensagens para o usuário, títulos de teste e comentários em português
+  ([docs/adr/0007-idioma.md](docs/adr/0007-idioma.md)).
+- Comentário só para o porquê que o código não diz, com no máximo 4 linhas.
+- Sem `any`, sem `console`, sem valor mágico; imutabilidade por padrão; funções com menos de 50 linhas.
+- Teste que falha primeiro, depois a implementação mínima. Cobertura de pelo menos 80%.
 
-| Comando | Descrição |
-|---|---|
-| `pnpm start` | Roda o exemplo básico via CLI |
-| `pnpm dev` | Mesmo que start, mas com nodemon |
-| `pnpm test:watch` | Tests em modo watch |
-| `pnpm example:basic` | Roda `examples/basic/exemplo.gs` |
-| `pnpm example:classes` | Roda `examples/classes/exemplo_classes.gs` |
+## Dúvidas
 
-<!-- /AUTO-GENERATED:scripts -->
+Abra uma issue. Antes, dê uma olhada nas que já existem em
+[github.com/Gefferson-Souza/goiasscript/issues](https://github.com/Gefferson-Souza/goiasscript/issues).
 
-## 🐛 Reportar bugs
-
-Antes de abrir, busque issues similares. Se for novo:
-
-1. Use o template de bug report
-2. Inclua o `.gs` que reproduz o problema (mínimo possível)
-3. Rode `node --version`, `pnpm --version` e cole no relatório
-4. Anexe a saída de `pnpm test` se relevante
-
-## 💡 Sugerir features
-
-1. Abra issue com template de feature request
-2. Explique a motivação (qual problema resolve?)
-3. Considere alinhamento com o [PLANO-RELANCAMENTO](docs/plano/PLANO-RELANCAMENTO.md)
-   — features fora do roadmap atual podem demorar mais
-
-## 🔧 Fluxo de desenvolvimento
-
-```bash
-# 1. Branch a partir de main (ou feat/v1.5-slim enquanto não merge)
-git checkout -b feat/sua-feature
-
-# 2. Implemente + escreva testes (TDD preferido)
-# 3. Rode os checks locais
-pnpm test
-pnpm lint
-pnpm format:check
-
-# 4. Commit seguindo conventional commits
-git commit -m "feat: descrição clara da feature"
-
-# 5. Push e abra PR
-git push -u origin feat/sua-feature
-```
-
-### Convenção de commits
-
-Padrão [Conventional Commits](https://www.conventionalcommits.org/):
-
-| Tipo | Quando usar |
-|---|---|
-| `feat:` | Nova funcionalidade |
-| `fix:` | Correção de bug |
-| `refactor:` | Reorganização sem mudar comportamento |
-| `docs:` | Mudanças só em documentação |
-| `test:` | Adicionar/atualizar tests |
-| `chore:` | Build, deps, configs |
-| `perf:` | Melhoria de performance |
-| `ci:` | Mudanças no GitHub Actions |
-
-## 📐 Padrões de código
-
-- **Estilo:** ESLint + Prettier (configurados na raiz)
-- **Linha:** máx 100 caracteres
-- **Strings:** aspas simples
-- **Ponto e vírgula:** sim, sempre
-
-## 🧪 Testes
-
-- Coverage **mínimo configurado:** 50% (debt v1.5; volta pra 80% na Fase 1)
-- Use `describe`/`it` com nomes descritivos
-- Testes ficam em `packages/core/tests/unit/<modulo>.test.js`
-
-```bash
-# Suite completa
-pnpm test
-
-# Watch durante dev
-cd packages/core && pnpm test:watch
-
-# Cobertura
-pnpm test:coverage
-```
-
-## 🌟 Áreas de contribuição priorizadas
-
-Alinhadas com o [PLANO-RELANCAMENTO](docs/plano/PLANO-RELANCAMENTO.md):
-
-### W20 — Playground Web ✅ (entregue na v1.5.0)
-
-- [x] `apps/playground/` com Next.js 15 + Monaco Editor
-- [x] Campo `exports` no `packages/core/package.json` com entry browser-safe
-- [x] Sintaxe highlight do GoiásScript no Monaco (port do `vscode-extension/syntaxes/`)
-
-### W23 — ENGOIANADOR API ✅ (entregue na v1.5.0)
-
-- [x] `apps/engoianador-api/` com Cloudflare Worker + Groq integration
-- [x] Rate limiting via Cloudflare KV
-- [x] Fallback opcional para Cloudflare Workers AI
-
-### Próximos alvos (pós v1.5.0)
-
-- [ ] Persistência de snippets no playground (LocalStorage + share URL)
-- [ ] Histórico de engoianações na UI
-- [ ] LSP simples reaproveitando `vscode-extension/syntaxes/`
-
-### Média prioridade
-
-- [ ] Tests para `src/cli/index.js` (atualmente 0% cobertura)
-- [ ] Corrigir lexer para `vai_na_frente presta_serviço` (com espaço)
-- [ ] REPL com persistência de variáveis entre linhas
-- [ ] Voltar coverage threshold pra 80%
-
-## 🤝 Processo de review
-
-1. Tests automatizados devem passar (CI/CD via GitHub Actions)
-2. Sem regressão em coverage
-3. Pelo menos um maintainer aprova
-4. Squash & merge é o padrão
-
-## 📚 Recursos
-
-- [README](README.md) — overview do projeto
-- [Plano de relançamento](docs/plano/PLANO-RELANCAMENTO.md) — roadmap detalhado
-- [Métodos goianos](docs/METODOS_GOIANOS.md) — referência da runtime
-- [KEEP-OR-ARCHIVE](KEEP-OR-ARCHIVE.md) — o que ficou e o que foi arquivado
-- [Issues](https://github.com/Gefferson-Souza/goiasscript/issues)
-
-## ❓ Dúvidas?
-
-Abra uma issue com a label `question` ou inicie uma discussão em
-[GitHub Discussions](https://github.com/Gefferson-Souza/goiasscript/discussions).
-
----
-
-**Obrigado por contribuir com o GoiásScript! Bão demais ter ocê na turma! 🚀**
+Valeu por ajudar, sô! Bão demais ter ocê na turma.
