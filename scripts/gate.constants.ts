@@ -1,6 +1,7 @@
 export const FORBIDDEN_ENGLISH_PATH = 'tools/promises/forbidden-english.json';
 export const ENGLISH_ALLOWLIST_PATH = 'tools/promises/english-allowlist.json';
 export const TRACEABILITY_PATH = 'tools/promises/traceability.json';
+export const README_CLAIMS_PATH = 'tools/promises/readme-claims.json';
 export const CLI_HELP_PATH = 'packages/language/generated/cli-help.txt';
 export const CLI_HELP_SOURCE = 'cli-help.txt';
 export const COMPILER_ALLOWED_DEPENDENCY = '@goiasscript/language';

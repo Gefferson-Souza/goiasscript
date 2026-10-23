@@ -1,0 +1,62 @@
+[
+  {
+    "promise": "goiasscript traduz",
+    "proofs": [
+      {
+        "kind": "test",
+        "path": "packages/cli/tests/translate.test.ts",
+        "name": "grava x.mjs, avisa no stdout e sai com 0",
+        "runsIn": "verify"
+      }
+    ],
+    "state": "green",
+    "covers": [
+      "goiasscript traduz"
+    ]
+  },
+  {
+    "promise": "goiasscript vê_se_tá_certo",
+    "proofs": [
+      {
+        "kind": "test",
+        "path": "packages/cli/tests/check.test.ts",
+        "name": "programa certo: exit 0, mensagem com o arquivo e nada criado",
+        "runsIn": "verify"
+      }
+    ],
+    "state": "green",
+    "covers": [
+      "goiasscript vê_se_tá_certo"
+    ]
+  },
+  {
+    "promise": "goiasscript explica",
+    "proofs": [
+      {
+        "kind": "test",
+        "path": "packages/cli/tests/explain.test.ts",
+        "name": "mostra título, explicação, exemplo e lição",
+        "runsIn": "verify"
+      }
+    ],
+    "state": "green",
+    "covers": [
+      "goiasscript explica"
+    ]
+  },
+  {
+    "promise": "goiasscript dedo_de_prosa",
+    "proofs": [
+      {
+        "kind": "test",
+        "path": "packages/cli/tests/info.test.ts",
+        "name": "mostra nome, versão do pacote, Node, sistema e os seis comandos",
+        "runsIn": "verify"
+      }
+    ],
+    "state": "green",
+    "covers": [
+      "goiasscript dedo_de_prosa"
+    ]
+  }
+]
