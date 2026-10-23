@@ -144,12 +144,17 @@
     }
   },
   "scripts": {
-    "generate:check": "node ../../scripts/build-vscode.ts --check-assets"
+    "generate:check": "node ../../scripts/build-vscode.ts --check-assets",
+    "test:integration": "node tests/integration/runner.ts"
   },
   "devDependencies": {
     "@goiasscript/compiler": "workspace:*",
     "@goiasscript/language": "workspace:*",
+    "@types/mocha": "10.0.10",
     "@types/vscode": "1.90.0",
-    "@vscode/vsce": "4.0.0"
+    "@vscode/test-electron": "3.1.0",
+    "@vscode/vsce": "4.0.0",
+    "esbuild": "0.28.2",
+    "mocha": "11.8.0"
   }
 }
