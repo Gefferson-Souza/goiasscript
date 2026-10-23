@@ -26,11 +26,16 @@ export const CONTRACT_MESSAGES = {
   engoianaWrongShape: 'O POST /engoiana não devolveu { "text": "..." }, ô rapaz.',
   engoianaUnreachable: 'O POST /engoiana da API deu ruim, sô.',
   redirectOutsideHost: 'A API mandou redirecionar pra outro host, ô rapaz. Não sigo.',
+  groqPending: 'Groq: pendente do dono (falta GROQ_API_KEY).',
+  apiPending: 'API: pendente do dono (falta ENGOIANADOR_URL).',
   modelNotFound: 'Não achei o GROQ_MODEL, sô.',
 } as const;
 
 export const SUMMARY_TEXT = {
-  passed: '## Contrato do Engoianador\n\nTá bão, sô: contrato conferido.\n',
+  passed: (pending: readonly string[]) =>
+    pending.length === 0
+      ? '## Contrato do Engoianador\n\nTá bão, sô: contrato conferido.\n'
+      : `## Contrato do Engoianador\n\nTá bão, sô, mas só uma metade foi conferida:\n\n${pending.map((item) => `- ${item}`).join('\n')}\n\nEstado: pendente do dono\n`,
   skipped: (reason: string) => `## Contrato do Engoianador\n\nPendente do dono: ${reason}\n\nEstado: pendente do dono\n`,
   failed: (problems: readonly string[]) =>
     `## Contrato do Engoianador\n\nDeu ruim:\n\n${problems.map((problem) => `- ${problem}`).join('\n')}\n`,
