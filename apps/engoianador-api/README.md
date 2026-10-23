@@ -33,6 +33,20 @@ Validação de borda do `POST /engoiana`:
 
 Limites: `MAX_INPUT_CHARS` caracteres por requisição e `RATE_LIMIT_PER_DAY` por rede.
 
+## Cache
+
+Respostas bem-sucedidas ficam no KV `ENGOIANADOR_CACHE` por `CACHE_TTL_SEC` (mínimo de 60 s,
+piso do KV). A chave é `v1:<versão do prompt>:<modelos>:<sha256 do texto normalizado>`; o texto
+normalizado usa NFC, apara as pontas e junta espaços repetidos. Trocar o prompt ou qualquer modelo
+muda a chave, então nunca se serve resposta de outro prompt ou modelo. Acerto de cache não chama
+provedor nem consome cota; erro de leitura ou escrita no KV vira acerto perdido e a requisição segue.
+
+Para aquecer o cache com as cinco frases prontas do playground (ação do dono, fora do CI):
+
+```bash
+node apps/engoianador-api/scripts/warm-cache.ts https://<endereco-da-api>
+```
+
 ## Rodando local
 
 ```bash
