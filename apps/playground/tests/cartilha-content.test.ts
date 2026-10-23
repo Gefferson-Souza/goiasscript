@@ -40,3 +40,30 @@ describe('lições reais da cartilha', () => {
     expect(found.map((problem) => problem.message)).toEqual([]);
   }, 120_000);
 });
+
+interface LessonScript {
+  readonly id: string;
+  readonly order: number;
+  readonly terms: readonly string[];
+}
+
+const SCRIPT_5_TO_8: readonly LessonScript[] = [
+  { id: 'licao-05', order: 5, terms: ['vai_indo', 'enquanto_tiver', 'para_com_isso', 'continua_aí'] },
+  { id: 'licao-06', order: 6, terms: ['mapear', 'filtrar', 'bota_no_final', 'o_tanto'] },
+  { id: 'licao-07', order: 7, terms: ['faz_trem', 'faz_favor'] },
+  { id: 'licao-08', order: 8, terms: ['de', 'em', 'Coisa'] },
+];
+
+describe('roteiro das lições 5 a 8', () => {
+  it.each(SCRIPT_5_TO_8)('a lição $id existe e cumpre o roteiro', ({ id, order, terms }) => {
+    const lesson = lessons.find((candidate) => candidate.id === id);
+    expect(lesson).toBeDefined();
+    expect(lesson?.order).toBe(order);
+    expect(lesson?.terms).toEqual(terms);
+  });
+
+  it('a lição licao-05 explica o limite de laço do playground', () => {
+    const lesson = lessons.find((candidate) => candidate.id === 'licao-05');
+    expect(lesson?.bodyMarkdown).toContain('GS0701');
+  });
+});
