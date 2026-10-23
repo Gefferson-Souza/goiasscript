@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, mkdtempSync, rmSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
@@ -48,5 +48,32 @@ describe('runLessonProgram', () => {
     expect(result.stdout).toBe('limpo\n');
     const { readdirSync } = await import('node:fs');
     expect(readdirSync(base)).toEqual([]);
+  });
+
+  it('barra a leitura de arquivo fora da pasta do programa', async () => {
+    const outside = mkdtempSync(join(tmpdir(), 'cartilha-fora-'));
+    roots.push(outside);
+    const secret = join(outside, 'segredo.txt');
+    writeFileSync(secret, 'conteudo-secreto');
+    const code = `import { readFileSync } from 'node:fs'; console.log(readFileSync(${JSON.stringify(secret)}, 'utf8'));`;
+    const result = await runLessonProgram(code, '', {});
+    expect(result.stdout).not.toContain('conteudo-secreto');
+    expect(result.exitCode).not.toBe(0);
+  });
+
+  it('barra escrita em disco e criação de processo filho', async () => {
+    const outside = mkdtempSync(join(tmpdir(), 'cartilha-fora-'));
+    roots.push(outside);
+    const target = join(outside, 'pwned.txt');
+    const write = `import { writeFileSync } from 'node:fs'; writeFileSync(${JSON.stringify(target)}, 'x');`;
+    const spawn = `import { execSync } from 'node:child_process'; execSync('echo oi');`;
+    expect((await runLessonProgram(write, '', {})).exitCode).not.toBe(0);
+    expect(existsSync(target)).toBe(false);
+    expect((await runLessonProgram(spawn, '', {})).exitCode).not.toBe(0);
+  });
+
+  it('ainda lê arquivos da própria pasta do programa', async () => {
+    const code = `import { readFileSync } from 'node:fs'; console.log(readFileSync(new URL(import.meta.url), 'utf8').length > 0);`;
+    expect((await runLessonProgram(code, '', {})).stdout).toBe('true\n');
   });
 });
