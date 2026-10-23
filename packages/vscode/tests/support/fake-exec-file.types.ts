@@ -20,6 +20,7 @@ export interface RecordedCall {
 
 export interface FakeChild extends ChildProcessLike {
   readonly stdinWritten: string[];
+  readonly stdinErrorListeners: ((error: Error) => void)[];
   killCount: number;
   emitStdout(text: string): void;
   emitStderr(text: string): void;

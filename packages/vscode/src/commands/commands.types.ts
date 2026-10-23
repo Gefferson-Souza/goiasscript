@@ -19,7 +19,7 @@ export interface ReadableLike {
 }
 
 export interface ChildProcessLike {
-  readonly stdin: { write(text: string): unknown } | null;
+  readonly stdin: { write(text: string): unknown; on(event: 'error', listener: (error: Error) => void): unknown } | null;
   readonly stdout: ReadableLike | null;
   readonly stderr: ReadableLike | null;
   kill(): boolean;
@@ -43,9 +43,15 @@ export interface CliInvocationInput {
   readonly hostEnv?: Readonly<Record<string, string | undefined>>;
 }
 
-export interface CommandDeps {
+export interface TranslateDeps {
   readonly host: ExtensionHost;
   readonly execFile: ExecFileLike;
+  readonly runtimePath: string;
+}
+
+export interface ProgramDeps {
+  readonly host: ExtensionHost;
+  readonly spawnProgram: ExecFileLike;
   readonly runtimePath: string;
 }
 

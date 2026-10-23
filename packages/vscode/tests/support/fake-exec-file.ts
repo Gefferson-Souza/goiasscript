@@ -21,12 +21,14 @@ function createChild(callback: ExecFileCallback): FakeChild {
   };
   const child: FakeChild = {
     stdinWritten: [],
+    stdinErrorListeners: [],
     killCount: 0,
     stdin: {
       write: (text) => {
         child.stdinWritten.push(text);
         return true;
       },
+      on: (_event, listener) => child.stdinErrorListeners.push(listener),
     },
     stdout: { on: (_event, listener) => handlers.stdout.push(listener) },
     stderr: { on: (_event, listener) => handlers.stderr.push(listener) },

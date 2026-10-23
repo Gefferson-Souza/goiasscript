@@ -4,12 +4,12 @@ import { runCliToCompletion } from './cli-process.ts';
 import { requireAllowedDocument } from './command-guards.ts';
 import { CLI_ENTRY_RELATIVE_PATH, OVERWRITE_EXIT_CODE, OVERWRITE_LABEL, OVERWRITE_REFUSED_CODE } from './commands.constants.ts';
 import { messagesFor } from './commands.messages.ts';
-import type { CliOutcome, CommandDeps } from './commands.types.ts';
+import type { CliOutcome, TranslateDeps } from './commands.types.ts';
 import { sanitizeTerminalText } from './sanitize-terminal-text.ts';
 
 type ExitedOutcome = Extract<CliOutcome, { kind: 'exited' }>;
 
-function translate(deps: CommandDeps, document: HostDocument, overwrite: boolean): Promise<CliOutcome> {
+function translate(deps: TranslateDeps, document: HostDocument, overwrite: boolean): Promise<CliOutcome> {
   const { host, execFile, runtimePath } = deps;
   const invocation = buildCliInvocation({ command: 'traduz', documentPath: document.fsPath, cliEntry: host.resolvePath(CLI_ENTRY_RELATIVE_PATH), runtimePath, tone: host.settings().tone, overwrite });
   return runCliToCompletion(execFile, invocation);
@@ -17,7 +17,7 @@ function translate(deps: CommandDeps, document: HostDocument, overwrite: boolean
 
 const refusesToOverwrite = (outcome: ExitedOutcome): boolean => outcome.exitCode === OVERWRITE_EXIT_CODE && outcome.stderr.includes(OVERWRITE_REFUSED_CODE);
 
-function report(deps: CommandDeps, outcome: CliOutcome): void {
+function report(deps: TranslateDeps, outcome: CliOutcome): void {
   const { host } = deps;
   const messages = messagesFor(host.settings().tone);
   if (outcome.kind === 'not-started') {
@@ -29,7 +29,7 @@ function report(deps: CommandDeps, outcome: CliOutcome): void {
   else host.showError(messages.translateFailed);
 }
 
-async function translateConfirmingOverwrite(deps: CommandDeps, document: HostDocument): Promise<void> {
+async function translateConfirmingOverwrite(deps: TranslateDeps, document: HostDocument): Promise<void> {
   const first = await translate(deps, document, false);
   if (first.kind !== 'exited' || !refusesToOverwrite(first)) {
     report(deps, first);
@@ -40,7 +40,7 @@ async function translateConfirmingOverwrite(deps: CommandDeps, document: HostDoc
   if (confirmed) report(deps, await translate(deps, document, true));
 }
 
-export function runTranslate(deps: CommandDeps): (resourceUri?: string) => Promise<void> {
+export function runTranslate(deps: TranslateDeps): (resourceUri?: string) => Promise<void> {
   return async (resourceUri) => {
     const document = await requireAllowedDocument(deps.host, 'traduz', resourceUri);
     if (document !== null) await translateConfirmingOverwrite(deps, document);

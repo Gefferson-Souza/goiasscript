@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createProgramTerminal } from '../src/commands/program-terminal.ts';
 import { runProgram } from '../src/commands/run-program.ts';
-import { sanitizeTerminalText } from '../src/commands/sanitize-terminal-text.ts';
+import { sanitizeTerminalText, stripEscapeSequences } from '../src/commands/sanitize-terminal-text.ts';
 import { createFakeExecFile } from './support/fake-exec-file.ts';
 import { createFakeHost } from './support/fake-host.ts';
 
@@ -15,7 +15,7 @@ function setupProgram(documentOverrides: { readonly fsPath?: string; readonly tr
   const activeDocument = base.makeDocument(documentOverrides.fsPath === undefined ? {} : { fsPath: documentOverrides.fsPath });
   const host = createFakeHost({ activeDocument, trusted: documentOverrides.trusted ?? true });
   const exec = createFakeExecFile({ manual: true });
-  const handler = runProgram({ host, execFile: exec.execFile, runtimePath: RUNTIME });
+  const handler = runProgram({ host, spawnProgram: exec.execFile, runtimePath: RUNTIME });
   return { host, exec, handler };
 }
 
@@ -31,7 +31,38 @@ describe('sanitizeTerminalText', () => {
   });
 });
 
+describe('stripEscapeSequences', () => {
+  it.each([
+    ['seta', `${ESC}[A`],
+    ['delete', `${ESC}[3~`],
+    ['ctrl+seta', `${ESC}[1;5C`],
+    ['SS3 (home)', `${ESC}OH`],
+    ['colar entre marcadores', `${ESC}[200~`],
+  ])('descarta a sequência inteira de %s', (_name, sequence) => {
+    expect(stripEscapeSequences(`a${sequence}b`)).toBe('ab');
+  });
+});
+
 describe('createProgramTerminal', () => {
+  it('seta e Delete não deixam lixo no eco nem na linha', () => {
+    const host = createFakeHost();
+    const terminal = createProgramTerminal(host, 'a.gs');
+    const lines: string[] = [];
+    terminal.onLine((line) => lines.push(line));
+    host.terminals[0]?.type(`a${ESC}[A${ESC}[3~b\r`);
+    expect(lines).toEqual(['ab']);
+    expect(host.terminals[0]?.written.join('')).toBe('ab\r\n');
+  });
+
+  it('backspace apaga um emoji inteiro, sem deixar meio caractere', () => {
+    const host = createFakeHost();
+    const terminal = createProgramTerminal(host, 'a.gs');
+    const lines: string[] = [];
+    terminal.onLine((line) => lines.push(line));
+    host.terminals[0]?.type('a🚀\u007fb\r');
+    expect(lines).toEqual(['ab']);
+  });
+
   it('neutraliza o título e abre o terminal pelo host', () => {
     const host = createFakeHost();
     createProgramTerminal(host, `a${ESC}]0;falso${BEL}.gs`);
@@ -143,6 +174,14 @@ describe('runProgram', () => {
     host.terminals[0]?.type('Maria');
     host.terminals[0]?.type('\r');
     expect(exec.children[0]?.stdinWritten).toEqual(['Maria\n']);
+  });
+
+  it('erro no stdin do filho (EPIPE) é absorvido e não vira exceção', async () => {
+    const { exec, handler } = setupProgram();
+    await handler();
+    const listeners = exec.children[0]?.stdinErrorListeners ?? [];
+    expect(listeners).toHaveLength(1);
+    expect(() => listeners[0]?.(Object.assign(new Error('write EPIPE'), { code: 'EPIPE' }))).not.toThrow();
   });
 
   it('Ctrl+C e fechar o terminal matam o processo', async () => {
