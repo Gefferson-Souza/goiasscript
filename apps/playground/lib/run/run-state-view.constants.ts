@@ -9,3 +9,7 @@ export const TRUNCATION_NOTICE: Readonly<Record<TruncationReason, string>> = {
 };
 
 export const TIMEOUT_NOTICE = 'Esse trem travou, sô: passou do tempo e eu parei a execução.';
+
+export const LINE_LABEL = (line: number): string => `Linha ${String(line)}: `;
+
+export const LINE_ALREADY_IN_MESSAGE = /\blinha \d+/iu;

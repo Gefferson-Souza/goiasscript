@@ -65,6 +65,17 @@ describe('estado da tela de execução', () => {
     expect(state.notice).toBe(diagnostic.message);
   });
 
+  it('failed sem linha na mensagem prefixa a linha do .gs', () => {
+    const typeError = { code: 'GS0702', severity: 'error', message: 'Ô sô, esse trem num existe.', range: diagnostic.range } as unknown as Diagnostic;
+    const state = play([{ kind: 'start' }, { kind: 'failed', diagnostic: typeError }]);
+    expect(state.notice).toBe('Linha 3: Ô sô, esse trem num existe.');
+  });
+
+  it('failed do próprio playground não inventa linha', () => {
+    const host = { code: 'GS0714', severity: 'error', message: 'Eita!', range: diagnostic.range } as unknown as Diagnostic;
+    expect(play([{ kind: 'start' }, { kind: 'failed', diagnostic: host }]).notice).toBe('Eita!');
+  });
+
   it('timeout avisa que travou', () => {
     const state = play([{ kind: 'start' }, { kind: 'timeout' }]);
     expect(state.status).toBe('timeout');
