@@ -1,77 +1,65 @@
 'use client';
-import { useEffect, useState } from 'react';
+import type { ExampleEntry } from '@/lib/examples.types';
+import { TEST_IDS } from '@/lib/test-ids.constants';
+import { TEXTS } from './ui-texts.constants';
 
-type ExampleEntry = { nome: string; arquivo: string };
+interface Props {
+  readonly running: boolean;
+  readonly examples: readonly ExampleEntry[];
+  readonly shareMessage: string | null;
+  readonly onRun: () => void;
+  readonly onStop: () => void;
+  readonly onClear: () => void;
+  readonly onShare: () => void;
+  readonly onPickExample: (id: string) => void;
+}
 
-type Props = {
-  running: boolean;
-  onRun: () => void;
-  onClear: () => void;
-  onLoadExample: (code: string, nome: string) => void;
-};
+const BUTTON = 'rounded px-3 py-1.5 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-amarelo';
+const SECONDARY = `${BUTTON} border border-goias-borda bg-goias-fundo text-goias-texto hover:bg-goias-fundo/80`;
 
-export function Toolbar({ running, onRun, onClear, onLoadExample }: Props) {
-  const [examples, setExamples] = useState<ExampleEntry[]>([]);
-  // Select controlado: volta pro placeholder após carregar, permitindo
-  // recarregar o mesmo exemplo (defaultValue ficava preso na seleção).
-  const [selecionado, setSelecionado] = useState('');
-
-  useEffect(() => {
-    fetch('/examples/manifest.json')
-      .then(r => (r.ok ? r.json() : []))
-      .then(setExamples)
-      .catch(() => setExamples([]));
-  }, []);
-
-  async function handlePickExample(arquivo: string) {
-    if (!arquivo) return;
-    const res = await fetch(`/examples/${arquivo}`);
-    if (!res.ok) throw new Error(`Falha ao carregar ${arquivo} (HTTP ${res.status})`);
-    const text = await res.text();
-    const entry = examples.find(e => e.arquivo === arquivo);
-    onLoadExample(text, entry?.nome ?? arquivo);
-  }
-
+export function Toolbar({ running, examples, shareMessage, onRun, onStop, onClear, onShare, onPickExample }: Props) {
   return (
-    <div className="flex flex-wrap items-center gap-2 px-3 py-2 border-b border-goias-borda bg-goias-painel">
+    <div className="flex flex-wrap items-center gap-2 border-b border-goias-borda bg-goias-painel px-3 py-2">
       <button
+        type="button"
+        data-testid={TEST_IDS.runButton}
         onClick={onRun}
         disabled={running}
-        className="rounded bg-goias-verde px-4 py-1.5 text-sm font-semibold text-white hover:bg-goias-verde/80 disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-amarelo"
+        className={`${BUTTON} bg-goias-verde font-semibold text-white hover:bg-goias-verde/80 disabled:cursor-not-allowed disabled:opacity-50`}
       >
-        {running ? '🔥 Moendo...' : '🔥 Bota pra moer'}
+        {running ? TEXTS.running : TEXTS.run}
       </button>
-      <button
-        onClick={onClear}
-        className="rounded border border-goias-borda bg-goias-fundo px-3 py-1.5 text-sm text-goias-texto hover:bg-goias-fundo/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-amarelo"
-      >
-        🧹 Limpa o terreiro
+      <button type="button" data-testid={TEST_IDS.stopButton} onClick={onStop} disabled={!running} className={`${SECONDARY} disabled:cursor-not-allowed disabled:opacity-50`}>
+        {TEXTS.stop}
       </button>
+      <button type="button" onClick={onClear} className={SECONDARY}>
+        {TEXTS.clear}
+      </button>
+      <button type="button" onClick={onShare} className={SECONDARY}>
+        {TEXTS.share}
+      </button>
+      {shareMessage !== null && (
+        <span role="status" className="text-xs text-goias-amarelo">
+          {shareMessage}
+        </span>
+      )}
 
       <div className="ml-auto flex items-center gap-2 text-sm">
         <label htmlFor="seletor-exemplo" className="text-goias-texto/70">
-          Exemplos:
+          {TEXTS.examples}
         </label>
         <select
           id="seletor-exemplo"
-          value={selecionado}
-          onChange={e => {
-            const arquivo = e.target.value;
-            setSelecionado(''); // reseta pro placeholder (permite repicar o mesmo)
-            if (arquivo) {
-              handlePickExample(arquivo).catch(err =>
-                console.error('Erro ao carregar exemplo:', err)
-              );
-            }
-          }}
+          value=""
+          onChange={(event) => onPickExample(event.target.value)}
           className="rounded border border-goias-borda bg-goias-fundo px-2 py-1 text-sm text-goias-texto focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-amarelo"
         >
           <option value="" disabled>
-            Escolhe um, sô
+            {TEXTS.pickExample}
           </option>
-          {examples.map(ex => (
-            <option key={ex.arquivo} value={ex.arquivo}>
-              {ex.nome}
+          {examples.map((example) => (
+            <option key={example.id} value={example.id}>
+              {example.title}
             </option>
           ))}
         </select>

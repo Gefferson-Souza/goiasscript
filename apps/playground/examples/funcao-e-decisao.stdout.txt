@@ -1,0 +1,3 @@
+0 anos: criança
+30 anos: adulto
+60 anos: ancião

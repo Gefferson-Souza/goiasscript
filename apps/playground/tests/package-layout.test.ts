@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 
 const manifest = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')) as {
   dependencies: Record<string, string>;
+  scripts: Record<string, string>;
 };
 
 describe('manifesto do playground', () => {
@@ -12,5 +13,15 @@ describe('manifesto do playground', () => {
       '@goiasscript/language': 'workspace:*',
       '@goiasscript/optimizer': 'workspace:*',
     });
+  });
+
+  it('não depende mais do pacote legado', () => {
+    expect(manifest.dependencies).not.toHaveProperty('goiasscript-legacy');
+  });
+
+  it('gera os exemplos antes do dev e do build', () => {
+    expect(manifest.scripts['prebuild']).toContain('build-examples.ts');
+    expect(manifest.scripts['predev']).toContain('build-examples.ts');
+    expect(manifest.scripts['prebuild']).not.toContain('copy-examples');
   });
 });

@@ -1,6 +1,6 @@
 'use client';
 import { useRef, useState } from 'react';
-import { downloadDataUrl, nodeToPng, openTwitterIntent } from '@/lib/share';
+import { downloadDataUrl, nodeToPng, openTwitterIntent } from '@/lib/share-image';
 import { MAX_INPUT_CHARS } from '../../lib/engoianador-client.constants.ts';
 import { engoianar } from '../../lib/engoianador-client.ts';
 import { FAILURE_MESSAGES } from '../../lib/engoianador-messages.constants.ts';

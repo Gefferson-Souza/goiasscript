@@ -19,9 +19,9 @@ describe('manifestos', () => {
     expect(legacy).toMatchObject({ name: 'goiasscript-legacy', private: true });
     expect([legacy.bin, legacy.publishConfig]).toEqual([undefined, undefined]);
   });
-  it('o playground consome o legado pelo nome novo', () => {
+  it('o playground não consome mais o legado nem o pacote publicável', () => {
     const playground = readJson('../../../apps/playground/package.json');
-    expect(playground.dependencies).toMatchObject({ 'goiasscript-legacy': 'workspace:*' });
+    expect(playground.dependencies).not.toHaveProperty('goiasscript-legacy');
     expect(playground.dependencies).not.toHaveProperty('goiasscript');
   });
 });

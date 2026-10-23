@@ -3,7 +3,7 @@ import { defineConfig } from 'vitest/config';
 const COVERAGE_MINIMUM = 80;
 const COVERAGE_RUN = process.argv.includes('--coverage');
 const PLAYGROUND_COVERED = 'apps/playground/{config,lib,sandbox}/**/*.ts';
-const PLAYGROUND_LEGACY = ['apps/playground/lib/{engoianador-client,monaco-goias,share,use-runner}.ts'];
+const PLAYGROUND_LEGACY = ['apps/playground/lib/{engoianador-client,share-image}.ts'];
 const perPackage = { lines: COVERAGE_MINIMUM, functions: COVERAGE_MINIMUM, branches: COVERAGE_MINIMUM, statements: COVERAGE_MINIMUM };
 
 export default defineConfig({

@@ -4,8 +4,8 @@
   "private": true,
   "description": "🇧🇷 Playground web do GoiásScript — escreva goianês no navegador",
   "scripts": {
-    "predev": "node scripts/copy-monaco.ts && node scripts/copy-examples.mjs && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-runner.ts",
-    "prebuild": "node scripts/copy-monaco.ts && node scripts/copy-examples.mjs && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-runner.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-public-config.ts",
+    "predev": "node scripts/copy-monaco.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-examples.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-runner.ts",
+    "prebuild": "node scripts/copy-monaco.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-examples.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-runner.ts && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-public-config.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
@@ -15,7 +15,6 @@
     "@goiasscript/language": "workspace:*",
     "@goiasscript/optimizer": "workspace:*",
     "@monaco-editor/react": "^4.7.0",
-    "goiasscript-legacy": "workspace:*",
     "html-to-image": "^1.11.13",
     "monaco-editor": "^0.55.1",
     "next": "^15.5.28",
