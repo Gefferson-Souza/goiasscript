@@ -1,7 +1,9 @@
 import { createHash } from 'node:crypto';
+import { execFile } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { promisify } from 'node:util';
 import vm from 'node:vm';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { buildVscode } from '../../../scripts/build-vscode.ts';
@@ -9,6 +11,7 @@ import { packVscode } from '../../../scripts/pack-vscode.ts';
 import { PACKAGE_ROOT, readManifest } from './support/manifest.ts';
 import { listZipEntries, readZipEntry } from './support/zip.ts';
 
+const execFileAsync = promisify(execFile);
 const ALLOWED_NODE_MODULES = new Set(['child_process', 'path', 'os']);
 const NODE_REQUIRE = /require\("node:([a-z_/]+)"\)/gu;
 const ALLOWED_VSIX_ENTRY = /^(?:\[Content_Types\]\.xml|extension\.vsixmanifest|extension\/(?:dist\/.+|syntaxes\/.+|snippets\/.+|assets\/.+|language-configuration\.json|[Rr][Ee][Aa][Dd][Mm][Ee]\.md|LICENSE(?:\.txt)?|[Cc][Hh][Aa][Nn][Gg][Ee][Ll][Oo][Gg]\.md|package\.json))$/u;
@@ -54,6 +57,23 @@ describe('build do bundle', () => {
     const entry = fs.readFileSync(path.join(distDir, 'cli/goiasscript.mjs'), 'utf8');
     expect(entry.startsWith('#!/usr/bin/env node')).toBe(true);
     expect(fs.existsSync(path.join(distDir, 'cli/goias.mjs'))).toBe(true);
+  });
+
+  it('o CLI embutido roda de verdade e traduz um programa', async () => {
+    const source = path.join(workDir, 'oi.gs');
+    fs.writeFileSync(source, 'uai nome é "sô";\n');
+    const { stdout } = await execFileAsync(process.execPath, [path.join(distDir, 'cli/goiasscript.mjs'), 'traduz', source]);
+    expect(stdout).toContain('Tá pronto, sô!');
+    expect(fs.readFileSync(path.join(workDir, 'oi.mjs'), 'utf8')).toContain('const nome = "sô";');
+  });
+
+  it('o CLI embutido avisa em goianês quando o Node do editor é velho demais', () => {
+    const bundled = fs
+      .readdirSync(path.join(distDir, 'cli'), { recursive: true, encoding: 'utf8' })
+      .filter((name) => name.endsWith('.mjs'))
+      .map((name) => fs.readFileSync(path.join(distDir, 'cli', name), 'utf8'))
+      .join('\n');
+    expect(bundled).toContain('aviso GS0904:');
   });
 
   it('não passa dos bytes brotli registrados em budgets.json (catraca)', () => {
