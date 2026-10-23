@@ -1,4 +1,4 @@
-import type { CompletionProviderPort, DocumentEvent, ExtensionHost, HostDiagnostic, HostDocument, HoverProviderPort, ProgramTerminal } from '../../src/host/extension-host.types.ts';
+import type { CommandHandler, CompletionProviderPort, DocumentEvent, ExtensionHost, HostDiagnostic, HostDocument, HoverProviderPort, ProgramTerminal } from '../../src/host/extension-host.types.ts';
 import type { ExtensionSettings } from '../../src/settings/settings.types.ts';
 
 export interface FakeHostOptions {
@@ -20,7 +20,7 @@ export interface FakeHost extends ExtensionHost {
   readonly errors: string[];
   readonly output: string[];
   readonly terminals: FakeTerminal[];
-  readonly commands: Map<string, () => Promise<void>>;
+  readonly commands: Map<string, CommandHandler>;
   readonly completionProviders: CompletionProviderPort[];
   readonly hoverProviders: HoverProviderPort[];
   emit(event: DocumentEvent): void;

@@ -1,6 +1,8 @@
 import * as vscode from 'vscode';
 import { SETTINGS_SECTION } from '../settings/settings.constants.ts';
 import { readSettings } from '../settings/settings.ts';
+import { resourceUriOf } from './command-target.ts';
+import { sanitizeTerminalText } from './terminal-text.ts';
 import { DIAGNOSTICS_SOURCE, LANGUAGE_ID, OUTPUT_CHANNEL_NAME, TERMINAL_NEWLINE } from './host.constants.ts';
 import type { CompletionItemData, Disposable, DocumentEvent, ExtensionHost, HostDiagnostic, HostDocument, ProgramTerminal } from './extension-host.types.ts';
 
@@ -58,11 +60,15 @@ function createProgramTerminal(title: string): ProgramTerminal {
     },
   };
   vscode.window.createTerminal({ name: title, pty }).show();
+  const write = (text: string): void => {
+    const normalized = text.replace(NEWLINE_PATTERN, TERMINAL_NEWLINE);
+    if (state.opened) writeEmitter.fire(normalized);
+    else pending.push(normalized);
+  };
   return {
-    write: (text) => {
-      const normalized = text.replace(NEWLINE_PATTERN, TERMINAL_NEWLINE);
-      if (state.opened) writeEmitter.fire(normalized);
-      else pending.push(normalized);
+    write,
+    writeNotice: (text) => {
+      write(sanitizeTerminalText(text));
     },
     onInput: (handler) => inputHandlers.push(handler),
     close: (exitCode) => {
@@ -108,7 +114,7 @@ function createDiagnosticsApi(context: vscode.ExtensionContext): Pick<ExtensionH
     },
     askConfirmation: async (message, confirmLabel) => (await vscode.window.showWarningMessage(message, { modal: true }, confirmLabel)) === confirmLabel,
     appendOutput: (text) => {
-      output.append(text);
+      output.append(sanitizeTerminalText(text));
     },
   };
 }
@@ -130,7 +136,7 @@ function createLanguageApi(): Pick<ExtensionHost, 'registerCompletionProvider' |
           return new vscode.Hover(untrustedMarkdown(content.markdown), range);
         },
       }),
-    registerCommand: (commandId, handler) => vscode.commands.registerCommand(commandId, handler),
+    registerCommand: (commandId, handler) => vscode.commands.registerCommand(commandId, (target?: unknown) => handler(resourceUriOf(target))),
   };
 }
 

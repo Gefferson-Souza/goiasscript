@@ -4,6 +4,7 @@ import { completionFeature } from '../src/features/completion.feature.ts';
 import { diagnosticsFeature } from '../src/features/diagnostics.feature.ts';
 import { hoverFeature } from '../src/features/hover.feature.ts';
 import { createFakeHost } from './support/fake-host.ts';
+import type { FakeTerminal } from './support/fake-host.types.ts';
 
 const features = [
   ['diagnósticos', diagnosticsFeature],
@@ -59,5 +60,28 @@ describe('host de teste', () => {
     await host.commands.get('goiasscript.run')?.();
     expect(ran).toBe(true);
     expect(await host.askConfirmation('certeza?', 'sim')).toBe(true);
+  });
+
+  it('entrega ao comando o arquivo clicado, sem perder o caso da paleta', async () => {
+    const host = createFakeHost();
+    const received: (string | undefined)[] = [];
+    host.registerCommand('goiasscript.translate', (resourceUri) => {
+      received.push(resourceUri);
+      return Promise.resolve();
+    });
+    await host.commands.get('goiasscript.translate')?.('file:///work/clicado.gs');
+    await host.commands.get('goiasscript.translate')?.();
+    expect(received).toEqual(['file:///work/clicado.gs', undefined]);
+  });
+
+  it('limpa sequências de escape do aviso e do canal, mas deixa a saída do programa intacta', () => {
+    const escape = String.fromCharCode(0x1b);
+    const host = createFakeHost();
+    const terminal = host.openProgramTerminal('programa') as FakeTerminal;
+    terminal.write(`${escape}[32mverde`);
+    terminal.writeNotice(`${escape}]0;falso\u0007erro`);
+    host.appendOutput(`${escape}[2Jlimpou`);
+    expect(terminal.written).toEqual([`${escape}[32mverde`, ']0;falsoerro']);
+    expect(host.output).toEqual(['[2Jlimpou']);
   });
 });
