@@ -69,6 +69,8 @@
   "pnpm": {
     "overrides": {
       "dompurify": "^3.4.16",
+      "serialize-javascript": "^7.0.5",
+      "diff@7.0.0": "^8.0.3",
       "ws": "^8.21.0",
       "esbuild@0.17.19": "^0.28.2",
       "next>postcss": "^8.5.23",
