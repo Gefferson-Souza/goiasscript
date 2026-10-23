@@ -31,6 +31,12 @@ describe('aviso de folga', () => {
     expect(screen).toContain(notice);
     expect(notice).toContain('role="status"');
   });
+
+  it('oferece nova checagem só quando recebe o callback', () => {
+    const withButton = renderToStaticMarkup(createElement(EngoianadorIdleNotice, { onRecheck: () => undefined }));
+    expect(withButton).toContain('Dá outra olhada, sô');
+    expect(withButton).toContain('<button');
+  });
 });
 
 describe('mensagens de falha', () => {
