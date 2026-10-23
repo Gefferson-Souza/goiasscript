@@ -86,7 +86,7 @@ describe('demais arquivos de .github', () => {
   });
   it('codeql ignora evidência e spikes pelo arquivo de configuração', () => {
     expect(readText('.github/workflows/codeql.yml')).toContain('config-file: ./.github/codeql/codeql-config.yml');
-    expect(readYaml('.github/codeql/codeql-config.yml')['paths-ignore']).toEqual(['docs/auditoria', 'docs/pesquisa', 'spikes', 'apps/playground/workers']);
+    expect(readYaml('.github/codeql/codeql-config.yml')['paths-ignore']).toEqual(['docs/auditoria', 'docs/pesquisa', 'spikes']);
   });
   it('osv lê o lockfile do pnpm', () => {
     expect(readText('.github/workflows/osv.yml')).toContain('--lockfile=pnpm-lock.yaml');
