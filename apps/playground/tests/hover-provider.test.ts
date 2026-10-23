@@ -39,7 +39,8 @@ describe('provideHover', () => {
     const lessonUrlOf = (id: string): string | undefined => (id === 'licao-02' ? '/cartilha/licao-02' : undefined);
     expect(provideHover('uai', { lessonIdOf, lessonUrlOf })?.value).toContain('/cartilha/licao-02');
     expect(provideHover('uai', { lessonIdOf, lessonUrlOf: () => undefined })?.value).not.toContain('cartilha');
-    expect(provideHover('uai')?.value).not.toContain('cartilha');
+    expect(provideHover('uai')?.value).toContain('/cartilha/licao-02');
+    expect(provideHover('certeza')?.value).not.toContain('cartilha');
   });
 
   it('palavra da biblioteca mostra o equivalente em JS', () => {

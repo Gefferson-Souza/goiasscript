@@ -11,6 +11,7 @@ describe('toDiagnostic', () => {
       severity: 'error',
       range: { start: { offset: 8, line: 1, column: 9 }, end: { offset: 12, line: 1, column: 13 } },
       message: 'O nome "nomi" não foi declarado. Você quis dizer "nome"?',
+      lesson: 'licao-02',
     });
   });
   it('omite a pergunta quando não há sugestão', () => {

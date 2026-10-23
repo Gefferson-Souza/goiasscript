@@ -6,7 +6,7 @@ const NESTING_EXCESS = 100;
 
 export const SUBSET_DIAGNOSTICS: readonly DiagnosticDefinition[] = [
   d('GS0500', 'error', 'Construção do JavaScript fora da v3', t('Ô sô, isso do JavaScript ainda não existe em GoiásScript 3.', 'Esta construção do JavaScript ainda não existe em GoiásScript 3.'), 'debugger'),
-  d('GS0501', 'error', 'Template literal', t('Ô sô, crase não rola. Junta os pedaços com "mais".', 'Template literals não existem em GoiásScript 3. Junte os textos com "mais".'), 'uai t é `oi`'),
+  d('GS0501', 'error', 'Template literal', t('Ô sô, crase não rola. Junta os pedaços com "mais".', 'Template literals não existem em GoiásScript 3. Junte os textos com "mais".'), 'uai t é `oi`', { lesson: 'licao-03' }),
   d('GS0502', 'error', 'Expressão regular', t('Ô sô, expressão regular ainda não existe por aqui.', 'Expressões regulares ainda não existem em GoiásScript 3.'), 'uai r é /ab+/g'),
   d('GS0503', 'error', 'Desestruturação', t('Ô sô, desestruturar não rola. Pega cada campo com ponto.', 'Desestruturação não existe em GoiásScript 3. Acesse cada campo com ".".'), 'uai [a, b] é [1, 2]'),
   d('GS0504', 'error', 'Spread e rest', t('Ô sô, o "..." não existe por aqui.', 'O operador "..." não existe em GoiásScript 3.'), 'prosa(...[1])'),

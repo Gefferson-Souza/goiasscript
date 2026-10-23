@@ -37,4 +37,16 @@ test.describe('cartilha — lição', () => {
       .poll(async () => (await readModelMarkers(page)).map(({ code }) => (typeof code === 'string' ? code : code?.value)))
       .toContain(COMMA_DECIMAL_CODE);
   });
+
+  test('o erro GS0208 do exemplo ganha link para a lição 2', async ({ page }) => {
+    const primer = new PrimerPage(page);
+    await primer.openLesson(LESSON_TWO);
+    await primer.setProgram(COMMA_DECIMAL_PROGRAM);
+    await expect
+      .poll(async () => {
+        const marker = (await readModelMarkers(page)).find(({ code }) => typeof code === 'object' && code.value === COMMA_DECIMAL_CODE);
+        return typeof marker?.code === 'object' ? marker.code.target?.path : undefined;
+      })
+      .toBe(`/cartilha/${LESSON_TWO}`);
+  });
 });

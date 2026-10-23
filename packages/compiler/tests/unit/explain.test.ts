@@ -15,7 +15,8 @@ describe('explainDiagnostic', () => {
   it('troca marcadores por exemplos legíveis e usa lesson vazia quando não há', () => {
     expect(explainDiagnostic('GS0301')?.explanation).toContain('<nome>');
     expect(explainDiagnostic('GS0301')?.explanation).not.toContain('«');
-    expect(explainDiagnostic('GS0301')?.lesson).toBe('');
+    expect(explainDiagnostic('GS0301')?.lesson).toBe('licao-02');
+    expect(explainDiagnostic('GS0303')?.lesson).toBe('');
   });
   it('nenhuma explicação do catálogo sai com marcador cru', () => {
     const leaked = DIAGNOSTICS.flatMap((entry) => (['raiz', 'neutro'] as const).map((tone) => explainDiagnostic(entry.code, tone)))

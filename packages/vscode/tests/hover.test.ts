@@ -45,6 +45,17 @@ describe('hover', () => {
   });
 });
 
+describe('hover com o mapa de termos da cartilha', () => {
+  it('prosa e uai levam à lição que as explica', () => {
+    expect(hoverFor('prosa', BASE_URL)?.markdown).toContain(`(${BASE_URL}/licao-01)`);
+    expect(hoverFor('uai', BASE_URL)?.markdown).toContain(`(${BASE_URL}/licao-02)`);
+  });
+
+  it('palavra sem lição continua sem link', () => {
+    expect(hoverFor('certeza', BASE_URL)?.markdown).not.toContain('http');
+  });
+});
+
 describe('defesa do link da lição', () => {
   const HOSTILE_BASE_URL = 'https://cartilha.example/a(b)c]d e<f>/x)(https://evil.example';
   const LINK_LINE = /^\[[^\]]+\]\(([^()\s<>\][]*)\)$/u;

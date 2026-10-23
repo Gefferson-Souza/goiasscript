@@ -42,7 +42,7 @@ describe('explica com um código', () => {
     expect(io.stdoutText()).toContain('  uai x é 1\n  x é 2');
   });
   it('mostra texto neutro de lição quando o catálogo não tem lição', async () => {
-    const { io } = await run(['explica', 'GS0301']);
+    const { io } = await run(['explica', 'GS0303']);
     expect(io.stdoutText()).toContain('Lição: sem lição específica, dá uma olhada na cartilha geral.');
   });
 });
