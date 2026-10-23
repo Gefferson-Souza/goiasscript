@@ -19,6 +19,8 @@
     "engoianador:test": "pnpm --filter engoianador-api test",
     "build:cli": "node scripts/build-cli.ts",
     "pack:cli": "node scripts/pack-cli.ts",
+    "build:vscode": "node scripts/build-vscode.ts",
+    "pack:vscode": "node scripts/pack-vscode.ts",
     "e2e": "pnpm --filter playground-e2e test:e2e",
     "prepare": "husky",
     "typecheck": "tsc -p tsconfig.json && tsc -p apps/playground/tsconfig.json",
