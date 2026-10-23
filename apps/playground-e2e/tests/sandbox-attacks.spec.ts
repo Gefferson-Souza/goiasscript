@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { STATUS_LABELS } from '../../playground/components/ui-texts.constants.ts';
+import { RUN_LIMITS } from '../../playground/config/run-limits.constants.ts';
 import { ANY_FAILURE_LINE, failureLineIn, matchesAny } from './support/failure-line.ts';
 import { HOSTILE_PROGRAMS } from './support/hostile-programs.ts';
 import type { HostileProgram } from './support/hostile-programs.types.ts';
@@ -40,7 +41,8 @@ for (const attack of ESCAPE_ATTACKS) {
         await expect(playground.streamLines('out')).toHaveCount(0);
         await expect(playground.streamLines('err')).toHaveCount(0);
       } else {
-        await expect.poll(() => playground.output()).toMatch(ANY_FAILURE_LINE);
+        // O JavaScriptCore demora mais a estourar a pilha; a espera cobre o limite de execução inteiro.
+        await expect.poll(() => playground.output(), { timeout: RUN_LIMITS.maxRunMs }).toMatch(ANY_FAILURE_LINE);
         const output = await playground.output();
         expect(output).toContain(ATTEMPT_MARKER);
         expect(output.indexOf(ATTEMPT_MARKER)).toBeLessThan(output.search(ANY_FAILURE_LINE));

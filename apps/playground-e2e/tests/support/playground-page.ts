@@ -7,6 +7,7 @@ import {
   HOST_SECRET_KEY,
   HOST_SECRET_VALUE,
   MARKER_SELECTOR,
+  MODEL_SETTLE_TIMEOUT_MS,
   MONACO_INPUT_SELECTOR,
 } from './playground-page.constants.ts';
 import type { OpenOptions, OutputStream } from './playground-page.types.ts';
@@ -54,7 +55,7 @@ export class PlaygroundPage {
     await this.#page.keyboard.press('Delete');
     await this.#page.keyboard.insertText(source);
     // No WebKit o select-all às vezes sai antes do foco do Monaco e o texto cai no meio do exemplo.
-    if ((await this.#modelText()) !== source) await this.#replaceModelText(source);
+    if (!(await this.#modelSettlesOn(source))) await this.#replaceModelText(source);
   }
 
   async run(): Promise<void> {
@@ -103,18 +104,35 @@ export class PlaygroundPage {
     await input.press('Enter');
   }
 
-  async #modelText(): Promise<string | undefined> {
-    return this.#page.evaluate(() => {
-      const monaco = Reflect.get(window, 'monaco') as { editor: { getModels: () => { getValue: () => string }[] } } | undefined;
-      return monaco?.editor.getModels()[0]?.getValue();
-    });
+  // A digitação chega ao modelo de forma assíncrona; só cai no fallback se o texto não convergir.
+  async #modelSettlesOn(source: string): Promise<boolean> {
+    try {
+      await this.#page.waitForFunction(
+        (expected) => {
+          const monaco = Reflect.get(window, 'monaco') as { editor: { getModels: () => { getValue: () => string }[] } } | undefined;
+          return monaco?.editor.getModels()[0]?.getValue() === expected;
+        },
+        source,
+        { timeout: MODEL_SETTLE_TIMEOUT_MS },
+      );
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   async #replaceModelText(source: string): Promise<void> {
     await this.#page.waitForFunction(() => Reflect.has(window, 'monaco'));
     await this.#page.evaluate((text) => {
-      const monaco = Reflect.get(window, 'monaco') as { editor: { getModels: () => { setValue: (value: string) => void }[] } };
-      monaco.editor.getModels()[0]?.setValue(text);
+      type Position = { lineNumber: number; column: number };
+      type Model = { setValue: (value: string) => void; getFullModelRange: () => { endLineNumber: number; endColumn: number } };
+      const monaco = Reflect.get(window, 'monaco') as {
+        editor: { getModels: () => Model[]; getEditors: () => { setPosition: (position: Position) => void }[] };
+      };
+      const model = monaco.editor.getModels()[0];
+      model?.setValue(text);
+      const end = model?.getFullModelRange();
+      if (end !== undefined) monaco.editor.getEditors()[0]?.setPosition({ lineNumber: end.endLineNumber, column: end.endColumn });
     }, source);
   }
 
