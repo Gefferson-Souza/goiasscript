@@ -142,6 +142,12 @@
   },
   {
     "id": "A F12",
+    "kind": "test",
+    "ref": "packages/compiler/tests/retired-words.test.ts",
+    "testName": "toda palavra aposentada no início da instrução dá GS0306"
+  },
+  {
+    "id": "A F12",
     "kind": "intentional",
     "ref": "packages/compiler/tests/conformance/audit-x06"
   },
@@ -500,6 +506,12 @@
   },
   {
     "id": "E F02",
+    "kind": "test",
+    "ref": "packages/compiler/tests/retired-words.test.ts",
+    "testName": "toda palavra aposentada no início da instrução dá GS0306"
+  },
+  {
+    "id": "E F02",
     "kind": "adr",
     "ref": "docs/adr/0006-versionamento-e-compatibilidade.md"
   },
@@ -577,7 +589,8 @@
   {
     "id": "E F07",
     "kind": "test",
-    "ref": "packages/vscode/tests/smoke-extension.test.ts"
+    "ref": "packages/vscode/tests/smoke-extension.test.ts",
+    "testName": "nomeia o Open VSX quando a versão dá 404"
   },
   {
     "id": "E F08",

@@ -27,7 +27,8 @@ const testTitles = (source: string): readonly string[] => Array.from(withoutComm
 function testReasons(closure: Closure, fs: ChecklistFs): readonly string[] {
   if (!fs.exists(closure.ref)) return [`o arquivo ${closure.ref} não existe`];
   const name = closure.testName;
-  if (name === undefined || testTitles(fs.read(closure.ref)).some((title) => title.includes(name))) return [];
+  if (name === undefined) return [`o fechamento por teste em ${closure.ref} não informa testName`];
+  if (testTitles(fs.read(closure.ref)).some((title) => title.includes(name))) return [];
   return [`o nome "${name}" não é título de teste em ${closure.ref}`];
 }
 

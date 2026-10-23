@@ -72,7 +72,14 @@ describe('buildChecklist', () => {
     expect(rows[0]?.state).toBe('open');
   });
 
-  it('teste sem testName exige só o arquivo, mas intentional exige o golden e adr exige o ADR', () => {
+  it('fechamento por teste sem testName fica aberto', () => {
+    const closure: Closure = { id: 'B F02', kind: 'test', ref: TEST_FILE };
+    const rows = buildChecklist([finding('B F02')], [closure], memory);
+    expect(rows[0]?.state).toBe('open');
+    expect(rows[0]?.reasons.join(' ')).toContain('testName');
+  });
+
+  it('intentional exige o golden e adr exige o ADR', () => {
     const intentional: Closure = { id: 'B F02', kind: 'intentional', ref: 'packages/compiler/tests/conformance/golden-one' };
     const adr: Closure = { id: 'B F02', kind: 'adr', ref: 'docs/adr/0001-x.md' };
     expect(buildChecklist([finding('B F02')], [intentional], memory)[0]?.state).toBe('closed');
