@@ -5,6 +5,8 @@ import { timingEnforced } from './support/timing.ts';
 // Sob cobertura o tempo dobra: as medições rodam só no passo sem instrumentação.
 const timed = timingEnforced ? it : it.skip;
 const ROUNDS = 3;
+// Cada medição de razão compila sete vezes, o que passa dos 5 s padrão na máquina da CI.
+const SCALE_TEST_TIMEOUT_MS = 30_000;
 
 const distinctNames = (count: number): string =>
   Array.from({ length: count }, (_, index) => `uai valor${String(index)} é nome_${String(index)}`).join('\n');
@@ -28,7 +30,7 @@ const measureMs = (source: string, minimumDiagnostics: number): number => {
 const medianMs = (source: string, minimumDiagnostics: number): number =>
   median(Array.from({ length: ROUNDS }, () => measureMs(source, minimumDiagnostics)));
 
-describe('compile com muitos diagnósticos', () => {
+describe('compile com muitos diagnósticos', { timeout: SCALE_TEST_TIMEOUT_MS }, () => {
   timed('cresce de forma linear com a quantidade de diagnósticos', () => {
     measureMs(distinctNames(250), 250);
     const small = Math.max(medianMs(distinctNames(2_000), 2_000), 1);
