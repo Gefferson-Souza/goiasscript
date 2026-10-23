@@ -13,6 +13,10 @@ export const COLLOQUIAL_TEXTS: HostDiagnosticTexts = {
     message: 'Eita! Chegou uma resposta que o playground não soube ler.',
     help: 'Roda o programa de novo. Se repetir, recarrega a página.',
   },
+  compileFailure: {
+    message: 'Eita! Num consegui preparar o programa pra rodar.',
+    help: 'Confere o código e tenta de novo. Se repetir, recarrega a página.',
+  },
 };
 
 export const NEUTRAL_TEXTS: HostDiagnosticTexts = {
@@ -23,5 +27,9 @@ export const NEUTRAL_TEXTS: HostDiagnosticTexts = {
   unreadableMessage: {
     message: 'Uma resposta do executor não pôde ser lida.',
     help: 'Execute o programa novamente. Se repetir, recarregue a página.',
+  },
+  compileFailure: {
+    message: 'O programa não pôde ser preparado para execução.',
+    help: 'Confira o código e tente novamente. Se repetir, recarregue a página.',
   },
 };

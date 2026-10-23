@@ -7,6 +7,8 @@ import { loadExampleSource, loadExamples } from '@/lib/examples';
 import type { ExampleEntry } from '@/lib/examples.types';
 import { createBrowserRunnerClient } from '@/lib/run/browser-runner';
 import { INITIAL_RUN_VIEW, reduceRunView } from '@/lib/run/run-state-view';
+import { hostDiagnostic } from '@/lib/run/host-diagnostics';
+import { startRun } from '@/lib/run/start-run';
 import type { RunnerClient } from '@/lib/run/runner-client.types';
 import { readSavedCode, writeSavedCode } from '@/lib/saved-code';
 import { SHARE_HASH_PREFIX } from '@/lib/share-link.constants';
@@ -32,6 +34,11 @@ export function usePlayground() {
 
   useEffect(() => {
     const shared = decodeShareLink(window.location.hash);
+    if (shared !== null) {
+      // Sem limpar o hash, recarregar a página descartaria as edições do aluno em favor do link.
+      window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+      writeSavedCode(browserStorage(), shared);
+    }
     const initial = shared ?? readSavedCode(browserStorage());
     if (initial !== null) setSource(initial);
     void loadExamples().then(setExamples);
@@ -64,17 +71,18 @@ export function usePlayground() {
     writeSavedCode(browserStorage(), next);
   }, []);
 
-  const run = useCallback(async () => {
-    const built = await service.current?.compile(source, 'didactic');
-    if (built === undefined) return;
-    dispatch({ kind: 'start' });
-    if (!built.result.ok) {
-      const firstError = built.result.diagnostics.find((diagnostic) => diagnostic.severity === 'error');
-      if (firstError !== undefined) dispatch({ kind: 'failed', diagnostic: firstError });
-      return;
-    }
-    client.current?.run({ compiled: built.result, source, fileName: PLAYGROUND_FILE_NAME }, dispatch);
-  }, [source]);
+  const run = useCallback(
+    () =>
+      startRun({
+        source,
+        fileName: PLAYGROUND_FILE_NAME,
+        compile: (code) => service.current?.compile(code, 'didactic') ?? Promise.reject(new Error('compile service missing')),
+        runner: client.current,
+        fallbackDiagnostic: hostDiagnostic('compileFailure', 'raiz'),
+        dispatch,
+      }),
+    [source],
+  );
 
   const answer = useCallback((value: string) => {
     dispatch({ kind: 'answer' });
