@@ -1,9 +1,9 @@
 # O trusted publisher é criado só imediatamente antes do primeiro publish e expira em 2 dias sem publish validado.
-name: Release do alpha
+name: Release
 
 on:
   push:
-    tags: ['v3.*-alpha.*']
+    tags: ['v3.*']
 
 permissions:
   contents: read
@@ -129,7 +129,7 @@ jobs:
           npm --version
           npm stage publish --help | grep --quiet -- '--tag'
           npm stage publish --help | grep --quiet -- '--provenance'
-      - name: Prepara o stage do tarball em next
+      - name: Prepara o stage do tarball na dist-tag da tag
         env:
           DIST_TAG: ${{ steps.target.outputs.dist_tag }}
           TARBALL: ${{ steps.tarball.outputs.path }}
