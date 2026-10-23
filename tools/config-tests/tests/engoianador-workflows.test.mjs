@@ -1,3 +1,4 @@
+import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
@@ -62,12 +63,31 @@ describe('engoianador-smoke.yml', () => {
     expect(smoke.workflow.on.workflow_dispatch.inputs.base_url.required).toBe(true);
   });
   it('recusa base_url sem https antes de qualquer passo que use o código', () => {
-    expect(smoke.commands).toContain('^https://');
+    expect(smoke.commands).toContain('new URL');
+    expect(smoke.commands).toContain('"https:"');
+    expect(smoke.commands).not.toContain('grep');
     expect(smoke.commands).not.toContain('${{ inputs.base_url }}');
     expect(smoke.text).toContain('${{ inputs.base_url }}');
-    const checkIndex = smoke.steps.findIndex((step) => (step.run ?? '').includes('^https://'));
+    const checkIndex = smoke.steps.findIndex((step) => (step.run ?? '').includes('new URL'));
     const checkoutIndex = smoke.steps.findIndex((step) => step.uses?.startsWith('actions/checkout@'));
     expect(checkIndex).toBeLessThan(checkoutIndex);
+  });
+  describe('validação executada de verdade', () => {
+    const validation = smoke.steps.find((step) => (step.run ?? '').includes('new URL'))?.run ?? '';
+    const exitCodeFor = (value) => spawnSync('bash', ['-c', validation], { env: { ...process.env, ENGOIANADOR_URL: value } }).status;
+
+    it('aceita um endereço https de uma linha só', () => {
+      expect(exitCodeFor('https://engoianador.exemplo.workers.dev')).toBe(0);
+    });
+    it.each([
+      ['http simples', 'http://exemplo.com'],
+      ['várias linhas', 'https://exemplo.com\nhttp://malicioso.com'],
+      ['com espaço', 'https://exemplo.com extra'],
+      ['vazio', ''],
+      ['sem esquema', 'exemplo.com'],
+    ])('recusa %s', (_name, value) => {
+      expect(exitCodeFor(value)).toBe(1);
+    });
   });
   it('não usa segredo', () => {
     expect(smoke.text).not.toContain('secrets.');
