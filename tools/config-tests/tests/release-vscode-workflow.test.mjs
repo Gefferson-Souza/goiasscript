@@ -60,12 +60,14 @@ describe('release-vscode.yml', () => {
     expect(scriptsOf(job)).toContain('test:integration');
   });
 
-  it.each(['publish-marketplace', 'publish-openvsx'])('%s confere o sha256 do vsix baixado e o commit da tag na main', (id) => {
+  it.each(['publish-marketplace', 'publish-openvsx'])('%s confere o sha256 do vsix, a tag na ponta da main e instala sem scripts', (id) => {
     const job = workflow.jobs[id];
     const script = scriptsOf(job);
     expect(script).toContain('scripts/sha256-file.ts');
     expect(JSON.stringify(stepsOf(job))).toContain('needs.package.outputs.sha256');
-    expect(script).toContain('git merge-base --is-ancestor "$GITHUB_SHA" origin/main');
+    expect(script).toContain('[ "$(git rev-parse origin/main)" != "$GITHUB_SHA" ]');
+    expect(script).not.toContain('merge-base');
+    expect(script).toContain('pnpm install --frozen-lockfile --ignore-scripts');
     expect(stepsOf(job).find((step) => step.uses?.includes('checkout')).with['fetch-depth']).toBe(0);
     expect(stepsOf(job).some((step) => step.uses?.includes('download-artifact'))).toBe(true);
   });

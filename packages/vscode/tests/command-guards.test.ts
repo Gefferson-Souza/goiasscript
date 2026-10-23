@@ -30,6 +30,21 @@ describe('guardCommand', () => {
   });
 });
 
+describe('guardCommand com caminhos fora do padrão', () => {
+  it('recusa arquivo que a pasta associou à linguagem mas não termina em .gs', () => {
+    const target = host.makeDocument({ fsPath: '/projeto/segredo.txt' });
+    expect(guardCommand('traduz', target, false)).toEqual({ allowed: false, reason: 'not-goiasscript' });
+  });
+
+  it.each(['\\\\servidor\\pasta\\a.gs', '//servidor/pasta/a.gs'])('recusa caminho de rede %s', (fsPath) => {
+    expect(guardCommand('traduz', host.makeDocument({ fsPath }), true)).toEqual({ allowed: false, reason: 'not-file' });
+  });
+
+  it('aceita a extensão .gs em maiúsculas', () => {
+    expect(guardCommand('traduz', host.makeDocument({ fsPath: '/projeto/A.GS' }), true)).toEqual({ allowed: true });
+  });
+});
+
 describe('guardRefusalMessage', () => {
   it('pede confiança quando o workspace não é confiável', () => {
     expect(guardRefusalMessage('untrusted', 'raiz')).toContain('confia');

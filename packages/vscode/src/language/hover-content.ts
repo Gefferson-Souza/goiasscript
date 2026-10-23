@@ -13,7 +13,7 @@ interface WordFacts {
 const escapeMarkdown = (text: string): string => text.replaceAll(MARKDOWN_SPECIAL, '\\$&');
 const inlineCode = (code: string): string => `\`${code.replaceAll(BACKTICK, '')}\``;
 
-const markdownUrl = (url: string): string => encodeURI(url).replaceAll('(', '%28').replaceAll(')', '%29');
+export const markdownUrl = (url: string): string => encodeURI(url).replaceAll('(', '%28').replaceAll(')', '%29');
 
 function factsOf(word: string): WordFacts | undefined {
   const keyword = lookupKeyword(word);
