@@ -7,13 +7,15 @@ import { bundleSuite } from './bundle-suite.ts';
 import { SCENARIO_ENV } from './integration.constants.ts';
 import type { IntegrationOptions, IntegrationScenario } from './integration.types.ts';
 import { buildLaunchArgs, buildUserSettings } from './launch-config.ts';
+import { overlayVsixDist } from './vsix-overlay.ts';
 import { assertSocketPathFits, createWorkDir } from './work-dir.ts';
 
 const EXTENSION_DIR = path.join(import.meta.dirname, '../..');
 const CACHE_DIR_NAME = '.vscode-test';
 const DEFAULT_VERSION = 'stable';
 const VERSION_FLAG = '--vscode-version';
-const VERSION_ENV = 'VSCODE_VERSION';
+const VERSION_ENV = 'GS_VSCODE_VERSION';
+const VSIX_ENV = 'GS_VSIX';
 const SCENARIOS: readonly IntegrationScenario[] = ['trusted', 'untrusted'];
 const REQUIRED_BUILD_FILES = ['dist/extension.cjs', 'dist/cli/goiasscript.mjs'];
 const ELECTRON_RUN_AS_NODE = 'ELECTRON_RUN_AS_NODE';
@@ -53,6 +55,7 @@ async function runScenario(executable: string, suiteEntry: string, extensionDir:
 
 export async function runIntegration(options: IntegrationOptions): Promise<void> {
   const extensionDir = options.extensionDir ?? EXTENSION_DIR;
+  if (options.vsix !== undefined) overlayVsixDist(options.vsix, extensionDir);
   assertBuilt(extensionDir);
   const suiteEntry = await bundleSuite(extensionDir);
   const executable = await downloadAndUnzipVSCode({ version: options.vscodeVersion, cachePath: path.join(extensionDir, CACHE_DIR_NAME) });
@@ -68,7 +71,7 @@ function versionFromArguments(argv: readonly string[]): string {
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   try {
-    await runIntegration({ vscodeVersion: versionFromArguments(process.argv) });
+    await runIntegration({ vscodeVersion: versionFromArguments(process.argv), vsix: process.env[VSIX_ENV] });
   } catch (error) {
     process.stderr.write(`Ô rapaz! Os testes dentro do VS Code falharam: ${error instanceof Error ? error.message : String(error)}\n`);
     process.exit(1);

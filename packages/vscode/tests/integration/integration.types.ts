@@ -29,4 +29,10 @@ export interface LaunchInput {
 export interface IntegrationOptions {
   readonly vscodeVersion: string;
   readonly extensionDir?: string;
+  readonly vsix?: string | undefined;
+}
+
+export interface ExtractCommand {
+  readonly command: string;
+  readonly args: readonly string[];
 }
