@@ -5,7 +5,7 @@ const COVERAGE_RUN = process.argv.includes('--coverage');
 const PLAYGROUND_COVERED = 'apps/playground/{config,lib,sandbox}/**/*.ts';
 const WORKER_COVERED = 'apps/engoianador-api/src/**/*.ts';
 const VSCODE_HOST_BOUND = ['packages/vscode/src/extension.ts', 'packages/vscode/src/host/vscode-host.ts'];
-const PLAYGROUND_LEGACY = ['apps/playground/lib/{engoianador-client,share-image}.ts'];
+const PLAYGROUND_LEGACY = ['apps/playground/lib/share-image.ts'];
 const perPackage = { lines: COVERAGE_MINIMUM, functions: COVERAGE_MINIMUM, branches: COVERAGE_MINIMUM, statements: COVERAGE_MINIMUM };
 
 export default defineConfig({

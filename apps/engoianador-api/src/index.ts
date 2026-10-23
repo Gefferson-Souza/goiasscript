@@ -3,7 +3,7 @@ import { parseConfig } from './config';
 import { corsHeaders } from './cors';
 import type { ConfigResult, Env } from './env.types';
 import { createHandler } from './handler';
-import { createHealth } from './health';
+import { buildHealthReport } from './health';
 import { HTTP_STATUS, JSON_CONTENT_TYPE } from './http.constants';
 import { createLimiter } from './limiter';
 import { workerLog } from './log';
@@ -43,7 +43,7 @@ function handlerFor(env: Env, config: Extract<ConfigResult, { readonly ok: true 
     limiter: createLimiter(env, config),
     providers: createWorkerProviderChain({ env, config, log: workerLog }),
     cache: createCache(),
-    health: createHealth(env),
+    health: () => buildHealthReport(env, config),
     config,
     log: workerLog,
   });

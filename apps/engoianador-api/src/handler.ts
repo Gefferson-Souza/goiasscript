@@ -87,10 +87,15 @@ async function engoiana(request: Request, deps: HandlerDeps, reply: Reply): Prom
   return reply({ [RESPONSE_TEXT_FIELD]: result.text }, HTTP_STATUS.ok);
 }
 
+function healthReply(deps: HandlerDeps, reply: Reply): Response {
+  const report = deps.health();
+  return reply(report, report.ok ? HTTP_STATUS.ok : HTTP_STATUS.serviceUnavailable);
+}
+
 async function route(request: Request, deps: HandlerDeps, reply: Reply): Promise<Response> {
   const { pathname } = new URL(request.url);
   if (pathname === ROOT_PATH && request.method === 'GET') return reply(STATUS_PAYLOAD, HTTP_STATUS.ok);
-  if (pathname === HEALTH_PATH && request.method === 'GET') return reply(deps.health(), HTTP_STATUS.ok);
+  if (pathname === HEALTH_PATH && request.method === 'GET') return healthReply(deps, reply);
   if (pathname === ENGOIANA_PATH && request.method === 'POST') return engoiana(request, deps, reply);
   return reply({ [ERROR_FIELD]: MESSAGES.notFound }, HTTP_STATUS.notFound);
 }

@@ -11,9 +11,9 @@ export interface FetchResponseLike {
 }
 
 export interface FetchRequestInit {
-  readonly method: 'POST';
+  readonly method: 'GET' | 'POST';
   readonly headers: Readonly<Record<string, string>>;
-  readonly body: string;
+  readonly body?: string;
   readonly credentials: 'omit';
   readonly redirect: 'error';
   readonly signal: AbortSignal;
@@ -26,3 +26,5 @@ export interface EngoianarOptions {
   readonly fetchFn?: FetchPort;
   readonly createTimeoutSignal?: (timeoutMs: number) => AbortSignal;
 }
+
+export type EngoianadorHealth = 'up' | 'down' | 'disabled';

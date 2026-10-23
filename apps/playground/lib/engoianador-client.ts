@@ -1,5 +1,9 @@
 import {
+  ACCEPT_JSON_HEADERS,
   ENGOIANAR_PATH,
+  HEALTH_OK_FIELD,
+  HEALTH_PATH,
+  HEALTH_TIMEOUT_MS,
   HTTP_STATUS,
   JSON_HEADERS,
   MAX_INPUT_CHARS,
@@ -9,6 +13,7 @@ import {
 } from './engoianador-client.constants.ts';
 import type {
   EngoianadorFailureReason,
+  EngoianadorHealth,
   EngoianadorResult,
   EngoianarOptions,
   FetchPort,
@@ -67,4 +72,31 @@ export async function engoianar(text: string, options: EngoianarOptions): Promis
     return failure('unavailable');
   }
   return response.ok ? readText(response) : failure(failureForStatus(response.status));
+}
+
+async function isHealthyBody(response: FetchResponseLike): Promise<boolean> {
+  try {
+    const body: unknown = await response.json();
+    return typeof body === 'object' && body !== null && (body as Readonly<Record<string, unknown>>)[HEALTH_OK_FIELD] === true;
+  } catch {
+    return false;
+  }
+}
+
+export async function checkEngoianadorHealth(options: EngoianarOptions): Promise<EngoianadorHealth> {
+  if (options.baseUrl === null) return 'disabled';
+  const fetchFn = options.fetchFn ?? defaultFetch;
+  const createTimeoutSignal = options.createTimeoutSignal ?? ((ms: number) => AbortSignal.timeout(ms));
+  try {
+    const response = await fetchFn(`${options.baseUrl.replace(TRAILING_SLASHES, '')}${HEALTH_PATH}`, {
+      method: 'GET',
+      headers: ACCEPT_JSON_HEADERS,
+      credentials: 'omit',
+      redirect: 'error',
+      signal: createTimeoutSignal(HEALTH_TIMEOUT_MS),
+    });
+    return response.ok && (await isHealthyBody(response)) ? 'up' : 'down';
+  } catch {
+    return 'down';
+  }
 }
