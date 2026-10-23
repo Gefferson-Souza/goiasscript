@@ -1,37 +1,39 @@
 import { defineConfig, devices } from '@playwright/test';
+import {
+  BUILD_AND_START,
+  CI_RETRIES,
+  MONOREPO_ROOT,
+  SERVER_START_TIMEOUT_MS,
+  TEST_PUBLIC_ENV,
+  TEST_TIMEOUT_MS,
+} from './playwright.constants.ts';
+import { resolveEphemeralPort } from './tests/support/ephemeral-port.ts';
 
-const PORT = 3100;
-const BASE = `http://localhost:${PORT}`;
+const port = resolveEphemeralPort();
+const baseURL = `http://127.0.0.1:${String(port)}`;
+const isCi = process.env['CI'] !== undefined;
 
-// Sobe o playground em produção (next start) pra exercitar os headers de
-// segurança (CSP etc.) do next.config. O build roda no webServer.
+// O playground sobe em produção (next build + next start) para o E2E ver os mesmos cabeçalhos de segurança do deploy.
 export default defineConfig({
   testDir: './tests',
-  timeout: 30_000,
+  testMatch: '**/*.spec.ts',
+  timeout: TEST_TIMEOUT_MS,
   fullyParallel: true,
-  retries: process.env.CI ? 1 : 0,
-  reporter: process.env.CI ? [['github'], ['list']] : 'list',
-  use: {
-    baseURL: BASE,
-    trace: 'on-first-retry',
-    screenshot: 'only-on-failure',
-  },
+  forbidOnly: isCi,
+  retries: isCi ? CI_RETRIES : 0,
+  reporter: isCi ? [['github'], ['list'], ['html', { open: 'never' }]] : 'list',
+  use: { baseURL, trace: 'on-first-retry', screenshot: 'only-on-failure' },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    // Pixel 5 = viewport mobile sobre Chromium (WebKit não está instalado).
-    { name: 'mobile', use: { ...devices['Pixel 5'] } },
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
   ],
   webServer: {
-    command: 'pnpm --filter playground build && pnpm --filter playground start',
-    url: BASE,
-    timeout: 180_000,
-    reuseExistingServer: !process.env.CI,
-    cwd: '../..',
-    env: {
-      // Next respeita PORT no start. URL fictícia inlined no build; os
-      // specs interceptam **/engoiana.
-      PORT: String(PORT),
-      NEXT_PUBLIC_ENGOIANADOR_URL: 'https://api.mock.test',
-    },
+    command: BUILD_AND_START,
+    url: baseURL,
+    timeout: SERVER_START_TIMEOUT_MS,
+    reuseExistingServer: false,
+    cwd: MONOREPO_ROOT,
+    env: { ...TEST_PUBLIC_ENV, PORT: String(port) },
   },
 });

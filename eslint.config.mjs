@@ -26,7 +26,7 @@ const LEGACY_APP_FILES = [
   'apps/playground/lib/monaco-goias.ts',
   'apps/playground/lib/share.ts',
   'apps/playground/lib/use-runner.ts',
-  'apps/playground-e2e/**',
+  'apps/playground-e2e/tests/{doacao,engoianador,examples,home,security}.spec.ts',
 ];
 const NOT_YET_COVERED_APPS = ['apps/engoianador-api/**'];
 const RUNNER_FILES = ['apps/playground/sandbox/runner.ts'];
