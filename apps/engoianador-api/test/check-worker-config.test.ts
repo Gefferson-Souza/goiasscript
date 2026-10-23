@@ -14,6 +14,19 @@ function withoutBlock(toml: string, header: string): string {
   return toml.replace(new RegExp(`\\[\\[${header}\\]\\][^\\[]*`, 'u'), '');
 }
 
+describe('origens do wrangler.toml', () => {
+  const toml = readFileSync(fileURLToPath(WRANGLER_URL), 'utf8');
+  const [production = '', devEnvironment = ''] = toml.split('[env.dev.vars]');
+
+  it('produção não aceita origem local', () => {
+    expect(production).not.toContain('localhost');
+  });
+
+  it('o ambiente dev guarda a origem local', () => {
+    expect(devEnvironment).toContain('http://localhost:3000');
+  });
+});
+
 describe('checkWranglerConfig', () => {
   it('aceita o wrangler.toml completo', () => {
     expect(checkWranglerConfig(realIds())).toEqual([]);
@@ -22,6 +35,11 @@ describe('checkWranglerConfig', () => {
   it('recusa id de KV placeholder', () => {
     const problems = checkWranglerConfig(readFileSync(fileURLToPath(WRANGLER_URL), 'utf8'));
     expect(problems.some((problem) => problem.includes('ENGOIANADOR_CACHE'))).toBe(true);
+  });
+
+  it('recusa origem local nas vars de produção', () => {
+    const toml = realIds().replace('ALLOWED_ORIGINS = "https://', 'ALLOWED_ORIGINS = "http://localhost:3000,https://');
+    expect(checkWranglerConfig(toml).some((problem) => problem.includes('ALLOWED_ORIGINS'))).toBe(true);
   });
 
   it('recusa RATE_LIMIT_PER_DAY não numérico', () => {

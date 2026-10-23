@@ -5,7 +5,7 @@
   "type": "module",
   "description": "🪄 Cloudflare Worker que engoiana texto via LLM (Groq + fallback Workers AI)",
   "scripts": {
-    "dev": "wrangler dev",
+    "dev": "wrangler dev --env dev",
     "predeploy": "node scripts/check-worker-config.ts && node scripts/verify-model.ts --require",
     "deploy": "wrangler deploy",
     "typecheck": "tsc --noEmit",

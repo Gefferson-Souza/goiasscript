@@ -5,3 +5,4 @@ export const DURABLE_OBJECT_BINDING = 'QUOTA_LEDGER';
 export const DURABLE_OBJECT_CLASS = 'QuotaLedgerObject';
 export const CACHE_KV_BINDING = 'ENGOIANADOR_CACHE';
 export const AI_BINDING = 'AI';
+export const LOCAL_ORIGIN_PATTERN = /\/\/(localhost|127\.0\.0\.1)(:|,|\/|$)/u;
