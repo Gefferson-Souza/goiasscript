@@ -26,7 +26,9 @@
   "devDependencies": {
     "@goiasscript/compiler": "workspace:*",
     "@goiasscript/language": "workspace:*",
-    "@goiasscript/optimizer": "workspace:*"
+    "@goiasscript/optimizer": "workspace:*",
+    "@stryker-mutator/core": "10.0.0",
+    "@stryker-mutator/vitest-runner": "10.0.0"
   },
   "exports": {
     ".": {
@@ -40,6 +42,7 @@
     "build": "node ../../scripts/build-cli.ts",
     "prepack": "node ../../scripts/prepack-cli.ts",
     "postpack": "node ../../scripts/prepack-cli.ts clean",
-    "test:e2e": "vitest run --config vitest.e2e.config.ts"
+    "test:e2e": "vitest run --config vitest.e2e.config.ts",
+    "mutate": "GS_TIMING_BUDGETS=skip stryker run"
   }
 }
