@@ -18,7 +18,5 @@ export const TEST_PUBLIC_ENV = {
 export const CHROMIUM_ONLY_SPECS = [
   '**/doacao.spec.ts',
   '**/engoianador.spec.ts',
-  '**/examples.spec.ts',
   '**/home.spec.ts',
-  '**/security.spec.ts',
 ] as const;

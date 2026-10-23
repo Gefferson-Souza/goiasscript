@@ -19,7 +19,7 @@ function Lines({ view }: { readonly view: RunViewState }) {
   return (
     <div className="space-y-1">
       {view.lines.map((line, index) => (
-        <div key={index} className={LINE_CLASS[line.stream]}>
+        <div key={index} data-stream={line.stream} className={LINE_CLASS[line.stream]}>
           <span className="mr-2 text-goias-texto/40">{line.stream === 'err' ? '!' : '›'}</span>
           <span className="whitespace-pre-wrap">{line.text}</span>
         </div>
