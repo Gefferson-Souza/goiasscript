@@ -19,6 +19,13 @@ describe('prosa da lição', () => {
     expect(html).toContain('clica');
   });
 
+  it('link data: e imagem data: são descartados', () => {
+    const html = render('[clica](data:text/html;base64,PHNjcmlwdD4=) ![x](data:image/svg+xml;base64,PHN2Zz4=)');
+    expect(html).not.toMatch(/data:/iu);
+    expect(html).not.toContain('<img');
+    expect(html).toContain('clica');
+  });
+
   it('link https e caminho interno são mantidos', () => {
     const html = render('[site](https://goiasscript.dev/x) e [lição](/cartilha/licao-02)');
     expect(html).toContain('href="https://goiasscript.dev/x"');
