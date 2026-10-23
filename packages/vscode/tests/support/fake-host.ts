@@ -1,4 +1,5 @@
 import type { Disposable, DocumentEvent, HostDocument } from '../../src/host/extension-host.types.ts';
+import { sanitizeTerminalText } from '../../src/host/terminal-text.ts';
 import { FILE_SCHEME, LANGUAGE_ID } from '../../src/host/host.constants.ts';
 import { DEFAULT_DIAGNOSTICS_DELAY_MS, DEFAULT_TONE } from '../../src/settings/settings.constants.ts';
 import type { FakeHost, FakeHostOptions, FakeTerminal } from './fake-host.types.ts';
@@ -22,6 +23,9 @@ function createTerminal(title: string): FakeTerminal {
     exitCodes: [],
     write: (text) => {
       terminal.written.push(text);
+    },
+    writeNotice: (text) => {
+      terminal.written.push(sanitizeTerminalText(text));
     },
     onInput: (handler) => {
       inputHandlers.push(handler);
@@ -57,7 +61,7 @@ export function createFakeHost(options: FakeHostOptions = {}): FakeHost {
     clearDiagnostics: (documentUri) => host.diagnostics.delete(documentUri),
     showError: (message) => host.errors.push(message),
     askConfirmation: () => Promise.resolve(options.confirmation ?? false),
-    appendOutput: (text) => host.output.push(text),
+    appendOutput: (text) => host.output.push(sanitizeTerminalText(text)),
     openProgramTerminal: (title) => {
       const terminal = createTerminal(title);
       host.terminals.push(terminal);

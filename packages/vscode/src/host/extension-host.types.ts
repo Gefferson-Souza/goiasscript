@@ -21,12 +21,15 @@ export interface HostDiagnostic {
   readonly lessonUrl?: string;
 }
 
+export type CommandHandler = (resourceUri?: string) => Promise<void>;
+
 export interface Disposable {
   dispose(): void;
 }
 
 export interface ProgramTerminal {
   write(text: string): void;
+  writeNotice(text: string): void;
   onInput(handler: (text: string) => void): void;
   close(exitCode: number): void;
 }
@@ -67,7 +70,7 @@ export interface ExtensionHost {
   readonly resolvePath: (relative: string) => string;
   readonly registerCompletionProvider: (provider: CompletionProviderPort) => Disposable;
   readonly registerHoverProvider: (provider: HoverProviderPort) => Disposable;
-  readonly registerCommand: (commandId: string, handler: () => Promise<void>) => Disposable;
+  readonly registerCommand: (commandId: string, handler: CommandHandler) => Disposable;
 }
 
 export interface Feature {
