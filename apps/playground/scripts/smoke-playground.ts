@@ -3,11 +3,13 @@ import {
   DONATION_ROUTE,
   HOME_FRAME_GUARD,
   JAVASCRIPT_CONTENT_TYPE,
+  MAX_BODY_BYTES,
   MAX_REDIRECTS,
   MISSING_ROUTE,
   NOT_FOUND_MARKER,
   REDIRECT_STATUS_MAX,
   REDIRECT_STATUS_MIN,
+  REQUEST_TIMEOUT_MS,
   RUNNER_ROUTE,
   STATUS_NOT_FOUND,
   STATUS_OK,
@@ -38,6 +40,7 @@ const CHECKS: readonly SmokeCheck[] = [
   {
     path: MISSING_ROUTE,
     expectedStatus: STATUS_NOT_FOUND,
+    needsBody: true,
     inspect: (_response, body) => (body.includes(NOT_FOUND_MARKER) ? [] : ['404 sem o texto em goianês']),
   },
   { path: DONATION_ROUTE, expectedStatus: STATUS_OK, inspect: () => [] },
@@ -47,10 +50,10 @@ function isRedirect(status: number): boolean {
   return status >= REDIRECT_STATUS_MIN && status <= REDIRECT_STATUS_MAX;
 }
 
-async function fetchFollowingSameHost(start: URL, fetchFn: typeof fetch): Promise<Response> {
+async function fetchFollowingSameHost(start: URL, fetchFn: typeof fetch, timeoutMs: number): Promise<Response> {
   let current = start;
   for (let hop = 0; hop <= MAX_REDIRECTS; hop += 1) {
-    const response = await fetchFn(current, { redirect: 'manual' });
+    const response = await fetchFn(current, { redirect: 'manual', signal: AbortSignal.timeout(timeoutMs) });
     const location = response.headers.get('location');
     if (!isRedirect(response.status) || location === null) return response;
     const next = new URL(location, current);
@@ -60,12 +63,33 @@ async function fetchFollowingSameHost(start: URL, fetchFn: typeof fetch): Promis
   throw new Error('redirecionamentos demais');
 }
 
-async function runCheck(baseUrl: URL, check: SmokeCheck, fetchFn: typeof fetch): Promise<readonly SmokeFailure[]> {
+async function readBoundedBody(response: Response): Promise<string> {
+  if (response.body === null) return '';
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let text = '';
+  let bytes = 0;
+  while (bytes < MAX_BODY_BYTES) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    bytes += value.byteLength;
+    text += decoder.decode(value, { stream: true });
+  }
+  await reader.cancel();
+  return text;
+}
+
+async function runCheck(
+  baseUrl: URL,
+  check: SmokeCheck,
+  fetchFn: typeof fetch,
+  timeoutMs: number,
+): Promise<readonly SmokeFailure[]> {
   try {
-    const response = await fetchFollowingSameHost(new URL(check.path, baseUrl), fetchFn);
+    const response = await fetchFollowingSameHost(new URL(check.path, baseUrl), fetchFn, timeoutMs);
     const messages =
       response.status === check.expectedStatus
-        ? check.inspect(response, await response.text())
+        ? check.inspect(response, check.needsBody === true ? await readBoundedBody(response) : '')
         : [`esperava status ${String(check.expectedStatus)} e veio ${String(response.status)}`];
     return messages.map((message) => ({ path: check.path, message }));
   } catch (error) {
@@ -74,8 +98,12 @@ async function runCheck(baseUrl: URL, check: SmokeCheck, fetchFn: typeof fetch):
   }
 }
 
-export async function runSmoke(baseUrl: string, fetchFn: typeof fetch): Promise<readonly SmokeFailure[]> {
+export async function runSmoke(
+  baseUrl: string,
+  fetchFn: typeof fetch,
+  timeoutMs: number = REQUEST_TIMEOUT_MS,
+): Promise<readonly SmokeFailure[]> {
   const base = new URL(baseUrl);
-  const results = await Promise.all(CHECKS.map((check) => runCheck(base, check, fetchFn)));
+  const results = await Promise.all(CHECKS.map((check) => runCheck(base, check, fetchFn, timeoutMs)));
   return results.flat();
 }

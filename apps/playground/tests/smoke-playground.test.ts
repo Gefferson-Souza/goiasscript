@@ -117,4 +117,60 @@ describe('runSmoke', () => {
     expect(failures).toHaveLength(4);
     expect(failures[0]?.message).toContain('ECONNREFUSED');
   });
+
+  it('transforma requisição pendurada em falha por tempo esgotado', async () => {
+    const hanging = ((_input: string | URL, init?: RequestInit) =>
+      new Promise<Response>((_resolve, reject) => {
+        init?.signal?.addEventListener('abort', () => {
+          reject(new Error('tempo esgotado'));
+        });
+      })) as typeof fetch;
+    const failures = await runSmoke(BASE, hanging, 20);
+    expect(failures).toHaveLength(4);
+    expect(failures[0]?.message).toContain('requisição falhou');
+  });
+
+  it('envia um sinal de cancelamento em cada requisição', async () => {
+    const signals: Array<AbortSignal | null | undefined> = [];
+    const spy = ((input: string | URL, init?: RequestInit) => {
+      signals.push(init?.signal);
+      return Promise.resolve(healthy(new URL(input)));
+    }) as typeof fetch;
+    await runSmoke(BASE, spy);
+    expect(signals).toHaveLength(4);
+    expect(signals.every((signal) => signal instanceof AbortSignal)).toBe(true);
+  });
+
+  it('não lê o corpo de respostas que não precisam dele', async () => {
+    let bodiesRead = 0;
+    const counting = ((input: string | URL) => {
+      const response = healthy(new URL(input));
+      const original = response.text.bind(response);
+      response.text = () => {
+        bodiesRead += 1;
+        return original();
+      };
+      return Promise.resolve(response);
+    }) as typeof fetch;
+    await runSmoke(BASE, counting);
+    expect(bodiesRead).toBe(0);
+  });
+
+  it('limita a leitura do corpo do 404', async () => {
+    const huge = `${NOT_FOUND_BODY}${'x'.repeat(10_000_000)}`;
+    let delivered = 0;
+    const stream = new ReadableStream<Uint8Array>({
+      pull(controller) {
+        const chunk = new TextEncoder().encode(huge.slice(delivered, delivered + 65_536));
+        delivered += 65_536;
+        if (chunk.length === 0) controller.close();
+        else controller.enqueue(chunk);
+      },
+    });
+    const failures = await describeFailures((url) =>
+      url.pathname === '/rota-que-nao-existe' ? new Response(stream, { status: 404 }) : healthy(url),
+    );
+    expect(failures).toEqual([]);
+    expect(delivered).toBeLessThan(1_000_000);
+  });
 });
