@@ -1,0 +1,51 @@
+name: Testes da extensão no VS Code
+
+on:
+  push:
+    branches: [main, 'v3/**']
+    paths: ['packages/vscode/**', 'packages/language/**', 'packages/compiler/**', 'packages/cli/**', 'scripts/**', '.github/workflows/vscode.yml']
+  pull_request:
+    branches: [main]
+    paths: ['packages/vscode/**', 'packages/language/**', 'packages/compiler/**', 'packages/cli/**', 'scripts/**', '.github/workflows/vscode.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vscode-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  integration:
+    name: vscode ${{ matrix.vscode }} (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2025, macos-15]
+        vscode: [stable, 1.90.0]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - run: corepack enable
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with: { node-version: 24, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - name: Empacota a extensão
+        run: pnpm build:vscode
+      - name: Guarda o VS Code baixado
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: packages/vscode/.vscode-test
+          key: vscode-${{ matrix.os }}-${{ matrix.vscode }}-${{ hashFiles('packages/vscode/package.json') }}
+      - name: Roda os testes no Linux sob display virtual
+        if: runner.os == 'Linux'
+        run: xvfb-run -a pnpm --filter goiasscript-vscode test:integration
+        env:
+          VSCODE_VERSION: ${{ matrix.vscode }}
+      - name: Roda os testes no Windows e no macOS
+        if: runner.os != 'Linux'
+        run: pnpm --filter goiasscript-vscode test:integration
+        env:
+          VSCODE_VERSION: ${{ matrix.vscode }}

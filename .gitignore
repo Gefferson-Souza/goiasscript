@@ -159,3 +159,7 @@ apps/playground/public/sandbox/
 
 # === EXTENSAO VS CODE ===
 packages/vscode/pack/
+
+# === TESTES DA EXTENSÃO DENTRO DO VS CODE ===
+packages/vscode/.integration/
+packages/vscode/.vscode-test/

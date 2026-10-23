@@ -69,7 +69,8 @@
     "packages/vscode": {
       "entry": [
         "src/extension.ts",
-        "tests/**/*.test.ts"
+        "tests/**/*.test.ts",
+        "tests/integration/suite/index.ts"
       ],
       "project": [
         "src/**/*.ts",
