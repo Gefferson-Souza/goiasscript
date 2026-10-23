@@ -9,3 +9,5 @@ export const EMPTY_SESSION: ReplSession = { bindings: [], members: [] };
 export const INTERRUPTION_CODES: ReadonlySet<string> = new Set(['ERR_SCRIPT_EXECUTION_INTERRUPTED', 'ERR_SCRIPT_EXECUTION_TIMEOUT']);
 
 export const CANCELLED = Symbol('cancelled');
+
+export const HISTORY_LIMIT = 1000;
