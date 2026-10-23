@@ -14,19 +14,13 @@ const MUTABLE_STATE_GLOBS = ['packages/compiler/src/lexer/**/*.ts', 'packages/co
 const APP_FILES = ['apps/playground/**/*.{ts,tsx}', 'apps/playground-e2e/**/*.ts', 'apps/engoianador-api/**/*.ts'];
 const APP_REACT_FILES = ['apps/playground/**/*.tsx'];
 const TS_FILES = ['packages/**/*.ts', 'tools/**/*.ts', 'scripts/**/*.ts', '*.config.mts', ...APP_FILES];
-// Arquivos ainda fora do ESLint estrito: cada um sai desta lista quando é reescrito.
-const LEGACY_APP_FILES = [
+// Camada de UI do Next (páginas, componentes React e config do Tailwind): hooks e JSX grandes
+// e o tipo do Monaco não resolvido violam regras de função pura; a lógica testável vive em lib/.
+const REACT_SHELL_FILES = [
   'apps/playground/app/*.{ts,tsx}',
   'apps/playground/app/doacao/**',
   'apps/playground/components/*.{ts,tsx}',
-  'apps/playground/workers/**',
-  'apps/playground/types/**',
   'apps/playground/tailwind.config.ts',
-  'apps/playground/scripts/copy-examples.mjs',
-  'apps/playground/lib/monaco-goias.ts',
-  'apps/playground/lib/share.ts',
-  'apps/playground/lib/use-runner.ts',
-  'apps/playground-e2e/tests/{examples,security}.spec.ts',
 ];
 const RUNNER_FILES = ['apps/playground/sandbox/runner.ts'];
 const TEST_FILES = ['**/*.test.ts', '**/tests/**/*.ts', 'apps/engoianador-api/test/**/*.ts'];
@@ -57,7 +51,7 @@ const swallowedCatchSelector = {
 
 export function createConfig(projectService = true) {
   return tseslint.config(
-    { ignores: ['**/node_modules/**', '**/coverage/**', '**/dist/**', '**/.integration/**', '**/.vscode-test/**', '**/generated/**', ...LEGACY_APP_FILES, 'apps/playground/public/**', 'apps/playground/.next/**', 'apps/*/.next-configured/**', 'apps/playground/next-env.d.ts', 'docs/**', 'spikes/**', 'packages/compiler/tests/conformance/**'] },
+    { ignores: ['**/node_modules/**', '**/coverage/**', '**/dist/**', '**/.integration/**', '**/.vscode-test/**', '**/generated/**', ...REACT_SHELL_FILES, 'apps/playground/public/**', 'apps/playground/.next/**', 'apps/*/.next-configured/**', 'apps/playground/next-env.d.ts', 'docs/**', 'spikes/**', 'packages/compiler/tests/conformance/**'] },
     { linterOptions: { reportUnusedDisableDirectives: 'error' } },
     {
       files: TS_FILES,
