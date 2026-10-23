@@ -2,7 +2,7 @@ import type { CompileResult, Diagnostic } from '@goiasscript/compiler';
 import { describe, expect, it } from 'vitest';
 import { createLiveDiagnostics } from '../src/diagnostics/live-diagnostics.ts';
 import type { TimerApi } from '../src/diagnostics/live-diagnostics.types.ts';
-import { MAX_DIAGNOSTICS_PER_DOCUMENT } from '../src/diagnostics/diagnostics.constants.ts';
+import { MAX_DIAGNOSTICS_PER_DOCUMENT, MAX_DOCUMENT_LENGTH } from '../src/diagnostics/diagnostics.constants.ts';
 import { createFakeHost } from './support/fake-host.ts';
 import type { FakeHost } from './support/fake-host.types.ts';
 
@@ -159,6 +159,45 @@ describe('diagnósticos em tempo real', () => {
     expect(published).toHaveLength(1);
     expect(published[0]).toMatchObject({ code: 'GS0901', severity: 'error', startLine: 0, startCharacter: 0 });
     expect(published[0]?.message).not.toContain('quebrou');
+  });
+
+  it('registra a causa da falha na saída sem vazar o texto do programa', async () => {
+    const { host, clock } = setup(() => {
+      throw new TypeError('quebrou feio');
+    });
+    host.emit({ kind: 'changed', document: host.makeDocument({ text: 'segredo do programa' }) });
+    clock.advance(DELAY);
+    await flush();
+    const logged = host.output.join('');
+    expect(logged).toContain('TypeError: quebrou feio');
+    expect(logged).not.toContain('segredo do programa');
+  });
+
+  it('pula a compilação de documento grande demais e publica aviso', async () => {
+    let calls = 0;
+    const { host, clock } = setup(() => {
+      calls += 1;
+      return failure(0);
+    });
+    host.emit({ kind: 'changed', document: host.makeDocument({ text: 'a'.repeat(MAX_DOCUMENT_LENGTH + 1) }) });
+    clock.advance(DELAY);
+    await flush();
+    expect(calls).toBe(0);
+    expect(host.diagnostics.get(URI)).toMatchObject([{ code: 'GS-GRANDE', severity: 'warning' }]);
+  });
+
+  it('compila documento sem título e ignora esquemas que não são arquivo', async () => {
+    let calls = 0;
+    const { host, clock } = setup(() => {
+      calls += 1;
+      return failure(0);
+    });
+    host.emit({ kind: 'changed', document: host.makeDocument({ uri: 'untitled:Untitled-1', scheme: 'untitled', text: 'x' }) });
+    host.emit({ kind: 'changed', document: host.makeDocument({ uri: 'output:saida', scheme: 'output', text: 'x' }) });
+    clock.advance(DELAY);
+    await flush();
+    expect(calls).toBe(1);
+    expect(host.diagnostics.has('output:saida')).toBe(false);
   });
 
   it('também trata rejeição assíncrona do compilador', async () => {
