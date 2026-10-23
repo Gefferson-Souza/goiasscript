@@ -54,6 +54,12 @@ Node de verdade, cada bloco e cada solução. Medido agora:
 
 Os blocos `erro-esperado` precisam emitir exatamente o código marcado; os demais não podem emitir nenhum diagnóstico.
 
+**Segurança da execução (revisão independente do Engoianador, achado M3, corrigido em 9f7f43e).** O processo Node que
+roda o programa da lição sobe com o modelo de permissão (`--permission`) e leitura restrita à pasta temporária do
+programa (`--allow-fs-read`); rede, processo filho e escrita ficam negados por padrão. Testes em
+`run-lesson-program.test.ts`: leitura fora da pasta falha, escrita e processo filho falham, leitura do próprio programa
+continua funcionando. Conferido que `check-cartilha` passa nos Node 22.23, 24.21 e 26 (engines `>=22.22.1`).
+
 ## 4. E2E da cartilha por navegador
 
 Os testes rodam só na CI porque o disco local não comporta os navegadores do Playwright (ver
