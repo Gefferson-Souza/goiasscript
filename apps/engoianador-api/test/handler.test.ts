@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
+import { createCache } from '../src/cache';
 import { createHandler } from '../src/handler';
 import type { HandlerDeps } from '../src/handler.types';
 import index from '../src/index';
@@ -197,6 +198,28 @@ describe('createHandler', () => {
     expect(response.headers.get('Content-Type')).toContain('application/json');
     expect(response.headers.get('Access-Control-Allow-Origin')).toBe(ALLOWED_ORIGIN);
     expect(limiter.reserve).not.toHaveBeenCalled();
+  });
+});
+
+describe('cache real no handler', () => {
+  it('acerto de cache não chama provedor nem reserva cota', async () => {
+    const store = new Map<string, string>();
+    const kv = {
+      get: (key: string): Promise<string | null> => Promise.resolve(store.get(key) ?? null),
+      put: (key: string, value: string): Promise<void> => {
+        store.set(key, value);
+        return Promise.resolve();
+      },
+    };
+    const log = { warn: vi.fn(), error: vi.fn() };
+    const cache = createCache({ kv, ttlSec: 3600, promptVersion: 'p1', modelId: 'm1', log });
+    const { deps, limiter, providers } = makeDoubles({ cache, log });
+    const first = await call(deps, jsonRequest('{"text":"oi   mundo"}'));
+    const second = await call(deps, jsonRequest('{"text":" oi mundo "}'));
+    expect(await first.json()).toEqual({ text: 'uai, sô' });
+    expect(await second.json()).toEqual({ text: 'uai, sô' });
+    expect(providers.complete).toHaveBeenCalledTimes(1);
+    expect(limiter.reserve).toHaveBeenCalledTimes(1);
   });
 });
 

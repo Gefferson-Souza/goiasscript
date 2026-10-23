@@ -9,6 +9,7 @@ import { createLimiter } from './limiter';
 import { workerLog } from './log';
 import { MESSAGES } from './messages.constants';
 import { createWorkerProviderChain } from './providers';
+import { PROMPT_VERSION } from './prompt';
 import { QuotaLedgerObject } from './rate-limiter.do';
 import { ERROR_FIELD } from './responses.constants';
 
@@ -42,7 +43,13 @@ function handlerFor(env: Env, config: Extract<ConfigResult, { readonly ok: true 
   const handler = createHandler({
     limiter: createLimiter(env, config),
     providers: createWorkerProviderChain({ env, config, log: workerLog }),
-    cache: createCache(),
+    cache: createCache({
+      kv: env.ENGOIANADOR_CACHE,
+      ttlSec: config.cacheTtlSec,
+      promptVersion: PROMPT_VERSION,
+      modelId: `${config.groqModel}+${config.workersAiModel}`,
+      log: workerLog,
+    }),
     health: () => buildHealthReport(env, config),
     config,
     log: workerLog,
