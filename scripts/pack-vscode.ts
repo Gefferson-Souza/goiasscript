@@ -7,6 +7,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import { buildVscode } from './build-vscode.ts';
+import { isPreReleaseVersion } from './release-target-vscode.ts';
 import type { PackVscodeOptions, PackVscodeResult } from './pack-vscode.types.ts';
 
 const execFileAsync = promisify(execFile);
@@ -51,7 +52,9 @@ export async function packVscode(options: PackVscodeOptions): Promise<PackVscode
     const manifest = stageSources(stagingDir, (options.env ?? process.env)[PUBLISHER_VARIABLE]);
     await buildVscode({ outDir: path.join(stagingDir, 'dist') });
     const vsix = path.join(outDir, `${manifest.name}-${manifest.version}.vsix`);
-    await execFileAsync(process.execPath, [resolveVsceScript(), 'package', '--no-dependencies', '--out', vsix], { cwd: stagingDir });
+    // O vsix já nasce no canal certo: o vsce recusa publicar como pré-lançamento um pacote que não foi empacotado assim.
+    const channelArgs = isPreReleaseVersion(manifest.version) ? ['--pre-release'] : [];
+    await execFileAsync(process.execPath, [resolveVsceScript(), 'package', '--no-dependencies', ...channelArgs, '--out', vsix], { cwd: stagingDir });
     return { vsix, sha256: createHash('sha256').update(fs.readFileSync(vsix)).digest('hex') };
   } finally {
     fs.rmSync(stagingDir, { recursive: true, force: true });

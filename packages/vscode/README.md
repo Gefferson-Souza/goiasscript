@@ -3,6 +3,15 @@
 Extensão da linguagem GoiásScript: o editor conhece os arquivos `.gs`, mostra os erros enquanto ocê digita,
 sugere as palavras goianas e bota o programa pra moer.
 
+## Instalação
+
+- No VS Code: abra a aba de extensões, procure por **GoiásScript** e clique em instalar.
+- No VSCodium e em editores parecidos: a extensão também está no Open VSX.
+- Pelo terminal: `code --install-extension goiasscript.goiasscript-vscode`.
+
+Enquanto a linguagem não chega na versão 3.0.0, a extensão sai como pré-lançamento (versões `0.3.N`). Na página
+da extensão, escolha "Mudar para a versão de pré-lançamento" se o editor não oferecer sozinho.
+
 ## Comandos
 
 - **GoiásScript: Traduz** — mostra o JavaScript que o programa vira.
