@@ -1,5 +1,9 @@
 export const ONLINE_FLAG = '--online';
 export const HEAD_TIMEOUT_MS = 10_000;
+export const HTTP_FORBIDDEN = 403;
+export const HTTP_METHOD_NOT_ALLOWED = 405;
+export const PROBE_USER_AGENT = 'goiasscript-link-check/1.0';
+export const FIRST_BYTE_RANGE = 'bytes=0-0';
 export const HTTP_OK_MIN = 200;
 export const HTTP_REDIRECT_MAX = 399;
 
