@@ -121,6 +121,21 @@ describe('estado ready e relatório', () => {
   });
 });
 
+describe('descrição do repositório', () => {
+  const DESCRIPTION_LIMIT = 350;
+  const doc = fs.readFileSync(path.join(ROOT_DIR, 'docs/fase-9/descricao-do-repositorio.md'), 'utf8');
+  const description = /## Descrição \(campo About\)\n\n> (.+)\n/u.exec(doc)?.[1] ?? '';
+
+  it('traz o texto proposto, dentro do limite do GitHub', () => {
+    expect(description).not.toBe('');
+    expect(description.length).toBeLessThanOrEqual(DESCRIPTION_LIMIT);
+  });
+
+  it('não promete o que depende de publicação do dono', () => {
+    expect(description).not.toMatch(/playground|extensão|vs ?code|marketplace/iu);
+  });
+});
+
 describe('README', () => {
   const entries = [...loadTraceability(ROOT_DIR), ...loadReadmeClaims(ROOT_DIR)];
   const readme = fs.readFileSync(path.join(ROOT_DIR, 'README.md'), 'utf8');
@@ -129,6 +144,31 @@ describe('README', () => {
     expect(readmeClaims(readme).length).toBeGreaterThan(0);
     expect(readmeProblems(readme, entries)).toEqual([]);
     expect(checkTraceability(loadReadmeClaims(ROOT_DIR), realFiles(ROOT_DIR))).toEqual([]);
+  });
+
+  it('comando em bloco de código ou em prosa também precisa de prova', () => {
+    const block = ['```bash', 'goiasscript inventado x.gs', 'goias', '```'].join('\n');
+    expect(readmeClaims(block)).toEqual(['goiasscript inventado', 'goias']);
+    expect(readmeProblems(block, entries)).toHaveLength(1);
+    expect(readmeProblems('Rode `goiasscript outro-inventado` e pronto.', entries)).toHaveLength(1);
+    expect(readmeProblems('Rode `goiasscript traduz a.gs` e pronto.', entries)).toEqual([]);
+  });
+
+  it('bloco goiasscript e bloco sem linguagem não viram promessa', () => {
+    const blocks = ['```goiasscript', 'goiasscript inventado', '```', '```', 'goiasscript inventado', '```'].join('\n');
+    expect(readmeClaims(blocks)).toEqual([]);
+  });
+
+  it('o comando de instalação só vale quando o README o cita', () => {
+    expect(readmeClaims('sem comando nenhum')).toEqual([]);
+    expect(readmeClaims('`npm install --global goiasscript`')).toEqual(['npm install --global goiasscript']);
+  });
+
+  it('todo comando dos blocos do README tem prova', () => {
+    const shellLines = Array.from(readme.matchAll(/```bash\n([\s\S]*?)```/gu), (match) => match[1] ?? '').join('\n');
+    expect(shellLines).toContain('goiasscript ');
+    expect(readmeClaims(readme)).toContain('goiasscript bota_pra_moer');
+    expect(readmeClaims(readme)).toContain('npm install --global goiasscript');
   });
 
   it('promessa sem prova falha', () => {
