@@ -58,11 +58,12 @@ const limits: readonly HostileProgram[] = [
     source: () => `vai_indo (trem i é 0; i menor_que ${String(UNREACHABLE_LINES)}; i é i mais 1) {\n  prosa("linha " mais i)\n}`,
   },
   { name: 'pergunta sem resposta', expect: 'stopped-by-limit', source: () => 'uai resposta é espera_um_cadim pergunta("Quem é ocê?")\nprosa(resposta)' },
+  // Fora da posição de cauda: o JavaScriptCore elimina chamadas de cauda em modo estrito e não estouraria a pilha.
   {
     name: 'recursão sem fim',
     expect: 'tried-and-failed',
     failurePatterns: [STACK_EXHAUSTED],
-    source: () => 'faz_trem desce(n) {\n  faz_favor desce(n mais 1)\n}\nprosa("tentei")\ntenta_aí {\n  desce(0)\n} se_der_ruim (erro) {\n  prosa("deu ruim: " mais erro.mensagem)\n}',
+    source: () => 'faz_trem desce(n) {\n  faz_favor 1 mais desce(n mais 1)\n}\nprosa("tentei")\ntenta_aí {\n  desce(0)\n} se_der_ruim (erro) {\n  prosa("deu ruim: " mais erro.mensagem)\n}',
   },
 ];
 
