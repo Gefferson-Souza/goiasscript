@@ -17,3 +17,7 @@ No Modo Restrito do VS Code a extensão só traduz e mostra os erros. Executar o
 - `goiasscript.tone`: jeito de falar das mensagens (`raiz` ou `neutro`).
 - `goiasscript.diagnosticsDelayMs`: espera, em milissegundos, antes de conferir os erros.
 - `goiasscript.lessonBaseUrl`: endereço https da cartilha, pra cada erro virar um link.
+
+## Versão do Node
+
+O CLI que vem dentro da extensão precisa do Node 22.12 ou mais novo. Em editor que ainda traz um Node mais velho, o comando avisa em goianês (`GS0904`) em vez de quebrar sem explicação.
