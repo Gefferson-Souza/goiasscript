@@ -33,7 +33,8 @@
     "depcruise": "depcruise packages tools --config .dependency-cruiser.cjs",
     "knip": "knip",
     "changeset": "changeset",
-    "audit:checklist": "node scripts/audit-checklist.ts"
+    "audit:checklist": "node scripts/audit-checklist.ts",
+    "video:facts": "node scripts/video-facts.ts"
   },
   "devDependencies": {
     "@changesets/cli": "3.0.3",
