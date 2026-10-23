@@ -12,6 +12,22 @@ test.describe('Segurança', () => {
     expect(headers['x-content-type-options']).toBe('nosniff');
   });
 
+  test('a página serve uma única CSP, sem a política do runner', async ({ page }) => {
+    const res = await page.goto('/');
+    const csp = res!.headers()['content-security-policy'] || '';
+    expect(csp.split(';').filter(d => d.trim().startsWith('default-src'))).toEqual(["default-src 'self'"]);
+    expect(csp).not.toContain("default-src 'none'");
+    expect(csp).not.toContain("'unsafe-eval'");
+  });
+
+  // Só vale quando o runner existir em /sandbox/runner.js.
+  test.fixme('o runner serve só a CSP restrita e não herda a da página', async ({ request }) => {
+    const res = await request.get('/sandbox/runner.js');
+    const csp = res.headers()['content-security-policy'] || '';
+    expect(csp).toBe("default-src 'none'; script-src 'self' blob:; worker-src blob:; connect-src 'none'; img-src 'none'");
+    expect(res.headers()['cross-origin-resource-policy']).toBe('same-origin');
+  });
+
   test('código do usuário não acessa fetch/globais (sandbox)', async ({ page }) => {
     let chamou = false;
     await page.route('https://evil.example/**', route => {
