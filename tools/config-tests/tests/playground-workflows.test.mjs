@@ -8,6 +8,7 @@ const WORKFLOW_PATH = '.github/workflows/playground-e2e.yml';
 const BROWSERS = ['chromium', 'firefox', 'webkit'];
 const PINNED_ACTION = /^[\w.-]+\/[\w./-]+@[0-9a-f]{40}$/;
 const REPORT_ARTIFACT = 'playwright-report';
+const INSTALL_TIMEOUT_MINUTES = 10;
 
 const text = fs.readFileSync(path.join(ROOT_DIR, WORKFLOW_PATH), 'utf8');
 const workflow = parse(text);
@@ -30,6 +31,10 @@ describe('playground-e2e.yml', () => {
   it('instala os navegadores com as dependências do sistema', () => {
     const commands = steps.map((step) => step.run ?? '').join('\n');
     expect(commands).toMatch(/playwright install --with-deps/u);
+  });
+  it('limita o tempo da instalação para o apt travado falhar cedo', () => {
+    const install = steps.find((step) => (step.run ?? '').includes('playwright install'));
+    expect(install?.['timeout-minutes']).toBe(INSTALL_TIMEOUT_MINUTES);
   });
   it('envia o relatório como artefato somente em falha', () => {
     const upload = steps.find((step) => step.uses?.startsWith('actions/upload-artifact@'));
