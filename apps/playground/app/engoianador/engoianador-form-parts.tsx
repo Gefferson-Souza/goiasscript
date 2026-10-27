@@ -2,11 +2,11 @@ import { MAX_INPUT_CHARS } from '../../lib/engoianador-client.constants.ts';
 import { PRESETS } from './engoianador.constants.ts';
 import type { EngoianadorSession } from './engoianador-session.types.ts';
 
-const FOCUS_RING = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-amarelo';
-const SECONDARY_BUTTON = `rounded border border-goias-borda bg-goias-fundo px-4 py-2 text-goias-texto hover:border-goias-amarelo disabled:opacity-50 ${FOCUS_RING}`;
-const PRIMARY_BUTTON = `rounded bg-goias-verde px-5 py-2 font-semibold text-white hover:bg-goias-verde/80 disabled:cursor-not-allowed disabled:opacity-50 ${FOCUS_RING}`;
-const PRESET_BUTTON = `rounded-full border border-goias-borda bg-goias-painel px-3 py-1 text-sm text-goias-texto hover:border-goias-amarelo disabled:opacity-50 ${FOCUS_RING}`;
-const PANEL_FIELD = `min-h-[220px] flex-1 resize-y rounded border border-goias-borda bg-goias-painel p-3 font-mono text-sm ${FOCUS_RING}`;
+const FOCUS_RING = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-yellow';
+const SECONDARY_BUTTON = `rounded border border-goias-border bg-goias-background px-4 py-2 text-goias-text hover:border-goias-yellow disabled:opacity-50 ${FOCUS_RING}`;
+const PRIMARY_BUTTON = `rounded bg-goias-green px-5 py-2 font-semibold text-white hover:bg-goias-green/80 disabled:cursor-not-allowed disabled:opacity-50 ${FOCUS_RING}`;
+const PRESET_BUTTON = `rounded-full border border-goias-border bg-goias-panel px-3 py-1 text-sm text-goias-text hover:border-goias-yellow disabled:opacity-50 ${FOCUS_RING}`;
+const PANEL_FIELD = `min-h-[220px] flex-1 resize-y rounded border border-goias-border bg-goias-panel p-3 font-mono text-sm ${FOCUS_RING}`;
 
 export function PresetBar({ session }: { readonly session: EngoianadorSession }) {
   return (
@@ -33,7 +33,7 @@ export function TextPanels({ session }: { readonly session: EngoianadorSession }
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div className="flex flex-col">
-        <label htmlFor="entrada" className="mb-1 text-sm text-goias-texto/70">
+        <label htmlFor="entrada" className="mb-1 text-sm text-goias-text/70">
           Texto original ({session.input.length}/{MAX_INPUT_CHARS})
         </label>
         <textarea
@@ -43,11 +43,11 @@ export function TextPanels({ session }: { readonly session: EngoianadorSession }
             session.setInput(event.target.value);
           }}
           placeholder="Olá, tudo bem? Estou aprendendo programação."
-          className={`${PANEL_FIELD} text-goias-texto`}
+          className={`${PANEL_FIELD} text-goias-text`}
         />
       </div>
       <div className="flex flex-col">
-        <label htmlFor="saida" className="mb-1 text-sm text-goias-texto/70">
+        <label htmlFor="saida" className="mb-1 text-sm text-goias-text/70">
           Versão engoianada
         </label>
         <textarea
@@ -56,7 +56,7 @@ export function TextPanels({ session }: { readonly session: EngoianadorSession }
           readOnly
           aria-live="polite"
           placeholder="O resultado em goianês raiz aparece aqui..."
-          className={`${PANEL_FIELD} text-goias-amarelo`}
+          className={`${PANEL_FIELD} text-goias-yellow`}
         />
       </div>
     </div>

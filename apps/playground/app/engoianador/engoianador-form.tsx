@@ -16,7 +16,7 @@ export function EngoianadorForm({ engoianadorUrl }: { readonly engoianadorUrl: s
       <PresetBar session={session} />
       <TextPanels session={session} />
       <ActionBar session={session} />
-      <p role="note" className="text-center text-xs text-goias-texto/70">
+      <p role="note" className="text-center text-xs text-goias-text/70">
         {PRIVACY_NOTICE}
       </p>
       {session.errorMessage !== null && (
@@ -24,8 +24,8 @@ export function EngoianadorForm({ engoianadorUrl }: { readonly engoianadorUrl: s
           {session.errorMessage}
         </div>
       )}
-      <p className="text-center text-xs text-goias-texto/50">
-        <a href="/doacao" className="underline hover:text-goias-amarelo">
+      <p className="text-center text-xs text-goias-text/50">
+        <a href="/doacao" className="underline hover:text-goias-yellow">
           Apoia o trem
         </a>
       </p>

@@ -35,7 +35,7 @@ export default async function LessonPage({ params }: PageProps) {
   return (
     <div className="space-y-4">
       <nav className="flex flex-wrap justify-between gap-2 text-sm">
-        <Link href={PRIMER_INDEX_PATH} className="hover:text-goias-amarelo">
+        <Link href={PRIMER_INDEX_PATH} className="hover:text-goias-yellow">
           {PRIMER_TEXTS.backToIndex}
         </Link>
         <span className="flex gap-4">
@@ -43,7 +43,7 @@ export default async function LessonPage({ params }: PageProps) {
           {next !== undefined && <Link href={`${LESSON_ROUTE_PREFIX}${next.id}`}>{PRIMER_TEXTS.next}</Link>}
         </span>
       </nav>
-      <p className="text-xs text-goias-texto/60">{PRIMER_TEXTS.lessonLabel(lesson.order)}</p>
+      <p className="text-xs text-goias-text/60">{PRIMER_TEXTS.lessonLabel(lesson.order)}</p>
       <div className="grid gap-6 lg:grid-cols-2">
         <article data-testid={TEST_IDS.lessonProse}>
           <LessonProse markdown={lesson.bodyMarkdown} />

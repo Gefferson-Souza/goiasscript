@@ -23,8 +23,8 @@ export function TargetSwitch({ value, onChange }: Props) {
           role="radio"
           aria-checked={value === option.value}
           onClick={() => onChange(option.value)}
-          className={`rounded px-2 py-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-amarelo ${
-            value === option.value ? 'bg-goias-amarelo text-goias-fundo' : 'border border-goias-borda text-goias-texto/80 hover:text-goias-amarelo'
+          className={`rounded px-2 py-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-yellow ${
+            value === option.value ? 'bg-goias-yellow text-goias-background' : 'border border-goias-border text-goias-text/80 hover:text-goias-yellow'
           }`}
         >
           {option.label}

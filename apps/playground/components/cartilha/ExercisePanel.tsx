@@ -16,14 +16,14 @@ function Comparison({ grade }: { readonly grade: GradeResult }) {
   return (
     <div className="mt-2 grid gap-2 sm:grid-cols-2">
       <div>
-        <h3 className="text-xs font-semibold text-goias-amarelo">{PRIMER_TEXTS.expectedTitle}</h3>
-        <pre data-testid={TEST_IDS.exerciseExpected} className="whitespace-pre-wrap rounded bg-goias-fundo p-2 font-mono text-sm">
+        <h3 className="text-xs font-semibold text-goias-yellow">{PRIMER_TEXTS.expectedTitle}</h3>
+        <pre data-testid={TEST_IDS.exerciseExpected} className="whitespace-pre-wrap rounded bg-goias-background p-2 font-mono text-sm">
           {shown(grade.expectedStdout)}
         </pre>
       </div>
       <div>
-        <h3 className="text-xs font-semibold text-goias-amarelo">{PRIMER_TEXTS.actualTitle}</h3>
-        <pre data-testid={TEST_IDS.exerciseActual} className="whitespace-pre-wrap rounded bg-goias-fundo p-2 font-mono text-sm">
+        <h3 className="text-xs font-semibold text-goias-yellow">{PRIMER_TEXTS.actualTitle}</h3>
+        <pre data-testid={TEST_IDS.exerciseActual} className="whitespace-pre-wrap rounded bg-goias-background p-2 font-mono text-sm">
           {shown(grade.actualStdout)}
         </pre>
       </div>
@@ -34,9 +34,9 @@ function Comparison({ grade }: { readonly grade: GradeResult }) {
 function Verdict({ grade }: { readonly grade: GradeResult }) {
   const detail = grade.diagnostic?.message ?? grade.reason;
   return (
-    <div data-testid={TEST_IDS.exerciseVerdict} data-verdict={grade.verdict} role="status" className="mt-3 rounded border border-goias-borda p-3 text-sm">
+    <div data-testid={TEST_IDS.exerciseVerdict} data-verdict={grade.verdict} role="status" className="mt-3 rounded border border-goias-border p-3 text-sm">
       <p className={grade.verdict === 'correct' ? 'font-semibold text-green-300' : 'font-semibold text-yellow-300'}>{VERDICT_TEXTS[grade.verdict]}</p>
-      {detail !== undefined && <p className="mt-1 whitespace-pre-wrap text-goias-texto/80">{detail}</p>}
+      {detail !== undefined && <p className="mt-1 whitespace-pre-wrap text-goias-text/80">{detail}</p>}
       {grade.verdict === 'wrong' && <Comparison grade={grade} />}
     </div>
   );
@@ -44,16 +44,16 @@ function Verdict({ grade }: { readonly grade: GradeResult }) {
 
 export function ExercisePanel({ prompt, grade, grading, busy, onCheck }: Props) {
   return (
-    <section aria-label={PRIMER_TEXTS.exerciseTitle} className="rounded-md border border-goias-borda bg-goias-painel p-3">
-      <h2 className="text-sm font-semibold text-goias-amarelo">{PRIMER_TEXTS.exerciseTitle}</h2>
+    <section aria-label={PRIMER_TEXTS.exerciseTitle} className="rounded-md border border-goias-border bg-goias-panel p-3">
+      <h2 className="text-sm font-semibold text-goias-yellow">{PRIMER_TEXTS.exerciseTitle}</h2>
       <p className="mt-1 text-sm">{prompt}</p>
-      <p className="text-xs text-goias-texto/60">{PRIMER_TEXTS.exerciseHint}</p>
+      <p className="text-xs text-goias-text/60">{PRIMER_TEXTS.exerciseHint}</p>
       <button
         type="button"
         data-testid={TEST_IDS.exerciseCheckButton}
         onClick={onCheck}
         disabled={busy}
-        className="mt-3 rounded bg-goias-verde px-3 py-1.5 text-sm font-semibold text-white hover:bg-goias-verde/80 disabled:cursor-not-allowed disabled:opacity-50"
+        className="mt-3 rounded bg-goias-green px-3 py-1.5 text-sm font-semibold text-white hover:bg-goias-green/80 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {grading ? PRIMER_TEXTS.checking : PRIMER_TEXTS.checkExercise}
       </button>

@@ -14,18 +14,18 @@ interface Props {
   readonly onPickExample: (id: string) => void;
 }
 
-const BUTTON = 'rounded px-3 py-1.5 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-amarelo';
-const SECONDARY = `${BUTTON} border border-goias-borda bg-goias-fundo text-goias-texto hover:bg-goias-fundo/80`;
+const BUTTON = 'rounded px-3 py-1.5 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-yellow';
+const SECONDARY = `${BUTTON} border border-goias-border bg-goias-background text-goias-text hover:bg-goias-background/80`;
 
 export function Toolbar({ running, examples, shareMessage, onRun, onStop, onClear, onShare, onPickExample }: Props) {
   return (
-    <div className="flex flex-wrap items-center gap-2 border-b border-goias-borda bg-goias-painel px-3 py-2">
+    <div className="flex flex-wrap items-center gap-2 border-b border-goias-border bg-goias-panel px-3 py-2">
       <button
         type="button"
         data-testid={TEST_IDS.runButton}
         onClick={onRun}
         disabled={running}
-        className={`${BUTTON} bg-goias-verde font-semibold text-white hover:bg-goias-verde/80 disabled:cursor-not-allowed disabled:opacity-50`}
+        className={`${BUTTON} bg-goias-green font-semibold text-white hover:bg-goias-green/80 disabled:cursor-not-allowed disabled:opacity-50`}
       >
         {running ? TEXTS.running : TEXTS.run}
       </button>
@@ -39,20 +39,20 @@ export function Toolbar({ running, examples, shareMessage, onRun, onStop, onClea
         {TEXTS.share}
       </button>
       {shareMessage !== null && (
-        <span role="status" className="text-xs text-goias-amarelo">
+        <span role="status" className="text-xs text-goias-yellow">
           {shareMessage}
         </span>
       )}
 
       <div className="ml-auto flex items-center gap-2 text-sm">
-        <label htmlFor="seletor-exemplo" className="text-goias-texto/70">
+        <label htmlFor="seletor-exemplo" className="text-goias-text/70">
           {TEXTS.examples}
         </label>
         <select
           id="seletor-exemplo"
           value=""
           onChange={(event) => onPickExample(event.target.value)}
-          className="rounded border border-goias-borda bg-goias-fundo px-2 py-1 text-sm text-goias-texto focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-amarelo"
+          className="rounded border border-goias-border bg-goias-background px-2 py-1 text-sm text-goias-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-yellow"
         >
           <option value="" disabled>
             {TEXTS.pickExample}

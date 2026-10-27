@@ -10,7 +10,7 @@ export function RetryButton({ label, onRetry }: RetryButtonProps) {
     <button
       type="button"
       onClick={onRetry}
-      className="rounded bg-goias-verde px-4 py-2 font-semibold text-white hover:bg-goias-verde/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-amarelo"
+      className="rounded bg-goias-green px-4 py-2 font-semibold text-white hover:bg-goias-green/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-yellow"
     >
       {label}
     </button>
