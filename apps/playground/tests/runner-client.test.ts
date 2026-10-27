@@ -1,4 +1,4 @@
-import type { CompileSuccess } from '@goiasscript/compiler';
+import { translateRuntimeError, type CompileSuccess } from '@goiasscript/compiler';
 import { describe, expect, it } from 'vitest';
 import { RUN_LIMITS } from '../config/run-limits.constants.ts';
 import type { RunLimits } from '../config/run-limits.types.ts';
@@ -19,7 +19,12 @@ const compiledOf = (code: string): CompileSuccess => ({
   awaitable: true,
 });
 
-function createHarness(limits: RunLimits = RUN_LIMITS) {
+const flushMicrotasks = async (): Promise<void> => {
+  await Promise.resolve();
+  await Promise.resolve();
+};
+
+function createHarness(limits: RunLimits = RUN_LIMITS, loadTranslator: () => Promise<typeof translateRuntimeError> = () => Promise.resolve(translateRuntimeError)) {
   const timers = new FakeTimers();
   const workers: FakeWorker[] = [];
   const events: RunEvent[] = [];
@@ -32,6 +37,7 @@ function createHarness(limits: RunLimits = RUN_LIMITS) {
     limits,
     now: timers.now,
     timers,
+    loadTranslator,
   });
   return {
     client,
@@ -191,20 +197,22 @@ describe('cliente do runner', () => {
     expect(harness.worker.terminated).toBe(true);
   });
 
-  it('falha traduzida: a trava de laço vira GS0701 na linha do .gs', () => {
+  it('falha traduzida: a trava de laço vira GS0701 na linha do .gs', async () => {
     const harness = createHarness();
     startRun(harness);
     harness.worker.emit({ type: 'gs:falhou', runId: 1, stack: 'Error: GS0701', errorName: 'Error', gsCode: 'GS0701', gsLine: 2 });
+    await flushMicrotasks();
     const event = harness.events[0];
     expect(event?.kind).toBe('failed');
     expect(event?.kind === 'failed' ? [event.diagnostic.code, event.diagnostic.range.start.line] : []).toEqual(['GS0701', 2]);
     expect(harness.worker.terminated).toBe(true);
   });
 
-  it('falha traduzida: erro comum usa a linha da pilha', () => {
+  it('falha traduzida: erro comum usa a linha da pilha', async () => {
     const harness = createHarness();
     startRun(harness);
     harness.worker.emit({ type: 'gs:falhou', runId: 1, stack: 'TypeError: x\n    at blob:null/abc:3:5', errorName: 'TypeError' });
+    await flushMicrotasks();
     const event = harness.events[0];
     expect(event?.kind === 'failed' ? [event.diagnostic.code, event.diagnostic.range.start.line] : []).toEqual(['GS0710', 3]);
   });
@@ -290,11 +298,12 @@ describe('cliente do runner', () => {
     expect(harness.events).toHaveLength(1);
   });
 
-  it('erro assíncrono depois de pronto chega ao host como falha', () => {
+  it('erro assíncrono depois de pronto chega ao host como falha', async () => {
     const harness = createHarness();
     startRun(harness);
     harness.worker.emit({ type: 'gs:pronto' });
     harness.worker.emitError('Uncaught Error: boom');
+    await flushMicrotasks();
     expect(harness.events.at(-1)).toMatchObject({ kind: 'failed' });
     expect(harness.worker.terminated).toBe(true);
   });
@@ -313,5 +322,15 @@ describe('cliente do runner', () => {
     harness.client.stop();
     harness.worker.emitError('tarde');
     expect(harness.events).toEqual([{ kind: 'stopped' }]);
+  });
+
+  it('falha ao carregar o tradutor ainda encerra a execução com diagnóstico', async () => {
+    const harness = createHarness(RUN_LIMITS, () => Promise.reject(new Error('chunk perdido')));
+    startRun(harness);
+    harness.worker.emit({ type: 'gs:falhou', runId: 1, stack: 'Error: x', errorName: 'Error' });
+    await flushMicrotasks();
+    expect(harness.events).toHaveLength(1);
+    expect(harness.events[0]).toMatchObject({ kind: 'failed', diagnostic: { severity: 'error' } });
+    expect(harness.worker.terminated).toBe(true);
   });
 });

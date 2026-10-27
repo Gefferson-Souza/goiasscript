@@ -1,4 +1,3 @@
-import { translateRuntimeError } from '@goiasscript/compiler';
 import type { RuntimeErrorContext } from '@goiasscript/compiler';
 import { MESSAGE_TYPES } from '../../sandbox/protocol.constants.ts';
 import type { RunnerToHost } from '../../sandbox/protocol.types.ts';
@@ -104,14 +103,27 @@ function handleFailed(session: RunSession, message: FailedMessage, deps: Session
     ...(message.gsCode === undefined ? {} : { gsCode: message.gsCode }),
     ...(message.gsLine === undefined ? {} : { gsLine: message.gsLine }),
   };
-  conclude(session, 'fail', { kind: 'failed', diagnostic: translateRuntimeError(error, runtimeContextOf(session), deps.tone) }, deps);
+  concludeTranslated(session, error, deps);
+}
+
+// O tradutor vem de um chunk carregado sob demanda; se o carregamento falhar, o aluno ainda recebe um diagnóstico.
+function concludeTranslated(session: RunSession, error: unknown, deps: SessionDeps): void {
+  deps.loadTranslator().then(
+    (translate) => {
+      conclude(session, 'fail', { kind: 'failed', diagnostic: translate(error, runtimeContextOf(session), deps.tone) }, deps);
+    },
+    () => {
+      conclude(session, 'fail', { kind: 'failed', diagnostic: hostDiagnostic('loadFailure', deps.tone) }, deps);
+    },
+  );
 }
 
 export function handleWorkerError(session: RunSession, event: ErrorEvent, deps: SessionDeps): void {
-  const diagnostic = session.ready.get()
-    ? translateRuntimeError({ name: GENERIC_ERROR_NAME, stack: event.message }, runtimeContextOf(session), deps.tone)
-    : hostDiagnostic('loadFailure', deps.tone);
-  conclude(session, 'fail', { kind: 'failed', diagnostic }, deps);
+  if (session.ready.get()) {
+    concludeTranslated(session, { name: GENERIC_ERROR_NAME, stack: event.message }, deps);
+    return;
+  }
+  conclude(session, 'fail', { kind: 'failed', diagnostic: hostDiagnostic('loadFailure', deps.tone) }, deps);
 }
 
 export function handleWorkerMessageError(session: RunSession, deps: SessionDeps): void {
