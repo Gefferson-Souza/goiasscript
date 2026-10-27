@@ -133,8 +133,9 @@ reports/
 .stryker-tmp/
 packages/compiler/reports/
 
-# Runner do sandbox gerado pelo build
+# Gerados pelo build do playground
 apps/playground/public/sandbox/
+apps/playground/content/o-que-mudou.md
 
 # === EXTENSAO VS CODE ===
 packages/vscode/pack/
