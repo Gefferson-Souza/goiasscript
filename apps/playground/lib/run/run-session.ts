@@ -106,14 +106,16 @@ function handleFailed(session: RunSession, message: FailedMessage, deps: Session
   concludeTranslated(session, error, deps);
 }
 
-// O tradutor vem de um chunk carregado sob demanda; se o carregamento falhar, o aluno ainda recebe um diagnóstico.
+// A sessão trava e o Worker morre antes do import dinâmico; só o diagnóstico espera o chunk do tradutor.
 function concludeTranslated(session: RunSession, error: unknown, deps: SessionDeps): void {
+  if (!isActive(session.phase.get())) return;
+  conclude(session, 'fail', null, deps);
   deps.loadTranslator().then(
     (translate) => {
-      conclude(session, 'fail', { kind: 'failed', diagnostic: translate(error, runtimeContextOf(session), deps.tone) }, deps);
+      session.emit({ kind: 'failed', diagnostic: translate(error, runtimeContextOf(session), deps.tone) });
     },
     () => {
-      conclude(session, 'fail', { kind: 'failed', diagnostic: hostDiagnostic('loadFailure', deps.tone) }, deps);
+      session.emit({ kind: 'failed', diagnostic: hostDiagnostic('loadFailure', deps.tone) });
     },
   );
 }
