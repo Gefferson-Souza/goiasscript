@@ -6,10 +6,8 @@ atendido**: 5 das 19 promessas seguem `ready` e só fecham depois dos smokes pó
 CRITICAL/HIGH fechados (anexo em `docs/fase-9/checklist-auditoria.md`) e nenhum CRITICAL/HIGH ficou aberto nas revisões
 de segurança das fases 3, 4, 5 e 7. Ressalvas técnicas que continuam abertas:
 
-1. S5 só parcial: o baseline do scanner de regras não está vazio (`apps/playground/tailwind.config.ts`, 7 ocorrências
-   de R14), e o spec pede baseline vazio. Fica para decisão do dono ou correção do arquivo.
-2. A mutação do compilador (92,91) é a medida da Fase 2, sem nova medição nesta fase.
-3. Os manifestos seguem em `3.0.0-alpha.0` e não há changeset pendente; o release estável depende do versionamento.
+1. A mutação do compilador (92,91) é a medida da Fase 2, sem nova medição nesta fase.
+2. Os manifestos seguem em `3.0.0-alpha.0` e não há changeset pendente; o release estável depende do versionamento.
 
 Também estão abertos o teto de 29 KB brotli do ADR-0001 (excedido na Fase 4) e todos os atos do dono. O GATE 9 só
 fecha depois de publicar, implantar e rodar os smokes (seção 8). Nada foi enviado ao remoto, publicado, implantado nem
@@ -102,7 +100,7 @@ O README só afirma o que está provado; a descrição proposta para o campo "Ab
 | S2 | cumprido | 227 casos em `tests/conformance`: 168 `audit` mais 5 movidos para outro teste (`audit-moved.json`) = 173; 0 `expected-fail` |
 | S3 | cumprido | 46 achados CRITICAL/HIGH fechados com prova verificável (seção 5); os dois CRITICAL ligados a `name-matrix.e2e.ts` e `hostile-names.test.ts`; palavras aposentadas fecham por golden de GS0306 |
 | S4 | cumprido | orçamento `programa só nativo tem 0 bytes de runtime no alvo module` em `budgets.test.ts`, verde |
-| S5 | parcial, depende de decisão do dono | gates bloqueantes verdes (ESLint, scanner, dependency-cruiser), mas o spec exige baseline vazio e o do scanner guarda 7 ocorrências de R14 em `apps/playground/tailwind.config.ts`. A exceção de mutação confinada a `this.*` (ADR-0004) está registrada; o dono decide as duas |
+| S5 | cumprido | gates bloqueantes verdes (ESLint, scanner, dependency-cruiser) e baseline do scanner vazio (as chaves de cor de `apps/playground/tailwind.config.ts` agora são em inglês). A exceção de mutação confinada a `this.*` (ADR-0004) está registrada |
 | S6 | cumprido | cobertura acima de 80% em cada pacote (tabela da seção 2, imposta pelo `verify`); mutação do compilador 92,91 com `thresholds.break` = 90, medida na Fase 2 e sem nova medição; o Worker e o CLI têm só relatório de mutação |
 | S7 | pendente do dono | CLI no npm, playground no ar, extensão no Marketplace e Open VSX e Engoianador no ar exigem contas e segredos do dono; os quatro smokes estão prontos |
 | S8 | pendente do dono | `docs/piloto/relatorio-piloto.md` registra `0/3`; kit, formulário e `summarize-pilot` prontos |
@@ -195,7 +193,7 @@ Estado de todas: `pendente do dono`, salvo quando marcado.
 | 21 | Merge e branches do repositório | 8 | ADR-0011 e rulesets | ligar `delete_branch_on_merge`, desligar merge commit | `gh api` com `delete_branch_on_merge=true` e `allow_merge_commit=false` |
 
 Decisões do dono ainda abertas: o teto de 29 KB brotli do ADR-0001 (item 16), confirmar as exceções às regras (ADR-0004 mutação confinada, ADR-0008 commits sem ID
-Jira, ADR-0007 `TODO(GS-<n>)`), o baseline do scanner com `tailwind.config.ts`, a leitura do teto de 150 ms como
+Jira, ADR-0007 `TODO(GS-<n>)`), a leitura do teto de 150 ms como
 relativo à máquina de referência (relatório da Fase 2) e o método do Marketplace antes de 2026-12-01.
 
 ## 9. Retrospectiva de prazo
