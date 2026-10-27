@@ -4,11 +4,6 @@ ignoreUntil = 2027-03-01
 reason = "braces 3.0.3, puxado por micromatch (tailwindcss 3 no playground, apenas dev/build). Sem versão corrigida publicada; reavaliar quando houver patch."
 
 [[IgnoredVulns]]
-id = "GHSA-mrhx-c7xc-m3w5"
-ignoreUntil = 2027-01-27
-reason = "zod 3.22.3, puxado por miniflare (wrangler 3 do engoianador-api, apenas dev e deploy). Só valida a configuração do próprio projeto, sem entrada externa. A correção existe só no zod 4; sai com a migração para o wrangler 4."
-
-[[IgnoredVulns]]
 id = "GHSA-xcx6-jx8p-x3h5"
 ignoreUntil = 2027-01-27
 reason = "@azure/msal-node 6.0.1, puxado por @vscode/vsce e ovsx (só publicação da extensão). A publicação usa credencial federada, não o fluxo de authorization code afetado. @azure/identity 4.14.0 ainda exige msal-node ^6."

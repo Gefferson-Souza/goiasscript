@@ -134,10 +134,9 @@ pendente. A aprovação humana do `npm-release` depende de configuração do Git
 provenance), a rede liberada no sandbox dos blocos (Node 22 e 24 não negam rede; o job não tem segredo
 nem escrita) e o ambiente herdado pelo `video:facts` (ferramenta manual do dono, com saída redigida).
 
-Dois avisos HIGH em dependências só de desenvolvimento foram registrados no `osv-scanner.toml`, com prazo até
-2027-01-27: `zod` 3.22.3, puxado pelo miniflare do `wrangler` 3, que só valida a configuração do projeto, e
-`@azure/msal-node` 6.0.1, puxado pelo `vsce`, cuja publicação não usa o fluxo afetado. A correção pede o `wrangler` 4
-e um `@azure/identity` que aceite o `msal-node` 7.
+Um aviso HIGH em dependência só de desenvolvimento foi registrado no `osv-scanner.toml`, com prazo até 2027-01-27:
+`@azure/msal-node` 6.0.1, puxado pelo `vsce`, cuja publicação não usa o fluxo afetado. A correção pede um
+`@azure/identity` que aceite o `msal-node` 7.
 
 Zero CRITICAL/HIGH técnico aberto. Itens MEDIUM/LOW aceitos ou mitigados estão nos relatórios de cada fase (por
 exemplo, o diagnóstico em tempo real da extensão compila no processo de extensões, com teto de 100.000 caracteres).

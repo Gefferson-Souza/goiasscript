@@ -7,19 +7,19 @@
   "scripts": {
     "dev": "wrangler dev --env dev",
     "predeploy": "node scripts/check-worker-config.ts && node scripts/verify-model.ts --require",
-    "deploy": "wrangler deploy",
+    "deploy": "wrangler deploy --env=\"\"",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "mutate": "stryker run"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20260702.1",
+    "@cloudflare/workers-types": "^5.20261006.1",
     "@stryker-mutator/core": "10.0.0",
     "@stryker-mutator/vitest-runner": "10.0.0",
     "@types/node": "22.20.5",
     "typescript": "6.0.3",
     "vitest": "5.0.5",
-    "wrangler": "^3.114.17"
+    "wrangler": "4.150.0"
   },
   "dependencies": {
     "smol-toml": "1.9.1",
