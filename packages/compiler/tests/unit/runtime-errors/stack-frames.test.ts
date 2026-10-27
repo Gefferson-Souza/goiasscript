@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { parseStackFrames } from '../../../src/runtime-errors/stack-frames.ts';
+import { expectWithinBudget } from '../../support/timing.ts';
 
 const HOSTILE_ROW_REPEATS = 20_000;
 const HOSTILE_ROW_BUDGET_MS = 200;
@@ -27,6 +28,6 @@ describe('parseStackFrames', () => {
     const hostile = `    at ${' (a:1'.repeat(HOSTILE_ROW_REPEATS)}`;
     const startedAt = performance.now();
     expect(parseStackFrames(hostile)).toEqual([]);
-    expect(performance.now() - startedAt).toBeLessThan(HOSTILE_ROW_BUDGET_MS);
+    expectWithinBudget(performance.now() - startedAt, HOSTILE_ROW_BUDGET_MS);
   });
 });
