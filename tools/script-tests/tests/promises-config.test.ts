@@ -38,7 +38,7 @@ describe('lychee.toml', () => {
   const config = readText('lychee.toml');
 
   it('confere âncoras e deixa de fora os registros históricos', () => {
-    expect(config).toContain('include_fragments = true');
+    expect(config).toContain('include_fragments = "anchor-only"');
     for (const ignored of ['docs/superpowers', 'docs/auditoria', 'docs/pesquisa', 'docs/fase-']) expect(config).toContain(ignored);
   });
 

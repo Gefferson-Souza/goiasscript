@@ -1,5 +1,5 @@
 # Âncoras e arquivos locais são conferidos em todo PR; o job semanal confere os links externos.
-include_fragments = true
+include_fragments = "anchor-only"
 no_progress = true
 
 # Registros históricos não são publicados e não entram na conferência.
