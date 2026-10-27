@@ -1,8 +1,1 @@
-{
-  "version": 1,
-  "files": {
-    "apps/playground/tailwind.config.ts": {
-      "R14": 7
-    }
-  }
-}
+{ "version": 1, "files": {} }

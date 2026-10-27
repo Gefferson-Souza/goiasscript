@@ -11,8 +11,8 @@ export default function GlossaryPage() {
   const entries = buildGlossaryEntries(glossary, lessonIdOfTerm);
   return (
     <div className="mx-auto w-full max-w-3xl flex-1 space-y-4 px-4 py-6">
-      <h1 className="text-3xl font-bold text-goias-amarelo">{GLOSSARY_TEXTS.title}</h1>
-      <p className="text-goias-texto/80">{GLOSSARY_TEXTS.intro}</p>
+      <h1 className="text-3xl font-bold text-goias-yellow">{GLOSSARY_TEXTS.title}</h1>
+      <p className="text-goias-text/80">{GLOSSARY_TEXTS.intro}</p>
       <GlossaryList entries={entries} />
     </div>
   );

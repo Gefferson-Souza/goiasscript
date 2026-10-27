@@ -8,7 +8,7 @@ import { usePlayground } from './use-playground';
 
 const Editor = dynamic(() => import('@/components/Editor').then((module) => module.Editor), {
   ssr: false,
-  loading: () => <div className="flex h-full items-center justify-center text-goias-texto/60">{TEXTS.loadingEditor}</div>,
+  loading: () => <div className="flex h-full items-center justify-center text-goias-text/60">{TEXTS.loadingEditor}</div>,
 });
 
 export default function PlaygroundPage() {
@@ -27,7 +27,7 @@ export default function PlaygroundPage() {
         onPickExample={(id) => void playground.pickExample(id)}
       />
       <div className="grid min-h-0 flex-1 grid-cols-1 gap-2 p-2 lg:grid-cols-2">
-        <div className="h-[55vh] overflow-hidden rounded-md border border-goias-borda lg:h-auto lg:min-h-[400px]">
+        <div className="h-[55vh] overflow-hidden rounded-md border border-goias-border lg:h-auto lg:min-h-[400px]">
           <Editor value={playground.source} markers={playground.markers} onChange={playground.edit} />
         </div>
         <div className="grid min-h-0 grid-rows-2 gap-2 lg:min-h-[400px]">

@@ -40,7 +40,7 @@ function PixCompact({ pix }: { readonly pix: PixDonation }) {
     <button
       type="button"
       onClick={() => void copy()}
-      className="rounded border border-goias-borda px-2 py-1 text-goias-texto hover:border-goias-amarelo focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-amarelo"
+      className="rounded border border-goias-border px-2 py-1 text-goias-text hover:border-goias-yellow focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-yellow"
       aria-label="Copiar a chave Pix"
     >
       {copied ? '✅ Pix copiado!' : '💸 Pix'}
@@ -51,15 +51,15 @@ function PixCompact({ pix }: { readonly pix: PixDonation }) {
 function PixFull({ pix }: { readonly pix: PixDonation }) {
   const { copied, copy } = useCopyFeedback(pix.pixKey);
   return (
-    <div className="rounded-lg border border-goias-borda bg-goias-painel p-4">
-      <h3 className="font-semibold text-goias-amarelo">💸 Pix (na hora, sem taxa)</h3>
-      <p className="mt-1 text-sm text-goias-texto/80">Copia a chave e manda quanto o coração mandar, sô.</p>
+    <div className="rounded-lg border border-goias-border bg-goias-panel p-4">
+      <h3 className="font-semibold text-goias-yellow">💸 Pix (na hora, sem taxa)</h3>
+      <p className="mt-1 text-sm text-goias-text/80">Copia a chave e manda quanto o coração mandar, sô.</p>
       <div className="mt-3 flex items-center gap-2">
-        <code className="flex-1 break-all rounded bg-goias-fundo px-3 py-2 text-sm text-goias-texto">{pix.pixKey}</code>
+        <code className="flex-1 break-all rounded bg-goias-background px-3 py-2 text-sm text-goias-text">{pix.pixKey}</code>
         <button
           type="button"
           onClick={() => void copy()}
-          className="rounded bg-goias-verde px-3 py-2 text-sm font-semibold text-white hover:bg-goias-verde/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-amarelo"
+          className="rounded bg-goias-green px-3 py-2 text-sm font-semibold text-white hover:bg-goias-green/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-yellow"
         >
           {copied ? '✅ Copiado!' : '📋 Copiar'}
         </button>
@@ -70,7 +70,7 @@ function PixFull({ pix }: { readonly pix: PixDonation }) {
 
 function ExternalCompact({ link }: { readonly link: ExternalDonation }) {
   return (
-    <a href={link.href} target="_blank" rel={EXTERNAL_REL} className="text-goias-texto hover:text-goias-amarelo">
+    <a href={link.href} target="_blank" rel={EXTERNAL_REL} className="text-goias-text hover:text-goias-yellow">
       {link.label}
     </a>
   );
@@ -82,10 +82,10 @@ function ExternalFull({ link }: { readonly link: ExternalDonation }) {
       href={link.href}
       target="_blank"
       rel={EXTERNAL_REL}
-      className="rounded-lg border border-goias-borda bg-goias-painel p-4 hover:border-goias-amarelo"
+      className="rounded-lg border border-goias-border bg-goias-panel p-4 hover:border-goias-yellow"
     >
-      <h3 className="font-semibold text-goias-amarelo">{link.label}</h3>
-      <p className="mt-1 text-sm text-goias-texto/80">{EXTERNAL_BLURB[link.kind]}</p>
+      <h3 className="font-semibold text-goias-yellow">{link.label}</h3>
+      <p className="mt-1 text-sm text-goias-text/80">{EXTERNAL_BLURB[link.kind]}</p>
     </a>
   );
 }

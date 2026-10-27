@@ -12,16 +12,16 @@ interface Props {
 
 export function GeneratedPanel({ code, hiddenMarkerCount, target, onTargetChange }: Props) {
   return (
-    <section aria-label={TEXTS.generatedTitle} className="flex h-full min-h-0 flex-col overflow-hidden rounded-md border border-goias-borda bg-goias-painel">
-      <div className="flex items-center justify-between gap-2 border-b border-goias-borda px-3 py-2">
-        <h2 className="text-sm font-semibold text-goias-amarelo">{TEXTS.generatedTitle}</h2>
+    <section aria-label={TEXTS.generatedTitle} className="flex h-full min-h-0 flex-col overflow-hidden rounded-md border border-goias-border bg-goias-panel">
+      <div className="flex items-center justify-between gap-2 border-b border-goias-border px-3 py-2">
+        <h2 className="text-sm font-semibold text-goias-yellow">{TEXTS.generatedTitle}</h2>
         <TargetSwitch value={target} onChange={onTargetChange} />
       </div>
       <div className="flex-1 overflow-auto p-3 font-mono text-xs">
         {code === null ? (
-          <p className="text-goias-texto/60">{TEXTS.generatedEmpty}</p>
+          <p className="text-goias-text/60">{TEXTS.generatedEmpty}</p>
         ) : (
-          <pre data-testid={TEST_IDS.generatedCode} className="whitespace-pre-wrap text-goias-texto/90">
+          <pre data-testid={TEST_IDS.generatedCode} className="whitespace-pre-wrap text-goias-text/90">
             {code}
           </pre>
         )}

@@ -11,7 +11,7 @@ import { ProgressBadge } from './ProgressBadge';
 
 const Editor = dynamic(() => import('../Editor').then((module) => module.Editor), {
   ssr: false,
-  loading: () => <div className="flex h-full items-center justify-center text-goias-texto/60">{PRIMER_TEXTS.loadingEditor}</div>,
+  loading: () => <div className="flex h-full items-center justify-center text-goias-text/60">{PRIMER_TEXTS.loadingEditor}</div>,
 });
 
 interface Props {
@@ -42,7 +42,7 @@ function TabBar({ active, onSelect }: TabBarProps) {
           onClick={() => {
             onSelect(tab);
           }}
-          className={`rounded px-3 py-1.5 text-sm ${active === tab ? 'bg-goias-amarelo font-semibold text-goias-fundo' : 'border border-goias-borda'}`}
+          className={`rounded px-3 py-1.5 text-sm ${active === tab ? 'bg-goias-yellow font-semibold text-goias-background' : 'border border-goias-border'}`}
         >
           {label}
         </button>
@@ -60,7 +60,7 @@ export function LessonWorkspace({ lesson }: Props) {
         <TabBar active={session.tab} onSelect={session.selectTab} />
         <ProgressBadge done={session.done} />
       </div>
-      <div className="h-[40vh] min-h-[260px] overflow-hidden rounded-md border border-goias-borda">
+      <div className="h-[40vh] min-h-[260px] overflow-hidden rounded-md border border-goias-border">
         <Editor value={session.source} markers={session.markers} onChange={session.edit} />
       </div>
       {session.tab === 'example' ? (
@@ -71,7 +71,7 @@ export function LessonWorkspace({ lesson }: Props) {
               data-testid={TEST_IDS.runButton}
               onClick={session.runExample}
               disabled={busy}
-              className="rounded bg-goias-verde px-3 py-1.5 text-sm font-semibold text-white hover:bg-goias-verde/80 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded bg-goias-green px-3 py-1.5 text-sm font-semibold text-white hover:bg-goias-green/80 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {PRIMER_TEXTS.runExample}
             </button>

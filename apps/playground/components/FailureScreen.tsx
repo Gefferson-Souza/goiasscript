@@ -14,7 +14,7 @@ export function FailureScreen({ digest, onRetry }: FailureScreenProps) {
     <ErrorScreen title={title} message={message}>
       <RetryButton label={retryLabel} onRetry={onRetry} />
       {digest === undefined ? null : (
-        <p className="text-xs text-goias-texto/60">
+        <p className="text-xs text-goias-text/60">
           {digestLabel}: {digest}
         </p>
       )}

@@ -6,13 +6,13 @@ const config: Config = {
     extend: {
       colors: {
         goias: {
-          verde: '#1f7a3d',
-          amarelo: '#f5c518',
-          terra: '#9b6a3e',
-          fundo: '#0d1117',
-          painel: '#161b22',
-          borda: '#30363d',
-          texto: '#e6edf3',
+          green: '#1f7a3d',
+          yellow: '#f5c518',
+          earth: '#9b6a3e',
+          background: '#0d1117',
+          panel: '#161b22',
+          border: '#30363d',
+          text: '#e6edf3',
         },
       },
       fontFamily: {

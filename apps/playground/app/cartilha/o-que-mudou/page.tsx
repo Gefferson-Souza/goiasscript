@@ -10,7 +10,7 @@ export const metadata: Metadata = { title: 'O que mudou', description: 'As palav
 export default function WhatChangedPage() {
   return (
     <div className="mx-auto max-w-3xl space-y-4">
-      <Link href={PRIMER_INDEX_PATH} className="text-sm hover:text-goias-amarelo">
+      <Link href={PRIMER_INDEX_PATH} className="text-sm hover:text-goias-yellow">
         {PRIMER_TEXTS.backToIndex}
       </Link>
       <WhatChanged markdown={loadWhatChanged()} />
