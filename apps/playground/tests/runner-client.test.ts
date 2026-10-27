@@ -333,4 +333,23 @@ describe('cliente do runner', () => {
     expect(harness.events[0]).toMatchObject({ kind: 'failed', diagnostic: { severity: 'error' } });
     expect(harness.worker.terminated).toBe(true);
   });
+
+  it('falha com tradutor pendente: termina o Worker na hora e ignora o que chegar depois', async () => {
+    let resolveTranslator: (translate: typeof translateRuntimeError) => void = () => undefined;
+    const pending = new Promise<typeof translateRuntimeError>((resolve) => {
+      resolveTranslator = resolve;
+    });
+    const harness = createHarness(RUN_LIMITS, () => pending);
+    startRun(harness);
+    harness.worker.emit({ type: 'gs:falhou', runId: 1, stack: 'Error: x', errorName: 'Error' });
+    expect(harness.worker.terminated).toBe(true);
+    harness.worker.emit({ type: 'gs:terminou', runId: 1 });
+    harness.timers.advance(RUN_LIMITS.maxRunMs + RUN_LIMITS.maxAskWaitMs);
+    expect(harness.events).toEqual([]);
+    resolveTranslator(translateRuntimeError);
+    await flushMicrotasks();
+    expect(harness.events).toHaveLength(1);
+    expect(harness.events[0]).toMatchObject({ kind: 'failed' });
+    expect(harness.worker.terminateCount).toBe(1);
+  });
 });
