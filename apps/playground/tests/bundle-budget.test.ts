@@ -4,7 +4,10 @@ import { fileURLToPath } from 'node:url';
 import { build } from 'esbuild';
 import { describe, expect, it } from 'vitest';
 
-const ENTRY = fileURLToPath(new URL('../lib/compile-service.ts', import.meta.url));
+const ENTRY_RESOLVE_DIR = fileURLToPath(new URL('..', import.meta.url));
+// Exatamente o que o playground carrega sob demanda do pacote do compilador.
+const ENTRY_CONTENTS = "export { compile, translateRuntimeError } from '@goiasscript/compiler';";
+const entryOptions = { stdin: { contents: ENTRY_CONTENTS, resolveDir: ENTRY_RESOLVE_DIR, loader: 'ts' as const } };
 const BUDGETS_FILE = new URL('../budgets.json', import.meta.url);
 const BUNDLE_TIMEOUT_MS = 60_000;
 // O codificador do brotli varia um pouco entre versões do Node; melhoria menor que isto não exige atualizar o arquivo.
@@ -12,7 +15,7 @@ const ENCODER_JITTER_BYTES = 64;
 
 async function measureCompilerChunkBrotliBytes(): Promise<number> {
   const { outputFiles } = await build({
-    entryPoints: [ENTRY],
+    ...entryOptions,
     bundle: true,
     write: false,
     minify: true,
@@ -39,7 +42,7 @@ describe('orçamento do chunk do compilador', () => {
   }, BUNDLE_TIMEOUT_MS);
 
   it('o bundle do serviço não puxa o otimizador', async () => {
-    const { metafile } = await build({ entryPoints: [ENTRY], bundle: true, write: false, metafile: true, format: 'esm', platform: 'browser', logLevel: 'silent' });
+    const { metafile } = await build({ ...entryOptions, bundle: true, write: false, metafile: true, format: 'esm', platform: 'browser', logLevel: 'silent' });
     const inputs = Object.keys(metafile.inputs);
     expect(inputs.some((input) => input.includes('optimizer') || input.includes('terser'))).toBe(false);
   }, BUNDLE_TIMEOUT_MS);

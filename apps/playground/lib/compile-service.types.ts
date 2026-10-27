@@ -14,10 +14,12 @@ export interface OptimizerModule {
   readonly optimize: (result: CompileSuccess, options: { readonly minify: boolean }) => Promise<OptimizeResult>;
 }
 
+export type CompileFunction = (source: string, options?: CompileOptions) => CompileResult;
+
 export interface CompileServiceOptions {
   readonly tone: Tone;
   readonly loadOptimizer: () => Promise<OptimizerModule>;
-  readonly compile?: (source: string, options?: CompileOptions) => CompileResult;
+  readonly loadCompile?: () => Promise<CompileFunction>;
   readonly lessonUrlOf?: (lessonId: string) => string | undefined;
 }
 

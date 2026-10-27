@@ -75,14 +75,14 @@ describe('createCompileService', () => {
 
   it('compila com o alvo playground, loopLimit, mapa de fonte e o tom pedido', async () => {
     const compile = vi.fn((source: string, options?: CompileOptions) => realCompile(source, options));
-    const service = createCompileService({ tone: 'neutro', loadOptimizer: vi.fn(), compile });
+    const service = createCompileService({ tone: 'neutro', loadOptimizer: vi.fn(), loadCompile: () => Promise.resolve(compile) });
     await service.compile('prosa(1)', 'didactic');
     expect(compile).toHaveBeenCalledWith('prosa(1)', expect.objectContaining({ target: 'playground', loopLimit: RUN_LIMITS.loopLimit, sourceMap: true, tone: 'neutro' }));
   });
 
   it('entrada idêntica à anterior devolve o mesmo objeto', async () => {
     const compile = vi.fn((source: string, options?: CompileOptions) => realCompile(source, options));
-    const service = createCompileService({ tone: 'raiz', loadOptimizer: vi.fn(), compile });
+    const service = createCompileService({ tone: 'raiz', loadOptimizer: vi.fn(), loadCompile: () => Promise.resolve(compile) });
     const first = await service.compile('prosa(1)', 'didactic');
     const second = await service.compile('prosa(1)', 'didactic');
     expect(second).toBe(first);
@@ -107,9 +107,30 @@ describe('createCompileService', () => {
       throw new Error('boom');
     });
     compile.mockImplementation((source, options) => realCompile(source, options));
-    const service = createCompileService({ tone: 'raiz', loadOptimizer: vi.fn(), compile });
+    const service = createCompileService({ tone: 'raiz', loadOptimizer: vi.fn(), loadCompile: () => Promise.resolve(compile) });
     await expect(service.compile('prosa(1)', 'didactic')).rejects.toThrow('boom');
     const retry = await service.compile('prosa(1)', 'didactic');
     expect(retry.result.ok).toBe(true);
+  });
+
+  it('só carrega o compilador na primeira compilação e reaproveita o módulo', async () => {
+    const loadCompile = vi.fn(() => Promise.resolve((source: string, options?: CompileOptions) => realCompile(source, options)));
+    const service = createCompileService({ tone: 'raiz', loadOptimizer: vi.fn(), loadCompile });
+    expect(loadCompile).not.toHaveBeenCalled();
+    await service.compile('prosa(1)', 'didactic');
+    await service.compile('prosa(2)', 'didactic');
+    expect(loadCompile).toHaveBeenCalledTimes(1);
+  });
+
+  it('falha ao carregar o compilador não fica guardada e a próxima tentativa recarrega', async () => {
+    const loadCompile = vi
+      .fn<() => Promise<typeof realCompile>>()
+      .mockRejectedValueOnce(new Error('chunk perdido'))
+      .mockResolvedValue((source: string, options?: CompileOptions) => realCompile(source, options));
+    const service = createCompileService({ tone: 'raiz', loadOptimizer: vi.fn(), loadCompile });
+    await expect(service.compile('prosa(1)', 'didactic')).rejects.toThrow('chunk perdido');
+    const view = await service.compile('prosa(1)', 'didactic');
+    expect(view.result.ok).toBe(true);
+    expect(loadCompile).toHaveBeenCalledTimes(2);
   });
 });

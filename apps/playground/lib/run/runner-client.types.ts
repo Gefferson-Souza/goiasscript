@@ -1,4 +1,4 @@
-import type { CompileSuccess, Diagnostic, Tone } from '@goiasscript/compiler';
+import type { CompileSuccess, Diagnostic, RuntimeErrorContext, Tone } from '@goiasscript/compiler';
 import type { RunLimits } from '../../config/run-limits.types.ts';
 import type { HostToRunner } from '../../sandbox/protocol.types.ts';
 import type { OutputBuffer } from './output-buffer.types.ts';
@@ -43,12 +43,15 @@ export interface RunnerClient {
   dispose(): void;
 }
 
+export type RuntimeErrorTranslator = (error: unknown, context: RuntimeErrorContext, tone: Tone) => Diagnostic;
+
 export interface RunnerClientOptions {
   readonly createWorker: () => WorkerPort;
   readonly limits: RunLimits;
   readonly now: () => number;
   readonly timers: TimerPort;
   readonly tone?: Tone;
+  readonly loadTranslator?: () => Promise<RuntimeErrorTranslator>;
 }
 
 export type RunPhase = 'idle' | 'running' | 'asking' | 'finished' | 'failed' | 'timeout' | 'stopped';
@@ -64,6 +67,7 @@ export interface SessionDeps {
   readonly now: () => number;
   readonly timers: TimerPort;
   readonly tone: Tone;
+  readonly loadTranslator: () => Promise<RuntimeErrorTranslator>;
 }
 
 export interface RunSession {

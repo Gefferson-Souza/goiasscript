@@ -1,7 +1,9 @@
 import { MESSAGE_TYPES } from '../../sandbox/protocol.constants.ts';
 import { parseRunnerMessage } from './message-guards.ts';
 import { armMaxTimer, armWallTimer, conclude, createSession, handleMessage, handleWorkerError, handleWorkerMessageError, resumeAfterAnswer } from './run-session.ts';
-import type { RunEvent, RunSession, RunnerClient, RunnerClientOptions, SessionDeps, WorkerPort } from './runner-client.types.ts';
+import type { RunEvent, RunSession, RunnerClient, RunnerClientOptions, RuntimeErrorTranslator, SessionDeps, WorkerPort } from './runner-client.types.ts';
+
+const defaultLoadTranslator = (): Promise<RuntimeErrorTranslator> => import('@goiasscript/compiler').then((module) => module.translateRuntimeError);
 
 const TERMINAL_KINDS: ReadonlySet<RunEvent['kind']> = new Set(['failed', 'timeout', 'finished', 'stopped']);
 
@@ -24,7 +26,7 @@ function bindWorker(worker: WorkerPort, session: RunSession, deps: SessionDeps):
 }
 
 export function createRunnerClient(options: RunnerClientOptions): RunnerClient {
-  const deps: SessionDeps = { limits: options.limits, now: options.now, timers: options.timers, tone: options.tone ?? 'raiz' };
+  const deps: SessionDeps = { limits: options.limits, now: options.now, timers: options.timers, tone: options.tone ?? 'raiz', loadTranslator: options.loadTranslator ?? defaultLoadTranslator };
   let current: RunSession | null = null;
   let lastRunId = 0;
   let disposed = false;
