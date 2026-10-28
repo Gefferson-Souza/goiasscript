@@ -1,21 +1,26 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { brotliCompressSync, constants } from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 import { build } from 'esbuild';
 import { describe, expect, it } from 'vitest';
 
 const ENTRY_RESOLVE_DIR = fileURLToPath(new URL('..', import.meta.url));
-// Exatamente o que o playground carrega sob demanda do pacote do compilador.
-const ENTRY_CONTENTS = "export { compile, translateRuntimeError } from '@goiasscript/compiler';";
-const entryOptions = { stdin: { contents: ENTRY_CONTENTS, resolveDir: ENTRY_RESOLVE_DIR, loader: 'ts' as const } };
+// O caminho crítico do playground: o núcleo, sem o texto dos diagnósticos (que vai num módulo à parte).
+const CORE_ENTRY_CONTENTS = "export { compileCore, translateRuntimeErrorCore } from '@goiasscript/compiler/core';";
+const FORMAT_ENTRY_CONTENTS = "export { formatCompileResult, formatDiagnostic } from '@goiasscript/compiler/format';";
+const entryOptions = { stdin: { contents: CORE_ENTRY_CONTENTS, resolveDir: ENTRY_RESOLVE_DIR, loader: 'ts' as const } };
+const FORMAT_CHUNK_INFORMATIVE_CEILING_BYTES = 8 * 1024;
+const ADR_CEILING_BYTES = 29_696;
+const SOURCE_DIRECTORIES = ['lib', 'components', 'app', 'hooks', 'sandbox'];
+const TYPE_IMPORT = /^\s*(?:import|export)\s+type\b/u;
+const MAIN_ENTRY_SPECIFIER = "'@goiasscript/compiler'";
 const BUDGETS_FILE = new URL('../budgets.json', import.meta.url);
 const BUNDLE_TIMEOUT_MS = 60_000;
-// O codificador do brotli varia um pouco entre versões do Node; melhoria menor que isto não exige atualizar o arquivo.
-const ENCODER_JITTER_BYTES = 64;
 
-async function measureCompilerChunkBrotliBytes(): Promise<number> {
+async function measureBrotliBytes(contents: string): Promise<number> {
   const { outputFiles } = await build({
-    ...entryOptions,
+    stdin: { contents, resolveDir: ENTRY_RESOLVE_DIR, loader: 'ts' },
     bundle: true,
     write: false,
     minify: true,
@@ -30,16 +35,34 @@ async function measureCompilerChunkBrotliBytes(): Promise<number> {
   return brotliCompressSync(bundle, { params: { [constants.BROTLI_PARAM_QUALITY]: constants.BROTLI_MAX_QUALITY } }).byteLength;
 }
 
+function listSources(directory: string): readonly string[] {
+  const root = fileURLToPath(new URL(`../${directory}`, import.meta.url));
+  if (!existsSync(root)) return [];
+  return readdirSync(root, { recursive: true, encoding: 'utf8' }).filter((name) => /\.tsx?$/u.test(name)).map((name) => join(root, name));
+}
+
 describe('orçamento do chunk do compilador', () => {
-  it('não passa dos bytes brotli registrados em budgets.json (catraca)', async () => {
+  it('budgets.json guarda o teto do ADR-0001 (29 KB), não o valor medido', () => {
     const budgets = JSON.parse(readFileSync(BUDGETS_FILE, 'utf8')) as { readonly compilerChunkBrotliBytes: number };
-    const measured = await measureCompilerChunkBrotliBytes();
-    expect(measured, `subiu: medido ${String(measured)} B contra ${String(budgets.compilerChunkBrotliBytes)} B registrados`).toBeLessThanOrEqual(budgets.compilerChunkBrotliBytes);
-    expect(
-      budgets.compilerChunkBrotliBytes - measured,
-      `melhorou: atualize budgets.json para { "compilerChunkBrotliBytes": ${String(measured)} }`,
-    ).toBeLessThanOrEqual(ENCODER_JITTER_BYTES);
+    expect(budgets.compilerChunkBrotliBytes).toBe(ADR_CEILING_BYTES);
+  });
+
+  it('o núcleo não passa dos bytes brotli do teto em budgets.json', async () => {
+    const budgets = JSON.parse(readFileSync(BUDGETS_FILE, 'utf8')) as { readonly compilerChunkBrotliBytes: number };
+    const measured = await measureBrotliBytes(CORE_ENTRY_CONTENTS);
+    expect(measured, `estourou: medido ${String(measured)} B contra o teto de ${String(budgets.compilerChunkBrotliBytes)} B`).toBeLessThanOrEqual(budgets.compilerChunkBrotliBytes);
   }, BUNDLE_TIMEOUT_MS);
+
+  it('o módulo de mensagens, baixado só com diagnóstico, fica abaixo do teto informativo', async () => {
+    expect(await measureBrotliBytes(FORMAT_ENTRY_CONTENTS)).toBeLessThanOrEqual(FORMAT_CHUNK_INFORMATIVE_CEILING_BYTES);
+  }, BUNDLE_TIMEOUT_MS);
+
+  it('o código do playground só importa tipos da entrada principal do compilador', () => {
+    const offenders = SOURCE_DIRECTORIES.flatMap(listSources).filter((file) =>
+      readFileSync(file, 'utf8').split('\n').some((line) => line.includes(MAIN_ENTRY_SPECIFIER) && !TYPE_IMPORT.test(line)),
+    );
+    expect(offenders).toEqual([]);
+  });
 
   it('o bundle do serviço não puxa o otimizador', async () => {
     const { metafile } = await build({ ...entryOptions, bundle: true, write: false, metafile: true, format: 'esm', platform: 'browser', logLevel: 'silent' });
