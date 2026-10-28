@@ -57,4 +57,21 @@ acima não se afrouxam.
 ### Nota sobre o tamanho
 
 O limite de 29.696 bytes mediu só o PoC. O bundle real do compilador mede 32.680 bytes em brotli, acima do limite, e a
-catraca relativa (40.850) é mais frouxa que ele. A divergência fica aberta até decisão do dono.
+catraca relativa (40.850) é mais frouxa que ele. A divergência foi tratada pela emenda no fim deste ADR.
+
+### Emenda: o que o teto de tamanho mede
+
+O teto de 29.696 bytes não muda. A medida passa a ser o núcleo do compilador, a entrada
+`@goiasscript/compiler/core` (`compileCore` e `translateRuntimeErrorCore`), que devolve diagnósticos estruturados
+(código, severidade, faixa e argumentos). O texto dos diagnósticos (título, mensagens nos dois tons, ajuda, exemplo e
+lição) fica em `@goiasscript/compiler/format`, que o playground baixa só quando há diagnóstico. `compile()` continua
+síncrono e a entrada principal `@goiasscript/compiler` recompõe núcleo e formatação com a saída de antes.
+
+| Parte | Brotli |
+|---|---|
+| Núcleo (medido contra o teto) | 27.828 bytes |
+| Formatação (informativa) | 5.803 bytes |
+| Entrada principal, tudo junto | 33.132 bytes |
+
+Com diagnóstico, o playground baixa núcleo e formatação, ~33,6 KB. Esta emenda redefine o que o teto mede; fica
+registrada como proposta até o dono confirmar, junto com os demais limites deste ADR.
