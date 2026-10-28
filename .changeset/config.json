@@ -10,6 +10,7 @@
   ],
   "linked": [],
   "access": "public",
+  "format": false,
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
