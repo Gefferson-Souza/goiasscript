@@ -23,4 +23,10 @@ describe('macros e membros', () => {
   it('nome do aluno que esconde a biblioteca não é reescrito', () => {
     expect(emit('uai o é { mais: 1 }\nprosa(o.mais)').code).toBe('const o = { mais: 1 };\nconsole.log(o.mais);');
   });
+  it('vixe com mais de um argumento vira throw new Error com todos eles', () => {
+    expect(emit('vixe(faz_um Erro("a"), 2)').code).toBe('throw new Error(new Error("a"), 2);');
+  });
+  it('mistura sem argumentos não ganha alvo vazio', () => {
+    expect(emit('uai m é Coisa.mistura()').code).toBe('const m = Object.assign();');
+  });
 });
