@@ -27,4 +27,16 @@ describe('await de pergunta', () => {
       'async function f() { const n = await $gs_pergunta("x");',
     );
   });
+  it('pergunta usada como índice não ganha parênteses', () => {
+    expect(emit('uai l é [1]\nprosa(l[pergunta("x")])').code.split('\n')[1]).toBe('console.log(l[await $gs_pergunta("x")]);');
+  });
+  it('resposta chamada como função ganha parênteses, com chamada ou com faz_um', () => {
+    expect(emit('pergunta("x")("y")').code.split('\n')[0]).toBe('(await $gs_pergunta("x"))("y");');
+    expect(emit('faz_um (pergunta("x"))()').code.split('\n')[0]).toBe('new ((await $gs_pergunta("x")))();');
+  });
+  it('método do aluno chamado pergunta não vira pergunta da biblioteca', () => {
+    const { code, helpers } = emit('uai o é {}\no.pergunta("x")');
+    expect(code).toBe('const o = {};\no.pergunta("x");');
+    expect(helpers).toEqual([]);
+  });
 });
