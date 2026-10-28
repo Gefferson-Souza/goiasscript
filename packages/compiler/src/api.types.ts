@@ -49,6 +49,13 @@ export interface Diagnostic {
   readonly lesson?: string;
 }
 
+export interface CoreDiagnostic {
+  readonly code: string;
+  readonly severity: Severity;
+  readonly range: SourceRange;
+  readonly args: Readonly<Record<string, string>>;
+}
+
 export interface CompileOptions {
   readonly fileName?: string;
   readonly target?: CompileTarget;
@@ -76,6 +83,10 @@ export interface CompileFailure {
 }
 
 export type CompileResult = CompileSuccess | CompileFailure;
+
+export type CoreCompileSuccess = Omit<CompileSuccess, 'diagnostics'> & { readonly diagnostics: readonly CoreDiagnostic[] };
+export type CoreCompileFailure = Omit<CompileFailure, 'diagnostics'> & { readonly diagnostics: readonly CoreDiagnostic[] };
+export type CoreCompileResult = CoreCompileSuccess | CoreCompileFailure;
 
 export interface OptimizeResult {
   readonly code: string;
