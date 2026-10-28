@@ -2,7 +2,7 @@
   "extensions": [".ts", ".mts", ".tsx", ".mjs", ".cjs"],
   "roots": [
     { "pkg": "language", "path": "packages/language", "dirs": ["src", "tests", "generators"] },
-    { "pkg": "compiler", "path": "packages/compiler", "dirs": ["src", "tests", "bench"], "files": ["packages/compiler/stryker.config.mjs", "packages/compiler/stryker.config.d.mts"] },
+    { "pkg": "compiler", "path": "packages/compiler", "dirs": ["src", "tests", "bench"], "files": ["packages/compiler/vitest.mutation.config.ts", "packages/compiler/stryker.config.mjs", "packages/compiler/stryker.config.d.mts"] },
     { "pkg": "optimizer", "path": "packages/optimizer", "dirs": ["src", "tests"] },
     { "pkg": "cli", "path": "packages/cli", "dirs": ["src", "tests"], "files": ["packages/cli/vitest.e2e.config.ts", "packages/cli/vitest.mutation.config.ts", "packages/cli/stryker.config.mjs", "packages/cli/stryker.config.d.mts"] },
     { "pkg": "vscode", "path": "packages/vscode", "dirs": ["src", "tests"], "files": ["packages/vscode/vitest.config.ts"] },

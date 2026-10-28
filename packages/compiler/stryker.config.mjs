@@ -9,7 +9,7 @@ export default {
   coverageAnalysis: 'perTest',
   disableTypeChecks: false,
   // O patch em patches/ roda só os arquivos afetados; `related` filtraria pelo grafo de importação e perderia testes.
-  vitest: { related: false },
+  vitest: { related: false, configFile: 'vitest.mutation.config.ts' },
   // Mutantes de regex do lexer são equivalentes em massa e inflam a nota sem exercitar lógica.
   mutator: { excludedMutations: ['Regex'] },
 };
