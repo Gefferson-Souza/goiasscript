@@ -1,4 +1,6 @@
-import { compile as realCompile, type CompileOptions, type CompileSuccess } from '@goiasscript/compiler';
+import type { CompileSuccess } from '@goiasscript/compiler';
+import { compileCore as realCompile } from '@goiasscript/compiler/core';
+import { formatCompileResult } from '@goiasscript/compiler/format';
 import { describe, expect, it, vi, type Mock } from 'vitest';
 import { RUN_LIMITS } from '../config/run-limits.constants.ts';
 import { MARKER_SEVERITY } from '../lib/diagnostic-markers.constants.ts';
@@ -74,14 +76,14 @@ describe('createCompileService', () => {
   });
 
   it('compila com o alvo playground, loopLimit, mapa de fonte e o tom pedido', async () => {
-    const compile = vi.fn((source: string, options?: CompileOptions) => realCompile(source, options));
+    const compile = vi.fn((source: string, options?: Parameters<typeof realCompile>[1]) => realCompile(source, options));
     const service = createCompileService({ tone: 'neutro', loadOptimizer: vi.fn(), loadCompile: () => Promise.resolve(compile) });
     await service.compile('prosa(1)', 'didactic');
     expect(compile).toHaveBeenCalledWith('prosa(1)', expect.objectContaining({ target: 'playground', loopLimit: RUN_LIMITS.loopLimit, sourceMap: true, tone: 'neutro' }));
   });
 
   it('entrada idêntica à anterior devolve o mesmo objeto', async () => {
-    const compile = vi.fn((source: string, options?: CompileOptions) => realCompile(source, options));
+    const compile = vi.fn((source: string, options?: Parameters<typeof realCompile>[1]) => realCompile(source, options));
     const service = createCompileService({ tone: 'raiz', loadOptimizer: vi.fn(), loadCompile: () => Promise.resolve(compile) });
     const first = await service.compile('prosa(1)', 'didactic');
     const second = await service.compile('prosa(1)', 'didactic');
@@ -114,7 +116,7 @@ describe('createCompileService', () => {
   });
 
   it('só carrega o compilador na primeira compilação e reaproveita o módulo', async () => {
-    const loadCompile = vi.fn(() => Promise.resolve((source: string, options?: CompileOptions) => realCompile(source, options)));
+    const loadCompile = vi.fn(() => Promise.resolve((source: string, options?: Parameters<typeof realCompile>[1]) => realCompile(source, options)));
     const service = createCompileService({ tone: 'raiz', loadOptimizer: vi.fn(), loadCompile });
     expect(loadCompile).not.toHaveBeenCalled();
     await service.compile('prosa(1)', 'didactic');
@@ -126,11 +128,60 @@ describe('createCompileService', () => {
     const loadCompile = vi
       .fn<() => Promise<typeof realCompile>>()
       .mockRejectedValueOnce(new Error('chunk perdido'))
-      .mockResolvedValue((source: string, options?: CompileOptions) => realCompile(source, options));
+      .mockResolvedValue((source: string, options?: Parameters<typeof realCompile>[1]) => realCompile(source, options));
     const service = createCompileService({ tone: 'raiz', loadOptimizer: vi.fn(), loadCompile });
     await expect(service.compile('prosa(1)', 'didactic')).rejects.toThrow('chunk perdido');
     const view = await service.compile('prosa(1)', 'didactic');
     expect(view.result.ok).toBe(true);
     expect(loadCompile).toHaveBeenCalledTimes(2);
+  });
+
+  describe('módulo de mensagens', () => {
+    const realFormatter = (result: Parameters<typeof formatCompileResult>[0], tone: Parameters<typeof formatCompileResult>[1]) => formatCompileResult(result, tone);
+
+    it('programa sem diagnóstico nunca carrega as mensagens', async () => {
+      const loadFormatter = vi.fn(() => Promise.resolve(realFormatter));
+      const service = createCompileService({ tone: 'raiz', loadOptimizer: vi.fn(), loadFormatter });
+      const view = await service.compile('prosa(1)', 'didactic');
+      expect(view.result.ok).toBe(true);
+      expect(loadFormatter).not.toHaveBeenCalled();
+    });
+
+    it('com diagnóstico carrega as mensagens uma vez só e entrega o texto', async () => {
+      const loadFormatter = vi.fn(() => Promise.resolve(realFormatter));
+      const service = createCompileService({ tone: 'raiz', loadOptimizer: vi.fn(), loadFormatter });
+      const first = await service.compile('uai x é', 'didactic');
+      await service.compile('uai y é', 'didactic');
+      expect(loadFormatter).toHaveBeenCalledTimes(1);
+      expect(first.result.diagnostics[0]?.message).not.toBe(first.result.diagnostics[0]?.code);
+      expect(first.markers[0]?.message).toContain('sô');
+    });
+
+    it('respeita o tom pedido ao formatar', async () => {
+      const formatter = vi.fn(realFormatter);
+      const service = createCompileService({ tone: 'neutro', loadOptimizer: vi.fn(), loadFormatter: () => Promise.resolve(formatter) });
+      await service.compile('uai x é', 'didactic');
+      expect(formatter).toHaveBeenCalledWith(expect.anything(), 'neutro');
+    });
+
+    it('entrega o mesmo texto que a entrada principal do compilador', async () => {
+      const { compile } = await import('@goiasscript/compiler');
+      const service = createCompileService({ tone: 'raiz', loadOptimizer: vi.fn() });
+      const view = await service.compile('uai a é nomi\nprosa(nome)', 'didactic');
+      expect(view.result.diagnostics).toEqual(compile('uai a é nomi\nprosa(nome)', { target: 'playground', tone: 'raiz', fileName: 'programa.gs' }).diagnostics);
+    });
+
+    it('falha ao carregar as mensagens mantém o marcador, avisa em goianês e tenta de novo depois', async () => {
+      const loadFormatter = vi.fn<() => Promise<typeof realFormatter>>().mockRejectedValueOnce(new Error('chunk perdido')).mockResolvedValue(realFormatter);
+      const service = createCompileService({ tone: 'raiz', loadOptimizer: vi.fn(), loadFormatter });
+      const failed = await service.compile('uai x é', 'didactic');
+      expect(failed.result.ok).toBe(false);
+      expect(failed.markers.length).toBeGreaterThanOrEqual(1);
+      expect(failed.markers[0]?.message).toContain('Ô sô');
+      const retry = await service.compile('uai x é', 'didactic');
+      expect(retry).not.toBe(failed);
+      expect(retry.markers[0]?.message).not.toBe(failed.markers[0]?.message);
+      expect(loadFormatter).toHaveBeenCalledTimes(2);
+    });
   });
 });

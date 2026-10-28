@@ -17,6 +17,10 @@ export const COLLOQUIAL_TEXTS: HostDiagnosticTexts = {
     message: 'Eita! Num consegui preparar o programa pra rodar.',
     help: 'Confere o código e tenta de novo. Se repetir, recarrega a página.',
   },
+  messagesFailure: {
+    message: 'Ô sô! Os textos dos avisos de erro não carregaram.',
+    help: 'Vê se a rede tá firme e mexe no código pra tentar de novo. Se continuar assim, recarrega a página.',
+  },
 };
 
 export const NEUTRAL_TEXTS: HostDiagnosticTexts = {
@@ -31,5 +35,9 @@ export const NEUTRAL_TEXTS: HostDiagnosticTexts = {
   compileFailure: {
     message: 'O programa não pôde ser preparado para execução.',
     help: 'Confira o código e tente novamente. Se repetir, recarregue a página.',
+  },
+  messagesFailure: {
+    message: 'Os textos dos avisos de erro não puderam ser carregados.',
+    help: 'Verifique a conexão e edite o código para tentar de novo. Se persistir, recarregue a página.',
   },
 };
