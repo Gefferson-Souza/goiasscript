@@ -19,4 +19,17 @@ describe('separação de tokens', () => {
     expect(needsSpace('x', '+', '1')).toBe(false);
     expect(needsSpace(' ', '-', ' ')).toBe(false);
   });
+  it('símbolo no fim do arquivo não separa operador binário do operando', () => {
+    expect(emit('uai y é 2 vezes 3 //').code).toBe('const y = 2 * 3; //');
+  });
+  it('símbolo no começo ou no fim do arquivo não separa operador unário', () => {
+    expect(emit('-1\nuai y é menos 1').code).toBe('-1;\nconst y = -1;');
+    expect(emit('uai y é menos 1 // -').code).toBe('const y = -1; // -');
+  });
+  it('operador unário seguido de sinal ganha espaço', () => {
+    expect(emit('uai y é menos -1').code).toBe('const y = - -1;');
+  });
+  it('declarador colado a um sinal não ganha espaço desnecessário', () => {
+    expect(emit('uai a é-1').code).toBe('const a =-1;');
+  });
 });
