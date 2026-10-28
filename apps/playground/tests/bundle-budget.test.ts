@@ -12,6 +12,7 @@ const FORMAT_ENTRY_CONTENTS = "export { formatCompileResult, formatDiagnostic } 
 const entryOptions = { stdin: { contents: CORE_ENTRY_CONTENTS, resolveDir: ENTRY_RESOLVE_DIR, loader: 'ts' as const } };
 const FORMAT_CHUNK_INFORMATIVE_CEILING_BYTES = 8 * 1024;
 const ADR_CEILING_BYTES = 29_696;
+const ENCODER_JITTER_BYTES = 64;
 const SOURCE_DIRECTORIES = ['lib', 'components', 'app', 'hooks', 'sandbox'];
 const TYPE_IMPORT = /^\s*(?:import|export)\s+type\b/u;
 const MAIN_ENTRY_SPECIFIER = "'@goiasscript/compiler'";
@@ -51,6 +52,16 @@ describe('orçamento do chunk do compilador', () => {
     const budgets = JSON.parse(readFileSync(BUDGETS_FILE, 'utf8')) as { readonly compilerChunkBrotliBytes: number };
     const measured = await measureBrotliBytes(CORE_ENTRY_CONTENTS);
     expect(measured, `estourou: medido ${String(measured)} B contra o teto de ${String(budgets.compilerChunkBrotliBytes)} B`).toBeLessThanOrEqual(budgets.compilerChunkBrotliBytes);
+  }, BUNDLE_TIMEOUT_MS);
+
+  it('o núcleo não cresce nem encolhe além da catraca interna (coreRatchetBytes)', async () => {
+    const budgets = JSON.parse(readFileSync(BUDGETS_FILE, 'utf8')) as { readonly coreRatchetBytes: number };
+    const measured = await measureBrotliBytes(CORE_ENTRY_CONTENTS);
+    expect(measured, `subiu: medido ${String(measured)} B contra ${String(budgets.coreRatchetBytes)} B na catraca`).toBeLessThanOrEqual(budgets.coreRatchetBytes);
+    expect(
+      budgets.coreRatchetBytes - measured,
+      `melhorou: atualize budgets.json para { "coreRatchetBytes": ${String(measured)} }`,
+    ).toBeLessThanOrEqual(ENCODER_JITTER_BYTES);
   }, BUNDLE_TIMEOUT_MS);
 
   it('o módulo de mensagens, baixado só com diagnóstico, fica abaixo do teto informativo', async () => {
