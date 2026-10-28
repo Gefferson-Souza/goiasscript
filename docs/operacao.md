@@ -94,6 +94,11 @@ primeira tag, confira que o ambiente `npm-release` exige revisor e só aceita ta
 `v3.*`, e que um ruleset de tags limita `v3.*` aos mantenedores. O workflow só
 publica quando a tag aponta para a ponta da `main`.
 
+O ruleset impede apagar ou mover uma tag `v3.*`, inclusive para o dono. Entre criar
+a tag e aprovar o stage, não faça merge na `main`: se a ponta andar, o job de
+publicação recusa e a tag fica presa no commit antigo. Para sair disso, versione a
+próxima (`alpha.1`, por exemplo) num PR e crie a tag nova.
+
 ## Reverter o deploy do playground
 
 O playground roda na Vercel (`apps/playground/vercel.json`).
