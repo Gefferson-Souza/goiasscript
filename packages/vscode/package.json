@@ -2,7 +2,7 @@
   "name": "goiasscript-vscode",
   "displayName": "GoiásScript",
   "description": "Linguagem goiana no VS Code: o editor fica de olho nos erros, dá a dica e bota o programa pra moer, sô.",
-  "version": "0.3.0",
+  "version": "3.0.0",
   "publisher": "goiasscript",
   "license": "MIT",
   "type": "module",
