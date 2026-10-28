@@ -6,10 +6,7 @@ atendido**: 5 das 19 promessas seguem `ready` e só fecham depois dos smokes pó
 CRITICAL/HIGH fechados (anexo em `docs/fase-9/checklist-auditoria.md`) e nenhum CRITICAL/HIGH ficou aberto nas revisões
 de segurança das fases 3, 4, 5 e 7. Ressalvas técnicas que continuam abertas:
 
-1. A mutação do compilador, medida de novo em 2026-10-28, deu 87,88, abaixo do `break` de 90 (a Fase 2 registrava
-   92,91). Os testes novos do lexer, parser, analisador e lowering eliminam 391 sobreviventes; a nota final sai da
-   próxima medição completa.
-2. Os manifestos seguem em `3.0.0-alpha.0` e não há changeset pendente; o release estável depende do versionamento.
+1. Os manifestos seguem em `3.0.0-alpha.0` e não há changeset pendente; o release estável depende do versionamento.
 
 Também estão abertos o teto de 29 KB brotli do ADR-0001 (excedido na Fase 4) e todos os atos do dono. O GATE 9 só
 fecha depois de publicar, implantar e rodar os smokes (seção 8). Nada foi enviado ao remoto, publicado, implantado nem
@@ -103,7 +100,7 @@ O README só afirma o que está provado; a descrição proposta para o campo "Ab
 | S3 | cumprido | 46 achados CRITICAL/HIGH fechados com prova verificável (seção 5); os dois CRITICAL ligados a `name-matrix.e2e.ts` e `hostile-names.test.ts`; palavras aposentadas fecham por golden de GS0306 |
 | S4 | cumprido | orçamento `programa só nativo tem 0 bytes de runtime no alvo module` em `budgets.test.ts`, verde |
 | S5 | cumprido | gates bloqueantes verdes (ESLint, scanner, dependency-cruiser) e baseline do scanner vazio (as chaves de cor de `apps/playground/tailwind.config.ts` agora são em inglês). A exceção de mutação confinada a `this.*` (ADR-0004) está registrada |
-| S6 | parcial, nota de mutação pendente | cobertura acima de 80% em cada pacote (tabela da seção 2, imposta pelo `verify`); mutação do compilador medida em 87,88 em 2026-10-28, abaixo do `thresholds.break` = 90, antes dos testes que eliminam 391 sobreviventes; a nova medição confirma ou não a volta a 90; o Worker e o CLI têm só relatório de mutação |
+| S6 | cumprido | cobertura acima de 80% em cada pacote (tabela da seção 2, imposta pelo `verify`); mutação do compilador 96,44 com `thresholds.break` = 90, medida em 2026-10-28 (4.378 mortos, 635 por tempo, 164 sobreviventes, 21 sem cobertura; antes dos testes novos dava 87,88); o Worker e o CLI têm só relatório de mutação |
 | S7 | pendente do dono | CLI no npm, playground no ar, extensão no Marketplace e Open VSX e Engoianador no ar exigem contas e segredos do dono; os quatro smokes estão prontos |
 | S8 | pendente do dono | `docs/piloto/relatorio-piloto.md` registra `0/3`; kit, formulário e `summarize-pilot` prontos |
 
