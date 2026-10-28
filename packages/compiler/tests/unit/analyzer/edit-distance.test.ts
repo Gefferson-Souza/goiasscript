@@ -63,3 +63,13 @@ describe('closestInPools', () => {
     }
   });
 });
+
+describe('CandidatePool com índice já montado', () => {
+  it('encontra nome acrescentado depois de o índice ser usado', () => {
+    const names = Array.from({ length: 100 }, (_, index) => `item${String(index)}`);
+    const pool = CandidatePool.of(names);
+    expect(closestInPools('novoo', [pool])).toBeUndefined();
+    pool.add('novo');
+    expect(closestInPools('novoo', [pool])).toBe('novo');
+  });
+});
