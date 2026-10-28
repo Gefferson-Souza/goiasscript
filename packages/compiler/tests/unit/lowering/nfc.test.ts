@@ -28,4 +28,26 @@ describe('NFC na emissão', () => {
     const { code } = emit(`uai d é faz_um Data()\nprosa(d.${nfdMonth}())`);
     expect(code).toBe('const d = new Date();\nconsole.log((d.getMonth() + 1));');
   });
+  it('função da biblioteca digitada em NFD sai pelo nome nativo, sem sobrepor edições', () => {
+    const nfdName = 'vira_nu\u0301mero';
+    expect(emit(`prosa(${nfdName}("1"))`).code.split('\n')[0]).toBe('console.log($gs_vira_numero("1"));');
+  });
+  it('nome de método de classe em NFD sai em NFC', () => {
+    expect(emit(`arruma_trem A { ${NFD}() { faz_favor 1 } }`).code).toBe(`class A { ${NFC}() { return 1; } }`);
+  });
+  it('variável em NFD usada como receptor de membro da biblioteca sai em NFC', () => {
+    const { code } = emit(`uai ${NFC} é "ab"\nprosa(${NFD}.o_tanto)`);
+    expect(code).toBe(`const ${NFC} = "ab";\nconsole.log(${NFC}.length);`);
+  });
+  it('índice computado em NFD sai em NFC', () => {
+    expect(emit(`uai t é "ab"\nuai ${NFC} é 0\nprosa(t[${NFD}])`).code).toBe(`const t = "ab";\nconst ${NFC} = 0;\nconsole.log(t[${NFC}]);`);
+  });
+  it('propriedade em NFD de objeto do aluno sai em NFC', () => {
+    const { code } = emit(`uai o é { ${NFC}: 1 }\nprosa(o.${NFD})`);
+    expect(code).toBe(`const o = { ${NFC}: 1 };\nconsole.log(o.${NFC});`);
+  });
+  it('identificador já em NFC não gera edição própria no mapeamento', () => {
+    const kinds = emit('uai x é 1').segments.map((segment) => segment.kind);
+    expect(kinds).toEqual(['replace', 'copy', 'replace', 'copy', 'insert']);
+  });
 });
