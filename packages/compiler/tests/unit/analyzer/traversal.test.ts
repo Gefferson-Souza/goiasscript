@@ -23,6 +23,8 @@ describe('o analisador visita todas as partes das construções', () => {
     ['valor da atribuição', 'trem a é 1\na é zz'],
     ['elemento de lista', 'prosa([zz])'],
     ['argumento de faz_um', 'arruma_trem A {}\nfaz_um A(zz)'],
+    ['operando esquerdo de e_mais', 'prosa(zz e_mais certeza)'],
+    ['operando direito de ou_então', 'prosa(certeza ou_então zz)'],
     ['operando de num_é', 'prosa(num_é zz)'],
     ['objeto da atribuição de membro', 'zz.campo é 1'],
     ['bloco do por_fim', 'tenta_aí { prosa(1) } por_fim { prosa(zz) }'],
