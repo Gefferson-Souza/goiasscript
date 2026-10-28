@@ -6,7 +6,9 @@ atendido**: 5 das 19 promessas seguem `ready` e só fecham depois dos smokes pó
 CRITICAL/HIGH fechados (anexo em `docs/fase-9/checklist-auditoria.md`) e nenhum CRITICAL/HIGH ficou aberto nas revisões
 de segurança das fases 3, 4, 5 e 7. Ressalvas técnicas que continuam abertas:
 
-1. A mutação do compilador (92,91) é a medida da Fase 2, sem nova medição nesta fase.
+1. A mutação do compilador, medida de novo em 2026-10-28, deu 87,88, abaixo do `break` de 90 (a Fase 2 registrava
+   92,91). Os testes novos do lexer, parser, analisador e lowering eliminam 391 sobreviventes; a nota final sai da
+   próxima medição completa.
 2. Os manifestos seguem em `3.0.0-alpha.0` e não há changeset pendente; o release estável depende do versionamento.
 
 Também estão abertos o teto de 29 KB brotli do ADR-0001 (excedido na Fase 4) e todos os atos do dono. O GATE 9 só
@@ -101,7 +103,7 @@ O README só afirma o que está provado; a descrição proposta para o campo "Ab
 | S3 | cumprido | 46 achados CRITICAL/HIGH fechados com prova verificável (seção 5); os dois CRITICAL ligados a `name-matrix.e2e.ts` e `hostile-names.test.ts`; palavras aposentadas fecham por golden de GS0306 |
 | S4 | cumprido | orçamento `programa só nativo tem 0 bytes de runtime no alvo module` em `budgets.test.ts`, verde |
 | S5 | cumprido | gates bloqueantes verdes (ESLint, scanner, dependency-cruiser) e baseline do scanner vazio (as chaves de cor de `apps/playground/tailwind.config.ts` agora são em inglês). A exceção de mutação confinada a `this.*` (ADR-0004) está registrada |
-| S6 | cumprido | cobertura acima de 80% em cada pacote (tabela da seção 2, imposta pelo `verify`); mutação do compilador 92,91 com `thresholds.break` = 90, medida na Fase 2 e sem nova medição; o Worker e o CLI têm só relatório de mutação |
+| S6 | parcial, nota de mutação pendente | cobertura acima de 80% em cada pacote (tabela da seção 2, imposta pelo `verify`); mutação do compilador medida em 87,88 em 2026-10-28, abaixo do `thresholds.break` = 90, antes dos testes que eliminam 391 sobreviventes; a nova medição confirma ou não a volta a 90; o Worker e o CLI têm só relatório de mutação |
 | S7 | pendente do dono | CLI no npm, playground no ar, extensão no Marketplace e Open VSX e Engoianador no ar exigem contas e segredos do dono; os quatro smokes estão prontos |
 | S8 | pendente do dono | `docs/piloto/relatorio-piloto.md` registra `0/3`; kit, formulário e `summarize-pilot` prontos |
 
@@ -128,8 +130,8 @@ O README só afirma o que está provado; a descrição proposta para o campo "Ab
 
 Na revisão das Fases 8 e 9 foram corrigidos: a publicação exige a tag na ponta da `main`
 (antes aceitava qualquer ancestral) e o changeset com BOM ou espaço antes do frontmatter conta como
-pendente. A aprovação humana do `npm-release` depende de configuração do GitHub e entrou no runbook
-(`docs/operacao.md`) e no item 9 da seção 8. Aceitos com motivo: o `npm` pinado instalado no job com OIDC
+pendente. A aprovação humana do `npm-release` está configurada: o ambiente exige revisor e só aceita tags
+`v3.*` (runbook em `docs/operacao.md`). Aceitos com motivo: o `npm` pinado instalado no job com OIDC
 (versão fixa), o sha256 do tarball no mesmo artifact (detecta corrupção, não adulteração; a prova é o
 provenance), a rede liberada no sandbox dos blocos (Node 22 e 24 não negam rede; o job não tem segredo
 nem escrita) e o ambiente herdado pelo `video:facts` (ferramenta manual do dono, com saída redigida).
@@ -177,7 +179,7 @@ Estado de todas: `pendente do dono`, salvo quando marcado.
 | 6 | Doação | 4 | guarda de configuração | fornecer a chave Pix real e Sponsors, ou deixar as variáveis vazias | seção visível ou ausente de propósito |
 | 7 | Cloudflare e Engoianador | 7 | `wrangler.toml`, Durable Object, `predeploy` | conta, `wrangler login`, KV, `GROQ_API_KEY`, `engoianador:deploy`, aquecer o cache, `ALLOWED_ORIGINS` de produção | `/health` com todos os bindings `true` |
 | 8 | Groq e variáveis no GitHub | 7 | `engoianador-contract.yml`, `engoianador-smoke.yml` | segredo `GROQ_API_KEY`, variável `ENGOIANADOR_URL`, disparar os dois workflows; preencher `NEXT_PUBLIC_ENGOIANADOR_URL` na Vercel | execuções verdes |
-| 9 | Versão estável do npm | 9 | `release.yml`, `release-target.ts`, Changesets, `compat` | aplicar o versionamento do Changesets (3.0.0), conferir revisor obrigatório e restrição `v3.*` no ambiente `npm-release`, criar o trusted publisher imediatamente antes, tag `v3.0.0`, `npm stage approve` com 2FA, validar em até 2 dias | `npm view goiasscript dist-tags` com `latest` em 3.0.0 e provenance |
+| 9 | Versão estável do npm | 9 | `release.yml`, `release-target.ts`, Changesets, `compat` | aplicar o versionamento do Changesets (3.0.0), criar o trusted publisher imediatamente antes, tag `v3.0.0`, `npm stage approve` com 2FA, validar em até 2 dias | `npm view goiasscript dist-tags` com `latest` em 3.0.0 e provenance |
 | 10 | Deprecar a 2.0.0 | 9 | página "o que mudou" | `npm deprecate goiasscript@2.0.0` com a mensagem apontando para a página | aviso na página do pacote |
 | 11 | Extensão | 5, 9 | `release-vscode.yml`, `smoke-extension.yml` | publisher do Marketplace com Entra ID federado, conta Eclipse e namespace do Open VSX, ambientes com revisores, tag `vscode-v3.0.0`, GitHub Release | extensão nos dois marketplaces |
 | 12 | Smokes pós-publicação | 9 | `smoke-release.yml`, `playground-smoke.yml`, `smoke-extension.yml` | disparar e anexar o resultado; atualizar a descrição do repositório com o texto proposto | execuções verdes |
@@ -225,7 +227,6 @@ dono, e isso ainda não foi medido porque a CI não rodou.
 | Testes dentro do VS Code | o VS Code não é baixado aqui | `vscode.yml` |
 | Matriz Windows e macOS, Node 22 e 24 | só a CI tem esses sistemas | `ci.yml` |
 | `lychee` (âncoras e links externos) | binário não instalado | `promises-gate.yml`, `scheduled.yml` |
-| Mutação do Stryker | gera arquivos temporários grandes e o disco tem cerca de 4 GB livres | `scheduled.yml` |
 | Job `compat` | roda em PR para `main` | `compat.yml` |
 
 ## 11. Dados do vídeo
