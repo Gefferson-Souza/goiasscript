@@ -53,4 +53,12 @@ describe('lexer: trivia e quebras', () => {
     expect(kindsOf('a //')).toEqual(['identifier', 'end-of-file']);
     expect(kindsOf('\n')).toEqual(['newline', 'end-of-file']);
   });
+  it('o BOM inicial não conta como quebra de linha', () => {
+    expect(lexAll('\ufeffuai').tokens[0]?.leadingTrivia).toEqual([{ kind: 'bom', start: 0, end: 1, containsNewline: false }]);
+  });
+  it('aponta U+2028 e U+2029 em comentários pela posição exata', () => {
+    const spans = (text: string) => lexAll(text).diagnostics.map((item) => [item.code, item.start, item.end]);
+    expect(spans('// a\u2029b')).toEqual([['GS0105', 4, 5]]);
+    expect(spans('/* a\u2028b */')).toEqual([['GS0105', 4, 5]]);
+  });
 });
