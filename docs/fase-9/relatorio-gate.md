@@ -8,7 +8,7 @@ de segurança das fases 3, 4, 5 e 7. Ressalvas técnicas que continuam abertas:
 
 1. Os manifestos seguem em `3.0.0-alpha.0` e não há changeset pendente; o release estável depende do versionamento.
 
-Também estão abertos o teto de 29 KB brotli do ADR-0001 (excedido na Fase 4) e todos os atos do dono. O GATE 9 só
+O teto de 29 KB brotli do ADR-0001 está resolvido (o núcleo mede 27.828 B, item 16 da seção 8); seguem abertos todos os atos do dono. O GATE 9 só
 fecha depois de publicar, implantar e rodar os smokes (seção 8). Nada foi enviado ao remoto, publicado, implantado nem
 etiquetado por este trabalho. O S7 (tudo no ar) e o S8 (piloto) **não** estão cumpridos: dependem do dono.
 
@@ -183,14 +183,14 @@ Estado de todas: `pendente do dono`, salvo quando marcado.
 | 13 | Piloto | 6 | kit em `docs/piloto/`, `summarize-pilot` | 3 a 5 aprendizes (um de fora de Goiás), salvar `docs/piloto/respostas/AN.json`, rodar o resumo | `3/3` ou mais |
 | 14 | Vídeo | 9 | `video:facts` | gerar `video-facts.json` com `ENGOIANADOR_URL` depois do versionamento e renderizar de novo no kit externo | JSON com `engoianador.status: ok` |
 | 15 | Ctrl+C no `goias` em terminal gráfico | 3 | conferência manual descrita no relatório da Fase 3 | conferir uma vez, antes do primeiro publish | registro no relatório da Fase 3 |
-| 16 | Teto de 29 KB do ADR-0001 | 4 | catraca em `budgets.json` (33.205 B brotli, só impede piora); o chunk já sai do JS inicial (home de 150 kB para 125 kB), mas o compilador em si segue 3.509 B acima dos 29.696 B | decidir o teto ou registrar ADR de emenda; sem isso, só encolhendo o compilador (dados de diagnóstico carregados sob demanda exigiriam `compile()` assíncrono) | decisão registrada antes do GATE 4 ser dado por fechado |
+| 16 | Teto de 29 KB do ADR-0001 | 4 | **resolvido:** o núcleo do compilador (`@goiasscript/compiler/core`) mede 27.828 B brotli, 1.868 B abaixo dos 29.696 B; `budgets.json` guarda o teto do ADR, não o medido. O texto dos diagnósticos (5.803 B) fica em `@goiasscript/compiler/format`, baixado pelo playground só quando há diagnóstico; `compile()` segue síncrono | emenda ao ADR-0001 registra o que o teto mede (o dono confirma ao aprovar) | teste `bundle-budget.test.ts` verde com o teto em 29.696 |
 | 17 | Extensão num VS Code real | 5 | testes de integração escritos, executados só na CI | conferir Modo Restrito e comandos, anexar capturas ao relatório da Fase 5; criar o segredo `OVSX_PAT` (o plano cita `OVSX_TOKEN`; vale o nome do workflow) | capturas anexadas; ambiente `open-vsx` com o segredo |
 | 18 | Tickets dos achados aceitos | 3, 4 | achados LOW descritos nos relatórios das fases | abrir os tickets `GS-<n>` (3 e 4 da Fase 3; 3, 4 e 5 da Fase 4) e citar os números | tickets criados |
 | 19 | Alarme de uso, Turnstile e modelo | 7 | teto global e guarda de leitura; `verify-model` no `predeploy` | alerta de uso dos Durable Objects na Cloudflare, Turnstile se quiser, rodar `verify-model` com a chave | alerta ativo; "tá ativo na Groq" |
 | 20 | Página "o que mudou" implantada | 6 | `/cartilha/o-que-mudou` lê `docs/spec/o-que-mudou.md` | conferir a página implantada contra o spec | texto igual |
 | 21 | Merge e branches do repositório | 8 | ADR-0011 e rulesets | ligar `delete_branch_on_merge`, desligar merge commit | `gh api` com `delete_branch_on_merge=true` e `allow_merge_commit=false` |
 
-Decisões do dono ainda abertas: o teto de 29 KB brotli do ADR-0001 (item 16), confirmar as exceções às regras (ADR-0004 mutação confinada, ADR-0008 commits sem ID
+Decisões do dono ainda abertas: confirmar a emenda do ADR-0001 sobre o que o teto de 29 KB mede (item 16, já cumprido em 27.828 B), confirmar as exceções às regras (ADR-0004 mutação confinada, ADR-0008 commits sem ID
 Jira, ADR-0007 `TODO(GS-<n>)`), a leitura do teto de 150 ms como
 relativo à máquina de referência (relatório da Fase 2) e o método do Marketplace antes de 2026-12-01.
 

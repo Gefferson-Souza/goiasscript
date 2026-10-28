@@ -2,8 +2,9 @@
 
 **Veredito proposto:** pronto para o GATE 4 assim que a CI do `playground-e2e.yml` passar em Firefox e WebKit, que
 nunca rodaram localmente. A revisão de segurança independente, em contexto fresco e somente leitura, não achou CRITICAL
-nem HIGH (seção 5.3). Fica com o dono a decisão sobre o teto de 29 KB do ADR-0001, hoje excedido (33.195 B, seção 6),
-e o checklist da seção 9.
+nem HIGH (seção 5.3). O teto de 29 KB do ADR-0001, que estava excedido (33.195 B, seção 6), foi resolvido depois: o núcleo mede
+27.828 B e o texto dos diagnósticos virou um módulo à parte (ver `docs/fase-9/relatorio-gate.md`, item 16). Fica com o
+dono o checklist da seção 9.
 
 Medição: Node v26, Linux, CPU 12th Gen Intel(R) Core(TM) i5-12450H (12 núcleos), Google Chrome 155 do sistema para o
 Chromium do E2E e para a medição de `compile()`. Cobertura e contagens de testes vêm de `corepack pnpm verify` e de
@@ -165,8 +166,8 @@ validação do `#codigo=` e da config pública, o cliente do Engoianador e os wo
 | `compile()` no Chromium, 10.000 linhas (mediana de 20) | **98,2 ms** (máximo 115 ms; teto do plano 150 ms) |
 
 O programa de teste alterna `uai nN é N mais 2` e `prosa(nN)`, com mapa de fonte e `loopLimit` do playground. O chunk
-do compilador está 3.195 B acima do teto de 29 KB do ADR-0001 (decisão 16, que o dono ainda resolve); a catraca só
-impede piora.
+do compilador estava 3.195 B acima do teto de 29 KB do ADR-0001 (decisão 16). Atualização: resolvido, o núcleo mede
+27.828 B e `budgets.json` guarda o teto de 29.696 B.
 
 ## 7. Divergências do spec
 
@@ -189,8 +190,8 @@ impede piora.
   até `maxRunMs` ou Parar (achado 1).
 - O Worker pode consumir CPU até o teto absoluto (`maxRunMs + maxAskWaitMs`) ou até o aluno clicar em Parar, quando
   finge uma pergunta.
-- Teto de 29 KB do ADR-0001 excedido (33.195 B), pré-condição do GATE 4: exige decisão do dono (decisão 16) ou ADR de
-  emenda antes de fechar a fase; a catraca só impede piora.
+- Teto de 29 KB do ADR-0001 excedido (33.195 B), pré-condição do GATE 4. Atualização: resolvido, o núcleo mede 27.828 B
+  (emenda do ADR-0001).
 - Nenhum deploy real foi feito: o smoke pós-deploy só roda contra uma URL real (tarefa do dono 8).
 
 ## 9. Rastreabilidade (§11) e checklist do dono
@@ -206,7 +207,7 @@ impede piora.
 1. Enviar a branch ao remoto e anexar aqui o resultado da CI do `playground-e2e.yml` em Chromium, Firefox e WebKit;
    qualquer falha de segurança em Firefox ou WebKit bloqueia a fase.
 2. Cumprir as pendências da Fase 3 que ainda estiverem abertas (CI do tarball em Windows e macOS, Ctrl+C no `goias`,
-   teto de 29 KB, item 8).
+   teto de 29 KB, item 8, já resolvido).
 3. Abrir os tickets `GS-<n>` dos achados 3, 4 e 5 da seção 5.1.
 4. Criar o projeto na Vercel apontando para `apps/playground` (diretório raiz), com as variáveis `NEXT_PUBLIC_*` do
    `.env.example`, e registrar o domínio ou adotar o `.vercel.app`.
@@ -214,4 +215,4 @@ impede piora.
 6. Disparar o `playground-smoke.yml` com a URL do deploy e anexar o resultado.
 7. Disparar a revisão de segurança independente (`everything-claude-code:security-reviewer`, contexto fresco, somente
    leitura, perímetro do plano) e anexar a tabela; sem CRITICAL/HIGH abertos.
-8. Decidir o teto de 29 KB do ADR-0001 (decisão 16) ou registrar um ADR de emenda.
+8. Resolvido: o teto de 29 KB do ADR-0001 foi cumprido pelo núcleo (27.828 B); o dono confirma a emenda do ADR.
