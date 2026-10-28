@@ -11,8 +11,10 @@ export { STDLIB } from './stdlib/index.ts';
 export { DIAGNOSTICS } from './diagnostics/index.ts';
 export { LIMITS } from './limits.constants.ts';
 export {
-  lookupDiagnostic, lookupJsMember, lookupJsReserved, lookupKeyword, lookupRetiredWord, lookupStdlibGlobal, lookupStdlibMember, lookupStdlibStatic,
+  lookupJsMember, lookupJsReserved, lookupKeyword, lookupRetiredWord, lookupStdlibGlobal, lookupStdlibMember, lookupStdlibStatic,
 } from './lookup.ts';
+export { lookupDiagnostic } from './diagnostics/lookup-diagnostic.ts';
+export { RUNTIME_PHRASES, WARNING_CODES } from './diagnostics/core.generated.ts';
 export { formatMessage } from './format-message.ts';
 export type { CompletionKind, CompletionLabel } from './completions.types.ts';
 export { COMPLETION_LABELS } from './completions.ts';

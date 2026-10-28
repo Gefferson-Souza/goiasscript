@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { lookupDiagnostic } from '../src/lookup.ts';
+import { lookupDiagnostic } from '../src/diagnostics/lookup-diagnostic.ts';
 import { formatMessage } from '../src/format-message.ts';
 
 type Tone = 'raiz' | 'neutro';

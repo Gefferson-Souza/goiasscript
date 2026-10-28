@@ -13,6 +13,7 @@ const EXPECTED_PATHS = [
   'packages/language/generated/error-phrases.generated.ts', 'packages/language/generated/glossary.json',
   'packages/language/generated/goiasscript.monarch.json', 'packages/language/generated/goiasscript.tmLanguage.json',
   'packages/language/generated/snippets.json',
+  'packages/language/src/diagnostics/core.generated.ts',
   'packages/language/src/js/js-members.generated.ts',
 ];
 

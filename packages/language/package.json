@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "sideEffects": false,
   "exports": { ".": "./src/index.ts", "./generated/*.json": "./generated/*.json" },
   "engines": { "node": ">=22.12" },
   "scripts": {
