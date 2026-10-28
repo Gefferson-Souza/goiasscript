@@ -1,4 +1,4 @@
-export type HostDiagnosticKind = 'loadFailure' | 'unreadableMessage' | 'compileFailure';
+export type HostDiagnosticKind = 'loadFailure' | 'unreadableMessage' | 'compileFailure' | 'messagesFailure';
 
 export interface HostDiagnosticText {
   readonly message: string;
