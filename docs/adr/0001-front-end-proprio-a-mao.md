@@ -73,5 +73,5 @@ síncrono e a entrada principal `@goiasscript/compiler` recompõe núcleo e form
 | Formatação (informativa) | 5.803 bytes |
 | Entrada principal, tudo junto | 33.132 bytes |
 
-Com diagnóstico, o playground baixa núcleo e formatação, ~33,6 KB. Esta emenda redefine o que o teto mede; fica
-registrada como proposta até o dono confirmar, junto com os demais limites deste ADR.
+Com diagnóstico, o playground baixa núcleo e formatação, ~33,6 KB. Esta emenda redefine o que o teto mede e está
+aceita; se o dono preferir medir o total, a reversão é voltar o teste de orçamento à entrada principal.

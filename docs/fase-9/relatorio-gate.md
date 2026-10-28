@@ -190,7 +190,7 @@ Estado de todas: `pendente do dono`, salvo quando marcado.
 | 20 | Página "o que mudou" implantada | 6 | `/cartilha/o-que-mudou` lê `docs/spec/o-que-mudou.md` | conferir a página implantada contra o spec | texto igual |
 | 21 | Merge e branches do repositório | 8 | ADR-0011 e rulesets | ligar `delete_branch_on_merge`, desligar merge commit | `gh api` com `delete_branch_on_merge=true` e `allow_merge_commit=false` |
 
-Decisões do dono ainda abertas: confirmar a emenda do ADR-0001 sobre o que o teto de 29 KB mede (item 16, já cumprido em 27.828 B), confirmar as exceções às regras (ADR-0004 mutação confinada, ADR-0008 commits sem ID
+Decisões do dono ainda abertas: confirmar as exceções às regras (ADR-0004 mutação confinada, ADR-0008 commits sem ID
 Jira, ADR-0007 `TODO(GS-<n>)`), a leitura do teto de 150 ms como
 relativo à máquina de referência (relatório da Fase 2) e o método do Marketplace antes de 2026-12-01.
 
