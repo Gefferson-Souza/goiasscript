@@ -24,4 +24,18 @@ describe('lexer: palavras', () => {
   it('transforma palavra fora do alfabeto em um token invalid só', () => {
     expect(kindsOf('$x')).toEqual(['invalid', 'end-of-file']);
   });
+  it('DEL (U+007F) não é letra de palavra e vira caractere inesperado isolado', () => {
+    const { tokens, diagnostics } = lexAll('x\u007fy');
+    expect(tokens.map((token) => [token.kind, token.text])).toEqual([['identifier', 'x'], ['invalid', '\u007f'], ['identifier', 'y'], ['end-of-file', '']]);
+    expect(diagnostics.map((item) => item.code)).toEqual(['GS0107']);
+  });
+  it('informa o caractere inesperado, inclusive fora do plano básico', () => {
+    expect(lexAll('@').diagnostics[0]?.args).toEqual({ character: '@' });
+    expect(lexAll('\u{1F600}').diagnostics[0]?.args).toEqual({ character: '😀' });
+  });
+  it('informa o primeiro caractere inválido do nome, mesmo depois de letras válidas', () => {
+    expect(lexAll('ab$cd').diagnostics[0]?.args).toEqual({ character: '$' });
+    expect(lexAll('xα').diagnostics[0]?.args).toEqual({ character: 'α' });
+    expect(lexAll('$x').diagnostics[0]?.args).toEqual({ character: '$' });
+  });
 });

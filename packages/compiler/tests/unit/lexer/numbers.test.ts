@@ -6,7 +6,7 @@ describe('lexer: números', () => {
     expect(codesOf(text)).toEqual([]);
     expect(valuesOf(text)).toEqual([text]);
   });
-  it.each(['.5.5', '08', '01310', '00', '1.000.000', '1.2.3', '1e', '3x', '0x', '0b102', '1_', '1__0'])('%s é Invalid com GS0101', (text) => {
+  it.each(['.5.5', '08', '01310', '00', '1.000.000', '1.2.3', '1e', '3x', '0x', '0b102', '1_', '1__0', '1e_5', '1e+_5', '1e5_', '1e5__0', '01n', '00n', '1_n'])('%s é Invalid com GS0101', (text) => {
     expect(kindsOf(text)).toEqual(['invalid', 'end-of-file']);
     expect(codesOf(text)).toEqual(['GS0101']);
   });
@@ -25,5 +25,9 @@ describe('lexer: números', () => {
   it('marca hexadecimal, octal, binário, BigInt e separador como formas próprias', () => {
     const forms = ['0xff', '0b1', '0o7', '10n', '1_000', '7'].map((text) => lexAll(text).tokens[0]?.numberForm);
     expect(forms).toEqual(['hex', 'binary', 'octal', 'bigint', 'separator', 'decimal']);
+  });
+  it('aponta o número inválido inteiro, até onde a palavra colada termina', () => {
+    const { diagnostics } = lexAll('1e5_ x');
+    expect(diagnostics.map((item) => [item.code, item.start, item.end])).toEqual([['GS0101', 0, 4]]);
   });
 });
