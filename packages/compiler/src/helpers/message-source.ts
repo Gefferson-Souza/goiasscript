@@ -1,10 +1,10 @@
-import { lookupDiagnostic } from '@goiasscript/language';
+import { RUNTIME_PHRASES } from '@goiasscript/language';
 import type { MessagePhrases } from './message-source.types.ts';
 
 const GENERIC_CODE_BY_CLASS = { TypeError: 'GS0710', ReferenceError: 'GS0711', RangeError: 'GS0712', InternalError: 'GS0712', SyntaxError: 'GS0713' } as const;
 const MARKER_CODES = ['GS0701', 'GS0702', 'GS0703'] as const;
 
-const phraseOf = (code: string): string => lookupDiagnostic(code)?.messages.raiz ?? '';
+const phraseOf = (code: string): string => RUNTIME_PHRASES[code] ?? '';
 
 export const phrasesFromCatalog = (): MessagePhrases => ({
   generic: Object.fromEntries(Object.entries(GENERIC_CODE_BY_CLASS).map(([name, code]) => [name, phraseOf(code)])),
