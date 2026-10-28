@@ -64,6 +64,18 @@ describe('closestInPools', () => {
   });
 });
 
+describe('CandidatePool vazio ou sem vizinhos', () => {
+  it('pool vazio não sugere nada', () => {
+    expect(closestInPools('Stryker was here', [new CandidatePool()])).toBeUndefined();
+    expect(closestInPools('a', [new CandidatePool()])).toBeUndefined();
+  });
+  it('nome curto sem vizinho em pool grande não sugere nada', () => {
+    const pool = CandidatePool.of(Array.from({ length: 100 }, (_, index) => `item${String(index)}`));
+    expect(closestInPools('zz', [pool])).toBeUndefined();
+    expect(closestInPools('a', [pool])).toBeUndefined();
+  });
+});
+
 describe('CandidatePool com índice já montado', () => {
   it('encontra nome acrescentado depois de o índice ser usado', () => {
     const names = Array.from({ length: 100 }, (_, index) => `item${String(index)}`);

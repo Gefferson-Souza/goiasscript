@@ -32,4 +32,22 @@ describe('detalhes da análise', () => {
     expect(argsOf('prosa(Conta.tem)', 'GS0305')).toStrictEqual({ name: 'tem' });
     expect(argsOf('prosa(Coisa.maior)', 'GS0305')).toBeDefined();
   });
+  it('palavra da linguagem usada como nome fica sem resolução, para o aviso GS0303 não ser repetido', () => {
+    const { analysis, parsed } = analyzeSource('uai mais é 1\nprosa(mais)');
+    const kinds: string[] = [];
+    const visit = (node: AstNode): void => {
+      if (node.type === 'Identifier' && node.name === 'mais') kinds.push(analysis.resolutionOf(node).kind);
+      forEachChild(node, visit);
+    };
+    visit(parsed.program);
+    expect(kinds).toEqual(['program', 'unresolved']);
+  });
+  it('sugestão de membro vem só de membros de instância da biblioteca', () => {
+    expect(argsOf('uai o é { a: 1 }\nprosa(o.gritnado)', 'GS0305')).toStrictEqual({ name: 'gritnado', suggestion: 'gritando' });
+    expect(argsOf('uai o é { a: 1 }\nprosa(o.pross)', 'GS0305')).toStrictEqual({ name: 'pross' });
+    expect(argsOf('uai o é { a: 1 }\nprosa(o.Conta)', 'GS0305')).toStrictEqual({ name: 'Conta' });
+  });
+  it('sugestão de nome vem só de globais da biblioteca, não de métodos', () => {
+    expect(argsOf('prosa(gritnado)', 'GS0301')).toStrictEqual({ name: 'gritnado' });
+  });
 });
