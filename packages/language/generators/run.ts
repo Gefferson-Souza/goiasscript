@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import type { GeneratedFile } from './generators.types.ts';
 import { renderCliHelpFiles } from './cli-help.ts';
 import { renderCompletionsFiles } from './completions.ts';
+import { renderCoreDiagnosticsFiles } from './core-diagnostics.ts';
 import { renderErrorPhrasesFiles } from './error-phrases.ts';
 import { renderGlossaryFiles } from './glossary.ts';
 import { renderJsMembersFiles } from './js-members.ts';
@@ -18,7 +19,7 @@ const REPOSITORY_ROOT = resolve(import.meta.dirname, '../../..');
 export const GENERATORS: readonly (() => readonly GeneratedFile[])[] = [
   renderJsMembersFiles, renderTextmateFiles, renderMonarchFiles, renderSnippetsFiles, renderReferenceFiles,
   renderCliHelpFiles, renderGlossaryFiles, renderCompletionsFiles, renderRetiredPageFiles,
-  renderVocabularyLockFiles, renderErrorPhrasesFiles,
+  renderVocabularyLockFiles, renderErrorPhrasesFiles, renderCoreDiagnosticsFiles,
 ];
 
 export function renderAll(): readonly GeneratedFile[] {
