@@ -27,7 +27,7 @@
     "@goiasscript/compiler": "workspace:*",
     "@goiasscript/language": "workspace:*",
     "@goiasscript/optimizer": "workspace:*",
-    "@stryker-mutator/core": "10.0.0",
+    "@stryker-mutator/core": "10.1.1",
     "@stryker-mutator/vitest-runner": "10.0.0"
   },
   "exports": {
