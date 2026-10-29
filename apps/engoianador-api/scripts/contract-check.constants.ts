@@ -10,7 +10,9 @@ export const MODEL_FLAG = '--model';
 export const WRANGLER_FILE = 'wrangler.toml';
 export const MODEL_LINE_PATTERN = /^GROQ_MODEL\s*=\s*"([^"]+)"/m;
 export const MINIMAL_PROMPT = 'Diga oi.';
-export const MINIMAL_MAX_TOKENS = 8;
+// O gpt-oss é modelo de raciocínio: os tokens de pensar contam no limite, e com
+// teto baixo a resposta volta vazia mesmo com a Groq de pé.
+export const MINIMAL_MAX_TOKENS = 512;
 export const CONTRACT_PHRASE = 'Isso é um teste de contrato.';
 export const JSON_HEADERS = { 'Content-Type': 'application/json' } as const;
 
