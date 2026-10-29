@@ -10,7 +10,7 @@ import {
   REQUIRE_FLAG,
   VERIFY_TIMEOUT_MS,
   WRANGLER_FILE,
-} from './verify-model.constants';
+} from './verify-model.constants.ts';
 import type { RunVerifyModelOptions, VerifyModelOptions, VerifyModelOutcome, VerifyModelResult } from './verify-model.types';
 
 async function fetchModelList(options: VerifyModelOptions, apiKey: string): Promise<GroqModelList | null> {
