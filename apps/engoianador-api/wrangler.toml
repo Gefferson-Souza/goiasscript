@@ -22,11 +22,9 @@ class_name = "QuotaLedgerObject"
 tag = "v1"
 new_sqlite_classes = ["QuotaLedgerObject"]
 
-# O id abaixo é um marcador: o check-worker-config recusa o deploy enquanto
-# houver `COLE_O_ID`. Crie o namespace com `wrangler kv namespace create ENGOIANADOR_CACHE`.
 [[kv_namespaces]]
 binding = "ENGOIANADOR_CACHE"
-id = "COLE_O_ID_DE_ENGOIANADOR_CACHE"
+id = "84cff0d1b6d7491daf6d32dce910fa25"
 
 # Fallback quando a Groq falha.
 [ai]

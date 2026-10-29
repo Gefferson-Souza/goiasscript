@@ -5,6 +5,7 @@ import { checkWranglerConfig } from '../scripts/wrangler-check.ts';
 
 const WRANGLER_URL = new URL('../wrangler.toml', import.meta.url);
 const PLACEHOLDER_ID = /COLE_O_ID_DE_(\w+)/gu;
+const PRODUCTION_CACHE_ID = /(binding = "ENGOIANADOR_CACHE"\nid = )"[^"]*"/u;
 
 function realIds(): string {
   return readFileSync(fileURLToPath(WRANGLER_URL), 'utf8').replace(PLACEHOLDER_ID, (_match, name: string) => name.toLowerCase().padEnd(32, '0'));
@@ -33,8 +34,9 @@ describe('checkWranglerConfig', () => {
   });
 
   it('recusa id de KV placeholder', () => {
-    const problems = checkWranglerConfig(readFileSync(fileURLToPath(WRANGLER_URL), 'utf8'));
-    expect(problems.some((problem) => problem.includes('ENGOIANADOR_CACHE'))).toBe(true);
+    const toml = realIds().replace(PRODUCTION_CACHE_ID, '$1"COLE_O_ID_DE_ENGOIANADOR_CACHE"');
+    expect(toml).not.toBe(realIds());
+    expect(checkWranglerConfig(toml).some((problem) => problem.includes('ENGOIANADOR_CACHE'))).toBe(true);
   });
 
   it('recusa origem local nas vars de produção', () => {
