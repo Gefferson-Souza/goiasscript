@@ -53,6 +53,19 @@ describe('runContractCheck', () => {
     expect(result.status === 'failed' && result.problems.join(' ')).toContain(MODEL);
   });
 
+  it('passa com modelo de raciocínio, que gasta tokens pensando antes de responder', async () => {
+    const reasoningTokens = 200;
+    const groqLike = fakeFetch({});
+    const reasoningFetch: FetchPort = (url, init) => {
+      if (new URL(url).hostname !== GROQ_HOST || url.endsWith('/models')) return groqLike(url, init);
+      const body = typeof init.body === 'string' ? init.body : '{}';
+      const { max_tokens: maxTokens } = JSON.parse(body) as { readonly max_tokens: number };
+      const content = maxTokens > reasoningTokens ? 'oi' : '';
+      return Promise.resolve(json({ choices: [{ message: { content } }] }));
+    };
+    expect(await runContractCheck(options({}, { fetchFn: reasoningFetch }))).toEqual({ status: 'passed', pending: [] });
+  });
+
   it('falha quando a completação mínima volta vazia', async () => {
     const result = await runContractCheck(options({ completion: { choices: [] } }));
     expect(result.status).toBe('failed');
