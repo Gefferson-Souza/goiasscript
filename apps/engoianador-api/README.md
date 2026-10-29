@@ -94,7 +94,7 @@ pnpm engoianador:deploy
 ## Fallback
 
 Se `GROQ_API_KEY` não estiver setada ou a Groq retornar 5xx, o worker
-tenta usar Workers AI (`@cf/meta/llama-3.1-8b-instruct`). Pra ativar,
+tenta usar Workers AI (`@cf/meta/llama-3.1-8b-instruct-fp8`). Pra ativar,
 descomente a seção `[ai]` em `wrangler.toml`.
 
 ## Estrutura
