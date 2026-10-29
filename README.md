@@ -6,6 +6,7 @@ GoiásScript é uma linguagem educacional: você escreve com palavras do falar g
 compilador entrega JavaScript limpo, com as linhas do seu `.gs` preservadas. Ela não é JavaScript, e o compilador
 avisa em goianês quando ocê escorrega.
 
+[![CI](https://github.com/Gefferson-Souza/goiasscript/actions/workflows/ci.yml/badge.svg)](https://github.com/Gefferson-Souza/goiasscript/actions/workflows/ci.yml)
 [![Licença](https://img.shields.io/badge/licença-MIT-blue.svg)](LICENSE)
 
 ## Instalar
@@ -82,8 +83,8 @@ A especificação, o vocabulário e a gramática ficam em [docs/spec](docs/spec)
 
 - **Playground:** editor no navegador que compila e executa goianês sem ir a servidor nenhum. Localmente:
   `corepack pnpm playground:dev`.
-- **Engoianador:** API que recebe um texto e devolve em goianês usando um modelo de linguagem. Ela só responde depois
-  de implantada pelo dono do projeto; localmente: `corepack pnpm engoianador:dev`.
+- **Engoianador:** API que recebe um texto e devolve em goianês usando um modelo de linguagem. Ela já está no ar e
+  entra no playground junto com a publicação dele; localmente: `corepack pnpm engoianador:dev`.
 
 ## Extensão do VS Code
 
