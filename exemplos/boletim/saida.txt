@@ -1,0 +1,7 @@
+=== Boletim da turma ===
+Maria - média 9.2 - aprovado
+João - média 5.5 - recuperação
+Zé - média 3.2 - reprovado
+Ana - média 7.0 - aprovado
+Melhor média: MARIA mandou bem demais, uai!
+Aprovados: 2 de 4

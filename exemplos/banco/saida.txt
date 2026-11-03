@@ -1,0 +1,6 @@
+Ana tem 150.00
+Não deu: saldo insuficiente, tem só 150.00
+Beto tem 1010.00
+Transferiu 300 de Beto pra Ana
+Ana tem 450.00
+Beto tem 710.00

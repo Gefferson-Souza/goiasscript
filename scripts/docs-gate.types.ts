@@ -61,3 +61,11 @@ export interface CommandRegistry {
   readonly languageWords: ReadonlySet<string>;
   readonly allowlist: readonly AllowlistEntry[];
 }
+
+export interface ExampleProgram {
+  readonly name: string;
+  readonly file: string;
+  readonly source: string;
+  readonly stdin: string;
+  readonly expectedStdout: string;
+}
