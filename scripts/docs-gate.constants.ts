@@ -31,3 +31,10 @@ export const RUN_DIR_PREFIX = 'gs-doc-';
 export const RUN_FILE_NAME = 'programa.mjs';
 export const RUN_ALLOW_FS_READ_FLAG = '--allow-fs-read=';
 export const RUN_ENV_KEYS: readonly string[] = ['SystemRoot'];
+
+export const EXAMPLES_DIR = 'exemplos';
+export const EXAMPLE_SOURCE_FILE = 'main.gs';
+export const EXAMPLE_OUTPUT_FILE = 'saida.txt';
+export const EXAMPLE_INPUT_FILE = 'entrada.txt';
+export const NO_INPUT = '';
+export const WHOLE_FILE_LINE = 0;
