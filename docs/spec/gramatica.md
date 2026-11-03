@@ -38,7 +38,7 @@ G25 Unary       = ( "num_é" | "menos" | "-" | "espera_um_cadim" ) Unary | Postf
 G26 Postfix     = Primary { Args | "[" Expr "]" | "." PropName } ;
 G27 Primary     = Number | String | Literal | Name | "ocê" | "a_raiz" | New | Array | Object | Arrow | "(" Expr ")" ;
 G28 New         = "faz_um" Postfix [ Args ] ;
-G29 Arrow       = ( Name | Params ) "=>" ( Block | Expr ) ;             (* quebra antes do "=>": GS0204 *)
+G29 Arrow       = [ "vai_na_frente" ] ( Name | Params ) "=>" ( Block | Expr ) ; (* quebra antes do "=>": GS0204 *)
 G30 Args        = "(" [ Expr { "," Expr } [ "," ] ] ")" ;
 G31 Array       = "[" [ Expr { "," Expr } [ "," ] ] "]" ;
 G32 Object      = "{" [ Pair { "," Pair } [ "," ] ] "}" ;
