@@ -5,6 +5,7 @@ import type { EditorMarker } from '@/lib/diagnostic-markers.types';
 import { TEST_IDS } from '@/lib/test-ids.constants';
 import { applyMarkers } from '@/lib/monaco/apply-markers';
 import { EDITOR_UNICODE_HIGHLIGHT, GOIASSCRIPT_LANGUAGE_ID, MONACO_BASE_PATH } from '@/lib/monaco/monaco-assets';
+import { createMonacoEnvironment } from '@/lib/monaco/monaco-environment';
 import { registerGoiasScript } from '@/lib/monaco/register-language';
 import { EDITOR_LANGUAGE_CONFIGURATION, EDITOR_THEME, EDITOR_THEME_NAME } from '@/lib/monaco/editor-theme.constants';
 import { EDITOR_FONT_SIZE, EDITOR_TAB_SIZE } from './editor.constants';
@@ -39,6 +40,8 @@ export function Editor({ value, markers, onChange }: Props) {
   };
 
   const handleBeforeMount = (monaco: Monaco): void => {
+    // O editor.main.js do Monaco grava o próprio MonacoEnvironment ao carregar; o nosso vem depois.
+    Object.assign(window, { MonacoEnvironment: createMonacoEnvironment((url, options) => new Worker(url, options)) });
     registerGoiasScript(monaco);
     monaco.languages.setLanguageConfiguration(GOIASSCRIPT_LANGUAGE_ID, EDITOR_LANGUAGE_CONFIGURATION);
     monaco.editor.defineTheme(EDITOR_THEME_NAME, EDITOR_THEME);

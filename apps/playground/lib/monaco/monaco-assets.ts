@@ -3,6 +3,8 @@ export const MARKER_OWNER = 'goiasscript';
 
 // A CSP não aceita CDN: o loader do Monaco lê tudo do próprio domínio.
 export const MONACO_BASE_PATH = '/vs';
+export const EDITOR_WORKER_FILE = 'editor.worker.js';
+export const EDITOR_WORKER_SOURCE = /^editor\.worker-[\w-]+\.js$/u;
 
 // Acento e letra "parecida" são normais em goianês; o destaque de caractere suspeito só atrapalharia.
 export const EDITOR_UNICODE_HIGHLIGHT = { ambiguousCharacters: false, invisibleCharacters: false, nonBasicASCII: false } as const;
