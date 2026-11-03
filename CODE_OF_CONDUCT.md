@@ -38,8 +38,8 @@ representa oficialmente o projeto em espaço público.
 
 ## Como reportar
 
-Para reportar um caso, procure o mantenedor pelo contato público do perfil dele no GitHub, sem expor a pessoa
-envolvida em lugar público. Se o caso envolver o próprio mantenedor, use a denúncia da plataforma, pelo menu de
+Para reportar um caso, procure o mantenedor pelo perfil [github.com/Gefferson-Souza](https://github.com/Gefferson-Souza),
+sem expor a pessoa envolvida em lugar público. Se o caso envolver o próprio mantenedor, use a denúncia da plataforma, pelo menu de
 cada conteúdo no GitHub. Todo relato é analisado com cuidado e de forma justa, sem prazo garantido, porque o projeto
 tem um único mantenedor.
 

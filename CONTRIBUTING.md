@@ -15,14 +15,34 @@ corepack pnpm install
 corepack pnpm verify
 ```
 
-O `verify` roda tipos, lint, scanner de regras, arquivos gerados, testes com cobertura, dependency-cruiser, knip e a
-conferência dos documentos de agentes. Ele precisa sair com zero antes de qualquer commit.
+O `verify` roda tipos, lint, scanner de regras, conferência dos arquivos gerados, testes com cobertura,
+dependency-cruiser, knip e as conferências de documentação, de inglês na interface, de dependências do compilador e
+de rastreabilidade das promessas. Ele leva alguns minutos e precisa sair com zero antes de qualquer commit; o hook
+de `pre-push` roda ele de novo.
 
 Etapas isoladas: `corepack pnpm typecheck`, `corepack pnpm lint`, `corepack pnpm rules-scan`,
-`corepack pnpm test`, `corepack pnpm depcruise`, `corepack pnpm knip` e `corepack pnpm agent-docs`.
+`corepack pnpm test`, `corepack pnpm depcruise`, `corepack pnpm knip`, `corepack pnpm agent-docs`,
+`corepack pnpm docs:blocks`, `corepack pnpm docs:commands`, `corepack pnpm english-ui`,
+`corepack pnpm compiler-dependencies` e `corepack pnpm traceability`.
 
 Para mexer nos aplicativos: `corepack pnpm playground:dev` sobe o playground e `corepack pnpm engoianador:dev` sobe
 o Worker do Engoianador (precisa de `GROQ_API_KEY` em `apps/engoianador-api/.dev.vars`).
+
+## Primeiros 5 minutos
+
+1. Rode só os testes de uma parte, que é bem mais rápido que o `verify`:
+   `corepack pnpm exec vitest run --project compiler` (ou `@goiasscript/language`, `goiasscript` para a CLI,
+   `playground`).
+2. Monte a CLI e use do jeito que o usuário usa: `corepack pnpm pack:cli` e
+   `npm install --global ./packages/cli/pack/goiasscript-*.tgz`.
+3. Escolha onde mexer pelo mapa:
+   - mensagem de erro ou palavra nova: `packages/language`;
+   - lexer, parser e JavaScript gerado: `packages/compiler`;
+   - comandos do terminal e roda de prosa: `packages/cli`;
+   - site e cartilha: `apps/playground`.
+4. Quer um começo pequeno? Melhorar uma lição da cartilha (`apps/playground/content/cartilha`) ou o texto de um
+   erro é ótimo primeiro PR. Os exemplos `goiasscript` dos documentos são conferidos pelo `docs:blocks`, então o
+   que ocê escrever ali tem que rodar.
 
 ## Como propor uma palavra ou mudança na linguagem
 
@@ -52,7 +72,8 @@ Conventional Commits em português, minúsculos, com escopo semântico, cabeçal
 fix(compiler): corrige a posição do erro em laço sem chave
 ```
 
-Tipos e escopos aceitos estão em `commitlint.config.mjs`; a regra completa está em
+Escopos aceitos: `language`, `compiler`, `optimizer`, `cli`, `vscode`, `playground`, `engoianador`, `docs`, `ci`,
+`deps` e `release` (estão em `commitlint.config.mjs`); a regra completa está em
 [docs/adr/0008-commits.md](docs/adr/0008-commits.md). O hook local e o CI barram o que fugir do padrão.
 
 ## Como o PR entra
