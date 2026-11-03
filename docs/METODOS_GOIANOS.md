@@ -2,7 +2,7 @@
 
 Esta página mostra os nomes goianos da biblioteca e como usar cada um. Do lado de cada linha, depois do `//`, vem
 o que ela escreve na tela. Todo exemplo abaixo compila e roda: o gate de promessas confere cada bloco. A tabela
-completa, gerada do código, fica em `packages/language/generated/reference.md`.
+completa, gerada do código, fica na [referência](spec/referencia.md).
 
 Toda palavra com acento também vale sem acento: `ranca_os_espaço` ou `ranca_os_espaco`, `se_ocê_quiser` ou
 `se_oce_quiser`. Use o que o seu teclado deixar.

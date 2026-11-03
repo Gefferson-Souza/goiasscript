@@ -175,8 +175,8 @@ console.log("Bem-vindo ao", nome);
 Na roda de prosa, `.desenrola` mostra os comandos dela: `.mostra_os_trem` (o que tá guardado), `.lembra_aí` (o que
 ocê já digitou), `.limpa_o_terreiro` (limpa a tela), `.zera_o_trem` (começa de novo) e `.vaza` (sai).
 
-Todos aceitam a escrita sem acento (`ve_se_ta_certo`). O README do pacote
-[`goiasscript`](packages/cli/README.md) detalha as opções.
+Todos aceitam a escrita sem acento (`ve_se_ta_certo`). O README da
+[CLI `goiasscript`](packages/cli/README.md) detalha as opções.
 
 ## Engoianador: português comum vira goianês
 
@@ -198,7 +198,7 @@ para cada rede. A tela do Engoianador entra no playground quando ele for publica
 ## Playground e cartilha
 
 O playground é um editor no navegador que compila e executa goianês ali mesmo, sem servidor. Ele traz a cartilha:
-11 lições curtas, do primeiro `prosa` até tratar erro, cada uma com exercício. Ele ainda não tem endereço
+11 lições curtas, do primeiro `prosa` até perguntar coisa pra quem usa, cada uma com exercício. Ele ainda não tem endereço
 público; para abrir na sua máquina:
 
 ```bash
