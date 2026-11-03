@@ -124,9 +124,9 @@ describe('parser: propriedades de coisa', () => {
 
 describe('parser: fronteiras ao recuperar de um token inesperado', () => {
   it.each([
-    ['fecha-parênteses', 'prosa(1 + )', 'GS0202@10-11{"found":")"}'],
-    ['fecha-colchetes dentro de lista', 'prosa([1 + ])', 'GS0202@11-12{"found":"]"}'],
-    ['fecha-parênteses depois de quebra', 'prosa(1 +\n)', 'GS0202@10-11{"found":")"}'],
+    ['fecha-parênteses', 'prosa(1 + )', 'GS0202@10-11{"found":")","variant":"missingOperand","operator":"+"}'],
+    ['fecha-colchetes dentro de lista', 'prosa([1 + ])', 'GS0202@11-12{"found":"]","variant":"missingOperand","operator":"+"}'],
+    ['fecha-parênteses depois de quebra', 'prosa(1 +\n)', 'GS0202@10-11{"found":")","variant":"missingOperand","operator":"+"}'],
     ['ponto e vírgula', 'prosa(1 + ;', 'GS0202@10-11{"found":";"}'],
   ])('deixa o %s para quem abriu o grupo: %s', (_name, text, expected) => {
     expect(spans(parseText(text))).toEqual([expected]);

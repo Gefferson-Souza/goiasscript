@@ -1,8 +1,9 @@
+import { VARIANT_ARG } from '@goiasscript/language';
 import type { Expression, Identifier } from '../ast/ast.types.ts';
 import type { Token } from '../lexer/token.types.ts';
 import { groupedBody, parseList } from './groups.ts';
 import { continueAcrossNewline } from './layout.ts';
-import { CODES } from './parser.constants.ts';
+import { CODES, VARIANTS } from './parser.constants.ts';
 import type { Parser } from './parser.types.ts';
 import { PRECEDENCE } from './precedence.constants.ts';
 import { errorNode } from './recovery.ts';
@@ -17,17 +18,28 @@ export function parseArguments(parser: Parser): { readonly args: readonly Expres
   return { args: group.value, end: group.end };
 }
 
-function reportNumberMember(parser: Parser, object: Expression, dot: Token, name: Token): void {
-  const glued = object.type === 'Literal' && typeof object.value === 'number' && dot.start === object.end;
-  if (glued) parser.state.report(CODES.unexpected, dot.start, name.end, { found: parser.state.textOf(dot.start, name.end) });
+const isGluedNumber = (object: Expression, dot: Token): boolean =>
+  object.type === 'Literal' && typeof object.value === 'number' && dot.start === object.end;
+
+// Ponto colado em número: com nome na mesma linha é método em literal; sem nome é ponto solto.
+function parseNumberDot(parser: Parser, object: Expression, dot: Token): Expression {
+  const state = parser.state;
+  const next = state.rawPeek(0);
+  if (isWord(next) && next.start === dot.end) {
+    const name = state.advance();
+    state.report(CODES.unexpected, dot.start, name.end, { found: state.textOf(dot.start, name.end), [VARIANT_ARG]: VARIANTS.numberMethod });
+    return parser.build({ type: 'MemberExpression', object, property: identifierOf(name), computed: false, start: object.start, end: name.end });
+  }
+  state.report(CODES.unexpected, dot.start, dot.end, { found: dot.text, [VARIANT_ARG]: VARIANTS.strayDot });
+  return object;
 }
 
 export function parseMember(parser: Parser, object: Expression): Expression {
   const state = parser.state;
   const dot = state.advance();
+  if (isGluedNumber(object, dot)) return parseNumberDot(parser, object, dot);
   state.skipNewlines();
   const token = state.current();
-  if (isWord(token)) reportNumberMember(parser, object, dot, token);
   const property: Expression = isWord(token) ? identifierOf(state.advance()) : parser.unexpected();
   return parser.build({ type: 'MemberExpression', object, property, computed: false, start: object.start, end: state.lastEnd });
 }

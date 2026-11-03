@@ -1,10 +1,11 @@
+import { VARIANT_ARG } from '@goiasscript/language';
 import type { Expression } from '../ast/ast.types.ts';
 import type { Token } from '../lexer/token.types.ts';
 import { parseForeignTail } from './expression-tails.ts';
 import { parsePostfix } from './members.ts';
 import { parseOperand } from './operands.ts';
 import { binaryOperatorAt, buildBinary } from './operators.ts';
-import { CODES } from './parser.constants.ts';
+import { CODES, VARIANTS } from './parser.constants.ts';
 import type { Parser } from './parser.types.ts';
 import { PRECEDENCE } from './precedence.constants.ts';
 import { errorNode } from './recovery.ts';
@@ -49,6 +50,17 @@ function reportInvalidTarget(parser: Parser, left: Expression, right: Expression
   if (!assignable && !cutOff) parser.state.report(CODES.invalidTarget, left.start, left.end);
 }
 
+const OPERAND_CLOSERS: ReadonlySet<string> = new Set([')', ']', ',']);
+
+// O valor que falta é denunciado uma vez só, apontando o fechamento que chegou antes dele.
+function missingOperand(parser: Parser, operator: Token): Expression | undefined {
+  const next = parser.state.current();
+  const closes = next.kind === 'punctuator' && OPERAND_CLOSERS.has(next.value);
+  if (!closes || parser.state.top !== 'grouping') return undefined;
+  parser.state.report(CODES.unexpected, next.start, next.end, { found: next.text, [VARIANT_ARG]: VARIANTS.missingOperand, operator: operator.text });
+  return errorNode(CODES.unexpected, next.start, next.end);
+}
+
 export function parseExpression(parser: Parser, minimum = 0): Expression {
   const state = parser.state;
   const floor = Math.max(minimum, PRECEDENCE.assignment);
@@ -66,6 +78,11 @@ export function parseExpression(parser: Parser, minimum = 0): Expression {
     const token = state.advance();
     if (operator.foreign) reportJsOperator(parser, token);
     state.skipNewlines();
+    const missing = missingOperand(parser, token);
+    if (missing !== undefined) {
+      left = parser.build(buildBinary(operator, token, left, missing));
+      continue;
+    }
     const rightMinimum = operator.assignment ? operator.precedence : operator.precedence + 1;
     const fallback = errorNode(CODES.tooDeep, token.end, token.end);
     const right = parser.nested(left.start, () => parseExpression(parser, rightMinimum), fallback);

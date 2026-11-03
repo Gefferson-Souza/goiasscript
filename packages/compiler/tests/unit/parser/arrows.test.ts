@@ -31,7 +31,7 @@ describe('parser: setas', () => {
   it('dá GS0202 para quebra entre vai_na_frente e o que vem depois', () => {
     expect(codes(parseText('vai_na_frente\nfaz_trem f() { }'))).toEqual(['GS0202']);
   });
-  it('dá GS0202 para "5.com_casas(2)" (número literal seguido de ponto e nome)', () => {
+  it('dá GS0202 (variante de número) para "5.com_casas(2)" (número literal seguido de ponto e nome)', () => {
     expect(codes(parseText('prosa(5.com_casas(2))'))).toEqual(['GS0202']);
     expect(codes(parseText('prosa((5).com_casas(2))'))).toEqual([]);
   });

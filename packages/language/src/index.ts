@@ -1,6 +1,6 @@
 export type { KeywordCategory, KeywordClass, KeywordEntry } from './keywords/keywords.types.ts';
 export type { JsMemberEntry, JsReservedEntry, JsReservedKind } from './js/js-reserved.types.ts';
-export type { DiagnosticDefinition, DiagnosticSeverity, ToneKey } from './diagnostics/diagnostics.types.ts';
+export type { DiagnosticDefinition, DiagnosticSeverity, DiagnosticTexts, DiagnosticVariant, ToneKey } from './diagnostics/diagnostics.types.ts';
 export type { RetiredWord } from './retired/retired-words.types.ts';
 export type { Arity, StdlibEntry, StdlibForm, StdlibKind, StdlibOrigin, StdlibReceiver, StdlibSemantics } from './stdlib/stdlib.types.ts';
 export { KEYWORDS } from './keywords/keywords.data.ts';
@@ -16,5 +16,7 @@ export {
 export { lookupDiagnostic } from './diagnostics/lookup-diagnostic.ts';
 export { RUNTIME_PHRASES, WARNING_CODES } from './diagnostics/core.generated.ts';
 export { formatMessage } from './format-message.ts';
+export { diagnosticTexts } from './diagnostics/diagnostic-texts.ts';
+export { VARIANT_ARG } from './diagnostics/diagnostic-texts.constants.ts';
 export type { CompletionKind, CompletionLabel } from './completions.types.ts';
 export { COMPLETION_LABELS } from './completions.ts';

@@ -1,4 +1,4 @@
-import { lookupKeyword, lookupRetiredWord } from '@goiasscript/language';
+import { lookupKeyword, lookupRetiredWord, VARIANT_ARG } from '@goiasscript/language';
 import type { BlockStatement, Expression, ExpressionStatement, JumpStatement, ReturnStatement, Statement, ThrowStatement } from '../ast/ast.types.ts';
 import { skipBalanced } from './balanced.ts';
 import { parseClass } from './classes.ts';
@@ -13,7 +13,7 @@ import { adoptJsWord, reportJsOperator } from './subset-checks.ts';
 import { COMMA, GONE_PHRASE } from './subset.constants.ts';
 import { binaryOperatorAt } from './operators.ts';
 import { ListBuilder } from './list-builder.ts';
-import { CODES } from './parser.constants.ts';
+import { CODES, VARIANTS } from './parser.constants.ts';
 import type { ParserState } from './parser-state.ts';
 import type { Parser } from './parser.types.ts';
 import { PRECEDENCE } from './precedence.constants.ts';
@@ -89,11 +89,18 @@ function checkThrowShape(parser: Parser, statement: ThrowStatement): void {
   synchronize(parser);
 }
 
+function recoverBareThrow(parser: Parser, keywordToken: Token): ThrowStatement {
+  parser.state.report(CODES.unexpected, keywordToken.start, keywordToken.end, { found: keywordToken.text, [VARIANT_ARG]: VARIANTS.bareThrow });
+  synchronize(parser);
+  return { type: 'ThrowStatement', arguments: [], keywordToken, start: keywordToken.start, end: keywordToken.end };
+}
+
 function parseThrow(parser: Parser): ThrowStatement {
   const state = parser.state;
   const keywordToken = state.advance();
   const parenthesized = isPunctuator(state.current(), '(');
   const lenient = !parenthesized && keywordToken.text === JS_THROW_WORD;
+  if (!parenthesized && !lenient) return recoverBareThrow(parser, keywordToken);
   const args = lenient ? [parser.parseExpression(PRECEDENCE.assignment)] : parseParenList(parser, () => parser.parseExpression(PRECEDENCE.assignment));
   const statement: ThrowStatement = { type: 'ThrowStatement', arguments: args, keywordToken, start: keywordToken.start, end: state.lastEnd };
   if (parenthesized) checkThrowShape(parser, statement);
