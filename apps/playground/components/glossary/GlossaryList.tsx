@@ -15,7 +15,7 @@ function Section({ title, group, entries }: { readonly title: string; readonly g
           .filter((entry) => entry.group === group)
           .map((entry) => (
             <div key={entry.anchor} id={entry.anchor} className="scroll-mt-20">
-              <dt className="font-mono font-bold">{entry.term}</dt>
+              <dt className="font-mono font-bold text-pequi">{entry.term}</dt>
               <dd className="text-sm text-dim">
                 {GLOSSARY_TEXTS.jsLabel} <code className="text-cyan">{entry.js}</code>
                 {entry.detail === '' ? null : <span> · {entry.detail}</span>}
