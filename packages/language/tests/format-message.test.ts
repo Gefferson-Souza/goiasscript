@@ -26,4 +26,10 @@ describe('formatMessage e frases da §4.11', () => {
     expect(say('GS0305', 'raiz', { name: 'nomi', suggestion: 'nome' })).toBe('Esse trem ".nomi" não existe por aqui. Cê quis dizer ".nome"?');
     expect(say('GS0305', 'raiz', { name: 'nomi' })).toBe('Esse trem ".nomi" não existe por aqui.');
   });
+  it('modelo com muitos "[[" sem fechar não trava a formatação', () => {
+    const hostile = `[[${'[[a'.repeat(200_000)}`;
+    const startedAt = performance.now();
+    expect(formatMessage(hostile, {})).toBe(hostile);
+    expect(performance.now() - startedAt).toBeLessThan(1000);
+  });
 });
