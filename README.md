@@ -11,11 +11,22 @@ avisa em goianês quando ocê escorrega.
 
 ## Instalar
 
-Precisa do Node 22.12 ou mais novo. O pacote npm entra no ar na primeira publicação da v3.
+Precisa do Node 22.12 ou mais novo.
 
 ```bash
 npm install --global goiasscript
 ```
+
+> Até a v3 sair no npm, esse comando instala a v2 arquivada, que é outra linguagem. Para
+> testar a v3 agora, instale a partir do código:
+>
+> ```bash
+> git clone https://github.com/Gefferson-Souza/goiasscript.git
+> cd goiasscript
+> corepack pnpm install
+> corepack pnpm pack:cli
+> npm install --global ./packages/cli/pack/goiasscript-*.tgz
+> ```
 
 ## Início rápido
 
