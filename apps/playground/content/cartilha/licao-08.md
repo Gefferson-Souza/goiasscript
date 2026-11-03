@@ -45,7 +45,12 @@ prosa(pessoa.nmoe)
 ```
 
 Quando a coisa vem de fora, como um texto JSON lido com `Coisa.vira_coisa`, as chaves não estão escritas no arquivo.
-Aí guarde o nome do campo num texto e leia com colchete: `dado[campo]`.
+Aí leia com colchete e o nome entre aspas:
+
+```goiasscript
+uai dado é Coisa.vira_coisa("{\"saldo\": 10}")
+prosa(dado["saldo"])
+```
 
 ## Andando pelas chaves com em
 
