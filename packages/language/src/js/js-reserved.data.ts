@@ -10,11 +10,10 @@ const KEYWORDS_WITH_EQUIVALENT = {
   async: 'vai_na_frente', await: 'espera_um_cadim', true: 'certeza', false: 'de_jeito_nenhum', null: 'nada',
   undefined: 'indefinido', in: 'em', of: 'de',
 } as const;
-const KEYWORDS_WITHOUT_EQUIVALENT = {
-  switch: 'opcao', case: 'caso', default: 'padrao', do: 'repeticao', typeof: 'tipo', delete: 'apagar', void: 'vago',
-  yield: 'cede', import: 'importar', export: 'exportar', debugger: 'depurar', with: 'com', enum: 'enumeracao',
-  implements: 'implementacao', interface: 'contrato', package: 'pacote', private: 'privado', protected: 'protegido', public: 'publico',
-} as const;
+const KEYWORDS_WITHOUT_EQUIVALENT: readonly string[] = [
+  'switch', 'case', 'default', 'do', 'typeof', 'delete', 'void', 'yield', 'import', 'export', 'debugger', 'with', 'enum',
+  'implements', 'interface', 'package', 'private', 'protected', 'public',
+];
 const GLOBALS_WITH_EQUIVALENT = {
   console: 'prosa', Math: 'Conta', Object: 'Coisa', JSON: 'Coisa', String: 'vira_texto', Number: 'vira_número', Promise: 'Promessa',
   Date: 'Data', Error: 'Erro', setTimeout: 'daqui_um_cadim', setInterval: 'toda_hora', clearTimeout: 'larga_mão',
@@ -24,7 +23,11 @@ const GLOBALS_WITHOUT_EQUIVALENT: readonly string[] = [
   'Array', 'Boolean', 'RegExp', 'Map', 'Set', 'Symbol', 'isFinite', 'globalThis', 'window', 'document', 'fetch', 'require',
   'module', 'process', 'Function', 'Reflect', 'Proxy', 'Intl',
 ];
-const NON_BINDABLE = { arguments: 'argumentos', eval: 'avaliar', NaN: 'nao_numero', Infinity: 'infinito' } as const;
+const NON_BINDABLE: readonly string[] = ['arguments', 'eval', 'NaN', 'Infinity'];
+
+function withoutWord(names: readonly string[], kind: JsReservedKind): readonly JsReservedEntry[] {
+  return names.map((name) => ({ name, hasEquivalent: false, kind: kind === 'keyword' && STRICT_RESERVED.has(name) ? 'strict-reserved' : kind }));
+}
 
 function entries(source: Readonly<Record<string, string>>, kind: JsReservedKind, hasEquivalent: boolean): readonly JsReservedEntry[] {
   return Object.entries(source).map(([name, suggestion]) => ({
@@ -33,9 +36,9 @@ function entries(source: Readonly<Record<string, string>>, kind: JsReservedKind,
 }
 
 export const JS_RESERVED: readonly JsReservedEntry[] = [
-  ...entries(KEYWORDS_WITH_EQUIVALENT, 'keyword', true), ...entries(KEYWORDS_WITHOUT_EQUIVALENT, 'keyword', false),
+  ...entries(KEYWORDS_WITH_EQUIVALENT, 'keyword', true), ...withoutWord(KEYWORDS_WITHOUT_EQUIVALENT, 'keyword'),
   ...entries(GLOBALS_WITH_EQUIVALENT, 'global', true), ...GLOBALS_WITHOUT_EQUIVALENT.map((name): JsReservedEntry => ({ name, kind: 'global', hasEquivalent: false })),
-  ...entries(NON_BINDABLE, 'non-bindable', false),
+  ...withoutWord(NON_BINDABLE, 'non-bindable'),
 ];
 
 export const JS_MEMBER_ALTERNATIVES: Readonly<Record<string, string>> = { hasOwnProperty: 'Coisa.tem', toString: 'vira_texto' };

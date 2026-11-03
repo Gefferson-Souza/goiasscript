@@ -45,7 +45,7 @@ describe('jsReserved', () => {
   });
   it('classifica por categoria e equivalente', () => {
     expect(find('const')).toMatchObject({ kind: 'keyword', hasEquivalent: true, suggestion: 'uai' });
-    expect(find('public')).toMatchObject({ kind: 'strict-reserved', hasEquivalent: false, suggestion: 'publico' });
+    expect(find('public')).toMatchObject({ kind: 'strict-reserved', hasEquivalent: false });
     expect(find('console')).toMatchObject({ kind: 'global', hasEquivalent: true, suggestion: 'prosa' });
     expect(['arguments', 'eval', 'NaN', 'Infinity'].map((name) => find(name)?.kind)).toEqual(Array(4).fill('non-bindable'));
   });
