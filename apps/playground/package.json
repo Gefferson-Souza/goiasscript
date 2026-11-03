@@ -10,7 +10,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "build:social-preview": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-social-preview.ts"
+    "build:social-preview": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-social-preview.ts",
+    "build:readme-banner": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-readme-banner.ts"
   },
   "dependencies": {
     "@goiasscript/compiler": "workspace:*",
