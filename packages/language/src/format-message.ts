@@ -1,4 +1,5 @@
-const OPTIONAL_SEGMENT = /\[\[(.*?)\]\]/gu;
+// O miolo não aceita colchete: cada tentativa para no próximo, e um modelo hostil não vira busca quadrática.
+const OPTIONAL_SEGMENT = /\[\[([^[\]]*)\]\]/gu;
 const MARKER = /\{(\w+)\}/gu;
 
 export function formatMessage(template: string, args: Readonly<Record<string, string>>): string {
