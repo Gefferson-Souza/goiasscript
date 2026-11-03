@@ -19,6 +19,10 @@
     "Snippets"
   ],
   "icon": "./assets/icons/goiasscript-icon.png",
+  "galleryBanner": {
+    "color": "#06070C",
+    "theme": "dark"
+  },
   "main": "./dist/extension.cjs",
   "activationEvents": [
     "onLanguage:goiasscript"
