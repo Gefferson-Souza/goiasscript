@@ -13,9 +13,11 @@ Só a linha atual da v3 recebe correção de segurança. As versões 1.x e 2.x n
 
 **Não abra issue pública** para vulnerabilidade.
 
-Use o reporte privado de vulnerabilidade do GitHub: na página do repositório, aba **Security**, botão
-**Report a vulnerability**. Só o mantenedor vê o relato. Se o botão não aparecer, chame o mantenedor pelo contato
-público do perfil do GitHub dele, sem detalhar o problema, e combine um canal privado.
+Use o reporte privado de vulnerabilidade do GitHub, direto neste link:
+[github.com/Gefferson-Souza/goiasscript/security/advisories/new](https://github.com/Gefferson-Souza/goiasscript/security/advisories/new)
+(ou aba **Security**, botão **Report a vulnerability**). Só o mantenedor vê o relato. Se não conseguir, chame o
+mantenedor pelo perfil [github.com/Gefferson-Souza](https://github.com/Gefferson-Souza), sem detalhar o problema, e
+combine um canal privado.
 
 ## O que incluir
 
