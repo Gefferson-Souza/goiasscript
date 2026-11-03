@@ -6,6 +6,8 @@ Toda remoção, renomeação e nome novo reservado entra aqui e no CHANGELOG, um
 |---|---|---|---|
 | 3.0.0 | `trem` passa a declarar `let` (na 1.5 era `var`) | mudança de semântica | Revise o uso de `trem` fora do bloco onde foi declarado: o escopo agora é o do bloco. |
 | 3.0.0 | `.tamanho()` vira `.o_tanto` | renomeação | Troque por `.o_tanto`, sem parênteses; chamar com parênteses é `GS0603`. |
+| 3.0.0 | `.ordenar()` vira `.arruma()` | renomeação | Troque por `.arruma()`. |
+| 3.0.0 | `.arranca_o_rabo()` vira `.ranca_o_rabo()` | renomeação | Troque por `.ranca_o_rabo()`. |
 | 3.0.0 | `presta_serviço` deixa de existir | renomeação | Troque por `faz_trem`. |
 | 3.0.0 | `vai_na_frente_presta_serviço` deixa de existir | renomeação | Troque por `vai_na_frente_faz_trem`. |
 | 3.0.0 | `mexe_assim` deixa de existir | remoção | Sem substituto: reescreva o trecho sem essa palavra. |

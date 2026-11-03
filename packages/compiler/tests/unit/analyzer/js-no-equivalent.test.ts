@@ -32,3 +32,18 @@ describe('palavras do JavaScript que não existem em GoiásScript', () => {
     expect(first('uai public é 1')?.message).toContain('"publico"');
   });
 });
+
+describe('membros que mudaram de nome desde a versão anterior', () => {
+  it.each([
+    ['prosa("abc".tamanho())', 'o_tanto'],
+    ['prosa([3, 1].ordenar())', 'arruma'],
+    ['prosa([3, 1].arranca_o_rabo())', 'ranca_o_rabo'],
+  ])('%s sugere o nome novo', (text, replacement) => {
+    const diagnostic = first(text);
+    expect(diagnostic?.code).toBe('GS0305');
+    expect(diagnostic?.message).toContain(`".${replacement}"`);
+  });
+  it('não inventa sugestão para membro desconhecido qualquer', () => {
+    expect(first('prosa("abc".zzzzzzzz())')?.message).not.toContain('Cê quis dizer');
+  });
+});
