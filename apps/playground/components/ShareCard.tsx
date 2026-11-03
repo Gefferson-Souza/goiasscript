@@ -1,5 +1,6 @@
 import { forwardRef } from 'react';
 import { SHARE_SITE } from '@/lib/share-image';
+import { BrandMark } from './brand/BrandMark';
 
 type Props = { original: string; engoianado: string };
 
@@ -15,26 +16,26 @@ export const ShareCard = forwardRef<HTMLDivElement, Props>(function ShareCard(
     <div
       ref={ref}
       style={{ width: 600 }}
-      className="flex flex-col gap-4 bg-goias-background p-6"
+      className="flex flex-col gap-4 bg-plane p-6"
     >
       <div className="flex items-center gap-2">
-        <span className="text-2xl">🐂</span>
-        <span className="font-bold text-goias-yellow">Engoianador</span>
-        <span className="text-sm text-goias-text/60">— GoiásScript</span>
+        <BrandMark size={24} />
+        <span className="font-bold text-pequi">Engoianador</span>
+        <span className="text-sm text-dim">— GoiásScript</span>
       </div>
 
       {original && (
-        <p className="text-sm text-goias-text/60 line-clamp-3">“{original}”</p>
+        <p className="text-sm text-dim line-clamp-3">“{original}”</p>
       )}
 
-      <div className="rounded-2xl rounded-bl-sm border border-goias-border bg-goias-panel p-4">
-        <p className="whitespace-pre-wrap text-lg leading-snug text-goias-yellow">
+      <div className="rounded-2xl rounded-bl-sm border border-line bg-panel p-4">
+        <p className="whitespace-pre-wrap text-lg leading-snug text-pequi">
           {engoianado}
         </p>
       </div>
 
-      <div className="mt-1 flex items-center justify-between text-xs text-goias-text/50">
-        <span>🇧🇷 Feito com carinho em Goiás</span>
+      <div className="mt-1 flex items-center justify-between text-xs text-dim">
+        <span>Feito com carinho em Goiás</span>
         <span>{SHARE_SITE.replace('https://', '')}</span>
       </div>
     </div>

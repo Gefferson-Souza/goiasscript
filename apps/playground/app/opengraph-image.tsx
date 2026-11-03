@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og';
 import { currentSiteConfig } from '@/config/current-site-config';
+import { COLORS } from '@/lib/design/design-tokens.constants';
 import { SHARE_SNIPPET } from '@/lib/share-snippet.constants';
 
 export const alt = 'GoiásScript — Goianês na Web';
@@ -18,16 +19,18 @@ export default function OpengraphImage() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          background: '#0d1117',
+          background: COLORS.plane,
           padding: 72,
           fontFamily: 'monospace',
         }}
       >
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ fontSize: 76, fontWeight: 800, color: '#f5c518' }}>
-            GoiásScript
+          <div style={{ display: 'flex', fontSize: 76, fontWeight: 800 }}>
+            <span style={{ color: COLORS.pequi }}>Goiás</span>
+            <span style={{ color: COLORS.ink }}>Script</span>
+            <span style={{ width: 8, height: 76, marginLeft: 10, background: COLORS.caret }} />
           </div>
-          <div style={{ fontSize: 34, color: '#e6edf3', marginTop: 8 }}>
+          <div style={{ fontSize: 34, color: COLORS.ink, marginTop: 8 }}>
             Goianês na Web — escreve goianês, roda JavaScript
           </div>
         </div>
@@ -36,12 +39,12 @@ export default function OpengraphImage() {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            background: '#161b22',
-            border: '2px solid #30363d',
+            background: COLORS.panel,
+            border: `2px solid ${COLORS.line}`,
             borderRadius: 16,
             padding: 28,
             fontSize: 30,
-            color: '#e6edf3',
+            color: COLORS.ink,
           }}
         >
           {SHARE_SNIPPET.split('\n').map((line, index) => (
@@ -56,7 +59,7 @@ export default function OpengraphImage() {
             display: 'flex',
             justifyContent: 'space-between',
             fontSize: 26,
-            color: 'rgba(230,237,243,0.6)',
+            color: COLORS.dim,
           }}
         >
           <span>Feito com carinho em Goiás</span>

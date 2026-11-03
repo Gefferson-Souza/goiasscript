@@ -1,22 +1,23 @@
 import type { Config } from 'tailwindcss';
+import { COLORS, FONT_VARIABLES, MOTION } from './lib/design/design-tokens.constants';
 
 const config: Config = {
   content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'],
   theme: {
     extend: {
-      colors: {
-        goias: {
-          green: '#1f7a3d',
-          yellow: '#f5c518',
-          earth: '#9b6a3e',
-          background: '#0d1117',
-          panel: '#161b22',
-          border: '#30363d',
-          text: '#e6edf3',
-        },
-      },
+      colors: COLORS,
       fontFamily: {
-        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+        sans: [`var(${FONT_VARIABLES.ui})`, 'system-ui', 'sans-serif'],
+        mono: [`var(${FONT_VARIABLES.code})`, 'ui-monospace', 'monospace'],
+      },
+      transitionTimingFunction: {
+        settle: MOTION.curves.settle,
+        travel: MOTION.curves.travel,
+        leave: MOTION.curves.leave,
+      },
+      transitionDuration: {
+        enter: `${MOTION.enterMs}ms`,
+        exit: `${MOTION.exitMs}ms`,
       },
     },
   },

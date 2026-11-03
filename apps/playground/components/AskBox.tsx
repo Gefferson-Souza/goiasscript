@@ -18,8 +18,8 @@ export function AskBox({ prompt, onAnswer }: Props) {
   };
 
   return (
-    <form onSubmit={submit} data-testid={TEST_IDS.askBox} className="mt-3 space-y-2 rounded border border-goias-yellow/60 p-3">
-      <label htmlFor="ask-input" className="block whitespace-pre-wrap text-goias-yellow">
+    <form onSubmit={submit} data-testid={TEST_IDS.askBox} className="mt-3 space-y-2 rounded border border-caret/60 p-3">
+      <label htmlFor="ask-input" className="block whitespace-pre-wrap text-ink">
         {prompt}
       </label>
       <div className="flex gap-2">
@@ -32,9 +32,9 @@ export function AskBox({ prompt, onAnswer }: Props) {
           autoFocus
           autoComplete="off"
           aria-label={TEXTS.askLabel}
-          className="flex-1 rounded border border-goias-border bg-goias-background px-2 py-1 text-goias-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-yellow"
+          className="flex-1 rounded border border-edge bg-plane px-2 py-1 text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-caret"
         />
-        <button type="submit" className="rounded bg-goias-green px-3 py-1 text-sm font-semibold text-white hover:bg-goias-green/80">
+        <button type="submit" className="rounded bg-pequi px-3 py-1 text-sm font-semibold text-plane hover:bg-pequi/85">
           {TEXTS.askAnswer}
         </button>
       </div>

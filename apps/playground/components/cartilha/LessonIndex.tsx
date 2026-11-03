@@ -16,7 +16,7 @@ export function LessonIndex({ lessons }: Props) {
   const doneCount = lessons.filter((lesson) => completed.includes(lesson.id)).length;
   return (
     <div className="space-y-4">
-      <p role="status" className="text-sm text-goias-text/70">
+      <p role="status" className="text-sm text-dim">
         {PRIMER_TEXTS.indexProgress(doneCount, lessons.length)}
       </p>
       <ol data-testid={TEST_IDS.lessonIndex} className="space-y-2">
@@ -26,12 +26,12 @@ export function LessonIndex({ lessons }: Props) {
               href={`${LESSON_ROUTE_PREFIX}${lesson.id}`}
               data-testid={TEST_IDS.lessonLink}
               data-lesson-id={lesson.id}
-              className="flex items-center justify-between gap-3 rounded-md border border-goias-border bg-goias-panel px-4 py-3 hover:border-goias-yellow"
+              className="flex items-center justify-between gap-3 rounded-md border border-line bg-panel px-4 py-3 hover:border-caret"
             >
               <span>
-                <span className="block text-xs text-goias-text/60">{PRIMER_TEXTS.lessonLabel(lesson.order)}</span>
-                <span className="block font-semibold text-goias-yellow">{lesson.title}</span>
-                <span className="block text-sm text-goias-text/80">{lesson.summary}</span>
+                <span className="block text-xs text-dim">{PRIMER_TEXTS.lessonLabel(lesson.order)}</span>
+                <span className="block font-semibold text-ink">{lesson.title}</span>
+                <span className="block text-sm text-dim">{lesson.summary}</span>
               </span>
               <ProgressBadge done={completed.includes(lesson.id)} />
             </Link>

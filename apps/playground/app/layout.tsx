@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import './globals.css';
+import { jetbrainsMono, spaceGrotesk } from './fonts';
+import { Wordmark } from '@/components/brand/Wordmark';
 import { DonationLinks } from '@/components/DonationLinks';
 import { currentSiteConfig } from '@/config/current-site-config';
 import { resolveDonationLinks } from '@/lib/donation-links';
@@ -34,33 +36,31 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
       <body className="min-h-screen flex flex-col">
         <a
           href="#conteudo"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-50 focus:rounded focus:bg-goias-yellow focus:px-3 focus:py-2 focus:text-goias-background"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-50 focus:rounded focus:bg-pequi focus:px-3 focus:py-2 focus:text-plane"
         >
           Pular pro conteúdo
         </a>
-        <header className="border-b border-goias-border bg-goias-panel">
+        <header className="border-b border-line bg-plane">
           <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-2 px-4 py-3">
-            <Link href="/" className="flex items-center gap-2 font-bold text-goias-yellow">
-              <span className="text-2xl" aria-hidden="true">🐂</span>
-              <span>GoiásScript</span>
-              <span className="text-sm font-normal text-goias-text">— playground {LANGUAGE_VERSION_LABEL}</span>
+            <Link href="/" aria-label={`GoiásScript, playground ${LANGUAGE_VERSION_LABEL}`} className="rounded">
+              <Wordmark suffix={`playground ${LANGUAGE_VERSION_LABEL}`} />
             </Link>
-            <nav aria-label="Navegação principal" className="flex items-center gap-4 text-sm">
-              <Link href="/" className="hover:text-goias-yellow">Playground</Link>
-              <Link href="/cartilha" className="hover:text-goias-yellow">Cartilha</Link>
-              <Link href="/engoianador" className="hover:text-goias-yellow">Engoianador</Link>
-              <Link href="/doacao" className="hover:text-goias-yellow">Apoia o trem</Link>
+            <nav aria-label="Navegação principal" className="flex flex-wrap items-center gap-x-5 gap-y-1 text-sm">
+              <Link href="/" className="hover:text-caret">Playground</Link>
+              <Link href="/cartilha" className="hover:text-caret">Cartilha</Link>
+              <Link href="/engoianador" className="hover:text-caret">Engoianador</Link>
+              <Link href="/doacao" className="hover:text-caret">Apoia o trem</Link>
               <a
                 href="https://github.com/Gefferson-Souza/goiasscript"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-goias-yellow"
+                className="hover:text-caret"
               >
-                GitHub ↗
+                GitHub<span className="sr-only"> (abre noutra aba)</span>
               </a>
             </nav>
           </div>
@@ -68,9 +68,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="conteudo" className="flex flex-1 flex-col">
           {children}
         </main>
-        <footer className="border-t border-goias-border bg-goias-panel">
-          <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-4 text-xs text-goias-text/70 sm:flex-row sm:items-center sm:justify-between">
-            <span>🇧🇷 Feito com carinho em Goiás — MIT · GoiásScript {LANGUAGE_VERSION_LABEL}</span>
+        <footer className="border-t border-line bg-plane">
+          <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-4 text-xs text-dim sm:flex-row sm:items-center sm:justify-between">
+            <span>Feito com carinho em Goiás. Licença MIT. GoiásScript {LANGUAGE_VERSION_LABEL}.</span>
             <DonationLinks links={resolveDonationLinks(siteConfig)} variant="compact" />
           </div>
         </footer>

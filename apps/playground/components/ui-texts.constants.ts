@@ -1,9 +1,9 @@
 export const TEXTS = {
-  run: '🔥 Bota pra moer',
-  running: '🔥 Moendo...',
-  stop: '✋ Para o trem',
-  clear: '🧹 Limpa o terreiro',
-  share: '🔗 Compartilha',
+  run: 'Bota pra moer',
+  running: 'Moendo...',
+  stop: 'Para o trem',
+  clear: 'Limpa o terreiro',
+  share: 'Compartilha',
   examples: 'Exemplos:',
   pickExample: 'Escolhe um, sô',
   loadingEditor: 'Carregando o editor, sô...',
@@ -25,10 +25,10 @@ export const TEXTS = {
 
 export const STATUS_LABELS = {
   idle: 'Aguardando...',
-  running: '⏳ Moendo esse trem...',
-  asking: '💬 O programa tá perguntando',
-  finished: '✅ Rodou bonito',
-  failed: '❌ Deu ruim',
-  timeout: '⏰ Esse trem travou, sô',
-  stopped: '✋ Parou o trem',
+  running: 'Moendo esse trem...',
+  asking: 'O programa tá perguntando',
+  finished: 'Rodou bonito',
+  failed: 'Deu ruim',
+  timeout: 'Esse trem travou, sô',
+  stopped: 'Parou o trem',
 } as const;
