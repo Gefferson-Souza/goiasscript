@@ -12,6 +12,8 @@ describe('membros renomeados', () => {
   });
   it('consulta devolve o nome novo ou nada', () => {
     expect(lookupRenamedMember('tamanho')).toBe('o_tanto');
+    expect(lookupRenamedMember('reduzir')).toBe('amontoar');
+    expect(lookupRenamedMember('se_der_pobrema')).toBe('se_der_ruim');
     expect(lookupRenamedMember('gritando')).toBeUndefined();
   });
 });

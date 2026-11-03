@@ -55,10 +55,18 @@ describe('membros que mudaram de nome desde a versão anterior', () => {
     ['prosa("abc".tamanho())', 'o_tanto'],
     ['prosa([3, 1].ordenar())', 'arruma'],
     ['prosa([3, 1].arranca_o_rabo())', 'ranca_o_rabo'],
+    ['prosa([1, 2].reduzir((a, b) => a mais b, 0))', 'amontoar'],
+    ['prosa([3, 1].inverter())', 'de_trás_pra_frente'],
+    ['prosa("abc".pedaco(0, 1))', 'naco'],
+    ['uai p é faz_um Promessa((ok) => ok(1))\np.quando_resolver((x) => prosa(x))', 'quando_der_bão'],
+    ['uai p é faz_um Promessa((ok) => ok(1))\np.se_der_pobrema((x) => prosa(x))', 'se_der_ruim'],
   ])('%s sugere o nome novo', (text, replacement) => {
     const diagnostic = first(text);
     expect(diagnostic?.code).toBe('GS0305');
     expect(diagnostic?.message).toContain(`".${replacement}"`);
+  });
+  it('erro de digitação num nome vivo continua sugerindo pela parecença', () => {
+    expect(first('prosa([1, 2].amontoa((a, b) => a mais b, 0))')?.message).toContain('".amontoar"');
   });
   it('não inventa sugestão para membro desconhecido qualquer', () => {
     expect(first('prosa("abc".zzzzzzzz())')?.message).not.toContain('Cê quis dizer');
