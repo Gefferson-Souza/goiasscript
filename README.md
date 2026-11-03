@@ -1,5 +1,7 @@
 # GoiásScript: programar em goianês
 
+<p align="center"><img src=".github/assets/banner.svg" width="880" alt="A linha uai saudacao é &quot;Bão demais da conta!&quot; virando, palavra por palavra, const saudacao = &quot;Bão demais da conta!&quot;;"></p>
+
 > A linguagem de programação que fala igual goiano e ainda te corrige com jeitinho, uai!
 
 GoiásScript é uma linguagem para aprender a programar escrevendo do jeito que o goiano fala: `uai` guarda um
