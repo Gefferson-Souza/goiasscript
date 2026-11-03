@@ -1,4 +1,4 @@
-import { lookupJsMember, lookupJsReserved, lookupStdlibMember, lookupStdlibStatic } from '@goiasscript/language';
+import { lookupJsMember, lookupJsReserved, lookupRenamedMember, lookupStdlibMember, lookupStdlibStatic } from '@goiasscript/language';
 import type { Identifier } from '../ast/ast.types.ts';
 import type { RawDiagnostic } from '../lexer/token.types.ts';
 import { CODES } from './codes.constants.ts';
@@ -55,7 +55,7 @@ function isKnownMember(query: MemberAccessQuery): boolean {
 function unknownMemberDiagnostic(query: MemberAccessQuery): RawDiagnostic {
   const { name, start, end, namespace, declared } = query;
   const candidates = namespace === undefined ? [...declared, ...INSTANCE_MEMBER_NAMES] : staticMemberNames(namespace);
-  const suggestion = closestName(name, candidates);
+  const suggestion = lookupRenamedMember(name) ?? closestName(name, candidates);
   return diagnostic(CODES.undeclaredMember, start, end, suggestion === undefined ? { name } : { name, suggestion });
 }
 

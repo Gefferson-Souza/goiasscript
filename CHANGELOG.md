@@ -35,6 +35,8 @@ compilador aponta a forma nova (GS0306).
 
 - `trem` passa a declarar `let` (na 1.5 era `var`): o escopo agora é o do bloco.
 - `.tamanho()` vira `.o_tanto`, sem parênteses; chamar com parênteses é `GS0603`.
+- `.ordenar()` vira `.arruma()`.
+- `.arranca_o_rabo()` vira `.ranca_o_rabo()`.
 
 ## [1.5.0] — 2026-05-21 — *Goianês na Web (lançamento)*
 

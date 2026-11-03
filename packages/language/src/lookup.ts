@@ -3,6 +3,7 @@ import { JS_MEMBER_NAMES } from './js/js-members.generated.ts';
 import type { JsMemberEntry, JsReservedEntry } from './js/js-reserved.types.ts';
 import { KEYWORDS } from './keywords/keywords.data.ts';
 import type { KeywordEntry } from './keywords/keywords.types.ts';
+import { RENAMED_MEMBERS } from './retired/renamed-members.data.ts';
 import { RETIRED_WORDS } from './retired/retired-words.data.ts';
 import type { RetiredWord } from './retired/retired-words.types.ts';
 import { STDLIB } from './stdlib/index.ts';
@@ -15,6 +16,7 @@ const KEYWORDS_BY_SPELLING: ReadonlyMap<string, KeywordEntry> = new Map(
 );
 const RESERVED_BY_NAME: ReadonlyMap<string, JsReservedEntry> = new Map(JS_RESERVED.map((entry) => [entry.name, entry]));
 const RETIRED_BY_WORD: ReadonlyMap<string, RetiredWord> = new Map(RETIRED_WORDS.map((entry) => [entry.word, entry]));
+const RENAMED_BY_OLD_NAME: ReadonlyMap<string, string> = new Map(RENAMED_MEMBERS.map((entry) => [entry.from, entry.to]));
 const JS_MEMBER_SET: ReadonlySet<string> = new Set(JS_MEMBER_NAMES);
 const INSTANCE_ENTRIES = STDLIB.filter((entry) => entry.receiver !== 'global' && entry.receiver !== 'namespace');
 const jsMemberName = (js: string): string => js.slice(js.lastIndexOf('.') + 1);
@@ -26,6 +28,7 @@ const matchesName = (entry: StdlibEntry, name: string): boolean => entry.name ==
 
 export const lookupKeyword = (nfcSpelling: string): KeywordEntry | undefined => KEYWORDS_BY_SPELLING.get(nfcSpelling);
 export const lookupJsReserved = (name: string): JsReservedEntry | undefined => RESERVED_BY_NAME.get(name);
+export const lookupRenamedMember = (name: string): string | undefined => RENAMED_BY_OLD_NAME.get(name);
 export const lookupRetiredWord = (word: string): RetiredWord | undefined => RETIRED_BY_WORD.get(word);
 export const lookupStdlibMember = (name: string): readonly StdlibEntry[] => INSTANCE_ENTRIES.filter((entry) => matchesName(entry, name));
 export const lookupStdlibGlobal = (name: string): StdlibEntry | undefined => STDLIB.find((entry) => entry.receiver === 'global' && matchesName(entry, name));
