@@ -34,7 +34,7 @@ function parseUnary(parser: Parser): Expression {
   const kind = prefixKindOf(token);
   if (kind === undefined) {
     const operand = parseOperand(parser);
-    if (!isBlockArrow(operand)) return parsePostfix(parser, operand);
+    if (!isBlockArrow(operand)) return parsePostfix(parser, operand, token.start);
     reportArrowPostfix(parser);
     return operand;
   }
