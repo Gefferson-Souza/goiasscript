@@ -34,52 +34,53 @@ function parseNumberDot(parser: Parser, object: Expression, dot: Token): Express
   return object;
 }
 
-export function parseMember(parser: Parser, object: Expression): Expression {
+export function parseMember(parser: Parser, object: Expression, start = object.start): Expression {
   const state = parser.state;
   const dot = state.advance();
   if (isGluedNumber(object, dot)) return parseNumberDot(parser, object, dot);
   state.skipNewlines();
   const token = state.current();
   const property: Expression = isWord(token) ? identifierOf(state.advance()) : parser.unexpected();
-  return parser.build({ type: 'MemberExpression', object, property, computed: false, start: object.start, end: state.lastEnd });
+  return parser.build({ type: 'MemberExpression', object, property, computed: false, start, end: state.lastEnd });
 }
 
-function parseCall(parser: Parser, callee: Expression): Expression {
+function parseCall(parser: Parser, callee: Expression, start: number): Expression {
   const { args, end } = parseArguments(parser);
-  return parser.build({ type: 'CallExpression', callee, arguments: args, start: callee.start, end });
+  return parser.build({ type: 'CallExpression', callee, arguments: args, start, end });
 }
 
-function parseIndex(parser: Parser, object: Expression): Expression {
+function parseIndex(parser: Parser, object: Expression, start: number): Expression {
   const here = parser.state.current().start;
   const fallback = errorNode(CODES.tooDeep, here, here);
   const group = groupedBody(parser, ']', () => parser.parseExpression(), fallback);
-  return parser.build({ type: 'MemberExpression', object, property: group.value, computed: true, start: object.start, end: group.end });
+  return parser.build({ type: 'MemberExpression', object, property: group.value, computed: true, start, end: group.end });
 }
 
-function parseOptionalStep(parser: Parser, node: Expression): Expression {
+function parseOptionalStep(parser: Parser, node: Expression, start: number): Expression {
   const state = parser.state;
   reportJsOperator(parser, state.current());
   const following = state.visibleAt(1);
-  if (!isPunctuator(following, '(') && !isPunctuator(following, '[')) return parseMember(parser, node);
+  if (!isPunctuator(following, '(') && !isPunctuator(following, '[')) return parseMember(parser, node, start);
   state.advance();
-  return isPunctuator(following, '(') ? parseCall(parser, node) : parseIndex(parser, node);
+  return isPunctuator(following, '(') ? parseCall(parser, node, start) : parseIndex(parser, node, start);
 }
 
-function stepOf(parser: Parser, node: Expression): Expression | undefined {
+function stepOf(parser: Parser, node: Expression, start: number): Expression | undefined {
   const state = parser.state;
   continueAcrossNewline(state);
   const token = state.current();
-  if (isPunctuator(token, '.')) return parseMember(parser, node);
-  if (isPunctuator(token, '(')) return parseCall(parser, node);
-  if (isPunctuator(token, OPTIONAL_CHAIN)) return parseOptionalStep(parser, node);
-  return isPunctuator(token, '[') ? parseIndex(parser, node) : undefined;
+  if (isPunctuator(token, '.')) return parseMember(parser, node, start);
+  if (isPunctuator(token, '(')) return parseCall(parser, node, start);
+  if (isPunctuator(token, OPTIONAL_CHAIN)) return parseOptionalStep(parser, node, start);
+  return isPunctuator(token, '[') ? parseIndex(parser, node, start) : undefined;
 }
 
-export function parsePostfix(parser: Parser, operand: Expression): Expression {
+// Um operando entre parênteses começa no "(": a cadeia que segue precisa desse início para envolver o grupo inteiro.
+export function parsePostfix(parser: Parser, operand: Expression, start = operand.start): Expression {
   let node = operand;
   for (;;) {
     if (parser.state.aborted) return node;
-    const next = stepOf(parser, node);
+    const next = stepOf(parser, node, start);
     if (next === undefined) return node;
     node = next;
   }

@@ -3,6 +3,7 @@ import type { AstNode, Identifier, MemberExpression } from '../ast/ast.types.ts'
 import { HELPER_PREFIX } from '../helpers/helper.constants.ts';
 import type { Edit, EditContext } from './edit.types.ts';
 import { lineBreaksOf } from './line-breaks.ts';
+import { receiverEnd } from './receiver-end.ts';
 
 export function libraryEntryOf(node: Identifier | MemberExpression, context: EditContext): StdlibEntry | undefined {
   const resolution = context.analysis.resolutionOf(node);
@@ -26,10 +27,11 @@ function identifierEdits(identifier: Identifier, parent: AstNode | null, context
 }
 
 function propertyHelperEdits(member: MemberExpression, entry: StdlibEntry, context: EditContext): readonly Edit[] {
-  const gap = context.source.text.slice(member.object.end, member.end);
+  const cut = receiverEnd(member, context.source.text);
+  const gap = context.source.text.slice(cut, member.end);
   return [
     { start: member.start, end: member.start, text: `${HELPER_PREFIX}${entry.helperName ?? ''}(`, order: context.nextOrder() },
-    { start: member.object.end, end: member.end, text: `)${lineBreaksOf(gap)}`, order: context.nextOrder() },
+    { start: cut, end: member.end, text: `)${lineBreaksOf(gap)}`, order: context.nextOrder() },
   ];
 }
 

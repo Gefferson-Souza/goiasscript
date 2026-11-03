@@ -4,6 +4,7 @@ import { HELPER_PREFIX } from '../helpers/helper.constants.ts';
 import type { Edit, EditContext } from './edit.types.ts';
 import { libraryEntryOf } from './library-edits.ts';
 import { lineBreaksOf } from './line-breaks.ts';
+import { receiverEnd } from './receiver-end.ts';
 
 const ARGUMENT_SEPARATOR = ',';
 const ARGUMENT_PADDING = ' ';
@@ -20,12 +21,13 @@ function callbackEdits(call: CallExpression, callee: MemberExpression, entry: St
 function wrapperEdits(call: CallExpression, callee: MemberExpression, entry: StdlibEntry, context: EditContext): readonly Edit[] {
   const [first] = call.arguments;
   const innerEnd = first?.start ?? call.end - 1;
-  const gap = context.source.text.slice(callee.object.end, innerEnd);
+  const cut = receiverEnd(callee, context.source.text);
+  const gap = context.source.text.slice(cut, innerEnd);
   const separator = first === undefined ? '' : ARGUMENT_SEPARATOR;
   const padding = first === undefined ? '' : ARGUMENT_PADDING;
   return [
     { start: call.start, end: call.start, text: `${HELPER_PREFIX}${entry.helperName ?? ''}(`, order: context.nextOrder() },
-    { start: callee.object.end, end: innerEnd, text: `${separator}${lineBreaksOf(gap)}${padding}`, order: context.nextOrder() },
+    { start: cut, end: innerEnd, text: `${separator}${lineBreaksOf(gap)}${padding}`, order: context.nextOrder() },
   ];
 }
 
