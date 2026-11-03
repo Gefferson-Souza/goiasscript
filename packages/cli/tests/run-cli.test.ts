@@ -29,7 +29,23 @@ describe('runCli', () => {
     const { io } = await run(['traduza', 'x.gs', '--tom', 'neutro']);
     expect(io.stderrText()).toContain('Você quis dizer "traduz"?');
   });
-  it.each(['--help', '-h', '--version'])('%s é GS0905 com dica em goianês', async (flag) => {
+  it.each([['--help'], ['-h'], ['ajuda'], ['--ajuda'], ['--help', '--tom', 'neutro']])('%j mostra a ajuda como rodar sem argumentos e sai com 0', async (...argv) => {
+    const { io, code } = await run(argv);
+    expect(code).toBe(0);
+    expect(io.stdoutText()).toContain('dedo_de_prosa');
+    expect(io.stderrText()).toBe('');
+  });
+  it('a manchete do GS0905 não afirma que o comando não existe quando o problema é outro', async () => {
+    const { io } = await run(['traduz']);
+    expect(io.stderrText()).toContain('Ô sô, esse uso do goiasscript não tá certo.');
+    expect(io.stderrText()).toContain('Faltou o arquivo depois de "traduz".');
+    expect(io.stderrText()).not.toContain('esse comando ou opção não existe');
+  });
+  it('a manchete neutra do GS0905 também é neutra quanto à causa', async () => {
+    const { io } = await run(['traduz', '--tom', 'neutro']);
+    expect(io.stderrText()).toContain('Uso incorreto do goiasscript.');
+  });
+  it.each(['--version'])('%s é GS0905 com dica em goianês', async (flag) => {
     const { io, code } = await run([flag]);
     expect(code).toBe(EXIT_CODE.usage);
     expect(io.stderrText()).toContain('GS0905');
@@ -73,14 +89,14 @@ describe('runCli: robustez do uso incorreto', () => {
     expect(io.stderrText()).toContain('\\u001b');
   });
   it('o tom do erro segue a última ocorrência de --tom', async () => {
-    expect((await run(['traduza', '--tom', 'raiz', '--tom', 'neutro'])).io.stderrText()).toContain('Comando ou opção desconhecidos');
+    expect((await run(['traduza', '--tom', 'raiz', '--tom', 'neutro'])).io.stderrText()).toContain('Uso incorreto do goiasscript.');
     expect((await run(['traduza', '--tom', 'neutro', '--tom', 'raiz'])).io.stderrText()).toContain('Ô sô');
   });
   it('--tom depois de -- não muda o tom', async () => {
     expect((await run(['traduza', '--', '--tom', 'neutro'])).io.stderrText()).toContain('Ô sô');
   });
   it('--tom=neutro é reconhecido no erro de uso', async () => {
-    expect((await run(['traduza', '--tom=neutro'])).io.stderrText()).toContain('Comando ou opção desconhecidos');
+    expect((await run(['traduza', '--tom=neutro'])).io.stderrText()).toContain('Uso incorreto do goiasscript.');
   });
   it('a recusa de "-" cita só a entrada padrão no bota_pra_moer', async () => {
     expect((await run(['explica', '-'])).io.stderrText()).not.toContain('respostas');

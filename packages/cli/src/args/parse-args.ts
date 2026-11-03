@@ -26,7 +26,7 @@ const isTone = (value: string): value is Tone => TONES.includes(value);
 
 const unknownOptionDetail = (rawName: string): string =>
   HELP_LIKE.has(rawName)
-    ? `"${rawName}" não existe aqui. Pra ver o que dá pra fazer, roda "goiasscript" sem nada.`
+    ? `"${rawName}" não existe aqui.`
     : `A opção "${toPrintable(rawName)}" não existe nesse comando.`;
 
 

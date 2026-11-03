@@ -15,6 +15,7 @@ import { renderToolNotice } from './tool-notice.ts';
 const DEFAULT_TONE: Tone = 'raiz';
 const suggestionLine = (tone: Tone, name: string): string => chooseByTone(tone, `Cê quis dizer "${name}"?`, `Você quis dizer "${name}"?`);
 const HELP_LIKE = new Set(['--help', '-h', '--version', '-v', '-V']);
+const HELP_REQUESTS: ReadonlySet<string> = new Set(['--help', '-h', 'ajuda', '--ajuda']);
 
 function warnOldNode(io: CliIo, tone: Tone): void {
   if (isSupportedNode(io.env.nodeVersion)) return;
@@ -32,8 +33,9 @@ function reportUsage(argv: readonly string[], detail: string, io: CliIo): ExitCo
 
 export async function runCli(argv: readonly string[], io: CliIo, dependencies: CliDependencies): Promise<ExitCode> {
   warnOldNode(io, toneOf(argv));
-  if (argv.length === 0) {
-    io.out.write(renderHelp(DEFAULT_TONE));
+  const [first] = argv;
+  if (first === undefined || HELP_REQUESTS.has(first)) {
+    io.out.write(renderHelp(first === undefined ? DEFAULT_TONE : toneOf(argv)));
     return EXIT_CODE.ok;
   }
   const result = parseCommandLine(argv);
