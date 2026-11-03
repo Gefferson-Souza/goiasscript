@@ -28,8 +28,25 @@ describe('palavras do JavaScript que não existem em GoiásScript', () => {
     expect(first('console.log(1)')?.message).toContain('"prosa"');
     expect(first('prosa(JSON)')?.message).toContain('"Coisa"');
   });
-  it('mantém a sugestão de nome novo ao declarar com palavra do JavaScript', () => {
-    expect(first('uai public é 1')?.message).toContain('"publico"');
+  it.each([
+    ['uai public é 1', 'publico'],
+    ['prosa(public)', 'publico'],
+    ['uai eval é 1', 'avaliar'],
+    ['prosa(eval)', 'avaliar'],
+    ['uai switch é 1', 'opcao'],
+    ['faz_trem f(NaN) {}', 'nao_numero'],
+    ['faz_trem f() { faz_favor arguments }', 'argumentos'],
+  ])('%s diz a mesma coisa na declaração e no uso, sem nome inventado (%s)', (text, invented) => {
+    const diagnostic = first(text);
+    expect(diagnostic?.code).toBe('GS0402');
+    expect(diagnostic?.message).toContain(SAYS_NO_EQUIVALENT);
+    expect(diagnostic?.message).not.toContain(invented);
+  });
+  it('uso e declaração da mesma palavra dão a mesma mensagem', () => {
+    expect(first('uai public é 1')?.message).toBe(first('prosa(public)')?.message);
+  });
+  it('sugestão de membro renomeado não vale para namespace da biblioteca', () => {
+    expect(first('prosa(Conta.tamanho)')?.message ?? '').not.toContain('o_tanto');
   });
 });
 

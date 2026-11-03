@@ -55,7 +55,8 @@ function isKnownMember(query: MemberAccessQuery): boolean {
 function unknownMemberDiagnostic(query: MemberAccessQuery): RawDiagnostic {
   const { name, start, end, namespace, declared } = query;
   const candidates = namespace === undefined ? [...declared, ...INSTANCE_MEMBER_NAMES] : staticMemberNames(namespace);
-  const suggestion = lookupRenamedMember(name) ?? closestName(name, candidates);
+  // A tabela de nomes antigos vale só para métodos de valor; namespace tem o próprio conjunto de membros.
+  const suggestion = (namespace === undefined ? lookupRenamedMember(name) : undefined) ?? closestName(name, candidates);
   return diagnostic(CODES.undeclaredMember, start, end, suggestion === undefined ? { name } : { name, suggestion });
 }
 
