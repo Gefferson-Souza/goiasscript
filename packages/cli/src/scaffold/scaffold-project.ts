@@ -1,7 +1,8 @@
 import { CliFileError } from '../cli-file-error.ts';
 import type { CliIo } from '../io.types.ts';
 import { printableName } from '../paths/display-text.ts';
-import { OUTPUT_REASON, PATH_CODE } from '../paths/paths.constants.ts';
+import { PATH_CODE } from '../paths/paths.constants.ts';
+import { EXISTING_FOLDER_HINT, existingFolderReason } from './scaffold-messages.constants.ts';
 import type { ScaffoldResult } from './scaffold.types.ts';
 import { TEMPLATE_FILES } from './template.constants.ts';
 
@@ -37,7 +38,8 @@ export async function scaffoldProject(name: string, io: CliIo): Promise<Scaffold
     await io.fs.makeDirectory(name);
   } catch (error) {
     if (error instanceof CliFileError && error.code === 'EEXIST') {
-      return { ok: false, code: PATH_CODE.outputRefused, detail: OUTPUT_REASON.exists, args: { reason: OUTPUT_REASON.exists } };
+      const reason = existingFolderReason(printableName(name));
+      return { ok: false, code: PATH_CODE.outputRefused, detail: EXISTING_FOLDER_HINT, args: { reason } };
     }
     return failure(`não deu pra criar a pasta "${printableName(name)}"${causeOf(error)}`);
   }

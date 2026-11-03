@@ -14,22 +14,37 @@ describe('arma_o_barraco', () => {
   it('cria o projeto e imprime os próximos passos', async () => {
     const io = createMemoryIo();
     expect(await runCli(['arma_o_barraco', 'meu-projeto'], io, deps)).toBe(0);
-    expect([...io.paths()].sort()).toEqual(['meu-projeto/.gitignore', 'meu-projeto/README.md', 'meu-projeto/main.gs']);
-    expect(extractNextSteps(io.stdoutText())).toEqual(['cd meu-projeto', 'goiasscript bota_pra_moer main.gs']);
+    expect([...io.paths()].sort()).toEqual([
+      'meu-projeto/.gitignore',
+      'meu-projeto/README.md',
+      'meu-projeto/main.gs',
+    ]);
+    expect(extractNextSteps(io.stdoutText())).toEqual([
+      'cd meu-projeto',
+      'goiasscript bota_pra_moer main.gs',
+    ]);
   });
   it('o main.gs do template compila sem nenhum diagnóstico', () => {
     const result = compile(TEMPLATE_FILES['main.gs'], { fileName: 'main.gs' });
     expect(result).toMatchObject({ ok: true, diagnostics: [] });
   });
-  it.each(['../fora', '/abs', 'a/b', 'a\\b', '.oculto', '-x', 'a b', '', 'a'.repeat(65), 'café\u0000'])(
-    'recusa o nome %j sem criar nada',
-    async (name) => {
-      const io = createMemoryIo();
-      expect(await runCli(['arma_o_barraco', name], io, deps)).toBe(3);
-      expect(io.stderrText()).toContain('GS0905');
-      expect(io.paths()).toEqual([]);
-    },
-  );
+  it.each([
+    '../fora',
+    '/abs',
+    'a/b',
+    'a\\b',
+    '.oculto',
+    '-x',
+    'a b',
+    '',
+    'a'.repeat(65),
+    'café\u0000',
+  ])('recusa o nome %j sem criar nada', async name => {
+    const io = createMemoryIo();
+    expect(await runCli(['arma_o_barraco', name], io, deps)).toBe(3);
+    expect(io.stderrText()).toContain('GS0905');
+    expect(io.paths()).toEqual([]);
+  });
   it('no Windows recusa nome reservado', async () => {
     for (const name of ['con', 'NUL.txt', 'com1']) {
       const io = createMemoryIo({ platform: 'win32' });
@@ -55,8 +70,19 @@ describe('arma_o_barraco', () => {
     expect(io.stderrText()).toContain('GS0903');
     expect(io.fileText('meu-projeto/main.gs')).toBe('meu');
   });
+  it('pasta existente: diz qual pasta e o que fazer, sem repetir o motivo', async () => {
+    const io = createMemoryIo({ files: { 'meu-projeto/main.gs': 'meu' } });
+    await runCli(['arma_o_barraco', 'meu-projeto'], io, deps);
+    const stderr = io.stderrText();
+    expect(stderr).toContain('a pasta "meu-projeto" já existe');
+    expect(stderr.match(/já existe/gu)).toHaveLength(1);
+    expect(stderr).toContain('outro nome');
+  });
   it('falha no meio remove só o que criou', async () => {
-    const io = createMemoryIo({ files: { 'outro.txt': 'fica' }, failingWrites: ['meu-projeto/README.md'] });
+    const io = createMemoryIo({
+      files: { 'outro.txt': 'fica' },
+      failingWrites: ['meu-projeto/README.md'],
+    });
     expect(await runCli(['arma_o_barraco', 'meu-projeto'], io, deps)).toBe(3);
     expect(io.paths()).toEqual(['outro.txt']);
   });
@@ -67,14 +93,23 @@ describe('arma_o_barraco', () => {
   });
   it('falha ao criar a pasta mostra o código da causa', async () => {
     const io = createMemoryIo();
-    const failing = { ...io, fs: { ...io.fs, makeDirectory: () => Promise.reject(new CliFileError('EACCES', 'meu-projeto')) } };
+    const failing = {
+      ...io,
+      fs: {
+        ...io.fs,
+        makeDirectory: () => Promise.reject(new CliFileError('EACCES', 'meu-projeto')),
+      },
+    };
     expect(await runCli(['arma_o_barraco', 'meu-projeto'], failing, deps)).toBe(3);
     expect(io.stderrText()).toContain('EACCES');
   });
   it('em tom neutro imprime os mesmos passos', async () => {
     const io = createMemoryIo();
     expect(await runCli(['arma_o_barraco', 'proj', '--tom', 'neutro'], io, deps)).toBe(0);
-    expect(extractNextSteps(io.stdoutText())).toEqual(['cd proj', 'goiasscript bota_pra_moer main.gs']);
+    expect(extractNextSteps(io.stdoutText())).toEqual([
+      'cd proj',
+      'goiasscript bota_pra_moer main.gs',
+    ]);
   });
   it('extractNextSteps ignora saída sem o bloco', () => {
     expect(extractNextSteps('nada aqui\n')).toEqual([]);
