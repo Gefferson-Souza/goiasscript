@@ -1,25 +1,37 @@
-export const EDITOR_THEME_NAME = 'goias-dark';
+import { COLORS, SELECTION_ALPHA } from '../design/design-tokens.constants.ts';
 
+export const EDITOR_THEME_NAME = 'goias-editor-infinito';
+
+const hex = (color: string): string => color.slice(1);
+const ALPHA_MAX = 255;
+const HEX_RADIX = 16;
+const selectionAlpha = Math.round(SELECTION_ALPHA * ALPHA_MAX).toString(HEX_RADIX).padStart(2, '0');
+
+// Toda palavra goianesa acende em pequi; o resto do código fica neutro (frame.md: cor = significado).
 export const EDITOR_THEME = {
   base: 'vs-dark',
   inherit: true,
   rules: [
-    { token: 'keyword', foreground: 'f5c518', fontStyle: 'bold' },
-    { token: 'keyword.storage', foreground: '79c0ff', fontStyle: 'bold' },
-    { token: 'keyword.operator', foreground: 'ff7b72' },
-    { token: 'constant', foreground: 'ffa657' },
-    { token: 'type', foreground: '7ee787' },
-    { token: 'support.function', foreground: 'd2a8ff' },
-    { token: 'string', foreground: 'a5d6ff' },
-    { token: 'comment', foreground: '8b949e', fontStyle: 'italic' },
-    { token: 'number', foreground: 'f0883e' },
+    { token: 'keyword', foreground: hex(COLORS.pequi), fontStyle: 'bold' },
+    { token: 'keyword.storage', foreground: hex(COLORS.pequi), fontStyle: 'bold' },
+    { token: 'keyword.operator', foreground: hex(COLORS.pequi) },
+    { token: 'constant', foreground: hex(COLORS.pequi) },
+    { token: 'type', foreground: hex(COLORS.pequi) },
+    { token: 'support.function', foreground: hex(COLORS.pequi) },
+    { token: 'string', foreground: hex(COLORS.string) },
+    { token: 'comment', foreground: hex(COLORS.dim), fontStyle: 'italic' },
+    { token: 'number', foreground: hex(COLORS.number) },
   ],
   colors: {
-    'editor.background': '#0d1117',
-    'editor.foreground': '#e6edf3',
-    'editorLineNumber.foreground': '#484f58',
-    'editorLineNumber.activeForeground': '#f5c518',
-    'editor.selectionBackground': '#f5c51844',
+    'editor.background': COLORS.panel,
+    'editor.foreground': COLORS.ink,
+    'editorLineNumber.foreground': COLORS.dim,
+    'editorLineNumber.activeForeground': COLORS.caret,
+    'editorCursor.foreground': COLORS.caret,
+    'editor.selectionBackground': `${COLORS.caret}${selectionAlpha}`,
+    'editor.lineHighlightBackground': COLORS.grid,
+    'editor.lineHighlightBorder': COLORS.grid,
+    'editorIndentGuide.background1': COLORS.line,
   },
 } as const;
 

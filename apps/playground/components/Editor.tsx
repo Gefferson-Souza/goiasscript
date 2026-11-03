@@ -8,6 +8,8 @@ import { EDITOR_UNICODE_HIGHLIGHT, GOIASSCRIPT_LANGUAGE_ID, MONACO_BASE_PATH } f
 import { createMonacoEnvironment } from '@/lib/monaco/monaco-environment';
 import { registerGoiasScript } from '@/lib/monaco/register-language';
 import { EDITOR_LANGUAGE_CONFIGURATION, EDITOR_THEME, EDITOR_THEME_NAME } from '@/lib/monaco/editor-theme.constants';
+import { remeasureWhenFontLoads } from '@/lib/monaco/remeasure-fonts';
+import { jetbrainsMono } from '@/app/fonts';
 import { EDITOR_FONT_SIZE, EDITOR_TAB_SIZE } from './editor.constants';
 
 // O Monaco vem do próprio domínio: a CSP do site não aceita CDN.
@@ -37,6 +39,7 @@ export function Editor({ value, markers, onChange }: Props) {
     if (model === null) return;
     mounted.current = { monaco, model };
     applyMarkers(monaco.editor, monaco.Uri, model, markers);
+    void remeasureWhenFontLoads(document.fonts, jetbrainsMono.style.fontFamily, () => monaco.editor.remeasureFonts());
   };
 
   const handleBeforeMount = (monaco: Monaco): void => {
@@ -59,6 +62,12 @@ export function Editor({ value, markers, onChange }: Props) {
         beforeMount={handleBeforeMount}
         options={{
           fontSize: EDITOR_FONT_SIZE,
+          fontFamily: jetbrainsMono.style.fontFamily,
+          fontLigatures: false,
+          cursorBlinking: 'solid',
+          // Chave colorida roubaria o pequi, que na identidade significa só goianês.
+          bracketPairColorization: { enabled: false },
+          matchBrackets: 'near',
           minimap: { enabled: false },
           scrollBeyondLastLine: false,
           wordWrap: 'on',
