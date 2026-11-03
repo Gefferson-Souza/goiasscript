@@ -54,12 +54,16 @@ Nada é implantado por este repositório; o passo a passo abaixo é do dono do p
    (JavaScript com a CSP isolada exata), o 404 em goianês e a página `/doacao`.
    Se algum item falhar, o job lista qual e o deploy não deve ser promovido.
 
-Para rodar o smoke da sua máquina: `node scripts/run-smoke-playground.ts https://endereço`.
+Para rodar o smoke da sua máquina, a partir da raiz do repositório:
+`node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON apps/playground/scripts/run-smoke-playground.ts https://endereço`.
 
 ## Arquitetura
 
 - `app/page.tsx` — playground principal (editor + saída).
-- `app/engoianador/page.tsx` — UI do engoianador.
-- `workers/runner.worker.ts` — Web Worker que transpila e executa.
-- `lib/monaco-goias.ts` — registro da linguagem GoiásScript no Monaco.
+- `app/cartilha/` — as lições da cartilha, lidas de `content/cartilha/*.md`.
+- `app/glossario/`, `app/engoianador/` e `app/doacao/` — glossário, tela do Engoianador e doação.
+- `lib/run/browser-worker.ts` — Web Worker que compila e roda o programa.
+- `lib/run/runner-client.ts` — cliente que fala com o worker e com o sandbox.
+- `sandbox/runner.ts` — executor isolado servido em `/sandbox/*`, com CSP própria.
+- `lib/monaco/register-language.ts` — registro da linguagem GoiásScript no Monaco.
 - `scripts/build-examples.ts` — gera `public/examples/` a partir de `examples/` em tempo de build.

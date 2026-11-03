@@ -59,6 +59,9 @@ faz_trem anuncia(texto) {
 anuncia("tá chovendo")
 ```
 
+Se ocê mandar o resultado de `anuncia(...)` pra `prosa`, vai aparecer `undefined` na tela. É o `indefinido` com o
+nome que o JavaScript dá pra ele.
+
 ## Sua vez
 
 A função `soma` do `starter` sempre devolve 0. Muda o `faz_favor` pra ela devolver `a mais b`.
