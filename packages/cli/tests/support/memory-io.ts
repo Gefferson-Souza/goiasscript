@@ -112,7 +112,7 @@ export function createMemoryIo(options: MemoryIoOptions = {}): MemoryIo {
     out: sinkInto(stdout),
     err: sinkInto(stderr, stderrSync),
     stdin: { readAll: () => Promise.resolve(stdinBytes), isTty: false },
-    streams: { input: process.stdin, output: process.stdout, isTty: false },
+    streams: { input: process.stdin, output: process.stdout, isTty: options.terminal ?? false },
     fs: memoryFs,
     env: {
       cwd: options.cwd ?? '/work',
@@ -120,7 +120,7 @@ export function createMemoryIo(options: MemoryIoOptions = {}): MemoryIo {
       platform,
       nodeVersion: options.nodeVersion ?? DEFAULT_NODE_VERSION,
       path: platform === 'win32' ? nodePath.win32 : nodePath.posix,
-      variables: {},
+      variables: options.variables ?? {},
     },
     stdoutText: () => stdout.join(''),
     stderrText: () => stderr.join(''),

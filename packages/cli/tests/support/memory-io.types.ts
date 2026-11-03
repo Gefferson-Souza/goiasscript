@@ -12,6 +12,8 @@ export interface MemoryIoOptions {
   readonly symlinks?: readonly string[];
   readonly foreignOwned?: readonly string[];
   readonly directories?: Readonly<Record<string, number>>;
+  readonly terminal?: boolean;
+  readonly variables?: Readonly<Record<string, string>>;
 }
 
 export interface MemoryIo extends CliIo {

@@ -1,10 +1,12 @@
 import type { Tone } from '@goiasscript/compiler';
+import { ANSI } from '../terminal/brand-colors.constants.ts';
+import { paint } from '../terminal/brand-colors.ts';
 import { chooseByTone } from '../tone-choice.ts';
 import { NEXT_STEPS_HEADING, NEXT_STEPS_INDENT, RUN_COMMAND, SCAFFOLD_SUCCESS } from './template.constants.ts';
 
-export function renderSuccess(name: string, tone: Tone): string {
+export function renderSuccess(name: string, tone: Tone, colored = false): string {
   const steps = [`cd ${name}`, RUN_COMMAND].map((step) => `${NEXT_STEPS_INDENT}${step}`);
-  const headline = chooseByTone(tone, SCAFFOLD_SUCCESS.root, SCAFFOLD_SUCCESS.neutral);
+  const headline = paint(chooseByTone(tone, SCAFFOLD_SUCCESS.root, SCAFFOLD_SUCCESS.neutral), ANSI.pequiBold, colored);
   return [headline, NEXT_STEPS_HEADING, ...steps].join('\n') + '\n';
 }
 
