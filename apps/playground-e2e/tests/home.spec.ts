@@ -1,10 +1,12 @@
 import { expect, test } from '@playwright/test';
+import { OG_CARD_SIZE } from '../../playground/lib/brand-card/brand-card.constants.ts';
 import { HOME_TEXTS } from '../../playground/components/landing/home-texts.constants.ts';
 import { HOME_ROUTE, PLAYGROUND_ROUTE } from '../../playground/lib/landing/routes.constants.ts';
 import { SAVED_CODE_KEY } from '../../playground/lib/saved-code.constants.ts';
 import { SHARE_HASH_PREFIX } from '../../playground/lib/share-link.constants.ts';
 import { encodeShareLink } from '../../playground/lib/share-link.ts';
 
+const OK_STATUS = 200;
 const SHARED_SOURCE = 'prosa("link antigo")';
 const SIDE_SELECTOR = '[data-side]';
 const FLIPPED_SELECTOR = '[data-flipped="true"]';
@@ -37,4 +39,15 @@ test.describe('página inicial', () => {
     await expect(page).toHaveURL(new RegExp(`${PLAYGROUND_ROUTE}$`, 'u'));
     await expect.poll(() => page.evaluate((key) => window.localStorage.getItem(key), SAVED_CODE_KEY)).toBe(SHARED_SOURCE);
   });
+
+  test('a página aponta a imagem de compartilhamento e ela sai em PNG do tamanho do Open Graph', async ({ page, request }) => {
+    await page.goto(HOME_ROUTE);
+    const imageUrl = await page.locator('meta[property="og:image"]').getAttribute('content');
+    expect(imageUrl).not.toBeNull();
+    const response = await request.get(new URL(imageUrl ?? '', page.url()).pathname);
+    expect(response.status()).toBe(OK_STATUS);
+    expect(response.headers()['content-type']).toBe('image/png');
+    await expect(page.locator('meta[property="og:image:width"]')).toHaveAttribute('content', String(OG_CARD_SIZE.width));
+  });
 });
+
