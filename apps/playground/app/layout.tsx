@@ -4,6 +4,7 @@ import './globals.css';
 import { DonationLinks } from '@/components/DonationLinks';
 import { currentSiteConfig } from '@/config/current-site-config';
 import { resolveDonationLinks } from '@/lib/donation-links';
+import { LANGUAGE_VERSION_LABEL } from '@/lib/version-label.constants';
 
 const siteConfig = currentSiteConfig();
 const { siteUrl } = siteConfig;
@@ -46,7 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" className="flex items-center gap-2 font-bold text-goias-yellow">
               <span className="text-2xl" aria-hidden="true">🐂</span>
               <span>GoiásScript</span>
-              <span className="text-sm font-normal text-goias-text">— playground v1.5</span>
+              <span className="text-sm font-normal text-goias-text">— playground {LANGUAGE_VERSION_LABEL}</span>
             </Link>
             <nav aria-label="Navegação principal" className="flex items-center gap-4 text-sm">
               <Link href="/" className="hover:text-goias-yellow">Playground</Link>
@@ -69,7 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </main>
         <footer className="border-t border-goias-border bg-goias-panel">
           <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-4 text-xs text-goias-text/70 sm:flex-row sm:items-center sm:justify-between">
-            <span>🇧🇷 Feito com carinho em Goiás — MIT · v1.5.0</span>
+            <span>🇧🇷 Feito com carinho em Goiás — MIT · GoiásScript {LANGUAGE_VERSION_LABEL}</span>
             <DonationLinks links={resolveDonationLinks(siteConfig)} variant="compact" />
           </div>
         </footer>
