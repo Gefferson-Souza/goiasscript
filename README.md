@@ -51,11 +51,11 @@ Todo erro diz a linha, a coluna, o que fazer e qual lição da cartilha explica 
 
 ## Instalar
 
-Precisa do [Node](https://nodejs.org) (o programa que executa JavaScript no seu computador), versão 22.12 ou mais
-nova.
+Precisa do [Node](https://nodejs.org) (o programa que executa JavaScript no seu computador). Para instalar a partir
+do código, como abaixo, a versão é 22.22.1 ou mais nova. Quando a v3 sair no npm, a 22.12 já basta.
 
-A v3 ainda não saiu no npm: hoje o `npm install --global goiasscript` instala a v2 arquivada, que é outra
-linguagem. Para testar a v3 agora, instale a partir do código:
+A v3 ainda não saiu no npm: hoje o `npm install goiasscript` (ou `npm install --global goiasscript`) traz a v2
+arquivada, que é outra linguagem. Para testar a v3 agora, instale a partir do código:
 
 ```bash
 git clone https://github.com/Gefferson-Souza/goiasscript.git
@@ -65,16 +65,36 @@ corepack pnpm pack:cli
 npm install --global ./packages/cli/pack/goiasscript-*.tgz
 ```
 
-Quando a v3 sair, basta `npm install --global goiasscript`.
+Quando a v3 sair, ela vem primeiro como alpha; veja o [ROADMAP](ROADMAP.md). Vindo da 1.5? Veja a
+[migração](docs/spec/migracao.md) e o [CHANGELOG](CHANGELOG.md).
 
 ## Início rápido
 
-Crie um projeto, entre nele e bote o programa pra moer (executar):
+Os comandos abaixo rodam no terminal: aquela janela onde ocê digita o comando e aperta Enter (no Windows, o
+PowerShell; no Mac e no Linux, o Terminal). Antes de começar, saia da pasta do repositório que ocê clonou, para o
+projeto novo não nascer lá dentro:
+
+```bash
+cd ..
+```
+
+Agora crie um projeto, entre nele e bote o programa pra moer (executar):
 
 ```bash
 goiasscript arma_o_barraco meu-projeto
 cd meu-projeto
 goiasscript bota_pra_moer main.gs
+```
+
+```text
+Bão, sô! Olá, mundo
+```
+
+Abra o `main.gs` num editor de texto qualquer, troque `"mundo"` pelo seu nome (por exemplo, `"Maria"`), salve e bote
+pra moer de novo:
+
+```text
+Bão, sô! Olá, Maria
 ```
 
 Um programa um pouco maior:
@@ -197,7 +217,7 @@ curl -s -X POST https://engoianador-api.goiasscript.workers.dev/engoiana \
 ```
 
 A resposta vem de um modelo de linguagem, então pode mudar um pouco a cada vez. Tem um limite de pedidos por dia
-para cada rede. A tela do Engoianador entra no playground quando ele for publicado.
+para cada rede. A tela do Engoianador já existe dentro do playground; falta o playground ganhar endereço público.
 
 ## Playground e cartilha
 
@@ -214,13 +234,15 @@ corepack pnpm playground:dev
 Realce de sintaxe, trechos prontos e os avisos do compilador em goianês enquanto ocê digita. Ela ainda não está no
 Marketplace; o [README da extensão](packages/vscode/README.md) mostra como instalar a partir do código.
 
-## O que não faz parte da v3
+## O que vem e o que não faz parte da v3
+
+O [ROADMAP](ROADMAP.md) conta o que já está decidido que vem por aí.
 
 Balaios, debugger, módulos, sistema de tipos, LSP separado, níveis graduais, interop com JavaScript nativo e IR
 própria **não fazem parte da v3**. Cada um só entra por RFC; veja o [CONTRIBUTING](CONTRIBUTING.md) e o
 [ADR-0010](docs/adr/0010-fora-da-v3.md).
 
-## Estrutura
+## Principais pastas
 
 ```
 goiasscript/
@@ -232,10 +254,12 @@ goiasscript/
 │   └── vscode/      # extensão do VS Code
 ├── apps/
 │   ├── playground/        # Next.js + Monaco
+│   ├── playground-e2e/    # testes de ponta a ponta do playground
 │   └── engoianador-api/   # Cloudflare Worker
 ├── exemplos/        # programas inteiros, com a saída conferida
-├── docs/            # spec, ADRs e RFCs
-└── tools/           # scanner de regras e testes de configuração
+├── docs/            # guia de métodos, operação, spec, ADRs e RFCs
+├── scripts/         # conferências e empacotamento
+└── tools/           # scanner de regras, testes de configuração e promessas das docs
 ```
 
 ## Contribuindo
