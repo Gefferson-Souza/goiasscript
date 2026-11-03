@@ -7,6 +7,7 @@ import { DonationLinks } from '@/components/DonationLinks';
 import { currentSiteConfig } from '@/config/current-site-config';
 import { resolveDonationLinks } from '@/lib/donation-links';
 import { LANGUAGE_VERSION_LABEL } from '@/lib/version-label.constants';
+import { HOME_ROUTE, PLAYGROUND_ROUTE } from '@/lib/landing/routes.constants';
 
 const siteConfig = currentSiteConfig();
 const { siteUrl } = siteConfig;
@@ -46,11 +47,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <header className="border-b border-line bg-plane">
           <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-2 px-4 py-3">
-            <Link href="/" aria-label={`GoiásScript, playground ${LANGUAGE_VERSION_LABEL}`} className="rounded">
+            <Link href={HOME_ROUTE} aria-label={`GoiásScript, playground ${LANGUAGE_VERSION_LABEL}`} className="rounded">
               <Wordmark suffix={`playground ${LANGUAGE_VERSION_LABEL}`} />
             </Link>
             <nav aria-label="Navegação principal" className="flex flex-wrap items-center gap-x-5 gap-y-1 text-sm">
-              <Link href="/" className="hover:text-caret">Playground</Link>
+              <Link href={PLAYGROUND_ROUTE} className="hover:text-caret">Playground</Link>
               <Link href="/cartilha" className="hover:text-caret">Cartilha</Link>
               <Link href="/engoianador" className="hover:text-caret">Engoianador</Link>
               <Link href="/doacao" className="hover:text-caret">Apoia o trem</Link>

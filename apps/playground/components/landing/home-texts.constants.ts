@@ -1,0 +1,20 @@
+export const HOME_TEXTS = {
+  title: 'Escreve em goianês. Sai JavaScript.',
+  lead: 'GoiásScript é uma linguagem de programação que fala do jeito que a gente fala em Goiás. Ocê escreve uai, prosa e faz_trem; o compilador devolve JavaScript direitinho, linha por linha.',
+  openPlayground: 'Abre o playground',
+  openPrimer: 'Aprende na cartilha',
+  figureLabel: 'O mesmo programa em goianês e em JavaScript',
+  dialect: 'goianês',
+  javascript: 'JavaScript',
+  toJavaScript: 'Vira pro JavaScript',
+  toDialect: 'Volta pro goianês',
+  srDialect: 'Em goianês:',
+  srJavaScript: 'Em JavaScript:',
+  outputTitle: 'Saída',
+  pathsTitle: 'Por onde começar',
+  paths: [
+    { route: 'playground', title: 'Playground', body: 'Escreve, bota pra moer e vê o JavaScript e a saída na hora.' },
+    { route: 'primer', title: 'Cartilha', body: 'Aprende a programar em goianês, uma lição de cada vez.' },
+    { route: 'engoianador', title: 'Engoianador', body: 'Cola qualquer texto e o trem devolve em goianês raiz.' },
+  ],
+} as const;
