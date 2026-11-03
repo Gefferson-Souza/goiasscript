@@ -3,6 +3,7 @@ import type { ExitCode } from '../exit-codes.types.ts';
 import { renderSuccess } from '../scaffold/next-steps.ts';
 import { validateProjectName } from '../scaffold/project-name.ts';
 import { scaffoldProject } from '../scaffold/scaffold-project.ts';
+import { ioColorEnabled } from '../terminal/brand-colors.ts';
 import { renderToolNotice } from '../tool-notice.ts';
 import type { CommandContext } from './command.types.ts';
 
@@ -19,6 +20,6 @@ export async function scaffoldCommand({ io, parsed }: CommandContext): Promise<E
     io.err.write(renderToolNotice({ code: result.code, tone, lines: [result.detail], ...(result.args === undefined ? {} : { args: result.args }) }));
     return EXIT_CODE.usage;
   }
-  io.out.write(renderSuccess(name, tone));
+  io.out.write(renderSuccess(name, tone, ioColorEnabled(io)));
   return EXIT_CODE.ok;
 }

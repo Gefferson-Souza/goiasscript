@@ -1,14 +1,15 @@
 import { EXIT_CODE } from '../exit-codes.constants.ts';
 import { renderHelp } from '../help/help.ts';
+import { brandName, ioColorEnabled } from '../terminal/brand-colors.ts';
 import { VERSION } from '../version.ts';
 import type { CommandHandler } from './command.types.ts';
-import { INFO_LABELS, INFO_NAME } from './info.constants.ts';
+import { INFO_LABELS } from './info.constants.ts';
 
 const withVersionPrefix = (version: string): string => (version.startsWith('v') ? version : `v${version}`);
 
 export const infoCommand: CommandHandler = ({ io, parsed }) => {
   const facts = [
-    `${INFO_NAME} ${VERSION}`,
+    `${brandName(ioColorEnabled(io))} ${VERSION}`,
     `${INFO_LABELS.node} ${withVersionPrefix(io.env.nodeVersion)}`,
     `${INFO_LABELS.system} ${io.env.platform}`,
   ];
