@@ -4,4 +4,5 @@ export interface MemberAccessQuery {
   readonly end: number;
   readonly declared: ReadonlySet<string>;
   readonly namespace?: string;
+  readonly computed: boolean;
 }

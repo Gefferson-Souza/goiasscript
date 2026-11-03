@@ -68,7 +68,7 @@ export abstract class ReferenceAnalysis extends AnalysisBase {
   private checkAccess(member: MemberExpression, name: string, namespace: string | undefined): boolean {
     const { property } = member;
     if (member.computed && lookupStdlibMember(name).length > 0) this.report(CODES.textAccessToLibraryName, property.start, property.end);
-    const found = checkMemberAccess({ name, start: property.start, end: property.end, declared: this.declaredMembers, ...(namespace === undefined ? {} : { namespace }) });
+    const found = checkMemberAccess({ name, start: property.start, end: property.end, declared: this.declaredMembers, computed: member.computed, ...(namespace === undefined ? {} : { namespace }) });
     this.add(found);
     return found !== undefined;
   }

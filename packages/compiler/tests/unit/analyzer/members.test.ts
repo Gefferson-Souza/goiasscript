@@ -31,8 +31,15 @@ describe('censo de membros', () => {
   it('acesso por texto a nome da biblioteca avisa GS0809', () => {
     expect(analyzeSource('uai l é [1]\nprosa(l[0])\nprosa(l["mapear"])').codes).toEqual(['GS0809']);
   });
-  it('acesso por texto a nome desconhecido dá GS0305', () => {
-    expect(analyzeSource('uai p é { a: 1 }\nprosa(p["b"])').codes).toEqual(['GS0305']);
+  it('colchete com texto lê campo que o arquivo não declara, como o de um JSON', () => {
+    expect(analyzeSource('uai p é { a: 1 }\nprosa(p["b"])').codes).toEqual([]);
+    expect(analyzeSource('uai d é Coisa.vira_coisa("{}")\nprosa(d["saldo"])').codes).toEqual([]);
+  });
+  it('colchete com texto continua barrando nome perigoso do JavaScript', () => {
+    expect(analyzeSource('uai p é { a: 1 }\nprosa(p["constructor"])').codes).toEqual(['GS0406']);
+  });
+  it('ponto em campo desconhecido segue dando GS0305', () => {
+    expect(analyzeSource('uai d é Coisa.vira_coisa("{}")\nprosa(d.saldo)').codes).toEqual(['GS0305']);
   });
   it('membros da biblioteca e estáticos são aceitos', () => {
     expect(analyzeSource('uai t é "a"\nprosa(t.gritando().o_tanto)\nprosa(Conta.maior(1, 2), Conta.PI)').codes).toEqual([]);

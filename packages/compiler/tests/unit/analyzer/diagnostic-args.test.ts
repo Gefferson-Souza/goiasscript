@@ -66,7 +66,7 @@ describe('argumentos dos diagnósticos de declaração', () => {
   });
   it('membro desconhecido traz a sugestão só quando há parecido', () => {
     expect(firstArgs('uai o é { nome: 1 }\nprosa(o.nmoe)', 'GS0305')).toStrictEqual({ name: 'nmoe', suggestion: 'nome' });
-    expect(firstArgs('uai o é { nome: 1 }\nprosa(o.zzzzzzzz)', 'GS0305')).toStrictEqual({ name: 'zzzzzzzz' });
+    expect(firstArgs('uai o é { nome: 1 }\nprosa(o.zzzzzzzz)', 'GS0305')).toStrictEqual({ name: 'zzzzzzzz', variant: 'external' });
   });
 });
 
