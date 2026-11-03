@@ -11,10 +11,29 @@ Reescrita da linguagem: vocabulário fechado, mensagens de erro com código e um
 pacote só para o CLI e para a extensão do VS Code. A lista completa de mudanças
 e como migrar está em `docs/spec/migracao.md`.
 
+### Adicionado
+
+- Compilador próprio, escrito do zero: o `.gs` vira JavaScript (`.mjs`) sem depender do transpilador da 1.5.
+- Erros com código `GSnnnn`, a linha do programa onde deu o problema e o link da lição da cartilha que ensina aquilo.
+- `goiasscript explica GSnnnn`: mostra o que o erro quer dizer, com exemplo e a lição.
+- `goiasscript vê_se_tá_certo arquivo.gs`: só confere o programa e mostra todos os problemas, sem executar.
+- `goiasscript arma_o_barraco nome`: cria um projeto novo a partir de um modelo.
+- `goias`, a roda de prosa: ocê digita uma linha e ele responde na hora.
+- `--otimiza` e `--minifica` no `traduz`, pra deixar o JavaScript gerado mais enxuto.
+- Playground com a cartilha de 11 lições, cada uma com programas que rodam de verdade.
+- Pasta `exemplos/` com 5 programas inteiros (churrasco, feira, boletim, banco e analisador), conferidos a cada
+  rodada do projeto: cada um é traduzido, executado e comparado com a saída esperada.
+- Extensão do VS Code: erros na hora, sugestão das palavras goianas e o comando que bota o programa pra moer.
+  Ainda é pré-lançamento, fora do Marketplace (veja `packages/vscode/CHANGELOG.md`).
+- Engoianador: a tela dentro do playground e a API que vira português comum em goianês.
+- Campo de fora lido com colchete e aspas, tipo `dado["saldo"]`: aceito sem o compilador reclamar do campo.
+
 ### Removido
 
-Palavras que não existem mais na linguagem. Elas deixam de ser reservadas e o
-compilador aponta a forma nova (GS0306).
+Palavras de versões anteriores que não existem mais na linguagem. Elas não são reservadas (dá pra usar o nome
+como variável, por exemplo `uai fazer é 3`); o compilador só aponta a forma nova (GS0306).
+
+Saíram de verdade, e programa da 1.5 que usava qualquer uma delas precisa ser ajustado:
 
 - `presta_serviço` vira `faz_trem`.
 - `vai_na_frente_presta_serviço` vira `vai_na_frente_faz_trem`.
@@ -22,21 +41,35 @@ compilador aponta a forma nova (GS0306).
 - `vixe_que` vira `vixe`.
 - `vazio` vira `nada`.
 - `sei_lá` vira `indefinido`.
-- `se` vira `se_ocê_quiser`.
-- `senao` vira `se_não`.
-- `fazer` vira `faz_trem`.
 - `é_igual_a` vira `é_igualim`.
 - `um_tanto_de` saiu, sem substituto.
 - `ninguem_fuça` saiu, sem substituto.
 - `só_da_famia` saiu, sem substituto.
 - `todo_mundo_vê` saiu, sem substituto.
 
+Estavam na documentação da 1.5, mas nunca funcionaram no código. Programa que roda na 1.5 não usa elas, então
+não quebra por isso; o erro só ajuda quem seguiu a documentação antiga:
+
+- `se` vira `se_ocê_quiser`.
+- `senao` vira `se_não`.
+- `fazer` vira `faz_trem`.
+
 ### Alterado
 
 - `trem` passa a declarar `let` (na 1.5 era `var`): o escopo agora é o do bloco.
 - `.tamanho()` vira `.o_tanto`, sem parênteses; chamar com parênteses é `GS0603`.
-- `.ordenar()` vira `.arruma()`.
+- `.ordenar()` vira `.arruma()`: sem comparador e sem mudar a lista original.
 - `.arranca_o_rabo()` vira `.ranca_o_rabo()`.
+- `.reduzir` vira `.amontoar(f, inicial)`, e o valor inicial agora é obrigatório.
+- `.trocar` troca todas as ocorrências e trata os dois argumentos como texto, sem expressão regular
+  (usar `/b/` dá `GS0502`).
+- `.inverter` vira `.de_trás_pra_frente()`, e ele e `Coisa.mistura` não mudam mais o original.
+- `faz_um promessa` vira `faz_um Promessa`; `.quando_resolver` vira `.quando_der_bão` e `.se_der_pobrema` vira
+  `.se_der_ruim`.
+- `GoianoMath` vira `Conta`.
+- `.pedaco` vira `.naco`.
+- `vira_número` aceita vírgula decimal (`"10,50"` vira 10.5), e `.mensagem` dos erros vem em português.
+- Número escrito à brasileira (`1.000.000`, ou vírgula onde ela não cabe) vira erro com a correção.
 
 ## [1.5.0] — 2026-05-21 — *Goianês na Web (lançamento)*
 

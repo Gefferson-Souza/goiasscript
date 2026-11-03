@@ -383,7 +383,7 @@ Para quem vem da 1.5:
 - `.ordenar` vira `.arruma()`, sem comparador e sem mutar a lista (P9); `.de_trás_pra_frente` e `Coisa.mistura`
   também não mutam.
 - `.reduzir` vira `.amontoar(f, inicial)` e o valor inicial é obrigatório, o que acaba com o `NaN` da 1.5.
-- `.ranca_o_rabo()` vira `.ranca_o_rabo()`; a família do `ranca` cobre `pop`, `shift`, `splice`, `trim` e `Math.abs`.
+- `.arranca_o_rabo()` vira `.ranca_o_rabo()`; a família do `ranca` cobre `pop`, `shift`, `splice`, `trim` e `Math.abs`.
 - `faz_um promessa`, `.quando_resolver` e `.se_der_pobrema` viram `faz_um Promessa`, `.quando_der_bão` e `.se_der_ruim`.
 - As palavras do anexo B não são reservadas; só melhoram a mensagem do erro GS0306. `uai fazer é 3` continua válido.
 - Nomes de método em letra minúscula sem acento do runtime da 1.5 (`comeca_com`, `pedaco`) saem; a v3 usa a forma do
