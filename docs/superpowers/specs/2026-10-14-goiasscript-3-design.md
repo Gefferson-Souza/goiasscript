@@ -265,7 +265,7 @@ nome. Nenhuma serve de nome em posição alguma, nem de propriedade ou de métod
    alvo `repl` rejeita `NaN` e `Infinity`; são reservados igual em todos os alvos. Usados como nome (variável,
    parâmetro, função, classe, parâmetro de `se_der_ruim`, variável de `vai_indo`): GS0402.
 4. **Membros nativos (P1)** (propriedades e métodos dos protótipos do JavaScript). A lista `jsMembers` é gerada no
-   build a partir dos protótipos ES2023 e conferida no CI (§5.2). Em `x.nome` e em `x["nome"]` com texto literal, `nome`
+   build a partir dos protótipos ES2023 e conferida no CI (§5.2). Em `x.nome`, `nome`
    precisa ser da biblioteca (§4.9) ou ter sido declarado no arquivo: chave de coisa, método de classe ou alvo de
    `x.nome é …`; a pré-passada sobre o arquivo inteiro coleta os declarados (§5.6). Senão:
    - nativo com equivalente goiano (`map filter reduce forEach push pop shift unshift length toUpperCase toLowerCase
@@ -273,7 +273,11 @@ nome. Nenhuma serve de nome em posição alguma, nem de propriedade ou de métod
      message keys values entries`, gerada da §4.9): GS0405, com a sugestão (`em goianês é .mapear`);
    - nativo sem equivalente (`some every flat at padStart toString valueOf hasOwnProperty call apply bind`…):
      GS0406, com a alternativa goiana quando existir (`Coisa.tem`, `vai_indo`);
-   - desconhecido: GS0305, com sugestão por distância de edição.
+   - desconhecido: GS0305, com sugestão por distância de edição; sem sugestão, a ajuda ensina `x["nome"]`.
+
+   `x["nome"]` com texto literal passa pelas mesmas listas de nativos (GS0405, GS0406), mas nome desconhecido não é
+   erro: o colchete é a porta para campo que o arquivo não declara, como o de um JSON lido com `Coisa.vira_coisa`
+   (emenda de 2026-11-03).
 
    Declarar membro com nome do primeiro grupo (`{ length: 3 }`) também é GS0405; `constructor`, `prototype` e
    `__proto__` são GS0406 em qualquer acesso ou declaração. A checagem é por nome, não por tipo do receptor
@@ -836,14 +840,14 @@ GS0304. `vixe(nome)` em que `nome` resolve para o parâmetro do `se_der_ruim` en
 **Censo de membros (P1).** Uma pré-passada sobre o arquivo inteiro, sem depender da ordem, reúne o conjunto D dos nomes
 de membro declarados, por nome e sem olhar o receptor: (a) chave de coisa literal (identificador ou texto); (b) método de
 classe, inclusive `num_muda`; (c) alvo de atribuição `x.nome é …` ou `x["nome"] é …`, o que inclui
-`ocê.nome é …`, único modo de declarar campo na v3. No REPL, D acumula na sessão. Todo acesso `.nome` ou `["nome"]` com
-texto literal precisa estar em D ∪ membros de instância da biblioteca (∪ membros estáticos quando o receptor resolve para
+`ocê.nome é …`, único modo de declarar campo na v3. No REPL, D acumula na sessão. Todo acesso `.nome` precisa estar
+em D ∪ membros de instância da biblioteca (∪ membros estáticos quando o receptor resolve para
 `Conta` ou `Coisa`). Fora disso: GS0405 se o nome é nativo do JavaScript com equivalente goiano, GS0406 se é nativo sem
 equivalente (lista `jsMembers`, §5.2), GS0305 nos demais, com sugestão por distância de edição sobre D ∪ biblioteca.
 `constructor`, `prototype` e `__proto__` são GS0406 em qualquer acesso ou declaração; declarar nome nativo que tem
 equivalente goiano (`{ length: 3 }`) é GS0405. A verificação é por nome, não por tipo (`p.nmoe` é pego e sugere `nome`,
 mas `lista.nome` passa se `nome` existe em outro objeto); `x[k]` não literal não é verificado; membro criado só por chave
-computada (`o[k] é 1`) e lido por `.gato` dá GS0305. A barreira de segurança do playground é a CSP (§6.3), não esta
+computada (`o[k] é 1`) e lido por `.gato` dá GS0305; lido por `["gato"]`, passa. A barreira de segurança do playground é a CSP (§6.3), não esta
 verificação.
 
 | Verificação | Código |
