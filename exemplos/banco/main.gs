@@ -26,6 +26,12 @@ arruma_trem Poupanca inherda_de ContaBanco {
   rende() {
     ocê.deposita(ocê.saldo vezes ocê.taxa)
   }
+  saca(valor) {
+    se_ocê_quiser (valor maior_que 500) {
+      vixe("poupança só deixa sacar até 500 de uma vez")
+    }
+    a_raiz.saca(valor)
+  }
 }
 
 uai ana é faz_um ContaBanco("Ana", 100)
@@ -43,6 +49,12 @@ tenta_aí {
 beto.rende()
 beto.extrato()
 
+tenta_aí {
+  beto.saca(800)
+} se_der_ruim (erro) {
+  prosa("Não deu:", erro.mensagem)
+}
+
 vai_na_frente faz_trem transfere(origem, destino, valor) {
   espera_um_cadim cochila(10)
   origem.saca(valor)
@@ -52,6 +64,7 @@ vai_na_frente faz_trem transfere(origem, destino, valor) {
 
 vai_na_frente faz_trem principal() {
   espera_um_cadim transfere(beto, ana, 300)
+  espera_um_cadim Promessa.tudim_junto([transfere(ana, beto, 10), transfere(beto, ana, 5)])
   ana.extrato()
   beto.extrato()
 }

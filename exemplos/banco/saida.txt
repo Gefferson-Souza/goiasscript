@@ -1,6 +1,9 @@
 Ana tem 150.00
 Não deu: saldo insuficiente, tem só 150.00
 Beto tem 1010.00
+Não deu: poupança só deixa sacar até 500 de uma vez
 Transferiu 300 de Beto pra Ana
-Ana tem 450.00
-Beto tem 710.00
+Transferiu 10 de Ana pra Beto
+Transferiu 5 de Beto pra Ana
+Ana tem 445.00
+Beto tem 715.00

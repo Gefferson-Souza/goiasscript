@@ -6,9 +6,9 @@ e a saída que ele imprime (`saida.txt`). Quem pergunta alguma coisa tem também
 | Pasta | O que faz | O que ensina |
 | --- | --- | --- |
 | `churrasco/` | calcula quanto comprar e quanto custa o churrasco | coisa, lista, função, `vai_indo`, `Conta.arredondar_pra_cima` |
-| `feira/` | soma a lista da feira e confere se cabe no bolso | `filtrar`, `mapear`, `amontoar`, `pergunta` e `vira_número` |
+| `feira/` | soma a lista da feira e confere se cabe no bolso | `filtrar`, `mapear`, `amontoar`, `ranca_do_meio`, `pergunta` e `vira_número` |
 | `boletim/` | média, situação e a melhor nota da turma | classe com `arruma_trem`, método, `se_num_for` |
-| `banco/` | depósito, saque, poupança e transferência | herança com `inherda_de`, `vixe` com `tenta_aí`, `espera_um_cadim` |
+| `banco/` | depósito, saque, poupança e transferência | herança com `inherda_de` e `a_raiz`, `vixe` com `tenta_aí`, `espera_um_cadim`, `Promessa.tudim_junto` |
 | `analisador/` | conta palavras e vogais e inverte uma frase | texto, coisa como contador, `por_fim` |
 
 Para rodar um deles:

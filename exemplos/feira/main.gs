@@ -5,6 +5,15 @@ faz_trem bota(nome, quantidade, preco) {
   lista.bota_no_final({ nome: nome, quantidade: quantidade, preco: preco })
 }
 
+faz_trem tira(nome) {
+  uai posicao é lista.onde_tá_o(item => item.nome é_igualim nome)
+  se_ocê_quiser (posicao é_igualim -1) {
+    prosa("Não tem", nome, "na lista")
+    faz_favor
+  }
+  lista.ranca_do_meio(posicao, 1)
+}
+
 faz_trem subtotal(item) {
   faz_favor item.quantidade vezes item.preco
 }
@@ -17,6 +26,10 @@ bota("Pequi", 2, 7.5)
 bota("Guariroba", 1, 4.25)
 bota("Queijo", 3, 18)
 bota("Pamonha", 4, 6)
+bota("Mandioca", 5, 3.4)
+
+tira("Mandioca")
+tira("Abacaxi")
 
 prosa("FEIRA DE SÁBADO")
 vai_indo (uai item de lista) {
