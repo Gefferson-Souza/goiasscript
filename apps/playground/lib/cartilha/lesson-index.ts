@@ -1,4 +1,4 @@
-import { LESSON_INDEX_EXTENSION_HEADER, LESSON_INDEX_PLAYGROUND_HEADER } from './lesson-index.constants.ts';
+import { LESSON_INDEX_EXTENSION_HEADER, LESSON_INDEX_PLAYGROUND_HEADER, LESSON_TITLES_HEADER } from './lesson-index.constants.ts';
 import type { LessonIndex } from './lesson-index.types.ts';
 import type { Lesson } from './lesson.types.ts';
 
@@ -29,4 +29,9 @@ export function renderPlaygroundIndex(index: LessonIndex): string {
 
 export function renderExtensionTerms(index: LessonIndex): string {
   return `${LESSON_INDEX_EXTENSION_HEADER}\n${renderTerms(index)}\n`;
+}
+
+export function renderLessonTitles(lessons: readonly Lesson[]): string {
+  const lines = lessons.toSorted((a, b) => a.order - b.order).map((lesson) => `  ${quote(lesson.id)}: ${quote(lesson.title)},`);
+  return `${LESSON_TITLES_HEADER}\nexport const LESSON_TITLES: Readonly<Record<string, string>> = {\n${lines.join('\n')}\n};\n`;
 }

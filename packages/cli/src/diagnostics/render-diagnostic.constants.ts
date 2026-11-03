@@ -6,3 +6,4 @@ export const GUTTER_SEPARATOR = ' | ';
 export const LINE_BREAK = /\r\n|\r|\n/u;
 export const BYTE_ORDER_MARK = '\uFEFF';
 export const SEVERITY_LABEL = { error: 'erro', warning: 'aviso' } as const;
+export const LESSON_SOURCE_LABEL = 'cartilha';

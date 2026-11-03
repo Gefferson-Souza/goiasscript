@@ -4,6 +4,7 @@ export interface LessonIndexTargets {
   readonly contentDir: string;
   readonly playgroundFile: string;
   readonly extensionFile: string;
+  readonly titlesFile: string;
   readonly mode: LessonIndexMode;
 }
 

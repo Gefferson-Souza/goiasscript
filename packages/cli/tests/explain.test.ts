@@ -41,9 +41,14 @@ describe('explica com um código', () => {
     const { io } = await run(['explica', 'GS0302']);
     expect(io.stdoutText()).toContain('  uai x é 1\n  x é 2');
   });
-  it('mostra texto neutro de lição quando o catálogo não tem lição', async () => {
+  it('mostra o título da lição da cartilha e não só o id', async () => {
+    const { io } = await run(['explica', 'GS0301']);
+    expect(io.stdoutText()).toContain('Lição: Guardando trem com uai e trem (cartilha, licao-02)');
+  });
+  it('diz que não há lição específica sem apontar para cartilha geral', async () => {
     const { io } = await run(['explica', 'GS0303']);
-    expect(io.stdoutText()).toContain('Lição: sem lição específica, dá uma olhada na cartilha geral.');
+    expect(io.stdoutText()).toContain('Lição: sem lição específica pra esse erro.');
+    expect(io.stdoutText()).not.toContain('cartilha geral');
   });
 });
 

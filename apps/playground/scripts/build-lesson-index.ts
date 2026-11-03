@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CHECK_FLAG, WRITE_FLAG } from '../lib/cartilha/lesson-index.constants.ts';
-import { buildLessonIndex, renderExtensionTerms, renderPlaygroundIndex } from '../lib/cartilha/lesson-index.ts';
+import { buildLessonIndex, renderExtensionTerms, renderLessonTitles, renderPlaygroundIndex } from '../lib/cartilha/lesson-index.ts';
 import { loadLessons } from '../lib/cartilha/load-lessons.ts';
 import type { LessonIndexIo, LessonIndexMode, LessonIndexTargets } from './build-lesson-index.types.ts';
 
@@ -25,6 +25,7 @@ export function runBuildLessonIndex(targets: LessonIndexTargets, io: LessonIndex
   const expected: readonly (readonly [string, string])[] = [
     [targets.playgroundFile, renderPlaygroundIndex(index)],
     [targets.extensionFile, renderExtensionTerms(index)],
+    [targets.titlesFile, renderLessonTitles(lessons)],
   ];
   if (targets.mode === WRITE_FLAG) {
     for (const [path, text] of expected) io.write(path, text);
@@ -63,6 +64,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
         contentDir: join(appRoot, 'content', 'cartilha'),
         playgroundFile: join(appRoot, 'lib', 'cartilha', 'lesson-index.generated.ts'),
         extensionFile: join(appRoot, '..', '..', 'packages', 'vscode', 'src', 'language', 'lesson-terms.generated.ts'),
+        titlesFile: join(appRoot, '..', '..', 'packages', 'language', 'src', 'diagnostics', 'lesson-titles.generated.ts'),
         mode,
       },
       io,
