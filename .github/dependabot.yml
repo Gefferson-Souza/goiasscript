@@ -4,9 +4,20 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    # O pnpm do Dependabot recusa versão com menos de um dia; esperar evita o update_not_possible.
+    cooldown:
+      default-days: 3
     commit-message:
       prefix: 'chore(deps)'
+    # Major dessas libs pede migração de código: vem por PR próprio, não pelo robô.
+    ignore:
+      - dependency-name: tailwindcss
+        update-types: ['version-update:semver-major']
+      - dependency-name: '@babel/types'
+        update-types: ['version-update:semver-major']
     groups:
+      react:
+        patterns: ['react', 'react-dom', '@types/react', '@types/react-dom']
       toolchain:
         patterns: ['*']
         update-types: [minor, patch]
