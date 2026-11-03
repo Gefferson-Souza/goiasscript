@@ -103,13 +103,12 @@ prosa(Coisa.vira_coisa("{\"a\":1}")) // { a: 1 }
 ```
 
 Coisa que vem de fora, como a do `Coisa.vira_coisa`, não tem as chaves escritas no seu arquivo. Por isso
-`dado.saldo` dá erro GS0305: o compilador só aceita campo que ele viu nascer. Para ler, guarde o nome do campo num
-texto e use colchete:
+`dado.saldo` dá erro GS0305: com ponto, o compilador só aceita campo que ele viu nascer (é assim que ele pega
+`pessoa.nmoe` escrito errado). Para ler campo de fora, use colchete com o nome entre aspas:
 
 ```goiasscript
 uai dado é Coisa.vira_coisa("{\"saldo\": 10}")
-uai campo é "saldo"
-prosa(dado[campo])                   // 10
+prosa(dado["saldo"])                 // 10
 ```
 
 ## Perguntar pra quem usa
