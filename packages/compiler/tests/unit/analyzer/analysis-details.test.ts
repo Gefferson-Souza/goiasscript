@@ -44,8 +44,8 @@ describe('detalhes da análise', () => {
   });
   it('sugestão de membro vem só de membros de instância da biblioteca', () => {
     expect(argsOf('uai o é { a: 1 }\nprosa(o.gritnado)', 'GS0305')).toStrictEqual({ name: 'gritnado', suggestion: 'gritando' });
-    expect(argsOf('uai o é { a: 1 }\nprosa(o.pross)', 'GS0305')).toStrictEqual({ name: 'pross' });
-    expect(argsOf('uai o é { a: 1 }\nprosa(o.Conta)', 'GS0305')).toStrictEqual({ name: 'Conta' });
+    expect(argsOf('uai o é { a: 1 }\nprosa(o.pross)', 'GS0305')).toStrictEqual({ name: 'pross', variant: 'external' });
+    expect(argsOf('uai o é { a: 1 }\nprosa(o.Conta)', 'GS0305')).toStrictEqual({ name: 'Conta', variant: 'external' });
   });
   it('sugestão de nome vem só de globais da biblioteca, não de métodos', () => {
     expect(argsOf('prosa(gritnado)', 'GS0301')).toStrictEqual({ name: 'gritnado' });

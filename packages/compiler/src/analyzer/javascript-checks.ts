@@ -1,11 +1,11 @@
-import { lookupJsMember, lookupJsReserved, lookupRenamedMember, lookupStdlibMember, lookupStdlibStatic } from '@goiasscript/language';
+import { VARIANT_ARG, lookupJsMember, lookupJsReserved, lookupRenamedMember, lookupStdlibMember, lookupStdlibStatic } from '@goiasscript/language';
 import type { Identifier } from '../ast/ast.types.ts';
 import type { RawDiagnostic } from '../lexer/token.types.ts';
 import { CODES } from './codes.constants.ts';
 import { diagnostic } from './diagnostic.ts';
 import { INSTANCE_MEMBER_NAMES, staticMemberNames } from './library-scope.ts';
 import type { MemberAccessQuery } from './javascript-checks.types.ts';
-import { PROTOTYPE_MEMBERS } from './javascript-checks.constants.ts';
+import { MEMBER_VARIANTS, PROTOTYPE_MEMBERS } from './javascript-checks.constants.ts';
 import { jsGlobalDiagnostic, reservedWordArgs } from './js-reserved-diagnostics.ts';
 import { closestName, suggestFreshName } from './name-checks.ts';
 
@@ -57,10 +57,12 @@ function unknownMemberDiagnostic(query: MemberAccessQuery): RawDiagnostic {
   const candidates = namespace === undefined ? [...declared, ...INSTANCE_MEMBER_NAMES] : staticMemberNames(namespace);
   // A tabela de nomes antigos vale só para métodos de valor; namespace tem o próprio conjunto de membros.
   const suggestion = (namespace === undefined ? lookupRenamedMember(name) : undefined) ?? closestName(name, candidates);
-  return diagnostic(CODES.undeclaredMember, start, end, suggestion === undefined ? { name } : { name, suggestion });
+  if (suggestion !== undefined) return diagnostic(CODES.undeclaredMember, start, end, { name, suggestion });
+  // Sem nome parecido, o mais provável é coisa vinda de fora (JSON): a ajuda ensina o colchete.
+  return diagnostic(CODES.undeclaredMember, start, end, namespace === undefined ? { name, [VARIANT_ARG]: MEMBER_VARIANTS.external } : { name });
 }
 
-// Acesso `x.nome` ou `x["nome"]`: só vale nome declarado no arquivo ou da biblioteca.
+// Acesso `x.nome`: só vale nome declarado no arquivo ou da biblioteca. `x["nome"]` só passa pelos nomes do JavaScript.
 export function checkMemberAccess(query: MemberAccessQuery): RawDiagnostic | undefined {
   const { name, start, end } = query;
   if (PROTOTYPE_MEMBERS.has(name)) return withoutNameDiagnostic(name, start, end);
@@ -68,5 +70,6 @@ export function checkMemberAccess(query: MemberAccessQuery): RawDiagnostic | und
   const equivalent = jsMemberDiagnostic(name, start, end) ?? reservedWordDiagnostic(name, start, end);
   if (equivalent !== undefined) return equivalent;
   if (lookupJsMember(name) !== undefined) return withoutNameDiagnostic(name, start, end);
-  return unknownMemberDiagnostic(query);
+  // Colchete com texto é a porta para campo que o arquivo não declara, como o de um JSON.
+  return query.computed ? undefined : unknownMemberDiagnostic(query);
 }
