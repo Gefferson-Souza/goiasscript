@@ -55,4 +55,31 @@ uai preço é 10.50
 prosa(preço)
 ```
 
+## Veio do JavaScript?
+
+Se ocê já mexeu com JavaScript, vai tropeçar em algumas palavras. O GoiásScript avisa na hora
+e diz qual é a palavra goiana. A troca é essa:
+
+- `true` vira `certeza` e `false` vira `de_jeito_nenhum`.
+- `==` e `===` viram `é_igualim`, e `!=` vira `diferente`.
+- `&&` vira `e_mais`, `||` vira `ou_então` e `!` vira `num_é`.
+- `i++` vira `i é i mais 1`.
+
+Por exemplo, pra somar 1 num `trem`:
+
+```goiasscript
+trem i é 0
+i é i mais 1
+prosa(i)
+```
+
+E o aviso, se ocê escrever do jeito antigo:
+
+```goiasscript erro-esperado GS0404
+uai x é 1
+prosa(x == 1)
+```
+
+As palavras de comparar e juntar condição ficam na lição 4.
+
 No exercício o preço veio com vírgula. Troca por ponto e roda.
