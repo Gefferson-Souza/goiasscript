@@ -75,6 +75,9 @@ Se a condição nunca vira falsa, o laço roda pra sempre. No playground, o prog
 dele, o programa para e aparece o aviso **GS0701** ("esse laço rodou demais"). Quando ele aparecer, olha a condição
 do laço e confere se alguma coisa dentro do corpo faz ela mudar.
 
+No terminal não tem esse limite de voltas: se o programa ficar rodando sem escrever nada, aperta Ctrl+C pra parar
+e vai olhar a condição do laço.
+
 ## Sua vez
 
 Abre o exercício: o laço do `starter` não dá volta nenhuma. Muda a condição pra ele imprimir de 1 a 5.

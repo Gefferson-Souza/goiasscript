@@ -36,6 +36,9 @@ parênteses. O `ajunta` cola os itens num texto só, com o separador que ocê es
 
 O `mapear` pega uma função e aplica em cada item, devolvendo uma lista nova do mesmo tamanho.
 
+Esse `preco => preco menos 1` aí embaixo é uma função de uma linha: o que vem antes da seta `=>` é o que ela recebe,
+e o que vem depois é o que ela devolve. Na próxima lição ocê aprende a escrever função com nome, usando `faz_trem`.
+
 ```goiasscript
 uai precos é [2, 4, 6]
 uai com_desconto é precos.mapear(preco => preco menos 1)
@@ -46,7 +49,7 @@ A lista `precos` continua do jeito que estava: o `mapear` não mexe nela.
 
 ## filtrar
 
-O `filtrar` também pega uma função, mas guarda só os itens em que ela dá `certeza`.
+O `filtrar` também pega uma função, mas guarda só os itens em que ela responde `certeza` (quer dizer sim, verdadeiro).
 
 ```goiasscript
 uai idades é [12, 18, 30, 7]

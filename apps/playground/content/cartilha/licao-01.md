@@ -29,4 +29,10 @@ prosa("Primeira linha")
 prosa("Segunda linha")
 ```
 
+Dá pra mandar vários pedaços de uma vez, separados por vírgula. A `prosa` junta tudo com um espaço no meio:
+
+```goiasscript
+prosa("Tenho", 3, "pequis")
+```
+
 Agora é com ocê: faz o programa dizer `Olá, Goiás!` no exercício.
