@@ -39,3 +39,10 @@ export const CODES = {
 } as const;
 
 export const NEWLINE_LABEL = 'fim da linha';
+
+export const VARIANTS = {
+  missingOperand: 'missingOperand',
+  bareThrow: 'bareThrow',
+  numberMethod: 'numberMethod',
+  strayDot: 'strayDot',
+} as const;

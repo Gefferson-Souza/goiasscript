@@ -1,9 +1,10 @@
-import type { DiagnosticDefinition, DiagnosticSeverity, ToneKey } from './diagnostics.types.ts';
+import type { DiagnosticDefinition, DiagnosticSeverity, DiagnosticVariant, ToneKey } from './diagnostics.types.ts';
 
 type Tones = Readonly<Record<ToneKey, string>>;
 interface Extra {
   readonly help?: Tones;
   readonly lesson?: string;
+  readonly variants?: Readonly<Record<string, DiagnosticVariant>>;
 }
 
 const FIRST_VERSION = '3.0.0';

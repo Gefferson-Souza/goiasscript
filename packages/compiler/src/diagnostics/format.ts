@@ -1,16 +1,16 @@
-import { formatMessage, lookupDiagnostic } from '@goiasscript/language';
+import { diagnosticTexts, lookupDiagnostic } from '@goiasscript/language';
 import type { CompileResult, CoreCompileResult, CoreDiagnostic, Diagnostic, Tone } from '../api.types.ts';
 
 export function formatDiagnostic(core: CoreDiagnostic, tone: Tone): Diagnostic {
   const definition = lookupDiagnostic(core.code);
   if (definition === undefined) return { code: core.code, severity: 'error', range: core.range, message: core.code };
-  const help = definition.help?.[tone];
+  const texts = diagnosticTexts(definition, tone, core.args);
   return {
     code: core.code,
     severity: definition.severity,
     range: core.range,
-    message: formatMessage(definition.messages[tone], core.args),
-    ...(help === undefined ? {} : { help: formatMessage(help, core.args) }),
+    message: texts.message,
+    ...(texts.help === undefined ? {} : { help: texts.help }),
     ...(definition.lesson === undefined ? {} : { lesson: definition.lesson }),
   };
 }
