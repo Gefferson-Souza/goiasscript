@@ -31,7 +31,7 @@ prosa("Bem-vindo ao", nomi)
 oi.gs:2:23: erro GS0301: Esse trem "nomi" não existe por aqui. Cê quis dizer "nome"?
 2 | prosa("Bem-vindo ao", nomi)
   |                       ^^^^
-  lição: licao-02
+  lição: Guardando trem com uai e trem (cartilha, licao-02)
 ```
 
 Escreveu JavaScript sem querer? Ele percebe:
@@ -44,7 +44,7 @@ console.log("Bão, sô!")
 js.gs:1:1: erro GS0403: Ô sô, "console" é do JavaScript. Aqui a gente fala "prosa".
 1 | console.log("Bão, sô!")
   | ^^^^^^^
-  lição: licao-02
+  lição: Guardando trem com uai e trem (cartilha, licao-02)
 ```
 
 Todo erro diz a linha, a coluna, o que fazer e qual lição da cartilha explica o assunto.
@@ -144,6 +144,10 @@ Volta 1
 Volta 2
 ```
 
+Quer ver programa inteiro? A pasta [`exemplos/`](exemplos/) tem cinco: a nota do churrasco, a lista da feira, o
+boletim da turma, a conta no banco e um analisador de texto. Todos rodam de verdade, e a saída de cada um é conferida
+a cada mudança no projeto.
+
 ## Como vira JavaScript
 
 `goiasscript traduz main.gs` gera o `main.mjs`. Cada linha do seu `.gs` vira uma linha de JavaScript, então
@@ -229,6 +233,7 @@ goiasscript/
 ├── apps/
 │   ├── playground/        # Next.js + Monaco
 │   └── engoianador-api/   # Cloudflare Worker
+├── exemplos/        # programas inteiros, com a saída conferida
 ├── docs/            # spec, ADRs e RFCs
 └── tools/           # scanner de regras e testes de configuração
 ```
