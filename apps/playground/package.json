@@ -9,7 +9,8 @@
     "check:cartilha": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-cartilha.ts",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "build:social-preview": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-social-preview.ts"
   },
   "dependencies": {
     "@goiasscript/compiler": "workspace:*",
