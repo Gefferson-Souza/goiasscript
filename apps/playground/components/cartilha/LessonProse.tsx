@@ -9,7 +9,7 @@ interface Props {
 const COMPONENTS: Components = {
   a: ({ href, children }) =>
     href !== undefined && isSafeLessonHref(href) ? (
-      <a href={href} rel="noopener noreferrer" className="text-goias-yellow underline">
+      <a href={href} rel="noopener noreferrer" className="text-ink underline decoration-caret underline-offset-4 hover:text-caret">
         {children}
       </a>
     ) : (

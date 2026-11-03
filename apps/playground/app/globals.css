@@ -2,16 +2,60 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
-  background-color: #0d1117;
-  color: #e6edf3;
-  min-height: 100vh;
+@layer base {
+  html,
+  body {
+    @apply bg-plane text-ink;
+    min-height: 100vh;
+  }
+
+  body {
+    @apply font-sans antialiased;
+  }
+
+  code,
+  kbd,
+  pre,
+  samp {
+    @apply font-mono;
+    font-variant-ligatures: none;
+  }
+
+  ::selection {
+    /* Lavanda a 28%: SELECTION_ALPHA em lib/design/design-tokens.constants.ts. */
+    background-color: rgb(167 139 255 / 0.28);
+  }
+
+  :focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-caret;
+  }
 }
 
-body {
-  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+@layer components {
+  .lesson-prose h1 {
+    @apply text-3xl font-bold tracking-tight text-ink;
+  }
+
+  .lesson-prose h2 {
+    @apply pt-2 text-xl font-bold tracking-tight text-ink;
+  }
+
+  /* Código da cartilha é goianês: a palavra acende em pequi, o bloco fica no painel do editor. */
+  .lesson-prose :not(pre) > code {
+    @apply rounded bg-panel px-1.5 py-0.5 text-[0.92em] text-pequi;
+  }
+
+  .lesson-prose pre {
+    @apply overflow-x-auto rounded-md border border-line bg-panel px-4 py-3 text-sm leading-relaxed text-ink;
+  }
 }
 
-::selection {
-  background-color: #f5c51844;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

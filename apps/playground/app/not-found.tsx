@@ -6,7 +6,7 @@ export default function NotFoundPage() {
   const { title, message, homeLabel } = ERROR_COPY.notFound;
   return (
     <ErrorScreen title={title} message={message}>
-      <Link href="/" className="rounded bg-goias-green px-4 py-2 font-semibold text-white hover:bg-goias-green/80">
+      <Link href="/" className="rounded bg-pequi px-4 py-2 font-semibold text-plane hover:bg-pequi/85">
         {homeLabel}
       </Link>
     </ErrorScreen>

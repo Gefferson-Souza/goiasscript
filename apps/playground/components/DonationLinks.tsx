@@ -40,10 +40,10 @@ function PixCompact({ pix }: { readonly pix: PixDonation }) {
     <button
       type="button"
       onClick={() => void copy()}
-      className="rounded border border-goias-border px-2 py-1 text-goias-text hover:border-goias-yellow focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-yellow"
+      className="rounded border border-edge px-2 py-1 text-ink hover:border-caret focus-visible:outline focus-visible:outline-2 focus-visible:outline-caret"
       aria-label="Copiar a chave Pix"
     >
-      {copied ? '✅ Pix copiado!' : '💸 Pix'}
+      {copied ? 'Pix copiado!' : 'Pix'}
     </button>
   );
 }
@@ -51,17 +51,17 @@ function PixCompact({ pix }: { readonly pix: PixDonation }) {
 function PixFull({ pix }: { readonly pix: PixDonation }) {
   const { copied, copy } = useCopyFeedback(pix.pixKey);
   return (
-    <div className="rounded-lg border border-goias-border bg-goias-panel p-4">
-      <h3 className="font-semibold text-goias-yellow">💸 Pix (na hora, sem taxa)</h3>
-      <p className="mt-1 text-sm text-goias-text/80">Copia a chave e manda quanto o coração mandar, sô.</p>
+    <div className="rounded-lg border border-line bg-panel p-4">
+      <h3 className="font-semibold text-ink">Pix (na hora, sem taxa)</h3>
+      <p className="mt-1 text-sm text-dim">Copia a chave e manda quanto o coração mandar, sô.</p>
       <div className="mt-3 flex items-center gap-2">
-        <code className="flex-1 break-all rounded bg-goias-background px-3 py-2 text-sm text-goias-text">{pix.pixKey}</code>
+        <code className="flex-1 break-all rounded bg-plane px-3 py-2 text-sm text-ink">{pix.pixKey}</code>
         <button
           type="button"
           onClick={() => void copy()}
-          className="rounded bg-goias-green px-3 py-2 text-sm font-semibold text-white hover:bg-goias-green/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-goias-yellow"
+          className="rounded bg-pequi px-3 py-2 text-sm font-semibold text-plane hover:bg-pequi/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-caret"
         >
-          {copied ? '✅ Copiado!' : '📋 Copiar'}
+          {copied ? 'Copiado!' : 'Copiar'}
         </button>
       </div>
     </div>
@@ -70,7 +70,7 @@ function PixFull({ pix }: { readonly pix: PixDonation }) {
 
 function ExternalCompact({ link }: { readonly link: ExternalDonation }) {
   return (
-    <a href={link.href} target="_blank" rel={EXTERNAL_REL} className="text-goias-text hover:text-goias-yellow">
+    <a href={link.href} target="_blank" rel={EXTERNAL_REL} className="text-ink hover:text-caret">
       {link.label}
     </a>
   );
@@ -82,10 +82,10 @@ function ExternalFull({ link }: { readonly link: ExternalDonation }) {
       href={link.href}
       target="_blank"
       rel={EXTERNAL_REL}
-      className="rounded-lg border border-goias-border bg-goias-panel p-4 hover:border-goias-yellow"
+      className="rounded-lg border border-line bg-panel p-4 hover:border-caret"
     >
-      <h3 className="font-semibold text-goias-yellow">{link.label}</h3>
-      <p className="mt-1 text-sm text-goias-text/80">{EXTERNAL_BLURB[link.kind]}</p>
+      <h3 className="font-semibold text-ink">{link.label}</h3>
+      <p className="mt-1 text-sm text-dim">{EXTERNAL_BLURB[link.kind]}</p>
     </a>
   );
 }

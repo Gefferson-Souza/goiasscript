@@ -1,6 +1,6 @@
 export const COPIED_FEEDBACK_MS = 1_500;
 export const SHARE_FILE_NAME = 'engoianado.png';
-export const SHARE_TEXT = 'Engoianei um trem aqui ó 🐂👇';
+export const SHARE_TEXT = 'Engoianei um trem, olha aí';
 export const SHARE_FAILURE_MESSAGE = 'Num consegui gerar a imagem, sô. Tenta de novo.';
 export const IDLE_NOTICE = 'O Engoianador tá de folga, sô';
 export const RECHECK_LABEL = 'Dá outra olhada, sô';
