@@ -1,8 +1,9 @@
+import { VARIANT_ARG } from '@goiasscript/language';
 import type { CoreDiagnostic, LineRange, RuntimeErrorContext } from '../api.types.ts';
 import { toCoreDiagnostic } from '../diagnostics/core-report.ts';
 import { createSourceText, offsetAt, positionAt } from '../source/source-text.ts';
 import type { SourceText } from '../source/source.types.ts';
-import { classifyRuntimeError, isErrorLike, loopLineOf } from './classify.ts';
+import { classifyRuntimeError, isErrorLike, loopLineOf, runtimeVariantOf } from './classify.ts';
 import { originalPositionFor } from './original-position.ts';
 import { parseStackFrames } from './stack-frames.ts';
 
@@ -37,6 +38,7 @@ function locate(error: unknown, context: RuntimeErrorContext, source: SourceText
 export function translateRuntimeErrorCore(error: unknown, context: RuntimeErrorContext): CoreDiagnostic {
   const source = createSourceText(context.source, context.fileName);
   const { start, end } = locate(error, context, source);
-  const args = { file: context.fileName, line: String(positionAt(source, start).line) };
+  const variant = runtimeVariantOf(error);
+  const args = { file: context.fileName, line: String(positionAt(source, start).line), ...(variant === undefined ? {} : { [VARIANT_ARG]: variant }) };
   return toCoreDiagnostic({ code: classifyRuntimeError(error), start, end, args }, source);
 }
