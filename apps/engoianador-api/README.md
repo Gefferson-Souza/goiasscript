@@ -57,11 +57,11 @@ node apps/engoianador-api/scripts/warm-cache.ts https://<endereco-da-api>
 
 ```bash
 # Da raiz do monorepo
-pnpm install
+corepack pnpm install
 cp apps/engoianador-api/.dev.vars.example apps/engoianador-api/.dev.vars
 # Edite .dev.vars e coloque GROQ_API_KEY=gsk_...
 
-pnpm engoianador:dev
+corepack pnpm engoianador:dev
 # Worker sobe em http://127.0.0.1:8787
 ```
 
@@ -77,25 +77,25 @@ curl -X POST http://127.0.0.1:8787/engoiana \
 
 ```bash
 # 1. Login (uma vez)
-npx wrangler login
+corepack pnpm --filter engoianador-api exec wrangler login
 
 # 2. Criar o KV namespace do cache (uma vez)
-npx wrangler kv namespace create ENGOIANADOR_CACHE
+corepack pnpm --filter engoianador-api exec wrangler kv namespace create ENGOIANADOR_CACHE
 # Cole o ID retornado em wrangler.toml na seção [[kv_namespaces]]
 # (a cota mora no Durable Object QuotaLedgerObject: não precisa de KV)
 
 # 3. Setar a chave da Groq como secret
-npx wrangler secret put GROQ_API_KEY
+corepack pnpm --filter engoianador-api exec wrangler secret put GROQ_API_KEY
 
 # 4. Deploy
-pnpm engoianador:deploy
+corepack pnpm engoianador:deploy
 ```
 
 ## Fallback
 
 Se `GROQ_API_KEY` não estiver setada ou a Groq retornar 5xx, o worker
-tenta usar Workers AI (`@cf/meta/llama-3.1-8b-instruct-fp8`). Pra ativar,
-descomente a seção `[ai]` em `wrangler.toml`.
+usa o Workers AI (`@cf/meta/llama-3.1-8b-instruct-fp8`). O binding `[ai]` já vem
+ligado no `wrangler.toml`, em produção e em `env.dev`: não precisa configurar nada.
 
 ## Estrutura
 
