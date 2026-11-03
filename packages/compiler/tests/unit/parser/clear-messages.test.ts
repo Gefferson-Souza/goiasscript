@@ -46,6 +46,11 @@ describe('compilador: texto final das variantes do erro de sintaxe', () => {
     ['vixe Erro("x")', 'Ô sô, o "vixe" leva parênteses: vixe(faz_um Erro("deu ruim")).', undefined],
     ['prosa(5.com_casas(2))', 'Ô sô, número solto não aceita ".com_casas" colado nele.', 'Põe o número entre parênteses: (5).com_casas(2).'],
     ['prosa(5.)', 'Ô sô, esse ponto solto não vale. Em número, escreve 5 ou 5.0; no fim da linha, tira o ponto.', undefined],
+    [
+      'uai g é x => { faz_favor x } mais 1',
+      'Ô sô, a seta com chaves termina no "}", e "mais" não cabe colado nela.',
+      'Põe a seta entre parênteses ou guarda ela num nome antes: uai dobro é x => { faz_favor x vezes 2 }.',
+    ],
   ])('%j sai com a mensagem da variante', (text, message, help) => {
     expect(first(text)?.message).toBe(message);
     expect(first(text)?.help).toBe(help);
@@ -56,7 +61,7 @@ describe('compilador: texto final das variantes do erro de sintaxe', () => {
     expect(diagnostic?.message).toContain('não cabe aqui');
   });
   it('não vaza escape cru nem marcador em nenhuma variante', () => {
-    const texts = ['prosa(1 mais)', 'vixe "x"', 'prosa(5.com_casas(2))', 'uai x é 5.\nprosa(x)'].flatMap((text) => compile(text).diagnostics.map((item) => `${item.message} ${item.help ?? ''}`));
+    const texts = ['prosa(1 mais)', 'uai g é x => { faz_favor x }(2)', 'vixe "x"', 'prosa(5.com_casas(2))', 'uai x é 5.\nprosa(x)'].flatMap((text) => compile(text).diagnostics.map((item) => `${item.message} ${item.help ?? ''}`));
     expect(texts.filter((line) => /\\u|«|\{\w+\}/u.test(line))).toEqual([]);
   });
 });
