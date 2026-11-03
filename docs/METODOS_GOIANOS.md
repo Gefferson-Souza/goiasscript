@@ -81,6 +81,23 @@ prosa(é_número("abc"))              // false
 prosa(vira_texto(42))               // 42
 ```
 
+`Conta.PI` e `Conta.E` são números já prontos, sem parênteses:
+
+```goiasscript
+prosa(Conta.PI)                     // 3.141592653589793
+prosa(Conta.E)                      // 2.718281828459045
+prosa(Conta.PI.com_casas(2))        // 3.14
+```
+
+Cuidado com o `é_número`: ele só confere se o valor **já é** número. Texto com cara de número não passa. Se
+vier texto, passe por `vira_número` antes:
+
+```goiasscript
+prosa(é_número(12))                 // true
+prosa(é_número("12"))               // false  (é texto, mesmo parecendo número)
+prosa(é_número(vira_número("12")))  // true
+```
+
 Para sortear, o `Conta.sorteia_um` precisa dos dois valores, o menor e o maior, e os dois podem sair:
 
 ```goiasscript
@@ -100,6 +117,14 @@ prosa(Coisa.entradas(pessoa))        // [ [ 'nome', 'Maria' ], [ 'idade', 30 ] ]
 prosa(Coisa.tem(pessoa, "nome"))     // true
 prosa(Coisa.vira_texto(pessoa))      // {"nome":"Maria","idade":30}
 prosa(Coisa.vira_coisa("{\"a\":1}")) // { a: 1 }
+```
+
+`Coisa.mistura` junta duas coisas numa nova. Ela pede exatamente dois argumentos (com três dá erro). Se a
+mesma chave aparecer nas duas, vale a da segunda:
+
+```goiasscript
+prosa(Coisa.mistura({ a: 1 }, { b: 2 }))        // { a: 1, b: 2 }
+prosa(Coisa.mistura({ a: 1, b: 1 }, { b: 2 }))  // { a: 1, b: 2 }
 ```
 
 Coisa que vem de fora, como a do `Coisa.vira_coisa`, não tem as chaves escritas no seu arquivo. Por isso
@@ -142,6 +167,46 @@ esperaUmPouco().quando_der_bão(resposta => prosa(resposta))
 Promessa.tudim_junto([esperaUmPouco(), esperaUmPouco()]).quando_der_bão(lista => prosa(lista.o_tanto))
 ```
 
+## Data e hora
+
+`faz_um Data()` pega a data e a hora de agora, ou uma data que ocê escrever em texto. Os métodos `ano`, `mês`,
+`dia`, `hora`, `minuto` e `segundo` devolvem cada pedaço. O `mês` conta de 1 a 12 (janeiro é 1, dezembro é 12).
+
+```goiasscript
+uai natal é faz_um Data("2026-12-25T08:30:15")
+prosa(natal.ano(), natal.mês(), natal.dia())       // 2026 12 25
+prosa(natal.hora(), natal.minuto(), natal.segundo())  // 8 30 15
+```
+
+`Data.agorinha()` devolve o momento de agora como um número (os milésimos de segundo desde 1970). Serve pra
+medir quanto tempo passou. Como depende da hora de agora, a saída muda a cada vez:
+
+```goiasscript sem-execucao
+uai começo é Data.agorinha()
+espera_um_cadim cochila(100)
+prosa("Passou", Data.agorinha() menos começo, "milésimos")
+```
+
+## Temporizador
+
+`daqui_um_cadim` roda uma função uma vez, depois de um tempo em milésimos de segundo. `toda_hora` roda a
+função de novo e de novo, no mesmo intervalo. `larga_mão` para um dos dois (o que ocê guardou em `uai`).
+
+```goiasscript
+daqui_um_cadim(() => prosa("passou um cadim"), 10)
+
+trem vezes_que_rodou é 0
+uai relogio é toda_hora(() => {
+  vezes_que_rodou é vezes_que_rodou mais 1
+  prosa("tique", vezes_que_rodou)
+  se_ocê_quiser (vezes_que_rodou é_igualim 3) {
+    larga_mão(relogio)
+  }
+}, 10)
+```
+
+Sem o `larga_mão`, o `toda_hora` não para nunca.
+
 ## Erro
 
 `vixe` dispara um erro (sempre com parênteses), `tenta_aí` tenta um trecho e `se_der_ruim` pega o erro.
@@ -157,12 +222,23 @@ tenta_aí {
 avisa("cuidado, sô")                 // cuidado, sô
 ```
 
+`faz_um Erro("texto")` cria um erro, e `.mensagem` devolve o texto. Numa promessa, o `.se_der_ruim` pega o erro,
+do mesmo jeito que o `se_der_ruim` do `tenta_aí`:
+
+```goiasscript
+uai promessa é Promessa.tudim_junto([]).quando_der_bão(() => {
+  vixe(faz_um Erro("quebrou"))
+})
+promessa.se_der_ruim(erro => prosa("pegou:", erro.mensagem))   // pegou: quebrou
+```
+
 ## Onde é diferente do JavaScript
 
 - **Comparar e ligar condições é só com palavra:** `é_igualim`, `diferente`, `e_mais`, `ou_então` e `num_é`. Os
   símbolos `==`, `===`, `!=`, `!==`, `&&`, `||`, `!` e `++` dão erro, e o erro diz a palavra certa.
 - **Conta pode ser com símbolo ou com palavra:** `<`, `>`, `<=`, `>=`, `+`, `-`, `*`, `/` e `%` valem do mesmo
-  jeito que `menor_que`, `maior_que`, `no_máximo`, `pelo_menos`, `mais`, `menos`, `vezes` e `dividido`.
+  jeito que `menor_que`, `maior_que`, `no_máximo`, `pelo_menos`, `mais`, `menos`, `vezes`, `dividido` e
+  `sobrou` (o resto da divisão: `7 sobrou 4` dá 3).
 - **`arruma()` não recebe função:** ela põe número em ordem de número e texto em ordem de texto, e devolve uma
   lista nova.
 - **`amontoar` pede o valor de começo:** `amontoar((soma, x) => soma mais x, 0)`.
