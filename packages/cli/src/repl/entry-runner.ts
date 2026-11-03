@@ -1,5 +1,6 @@
 import vm from 'node:vm';
 import { translateRuntimeError } from '@goiasscript/compiler';
+import { programMessageOf } from '../run/program-message.ts';
 import { formatEcho } from './echo.ts';
 import { CANCELLED, INTERRUPTION_CODES, REPL_FILE_NAME } from './repl.constants.ts';
 import type { EntryRequest, ReplEvaluation } from './repl.types.ts';
@@ -27,6 +28,7 @@ export async function runEntry(request: EntryRequest): Promise<ReplEvaluation> {
   } catch (error) {
     if (isInterruption(error)) return { kind: 'interrupted' };
     const context = { map: compiled.map, helperRange: compiled.helperRange, fileName: REPL_FILE_NAME, source };
-    return { kind: 'threw', diagnostic: translateRuntimeError(error, context, tone), source };
+    const programMessage = programMessageOf(error);
+    return { kind: 'threw', diagnostic: translateRuntimeError(error, context, tone), source, ...(programMessage === undefined ? {} : { programMessage }) };
   }
 }
