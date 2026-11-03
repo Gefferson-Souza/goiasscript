@@ -122,5 +122,61 @@
   {
     "word": "base_url",
     "reason": "campo do cabeçalho de configuração do teste de contrato"
+  },
+  {
+    "word": "x",
+    "reason": "nome de variável de exemplo na tabela do README"
+  },
+  {
+    "word": "if",
+    "reason": "palavra do JavaScript citada como o que a palavra goiana vira"
+  },
+  {
+    "word": "else",
+    "reason": "palavra do JavaScript citada como o que a palavra goiana vira"
+  },
+  {
+    "word": "for",
+    "reason": "palavra do JavaScript citada como o que a palavra goiana vira"
+  },
+  {
+    "word": "while",
+    "reason": "palavra do JavaScript citada como o que a palavra goiana vira"
+  },
+  {
+    "word": "playground",
+    "reason": "escopo de commit listado no CONTRIBUTING"
+  },
+  {
+    "word": "optimizer",
+    "reason": "escopo de commit listado no CONTRIBUTING"
+  },
+  {
+    "word": "cli",
+    "reason": "escopo de commit listado no CONTRIBUTING"
+  },
+  {
+    "word": "vscode",
+    "reason": "escopo de commit listado no CONTRIBUTING"
+  },
+  {
+    "word": "engoianador",
+    "reason": "escopo de commit listado no CONTRIBUTING"
+  },
+  {
+    "word": "docs",
+    "reason": "escopo de commit listado no CONTRIBUTING"
+  },
+  {
+    "word": "ci",
+    "reason": "escopo de commit listado no CONTRIBUTING"
+  },
+  {
+    "word": "deps",
+    "reason": "escopo de commit listado no CONTRIBUTING"
+  },
+  {
+    "word": "release",
+    "reason": "escopo de commit listado no CONTRIBUTING"
   }
 ]
