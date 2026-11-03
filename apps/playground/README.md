@@ -59,7 +59,8 @@ Para rodar o smoke da sua máquina, a partir da raiz do repositório:
 
 ## Arquitetura
 
-- `app/page.tsx` — playground principal (editor + saída).
+- `app/page.tsx` — página inicial, com a vitrine do goianês virando JavaScript (`components/landing/` e `lib/landing/`).
+- `app/playground/page.tsx` — o editor, com a saída e o JavaScript gerado.
 - `app/cartilha/` — as lições da cartilha, lidas de `content/cartilha/*.md`.
 - `app/glossario/`, `app/engoianador/` e `app/doacao/` — glossário, tela do Engoianador e doação.
 - `lib/run/browser-worker.ts` — Web Worker que compila e roda o programa.
