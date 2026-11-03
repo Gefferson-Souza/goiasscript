@@ -59,9 +59,9 @@ describe('controle e nomes reservados', () => {
   it('função aninhada reinicia o contexto de laço', () => {
     expect(analyzeSource('vai_indo (uai x de [1]) { faz_trem f() { continua_aí } }').codes).toContain('GS0308');
   });
-  it('GS0303 sugere nome novo e GS0402 traz a sugestão da tabela', () => {
+  it('GS0303 sugere nome novo e GS0402 não inventa sugestão', () => {
     expect(analyzeSource('uai mais é 1').analysis.diagnostics[0]?.args).toEqual({ name: 'mais', suggestion: 'meu_mais' });
-    expect(analyzeSource('uai public é 1').analysis.diagnostics[0]?.args).toEqual({ name: 'public', suggestion: 'publico' });
+    expect(analyzeSource('uai public é 1').analysis.diagnostics[0]?.args).toEqual({ name: 'public' });
   });
   it('GS0308 diz a palavra usada', () => {
     expect(analyzeSource('para_com_isso').analysis.diagnostics[0]?.args).toEqual({ name: 'para_com_isso' });

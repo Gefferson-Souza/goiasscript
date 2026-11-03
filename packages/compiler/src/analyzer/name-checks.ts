@@ -5,7 +5,7 @@ import { GONE_PHRASE } from '../parser/subset.constants.ts';
 import { CODES } from './codes.constants.ts';
 import { diagnostic } from './diagnostic.ts';
 import { CandidatePool, closestInPools } from './candidate-pool.ts';
-import { jsGlobalDiagnostic, jsUnavailableDiagnostic, reservedWordArgs } from './js-reserved-diagnostics.ts';
+import { jsGlobalDiagnostic, reservedWordArgs } from './js-reserved-diagnostics.ts';
 import { FRESH_NAME_PREFIX } from './name-checks.constants.ts';
 
 export const suggestFreshName = (name: string): string => `${FRESH_NAME_PREFIX}${name}`;
@@ -22,7 +22,7 @@ export function unresolvedNameDiagnostic(identifier: Identifier, pools: Iterable
     return diagnostic(CODES.retiredWord, start, end, { word: retired.word, ...detail });
   }
   const reserved = lookupJsReserved(name);
-  if (reserved?.kind === 'non-bindable') return jsUnavailableDiagnostic(name, start, end);
+  if (reserved?.kind === 'non-bindable') return diagnostic(CODES.jsWordWithoutEquivalent, start, end, reservedWordArgs(name, reserved));
   if (reserved?.kind === 'global') return jsGlobalDiagnostic(reserved, start, end);
   if (reserved?.kind === 'keyword' || reserved?.kind === 'strict-reserved') {
     const code = reserved.hasEquivalent ? CODES.jsKeyword : CODES.jsWordWithoutEquivalent;

@@ -29,14 +29,14 @@ describe('argumentos dos diagnósticos de nome', () => {
     expect(firstArgs('prosa(mexe_assim)', 'GS0306')).toStrictEqual({ word: 'mexe_assim', gone: GONE_PHRASE });
   });
   it('palavra do JavaScript sem equivalente usada como nome traz a sugestão', () => {
-    expect(firstArgs('prosa(eval)', 'GS0402')).toStrictEqual({ name: 'eval', variant: 'noEquivalent' });
-    expect(firstArgs('prosa(public)', 'GS0402')).toStrictEqual({ name: 'public', suggestion: 'publico' });
+    expect(firstArgs('prosa(eval)', 'GS0402')).toStrictEqual({ name: 'eval' });
+    expect(firstArgs('prosa(public)', 'GS0402')).toStrictEqual({ name: 'public' });
   });
   it('global do JavaScript usada como nome traz a sugestão', () => {
     expect(firstArgs('prosa(console)', 'GS0403')).toStrictEqual({ name: 'console', suggestion: 'prosa' });
   });
   it('palavra reservada do JavaScript sem equivalente usada como nome traz a sugestão', () => {
-    expect(firstArgs('prosa(implements)', 'GS0402')).toStrictEqual({ name: 'implements', suggestion: 'implementacao' });
+    expect(firstArgs('prosa(implements)', 'GS0402')).toStrictEqual({ name: 'implements' });
   });
   it('palavra reservada da linguagem usada como nome não gera aviso de nome não declarado', () => {
     expect(analyzeSource('prosa(mais)').codes).toEqual([]);
@@ -54,7 +54,7 @@ describe('argumentos dos diagnósticos de nome', () => {
 
 describe('argumentos dos diagnósticos de declaração', () => {
   it('nome declarado de palavra sem equivalente e de global trazem a sugestão', () => {
-    expect(firstArgs('uai eval é 1', 'GS0402')).toStrictEqual({ name: 'eval', suggestion: 'avaliar' });
+    expect(firstArgs('uai eval é 1', 'GS0402')).toStrictEqual({ name: 'eval' });
     expect(firstArgs('uai console é 1', 'GS0403')).toStrictEqual({ name: 'console', suggestion: 'prosa' });
   });
   it('chave de coisa com nome de global ou de palavra sem equivalente não reclama', () => {

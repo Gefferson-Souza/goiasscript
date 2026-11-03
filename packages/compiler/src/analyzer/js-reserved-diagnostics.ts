@@ -15,5 +15,3 @@ export function jsGlobalDiagnostic(reserved: JsReservedEntry, start: number, end
   return diagnostic(CODES.jsGlobal, start, end, { name: reserved.name, [VARIANT_ARG]: variant });
 }
 
-export const jsUnavailableDiagnostic = (name: string, start: number, end: number): RawDiagnostic =>
-  diagnostic(CODES.jsWordWithoutEquivalent, start, end, { name, [VARIANT_ARG]: NO_EQUIVALENT_VARIANT });
