@@ -9,6 +9,9 @@ Só a linha atual da v3 recebe correção de segurança. As versões 1.x e 2.x n
 | 3.x | sim |
 | 2.x e 1.x | não |
 
+Atenção: a v3 ainda não foi publicada no npm, e hoje o `npm install goiasscript` entrega a 2.0.0, que é a v2
+arquivada e **não** é suportada. Quando a primeira alpha da v3 sair, ela vem pela etiqueta `next`.
+
 ## Como reportar uma vulnerabilidade
 
 **Não abra issue pública** para vulnerabilidade.

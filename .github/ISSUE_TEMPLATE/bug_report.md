@@ -41,5 +41,5 @@ cole a saída aqui
 ## Antes de enviar
 
 - [ ] procurei uma issue parecida e não achei
-- [ ] testei com a versão mais nova do `goiasscript`
+- [ ] testei com a v3 (a 2.0.0 do npm é a v2 arquivada e não conta; veja o README para instalar a v3)
 - [ ] o programa acima é o menor que reproduz o problema

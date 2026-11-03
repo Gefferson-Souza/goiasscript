@@ -6,15 +6,26 @@ Linguagem de programação em goianês que vira JavaScript, uai!
 
 Precisa do Node 22.12 ou mais novo.
 
+A v3 ainda não foi publicada no npm. Hoje o `npm install --global goiasscript` instala a 2.0.0, que é a v2
+arquivada, outra linguagem. Não use esse comando pra testar a v3.
+
+Pra testar a v3 agora, instale a partir do código:
+
 ```bash
-npm install --global goiasscript
+git clone https://github.com/Gefferson-Souza/goiasscript.git
+cd goiasscript
+corepack pnpm install
+corepack pnpm pack:cli
+npm install --global ./packages/cli/pack/goiasscript-*.tgz
 ```
 
-Pra só experimentar, sem instalar nada:
+Quando a primeira alpha da v3 sair, ela vai pela etiqueta `next` do npm, e o comando vai ser:
 
 ```bash
-npx goiasscript dedo_de_prosa
+npm install --global goiasscript@next
 ```
+
+Pra só experimentar, sem instalar nada, depois que a alpha sair: `npx goiasscript@next dedo_de_prosa`.
 
 ## Comandos
 
@@ -32,6 +43,10 @@ Dá pra digitar sem acento: `ve_se_ta_certo` funciona igual.
 Opções do `traduz`: `-s saida.mjs` escolhe o arquivo de saída, `--otimiza` deixa o JavaScript mais enxuto,
 `--minifica` aperta até não caber mais nada, `--sobrescreve` troca um arquivo que já existe e `--json` entrega os
 diagnósticos pra outras ferramentas.
+
+O `--otimiza` e o `--minifica` não andam juntos: se usar os dois, dá o erro GS0905. Escolhe um.
+
+Vale pra todos os comandos: `--tom raiz` (o padrão) ou `--tom neutro` escolhe o tom do texto que o programa mostra.
 
 ## Roda de prosa (REPL)
 
