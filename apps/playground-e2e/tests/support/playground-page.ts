@@ -3,12 +3,12 @@ import { TEXTS } from '../../../playground/components/ui-texts.constants.ts';
 import { TEST_IDS } from '../../../playground/lib/test-ids.constants.ts';
 import {
   EDITOR_READY_TIMEOUT_MS,
-  HOME_PATH,
   HOST_SECRET_KEY,
   HOST_SECRET_VALUE,
   MARKER_SELECTOR,
   MODEL_SETTLE_TIMEOUT_MS,
   MONACO_INPUT_SELECTOR,
+  PLAYGROUND_PATH,
 } from './playground-page.constants.ts';
 import type { OpenOptions, OutputStream } from './playground-page.types.ts';
 
@@ -38,7 +38,7 @@ export class PlaygroundPage {
       },
       { key: HOST_SECRET_KEY, value: HOST_SECRET_VALUE },
     );
-    await this.#page.goto(HOME_PATH);
+    await this.#page.goto(PLAYGROUND_PATH);
     await this.#byId(TEST_IDS.editor).waitFor({ timeout: EDITOR_READY_TIMEOUT_MS });
     await this.#page.locator(MONACO_INPUT_SELECTOR).first().waitFor({ state: 'attached', timeout: EDITOR_READY_TIMEOUT_MS });
   }

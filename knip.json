@@ -129,6 +129,7 @@
       "project": [
         "config/**/*.ts",
         "lib/**/*.{ts,tsx}",
+        "components/**/*.ts",
         "sandbox/**/*.ts",
         "scripts/**/*.ts",
         "tests/**/*.ts",

@@ -18,6 +18,8 @@ const config: Config = {
       transitionDuration: {
         enter: `${MOTION.enterMs}ms`,
         exit: `${MOTION.exitMs}ms`,
+        caret: `${MOTION.caretTravelMs}ms`,
+        swap: `${MOTION.swapMs}ms`,
       },
     },
   },

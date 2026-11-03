@@ -48,6 +48,33 @@
   .lesson-prose pre {
     @apply overflow-x-auto rounded-md border border-line bg-panel px-4 py-3 text-sm leading-relaxed text-ink;
   }
+
+  /* Assinatura da identidade: a palavra goiana gira no lugar e vira o JavaScript dela. */
+  .hero-swap {
+    @apply inline-grid overflow-visible whitespace-pre align-bottom transition-[width] duration-swap ease-travel;
+    perspective: 400px;
+  }
+
+  .hero-face {
+    @apply justify-self-start transition-transform duration-swap ease-travel;
+    grid-area: 1 / 1;
+    backface-visibility: hidden;
+    transform-origin: 50% 55%;
+  }
+
+  .hero-face-back,
+  .hero-swap[data-flipped='true'] .hero-face-front {
+    transform: rotateX(180deg);
+  }
+
+  .hero-swap[data-flipped='true'] .hero-face-back {
+    transform: rotateX(0deg);
+  }
+
+  .hero-caret {
+    @apply absolute left-2.5 h-5 w-[3px] sm:left-4 bg-caret transition-[top] duration-caret ease-travel;
+    margin-top: 0.25rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
