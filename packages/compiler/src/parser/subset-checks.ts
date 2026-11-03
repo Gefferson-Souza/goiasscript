@@ -12,7 +12,7 @@ export function reportJsWord(parser: Parser, token: Token): Token | undefined {
     return undefined;
   }
   const reserved = lookupJsReserved(token.value);
-  if (reserved === undefined || !reserved.hasEquivalent || reserved.kind === 'global') return undefined;
+  if (reserved?.suggestion === undefined || !reserved.hasEquivalent || reserved.kind === 'global') return undefined;
   parser.state.report(CODES.jsKeyword, token.start, token.end, { name: token.value, suggestion: reserved.suggestion });
   const entry = lookupKeyword(reserved.suggestion);
   return entry === undefined ? undefined : { ...token, kind: 'keyword', keyword: entry };

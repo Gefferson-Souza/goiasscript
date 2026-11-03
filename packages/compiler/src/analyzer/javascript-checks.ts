@@ -6,13 +6,14 @@ import { diagnostic } from './diagnostic.ts';
 import { INSTANCE_MEMBER_NAMES, staticMemberNames } from './library-scope.ts';
 import type { MemberAccessQuery } from './javascript-checks.types.ts';
 import { PROTOTYPE_MEMBERS } from './javascript-checks.constants.ts';
+import { jsGlobalDiagnostic, reservedWordArgs } from './js-reserved-diagnostics.ts';
 import { closestName, suggestFreshName } from './name-checks.ts';
 
 function reservedWordDiagnostic(name: string, start: number, end: number): RawDiagnostic | undefined {
   const reserved = lookupJsReserved(name);
   if (reserved === undefined) return undefined;
   if (reserved.kind === 'keyword' || reserved.kind === 'strict-reserved') {
-    return diagnostic(reserved.hasEquivalent ? CODES.jsKeyword : CODES.jsWordWithoutEquivalent, start, end, { name, suggestion: reserved.suggestion });
+    return diagnostic(reserved.hasEquivalent ? CODES.jsKeyword : CODES.jsWordWithoutEquivalent, start, end, reservedWordArgs(name, reserved));
   }
   return undefined;
 }
@@ -23,8 +24,8 @@ export function checkBindingName(identifier: Identifier): RawDiagnostic | undefi
   if (identifier.reservedKeyword !== undefined) return diagnostic(CODES.keywordAsName, start, end, { name, suggestion: suggestFreshName(name) });
   const reserved = lookupJsReserved(name);
   if (reserved === undefined) return undefined;
-  if (reserved.kind === 'non-bindable') return diagnostic(CODES.jsWordWithoutEquivalent, start, end, { name, suggestion: reserved.suggestion });
-  if (reserved.kind === 'global') return diagnostic(CODES.jsGlobal, start, end, { name, suggestion: reserved.suggestion });
+  if (reserved.kind === 'non-bindable') return diagnostic(CODES.jsWordWithoutEquivalent, start, end, reservedWordArgs(name, reserved));
+  if (reserved.kind === 'global') return jsGlobalDiagnostic(reserved, start, end);
   return reservedWordDiagnostic(name, start, end);
 }
 
