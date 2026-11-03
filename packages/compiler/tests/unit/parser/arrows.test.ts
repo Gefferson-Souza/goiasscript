@@ -23,6 +23,13 @@ describe('parser: setas', () => {
     ).toEqual([]);
     expect(arrowOf('uai f é vai_na_frente (a) => a')).toContain('ArrowFunctionExpression');
   });
+  it('dá GS0202 para operador, chamada ou membro colado no "}" de seta com bloco', () => {
+    expect(codes(parseText('uai g é x => { faz_favor x }mais\nprosa(1)'))).toEqual(['GS0202']);
+    expect(codes(parseText('uai g é (x) => { faz_favor x } vezes 2'))).toEqual(['GS0202']);
+    expect(codes(parseText('uai g é x => { faz_favor x }(2)'))).toEqual(['GS0202']);
+    expect(codes(parseText('uai g é x => { faz_favor x }.nome'))).toEqual(['GS0202']);
+    expect(codes(parseText('prosa([1].mapear(x => { faz_favor x }), 2)'))).toEqual([]);
+  });
   it('dá GS0204 para quebra entre parâmetros e "=>", dentro e fora de ( )', () => {
     expect(codes(parseText('uai f é x\n=> x'))).toEqual(['GS0204']);
     expect(codes(parseText('uai f é (a, b)\n=> a'))).toEqual(['GS0204']);

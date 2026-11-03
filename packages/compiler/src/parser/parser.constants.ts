@@ -45,4 +45,5 @@ export const VARIANTS = {
   bareThrow: 'bareThrow',
   numberMethod: 'numberMethod',
   strayDot: 'strayDot',
+  arrowTail: 'arrowTail',
 } as const;

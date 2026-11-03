@@ -1,6 +1,7 @@
 import { VARIANT_ARG } from '@goiasscript/language';
 import type { Expression } from '../ast/ast.types.ts';
 import type { Token } from '../lexer/token.types.ts';
+import { isBlockArrow, reportArrowPostfix, reportArrowTail } from './block-arrow.ts';
 import { parseForeignTail } from './expression-tails.ts';
 import { parsePostfix } from './members.ts';
 import { parseOperand } from './operands.ts';
@@ -31,7 +32,12 @@ function parseUnary(parser: Parser): Expression {
   const state = parser.state;
   const token = adoptJsWord(parser);
   const kind = prefixKindOf(token);
-  if (kind === undefined) return parsePostfix(parser, parseOperand(parser));
+  if (kind === undefined) {
+    const operand = parseOperand(parser);
+    if (!isBlockArrow(operand)) return parsePostfix(parser, operand);
+    reportArrowPostfix(parser);
+    return operand;
+  }
   if (kind === 'foreign' || isPunctuator(token, BANG)) reportForeignPrefix(parser, token);
   state.advance();
   state.skipNewlines();
@@ -76,6 +82,7 @@ export function parseExpression(parser: Parser, minimum = 0): Expression {
     const operator = binaryOperatorAt(state.current());
     if (operator === undefined || operator.precedence < floor) return left;
     const token = state.advance();
+    if (isBlockArrow(left) && !operator.assignment) reportArrowTail(parser, token);
     if (operator.foreign) reportJsOperator(parser, token);
     state.skipNewlines();
     const missing = missingOperand(parser, token);
