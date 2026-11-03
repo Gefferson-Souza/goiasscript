@@ -18,6 +18,33 @@ function fail(code: string): unknown {
   return undefined;
 }
 
+describe('translateRuntimeError: causas que merecem frase própria', () => {
+  const base = { map: null, helperRange: null, fileName: 'programa.gs', source: 'x' };
+  const overflow = (): unknown => { const f = (): unknown => f(); try { f(); } catch (error: unknown) { return error; } return undefined; };
+  it('recursão sem fim mantém o GS0712 e explica a função que se chama sem parar', () => {
+    const diagnostic = translateRuntimeError(overflow(), base);
+    expect(diagnostic.code).toBe('GS0712');
+    expect(diagnostic.message).toContain('se chama sem parar');
+    expect(diagnostic.message).not.toContain('número');
+  });
+  it('estouro de pilha do Firefox (InternalError) também é reconhecido', () => {
+    const error = Object.assign(new Error('too much recursion'), { name: 'InternalError' });
+    expect(translateRuntimeError(error, base).message).toContain('se chama sem parar');
+  });
+  it('outro RangeError continua com a frase de número fora da faixa', () => {
+    expect(translateRuntimeError(new RangeError('Invalid array length'), base).message).toContain('número ficou fora');
+  });
+  it('JSON inválido em Coisa.vira_coisa mantém o GS0713 e fala do texto', () => {
+    const error = ((): unknown => { try { JSON.parse('{ruim'); } catch (caught: unknown) { return caught; } return undefined; })();
+    const diagnostic = translateRuntimeError(error, base);
+    expect(diagnostic.code).toBe('GS0713');
+    expect(diagnostic.message).toContain('Coisa.vira_coisa');
+  });
+  it('outro SyntaxError continua com a frase genérica do motor', () => {
+    expect(translateRuntimeError(new SyntaxError('Unexpected token'), base).message).toContain('o motor não entendeu');
+  });
+});
+
 describe('translateRuntimeError', () => {
   it('TypeError vira GS0710 na linha do .gs, sem texto do motor', () => {
     const { result, context } = contextOf('uai o é { x: 1 }\nuai a é nada\nprosa(a.x)');
