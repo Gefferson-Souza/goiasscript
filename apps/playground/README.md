@@ -7,8 +7,8 @@ via Web Worker isolado.
 
 ```bash
 # Da raiz do monorepo
-pnpm install
-pnpm playground:dev
+corepack pnpm install
+corepack pnpm playground:dev
 # Abre http://localhost:3000
 ```
 
@@ -34,7 +34,7 @@ Variáveis: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_ENGOIANADOR_URL`, `NEXT_PUBLIC_
 ## Build
 
 ```bash
-pnpm playground:build
+corepack pnpm playground:build
 ```
 
 ## Deploy (Vercel)

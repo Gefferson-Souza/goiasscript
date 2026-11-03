@@ -52,15 +52,17 @@ da primeira tag. Para empacotar localmente: `corepack pnpm pack:vscode`.
 
 ## Deprecar versão e mexer nas dist-tags
 
-O CLI sai como `goiasscript` por tag `v3.*-alpha.*`, pelo workflow
-`.github/workflows/release.yml`, e o alpha entra na dist-tag `next`. O workflow só
+O CLI sai como `goiasscript` por tag `v3.*`, pelo workflow `.github/workflows/release.yml`.
+Tag `v3.x.y-alpha.N` entra na dist-tag `next`; tag estável `v3.x.y` entra na `latest`
+(`scripts/release-target.ts`, que recusa a estável se ainda houver changeset pendente). O workflow só
 coloca o tarball em stage: enquanto ninguém aprovar o stage, a versão não está
 publicada no npm e a dist-tag não vale.
 
-Ciclo de uma versão: o workflow prepara o stage de `next`; o dono aprova com
-`npm stage approve <stage-id>` (pede 2FA) e confere com `npm dist-tag ls goiasscript`.
-Para a `latest`, uma nova publicação em stage com a tag `latest` passa pela mesma
-aprovação com 2FA, só depois de o `next` ter sido validado.
+Ciclo de uma versão: o workflow prepara o stage na dist-tag que a tag do git define; o dono
+aprova com `npm stage approve <stage-id>` (pede 2FA) e confere com `npm dist-tag ls goiasscript`.
+A alpha aprovada vai só para `next`. A `latest` só muda por uma tag estável `v3.x.y` (mesma
+aprovação com 2FA) ou por `npm dist-tag add goiasscript@<versão> latest`, depois de o `next`
+ter sido validado.
 
 - Deprecar uma versão ruim:
   `npm deprecate goiasscript@<versão> "mensagem curta dizendo o que fazer"`
@@ -83,8 +85,8 @@ Se expirou:
 2. Recrie com o repositório do projeto, o workflow `release.yml` e o ambiente `npm-release`.
 3. Dispare o publish em até 2 dias, enviando a tag do alpha. O workflow
    `.github/workflows/release.yml` usa OIDC, com provenance, e deixa o tarball em stage.
-4. Aprove o stage com `npm stage approve <stage-id>` (pede 2FA), para `next` e depois
-   para `latest`. Antes disso a versão não está publicada.
+4. Aprove o stage com `npm stage approve <stage-id>` (pede 2FA). A alpha vai para `next`;
+   a `latest` não muda por aqui. Antes da aprovação a versão não está publicada.
 
 Só crie o trusted publisher imediatamente antes de publicar, com o `release.yml`
 definitivo já na `main`.
