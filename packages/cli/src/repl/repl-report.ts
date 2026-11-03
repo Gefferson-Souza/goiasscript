@@ -4,6 +4,7 @@ import { renderDiagnostic, splitSourceLines } from '../diagnostics/render-diagno
 import type { CliIo } from '../io.types.ts';
 import { REPL_FILE_NAME } from './repl.constants.ts';
 import type { ReplEvaluation } from './repl.types.ts';
+import { programLineOf } from '../run/program-message.ts';
 import { interruptedText } from './repl-messages.ts';
 
 type ReplIo = Pick<CliIo, 'out' | 'err'>;
@@ -17,7 +18,10 @@ function reportDiagnostics(io: ReplIo, diagnostics: readonly Diagnostic[], sourc
 
 export function reportEvaluation(io: ReplIo, tone: Tone, result: ReplEvaluation, source: string): void {
   if (result.kind === 'failed') reportDiagnostics(io, result.diagnostics, source);
-  else if (result.kind === 'threw') reportDiagnostics(io, [result.diagnostic], source);
+  else if (result.kind === 'threw') {
+    reportDiagnostics(io, [result.diagnostic], source);
+    if (result.programMessage !== undefined) io.err.write(`${programLineOf(result.programMessage, tone)}\n`);
+  }
   else if (result.kind === 'interrupted') io.err.write(interruptedText(tone));
   else if (result.kind === 'done') {
     reportDiagnostics(io, result.diagnostics, source);

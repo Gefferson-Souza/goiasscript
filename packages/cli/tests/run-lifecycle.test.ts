@@ -97,6 +97,15 @@ describe('bota_pra_moer: ciclo de vida do programa', () => {
     expect(io.stderrText()).toContain('o programa disse: Deu ruim, sô!');
   });
 
+  it('vixe com coisa no lugar de texto explica em vez de mostrar [object Object]', async () => {
+    const host = createFakeProcessHost({ importModule: neverSettles });
+    const io = createMemoryIo({ files: { 'e.gs': 'prosa(1)\n' } });
+    await runCli(['bota_pra_moer', 'e.gs'], io, { processHost: host });
+    host.fireUncaughtException(new Error('[object Object]'));
+    expect(io.stderrText()).not.toContain('[object Object]');
+    expect(io.stderrText()).toContain('o vixe recebeu uma coisa');
+  });
+
   it('mensagem do motor e de erro do Node nunca aparece', async () => {
     const io = createMemoryIo({ files: { 'e.gs': 'prosa(1)\n' } });
     const host = createFakeProcessHost({ importModule: neverSettles });

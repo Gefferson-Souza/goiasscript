@@ -7,7 +7,7 @@ export type ReplEvaluation =
   | { readonly kind: 'incomplete' }
   | { readonly kind: 'failed'; readonly diagnostics: readonly Diagnostic[]; readonly source: string }
   | { readonly kind: 'done'; readonly diagnostics: readonly Diagnostic[]; readonly echo?: string }
-  | { readonly kind: 'threw'; readonly diagnostic: Diagnostic; readonly source: string }
+  | { readonly kind: 'threw'; readonly diagnostic: Diagnostic; readonly source: string; readonly programMessage?: string }
   | { readonly kind: 'interrupted' }
   | { readonly kind: 'cancelled' };
 

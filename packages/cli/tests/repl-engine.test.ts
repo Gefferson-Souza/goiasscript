@@ -143,6 +143,17 @@ describe('motor do REPL', () => {
     expect(io.stderrText()).not.toBe('');
     expect(await echoOf(engine, '1 mais 1')).toBe('2');
   });
+  it('temporizador que lança mostra o que o programa disse', async () => {
+    const { io, engine } = setup();
+    await engine.evaluate('daqui_um_cadim(() => { vixe("boom") }, 5)');
+    await new Promise((resolve) => setTimeout(resolve, 40));
+    expect(io.stderrText()).toContain('o programa disse: boom');
+  });
+  it('vixe no topo guarda a mensagem do programa e erro do motor não guarda', async () => {
+    const { engine } = setup();
+    expect(await engine.evaluate('vixe(faz_um Erro("estourou"))')).toMatchObject({ kind: 'threw', programMessage: 'estourou' });
+    expect(await engine.evaluate('uai o é { a: 1 }\nprosa(faz_um o.a())')).not.toHaveProperty('programMessage');
+  });
   it('temporizador assíncrono que rejeita também é reportado', async () => {
     const { io, engine } = setup();
     await engine.evaluate('daqui_um_cadim(vai_na_frente () => { vixe("boom") }, 5)');
