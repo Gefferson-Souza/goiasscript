@@ -3,9 +3,13 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 const toPng = vi.hoisted(() => vi.fn<(node: unknown, options: unknown) => Promise<string>>());
 vi.mock('html-to-image', () => ({ toPng }));
 
-const { downloadDataUrl, nodeToPng, openTwitterIntent, SHARE_SITE } = await import('../lib/share-image.ts');
+const { downloadDataUrl, nodeToPng, openTwitterIntent, SHARE_SITE } =
+  await import('../lib/share-image.ts');
+const { SHARE_IMAGE_BACKGROUND } = await import('../lib/share-image.constants.ts');
+const { COLORS } = await import('../lib/design/design-tokens.constants.ts');
 
-const sizedNode = (offsetWidth: number, offsetHeight: number): HTMLElement => ({ offsetWidth, offsetHeight }) as HTMLElement;
+const sizedNode = (offsetWidth: number, offsetHeight: number): HTMLElement =>
+  ({ offsetWidth, offsetHeight }) as HTMLElement;
 
 describe('imagem de compartilhamento', () => {
   afterEach(() => {
@@ -17,7 +21,11 @@ describe('imagem de compartilhamento', () => {
     toPng.mockResolvedValue('data:image/png;base64,AAA');
     const node = sizedNode(600, 300);
     await expect(nodeToPng(node)).resolves.toBe('data:image/png;base64,AAA');
-    expect(toPng).toHaveBeenCalledWith(node, { pixelRatio: 2, cacheBust: true, backgroundColor: '#0d1117' });
+    expect(toPng).toHaveBeenCalledWith(node, {
+      pixelRatio: 2,
+      cacheBust: true,
+      backgroundColor: COLORS.plane,
+    });
   });
 
   it('recusa renderizar nó sem tamanho', async () => {
@@ -49,5 +57,13 @@ describe('imagem de compartilhamento', () => {
     expect(url.searchParams.get('text')).toBe('bão demais');
     expect(url.searchParams.get('url')).toBe(SHARE_SITE);
     expect([target, features]).toEqual(['_blank', 'noopener,noreferrer']);
+  });
+
+  it('aponta pro repositório enquanto o playground não tem domínio próprio', () => {
+    expect(SHARE_SITE).toBe('https://github.com/Gefferson-Souza/goiasscript');
+  });
+
+  it('o fundo da imagem compartilhada é o plano da identidade', () => {
+    expect(SHARE_IMAGE_BACKGROUND).toBe(COLORS.plane);
   });
 });
