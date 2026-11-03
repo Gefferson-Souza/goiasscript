@@ -1,4 +1,5 @@
 import type { DiagnosticExplanation } from '@goiasscript/compiler';
+import { lessonLabel } from '../diagnostics/lesson-label.ts';
 import { CODE_COLUMN_GAP, EXAMPLE_INDENT, EXPLAIN_HEADINGS, NO_LESSON_FALLBACK } from './explain.constants.ts';
 
 const indentLines = (text: string): string =>
@@ -9,7 +10,7 @@ export function renderExplanation(explanation: DiagnosticExplanation): string {
     `${explanation.code}${CODE_COLUMN_GAP}${explanation.title}`,
     explanation.explanation,
     `${EXPLAIN_HEADINGS.example}\n${indentLines(explanation.example)}`,
-    `${EXPLAIN_HEADINGS.lesson} ${explanation.lesson === '' ? NO_LESSON_FALLBACK : explanation.lesson}`,
+    `${EXPLAIN_HEADINGS.lesson} ${explanation.lesson === '' ? NO_LESSON_FALLBACK : lessonLabel(explanation.lesson)}`,
   ];
   return `${sections.join('\n\n')}\n`;
 }

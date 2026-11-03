@@ -1,5 +1,6 @@
 import type { Diagnostic } from '@goiasscript/compiler';
 import type { AnyDiagnostic, RenderRequest } from './diagnostic.types.ts';
+import { lessonLabel } from './lesson-label.ts';
 import { GUTTER_SEPARATOR, SEVERITY_LABEL } from './render-diagnostic.constants.ts';
 import { sanitizeForTerminal } from './sanitize-terminal.ts';
 import { markLine, splitSourceLines } from './source-window.ts';
@@ -30,7 +31,7 @@ export function renderDiagnostic(request: RenderRequest): string {
   const { diagnostic } = request;
   const lines = request.lines ?? (request.source === null ? null : splitSourceLines(request.source));
   const detail = !hasRange(diagnostic) && diagnostic.detail !== undefined ? [`  ${sanitizeForTerminal(diagnostic.detail)}`] : [];
-  const lesson = hasRange(diagnostic) && diagnostic.lesson !== undefined ? [`  lição: ${sanitizeForTerminal(diagnostic.lesson)}`] : [];
+  const lesson = hasRange(diagnostic) && diagnostic.lesson !== undefined ? [`  lição: ${sanitizeForTerminal(lessonLabel(diagnostic.lesson))}`] : [];
   return [
     header(diagnostic, request.fileName),
     ...(hasRange(diagnostic) ? codeLines(diagnostic, lines) : []),

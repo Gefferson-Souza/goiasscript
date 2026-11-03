@@ -45,6 +45,11 @@ describe('renderDiagnostic', () => {
     expect(lines[0]).toContain(': aviso GS0301:');
     expect(lines.slice(3)).toEqual(['  ajuda: Troca por "nome".', '  lição: escopo']);
   });
+  it('troca o id da lição da cartilha pelo título', () => {
+    const named: Diagnostic = { ...diagnostic(at(1, 1, 1)), lesson: 'licao-02' };
+    const lines = renderDiagnostic({ diagnostic: named, fileName: 'a.gs', source: 'x' }).split('\n');
+    expect(lines.at(-1)).toBe('  lição: Guardando trem com uai e trem (cartilha, licao-02)');
+  });
   it('largura da goteira acompanha o número da linha', () => {
     const source = `${'\n'.repeat(11)}uai x é nomi`;
     const lines = renderDiagnostic({ diagnostic: diagnostic(at(12, 9, 4, 20)), fileName: 'a.gs', source }).split('\n');

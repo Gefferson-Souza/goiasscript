@@ -15,6 +15,7 @@ export { LIMITS } from './limits.constants.ts';
 export {
   lookupJsMember, lookupJsReserved, lookupKeyword, lookupRenamedMember, lookupRetiredWord, lookupStdlibGlobal, lookupStdlibMember, lookupStdlibStatic,
 } from './lookup.ts';
+export { lessonTitleOf } from './diagnostics/lesson-title.ts';
 export { lookupDiagnostic } from './diagnostics/lookup-diagnostic.ts';
 export { RUNTIME_PHRASES, WARNING_CODES } from './diagnostics/core.generated.ts';
 export { formatMessage } from './format-message.ts';
