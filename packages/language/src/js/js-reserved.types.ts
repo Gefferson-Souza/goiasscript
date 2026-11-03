@@ -2,7 +2,7 @@ export type JsReservedKind = 'keyword' | 'strict-reserved' | 'non-bindable' | 'g
 export interface JsReservedEntry {
   readonly name: string;
   readonly kind: JsReservedKind;
-  readonly suggestion: string;
+  readonly suggestion?: string;
   readonly hasEquivalent: boolean;
 }
 export interface JsMemberEntry {

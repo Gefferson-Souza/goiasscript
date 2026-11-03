@@ -20,11 +20,10 @@ const GLOBALS_WITH_EQUIVALENT = {
   Date: 'Data', Error: 'Erro', setTimeout: 'daqui_um_cadim', setInterval: 'toda_hora', clearTimeout: 'larga_mão',
   clearInterval: 'larga_mão', parseInt: 'vira_número', parseFloat: 'vira_número', isNaN: 'é_número',
 } as const;
-const GLOBALS_WITHOUT_EQUIVALENT = {
-  Array: 'lista', Boolean: 'valor_logico', RegExp: 'padrao', Map: 'mapa', Set: 'conjunto', Symbol: 'simbolo',
-  isFinite: 'e_finito', globalThis: 'global', window: 'janela', document: 'documento', fetch: 'busca', require: 'requisito',
-  module: 'modulo', process: 'processo', Function: 'funcao', Reflect: 'reflexo', Proxy: 'intermediario', Intl: 'internacional',
-} as const;
+const GLOBALS_WITHOUT_EQUIVALENT: readonly string[] = [
+  'Array', 'Boolean', 'RegExp', 'Map', 'Set', 'Symbol', 'isFinite', 'globalThis', 'window', 'document', 'fetch', 'require',
+  'module', 'process', 'Function', 'Reflect', 'Proxy', 'Intl',
+];
 const NON_BINDABLE = { arguments: 'argumentos', eval: 'avaliar', NaN: 'nao_numero', Infinity: 'infinito' } as const;
 
 function entries(source: Readonly<Record<string, string>>, kind: JsReservedKind, hasEquivalent: boolean): readonly JsReservedEntry[] {
@@ -35,7 +34,7 @@ function entries(source: Readonly<Record<string, string>>, kind: JsReservedKind,
 
 export const JS_RESERVED: readonly JsReservedEntry[] = [
   ...entries(KEYWORDS_WITH_EQUIVALENT, 'keyword', true), ...entries(KEYWORDS_WITHOUT_EQUIVALENT, 'keyword', false),
-  ...entries(GLOBALS_WITH_EQUIVALENT, 'global', true), ...entries(GLOBALS_WITHOUT_EQUIVALENT, 'global', false),
+  ...entries(GLOBALS_WITH_EQUIVALENT, 'global', true), ...GLOBALS_WITHOUT_EQUIVALENT.map((name): JsReservedEntry => ({ name, kind: 'global', hasEquivalent: false })),
   ...entries(NON_BINDABLE, 'non-bindable', false),
 ];
 

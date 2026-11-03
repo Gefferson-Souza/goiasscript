@@ -29,7 +29,7 @@ describe('argumentos dos diagnósticos de nome', () => {
     expect(firstArgs('prosa(mexe_assim)', 'GS0306')).toStrictEqual({ word: 'mexe_assim', gone: GONE_PHRASE });
   });
   it('palavra do JavaScript sem equivalente usada como nome traz a sugestão', () => {
-    expect(firstArgs('prosa(eval)', 'GS0402')).toStrictEqual({ name: 'eval', suggestion: 'avaliar' });
+    expect(firstArgs('prosa(eval)', 'GS0402')).toStrictEqual({ name: 'eval', variant: 'noEquivalent' });
     expect(firstArgs('prosa(public)', 'GS0402')).toStrictEqual({ name: 'public', suggestion: 'publico' });
   });
   it('global do JavaScript usada como nome traz a sugestão', () => {
