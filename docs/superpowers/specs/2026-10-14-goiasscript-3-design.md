@@ -526,6 +526,7 @@ não são uniformizados. A RFC-0001 registra, por nome, origem (dono, 1.5 ou pro
 | Erro | `.mensagem` | `.message` (via `$gs_mensagem`) | **didática** (ajudante, só leitura): erro do motor (`TypeError`, `ReferenceError`, `RangeError`) devolve a frase em português do catálogo GS07xx; erro do programa (`vixe`, `faz_um Erro(msg)`) devolve `msg` intacta (P10) |
 | Data | `faz_um Data()` e `.ano() .dia() .hora() .minuto() .segundo()` | `new Date()` e getters | nativa |
 | Data | `.mês()` | `.getMonth() + 1` | **didática** (macro, 0 bytes): devolve 1–12; emitido como `(x.getMonth() + 1)` |
+| Data | `faz_um Data(ano, mês, dia, ...)` | `new Date(ano, (mês) - 1, dia, ...)` | **didática** (macro, 0 bytes): com 2 ou mais argumentos o mês conta de 1 a 12, igual a `.mês()`; mês fora de 1–12 segue o transbordo do JS, sem diagnóstico novo. Decisão do dono em 2026-11-03. `Data()`, `Data("texto")` e `Data(0)` não mudam |
 
 **Forma e aridade.** Propriedades (`.tamanho`, `.mensagem`, `Conta.PI`) não levam parênteses: chamá-las é GS0603 com a
 correção. Método de instância usado como valor, sem chamada (`uai f é lista.mapear`), também é GS0603, porque perde o

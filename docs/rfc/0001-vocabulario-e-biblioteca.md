@@ -169,6 +169,7 @@ dizem? (b) o nome não é calco de termo técnico do inglês ou do JavaScript? R
 | Erro | `.mensagem` | `.message` (via `$gs_mensagem`) | **didática** (ajudante, só leitura): erro do motor (`TypeError`, `ReferenceError`, `RangeError`) devolve a frase em português do catálogo GS07xx; erro do programa (`vixe`, `faz_um Erro(msg)`) devolve `msg` intacta (P10) | proposta | substantivo | sim | sim | aprovado (2026-10-20) |
 | Data | `faz_um Data()` e `.ano() .dia() .hora() .minuto() .segundo()` | `new Date()` e getters | nativa | proposta | substantivo | sim | sim | aprovado (2026-10-20) |
 | Data | `.mês()` | `.getMonth() + 1` | **didática** (macro, 0 bytes): devolve 1–12; emitido como `(x.getMonth() + 1)` | proposta | substantivo | sim | sim | aprovado (2026-10-20) |
+| Data | `faz_um Data(ano, mês, dia, ...)` | `new Date(ano, (mês) - 1, dia, ...)` | **didática** (macro, 0 bytes): com 2 ou mais argumentos o mês conta de 1 a 12, igual a `.mês()`; fora de 1–12 segue o transbordo do JS | proposta | substantivo | sim | sim | decisão do dono em 2026-11-03 |
 | Coisa | `Coisa.vira_texto(c)` | `JSON.stringify(c)` | nativa (anexo D, a1) | proposta | imperativo | sim | sim | aprovado (2026-10-20) |
 | Coisa | `Coisa.vira_coisa(t)` | `JSON.parse(t)` | nativa (anexo D, a2) | proposta | imperativo | sim | sim | aprovado (2026-10-20) |
 | Lista | `.tem_algum(f)` | `.some(f)` | nativa (anexo D, c) | proposta | substantivo | sim | sim | aprovado (2026-10-20) |
