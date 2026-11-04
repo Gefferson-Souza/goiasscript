@@ -658,7 +658,7 @@ continuam válidos.
 | GS0601 | Membro declarado com nome reservado da biblioteca (P3) |
 | GS0602 | `pergunta` fora de contexto assíncrono |
 | GS0603 | Membro da biblioteca na forma errada: propriedade chamada (`x.tamanho()`, `Conta.PI()`) ou método sem chamada (`uai f é lista.mapear`) quando o arquivo não declara campo de dado com esse nome |
-| GS0604 | Número de argumentos fora da aridade (`.amontoar(f)`, `.trocar("a")`, `.ordenar(f)`) |
+| GS0604 | Número de argumentos fora da aridade (`.amontoar(f)`, `.trocar("a")`, `.ordenar(f)`); lição pelo receptor, decisão do dono em 2026-11-03 (lista licao-06, Coisa licao-08, texto licao-03, demais sem lição) |
 | GS0701 | Laço passou do limite (playground) |
 | GS0702 | Acabou a entrada antes da resposta de `pergunta` |
 | GS0703 | O programa ficou esperando para sempre (promessa nunca resolvida) |
