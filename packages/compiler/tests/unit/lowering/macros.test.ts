@@ -26,6 +26,18 @@ describe('macros e membros', () => {
   it('vixe com mais de um argumento vira throw new Error com todos eles', () => {
     expect(emit('vixe(faz_um Erro("a"), 2)').code).toBe('throw new Error(new Error("a"), 2);');
   });
+  it.each([
+    ['uai d é faz_um Data(2026, 12, 25)', 'const d = new Date(2026, (12) - 1, 25);'],
+    ['faz_um Data(a, m mais 1)', 'new Date(a, (m + 1) - 1);'],
+    ['faz_um Data(2026, 1)', 'new Date(2026, (1) - 1);'],
+    ['faz_um Data("2026-12-25")', 'new Date("2026-12-25");'],
+    ['faz_um Data()', 'new Date();'],
+    ['faz_um Data(0)', 'new Date(0);'],
+    ['prosa(Data.agorinha())', 'console.log(Date.now());'],
+    ['prosa(x é_tipo_de Data)', 'console.log(x instanceof Date);'],
+  ])('construtor de Data conta o mês de 1 a 12: %s', (src, js) => {
+    expect(emit(src).code).toBe(js);
+  });
   it('mistura sem argumentos não ganha alvo vazio', () => {
     expect(emit('uai m é Coisa.mistura()').code).toBe('const m = Object.assign();');
   });

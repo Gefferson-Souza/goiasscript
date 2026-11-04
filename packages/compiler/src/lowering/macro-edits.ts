@@ -1,5 +1,5 @@
 import type { StdlibEntry } from '@goiasscript/language';
-import type { AstNode, CallExpression, MemberExpression, ThrowStatement } from '../ast/ast.types.ts';
+import type { AstNode, CallExpression, MemberExpression, NewExpression, ThrowStatement } from '../ast/ast.types.ts';
 import type { Edit, EditContext } from './edit.types.ts';
 import { libraryEntryOf } from './library-edits.ts';
 import { lineBreaksOf } from './line-breaks.ts';
@@ -7,6 +7,10 @@ import { lineBreaksOf } from './line-breaks.ts';
 const THROW_KEYWORD = 'throw';
 const THROW_NEW_ERROR = 'throw new Error';
 const MONTH_GETTER = 'getMonth';
+const DATE_CONSTRUCTOR = 'Date';
+const MONTH_ARGUMENT_INDEX = 1;
+const MIN_ARGUMENTS_WITH_MONTH = 2;
+const MONTH_ARGUMENT_CLOSE = ') - 1';
 const OBJECT_MERGE = 'Object.assign';
 const EMPTY_TARGET = '{}, ';
 
@@ -27,6 +31,17 @@ function monthEdits(call: CallExpression, callee: MemberExpression, context: Edi
   ];
 }
 
+// O mês do construtor conta de 1 a 12, igual a `.mês()`; os parênteses protegem `m mais 1`.
+function dateConstructorEdits(node: NewExpression, context: EditContext): readonly Edit[] {
+  const month = node.arguments[MONTH_ARGUMENT_INDEX];
+  if (month === undefined || node.arguments.length < MIN_ARGUMENTS_WITH_MONTH || node.callee.type !== 'Identifier') return [];
+  if (libraryEntryOf(node.callee, context)?.js !== DATE_CONSTRUCTOR) return [];
+  return [
+    { start: month.start, end: month.start, text: '(', order: context.nextOrder() },
+    { start: month.end, end: month.end, text: MONTH_ARGUMENT_CLOSE, order: context.nextOrder() },
+  ];
+}
+
 function mergeEdits(call: CallExpression, context: EditContext): readonly Edit[] {
   const [first] = call.arguments;
   return first === undefined ? [] : [{ start: first.start, end: first.start, text: EMPTY_TARGET, order: context.nextOrder() }];
@@ -39,6 +54,7 @@ function callMacroEdits(call: CallExpression, entry: StdlibEntry, callee: Member
 
 export function macroEdits(node: AstNode, _parent: AstNode | null, context: EditContext): readonly Edit[] {
   if (node.type === 'ThrowStatement') return throwEdits(node, context);
+  if (node.type === 'NewExpression') return dateConstructorEdits(node, context);
   if (node.type !== 'CallExpression' || node.callee.type !== 'MemberExpression' || node.callee.computed) return [];
   const entry = libraryEntryOf(node.callee, context);
   return entry?.kind === 'macro' ? callMacroEdits(node, entry, node.callee, context) : [];
