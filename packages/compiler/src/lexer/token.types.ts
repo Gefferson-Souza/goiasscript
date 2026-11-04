@@ -28,6 +28,8 @@ export interface RawDiagnostic {
   readonly start: number;
   readonly end: number;
   readonly args: Readonly<Record<string, string>>;
+  // null = sem lição; ausente = vale a lição do catálogo.
+  readonly lesson?: string | null;
 }
 
 export interface Lexer {

@@ -1,4 +1,4 @@
-import { lookupStdlibMember } from '@goiasscript/language';
+import { lessonForStdlibEntry, lookupStdlibMember } from '@goiasscript/language';
 import type { Arity, StdlibEntry } from '@goiasscript/language';
 import type { RawDiagnostic } from '../lexer/token.types.ts';
 import { CODES } from './codes.constants.ts';
@@ -11,6 +11,8 @@ import { suggestFreshName } from './name-checks.ts';
 const NAMESPACE_SEPARATOR = '.';
 const memberLabel = (entry: StdlibEntry): string => entry.name.slice(entry.name.lastIndexOf(NAMESPACE_SEPARATOR) + 1);
 const shortName = (entry: StdlibEntry): StdlibEntry => ({ ...entry, name: memberLabel(entry) });
+
+const receiverLesson = (entry: StdlibEntry): string | null => lessonForStdlibEntry(entry) ?? null;
 
 const isCallableValue = (value: MemberValue): boolean => value === 'method' || !GUARANTEED_DATA.has(value.type);
 
@@ -42,12 +44,12 @@ function arityArgs(entry: StdlibEntry, received: number): DiagnosticArgs {
 
 // Chamada de membro da biblioteca: propriedade chamada com parênteses (GS0603) ou número de argumentos errado (GS0604).
 export function checkCallShape(entry: StdlibEntry, argumentCount: number, start: number, end: number): RawDiagnostic | undefined {
-  if (entry.form === 'property') return diagnostic(CODES.wrongMemberForm, start, end, { name: memberLabel(entry), expected: EXPECTED_FORM.property });
-  if (isArityViolation(entry.arity, argumentCount)) return diagnostic(CODES.wrongArgumentCount, start, end, arityArgs(shortName(entry), argumentCount));
+  if (entry.form === 'property') return diagnostic(CODES.wrongMemberForm, start, end, { name: memberLabel(entry), expected: EXPECTED_FORM.property }, receiverLesson(entry));
+  if (isArityViolation(entry.arity, argumentCount)) return diagnostic(CODES.wrongArgumentCount, start, end, arityArgs(shortName(entry), argumentCount), receiverLesson(entry));
   return undefined;
 }
 
 // Método usado como valor, sem parênteses (GS0603).
 export function methodAsValueDiagnostic(entry: StdlibEntry, start: number, end: number): RawDiagnostic {
-  return diagnostic(CODES.wrongMemberForm, start, end, { name: memberLabel(entry), expected: EXPECTED_FORM.method });
+  return diagnostic(CODES.wrongMemberForm, start, end, { name: memberLabel(entry), expected: EXPECTED_FORM.method }, receiverLesson(entry));
 }

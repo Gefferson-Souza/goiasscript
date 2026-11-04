@@ -54,6 +54,7 @@ export interface CoreDiagnostic {
   readonly severity: Severity;
   readonly range: SourceRange;
   readonly args: Readonly<Record<string, string>>;
+  readonly lesson?: string | null;
 }
 
 export interface CompileOptions {

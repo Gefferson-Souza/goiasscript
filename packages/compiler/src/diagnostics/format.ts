@@ -4,6 +4,7 @@ import type { CompileResult, CoreCompileResult, CoreDiagnostic, Diagnostic, Tone
 export function formatDiagnostic(core: CoreDiagnostic, tone: Tone): Diagnostic {
   const definition = lookupDiagnostic(core.code);
   if (definition === undefined) return { code: core.code, severity: 'error', range: core.range, message: core.code };
+  const lesson = core.lesson === undefined ? definition.lesson : (core.lesson ?? undefined);
   const texts = diagnosticTexts(definition, tone, core.args);
   return {
     code: core.code,
@@ -11,7 +12,7 @@ export function formatDiagnostic(core: CoreDiagnostic, tone: Tone): Diagnostic {
     range: core.range,
     message: texts.message,
     ...(texts.help === undefined ? {} : { help: texts.help }),
-    ...(definition.lesson === undefined ? {} : { lesson: definition.lesson }),
+    ...(lesson === undefined ? {} : { lesson }),
   };
 }
 
