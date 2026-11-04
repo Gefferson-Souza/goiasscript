@@ -12,6 +12,7 @@ const LOCAL_WORKFLOW = /^\.\/\.github\/workflows\/[\w.-]+\.yml$/;
 const PULL_REQUEST_TEXT = /github\.event\.pull_request\.(?:title|body)/;
 const MINIMUM_PATCH_COVERAGE = '--fail-under=80';
 const REQUIRED_JOBS = ['verify', 'test', 'commitlint', 'patch-coverage', 'pr-body'];
+const DEPENDABOT_COOLDOWN_DAYS = 3;
 const MATRIX = { node: ['22', '24'], os: ['ubuntu-24.04', 'windows-2025'] };
 
 const readText = (rel) => fs.readFileSync(path.join(ROOT_DIR, rel), 'utf8');
@@ -97,6 +98,16 @@ describe('demais arquivos de .github', () => {
   });
   it('dependabot cobre npm e github-actions', () => {
     expect(readYaml('.github/dependabot.yml').updates.map((update) => update['package-ecosystem'])).toEqual(['npm', 'github-actions']);
+  });
+  it('dependabot espera a versão amadurecer, não propõe major que quebra e junta o react num PR só', () => {
+    const npm = readYaml('.github/dependabot.yml').updates.find((update) => update['package-ecosystem'] === 'npm');
+    expect(npm.cooldown['default-days']).toBeGreaterThanOrEqual(DEPENDABOT_COOLDOWN_DAYS);
+    const majorsIgnored = npm.ignore.filter((rule) => rule['update-types']?.includes('version-update:semver-major')).map((rule) => rule['dependency-name']);
+    expect(majorsIgnored).toEqual(expect.arrayContaining(['tailwindcss', '@babel/types']));
+    expect(npm.groups.react.patterns).toEqual(expect.arrayContaining(['react', 'react-dom', '@types/react', '@types/react-dom']));
+  });
+  it('o pr-body não barra PR do dependabot, que não escreve a seção Revisão', () => {
+    expect(readYaml('.github/workflows/ci.yml').jobs['pr-body'].if).toContain("github.event.pull_request.user.login != 'dependabot[bot]'");
   });
   it('o template de PR tem a seção Revisão e o item de teste de regressão', () => {
     const template = readText('.github/pull_request_template.md');
