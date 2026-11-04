@@ -11,7 +11,8 @@ import { bannerFrames } from '../lib/brand-card/readme-banner-frames.ts';
 const FAKE_FONTS = { sansBold: 'U0FOUw==', monoRegular: 'TU9OTw==', monoBold: 'Qk9MRA==' };
 const svg = readmeBannerSvg(FAKE_FONTS);
 const line = HERO_LINES[BRAND_CARD_LINE] ?? [];
-const visibleText = (markup: string): string => markup.replace(/<[^>]+>/gu, '');
+// Junta só o conteúdo entre as tags, que é o texto que aparece na imagem.
+const visibleText = (markup: string): string => [...markup.matchAll(/>([^<]*)</gu)].map((match) => match[1] ?? '').join('');
 
 describe('banner animado do README', () => {
   it('é SVG puro, sem script e sem nada de fora', () => {
