@@ -9,4 +9,5 @@ export const toCoreDiagnostic = (raw: RawDiagnostic, source: SourceText): CoreDi
   severity: WARNING_CODES.has(raw.code) ? 'warning' : 'error',
   range: rangeOf(source, raw.start, raw.end),
   args: raw.args,
+  ...(raw.lesson === undefined ? {} : { lesson: raw.lesson }),
 });
