@@ -511,6 +511,8 @@ export interface HealthReport { readonly ok: boolean; readonly model: string; re
 | licao-11 | GS0312, GS0602, GS0702, GS0703, GS0805 |
 | o-que-mudou | GS0306 |
 
+Decisão do dono em 2026-11-03: a `lesson` de GS0603 e GS0604 vem do receptor do membro, não do código. Lista e texto-ou-lista: licao-06; namespace Coisa: licao-08; texto: licao-03; Conta, número, data, promessa, erro e global: sem lição (o campo `lesson` fica ausente e a CLI não imprime a linha). `goiasscript explica GS0604` segue genérico com licao-06.
+
 **Interfaces:** `lesson-index.generated.ts` exporta `AVAILABLE_LESSON_IDS: readonly string[]` e `LESSON_TERMS: Readonly<Record<string, string>>` (termo → id); `lesson-routes.constants.ts` passa a derivar `AVAILABLE_LESSONS = [...AVAILABLE_LESSON_IDS, 'o-que-mudou']`, `LESSON_BY_TERM = LESSON_TERMS` e `KNOWN_LESSON_IDS` dos `lesson` de `DIAGNOSTICS`. A extensão recebe o mesmo mapa (`LESSON_BY_TERM`).
 **Aceite:** teste percorre `DIAGNOSTICS` e exige que todo `lesson` esteja em `AVAILABLE_LESSONS` e que `/cartilha/<id>` exista para cada um (inclusive `o-que-mudou`); cada código da tabela existe e recebeu a lição certa; `generate:check` falha se o índice divergir das lições; hover do playground e da extensão (com `lessonBaseUrl` preenchido) passam a mostrar o link de `prosa`, `uai` etc.; `/glossario` lista palavras e biblioteca do `glossary.json` com âncora por termo e link para a lição quando houver; `/cartilha/o-que-mudou` renderiza `docs/spec/o-que-mudou.md` pelo mesmo `LessonProse` (sem HTML bruto); E2E: o erro GS0208 do exemplo ganha link para `/cartilha/licao-02`.
 
