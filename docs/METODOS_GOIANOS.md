@@ -178,6 +178,14 @@ prosa(natal.ano(), natal.mês(), natal.dia())       // 2026 12 25
 prosa(natal.hora(), natal.minuto(), natal.segundo())  // 8 30 15
 ```
 
+Ocê também pode montar a data com números: `faz_um Data(ano, mês, dia)`. O mês aí conta de 1 a 12, igualzinho
+ao método `mês`, então o que ocê escreve é o que ocê lê de volta:
+
+```goiasscript
+uai natal é faz_um Data(2026, 12, 25)
+prosa(natal.mês(), natal.ano())  // 12 2026
+```
+
 `Data.agorinha()` devolve o momento de agora como um número (os milésimos de segundo desde 1970). Serve pra
 medir quanto tempo passou. Como depende da hora de agora, a saída muda a cada vez:
 
