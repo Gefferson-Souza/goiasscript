@@ -48,4 +48,11 @@ describe('toHostDiagnostic', () => {
     expect(toHostDiagnostic(diagnostic, 'https://exemplo.dev/licoes/').lessonUrl).toBe('https://exemplo.dev/licoes/licao-02');
     expect(toHostDiagnostic(diagnostic, null)).not.toHaveProperty('lessonUrl');
   });
+
+  it('GS0604 de Conta chega sem lição e não ganha endereço mesmo com base configurada', () => {
+    const diagnostic = compile('prosa(Conta.sorteia_um(1))').diagnostics.find((item) => item.code === 'GS0604');
+    if (diagnostic === undefined) throw new Error('o programa de teste devia ter GS0604');
+    expect(diagnostic).not.toHaveProperty('lesson');
+    expect(toHostDiagnostic(diagnostic, 'https://exemplo.dev/licoes')).not.toHaveProperty('lessonUrl');
+  });
 });
