@@ -390,7 +390,7 @@
     {
       "term": "Data",
       "js": "Date",
-      "semantics": "native"
+      "semantics": "didactic"
     },
     {
       "term": "Data.agorinha",
