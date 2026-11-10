@@ -5,7 +5,7 @@ export const LESSON_BY_RECEIVER: Readonly<Record<StdlibReceiver, string | undefi
   list: 'licao-06',
   textOrList: 'licao-06',
   text: 'licao-03',
-  object: 'licao-08',
+  object: undefined,
   namespace: undefined,
   number: undefined,
   date: undefined,
@@ -14,5 +14,5 @@ export const LESSON_BY_RECEIVER: Readonly<Record<StdlibReceiver, string | undefi
   global: undefined,
 };
 
-// `namespace` serve a Conta e a Coisa; a chave é o prefixo do nome do membro. Conta fica fora: sem lição.
+// A chave é o prefixo do nome do membro de `namespace`; prefixo fora daqui (Conta, Data, Promessa) fica sem lição.
 export const LESSON_BY_NAMESPACE: ReadonlyMap<string, string> = new Map([['Coisa', 'licao-08']]);
