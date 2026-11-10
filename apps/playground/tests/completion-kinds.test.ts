@@ -1,4 +1,4 @@
-import { CompletionItemInsertTextRule, CompletionItemKind } from 'monaco-editor/esm/vs/editor/common/standalone/standaloneEnums.js';
+import { CompletionItemInsertTextRule, CompletionItemKind } from 'monaco-editor/editor/common/standalone/standaloneEnums.js';
 import { describe, expect, it } from 'vitest';
 import { COMPLETION_ITEM_KIND, SNIPPET_INSERT_RULE } from '../lib/monaco/completion-provider.constants.ts';
 
