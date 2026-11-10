@@ -19,8 +19,10 @@ andar no meio do caminho, a tag fica presa no commit antigo e a saída é versio
 
 1. A ponta da `main` é o commit que vai sair e o CI dela está verde:
    - `git fetch origin` e `git ls-remote origin refs/heads/main` (o sha tem de bater com `git rev-parse origin/main`).
-   - `gh run list --branch main --commit <sha>`: CI, E2E do playground, Testes da extensão no VS Code, CodeQL,
-     OSV e Promessas públicas todos com `success`.
+   - `gh run list --branch main --commit <sha>`: CI, CodeQL, OSV e Promessas públicas todos com `success`.
+   - E2E do playground e Testes da extensão no VS Code só rodam sozinhos quando o commit mexe nos caminhos deles.
+     Se não aparecerem nesse sha, dispare os dois na `main` e espere o `success`:
+     `gh workflow run playground-e2e.yml --ref main` e `gh workflow run vscode.yml --ref main`.
 2. CLI e extensão estão em 3.0.0 e não há changeset pendente (o `scripts/release-target.ts` recusa a estável se
    houver): `packages/cli/package.json` e `packages/vscode/package.json` com `"version": "3.0.0"`, e a pasta
    `.changeset` só com o `README.md` e o `config.json`.
@@ -37,7 +39,9 @@ andar no meio do caminho, a tag fica presa no commit antigo e a saída é versio
 5. Ruleset de tags ativo cobrindo `refs/tags/v3.*` e `refs/tags/vscode-v*`, com bloqueio de apagar e de mover:
    `gh api repos/<dono>/<repo>/rulesets` e depois `gh api repos/<dono>/<repo>/rulesets/<id>`.
 6. Na sua máquina: npm com suporte a stage (o workflow usa o `npm@12.2.1`; confira com `npm stage --help`), login
-   feito (`npm whoami`) e 2FA à mão.
+   feito (`npm whoami`) e 2FA à mão. Se o `npm stage --help` responder que o comando não existe, o npm é antigo:
+   atualize com `npm install --global npm@12.2.1` e confira de novo. Resolva isso antes do passo 2, porque o prazo
+   do trusted publisher começa a contar ali.
 
 ## 2. Trusted publisher do npm (só na hora)
 
