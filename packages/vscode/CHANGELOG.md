@@ -1,5 +1,9 @@
 # Mudanças
 
+## 3.0.0
+
+- Versão estável junto com o GoiásScript 3: realce, diagnósticos, completar, dica ao passar o mouse, trechos prontos e os comandos Traduz e Bota pra moer.
+
 ## 0.3.0
 
 Pré-lançamento: a extensão ainda não está no Marketplace nem no Open VSX. Por enquanto ela se instala a partir do
