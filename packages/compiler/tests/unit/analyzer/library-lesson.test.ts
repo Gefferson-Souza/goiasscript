@@ -26,3 +26,36 @@ describe('lição de GS0604 e GS0603 pelo receptor', () => {
     expect(found !== undefined && Object.hasOwn(found, 'lesson')).toBe(false);
   });
 });
+
+describe('lição de GS0405 e GS0305 pelo receptor do nome sugerido', () => {
+  const withoutLesson = (text: string, code: string): boolean => {
+    const found = diagnosticOf(text, code);
+    return found !== undefined && !Object.hasOwn(found, 'lesson');
+  };
+
+  it.each([
+    ['uai l é [1]\nprosa(l.push(2))', 'licao-06'],
+    ['prosa("a".toUpperCase())', 'licao-03'],
+  ])('GS0405 em %j traz %s', (text, lesson) => {
+    expect(diagnosticOf(text, 'GS0405')?.lesson).toBe(lesson);
+  });
+
+  it('GS0405 de data não traz lição', () => {
+    expect(withoutLesson('uai d é faz_um Data(2026, 11, 10)\nprosa(d.getMonth())', 'GS0405')).toBe(true);
+  });
+
+  it.each([
+    ['uai l é [1]\nprosa(l.reduzir(x => x))', 'licao-06'],
+    ['uai l é [1]\nprosa(l.mapiar(x => x))', 'licao-06'],
+    ['prosa("a".gritano())', 'licao-03'],
+    ['prosa(Coisa.chave({}))', 'licao-08'],
+    ['uai c é { nome: "a" }\nprosa(c.nomi)', 'licao-08'],
+    ['uai c é { nome: "a" }\nprosa(c.zzzzzzzz)', 'licao-08'],
+  ])('GS0305 em %j traz %s', (text, lesson) => {
+    expect(diagnosticOf(text, 'GS0305')?.lesson).toBe(lesson);
+  });
+
+  it.each(['prosa(Conta.sorteia_dois())', 'prosa(Conta.zzzzzzzz())'])('GS0305 em %j não traz lição', (text) => {
+    expect(withoutLesson(text, 'GS0305')).toBe(true);
+  });
+});

@@ -7,6 +7,8 @@ import { INSTANCE_MEMBER_NAMES, staticMemberNames } from './library-scope.ts';
 import type { MemberAccessQuery } from './javascript-checks.types.ts';
 import { MEMBER_VARIANTS, PROTOTYPE_MEMBERS } from './javascript-checks.constants.ts';
 import { jsGlobalDiagnostic, reservedWordArgs } from './js-reserved-diagnostics.ts';
+import { namespaceLesson, stdlibMemberLesson } from './member-lesson.ts';
+import type { MemberLesson } from './member-lesson.types.ts';
 import { closestName, suggestFreshName } from './name-checks.ts';
 
 function reservedWordDiagnostic(name: string, start: number, end: number): RawDiagnostic | undefined {
@@ -36,7 +38,7 @@ function withoutNameDiagnostic(name: string, start: number, end: number): RawDia
 
 function jsMemberDiagnostic(name: string, start: number, end: number): RawDiagnostic | undefined {
   const member = lookupJsMember(name);
-  if (member?.equivalent !== undefined) return diagnostic(CODES.jsMemberWithName, start, end, { name, suggestion: member.equivalent });
+  if (member?.equivalent !== undefined) return diagnostic(CODES.jsMemberWithName, start, end, { name, suggestion: member.equivalent }, stdlibMemberLesson(member.equivalent));
   return undefined;
 }
 
@@ -52,14 +54,21 @@ function isKnownMember(query: MemberAccessQuery): boolean {
   return lookupStdlibMember(query.name).length > 0;
 }
 
+// Nome sugerido que o arquivo declara é campo de coisa: fica a lição do código.
+function suggestionLesson(suggestion: string, query: MemberAccessQuery): MemberLesson {
+  if (query.namespace !== undefined) return namespaceLesson(query.namespace);
+  return query.declared.has(suggestion) ? undefined : stdlibMemberLesson(suggestion);
+}
+
 function unknownMemberDiagnostic(query: MemberAccessQuery): RawDiagnostic {
   const { name, start, end, namespace, declared } = query;
   const candidates = namespace === undefined ? [...declared, ...INSTANCE_MEMBER_NAMES] : staticMemberNames(namespace);
   // A tabela de nomes antigos vale só para métodos de valor; namespace tem o próprio conjunto de membros.
   const suggestion = (namespace === undefined ? lookupRenamedMember(name) : undefined) ?? closestName(name, candidates);
-  if (suggestion !== undefined) return diagnostic(CODES.undeclaredMember, start, end, { name, suggestion });
+  if (suggestion !== undefined) return diagnostic(CODES.undeclaredMember, start, end, { name, suggestion }, suggestionLesson(suggestion, query));
   // Sem nome parecido, o mais provável é coisa vinda de fora (JSON): a ajuda ensina o colchete.
-  return diagnostic(CODES.undeclaredMember, start, end, namespace === undefined ? { name, [VARIANT_ARG]: MEMBER_VARIANTS.external } : { name });
+  if (namespace === undefined) return diagnostic(CODES.undeclaredMember, start, end, { name, [VARIANT_ARG]: MEMBER_VARIANTS.external });
+  return diagnostic(CODES.undeclaredMember, start, end, { name }, namespaceLesson(namespace));
 }
 
 // Acesso `x.nome`: só vale nome declarado no arquivo ou da biblioteca. `x["nome"]` só passa pelos nomes do JavaScript.
