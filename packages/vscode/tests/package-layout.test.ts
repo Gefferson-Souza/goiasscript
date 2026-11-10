@@ -8,6 +8,7 @@ import vm from 'node:vm';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { buildVscode } from '../../../scripts/build-vscode.ts';
 import { packVscode } from '../../../scripts/pack-vscode.ts';
+import { isPreReleaseVersion } from '../../../scripts/release-target-vscode.ts';
 import { PACKAGE_ROOT, readManifest } from './support/manifest.ts';
 import { listZipEntries, readZipEntry } from './support/zip.ts';
 
@@ -104,9 +105,10 @@ describe('empacotamento do vsix', () => {
     expect(readManifest().publisher).toBe('goiasscript');
   });
 
-  it('marca o vsix como pré-lançamento enquanto a versão é anterior à 3.0.0', async () => {
-    const result = await packVscode({ outDir: path.join(workDir, 'pack-prerelease'), env: {} });
+  it('empacota a 3.0.0 em diante como estável, sem a marca de pré-lançamento', async () => {
+    const result = await packVscode({ outDir: path.join(workDir, 'pack-channel'), env: {} });
     const vsixManifest = readZipEntry(fs.readFileSync(result.vsix), 'extension.vsixmanifest').toString('utf8');
-    expect(vsixManifest).toContain('Microsoft.VisualStudio.Code.PreRelease');
+    expect(isPreReleaseVersion(readManifest().version)).toBe(false);
+    expect(vsixManifest).not.toContain('Microsoft.VisualStudio.Code.PreRelease');
   });
 });

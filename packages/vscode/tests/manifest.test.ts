@@ -3,13 +3,14 @@ import { keybindingsOf, menusOf, readManifest } from './support/manifest.ts';
 
 const manifest = readManifest();
 const MIN_DESCRIPTION_LENGTH = 20;
+const STABLE_V3_VERSION = /^3\.\d+\.\d+$/u;
 
 describe('manifesto da extensão', () => {
   it('declara a extensão como pacote CommonJS com ativação por linguagem', () => {
     expect(manifest.name).toBe('goiasscript-vscode');
     expect(manifest.main).toBe('./dist/extension.cjs');
     expect(manifest.activationEvents).toEqual(['onLanguage:goiasscript']);
-    expect(manifest.version).toMatch(/^0\.3\.\d+$/u);
+    expect(manifest.version).toMatch(STABLE_V3_VERSION);
   });
 
   it('respeita o Modo Restrito de forma limitada, com texto em goianês', () => {
