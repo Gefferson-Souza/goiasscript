@@ -162,13 +162,14 @@ describe('README', () => {
   it('o comando de instalação só vale quando o README o cita', () => {
     expect(readmeClaims('sem comando nenhum')).toEqual([]);
     expect(readmeClaims('`npm install --global goiasscript`')).toEqual(['npm install --global goiasscript']);
+    expect(readmeClaims('`npm install --global goiasscript@3`')).toEqual(['npm install --global goiasscript@3']);
   });
 
   it('todo comando dos blocos do README tem prova', () => {
     const shellLines = Array.from(readme.matchAll(/```bash\n([\s\S]*?)```/gu), (match) => match[1] ?? '').join('\n');
     expect(shellLines).toContain('goiasscript ');
     expect(readmeClaims(readme)).toContain('goiasscript bota_pra_moer');
-    expect(readmeClaims(readme)).toContain('npm install --global goiasscript');
+    expect(readmeClaims(readme)).toContain('npm install --global goiasscript@3');
   });
 
   it('promessa sem prova falha', () => {
