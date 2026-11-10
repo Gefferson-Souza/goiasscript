@@ -39,6 +39,28 @@
       "match": "\\b\\d+(\\.\\d+)?([eE][+-]?\\d+)?\\b"
     },
     {
+      "match": "(?<![\\p{L}\\p{N}_])(vai_na_frente_faz_trem|faz_trem)(?![\\p{L}\\p{N}_])\\s+([\\p{L}_][\\p{L}\\p{N}_]*)(?![\\p{L}\\p{N}_])",
+      "captures": {
+        "1": {
+          "name": "storage.type.function.goiasscript"
+        },
+        "2": {
+          "name": "entity.name.function.goiasscript"
+        }
+      }
+    },
+    {
+      "match": "(?<![\\p{L}\\p{N}_])(uai)(?![\\p{L}\\p{N}_])\\s+([\\p{L}_][\\p{L}\\p{N}_]*)(?![\\p{L}\\p{N}_])",
+      "captures": {
+        "1": {
+          "name": "storage.type.goiasscript"
+        },
+        "2": {
+          "name": "variable.other.constant.goiasscript"
+        }
+      }
+    },
+    {
       "name": "keyword.operator.assignment.goiasscript",
       "match": "(?<![\\p{L}\\p{N}_])(é)(?![\\p{L}\\p{N}_])"
     },
@@ -77,6 +99,10 @@
     {
       "name": "support.function.goiasscript",
       "match": "(?<![\\p{L}\\p{N}_])(daqui_um_cadim|vira_numero|vira_número|vira_texto|larga_mao|larga_mão|toda_hora|Promessa|e_numero|pergunta|é_número|cochila|reclama|Coisa|Conta|avisa|prosa|Data|Erro)(?![\\p{L}\\p{N}_])"
+    },
+    {
+      "name": "entity.name.function.goiasscript",
+      "match": "(?<![\\p{L}\\p{N}_])[\\p{L}_][\\p{L}\\p{N}_]*(?=\\s*\\()"
     }
   ]
 }

@@ -16,6 +16,9 @@ O que mudou desde a 0.3.0:
   dica do nome novo.
 - No GS0603 e no GS0604, o link da lição vem de quem recebe o membro; quando não tem lição certa, o erro sai sem
   link, mesmo com `goiasscript.lessonBaseUrl` configurado.
+- O GS0405 e o GS0305 seguem a mesma ideia: `.getMonth()` numa data não manda mais pra lição de lista, e
+  `.reduzir` numa lista manda pra lição de lista em vez da de coisa.
+- O realce pinta o nome da função, na declaração e na chamada, e o nome guardado com `uai`.
 - As mensagens de erro ficaram mais certeiras: cada erro de sintaxe explica a sua situação, o editor parou de
   sugerir palavra que a linguagem não tem e a função que se chama sem parar ganha frase própria.
 - `(7.5).com_casas(2).trocar(".", ",")` e outras cadeias que começam num parêntese voltaram a rodar no Bota pra moer.
