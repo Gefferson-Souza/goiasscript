@@ -8,7 +8,11 @@ Guardou `uai nome é "Maria"` e depois escreveu `prosa(nomi)`? O editor sublinha
 
 ## Instalação
 
-A extensão ainda não está no Marketplace. Por enquanto, instale a partir do código do repositório:
+Procure **GoiásScript** na aba de extensões do VS Code (ou no Open VSX, no VSCodium) ou rode
+`code --install-extension goiasscript.goiasscript-vscode`. A partir da 3.0.0 a extensão sai como versão estável,
+na mesma versão do CLI `goiasscript`.
+
+Se ela ainda não aparecer no catálogo, instale a partir do código do repositório:
 
 ```bash
 git clone https://github.com/Gefferson-Souza/goiasscript.git
@@ -17,12 +21,6 @@ corepack pnpm install
 corepack pnpm pack:vscode
 code --install-extension packages/vscode/pack/goiasscript-vscode-*.vsix
 ```
-
-Quando ela for publicada, é só procurar **GoiásScript** na aba de extensões do VS Code (ou no Open VSX, no VSCodium)
-ou rodar `code --install-extension goiasscript.goiasscript-vscode`.
-
-Enquanto a linguagem não chega na versão 3.0.0, a extensão sai como pré-lançamento (versões `0.3.N`). Na página
-da extensão, escolha "Mudar para a versão de pré-lançamento" se o editor não oferecer sozinho.
 
 ## Comandos
 
