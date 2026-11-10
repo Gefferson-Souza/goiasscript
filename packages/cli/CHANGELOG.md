@@ -20,6 +20,8 @@ Na linguagem:
   `.se_der_ruim`. A dica só vale pra método de valor: `Conta.tamanho` sugere o que existe em `Conta`.
 - No GS0603 e no GS0604, a lição da cartilha vem de quem recebe o membro: método de lista aponta a lição de lista,
   `Coisa` aponta a dela, e objeto qualquer fica sem lição em vez de apontar a errada.
+- O GS0405 (membro do JavaScript) e o GS0305 (membro que não existe) também olham quem recebe: `.getMonth()` numa
+  data sai sem lição, e `.reduzir` numa lista aponta a lição de lista.
 
 Nas mensagens de erro:
 
