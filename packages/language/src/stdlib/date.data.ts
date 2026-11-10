@@ -2,7 +2,7 @@ import type { StdlibEntry } from './stdlib.types.ts';
 import { ARITY, globalEntry, instanceMethod, staticMember } from './stdlib-builders.ts';
 
 export const DATE_ENTRIES: readonly StdlibEntry[] = [
-  globalEntry('Data', 'Date', ARITY.any, 'proposal'),
+  globalEntry('Data', 'Date', ARITY.any, 'proposal', { semantics: 'didactic' }),
   staticMember('Data', 'agorinha', 'Date.now', 'method', ARITY.none, 'proposal'),
   instanceMethod('ano', 'date', 'getFullYear', ARITY.none, 'proposal', { alternatives: ['ano_do_evento'] }),
   instanceMethod('dia', 'date', 'getDate', ARITY.none, 'proposal', { alternatives: ['dia_do_evento'] }),

@@ -12,7 +12,7 @@ const EXPECTED_RETIRED_COUNT = 14;
 const EXPECTED_ASCII_VARIANTS = ['oce', 'se_oce_quiser', 'se_nao', 'no_maximo', 'continua_ai', 'tenta_ai', 'e_igualim', 'e_tipo_de', 'ou_entao', 'num_e'];
 const MUST_BE_RESERVED = ['var', 'let', 'const', 'function', 'return', 'switch', 'typeof', 'yield', 'await', 'enum', 'public', 'package', 'static', 'constructor', 'console', 'Math', 'JSON', 'setTimeout', 'parseInt', 'Intl', 'arguments', 'eval', 'NaN', 'Infinity'];
 const OWNER_NAMES = ['prosa', 'gritando', 'cochichando', 'tem_no_meio', 'trocar', 'dividir', 'bota_no_final', 'ranca_o_rabo', 'mapear', 'filtrar', 'Conta.sorteia_um', 'Conta.arredondar', 'Conta.maior'];
-const DIDACTIC_NAMES = ['pergunta', 'arruma', 'trocar', 'vira_texto', 'Conta.sorteia_um', 'vira_número', 'é_número', 'cochila', 'mensagem', 'mês'];
+const DIDACTIC_NAMES = ['pergunta', 'arruma', 'trocar', 'vira_texto', 'Conta.sorteia_um', 'vira_número', 'é_número', 'cochila', 'mensagem', 'mês', 'Data'];
 const MEMBER_NAMES_SHARED_WITH_KEYWORDS = ['se_der_ruim'];
 
 describe('keywords', () => {

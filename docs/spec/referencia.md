@@ -65,7 +65,7 @@
 | `mensagem` | error | property | `message` | didactic |
 | `Coisa` | global | global | `Object` | native |
 | `Conta` | global | global | `Math` | native |
-| `Data` | global | global | `Date` | native |
+| `Data` | global | global | `Date` | didactic |
 | `Erro` | global | global | `Error` | native |
 | `Promessa` | global | global | `Promise` | native |
 | `avisa` | global | global | `console.warn` | native |
