@@ -65,8 +65,9 @@ Soltar a 3.0.0 estável, depois do merge do versionamento (CLI e extensão em 3.
 2. Crie e envie a tag `v3.0.0`. O `release.yml` roda o verify, empacota, testa o tarball e deixa o stage na
    `latest`, que hoje aponta para a 2.0.0 arquivada.
 3. Aprove o stage com `npm stage approve <stage-id>` (pede 2FA) e confira com `npm dist-tag ls goiasscript`.
-4. Rode o workflow manual `.github/workflows/smoke-release.yml` com a dist-tag `latest`.
-5. Crie e envie a tag `vscode-v3.0.0` para a extensão (veja "Republicar a extensão").
+4. Crie e envie a tag `vscode-v3.0.0` para a extensão (veja "Republicar a extensão") e aprove os ambientes.
+5. Com a extensão nos catálogos, rode o workflow manual `.github/workflows/smoke-release.yml` com a dist-tag
+   `latest`. Ele também confere a extensão publicada, então antes da tag dela ele falha.
 
 Ciclo de uma versão: o workflow prepara o stage na dist-tag que a tag do git define; o dono
 aprova com `npm stage approve <stage-id>` (pede 2FA) e confere com `npm dist-tag ls goiasscript`.
@@ -103,7 +104,7 @@ definitivo já na `main`.
 
 O OIDC dispensa segredo, então a aprovação humana mora no GitHub. Antes da
 primeira tag, confira que o ambiente `npm-release` exige revisor e só aceita tags
-`v3.*`, e que um ruleset de tags limita `v3.*` aos mantenedores. O workflow só
+`v3.*`, e que um ruleset de tags impede apagar e mover as tags `v3.*`. O workflow só
 publica quando a tag aponta para a ponta da `main`.
 
 O ruleset impede apagar ou mover uma tag `v3.*`, inclusive para o dono. Entre criar
