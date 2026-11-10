@@ -13,13 +13,13 @@
     "mutate": "stryker run"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^5.20261006.1",
+    "@cloudflare/workers-types": "^5.20261106.1",
     "@stryker-mutator/core": "10.0.0",
     "@stryker-mutator/vitest-runner": "10.0.0",
     "@types/node": "22.20.5",
     "typescript": "6.0.3",
     "vitest": "5.0.5",
-    "wrangler": "4.150.0"
+    "wrangler": "4.158.0"
   },
   "dependencies": {
     "smol-toml": "1.9.1",
