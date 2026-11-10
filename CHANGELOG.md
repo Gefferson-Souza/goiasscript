@@ -5,7 +5,7 @@ Todas as mudanças importantes deste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
-## [3.0.0] — ainda não lançada — *GoiásScript 3*
+## [3.0.0] — *GoiásScript 3*
 
 Reescrita da linguagem: vocabulário fechado, mensagens de erro com código e um
 pacote só para o CLI e para a extensão do VS Code. A lista completa de mudanças
@@ -24,7 +24,7 @@ e como migrar está em `docs/spec/migracao.md`.
 - Pasta `exemplos/` com 5 programas inteiros (churrasco, feira, boletim, banco e analisador), conferidos a cada
   rodada do projeto: cada um é traduzido, executado e comparado com a saída esperada.
 - Extensão do VS Code: erros na hora, sugestão das palavras goianas e o comando que bota o programa pra moer.
-  Ainda é pré-lançamento, fora do Marketplace (veja `packages/vscode/CHANGELOG.md`).
+  Ela anda na mesma versão do CLI, a 3.0.0 é a primeira estável (veja `packages/vscode/CHANGELOG.md`).
 - Engoianador: a tela dentro do playground e a API que vira português comum em goianês.
 - Campo de fora lido com colchete e aspas, tipo `dado["saldo"]`: aceito sem o compilador reclamar do campo.
 
@@ -70,6 +70,8 @@ não quebra por isso; o erro só ajuda quem seguiu a documentação antiga:
 - `.pedaco` vira `.naco`.
 - `vira_número` aceita vírgula decimal (`"10,50"` vira 10.5), e `.mensagem` dos erros vem em português.
 - Número escrito à brasileira (`1.000.000`, ou vírgula onde ela não cabe) vira erro com a correção.
+- `faz_um Data(ano, mês, dia)` conta o mês de 1 a 12, igual ao `.mês()`; `Data()`, `Data("texto")` e `Data(0)` não
+  mudam.
 
 ## [1.5.0] — 2026-05-21 — *Goianês na Web (lançamento)*
 
