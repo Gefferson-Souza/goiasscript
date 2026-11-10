@@ -52,6 +52,16 @@ describe('toEditorMarkers', () => {
     expect(markers[2]).not.toHaveProperty('lessonUrl');
   });
 
+  it('GS0604 de Conta chega sem lição e o marcador fica sem lessonUrl', () => {
+    const source = 'prosa(Conta.sorteia_um(1))';
+    const diagnostic = diagnosticsOf(source).find((item) => item.code === 'GS0604');
+    if (diagnostic === undefined) throw new Error('esperava GS0604');
+    expect(diagnostic).not.toHaveProperty('lesson');
+    const anyLessonUrl = (id: string): string => `/cartilha/${id}`;
+    const { markers } = toEditorMarkers([diagnostic], source, anyLessonUrl);
+    expect(markers[0]).not.toHaveProperty('lessonUrl');
+  });
+
   it('largura zero no meio do texto vira largura 1', () => {
     const at = { offset: 1, line: 1, column: 2 };
     const { markers } = toEditorMarkers([fakeDiagnostic({ range: { start: at, end: at } })], 'abc', noLesson);
