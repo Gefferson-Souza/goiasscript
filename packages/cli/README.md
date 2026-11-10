@@ -6,10 +6,16 @@ Linguagem de programação em goianês que vira JavaScript, uai!
 
 Precisa do Node 22.12 ou mais novo.
 
-A v3 ainda não foi publicada no npm. Hoje o `npm install --global goiasscript` instala a 2.0.0, que é a v2
-arquivada, outra linguagem. Não use esse comando pra testar a v3.
+```bash
+npm install --global goiasscript@3
+```
 
-Pra testar a v3 agora, instale a partir do código:
+Ponha sempre o `@3`: sem ele, o npm pode entregar a 2.0.0, que é a v2 arquivada, outra linguagem.
+
+Pra só experimentar, sem instalar nada: `npx goiasscript@3 dedo_de_prosa`.
+
+Se o npm disser que não achou a versão 3, é porque ela ainda não chegou lá. Enquanto isso, instale a partir do
+código (aí o Node precisa ser 22.22.1 ou mais novo):
 
 ```bash
 git clone https://github.com/Gefferson-Souza/goiasscript.git
@@ -18,14 +24,6 @@ corepack pnpm install
 corepack pnpm pack:cli
 npm install --global ./packages/cli/pack/goiasscript-*.tgz
 ```
-
-Quando a primeira alpha da v3 sair, ela vai pela etiqueta `next` do npm, e o comando vai ser:
-
-```bash
-npm install --global goiasscript@next
-```
-
-Pra só experimentar, sem instalar nada, depois que a alpha sair: `npx goiasscript@next dedo_de_prosa`.
 
 ## Comandos
 
