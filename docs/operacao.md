@@ -36,10 +36,11 @@ comportamento está em `apps/engoianador-api/src/limiter.ts`.
 
 ## Republicar a extensão
 
-A extensão sai por tag `vscode-v*` (exemplo: `vscode-v0.3.0`), pelo workflow
-`.github/workflows/release-vscode.yml`.
+A extensão sai por tag `vscode-v*` (exemplo: `vscode-v3.0.0`), pelo workflow
+`.github/workflows/release-vscode.yml`. Abaixo da 3.0.0 ela sai como pré-lançamento; da 3.0.0 em diante, como
+estável (`scripts/release-target-vscode.ts`). O changeset leva o CLI e a extensão juntos para a mesma versão.
 
-1. Ajuste a versão em `packages/vscode/package.json` e faça o merge na `main`.
+1. Ajuste a versão em `packages/vscode/package.json` (o `changeset version` já faz isso) e faça o merge na `main`.
 2. Confirme que o commit da tag é a ponta da `main`: o workflow recusa o contrário.
 3. Crie e envie a tag. O workflow roda `verify`, empacota, testa dentro do VS Code e
    publica nos ambientes `marketplace` e `open-vsx`, nesta ordem de jobs.
@@ -57,6 +58,15 @@ Tag `v3.x.y-alpha.N` entra na dist-tag `next`; tag estável `v3.x.y` entra na `l
 (`scripts/release-target.ts`, que recusa a estável se ainda houver changeset pendente). O workflow só
 coloca o tarball em stage: enquanto ninguém aprovar o stage, a versão não está
 publicada no npm e a dist-tag não vale.
+
+Soltar a 3.0.0 estável, depois do merge do versionamento (CLI e extensão em 3.0.0, sem changeset pendente):
+
+1. Confira que a ponta da `main` é o commit que vai sair: o workflow recusa tag fora da ponta.
+2. Crie e envie a tag `v3.0.0`. O `release.yml` roda o verify, empacota, testa o tarball e deixa o stage na
+   `latest`, que hoje aponta para a 2.0.0 arquivada.
+3. Aprove o stage com `npm stage approve <stage-id>` (pede 2FA) e confira com `npm dist-tag ls goiasscript`.
+4. Rode o workflow manual `.github/workflows/smoke-release.yml` com a dist-tag `latest`.
+5. Crie e envie a tag `vscode-v3.0.0` para a extensão (veja "Republicar a extensão").
 
 Ciclo de uma versão: o workflow prepara o stage na dist-tag que a tag do git define; o dono
 aprova com `npm stage approve <stage-id>` (pede 2FA) e confere com `npm dist-tag ls goiasscript`.
@@ -83,10 +93,10 @@ Se expirou:
 
 1. No painel do pacote `goiasscript` no npm, abra Settings e Trusted Publisher.
 2. Recrie com o repositório do projeto, o workflow `release.yml` e o ambiente `npm-release`.
-3. Dispare o publish em até 2 dias, enviando a tag do alpha. O workflow
+3. Dispare o publish em até 2 dias, enviando a tag da versão (a primeira estável é a `v3.0.0`). O workflow
    `.github/workflows/release.yml` usa OIDC, com provenance, e deixa o tarball em stage.
-4. Aprove o stage com `npm stage approve <stage-id>` (pede 2FA). A alpha vai para `next`;
-   a `latest` não muda por aqui. Antes da aprovação a versão não está publicada.
+4. Aprove o stage com `npm stage approve <stage-id>` (pede 2FA). Tag estável vai para `latest` e alpha vai
+   para `next`. Antes da aprovação a versão não está publicada.
 
 Só crie o trusted publisher imediatamente antes de publicar, com o `release.yml`
 definitivo já na `main`.

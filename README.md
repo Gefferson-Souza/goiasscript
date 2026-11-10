@@ -53,11 +53,16 @@ Todo erro diz a linha, a coluna, o que fazer e qual lição da cartilha explica 
 
 ## Instalar
 
-Precisa do [Node](https://nodejs.org) (o programa que executa JavaScript no seu computador). Para instalar a partir
-do código, como abaixo, a versão é 22.22.1 ou mais nova. Quando a v3 sair no npm, a 22.12 já basta.
+Precisa do [Node](https://nodejs.org) (o programa que executa JavaScript no seu computador), versão 22.12 ou mais
+nova. Instale a v3 pelo npm, sempre com o `@3` no fim:
 
-A v3 ainda não saiu no npm: hoje o `npm install goiasscript` (ou `npm install --global goiasscript`) traz a v2
-arquivada, que é outra linguagem. Para testar a v3 agora, instale a partir do código:
+```bash
+npm install --global goiasscript@3
+```
+
+Sem o `@3`, o npm pode entregar a 2.0.0, que é a v2 arquivada e outra linguagem. Se o npm disser que não achou a
+versão 3, é porque ela ainda não chegou lá; enquanto isso, instale a partir do código (aí o Node precisa ser 22.22.1
+ou mais novo):
 
 ```bash
 git clone https://github.com/Gefferson-Souza/goiasscript.git
@@ -67,14 +72,14 @@ corepack pnpm pack:cli
 npm install --global ./packages/cli/pack/goiasscript-*.tgz
 ```
 
-Quando a v3 sair, ela vem primeiro como alpha; veja o [ROADMAP](ROADMAP.md). Vindo da 1.5? Veja a
-[migração](docs/spec/migracao.md) e o [CHANGELOG](CHANGELOG.md).
+O [ROADMAP](ROADMAP.md) conta o que vem por aí. Vindo da 1.5? Veja a [migração](docs/spec/migracao.md) e o
+[CHANGELOG](CHANGELOG.md).
 
 ## Início rápido
 
 Os comandos abaixo rodam no terminal: aquela janela onde ocê digita o comando e aperta Enter (no Windows, o
-PowerShell; no Mac e no Linux, o Terminal). Antes de começar, saia da pasta do repositório que ocê clonou, para o
-projeto novo não nascer lá dentro:
+PowerShell; no Mac e no Linux, o Terminal). Se ocê instalou a partir do código, saia antes da pasta do repositório
+que ocê clonou, para o projeto novo não nascer lá dentro:
 
 ```bash
 cd ..
@@ -233,8 +238,9 @@ corepack pnpm playground:dev
 
 ## Extensão do VS Code
 
-Realce de sintaxe, trechos prontos e os avisos do compilador em goianês enquanto ocê digita. Ela ainda não está no
-Marketplace; o [README da extensão](packages/vscode/README.md) mostra como instalar a partir do código.
+Realce de sintaxe, trechos prontos e os avisos do compilador em goianês enquanto ocê digita. Procure **GoiásScript**
+na aba de extensões do VS Code (ou no Open VSX, no VSCodium); o [README da extensão](packages/vscode/README.md) mostra
+também como instalar a partir do código, se ela ainda não aparecer por lá.
 
 ## O que vem e o que não faz parte da v3
 

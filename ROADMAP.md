@@ -5,12 +5,13 @@ cada item sai quando o dono do projeto aprovar a publicação.
 
 ## O que vem
 
-- **A v3 no npm, como alpha.** Hoje o `npm install goiasscript` traz a v2 antiga, arquivada. A v3 vai sair primeiro
-  como alpha, na etiqueta (dist-tag) `next`, e só depois de validada ela vira a versão padrão (`latest`). Quem aprova
-  cada publicação é o dono, com confirmação em dois passos. Vem de [operacao.md](docs/operacao.md) e do
-  [ADR-0009](docs/adr/0009-publicacao.md).
-- **A extensão do VS Code no Marketplace e no Open VSX.** Hoje só dá para instalar a partir do código. A
-  publicação nos dois catálogos já tem fluxo pronto, disparado por uma etiqueta `vscode-v*`. Vem de
+- **A v3 estável no npm.** A 3.0.0 sai direto como versão padrão (`latest`), no lugar da 2.0.0 antiga e arquivada.
+  Até ela chegar lá, instale com `npm install --global goiasscript@3` ou a partir do código (veja o
+  [README](README.md)). Quem aprova a publicação é o dono, com confirmação em dois passos. Vem de
+  [operacao.md](docs/operacao.md) e do [ADR-0009](docs/adr/0009-publicacao.md).
+- **A extensão do VS Code no Marketplace e no Open VSX.** A 3.0.0 é a primeira versão estável da extensão. A
+  publicação nos dois catálogos tem fluxo pronto, disparado por uma etiqueta `vscode-v3.0.0`; até lá, ela se
+  instala a partir do código. Vem de
   [operacao.md](docs/operacao.md) e do [ADR-0009](docs/adr/0009-publicacao.md).
 - **Endereço público do playground.** O playground roda na Vercel, mas ainda não tem endereço aberto ao público.
   Vem de [operacao.md](docs/operacao.md).
