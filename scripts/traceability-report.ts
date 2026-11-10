@@ -4,14 +4,14 @@ import { README_PATH, SOURCED_NUMBER_CLAIM, SOURCE_MARKER } from './traceability
 const INLINE_CODE = /`([^`]+)`/gu;
 const FENCE = /^```\s*(\S*)/u;
 const SHELL_FENCES: readonly string[] = ['bash', 'sh', 'shell', 'console'];
-const INSTALL_COMMAND = 'npm install --global goiasscript';
+const INSTALL_COMMANDS: readonly string[] = ['npm install --global goiasscript', 'npm install --global goiasscript@3'];
 const CLI_PREFIX = 'goiasscript ';
 const REPL_COMMAND = 'goias';
 const SECTION_TITLES = { green: 'green', ready: 'ready', missing: 'missing' } as const;
 
 function claimKey(code: string): string | undefined {
   const text = code.trim();
-  if (text === REPL_COMMAND || text === INSTALL_COMMAND) return text;
+  if (text === REPL_COMMAND || INSTALL_COMMANDS.includes(text)) return text;
   if (!text.startsWith(CLI_PREFIX)) return undefined;
   return text.split(/\s+/u).slice(0, 2).join(' ');
 }

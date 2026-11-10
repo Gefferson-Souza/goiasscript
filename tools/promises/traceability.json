@@ -199,7 +199,8 @@
     "state": "ready",
     "note": "O smoke de instalação do latest depende da primeira publicação feita pelo dono.",
     "covers": [
-      "npm install --global goiasscript"
+      "npm install --global goiasscript",
+      "npm install --global goiasscript@3"
     ],
     "ownerCommand": "git tag v3.0.0 && git push origin v3.0.0, aprovar o stage com 2FA (npm stage approve) e rodar o workflow smoke-release.yml (gh workflow run smoke-release.yml)"
   },
