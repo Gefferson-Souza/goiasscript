@@ -1,4 +1,4 @@
-import type { StdlibEntry } from '../stdlib/stdlib.types.ts';
+import type { StdlibEntry } from './stdlib.types.ts';
 import { LESSON_BY_NAMESPACE, LESSON_BY_RECEIVER } from './lesson-by-receiver.data.ts';
 
 const NAMESPACE_SEPARATOR = '.';

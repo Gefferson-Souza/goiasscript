@@ -1,4 +1,4 @@
-import type { StdlibReceiver } from '../stdlib/stdlib.types.ts';
+import type { StdlibReceiver } from './stdlib.types.ts';
 
 // Lição do GS0603/GS0604 pelo receptor do membro; ausente quando a cartilha não ensina esse receptor (decisão do dono, 2026-11-03).
 export const LESSON_BY_RECEIVER: Readonly<Record<StdlibReceiver, string | undefined>> = {
