@@ -7,7 +7,7 @@
   "engines": { "node": ">=22.12" },
   "dependencies": {
     "@goiasscript/compiler": "workspace:*",
-    "terser": "5.51.2"
+    "terser": "5.51.4"
   },
   "devDependencies": {
     "@jridgewell/trace-mapping": "0.3.31"
